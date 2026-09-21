@@ -58,6 +58,7 @@ from app.services.bootstrap import (
     match_diagnosis,
     match_lab,
     match_medication,
+    token_match,
 )
 from app.services.error_injection import InjectionResult, inject_reconciliation_error
 from app.services.rules import CaseSnapshot, evaluate_rules, hard_violations
@@ -611,7 +612,19 @@ def _select_symptoms(session: Session, scenario: Scenario) -> list[RefSymptom]:
     seen: set[UUID] = set()
     for query in scenario.symptom_queries:
         rows, _ = search_symptoms(session, query, limit=20, offset=0)
-        ranked = sorted(rows, key=lambda item: (item.preferred_name or "", str(item.id)))
+        ranked = sorted(
+            (
+                item
+                for item in rows
+                if token_match(item.preferred_name, query)
+                or any(token_match(str(synonym), query) for synonym in (item.synonyms or []))
+            ),
+            key=lambda item: (
+                0 if (item.preferred_name or "").casefold() == query.casefold() else 1,
+                item.preferred_name or "",
+                str(item.id),
+            ),
+        )
         if ranked:
             pick = ranked[0]
             if pick.id not in seen:

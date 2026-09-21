@@ -28,7 +28,11 @@ from app.repositories.reference import (
     get_rule_by_code,
     get_unit_by_ucum,
 )
-from app.services.bootstrap import SourceClients, bootstrap_reference_data
+from app.services.bootstrap import (
+    SourceClients,
+    bootstrap_reference_data,
+    token_match,
+)
 from app.services.generation import Scenario, generate_one_case
 from app.services.rules import (
     CaseSnapshot,
@@ -48,6 +52,7 @@ from app.sources.ucum import UcumClient
 from app.utils.provenance import build_provenance
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
+
 from tests.source_fixtures import (
     TEST_ICD,
     TEST_LOINC,
@@ -161,6 +166,13 @@ def test_bootstrap_reports_unresolved_names(db_session: Session, tmp_path: Path)
     assert "medication" in kinds
     assert "diagnosis" in kinds
     assert "unit" in kinds
+
+
+def test_token_match_rejects_embedded_words() -> None:
+    assert token_match("Pulmonary edema", "edema")
+    assert token_match("Dyspnea", "dyspnea")
+    assert not token_match("Angioedema", "edema")
+    assert not token_match("TEST_symptom_name", "ptom")
 
 
 def test_loinc_unconfigured_is_skipped_not_fabricated(

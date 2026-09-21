@@ -174,9 +174,9 @@ def _rule_values_from_template(
                 if blob:
                     excerpts.append(blob)
                     source_identifier = label.set_id
-                    source_url = f"{SOURCE_BASE_URLS['DAILYMED']}/spls/{label.set_id}.json"
+                    source_url = f"{SOURCE_BASE_URLS['DAILYMED']}/spls/{label.set_id}.xml"
         except Exception:
-            continue
+            pass
         try:
             for hit in sorted(
                 rxclass.classes_for_rxcui(medication.rxcui),
@@ -184,7 +184,7 @@ def _rule_values_from_template(
             ):
                 rxclass_names.append(hit.class_name)
         except Exception:
-            continue
+            pass
     combined = " ".join(excerpts).casefold()
     has_label_evidence = bool(evidence_needles) and all(
         needle in combined for needle in evidence_needles

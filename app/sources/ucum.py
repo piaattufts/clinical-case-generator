@@ -21,6 +21,14 @@ SOURCE_CODE = "UCUM"
 
 
 @dataclass(frozen=True)
+class UcumPrefix:
+    code: str
+    name: str | None
+    factor: Decimal | None
+    source_version: str | None
+
+
+@dataclass(frozen=True)
 class UcumUnit:
     ucum_code: str
     display_name: str | None
@@ -69,9 +77,11 @@ class UcumClient:
         text = query.strip()
         if text == "":
             raise ValueError("UCUM search requires a query; full UCUM import is not run by default")
+        payload = xml_text if xml_text is not None else self.fetch_essence_xml()
         needle = text.casefold()
+        units = parse_essence_xml(payload)
         matched: list[UcumUnit] = []
-        for unit in self.list_units(xml_text):
+        for unit in units:
             haystacks = [unit.ucum_code.casefold()]
             if unit.display_name is not None:
                 haystacks.append(unit.display_name.casefold())
@@ -79,7 +89,9 @@ class UcumClient:
                 haystacks.append(unit.quantity_type.casefold())
             if any(needle in item for item in haystacks):
                 matched.append(unit)
-        return matched
+        if matched:
+            return matched
+        return compose_prefixed_units(text, units, parse_essence_prefixes(payload))
 
 
 def parse_essence_xml(xml_text: str) -> list[UcumUnit]:
@@ -122,6 +134,78 @@ def _unit_from_element(element: ElementTree.Element, source_version: str | None)
         active=True,
         source_version=source_version,
     )
+
+
+def parse_essence_prefixes(xml_text: str) -> list[UcumPrefix]:
+    """Parse official UCUM prefix elements. Factors are copied from value/@value only."""
+    try:
+        root = ElementTree.fromstring(xml_text)
+    except ElementTree.ParseError as exc:
+        raise SourceParseError("UCUM essence XML could not be parsed") from exc
+    source_version = _optional_str(root.attrib.get("version"))
+    prefixes: list[UcumPrefix] = []
+    for element in list(root):
+        if _local_name(element.tag) != "prefix":
+            continue
+        code = _optional_str(element.attrib.get("Code"))
+        if code is None:
+            continue
+        value_el = _child(element, "value")
+        raw_factor = _optional_str(value_el.attrib.get("value")) if value_el is not None else None
+        prefixes.append(
+            UcumPrefix(
+                code=code,
+                name=_child_text(element, "name"),
+                factor=_decimal_from_official_attribute(raw_factor),
+                source_version=source_version,
+            )
+        )
+    return prefixes
+
+
+def compose_prefixed_units(
+    query: str, units: list[UcumUnit], prefixes: list[UcumPrefix]
+) -> list[UcumUnit]:
+    """Build a unit such as kg from official prefix kilo and official unit gram.
+
+    Conversion factors are the product of official prefix and unit values. Missing
+    official factors stay null; they are not invented.
+    """
+    needle = query.strip().casefold()
+    if needle == "":
+        return []
+    composed: list[UcumUnit] = []
+    seen: set[str] = set()
+    for prefix in prefixes:
+        prefix_name = (prefix.name or "").casefold()
+        if prefix_name == "":
+            continue
+        for unit in units:
+            unit_name = (unit.display_name or "").casefold()
+            if unit_name == "":
+                continue
+            candidates = {prefix_name + unit_name, f"{prefix_name} {unit_name}"}
+            if needle not in candidates:
+                continue
+            code = f"{prefix.code}{unit.ucum_code}"
+            if code in seen:
+                continue
+            seen.add(code)
+            factor: Decimal | None = None
+            if prefix.factor is not None and unit.conversion_factor is not None:
+                factor = prefix.factor * unit.conversion_factor
+            composed.append(
+                UcumUnit(
+                    ucum_code=code,
+                    display_name=f"{prefix.name}{unit.display_name}",
+                    quantity_type=unit.quantity_type,
+                    canonical_unit=unit.canonical_unit,
+                    conversion_factor=factor,
+                    active=unit.active,
+                    source_version=unit.source_version or prefix.source_version,
+                )
+            )
+    return composed
 
 
 def _decimal_from_official_attribute(raw: str | None) -> Decimal | None:

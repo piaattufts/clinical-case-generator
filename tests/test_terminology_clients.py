@@ -11,6 +11,7 @@ from app.sources.icd10cm import Icd10CmClient
 from app.sources.loinc import LoincClient
 from app.sources.rxnorm import RxNormClient
 from app.sources.ucum import UcumClient, parse_essence_xml
+
 from tests.source_fixtures import (
     TEST_ICD,
     TEST_LOINC,
@@ -142,6 +143,7 @@ def test_icd10cm_http_error_is_not_a_generated_code() -> None:
 def test_conditions_and_dailymed_parse_source_payloads() -> None:
     from app.sources.conditions import ConditionsClient
     from app.sources.dailymed import DailyMedClient
+
     from tests.source_fixtures import (
         TEST_SET_ID,
         TEST_SYMPTOM_NAME,
@@ -159,3 +161,31 @@ def test_conditions_and_dailymed_parse_source_payloads() -> None:
     assert labels[0].set_id == TEST_SET_ID
     assert labels[0].warnings_text is not None
     assert "anticoagulant" in labels[0].warnings_text.casefold()
+    assert labels[0].indication_text is not None
+    assert "heart failure" in labels[0].indication_text.casefold()
+    assert labels[0].active_ingredient == "TEST_ingredient"
+
+
+def test_ucum_composes_prefixed_unit_from_official_parts() -> None:
+    xml_text = """<?xml version="1.0" encoding="ascii"?>
+<root xmlns="http://unitsofmeasure.org/ucum-essence" version="TEST_UCUM_2">
+  <prefix Code="TEST_k" CODE="TEST_K">
+    <name>TEST_kilo</name>
+    <value value="1000">1000</value>
+  </prefix>
+  <base-unit Code="TEST_g" CODE="TEST_G">
+    <name>TEST_gram</name>
+    <property>TEST_mass</property>
+    <value Unit="TEST_g" value="1">1</value>
+  </base-unit>
+</root>
+"""
+    client = UcumClient(
+        client=httpx.Client(transport=ucum_transport(xml_text)),
+        essence_url="https://raw.githubusercontent.com/ucum-org/ucum/v2.2/ucum-essence.xml",
+    )
+    composed = client.search_units("TEST_kiloTEST_gram")
+    assert len(composed) == 1
+    assert composed[0].ucum_code == "TEST_kTEST_g"
+    assert composed[0].conversion_factor == Decimal("1000")
+    assert composed[0].source_version == "TEST_UCUM_2"

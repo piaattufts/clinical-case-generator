@@ -7,6 +7,7 @@ reported. A second run upserts and does not duplicate canonical identifiers.
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
@@ -260,12 +261,22 @@ def _bootstrap_symptoms(
     for name in names:
         try:
             hits = sorted(client.search(name, count=DEFAULT_SYNC_LIMIT), key=lambda item: item.name)
-            chosen = next((item for item in hits if _contains(item.name, name)), None)
-            if chosen is None and hits:
-                chosen = hits[0]
+            chosen = next(
+                (
+                    item
+                    for item in hits
+                    if token_match(item.name, name)
+                    or any(token_match(synonym, name) for synonym in item.synonyms)
+                ),
+                None,
+            )
             if chosen is None:
                 result.unresolved.append(
-                    UnresolvedRequest("symptom", name, "NLM conditions returned no concept")
+                    UnresolvedRequest(
+                        "symptom",
+                        name,
+                        "NLM conditions returned no token-matched concept",
+                    )
                 )
                 continue
             provenance = build_provenance("NLM_CONDITIONS")
@@ -494,6 +505,17 @@ def _refresh_registry_counts(session: Session) -> None:
         row.sync_status = "synced"
         row.error_message = None
     session.flush()
+
+
+def token_match(value: str | None, query: str) -> bool:
+    """True when query appears as a whole token, not as a substring of another word."""
+    if value is None:
+        return False
+    needle = query.strip()
+    if needle == "":
+        return False
+    pattern = r"(?<![a-z0-9])" + re.escape(needle.casefold()) + r"(?![a-z0-9])"
+    return re.search(pattern, value.casefold()) is not None
 
 
 def _contains(value: str | None, query: str) -> bool:

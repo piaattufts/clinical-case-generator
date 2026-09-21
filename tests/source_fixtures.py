@@ -158,8 +158,14 @@ def dailymed_transport() -> httpx.MockTransport:
                 200,
                 json={"data": [{"setid": TEST_SET_ID, "title": f"TEST_label for {rxcui}"}]},
             )
-        if TEST_SET_ID in path:
-            return httpx.Response(200, json=_dailymed_detail_payload())
+        if TEST_SET_ID in path and path.endswith(".xml"):
+            return httpx.Response(
+                200,
+                text=_dailymed_spl_xml(),
+                headers={"Content-Type": "application/xml"},
+            )
+        if TEST_SET_ID in path and path.endswith(".json"):
+            return httpx.Response(415, text="TEST_json_not_supported")
         return httpx.Response(404, json={"error": "TEST_not_found"})
 
     return httpx.MockTransport(handler)
@@ -256,37 +262,52 @@ def _conditions_payload() -> list[Any]:
     ]
 
 
-def _dailymed_detail_payload() -> dict[str, Any]:
-    return {
-        "data": {
-            "title": "TEST_label",
-            "sections": [
-                {
-                    "title": "Indications and Usage",
-                    "text": "Indicated for edema associated with heart failure.",
-                },
-                {
-                    "title": "Warnings",
-                    "text": (
-                        "Avoid concomitant use with another anticoagulant. "
-                        "Monitor INR and prothrombin time."
-                    ),
-                },
-                {
-                    "title": "Contraindications",
-                    "text": "Do not use with another oral anticoagulant.",
-                },
-                {
-                    "title": "Dosage and Administration",
-                    "text": "Dose according to INR.",
-                },
-                {
-                    "title": "Active Ingredient",
-                    "text": "TEST_ingredient",
-                },
-            ],
-        }
-    }
+def _dailymed_spl_xml() -> str:
+    return """<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="urn:hl7-org:v3">
+  <title>TEST_label</title>
+  <component>
+    <structuredBody>
+      <component>
+        <section>
+          <code code="34067-9" displayName="INDICATIONS &amp; USAGE SECTION"/>
+          <title>Indications and Usage</title>
+          <text>Indicated for edema associated with heart failure.</text>
+        </section>
+      </component>
+      <component>
+        <section>
+          <code code="34071-1" displayName="WARNINGS SECTION"/>
+          <title>Warnings</title>
+          <text>Avoid concomitant use with another anticoagulant.
+          Monitor INR and prothrombin time.</text>
+        </section>
+      </component>
+      <component>
+        <section>
+          <code code="34070-3" displayName="CONTRAINDICATIONS SECTION"/>
+          <title>Contraindications</title>
+          <text>Do not use with another oral anticoagulant.</text>
+        </section>
+      </component>
+      <component>
+        <section>
+          <code code="34068-7" displayName="DOSAGE &amp; ADMINISTRATION SECTION"/>
+          <title>Dosage and Administration</title>
+          <text>Dose according to INR.</text>
+        </section>
+      </component>
+      <component>
+        <section>
+          <code displayName="ACTIVE INGREDIENT SECTION"/>
+          <title>Active Ingredient</title>
+          <text>TEST_ingredient</text>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</document>
+"""
 
 
 def _drugs_payload() -> dict[str, Any]:
