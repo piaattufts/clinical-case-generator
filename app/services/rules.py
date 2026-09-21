@@ -186,16 +186,22 @@ def _rule_values_from_template(
         except Exception:
             pass
     combined = " ".join(excerpts).casefold()
-    has_label_evidence = bool(evidence_needles) and all(
+    label_evidence = bool(evidence_needles) and all(
         needle in combined for needle in evidence_needles
     )
-    if not has_label_evidence and rxclass_names:
-        has_label_evidence = any(
-            needle in " ".join(rxclass_names).casefold() for needle in evidence_needles
-        )
-        if has_label_evidence and source_identifier is None:
-            source_identifier = rxclass_names[0]
+    class_evidence = False
+    if not label_evidence and rxclass_names:
+        joined_classes = " ".join(rxclass_names).casefold()
+        class_evidence = any(needle in joined_classes for needle in evidence_needles)
+        if class_evidence and source_identifier is None:
+            matching = [
+                name
+                for name in rxclass_names
+                if any(needle in name.casefold() for needle in evidence_needles)
+            ]
+            source_identifier = matching[0] if matching else rxclass_names[0]
             source_url = SOURCE_BASE_URLS["RXCLASS"]
+    has_label_evidence = label_evidence or class_evidence
     severity = str(template.get("severity") or "soft")
     raw_constraint = template.get("constraint")
     constraint: dict[str, Any] = raw_constraint if isinstance(raw_constraint, dict) else {}
@@ -211,7 +217,13 @@ def _rule_values_from_template(
         enable = has_label_evidence and input_rxcui is not None and input_loinc is not None
     elif action == "allow_with_diagnosis":
         enable = has_label_evidence and input_rxcui is not None and input_icd is not None
-    provenance = build_provenance("DAILYMED" if source_identifier else "CURATED_PENDING")
+    if label_evidence:
+        evidence_source = "DAILYMED"
+    elif class_evidence:
+        evidence_source = "RXCLASS"
+    else:
+        evidence_source = "CURATED_PENDING"
+    provenance = build_provenance(evidence_source)
     excerpt = excerpts[0][:1000] if excerpts else None
     return {
         "rule_code": rule_code,
