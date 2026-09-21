@@ -95,11 +95,78 @@ def next_case_sequence(session: Session) -> int:
 
 
 def delete_case_graph(session: Session, case: ClinicalCase) -> None:
-    """Remove a case and generation runs that point at it. Child rows cascade."""
+    """Remove a case, generation runs, plans, and associated blueprints.
+
+    Child case rows cascade from clinical_cases. Generation runs reference
+    blueprints with ON DELETE RESTRICT, so runs are removed first. Deterministic
+    blueprint and run business ids for this case code are also cleared so a
+    later generate of SYN-000001 can reuse BP-SYN000001-001.
+    """
+    compact = _compact_case_token(case.case_id_code)
+    blueprint_ids = list(
+        session.scalars(
+            select(CaseGenerationRun.blueprint_id).where(CaseGenerationRun.case_id == case.id)
+        )
+    )
     session.execute(delete(CaseGenerationRun).where(CaseGenerationRun.case_id == case.id))
+    if compact is not None:
+        extra_run_blueprints = list(
+            session.scalars(
+                select(CaseGenerationRun.blueprint_id).where(
+                    CaseGenerationRun.run_id.like(f"RUN-{compact}-%")
+                )
+            )
+        )
+        blueprint_ids.extend(extra_run_blueprints)
+        session.execute(
+            delete(CaseGenerationRun).where(CaseGenerationRun.run_id.like(f"RUN-{compact}-%"))
+        )
     session.execute(delete(CaseMedicationPlan).where(CaseMedicationPlan.case_id == case.id))
     session.delete(case)
     session.flush()
+    _delete_blueprints(session, blueprint_ids, compact)
+    session.expire_all()
+
+
+def delete_generation_artifacts_for_case_code(session: Session, case_id_code: str) -> None:
+    """Remove leftover runs and blueprints for a case code when no case row exists."""
+    compact = _compact_case_token(case_id_code)
+    if compact is None:
+        return
+    blueprint_ids = list(
+        session.scalars(
+            select(CaseGenerationRun.blueprint_id).where(
+                CaseGenerationRun.run_id.like(f"RUN-{compact}-%")
+            )
+        )
+    )
+    session.execute(
+        delete(CaseGenerationRun).where(CaseGenerationRun.run_id.like(f"RUN-{compact}-%"))
+    )
+    session.flush()
+    _delete_blueprints(session, blueprint_ids, compact)
+
+
+def _delete_blueprints(
+    session: Session, blueprint_ids: list[uuid.UUID], compact: str | None
+) -> None:
+    ids = list(dict.fromkeys(blueprint_ids))
+    if compact is not None:
+        named = list(
+            session.scalars(
+                select(CaseBlueprint.id).where(CaseBlueprint.blueprint_id.like(f"BP-{compact}-%"))
+            )
+        )
+        ids.extend(item for item in named if item not in ids)
+    if ids:
+        session.execute(delete(CaseBlueprint).where(CaseBlueprint.id.in_(ids)))
+        session.flush()
+
+
+def _compact_case_token(case_id_code: str) -> str | None:
+    if CASE_CODE_RE.fullmatch(case_id_code) is None:
+        return None
+    return "SYN" + case_id_code.removeprefix("SYN-")
 
 
 def count_blueprints(session: Session) -> int:

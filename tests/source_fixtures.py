@@ -384,7 +384,25 @@ def _related_payload() -> dict[str, Any]:
                         "tty": "IN",
                         "suppress": "N",
                     },
-                }
+                },
+                {
+                    "tty": "BN",
+                    "conceptProperties": {
+                        "rxcui": TEST_RXCUI_RELATED_BN,
+                        "name": "TEST_brand_name",
+                        "tty": "BN",
+                        "suppress": "N",
+                    },
+                },
+                {
+                    "tty": "DF",
+                    "conceptProperties": {
+                        "rxcui": TEST_RXCUI_RELATED_DF,
+                        "name": "TEST_dose_form",
+                        "tty": "DF",
+                        "suppress": "N",
+                    },
+                },
             ]
         },
     }

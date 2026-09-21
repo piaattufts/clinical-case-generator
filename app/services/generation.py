@@ -41,7 +41,11 @@ from app.models.cases import (
 from app.models.generation import CaseBlueprint, CaseGenerationRun, CaseMedicationPlan
 from app.models.reference import RefDiagnosis, RefLabTest, RefMedication, RefSymptom
 from app.openai.narrative import CaseNarrative, assemble_narrative
-from app.repositories.cases import delete_case_graph, get_case_by_code
+from app.repositories.cases import (
+    delete_case_graph,
+    delete_generation_artifacts_for_case_code,
+    get_case_by_code,
+)
 from app.repositories.reference import (
     get_data_source,
     list_enabled_rules,
@@ -183,6 +187,8 @@ def generate_one_case(
     existing = get_case_by_code(session, case_id_code)
     if existing is not None:
         delete_case_graph(session, existing)
+    else:
+        delete_generation_artifacts_for_case_code(session, case_id_code)
     diagnosis = _require_diagnosis(session, scenario)
     symptoms = _select_symptoms(session, scenario)
     medications = _select_medications(session, scenario, rng)

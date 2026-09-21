@@ -172,9 +172,8 @@ def bootstrap_reference_data(
         return result
     finally:
         for client in owned:
-            close = getattr(client, "close", None)
-            if callable(close):
-                close()
+            if hasattr(client, "close"):
+                client.close()
 
 
 def match_medication(session: Session, query: str) -> RefMedication | None:
