@@ -10,7 +10,7 @@ import re
 
 CASE_CODE_RE = re.compile(r"^SYN-\d{6}$")
 
-# Prefixes assigned in Python after generation in a later phase.
+# Prefixes assigned in Python after structured generation.
 CHILD_ID_PREFIXES: dict[str, str] = {
     "diagnosis": "DX",
     "symptom": "SYM",
@@ -19,6 +19,18 @@ CHILD_ID_PREFIXES: dict[str, str] = {
     "vital": "VIT",
     "procedure": "PROC",
     "answer_key": "AK",
+    "problem": "PROB",
+    "note": "NOTE",
+    "weight": "WT",
+    "io": "IO",
+    "medrec": "MR",
+    "plan": "PLAN",
+    "monitoring": "MON",
+    "followup": "FU",
+    "instruction": "INS",
+    "precaution": "RP",
+    "blueprint": "BP",
+    "run": "RUN",
 }
 
 

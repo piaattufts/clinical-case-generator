@@ -1,4 +1,25 @@
-"""Application services.
+"""Application services for terminology sync, search, rules, and case generation."""
 
-Phase 1 has no reference sync, case generation, validation, or export service.
-"""
+from app.services.bootstrap import bootstrap_reference_data
+from app.services.generation import generate_synthetic_cases, validate_persisted_cases
+from app.services.reference_search import (
+    search_reference_diagnoses,
+    search_reference_labs,
+    search_reference_medications,
+    search_reference_symptoms,
+)
+from app.services.reference_sync import sync_icd10cm, sync_loinc, sync_rxnorm, sync_ucum
+
+__all__ = [
+    "bootstrap_reference_data",
+    "generate_synthetic_cases",
+    "search_reference_diagnoses",
+    "search_reference_labs",
+    "search_reference_medications",
+    "search_reference_symptoms",
+    "sync_icd10cm",
+    "sync_loinc",
+    "sync_rxnorm",
+    "sync_ucum",
+    "validate_persisted_cases",
+]

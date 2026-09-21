@@ -1,0 +1,42 @@
+{
+  "version": "1",
+  "description": "Bounded development subset. Entries are human-readable search requests, not fabricated codes.",
+  "medications": [
+    "lisinopril",
+    "furosemide",
+    "metoprolol",
+    "warfarin",
+    "apixaban",
+    "spironolactone",
+    "carvedilol",
+    "atorvastatin"
+  ],
+  "diagnoses": [
+    "systolic (congestive) heart failure",
+    "atrial fibrillation",
+    "essential (primary) hypertension",
+    "type 2 diabetes mellitus"
+  ],
+  "symptoms": [
+    "dyspnea",
+    "edema",
+    "fatigue",
+    "orthopnea"
+  ],
+  "labs": [
+    "potassium",
+    "creatinine",
+    "inr",
+    "natriuretic peptide",
+    "hemoglobin"
+  ],
+  "units": [
+    "gram",
+    "kilogram",
+    "liter",
+    "celsius",
+    "mercury",
+    "percent",
+    "mole"
+  ]
+}

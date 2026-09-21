@@ -1,0 +1,38 @@
+{
+  "version": "1",
+  "description": "Generation scenarios that select local reference rows by human-readable request, not invented codes.",
+  "scenarios": [
+    {
+      "code": "HF_INPATIENT",
+      "specialty": "cardiology",
+      "care_context": "inpatient",
+      "age_min": 55,
+      "age_max": 85,
+      "target_error_category": "omission",
+      "diagnosis_queries": [
+        "heart failure"
+      ],
+      "symptom_queries": [
+        "dyspnea",
+        "edema",
+        "fatigue"
+      ],
+      "medication_queries": [
+        "lisinopril",
+        "furosemide",
+        "metoprolol",
+        "spironolactone",
+        "atorvastatin"
+      ],
+      "anticoagulant_mutex_queries": [
+        "warfarin",
+        "apixaban"
+      ],
+      "lab_queries": [
+        "potassium",
+        "creatinine",
+        "inr"
+      ]
+    }
+  ]
+}

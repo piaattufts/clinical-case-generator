@@ -303,3 +303,31 @@ class RefClinicalDistribution(Base, UUIDPrimaryKeyMixin):
     max_observed: Mapped[Decimal | None] = mapped_column(Numeric(18, 6))
     calculation_method: Mapped[str | None] = mapped_column(String(128))
     calculated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+class ClinicalRule(Base, UUIDPrimaryKeyMixin, ProvenanceMixin):
+    """Source-backed clinical conditional. Logic is deterministic; it is not model-generated."""
+
+    __tablename__ = "clinical_rules"
+    __table_args__ = (
+        CheckConstraint("btrim(rule_code) <> ''", name="rule_code_not_blank"),
+        CheckConstraint("severity IN ('hard', 'soft')", name="severity_values"),
+    )
+
+    rule_code: Mapped[str] = mapped_column(String(64), unique=True)
+    rule_type: Mapped[str] = mapped_column(String(64))
+    severity: Mapped[str] = mapped_column(String(16))
+    enabled: Mapped[bool] = mapped_column(Boolean, default=False, server_default=text("false"))
+    input_icd10cm_code: Mapped[str | None] = mapped_column(String(16))
+    input_rxcui: Mapped[str | None] = mapped_column(String(64))
+    input_loinc_code: Mapped[str | None] = mapped_column(String(64))
+    related_rxcui: Mapped[str | None] = mapped_column(String(64))
+    age_min: Mapped[int | None] = mapped_column(Integer)
+    age_max: Mapped[int | None] = mapped_column(Integer)
+    sex: Mapped[str | None] = mapped_column(String(32))
+    care_context: Mapped[str | None] = mapped_column(String(64))
+    constraint_json: Mapped[JsonObject | None] = mapped_column(JSONB)
+    logic_notes: Mapped[str | None] = mapped_column(Text)
+    source_identifier: Mapped[str | None] = mapped_column(String(128))
+    source_url: Mapped[str | None] = mapped_column(String(512))
+    evidence_excerpt: Mapped[str | None] = mapped_column(Text)

@@ -1,0 +1,35 @@
+{
+  "version": "1",
+  "description": "Curated clinical conditionals. Rules stay disabled until source evidence is attached.",
+  "templates": [
+    {
+      "rule_code": "NO_DUAL_ORAL_ANTICOAGULANT",
+      "rule_type": "medication_incompatibility",
+      "severity": "hard",
+      "medication_names": ["warfarin", "apixaban"],
+      "evidence_needles": ["anticoagulant", "concomitant"],
+      "constraint": {"action": "prohibit_coadministration"},
+      "logic_notes": "Enable only when DailyMed warning or contraindication text supports coadministration risk."
+    },
+    {
+      "rule_code": "WARFARIN_INR_MONITORING",
+      "rule_type": "monitoring_dependency",
+      "severity": "hard",
+      "medication_names": ["warfarin"],
+      "lab_names": ["inr", "international normalized ratio"],
+      "evidence_needles": ["inr", "prothrombin"],
+      "constraint": {"action": "require_lab"},
+      "logic_notes": "Enable only when a source-backed INR/prothrombin lab exists and DailyMed mentions INR or prothrombin."
+    },
+    {
+      "rule_code": "FUROSEMIDE_HF_INDICATION",
+      "rule_type": "medication_diagnosis_allow",
+      "severity": "soft",
+      "medication_names": ["furosemide"],
+      "diagnosis_names": ["heart failure"],
+      "evidence_needles": ["heart failure", "edema"],
+      "constraint": {"action": "allow_with_diagnosis"},
+      "logic_notes": "Soft allow-rule when DailyMed indication text mentions heart failure or edema."
+    }
+  ]
+}

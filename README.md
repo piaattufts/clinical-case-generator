@@ -1,31 +1,36 @@
 # Clinical Case Generator
 
-Phase 1 is the PostgreSQL schema for three kinds of data. It does not sync terminology, generate cases, read MIMIC, or call OpenAI.
+PostgreSQL schema, official terminology clients, source-backed reference bootstrap, deterministic clinical conditionals, and constrained synthetic case generation. The application does not invent RxNorm, LOINC, SNOMED, ICD-10-CM, UCUM, or device identifiers. Raw MIMIC patient rows, notes, identifiers, and events are never sent to OpenAI.
 
 ## Three data classes
 
-**Authoritative reference data.** RxNorm, DailyMed, LOINC, UCUM, ICD-10-CM, SNOMED CT, and AccessGUDID concepts will live in `ref_*` tables after a later sync. Every real reference row keeps `source_system`, `source_version`, and a timezone-aware `retrieved_at`. Those tables are empty in Phase 1. The application does not invent RxNorm, LOINC, SNOMED, ICD-10-CM, UCUM, or device identifiers.
+**Authoritative reference data.** RxNorm, DailyMed, LOINC, UCUM, ICD-10-CM, SNOMED CT, and AccessGUDID concepts live in `ref_*` tables. Every real reference row keeps `source_system`, `source_version`, and a timezone-aware `retrieved_at`.
 
-**Empirical aggregate data.** `ref_clinical_distributions` is for statistics calculated locally from a permitted dataset. Aggregates are not patient rows. Raw MIMIC patient rows, notes, identifiers, and events must never be sent to OpenAI and must never be stored in this table. A check constraint rejects `source_dataset = 'MIMIC_IV_RAW'`. Phase 1 inserts no distribution rows.
+Targeted sync and `bootstrap-reference-data` upsert only identifiers returned by official sources. DailyMed labels are stored when an RXCUI is already validated through RxNorm. SNOMED CT stays unpopulated unless credentials are configured; SNOMED fields remain null rather than invented. AccessGUDID and MIMIC ingestion are not part of this pipeline.
 
-**Synthetic patient data.** `clinical_cases` and its child tables will hold generated cases in a later phase. Phase 1 only creates the tables. Unknown scalars are `NULL`, not empty strings. Dashboard business ids (`symptom_id`, `diagnosis_id`, and the other child ids) are unique strings and stay null until Python assigns them after generation. The internal primary key on every table is a UUID named `id`. Child rows point at `clinical_cases.id` through `case_id`.
+**Empirical aggregate data.** `ref_clinical_distributions` is for statistics calculated locally from a permitted dataset. Aggregates are not patient rows. A check constraint rejects `source_dataset = 'MIMIC_IV_RAW'`. This pipeline inserts no distribution rows and does not invent empirical distributions.
+
+**Synthetic patient data.** `clinical_cases` and child tables hold generated cases. Unknown scalars are `NULL`, not empty strings. Dashboard business ids are assigned in Python after structured generation (`SYN-000001`, `DX-SYN000001-001`, and the other prefixes in `app/utils/identifiers.py`). Canonical concepts on a case must already exist in local reference tables.
 
 ## Licensing
 
-Terminology and dataset content is not bundled. RxNorm, DailyMed, LOINC, UCUM, ICD-10-CM, SNOMED CT, AccessGUDID, and MIMIC-IV each have their own license and access rules. SNOMED CT, LOINC, and MIMIC-IV stay disabled in `data_source_registry` until credentials are configured. This repository does not download MIMIC.
+Terminology and dataset content is not bundled. RxNorm, DailyMed, LOINC, UCUM, ICD-10-CM, SNOMED CT, AccessGUDID, and MIMIC-IV each have their own license and access rules. LOINC requires `LOINC_USERNAME` and `LOINC_PASSWORD`; missing credentials raise `SourceNotConfigured` and do not generate lab identifiers. SNOMED CT and MIMIC-IV stay disabled in `data_source_registry` until credentials are configured.
 
 ## Layout
 
 - `app/models` — SQLAlchemy 2 models
 - `app/schemas` — Pydantic v2 models that match the tables
-- `app/repositories` — lookups, plus the source-registry metadata seed
-- `app/cli` — `db-init` only
-- `app/main.py` — `GET /health`
-- `app/sources`, `app/services`, `app/openai`, `app/api` — packages reserved for later phases; they do not call external systems
+- `app/repositories` — lookups, upserts by official identifiers, and the source-registry metadata seed
+- `app/sources` — RxNav, LOINC FHIR, official UCUM essence XML, NLM ICD-10-CM, NLM conditions, DailyMed, and RxClass clients
+- `app/services` — sync, bootstrap, local search, clinical rules, generation, validation, error injection
+- `app/cli` — `db-init`, `sync-*`, `reference-search`, `bootstrap-reference-data`, `generate-synthetic-cases`, `validate-cases`
+- `app/api` — `GET /reference/medications`, `/labs`, `/diagnoses`, `/symptoms`
+- `app/openai` — optional narrative wording after canonical concepts are selected
+- `data/bootstrap` — human-readable concept requests, curated rule templates, and generation scenarios
 
-`CaseGenerationRun.blueprint_id` is the UUID foreign key to `case_blueprints.id`. The human blueprint code is the separate string `case_blueprints.blueprint_id`. Optional links to reference rows use `ON DELETE RESTRICT`. Case children use `ON DELETE CASCADE` on `case_id`. A generation run's `case_id` uses `ON DELETE SET NULL`.
+`CaseGenerationRun.blueprint_id` is the UUID foreign key to `case_blueprints.id`. Optional links to reference rows use `ON DELETE RESTRICT`. Case children use `ON DELETE CASCADE` on `case_id`.
 
-Business ids for a later phase use `SYN-000001` for cases and `DX-SYN000001-001`, `SYM-`, `LAB-`, `MED-`, `VIT-`, `PROC-`, and `AK-` for children. `app/utils/identifiers.py` documents that format. Phase 1 does not assign those ids.
+Alembic revision `1c236aeaadc7` is the Phase 1 schema and is not rewritten. `7b9e4c21d6a0` adds `clinical_rules`.
 
 ## Install
 
@@ -47,24 +52,52 @@ docker compose up -d
 clinical-case-generator db-init
 ```
 
-`db-init` runs `alembic upgrade head` and ensures eight `data_source_registry` rows exist: `RXNORM`, `DAILYMED`, `LOINC`, `UCUM`, `ICD10CM`, `SNOMED_CT`, `ACCESS_GUDID`, `MIMIC_IV`. Each row has `records_imported = 0`. Public sources are `never_synced` and enabled. `LOINC`, `SNOMED_CT`, and `MIMIC_IV` are `not_configured` and disabled. Running it again does not duplicate those rows and does not load clinical concepts.
+`db-init` runs `alembic upgrade head` and ensures eight `data_source_registry` rows exist. It does not load clinical concepts.
 
-Equivalent migration command:
+## Terminology sync and bootstrap
+
+Sync commands call official APIs or files and upsert what they return. They do not run a full terminology import by default.
 
 ```bash
-alembic upgrade head
+clinical-case-generator sync-rxnorm --name <medication-name>
+clinical-case-generator sync-rxnorm --rxcui <rxcui>
+clinical-case-generator sync-loinc --query <lab-name>
+clinical-case-generator sync-loinc --code <loinc-code>
+clinical-case-generator sync-ucum --query <unit-text>
+clinical-case-generator sync-ucum --all
+clinical-case-generator sync-icd10 --query <diagnosis-text>
+clinical-case-generator sync-icd10 --code <icd10cm-code>
+clinical-case-generator reference-search medications --query <text>
+clinical-case-generator bootstrap-reference-data
 ```
+
+`bootstrap-reference-data` reads `data/bootstrap/manifest.json` (human-readable search requests, not fabricated codes), resolves them through official APIs, upserts source-returned identifiers, stores DailyMed labels for resolved RXCUIs, and enables curated clinical rules only when label or RxClass evidence is present. Unresolved requests are reported. A second run does not duplicate canonical identifiers. LOINC rows are skipped with `SourceNotConfigured` when credentials are absent.
+
+## Clinical conditionals and synthetic cases
+
+Rules in `clinical_rules` are machine-readable IF/THEN constraints with provenance. Hard rules are not enabled from terminology lookup alone.
+
+```bash
+clinical-case-generator generate-synthetic-cases --count 3 --seed 42
+clinical-case-generator generate-synthetic-cases --count 3 --seed 42 --no-inject-error
+clinical-case-generator validate-cases
+clinical-case-generator validate-cases --case-id SYN-000001
+```
+
+Generation selects canonical concepts from the local reference database, applies conditionals, persists a clean case, validates it, optionally words narrative text (OpenAI if `OPENAI_API_KEY` is set, otherwise a template), then injects exactly one medication-reconciliation error when requested. The answer key records the planted error. Numeric vital/lab values are synthetic and labeled `synthetic_model_generated`; they are not empirical MIMIC distributions.
+
+OpenAI is not used to invent diagnoses, medications, laboratory codes, units, clinical rules, or the hidden error.
 
 ## Environment
 
 See `.env.example`.
 
-| Variable | Phase 1 use |
+| Variable | Use |
 | --- | --- |
 | `DATABASE_URL` | SQLAlchemy URL. Default `postgresql+psycopg://postgres:postgres@localhost:5432/clinical_cases` |
-| `OPENAI_API_KEY` | Unused. The OpenAI SDK is installed and not called |
-| `OPENAI_MODEL` | Unused. Example default `gpt-5` |
-| `LOINC_USERNAME`, `LOINC_PASSWORD` | Unused. LOINC stays not configured |
+| `OPENAI_API_KEY` | Optional. Used only to word narrative text from already selected structured facts |
+| `OPENAI_MODEL` | Optional narrative model. Example default `gpt-5` |
+| `LOINC_USERNAME`, `LOINC_PASSWORD` | Required for `sync-loinc` and bootstrap lab import. Empty values raise `SourceNotConfigured` |
 | `SNOMED_BASE_URL`, `SNOMED_API_TOKEN` | Unused. SNOMED CT stays disabled |
 | `MIMIC_LOCAL_PATH` | Unused. No MIMIC files are read |
 
@@ -76,7 +109,8 @@ See `.env.example`.
 uvicorn app.main:app --host 127.0.0.1 --port 8765
 ```
 
-`GET /health` returns `{"status": "ok"}`. It does not check the database.
+- `GET /health` returns `{"status": "ok"}`. It does not check the database.
+- `GET /reference/medications`, `/labs`, `/diagnoses`, `/symptoms` search locally stored rows. Query parameters: `query`, `limit` (1–100, default 20), `offset` (default 0). These routes do not call external terminology APIs or OpenAI.
 
 ## Checks
 
@@ -86,17 +120,13 @@ ruff check .
 mypy
 ```
 
-Constraint tests need the `DATABASE_URL` database. They use `TEST_` identifiers only inside tests.
+Constraint, sync, bootstrap, and generation tests need the `DATABASE_URL` database. Tests mock HTTP. Fixture identifiers use the `TEST_` prefix only.
 
-## Not implemented yet
+## Not implemented
 
-Phase 1 does not provide these, and there is no command that pretends to:
+This repository does not currently provide:
 
-- Reference sync or source API clients
-- OpenAI requests, case generation, blueprints as a workflow, or medication-plan generation
-- Error injection, answer-key generation, or blinded review
-- Dashboard export
+- AccessGUDID or SNOMED CT ingestion
 - MIMIC ingestion or aggregate calculation
-- Search or case APIs besides `GET /health`
-
-Later phases, in order: terminology access for RxNorm, LOINC, UCUM, and ICD-10-CM plus a reference search API; clean case generation and dashboard export; validation, medication-plan decisions, error injection, and blinded review; DailyMed, AccessGUDID, and optional SNOMED CT; local MIMIC-IV aggregation into `ref_clinical_distributions`.
+- Dashboard UI export beyond database persistence and CLI JSON
+- Blinded review workflow

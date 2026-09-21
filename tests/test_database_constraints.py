@@ -64,6 +64,7 @@ EXPECTED_TABLES = frozenset(
         "case_blueprints",
         "case_generation_runs",
         "case_medication_plans",
+        "clinical_rules",
     }
 )
 
