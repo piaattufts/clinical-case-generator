@@ -38,7 +38,7 @@ The frozen resident-review batch `RESIDENT_VALIDATION_V1` (`VAL-001`–`VAL-024`
 22. [Common workflows](#22-common-workflows)
 23. [Troubleshooting](#23-troubleshooting)
 24. [Data provenance and safety constraints](#24-data-provenance-and-safety-constraints)
-25. [Database and schema notes](#25-database-and-schema-notes)
+25. [Database, tables, and UML](#25-database-tables-and-uml)
 26. [Current limitations](#26-current-limitations)
 27. [Licensing](#27-licensing)
 
@@ -108,6 +108,8 @@ The generator does not ask a language model to invent an entire patient. It firs
 | **Narrative wording** | Chief complaint, HPI, admission note | Template sentences (or optional OpenAI rewording) built from names already selected. Not a source of new diagnoses or drugs. |
 | **Assessment discrepancy (CliniProof)** | At most one controlled change after the clean case passed machine validation. **Family 1** changes the discharge list. **Family 2** typically leaves the continued-drug identity intact and removes a required companion action (monitoring, restart plan, supply, follow-up, or similar). | Present only when error injection is turned on. Hidden from residents. |
 | **Human clinical validation** | Resident or investigator judgment | Software cannot certify that the picture is realistic, complete, or appropriate for teaching. |
+
+Those six kinds of content are stored in PostgreSQL as described in [Database, tables, and UML](#25-database-tables-and-uml). Residents do not query the database; they receive a blinded JSON export.
 
 ---
 
@@ -975,7 +977,7 @@ This matches `app/cli/__init__.py` and `app/services/validation_batch.py`. There
 
 | Path | Role |
 | --- | --- |
-| `app/models` | SQLAlchemy 2 tables (`reference.py`, `cases.py`, `generation.py`) |
+| `app/models` | SQLAlchemy 2 tables (`reference.py`, `cases.py`, `generation.py`). Schema map: [§25](#25-database-tables-and-uml) |
 | `app/schemas` | Pydantic v2 models matching those tables |
 | `app/repositories` | Lookups, upserts by official identifiers, `data_source_registry` seed |
 | `app/sources` | HTTP clients: RxNav, LOINC FHIR, UCUM essence XML, NLM ICD-10-CM, NLM conditions, NLM HPO, DailyMed, RxClass |
@@ -2054,27 +2056,485 @@ mypy
 
 ---
 
-## 25. Database and schema notes
+## 25. Database, tables, and UML
 
-Models: `app/models/`. Migrations: `alembic/versions/`. Tests list expected table names in `tests/test_database_constraints.py` (`EXPECTED_TABLES`).
+This section is the schema map. Models: `app/models/`. Mixins: `app/database.py`. Migrations: `alembic/versions/`. The test list of table names is `EXPECTED_TABLES` in `tests/test_database_constraints.py`: **43** application tables (1 registry + 12 `ref_*` + 1 rules + 25 case hub/children + 4 generation/freeze), plus Alembic’s `alembic_version`.
 
-| Area | Tables |
+Residents never connect to this database. They receive blinded JSON. Investigators who need planted-error catalogs use [`data/validation/README.md`](data/validation/README.md) (V1) or [`data/validation/cliniproof_v1/`](data/validation/cliniproof_v1/) — not a live SQL dump of `case_answer_keys`.
+
+### What the database is
+
+| Item | Value |
 | --- | --- |
-| Registry | `data_source_registry` (9 metadata rows after `db-init`) |
-| `ref_*` | `ref_medications`, `ref_medication_classes`, `ref_drug_labels`, `ref_diagnoses`, `ref_symptoms`, `ref_lab_tests`, `ref_units`, `ref_vitals`, `ref_procedures`, `ref_devices`, `ref_microbiology`, `ref_clinical_distributions` |
-| Rules | `clinical_rules` |
-| Cases | `clinical_cases` plus children (`case_presentations`, `case_symptoms`, `case_diagnoses`, `case_labs`, `case_medications`, `case_answer_keys`, …) |
-| Generation | `case_blueprints`, `case_generation_runs`, `case_medication_plans` |
-| Freeze | `validation_batch_cases` (`VAL-###` unique, `immutable`, `error_family`, snapshots, `ON DELETE RESTRICT` to `clinical_cases`) |
+| Engine | **PostgreSQL 16** (`image: postgres:16` in `docker-compose.yml`) |
+| Database name | `clinical_cases` |
+| Default URL | `postgresql+psycopg://postgres:postgres@localhost:5432/clinical_cases` (Compose; not a production secret) |
+| Volume | named Docker volume `clinical_cases_pg` |
+| ORM | SQLAlchemy 2 declarative models |
+| Migrations | Alembic. Head is `d4e8b17c6a91` |
+| Create / migrate | `clinical-case-generator db-init` → `alembic upgrade head`, then seed nine `data_source_registry` rows |
 
-Delete behavior:
+`db-init` creates **empty** clinical tables. Official concepts arrive later via `bootstrap-reference-data`. Synthetic charts arrive via `generate-synthetic-cases` or `freeze-validation-batch`.
 
-- Case children: `ON DELETE CASCADE` from `clinical_cases.id`
+The same three data classes from [Project overview](#1-project-overview) are three groups of tables:
+
+1. **Authoritative reference** — `ref_*` plus `clinical_rules`. Codes come from official APIs. Provenance columns are required on those rows (`source_system`, `source_version`, `retrieved_at`).
+2. **Empirical aggregates** — `ref_clinical_distributions` only. This pipeline inserts **no** rows. `source_dataset = 'MIMIC_IV_RAW'` is rejected.
+3. **Synthetic patient data** — `clinical_cases` and children, plus generation/freeze tables. Unknown scalars are `NULL`, not `""`.
+
+### Identity rules (read this before the diagrams)
+
+Every application table has an internal UUID primary key `id` (`gen_random_uuid()`). That UUID is **not** an RxNorm, LOINC, ICD-10-CM, or dashboard id.
+
+| Kind of identifier | Where it lives | Example |
+| --- | --- | --- |
+| Internal PK | `*.id` | UUID |
+| Official terminology code | Unique/indexed column on `ref_*` | `ref_medications.rxcui`, `ref_lab_tests.loinc_code`, `ref_diagnoses.icd10cm_code`, `ref_units.ucum_code` |
+| Dashboard case id | `clinical_cases.case_id_code` | `SYN-000001` |
+| Frozen study id | `validation_batch_cases.validation_case_id` | `VAL-001` |
+| Dashboard child id | unique nullable string on the child (`diagnosis_id`, `medication_id`, …) | `DX-SYN000001-001`, `MED-SYN000001-001` |
+
+Optional foreign keys from a case child to a `ref_*` row use `ON DELETE RESTRICT`, so deleting a vocabulary concept cannot silently blank a case field. DailyMed labels (`ref_drug_labels.rxcui`) and RxClass membership (`ref_medication_classes.rxcui`) store the RXCUI **string**; they are not foreign keys to `ref_medications.id`. Clinical rules also store ICD/RXCUI/LOINC as strings, not FKs.
+
+### UML — overall layout
+
+How data moves into tables. This is not a claim that every `ref_*` table is populated by the current pipeline.
+
+```mermaid
+flowchart TB
+    subgraph sources [Official APIs]
+        RxNav[RxNav RxNorm / RxClass]
+        DailyMed[DailyMed]
+        LOINC[LOINC FHIR TS]
+        UCUM[UCUM essence XML]
+        ICD[NLM ICD-10-CM]
+        NLM[NLM conditions / HPO]
+    end
+
+    subgraph db ["PostgreSQL clinical_cases"]
+        REG[data_source_registry]
+        REF["ref_* vocabulary"]
+        RULES[clinical_rules]
+        CASE[clinical_cases + children]
+        PLAN[case_medication_plans]
+        KEY[case_answer_keys]
+        GEN[case_blueprints / case_generation_runs]
+        VAL[validation_batch_cases]
+    end
+
+    RxNav --> REF
+    DailyMed --> REF
+    LOINC --> REF
+    UCUM --> REF
+    ICD --> REF
+    NLM --> REF
+    REF --> RULES
+    REF --> CASE
+    RULES --> CASE
+    CASE --> PLAN
+    CASE --> KEY
+    CASE --> GEN
+    CASE --> VAL
+    REG -.-> sources
+```
+
+`data_source_registry` is metadata about those APIs (enabled flag, last sync, `records_imported`). It does not store clinical concepts.
+
+### UML — shared mixins
+
+```mermaid
+classDiagram
+    class UUIDPrimaryKeyMixin {
+        +UUID id PK
+    }
+    class ProvenanceMixin {
+        +source_system
+        +source_version
+        +retrieved_at timestamptz
+    }
+    class CaseChildMixin {
+        +UUID case_id FK CASCADE
+    }
+
+    UUIDPrimaryKeyMixin <|-- DataSourceRegistry
+    UUIDPrimaryKeyMixin <|-- RefMedication
+    ProvenanceMixin <|-- RefMedication
+    UUIDPrimaryKeyMixin <|-- ClinicalRule
+    ProvenanceMixin <|-- ClinicalRule
+    UUIDPrimaryKeyMixin <|-- ClinicalCase
+    UUIDPrimaryKeyMixin <|-- CaseMedication
+    CaseChildMixin <|-- CaseMedication
+    UUIDPrimaryKeyMixin <|-- ValidationBatchCase
+```
+
+`RefClinicalDistribution` is the exception among `ref_*` tables: it has a UUID PK but **no** provenance mixin (aggregates are local calculations, not official-source concepts). This pipeline does not insert distribution rows.
+
+### UML — reference vocabulary and rules
+
+Solid lines are real foreign keys. RXCUI/LOINC/ICD strings that are **not** FKs are omitted as edges (labels and class membership copy the official code as text).
+
+```mermaid
+erDiagram
+    DATA_SOURCE_REGISTRY {
+        uuid id PK
+        string source_code UK
+        bool enabled
+        string sync_status
+        int records_imported
+    }
+
+    REF_MEDICATIONS {
+        uuid id PK
+        string rxcui UK
+        string concept_name
+        string strength
+        string source_system
+    }
+
+    REF_MEDICATION_CLASSES {
+        uuid id PK
+        string rxcui
+        string class_id
+        string class_name
+        string class_type
+    }
+
+    REF_DRUG_LABELS {
+        uuid id PK
+        string set_id
+        string rxcui
+        text indication_text
+    }
+
+    REF_DIAGNOSES {
+        uuid id PK
+        string icd10cm_code
+        string snomed_code
+        string preferred_name
+    }
+
+    REF_SYMPTOMS {
+        uuid id PK
+        string snomed_code
+        string preferred_name
+    }
+
+    REF_LAB_TESTS {
+        uuid id PK
+        string loinc_code UK
+        string long_common_name
+        jsonb example_ucum_units
+    }
+
+    REF_UNITS {
+        uuid id PK
+        string ucum_code UK
+        string display_name
+        numeric conversion_factor
+    }
+
+    REF_VITALS {
+        uuid id PK
+        string loinc_code
+        string vital_name
+    }
+
+    REF_PROCEDURES {
+        uuid id PK
+        string procedure_code
+        string procedure_name
+    }
+
+    REF_DEVICES {
+        uuid id PK
+        string device_identifier
+        string device_name
+    }
+
+    REF_MICROBIOLOGY {
+        uuid id PK
+        string test_loinc_code
+        string organism_code
+    }
+
+    REF_CLINICAL_DISTRIBUTIONS {
+        uuid id PK
+        string source_dataset
+        string variable_code
+        int n
+    }
+
+    CLINICAL_RULES {
+        uuid id PK
+        string rule_code UK
+        string rule_type
+        string severity
+        bool enabled
+        string input_rxcui
+        string input_loinc_code
+        string input_icd10cm_code
+        text evidence_excerpt
+    }
+```
+
+`ref_diagnoses` requires at least one of `snomed_code` or `icd10cm_code` (check constraint). This repository has **no SNOMED ingestion client**, so stored diagnoses use ICD-10-CM and leave `snomed_code` null rather than inventing a code.
+
+Tables with a schema but **no implemented loader** in this pipeline: `ref_vitals`, `ref_procedures`, `ref_devices`, `ref_microbiology`, `ref_clinical_distributions`. AccessGUDID and MIMIC-IV have registry rows only.
+
+### UML — one synthetic case
+
+`clinical_cases` is the hub. Every `case_*` child except `case_medication_plans` / `case_generation_runs` / `validation_batch_cases` uses `CaseChildMixin` (`case_id` `ON DELETE CASCADE`). Optional `ref_*` links use `ON DELETE RESTRICT`.
+
+```mermaid
+erDiagram
+    CLINICAL_CASES {
+        uuid id PK
+        string case_id_code UK
+        bool clean_case
+        string case_status
+        int patient_age
+        string specialty
+    }
+
+    CASE_BLUEPRINTS {
+        uuid id PK
+        string blueprint_id UK
+        string target_error_category
+        uuid primary_diagnosis_ref_id FK
+    }
+
+    CASE_GENERATION_RUNS {
+        uuid id PK
+        string run_id UK
+        uuid blueprint_id FK
+        uuid case_id FK
+        string status
+        jsonb metadata
+    }
+
+    CASE_MEDICATION_PLANS {
+        uuid id PK
+        string plan_id UK
+        uuid case_id FK
+        uuid ref_medication_id FK
+        string decision
+        bool is_error_target
+    }
+
+    CASE_MEDICATIONS {
+        uuid id PK
+        string medication_id UK
+        uuid case_id FK
+        uuid ref_medication_id FK
+        string context
+        string status
+        string dose
+        string frequency
+        string quantity_or_days
+        string monitoring
+    }
+
+    CASE_DIAGNOSES {
+        uuid id PK
+        string diagnosis_id UK
+        uuid case_id FK
+        uuid ref_diagnosis_id FK
+        string diagnosis
+    }
+
+    CASE_LABS {
+        uuid id PK
+        string lab_id UK
+        uuid case_id FK
+        uuid ref_lab_id FK
+        float value
+        string unit
+    }
+
+    CASE_MONITORING {
+        uuid id PK
+        string monitoring_id UK
+        uuid case_id FK
+        string parameter
+        string frequency
+    }
+
+    CASE_FOLLOWUPS {
+        uuid id PK
+        string followup_id UK
+        uuid case_id FK
+        string item
+        string timing
+    }
+
+    CASE_INSTRUCTIONS {
+        uuid id PK
+        string instruction_id UK
+        uuid case_id FK
+        string instruction_text
+    }
+
+    CASE_ANSWER_KEYS {
+        uuid id PK
+        string answer_id UK
+        uuid case_id FK
+        string error_family
+        string error_category
+        jsonb trigger_meds
+        bool is_primary_error
+    }
+
+    VALIDATION_BATCH_CASES {
+        uuid id PK
+        string validation_case_id UK
+        string batch_code
+        uuid case_id FK
+        string error_family
+        string error_category
+        bool is_clean_control
+        bool immutable
+    }
+
+    REF_MEDICATIONS ||--o{ CASE_MEDICATIONS : "ref_medication_id RESTRICT"
+    REF_MEDICATIONS ||--o{ CASE_MEDICATION_PLANS : "ref_medication_id RESTRICT"
+    REF_DIAGNOSES ||--o{ CASE_DIAGNOSES : "ref_diagnosis_id RESTRICT"
+    REF_LAB_TESTS ||--o{ CASE_LABS : "ref_lab_id RESTRICT"
+    REF_DIAGNOSES ||--o{ CASE_BLUEPRINTS : "primary_diagnosis_ref_id RESTRICT"
+
+    CLINICAL_CASES ||--o{ CASE_MEDICATIONS : "CASCADE"
+    CLINICAL_CASES ||--o{ CASE_MEDICATION_PLANS : "CASCADE"
+    CLINICAL_CASES ||--o{ CASE_DIAGNOSES : "CASCADE"
+    CLINICAL_CASES ||--o{ CASE_LABS : "CASCADE"
+    CLINICAL_CASES ||--o{ CASE_MONITORING : "CASCADE"
+    CLINICAL_CASES ||--o{ CASE_FOLLOWUPS : "CASCADE"
+    CLINICAL_CASES ||--o{ CASE_INSTRUCTIONS : "CASCADE"
+    CLINICAL_CASES ||--o{ CASE_ANSWER_KEYS : "CASCADE"
+    CLINICAL_CASES ||--o| VALIDATION_BATCH_CASES : "RESTRICT"
+    CASE_BLUEPRINTS ||--o{ CASE_GENERATION_RUNS : "RESTRICT"
+    CLINICAL_CASES ||--o| CASE_GENERATION_RUNS : "SET NULL"
+```
+
+`case_medications.context` is constrained to `home` / `inpatient` / `inpatient_history` / `discharge`. `status` is constrained to `home` / `active` / `held` / `discontinued` / `discharge`. `case_medication_plans.decision` is constrained to `continue` / `stop` / `restart` / `hold` / `dose_change` / `new_start`. `validation_batch_cases.validation_case_id` must match `^VAL-[0-9]{3}$`.
+
+Family 1 planted errors mutate discharge `case_medications` (and mark a plan `is_error_target`). Family 2 typically leaves the continued-drug identity intact and removes a companion row in `case_monitoring`, `case_followups`, `case_instructions`, or related fields such as `quantity_or_days`. The hidden key is `case_answer_keys` (omitted from resident JSON).
+
+### Clinical content → table (physician map)
+
+| What you see on the chart | Table | Notes |
+| --- | --- | --- |
+| Patient age, sex, specialty, SYN id | `clinical_cases` | Synthetic demographics |
+| Chief complaint / HPI | `case_presentations` | Template or optional OpenAI wording of already-chosen names |
+| Admission note | `case_notes` | Same narrative source |
+| Symptoms | `case_symptoms` | Linked to `ref_symptoms` when resolved |
+| Admission diagnosis | `case_diagnoses` | Linked to `ref_diagnoses` (ICD-10-CM) |
+| Problem list | `case_problem_list` | Scaffolding text |
+| Vitals | `case_vitals` | Synthetic numbers; `ref_vital_id` is typically null (no vital-concept loader) |
+| Laboratory results | `case_labs` | Concept from `ref_lab_tests`; **numeric value is synthetic** |
+| Weight | `case_weights` | Synthetic |
+| Home / inpatient / discharge medications | `case_medications` | One row per drug per context; RXCUI via `ref_medications` |
+| Intended continue/stop plan | `case_medication_plans` | Correct plan **before** injection; residents do not see this table |
+| Held-med / restart language | `case_instructions` | Family 2.3 reads this |
+| Outpatient monitoring (e.g. INR) | `case_monitoring` | Family 2.2 removes this on error-bearing cases |
+| Follow-up appointments | `case_followups` | Family 2.7 may remove a pending-decision follow-up |
+| Discharge disposition | `case_discharge_planning` | Template “home” |
+| Planted-error answer | `case_answer_keys` | Investigator only |
+| Frozen VAL assignment | `validation_batch_cases` | Immutable lock + snapshots |
+
+### Table catalog
+
+**Registry (1)**
+
+| Table | Purpose | Loaded by |
+| --- | --- | --- |
+| `data_source_registry` | Nine source-metadata rows (`RXNORM`, `DAILYMED`, `RXCLASS`, `LOINC`, `UCUM`, `ICD10CM`, `SNOMED_CT`, `ACCESS_GUDID`, `MIMIC_IV`) | `db-init` only |
+
+**Authoritative reference (12)**
+
+| Table | Official identifier | Loaded by this pipeline? |
+| --- | --- | --- |
+| `ref_medications` | `rxcui` unique | Yes — RxNav |
+| `ref_medication_classes` | `(rxcui, class_id, class_type, rela)` unique | Yes — RxClass (therapeutic substitution) |
+| `ref_drug_labels` | DailyMed `set_id` / RXCUI string | Yes — DailyMed, after RxNorm |
+| `ref_diagnoses` | `icd10cm_code` and/or `snomed_code` | Yes — ICD-10-CM search. SNOMED column stays null |
+| `ref_symptoms` | `snomed_code` nullable | Yes — NLM conditions / HPO names; no invented SNOMED |
+| `ref_lab_tests` | `loinc_code` unique | Yes — LOINC FHIR, if credentials are set |
+| `ref_units` | `ucum_code` unique | Yes — UCUM essence XML |
+| `ref_vitals` | optional LOINC | **No client** |
+| `ref_procedures` | optional procedure code | **No client** |
+| `ref_devices` | optional `device_identifier` (nullable so no fake UDI) | **No client** (AccessGUDID not implemented) |
+| `ref_microbiology` | optional LOINC / organism code | **No client** |
+| `ref_clinical_distributions` | aggregate key; `MIMIC_IV_RAW` forbidden | **No calculator** |
+
+**Rules (1)**
+
+| Table | Purpose |
+| --- | --- |
+| `clinical_rules` | Curated IF/THEN rows. `enabled` becomes true only when DailyMed/RxClass evidence is attached. Severity `hard` or `soft`. Current codes: `NO_DUAL_ORAL_ANTICOAGULANT`, `WARFARIN_INR_MONITORING`, `FUROSEMIDE_HF_INDICATION` |
+
+**Synthetic case hub and children (25)**
+
+| Table | Role in generation |
+| --- | --- |
+| `clinical_cases` | One synthetic patient (`SYN-######`) |
+| `case_presentations` | CC / HPI / ROS |
+| `case_symptoms` | Symptom rows |
+| `case_social_supports` | Living situation, language, … (template) |
+| `case_diagnoses` | Diagnoses |
+| `case_problem_list` | Problem + plan sentence |
+| `case_notes` | Admission note |
+| `case_vitals` | Synthetic vital numbers |
+| `case_labs` | Synthetic lab numbers on official LOINC concepts |
+| `case_weights` | Synthetic weight |
+| `case_intake_outputs` | I/O scaffolding (often empty/net-zero template) |
+| `case_medication_reconciliations` | Med-rec process flags (scaffolding) |
+| `case_medications` | Home / inpatient / discharge drug lists |
+| `case_monitoring` | Outpatient monitoring plan |
+| `case_discharge_planning` | Disposition |
+| `case_followups` | Follow-up items |
+| `case_instructions` | Patient instructions (including hold/restart language) |
+| `case_return_precautions` | Return-if language |
+| `case_answer_keys` | Hidden CliniProof key after injection |
+| `case_microbiology` | Schema for dashboard completeness; generation does not populate organisms |
+| `case_imaging` | Schema; generation does not invent studies |
+| `case_procedures` | Schema; no procedure loader |
+| `case_devices` | Schema; no device loader |
+| `case_consults` | Schema; generation does not invent consults |
+| `case_therapy_restrictions` | Schema; unused by current scenarios |
+
+**Generation and freeze (4)**
+
+| Table | Purpose | Delete rule |
+| --- | --- | --- |
+| `case_blueprints` | Per-case generation intent (scenario, age band, `target_error_category`) | Referenced by runs `RESTRICT` |
+| `case_generation_runs` | Seed, generator version, narrative source, validation JSON in `metadata` | `case_id` `SET NULL`; `blueprint_id` `RESTRICT` |
+| `case_medication_plans` | Correct continue/stop plan before injection | `CASCADE` with the case |
+| `validation_batch_cases` | Immutable `VAL-###` freeze, `error_family` / `error_category`, clean vs resident snapshots | `case_id` `RESTRICT` so a frozen case cannot be deleted out from under a VAL id |
+
+**Alembic**
+
+| Table | Purpose |
+| --- | --- |
+| `alembic_version` | Current revision string. Not an application model |
+
+Migration chain: `1c236aeaadc7` (Phase 1 clinical schema) → `7b9e4c21d6a0` (`clinical_rules`) → `c3f8a91b2e47` (`validation_batch_cases`) → `d4e8b17c6a91` (`error_family` column and `ref_medication_classes`). Do not rewrite `1c236aeaadc7`.
+
+### Delete behavior (summary)
+
+- Case children (`CaseChildMixin` and `case_medication_plans`): `ON DELETE CASCADE` from `clinical_cases.id`
 - Optional FKs to `ref_*`: `ON DELETE RESTRICT`
 - `case_generation_runs.case_id`: `ON DELETE SET NULL`
 - `case_generation_runs.blueprint_id`: `ON DELETE RESTRICT`
+- `validation_batch_cases.case_id`: `ON DELETE RESTRICT`
 
-Internal PK is UUID (`gen_random_uuid()`). Dashboard ids (`SYN-*`, `VAL-*`, `DX-…`) are separate unique strings.
+### Inspecting the live schema
+
+```bash
+docker compose exec postgres psql -U postgres -d clinical_cases -c "\dt"
+docker compose exec postgres psql -U postgres -d clinical_cases -c "SELECT tablename FROM pg_tables WHERE schemaname = 'public' ORDER BY 1;"
+alembic current
+```
+
+After `db-init` and before bootstrap, every clinical table except `data_source_registry` has **zero** rows. That is intentional: the schema exists, the vocabulary does not, until official APIs are queried.
 
 ---
 
