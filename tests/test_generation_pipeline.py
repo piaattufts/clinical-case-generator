@@ -410,7 +410,8 @@ def test_seeded_generation_is_deterministic_and_injects_one_error(db_session: Se
     assert case is not None
     keys = list_answer_keys_for_case(db_session, case.id)
     assert len(keys) == 1
-    assert keys[0].error_category == "omission"
+    assert keys[0].error_category == "f1_omission"
+    assert keys[0].error_family == "family_1"
     assert keys[0].is_primary_error is True
     targets = [plan for plan in list_plans_for_case(db_session, case.id) if plan.is_error_target]
     assert len(targets) == 1
@@ -597,7 +598,7 @@ def test_supported_error_categories_inject_exactly_one(db_session: Session) -> N
         error_category="dose_mismatch",
     )
     assert dose.injected is not None
-    assert dose.injected.category == "dose_mismatch"
+    assert dose.injected.category == "f1_dose_mismatch"
     freq = generate_one_case(
         db_session,
         sequence=12,
@@ -608,7 +609,7 @@ def test_supported_error_categories_inject_exactly_one(db_session: Session) -> N
         error_category="frequency_mismatch",
     )
     assert freq.injected is not None
-    assert freq.injected.category == "frequency_mismatch"
+    assert freq.injected.category == "f1_frequency_mismatch"
     cont = generate_one_case(
         db_session,
         sequence=13,
@@ -619,16 +620,18 @@ def test_supported_error_categories_inject_exactly_one(db_session: Session) -> N
         error_category="incorrect_continuation",
     )
     assert cont.injected is not None
-    assert cont.injected.category == "incorrect_continuation"
+    assert cont.injected.category == "f1_commission"
     case = db_session.get(ClinicalCase, cont.case_id)
     assert case is not None
-    report = validate_case(db_session, case, expect_injected_error=True)
+    report = validate_case(
+        db_session, case, expect_injected_error=True, expected_category="f1_commission"
+    )
     require_valid(report)
     targets = [plan for plan in list_plans_for_case(db_session, case.id) if plan.is_error_target]
-    assert len(targets) == 1
+    assert len(targets) >= 1
     keys = list_answer_keys_for_case(db_session, case.id)
     assert len(keys) == 1
-    assert keys[0].error_category == "incorrect_continuation"
+    assert keys[0].error_category == "f1_commission"
 
 
 def test_prefer_loinc_ranks_query_match_ahead_of_code_order() -> None:

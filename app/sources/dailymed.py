@@ -120,9 +120,7 @@ def extract_spl_sections(xml_text: str) -> dict[str, str]:
             if any(needle in lowered for needle in needles) and blob_text.strip():
                 previous = found.get(target)
                 found[target] = (
-                    blob_text.strip()
-                    if previous is None
-                    else f"{previous} {blob_text.strip()}"
+                    blob_text.strip() if previous is None else f"{previous} {blob_text.strip()}"
                 )
     return found
 

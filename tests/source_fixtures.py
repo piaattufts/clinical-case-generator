@@ -64,9 +64,7 @@ def rxnorm_transport() -> httpx.MockTransport:
             payload = _named_properties_payload(TEST_RXCUI_IBU, "TEST_ibuprofen", "IN")
             return httpx.Response(200, json=payload)
         if f"/rxcui/{TEST_RXCUI_COMBO}/properties.json" in path:
-            payload = _named_properties_payload(
-                TEST_RXCUI_COMBO, "TEST_med / TEST_other", "SCD"
-            )
+            payload = _named_properties_payload(TEST_RXCUI_COMBO, "TEST_med / TEST_other", "SCD")
             return httpx.Response(200, json=payload)
         if f"/rxcui/{TEST_RXCUI}/properties.json" in path:
             return httpx.Response(200, json=_properties_payload())

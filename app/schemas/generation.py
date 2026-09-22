@@ -77,6 +77,7 @@ class ValidationBatchCase(BaseModel):
     master_seed: int
     case_seed: str
     is_clean_control: bool
+    error_family: str | None = None
     error_category: str | None = None
     generator_version: str | None = None
     reference_snapshot: Any | None = None

@@ -1,7 +1,8 @@
 """Deterministic validation layers for synthetic cases.
 
-Layers: structural, terminology, clinical rules, and medication-plan consistency.
-External APIs are not called on ordinary case reads.
+Layers: structural, terminology, clinical rules, and assessment consistency.
+Family 1 checks medication-plan mutations. Family 2 checks trigger-plus-missing-action
+gaps. External APIs are not called on ordinary case reads.
 """
 
 from __future__ import annotations
@@ -26,6 +27,12 @@ from app.repositories.reference import (
     get_lab_test_by_loinc,
     get_medication_by_rxcui,
     get_unit_by_ucum,
+)
+from app.services.error_taxonomy import (
+    NONE,
+    canonicalize_category,
+    detect_findings,
+    isolation_errors,
 )
 from app.services.rules import CaseSnapshot, RuleViolation, evaluate_rules, hard_violations
 from app.sources.exceptions import CaseValidationError
@@ -66,12 +73,18 @@ def validate_case(
     case: ClinicalCase,
     *,
     expect_injected_error: bool = False,
+    expected_category: str | None = None,
 ) -> ValidationReport:
     snapshot = snapshot_from_case(session, case)
     structural = _structural(session, case)
     terminology = _terminology(session, case)
     clinical = _clinical(session, snapshot)
-    plan_layer = _plan_consistency(session, case, expect_injected_error=expect_injected_error)
+    plan_layer = _assessment_consistency(
+        session,
+        case,
+        expect_injected_error=expect_injected_error,
+        expected_category=expected_category,
+    )
     report = ValidationReport(
         case_id_code=case.case_id_code,
         layers=[structural, terminology, clinical, plan_layer],
@@ -201,66 +214,63 @@ def _clinical(session: Session, snapshot: CaseSnapshot) -> LayerResult:
     return LayerResult("clinical", passed=not errors, errors=errors, warnings=warnings)
 
 
-def _plan_consistency(
+def _assessment_consistency(
     session: Session,
     case: ClinicalCase,
     *,
     expect_injected_error: bool,
+    expected_category: str | None,
 ) -> LayerResult:
     errors: list[str] = []
     warnings: list[str] = []
-    plans = list_plans_for_case(session, case.id)
-    discharge = [
-        item for item in list_medications_for_case(session, case.id) if item.context == "discharge"
-    ]
-    discharge_ids = {item.ref_medication_id for item in discharge if item.ref_medication_id}
-    discrepancies = 0
-    home_by_ref = {
-        item.ref_medication_id: item
-        for item in list_medications_for_case(session, case.id)
-        if item.context == "home" and item.ref_medication_id is not None
-    }
-    discharge_by_ref = {
-        item.ref_medication_id: item for item in discharge if item.ref_medication_id is not None
-    }
-    for plan in plans:
-        should_be_present = plan.correct_discharge_state == "continue"
-        present = plan.ref_medication_id in discharge_ids
-        if should_be_present and not present:
-            discrepancies += 1
-        if present and plan.correct_discharge_state == "stop":
-            discrepancies += 1
-        if should_be_present and present and plan.ref_medication_id is not None:
-            home = home_by_ref.get(plan.ref_medication_id)
-            listed = discharge_by_ref.get(plan.ref_medication_id)
-            if home is not None and listed is not None:
-                if (home.dose or "") != (listed.dose or ""):
-                    discrepancies += 1
-                if (home.frequency or "") != (listed.frequency or ""):
-                    discrepancies += 1
     keys = list_answer_keys_for_case(session, case.id)
+    plans = list_plans_for_case(session, case.id)
+    findings = detect_findings(session, case)
     if expect_injected_error:
-        if discrepancies != 1:
-            errors.append(
-                f"expected exactly one medication-reconciliation discrepancy, found {discrepancies}"
-            )
         if len(keys) != 1:
             errors.append("expected exactly one answer key for an error-bearing case")
-        if keys and keys[0].is_primary_error is False:
-            errors.append("answer key is not marked as the primary error")
+        else:
+            if keys[0].is_primary_error is False:
+                errors.append("answer key is not marked as the primary error")
+            key_category = canonicalize_category(keys[0].error_category)
+            if expected_category is not None:
+                requested = canonicalize_category(expected_category)
+                if key_category != requested:
+                    errors.append(
+                        f"answer-key category {key_category!r} != requested category {requested!r}"
+                    )
+            isolation = isolation_errors(
+                session,
+                case,
+                expected_category=expected_category or (keys[0].error_category or NONE),
+            )
+            errors.extend(isolation)
+            if keys[0].error_family is None:
+                errors.append("answer key is missing error_family")
         targets = [plan for plan in plans if plan.is_error_target]
-        if len(targets) != 1:
-            errors.append("expected exactly one medication plan marked as the error target")
+        if expected_category is not None and canonicalize_category(expected_category) == NONE:
+            errors.append("error-bearing validation was requested for category none")
+        elif len(targets) < 1:
+            warnings.append("no medication plan marked as the error target")
+        clinician = (
+            "clinician validation still required for clinical coherence, "
+            "error fidelity, evidentiary sufficiency, error isolation, "
+            "cue integrity, and educational appropriateness"
+        )
+        warnings.append(clinician)
     else:
-        if discrepancies != 0:
+        if findings:
             errors.append(
-                f"clean case has {discrepancies} medication-plan discrepancies before injection"
+                "clean case has mechanically detectable discrepancies before injection: "
+                + "; ".join(f"{item.category}:{item.drug or item.rxcui}" for item in findings)
             )
         if keys:
             errors.append("clean case must not have an answer key")
         if any(plan.is_error_target for plan in plans):
             warnings.append("clean case plan has is_error_target set")
-    return LayerResult("medication_plan", passed=not errors, errors=errors, warnings=warnings)
+        if case.clean_case is False:
+            errors.append("clean case flag is false before injection")
+    return LayerResult("assessment", passed=not errors, errors=errors, warnings=warnings)
 
 
 def _rxcui_for_medication(session: Session, medication: CaseMedication) -> str | None:
