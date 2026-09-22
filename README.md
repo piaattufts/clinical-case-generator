@@ -1,26 +1,72 @@
 # Clinical Case Generator / CliniProof
 
-Clinical Case Generator / CliniProof:
+CliniProof creates **synthetic inpatient medication-reconciliation cases** for resident and clinician review. Each case is meant to be read like a hospital chart: who the patient is, why they were admitted, what they take at home, what they received in the hospital, what they leave with, and what follow-up is arranged.
 
-- loads official terminology into PostgreSQL
-- applies source-backed deterministic clinical rules
-- builds constrained synthetic inpatient cases
-- supports controlled CliniProof error injection
-- produces blinded resident-review cases
-- produces investigator-only answer keys
-- machine validation does not equal clinical validity
+The software loads official terminology, applies a small set of source-backed clinical rules, builds a structured clean case, and may then introduce **exactly one** pre-specified reconciliation problem. Some cases are left unchanged as clean controls. **Automated checks do not equal clinical validity.**
 
-It does **not** invent RxNorm, LOINC, SNOMED CT, ICD-10-CM, UCUM, or device identifiers. It does **not** send raw MIMIC patient rows, notes, identifiers, or events to OpenAI. Generated cases are **machine-validated synthetic resident-review cases pending clinician validation**. Software checks terminology, structure, and the implemented source-backed rules. That is not the same as clinical validity.
+It does **not** invent RxNorm, LOINC, SNOMED CT, ICD-10-CM, UCUM, or device identifiers. It does **not** send raw MIMIC patient rows, notes, identifiers, or events to OpenAI. Generated cases remain **machine-validated synthetic resident-review cases pending clinician validation**.
 
-**Current study dataset:** **`CLINIPROOF_TAXONOMY_V1`** (`VAL-201`–`VAL-224`, sequences 801–824) in [`data/validation/`](data/validation/): 24 cases, 20 error-bearing, 4 clean controls. Canonical `error_family` / `error_category` identifiers only. `CLINIPROOF_TAXONOMY_V1` covers all **currently implemented** CliniProof error categories. That is **not** complete coverage of the full conceptual taxonomy. `f2_coprescription_omitted` remains specified conceptually but is `not_yet_implementable` (count **0** on this freeze).
+**Current study set:** **`CLINIPROOF_TAXONOMY_V1`** (`VAL-201` through `VAL-224`) in [`data/validation/`](data/validation/). 24 cases. Canonical CliniProof identifiers only. `f2_coprescription_omitted` remains specified conceptually but is `not_yet_implementable` and is not in this freeze.
 
-Investigator catalogs describe planted errors — treat them as **investigator-only**. This repository has **no resident review UI or dashboard application**. Delivery is a blinded JSON/CSV file handoff.
+This repository has **no resident review UI**. Residents should receive blinded charts, not investigator catalogs.
 
-**Clinicians:** start at [For Clinicians: How a Synthetic Case Is Built](#for-clinicians-how-a-synthetic-case-is-built). Worked examples there are educational `SYN-000901`–`SYN-000903` cases, not the blinded `VAL-*` study sets. Canonical error identifiers are in [CliniProof error taxonomy](#cliniproof-error-taxonomy).
+## Where should I start?
+
+| If you are... | Start here |
+| --- | --- |
+| Resident or clinician reviewing cases | [`data/validation/readable/all_cases.md`](data/validation/readable/all_cases.md) |
+| Clinician validating clinical plausibility | [`data/validation/readable/plausibility_only_packet.md`](data/validation/readable/plausibility_only_packet.md) |
+| Investigator / expert validator | [`data/validation/readable/clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md) |
+| Medical educator reviewing the framework | [`data/validation/readable/validation_rubric.md`](data/validation/readable/validation_rubric.md) |
+| Clinician or resident curious how CliniProof works | [`data/validation/readable/how_cliniproof_works.md`](data/validation/readable/how_cliniproof_works.md) |
+| Clinical informatics / AI engineer | [`data/validation/readable/developer_notes.md`](data/validation/readable/developer_notes.md) |
+| Software developer implementing the pipeline | Continue through the technical README sections below |
+
+Do not give investigators’ answer keys or `clinician_validation_packet.md` to resident participants.
+
+## What CliniProof is
+
+A generator of synthetic inpatient charts used to assess **medication reconciliation**: comparing home, hospital, and discharge therapy, then ensuring holds, stops, continuations, monitoring, supply, and follow-up are explicit.
+
+Worked educational examples (not the blinded study set) are in [For Clinicians: How a Synthetic Case Is Built](#for-clinicians-how-a-synthetic-case-is-built). Canonical identifiers are in [CliniProof error taxonomy](#cliniproof-error-taxonomy).
+
+## Why medication reconciliation is being assessed
+
+Discharge is a high-risk transition. A drug can be omitted, continued when it should stop, given at the wrong dose or frequency, or continued without the monitoring or restart plan that makes it safe. CliniProof cases let reviewers practice finding **one known problem** (or confirming that a control chart has none) from documents alone.
+
+## What a case contains
+
+A readable case is organized as a chart review: patient overview, reason for hospitalization, history, hospital course, vitals and labs, home / inpatient / discharge medications, follow-up, and instructions. Medication, diagnosis, and laboratory *concepts* are terminology-backed. Ages, vital signs, and laboratory *values* are synthetic.
+
+## How cases are built
+
+Clinical scenario → terminology resolution → clean synthetic patient → rule checks → clean validation → assessment-target eligibility → controlled error introduction (or skip for a control) → post-error validation → blinded resident export → clinician validation.
+
+Narrative wording is template text, or optionally an LLM restating already chosen facts. The frozen study set did **not** use OpenAI. Details: [`data/validation/readable/how_cliniproof_works.md`](data/validation/readable/how_cliniproof_works.md).
+
+## Family 1 and Family 2
+
+**Family 1** (`family_1`) — the medication *list* is wrong: omission (`f1_omission`), commission (`f1_commission`), dose (`f1_dose_mismatch`), route (`f1_route_mismatch`), frequency (`f1_frequency_mismatch`), or therapeutic substitution (`f1_therapeutic_substitution`).
+
+**Family 2** (`family_2`) — a transition *action* is missing even if the drug list looks intact: monitoring (`f2_monitoring_not_arranged`), restart plan (`f2_held_med_no_restart_plan`), supply (`f2_insufficient_supply`), hospital-only continuation (`f2_hospital_only_continued`), inpatient substitution not reverted (`f2_inpatient_substitution_not_reverted`), or missing follow-up for a pending decision (`f2_pending_decision_followup_missing`). Do not identify Family 2 solely by comparing lists.
+
+## Machine validation versus clinician validation
+
+Software checks structure, that codes exist in local terminology tables, implemented rules, that the planned target was eligible and injected correctly, and that the resident file does not leak answers. It cannot certify that a case is realistic, complete, or appropriate for teaching. Humans apply C1–C5 in [`data/validation/readable/validation_rubric.md`](data/validation/readable/validation_rubric.md).
+
+## Current study set
+
+Frozen `CLINIPROOF_TAXONOMY_V1`: `VAL-201` through `VAL-224`. Readable views live in [`data/validation/readable/`](data/validation/readable/). Frozen JSON in [`data/validation/`](data/validation/) is the study source of truth and must not be regenerated to “improve” clinical content.
+
+## Human-readable review materials
+
+See [Human-readable clinician validation packets](#human-readable-clinician-validation-packets) and the table above. Individual case pages: [`data/validation/readable/cases/VAL-201.md`](data/validation/readable/cases/VAL-201.md) through [`VAL-224.md`](data/validation/readable/cases/VAL-224.md).
 
 ---
 
 ## Contents
+
+**Start here by audience:** [Where should I start?](#where-should-i-start)
 
 **Clinician walkthrough:** [For Clinicians: How a Synthetic Case Is Built](#for-clinicians-how-a-synthetic-case-is-built)
 
@@ -1791,7 +1837,15 @@ Individual cases:
 
 [`data/validation/readable/cases/VAL-201.md`](data/validation/readable/cases/VAL-201.md) through [`VAL-224.md`](data/validation/readable/cases/VAL-224.md)
 
-**Safe for plausibility-only review** (no planted-error family, category, trigger label, control status, or answer key): `all_cases.md`, `plausibility_only_packet.md`, and the individual `cases/VAL-*.md` pages. The rubric has no per-case answers.
+How the system works (no per-case answers):
+
+[`data/validation/readable/how_cliniproof_works.md`](data/validation/readable/how_cliniproof_works.md)
+
+Clinical informatics / AI engineering notes (generic mechanisms only):
+
+[`data/validation/readable/developer_notes.md`](data/validation/readable/developer_notes.md)
+
+**Safe for residents and plausibility-only review** (no per-case planted-error family, category, trigger, control status, or answer key): `all_cases.md`, `plausibility_only_packet.md`, individual `cases/VAL-*.md` pages, `how_cliniproof_works.md`, and `developer_notes.md`. The rubric has no per-case answers.
 
 **Investigator / validator only — do not distribute to resident participants:** `clinician_validation_packet.md`.
 
