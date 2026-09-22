@@ -1614,7 +1614,7 @@ After a successful freeze, `validation_batch_cases.immutable` is true (default).
 Frozen validation case VAL-00N cannot be overwritten: existing frozen assignment does not match this plan
 ```
 
-Rejected assignments (generation/audit failure) appear in the `rejected` list and are not frozen. The committed freeze had zero rejections.
+If any assignment fails generation, eligibility, or audit, freeze **raises** and the transaction is not committed. The injector never substitutes a different error category. Historical `RESIDENT_VALIDATION_V1` had zero rejections.
 
 ### Current batch `RESIDENT_VALIDATION_V1`
 

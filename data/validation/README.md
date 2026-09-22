@@ -181,7 +181,7 @@ For each assignment the freeze:
 4. Validates the clean case (four layers: structural, terminology, clinical rules, medication plan).
 5. Injects the planned error category when `inject_error` is true, using Python `random.Random(case_seed)` — not an LLM.
 6. Validates again. Post-injection validation is expected to pass the implemented rule engine; planted discharge-list discrepancies are the intended study signal, not unexpected failures.
-7. Rejects the assignment instead of freezing if generation, resolution, or audit fails. This freeze had **zero** rejections.
+7. Rejects the assignment instead of freezing if generation, resolution, or audit fails. This freeze had **zero** rejections. New batches abort the whole freeze (no substitute category, no partial commit) if any assignment is rejected.
 8. Persists an immutable `validation_batch_cases` row: VAL ID, SYN ID, seed, scenario, control status, snapshots.
 
 VAL IDs are **not overwritten**. A second freeze of the same plan reprints `reused: ["VAL-001", …]` and leaves cases unchanged. To build a different batch, use a new `batch_code` and new VAL IDs.
