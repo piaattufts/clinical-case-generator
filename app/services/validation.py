@@ -215,6 +215,14 @@ def _plan_consistency(
     ]
     discharge_ids = {item.ref_medication_id for item in discharge if item.ref_medication_id}
     discrepancies = 0
+    home_by_ref = {
+        item.ref_medication_id: item
+        for item in list_medications_for_case(session, case.id)
+        if item.context == "home" and item.ref_medication_id is not None
+    }
+    discharge_by_ref = {
+        item.ref_medication_id: item for item in discharge if item.ref_medication_id is not None
+    }
     for plan in plans:
         should_be_present = plan.correct_discharge_state == "continue"
         present = plan.ref_medication_id in discharge_ids
@@ -222,6 +230,14 @@ def _plan_consistency(
             discrepancies += 1
         if present and plan.correct_discharge_state == "stop":
             discrepancies += 1
+        if should_be_present and present and plan.ref_medication_id is not None:
+            home = home_by_ref.get(plan.ref_medication_id)
+            listed = discharge_by_ref.get(plan.ref_medication_id)
+            if home is not None and listed is not None:
+                if (home.dose or "") != (listed.dose or ""):
+                    discrepancies += 1
+                if (home.frequency or "") != (listed.frequency or ""):
+                    discrepancies += 1
     keys = list_answer_keys_for_case(session, case.id)
     if expect_injected_error:
         if discrepancies != 1:

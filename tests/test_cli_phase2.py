@@ -23,6 +23,8 @@ def test_cli_lists_phase2_commands() -> None:
     assert "bootstrap-reference-data" in output
     assert "generate-synthetic-cases" in output
     assert "validate-cases" in output
+    assert "freeze-validation-batch" in output
+    assert "export-validation-batch" in output
     assert "sync-all" not in output
 
 
@@ -80,4 +82,8 @@ def test_phase1_alembic_revision_is_unchanged() -> None:
     assert names == [
         "1c236aeaadc7_phase_1_clinical_schema.py",
         "7b9e4c21d6a0_clinical_rules.py",
+        "c3f8a91b2e47_validation_batch.py",
     ]
+    batch = Path("alembic/versions/c3f8a91b2e47_validation_batch.py").read_text(encoding="utf-8")
+    assert 'revision: str = "c3f8a91b2e47"' in batch
+    assert 'down_revision: str | None = "7b9e4c21d6a0"' in batch

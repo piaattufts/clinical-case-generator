@@ -45,6 +45,11 @@ from app.repositories.cases import (
     delete_case_graph,
     delete_generation_artifacts_for_case_code,
     get_case_by_code,
+    get_frozen_case_for_clinical_id,
+    list_diagnoses_for_case,
+    list_labs_for_case,
+    list_medications_for_case,
+    list_plans_for_case,
 )
 from app.repositories.reference import (
     get_data_source,
@@ -63,7 +68,11 @@ from app.services.bootstrap import (
 from app.services.error_injection import InjectionResult, inject_reconciliation_error
 from app.services.rules import CaseSnapshot, evaluate_rules, hard_violations
 from app.services.validation import require_valid, serialize_report, validate_case
-from app.sources.exceptions import CaseValidationError, ReferenceResolutionError
+from app.sources.exceptions import (
+    CaseValidationError,
+    FrozenValidationCaseError,
+    ReferenceResolutionError,
+)
 from app.utils.identifiers import CHILD_ID_PREFIXES, format_case_id_code, format_child_business_id
 
 GENERATOR_NAME = "clinical-case-generator"
@@ -83,6 +92,9 @@ class Scenario:
     medication_queries: list[str]
     anticoagulant_mutex_queries: list[str]
     lab_queries: list[str]
+    stop_medication_queries: list[str] = field(default_factory=list)
+    allowed_error_categories: list[str] = field(default_factory=list)
+    default_frequency: str = "once daily"
 
 
 @dataclass
@@ -94,6 +106,8 @@ class GeneratedCaseResult:
     injected: InjectionResult | None
     validation: dict[str, Any]
     narrative_source: str
+    clean_state: dict[str, Any]
+    clean_validation: dict[str, Any]
 
 
 @dataclass
@@ -129,6 +143,9 @@ def load_scenarios(path: Path | None = None) -> list[Scenario]:
                 medication_queries=_str_list(item.get("medication_queries")),
                 anticoagulant_mutex_queries=_str_list(item.get("anticoagulant_mutex_queries")),
                 lab_queries=_str_list(item.get("lab_queries")),
+                stop_medication_queries=_str_list(item.get("stop_medication_queries")),
+                allowed_error_categories=_str_list(item.get("allowed_error_categories")),
+                default_frequency=str(item.get("default_frequency") or "once daily"),
             )
         )
     if not scenarios:
@@ -145,6 +162,7 @@ def generate_synthetic_cases(
     scenario_code: str | None = None,
     inject_error: bool = True,
     use_openai: bool = True,
+    error_category: str | None = None,
 ) -> list[GeneratedCaseResult]:
     if count < 1:
         raise ValueError("count must be a positive integer")
@@ -168,6 +186,7 @@ def generate_synthetic_cases(
                 scenario=selected,
                 inject_error=inject_error,
                 use_openai=use_openai,
+                error_category=error_category,
             )
         )
     return results
@@ -181,20 +200,37 @@ def generate_one_case(
     scenario: Scenario,
     inject_error: bool = True,
     use_openai: bool = True,
+    error_category: str | None = None,
 ) -> GeneratedCaseResult:
     case_id_code = format_case_id_code(sequence)
     case_seed = f"{seed}:{sequence}:{scenario.code}"
     rng = random.Random(case_seed)
     existing = get_case_by_code(session, case_id_code)
     if existing is not None:
+        frozen = get_frozen_case_for_clinical_id(session, existing.id)
+        if frozen is not None and frozen.immutable:
+            raise FrozenValidationCaseError(
+                frozen.validation_case_id,
+                f"underlying case {case_id_code} is frozen",
+            )
         delete_case_graph(session, existing)
     else:
         delete_generation_artifacts_for_case_code(session, case_id_code)
+    preferred_error = error_category or scenario.target_error_category
     diagnosis = _require_diagnosis(session, scenario)
     symptoms = _select_symptoms(session, scenario)
     medications = _select_medications(session, scenario, rng)
+    stop_medications = _select_stop_medications(
+        session, scenario, {item.rxcui for item in medications}
+    )
+    if inject_error and preferred_error == "incorrect_continuation" and not stop_medications:
+        raise ReferenceResolutionError(
+            "stop_medication",
+            ",".join(scenario.stop_medication_queries) or preferred_error,
+            "incorrect_continuation requires a source-backed stop medication",
+        )
     labs = _select_labs(session, scenario)
-    _assert_rules_allow(session, medications, diagnosis, labs)
+    _assert_rules_allow(session, medications + stop_medications, diagnosis, labs)
     ids = _IdCounter(case_id_code)
     age = rng.randint(scenario.age_min, scenario.age_max)
     sex = rng.choice(["Female", "Male"])
@@ -210,15 +246,16 @@ def generate_one_case(
         sex=None,
         hospital_day=hospital_day,
         difficulty="standard",
-        target_home_med_count=len(medications),
+        target_home_med_count=len(medications) + len(stop_medications),
         target_problem_count=1,
         clean_case=True,
-        target_error_category=scenario.target_error_category if inject_error else None,
+        target_error_category=preferred_error if inject_error else None,
         target_error_medication_class=None,
         settings={
             "scenario": scenario.code,
             "seed": case_seed,
             "rxcuis": [item.rxcui for item in medications],
+            "stop_rxcuis": [item.rxcui for item in stop_medications],
             "icd10cm": diagnosis.icd10cm_code,
             "loinc_codes": [item.loinc_code for item in labs],
         },
@@ -228,17 +265,20 @@ def generate_one_case(
     display_diagnosis = diagnosis.preferred_name or diagnosis.icd10cm_code or "source diagnosis"
     symptom_names = [item.preferred_name or "symptom" for item in symptoms]
     med_names = [_med_label(item) for item in medications]
-    template = _template_narrative(age, sex, display_diagnosis, symptom_names, med_names)
+    held_names = [_med_label(item) for item in stop_medications]
+    template = _template_narrative(
+        age, sex, display_diagnosis, symptom_names, med_names, held_names
+    )
     narrative, narrative_source = _maybe_openai_narrative(
         template,
         age=age,
         sex=sex,
         diagnosis=display_diagnosis,
         symptoms=symptom_names,
-        medications=med_names,
+        medications=med_names + held_names,
         use_openai=use_openai,
-        allowed_names=set(symptom_names + med_names + [display_diagnosis]),
-        allowed_codes=_allowed_codes(diagnosis, medications, labs),
+        allowed_names=set(symptom_names + med_names + held_names + [display_diagnosis]),
+        allowed_codes=_allowed_codes(diagnosis, medications + stop_medications, labs),
     )
     case = ClinicalCase(
         case_id_code=case_id_code,
@@ -362,7 +402,7 @@ def generate_one_case(
                 ref_lab_id=lab.id,
                 timepoint="admission",
                 test_name=lab.long_common_name or lab.loinc_code,
-                value=float(rng.randint(20, 80)) / 10.0,
+                value=_synthetic_lab_value(rng, lab),
                 value_text=None,
                 unit=unit,
                 status="final",
@@ -391,52 +431,22 @@ def generate_one_case(
         )
     )
     for medication in medications:
-        label = _med_label(medication)
-        dose = medication.strength
-        for context, status in (
-            ("home", "home"),
-            ("inpatient", "active"),
-            ("discharge", "discharge"),
-        ):
-            session.add(
-                CaseMedication(
-                    case_id=case.id,
-                    medication_id=ids.next_id("medication"),
-                    ref_medication_id=medication.id,
-                    context=context,
-                    drug=label,
-                    reported_name=label,
-                    dose=dose,
-                    route=medication.route,
-                    frequency=None,
-                    indication=display_diagnosis,
-                    status=status,
-                    held_reason=None,
-                    verification_status="source_backed",
-                    verification_source="RXNORM",
-                    target_or_goal=None,
-                    monitoring=None,
-                    quantity_or_days=None,
-                    refills=None,
-                    source_type="reference",
-                    source_file=None,
-                    source_reference=f"RXCUI:{medication.rxcui}",
-                    notes=None,
-                )
-            )
-        session.add(
-            CaseMedicationPlan(
-                plan_id=ids.next_id("plan"),
-                case_id=case.id,
-                ref_medication_id=medication.id,
-                drug=label,
-                home_state="continue",
-                inpatient_state="continue",
-                correct_discharge_state="continue",
-                decision="continue",
-                decision_reason="Home therapy is continued through discharge in the clean case.",
-                is_error_target=False,
-            )
+        _add_continued_medication(
+            session,
+            case=case,
+            ids=ids,
+            medication=medication,
+            indication=display_diagnosis,
+            frequency=scenario.default_frequency,
+        )
+    for medication in stop_medications:
+        _add_stopped_medication(
+            session,
+            case=case,
+            ids=ids,
+            medication=medication,
+            indication=display_diagnosis,
+            frequency=scenario.default_frequency,
         )
     session.add(
         CaseMedicationReconciliation(
@@ -485,9 +495,7 @@ def generate_one_case(
             case_id=case.id,
             instruction_id=ids.next_id("instruction"),
             category="medications",
-            instruction_text=(
-                "Take discharge medications exactly as listed on the clean medication plan."
-            ),
+            instruction_text="Take discharge medications exactly as listed.",
             source_type="synthetic",
         )
     )
@@ -504,6 +512,7 @@ def generate_one_case(
             )
         )
     session.flush()
+    clean_state = _case_state_snapshot(session, case)
     clean_report = validate_case(session, case, expect_injected_error=False)
     require_valid(clean_report)
     injected: InjectionResult | None = None
@@ -513,7 +522,7 @@ def generate_one_case(
             case,
             rng=rng,
             seed=case_seed,
-            preferred_category=scenario.target_error_category,
+            preferred_category=preferred_error,
         )
         rec = session.scalar(
             select(CaseMedicationReconciliation).where(
@@ -573,6 +582,8 @@ def generate_one_case(
         injected=injected,
         validation=serialize_report(final_report),
         narrative_source=narrative_source,
+        clean_state=clean_state,
+        clean_validation=serialize_report(clean_report),
     )
 
 
@@ -597,6 +608,242 @@ def validate_persisted_cases(
         if not report.passed:
             raise CaseValidationError("case", payload["errors"][0], payload["errors"])
     return reports
+
+
+def _select_stop_medications(
+    session: Session, scenario: Scenario, seen: set[str]
+) -> list[RefMedication]:
+    selected: list[RefMedication] = []
+    used = set(seen)
+    for query in scenario.stop_medication_queries:
+        row = match_medication(session, query)
+        if row is None or row.rxcui in used:
+            continue
+        used.add(row.rxcui)
+        selected.append(row)
+    selected.sort(key=lambda item: item.rxcui)
+    return selected
+
+
+def _add_continued_medication(
+    session: Session,
+    *,
+    case: ClinicalCase,
+    ids: _IdCounter,
+    medication: RefMedication,
+    indication: str,
+    frequency: str,
+) -> None:
+    label = _med_label(medication)
+    dose = _synthetic_dose(medication)
+    route = medication.route or "oral"
+    for context, status in (
+        ("home", "home"),
+        ("inpatient", "active"),
+        ("discharge", "discharge"),
+    ):
+        session.add(
+            _medication_row(
+                case=case,
+                ids=ids,
+                medication=medication,
+                label=label,
+                context=context,
+                status=status,
+                dose=dose,
+                route=route,
+                frequency=frequency,
+                indication=indication,
+                held_reason=None,
+            )
+        )
+    session.add(
+        CaseMedicationPlan(
+            plan_id=ids.next_id("plan"),
+            case_id=case.id,
+            ref_medication_id=medication.id,
+            drug=label,
+            home_state="continue",
+            inpatient_state="continue",
+            correct_discharge_state="continue",
+            decision="continue",
+            decision_reason="Home therapy is continued through discharge in the clean case.",
+            is_error_target=False,
+        )
+    )
+
+
+def _add_stopped_medication(
+    session: Session,
+    *,
+    case: ClinicalCase,
+    ids: _IdCounter,
+    medication: RefMedication,
+    indication: str,
+    frequency: str,
+) -> None:
+    label = _med_label(medication)
+    dose = _synthetic_dose(medication)
+    route = medication.route or "oral"
+    held_reason = "Held on admission; not continued at discharge."
+    for context, status in (("home", "held"), ("inpatient", "held")):
+        session.add(
+            _medication_row(
+                case=case,
+                ids=ids,
+                medication=medication,
+                label=label,
+                context=context,
+                status=status,
+                dose=dose,
+                route=route,
+                frequency=frequency,
+                indication=indication,
+                held_reason=held_reason,
+            )
+        )
+    session.add(
+        CaseMedicationPlan(
+            plan_id=ids.next_id("plan"),
+            case_id=case.id,
+            ref_medication_id=medication.id,
+            drug=label,
+            home_state="held",
+            inpatient_state="held",
+            correct_discharge_state="stop",
+            decision="stop",
+            decision_reason="Home medication is held and is not continued at discharge.",
+            is_error_target=False,
+        )
+    )
+
+
+def _medication_row(
+    *,
+    case: ClinicalCase,
+    ids: _IdCounter,
+    medication: RefMedication,
+    label: str,
+    context: str,
+    status: str,
+    dose: str,
+    route: str | None,
+    frequency: str,
+    indication: str,
+    held_reason: str | None,
+) -> CaseMedication:
+    return CaseMedication(
+        case_id=case.id,
+        medication_id=ids.next_id("medication"),
+        ref_medication_id=medication.id,
+        context=context,
+        drug=label,
+        reported_name=label,
+        dose=dose,
+        route=route,
+        frequency=frequency,
+        indication=indication,
+        status=status,
+        held_reason=held_reason,
+        verification_status="verified",
+        verification_source="prior_records",
+        target_or_goal=None,
+        monitoring=None,
+        quantity_or_days=None,
+        refills=None,
+        source_type="reference",
+        source_file=None,
+        source_reference=f"RXCUI:{medication.rxcui}",
+        notes=NUMERIC_ORIGIN if medication.strength is None else None,
+    )
+
+
+def _synthetic_dose(medication: RefMedication) -> str:
+    if medication.strength and medication.strength.strip():
+        return medication.strength.strip()
+    return "1 tablet"
+
+
+def _synthetic_lab_value(rng: random.Random, lab: RefLabTest) -> float:
+    blob = " ".join(
+        part
+        for part in (lab.long_common_name, lab.short_name, lab.component, lab.loinc_code)
+        if part
+    ).casefold()
+    if "inr" in blob or "international normalized" in blob:
+        return rng.randint(18, 32) / 10.0
+    if "potassium" in blob:
+        return rng.randint(35, 48) / 10.0
+    if "creatinine" in blob:
+        return rng.randint(8, 16) / 10.0
+    if "sodium" in blob:
+        return float(rng.randint(134, 144))
+    if "glucose" in blob:
+        return float(rng.randint(110, 180))
+    if "hemoglobin" in blob or "haemoglobin" in blob:
+        return rng.randint(105, 145) / 10.0
+    if "natriuretic" in blob or "bnp" in blob:
+        return float(rng.randint(180, 900))
+    return rng.randint(20, 80) / 10.0
+
+
+def _case_state_snapshot(session: Session, case: ClinicalCase) -> dict[str, Any]:
+    medications = []
+    for medication in list_medications_for_case(session, case.id):
+        rxcui = None
+        if medication.ref_medication_id is not None:
+            med_row = session.get(RefMedication, medication.ref_medication_id)
+            rxcui = med_row.rxcui if med_row is not None else None
+        medications.append(
+            {
+                "medication_id": medication.medication_id,
+                "context": medication.context,
+                "drug": medication.drug,
+                "dose": medication.dose,
+                "frequency": medication.frequency,
+                "status": medication.status,
+                "rxcui": rxcui,
+            }
+        )
+    plans = [
+        {
+            "plan_id": plan.plan_id,
+            "drug": plan.drug,
+            "decision": plan.decision,
+            "correct_discharge_state": plan.correct_discharge_state,
+            "is_error_target": plan.is_error_target,
+        }
+        for plan in list_plans_for_case(session, case.id)
+    ]
+    diagnoses = []
+    for diagnosis in list_diagnoses_for_case(session, case.id):
+        code = None
+        if diagnosis.ref_diagnosis_id is not None:
+            dx_row = session.get(RefDiagnosis, diagnosis.ref_diagnosis_id)
+            code = dx_row.icd10cm_code if dx_row is not None else None
+        diagnoses.append({"diagnosis": diagnosis.diagnosis, "icd10cm_code": code})
+    labs = []
+    for lab in list_labs_for_case(session, case.id):
+        code = None
+        if lab.ref_lab_id is not None:
+            lab_row = session.get(RefLabTest, lab.ref_lab_id)
+            code = lab_row.loinc_code if lab_row is not None else None
+        labs.append(
+            {
+                "test_name": lab.test_name,
+                "value": lab.value,
+                "unit": lab.unit,
+                "loinc_code": code,
+            }
+        )
+    return {
+        "case_id_code": case.case_id_code,
+        "clean_case": case.clean_case,
+        "medications": medications,
+        "plans": plans,
+        "diagnoses": diagnoses,
+        "labs": labs,
+    }
 
 
 def _require_diagnosis(session: Session, scenario: Scenario) -> RefDiagnosis:
@@ -790,18 +1037,25 @@ def _template_narrative(
     diagnosis: str,
     symptoms: list[str],
     medications: list[str],
+    held: list[str] | None = None,
 ) -> CaseNarrative:
     symptom_text = ", ".join(symptoms) if symptoms else "reported symptoms"
     med_text = ", ".join(medications) if medications else "the selected home medications"
+    held_text = ", ".join(held) if held else ""
+    held_sentence = (
+        f" {held_text} was held on admission and is not intended for discharge continuation."
+        if held_text
+        else ""
+    )
     chief = f"{symptom_text} in the setting of {diagnosis}"
     hpi = (
         f"A {age}-year-old {sex} is admitted with {diagnosis}. "
         f"Presenting symptoms include {symptom_text}. "
-        f"Home medications include {med_text}."
+        f"Home medications include {med_text}.{held_sentence}"
     )
     note = (
         f"Admission note for a {age}-year-old {sex} with {diagnosis}. "
-        f"Symptoms: {symptom_text}. Medications continued from home: {med_text}."
+        f"Symptoms: {symptom_text}. Medications continued from home: {med_text}.{held_sentence}"
     )
     return CaseNarrative(chief_complaint=chief, hpi=hpi, note_text=note)
 

@@ -26,8 +26,10 @@ from app.services.reference_search import (
     search_reference_symptoms,
 )
 from app.services.reference_sync import sync_icd10cm, sync_loinc, sync_rxnorm, sync_ucum
+from app.services.validation_batch import export_validation_batch, freeze_validation_batch
 from app.sources.exceptions import (
     CaseValidationError,
+    FrozenValidationCaseError,
     ReferenceResolutionError,
     SourceNotConfigured,
 )
@@ -274,6 +276,62 @@ def validate_cases_cmd(
         typer.secho(str(exc), err=True)
         raise typer.Exit(code=2) from exc
     typer.echo(dumps_json(reports))
+
+
+@cli.command("freeze-validation-batch")
+def freeze_validation_batch_cmd(
+    plan: Annotated[
+        Path | None,
+        typer.Option("--plan", help="JSON plan assigning VAL-* IDs, scenarios, and error types."),
+    ] = None,
+) -> None:
+    """Generate, validate, and freeze a resident-validation batch. Does not overwrite VAL IDs."""
+    try:
+        with session_scope() as session:
+            result = freeze_validation_batch(session, plan_path=plan, use_openai=False)
+            payload = {
+                "batch_code": result.batch_code,
+                "master_seed": result.master_seed,
+                "frozen": [item.validation_case_id for item in result.frozen],
+                "reused": result.reused,
+                "rejected": [item.__dict__ for item in result.rejected],
+            }
+    except (ValueError, FrozenValidationCaseError, CaseValidationError) as exc:
+        typer.secho(str(exc), err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(dumps_json(payload))
+
+
+@cli.command("export-validation-batch")
+def export_validation_batch_cmd(
+    batch_code: Annotated[
+        str, typer.Option("--batch-code", help="Frozen batch code to export.")
+    ] = "RESIDENT_VALIDATION_V1",
+    output_dir: Annotated[
+        Path | None,
+        typer.Option("--output-dir", help="Directory for blinded and investigator exports."),
+    ] = None,
+) -> None:
+    """Write resident-facing, investigator, and manifest exports for a frozen batch."""
+    try:
+        with session_scope() as session:
+            result = export_validation_batch(
+                session, batch_code=batch_code, output_dir=output_dir
+            )
+            payload = {
+                "resident_path": str(result.resident_path),
+                "investigator_path": str(result.investigator_path),
+                "manifest_path": str(result.manifest_path),
+                "coverage_path": str(result.coverage_path),
+                "worksheet_path": str(result.worksheet_path),
+                "schema_path": str(result.schema_path),
+                "audit_passed": result.audit.get("passed"),
+                "audit_errors": result.audit.get("errors"),
+            }
+    except ValueError as exc:
+        typer.secho(str(exc), err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(dumps_json(payload))
 
 
 def main() -> None:

@@ -108,3 +108,43 @@ class CaseMedicationPlan(Base, UUIDPrimaryKeyMixin):
     )
 
     case: Mapped[ClinicalCase] = relationship()
+
+
+class ValidationBatchCase(Base, UUIDPrimaryKeyMixin):
+    """Frozen resident-validation assignment. VAL-* IDs are not silently overwritten."""
+
+    __tablename__ = "validation_batch_cases"
+    __table_args__ = (
+        CheckConstraint(
+            "validation_case_id ~ '^VAL-[0-9]{3}$'",
+            name="validation_case_id_format",
+        ),
+    )
+
+    validation_case_id: Mapped[str] = mapped_column(String(16), unique=True)
+    batch_code: Mapped[str] = mapped_column(String(64), index=True)
+    case_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("clinical_cases.id", ondelete="RESTRICT"),
+        nullable=False,
+        index=True,
+    )
+    scenario_code: Mapped[str] = mapped_column(String(64))
+    master_seed: Mapped[int] = mapped_column(Integer)
+    case_seed: Mapped[str] = mapped_column(String(128))
+    is_clean_control: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
+    error_category: Mapped[str | None] = mapped_column(String(64))
+    generator_version: Mapped[str | None] = mapped_column(String(32))
+    reference_snapshot: Mapped[dict[str, Any] | None] = mapped_column(JSONB)
+    rule_snapshot: Mapped[dict[str, Any] | None] = mapped_column(JSONB)
+    clean_validation: Mapped[dict[str, Any] | None] = mapped_column(JSONB)
+    final_validation: Mapped[dict[str, Any] | None] = mapped_column(JSONB)
+    clean_state: Mapped[dict[str, Any] | None] = mapped_column(JSONB)
+    resident_state: Mapped[dict[str, Any] | None] = mapped_column(JSONB)
+    answer_key_payload: Mapped[dict[str, Any] | None] = mapped_column(JSONB)
+    frozen_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=text("now()"),
+    )
+    immutable: Mapped[bool] = mapped_column(Boolean, default=True, server_default=text("true"))
+
+    case: Mapped[ClinicalCase] = relationship()

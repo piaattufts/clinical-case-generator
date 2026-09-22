@@ -31,6 +31,7 @@ from app.schemas.generation import (
     CaseBlueprint,
     CaseGenerationRun,
     CaseMedicationPlan,
+    ValidationBatchCase,
 )
 from app.schemas.reference import (
     ClinicalRule,
@@ -98,4 +99,5 @@ __all__ = [
     "RefUnit",
     "RefVital",
     "SymptomSearchPage",
+    "ValidationBatchCase",
 ]

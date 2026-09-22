@@ -23,14 +23,15 @@ Terminology and dataset content is not bundled. RxNorm, DailyMed, LOINC, UCUM, I
 - `app/repositories` — lookups, upserts by official identifiers, and the source-registry metadata seed
 - `app/sources` — RxNav, LOINC FHIR, official UCUM essence XML, NLM ICD-10-CM, NLM conditions, DailyMed, and RxClass clients
 - `app/services` — sync, bootstrap, local search, clinical rules, generation, validation, error injection
-- `app/cli` — `db-init`, `sync-*`, `reference-search`, `bootstrap-reference-data`, `generate-synthetic-cases`, `validate-cases`
+- `app/cli` — `db-init`, `sync-*`, `reference-search`, `bootstrap-reference-data`, `generate-synthetic-cases`, `validate-cases`, `freeze-validation-batch`, `export-validation-batch`
 - `app/api` — `GET /reference/medications`, `/labs`, `/diagnoses`, `/symptoms`
 - `app/openai` — optional narrative wording after canonical concepts are selected
 - `data/bootstrap` — human-readable concept requests, curated rule templates, and generation scenarios
+- `data/validation` — frozen VAL-* batch plan and blinded / investigator exports
 
 `CaseGenerationRun.blueprint_id` is the UUID foreign key to `case_blueprints.id`. Optional links to reference rows use `ON DELETE RESTRICT`. Case children use `ON DELETE CASCADE` on `case_id`.
 
-Alembic revision `1c236aeaadc7` is the Phase 1 schema and is not rewritten. `7b9e4c21d6a0` adds `clinical_rules`.
+Alembic revision `1c236aeaadc7` is the Phase 1 schema and is not rewritten. `7b9e4c21d6a0` adds `clinical_rules`. `c3f8a91b2e47` adds `validation_batch_cases` for immutable VAL-* assignments.
 
 ## Install
 
@@ -71,7 +72,7 @@ clinical-case-generator reference-search medications --query <text>
 clinical-case-generator bootstrap-reference-data
 ```
 
-`bootstrap-reference-data` reads `data/bootstrap/manifest.json` (human-readable search requests, not fabricated codes), resolves them through official APIs, upserts source-returned identifiers, stores DailyMed labels for resolved RXCUIs, and enables curated clinical rules only when label or RxClass evidence is present. Unresolved requests are reported. A second run does not duplicate canonical identifiers. LOINC rows are skipped with `SourceNotConfigured` when credentials are absent.
+`bootstrap-reference-data` reads `data/bootstrap/manifest.json` (human-readable search requests, not fabricated codes), resolves them through official APIs, upserts source-returned identifiers, stores DailyMed labels for resolved RXCUIs, and enables curated clinical rules only when label or RxClass evidence is present. Unresolved requests are reported. A second run does not duplicate canonical identifiers. LOINC rows are skipped with `SourceNotConfigured` when credentials are absent. RxNorm combination products (`name / name` or multiple related ingredients) are not selected unless the request is itself a combination. Symptoms that fail NLM conditions token matching may resolve through NLM HPO; HPO identifiers are stored as source metadata and are not written to `snomed_code`. Composed UCUM units such as `kg` keep a null conversion factor when the official essence file does not supply a numeric factor for the base unit.
 
 ## Clinical conditionals and synthetic cases
 
@@ -82,11 +83,22 @@ clinical-case-generator generate-synthetic-cases --count 3 --seed 42
 clinical-case-generator generate-synthetic-cases --count 3 --seed 42 --no-inject-error
 clinical-case-generator validate-cases
 clinical-case-generator validate-cases --case-id SYN-000001
+clinical-case-generator freeze-validation-batch
+clinical-case-generator export-validation-batch --batch-code RESIDENT_VALIDATION_V1
 ```
 
 Generation selects canonical concepts from the local reference database, applies conditionals, persists a clean case, validates it, optionally words narrative text (OpenAI if `OPENAI_API_KEY` is set, otherwise a template), then injects exactly one medication-reconciliation error when requested. The answer key records the planted error. Numeric vital/lab values are synthetic and labeled `synthetic_model_generated`; they are not empirical MIMIC distributions.
 
 OpenAI is not used to invent diagnoses, medications, laboratory codes, units, clinical rules, or the hidden error.
+
+`freeze-validation-batch` builds a fixed resident-review set from `data/validation/batch_plan.json`. VAL-* identifiers are immutable after freeze. Exports are:
+
+- `data/validation/resident_validation_cases.json` — blinded dashboard-shaped cases
+- `data/validation/investigator_answer_key.json` and `.md` — control/error status and seeds
+- `data/validation/validation_manifest.json` — machine-readable freeze metadata
+- `data/validation/resident_review_worksheet.csv` and `resident_review_schema.json` — empty review capture (no fabricated ratings)
+
+These records are machine-validated synthetic resident-review cases pending clinician validation. Software checks terminology, structure, and implemented source-backed rules. They are not clinically validated until residents complete review.
 
 ## Environment
 
@@ -128,5 +140,5 @@ This repository does not currently provide:
 
 - AccessGUDID or SNOMED CT ingestion
 - MIMIC ingestion or aggregate calculation
-- Dashboard UI export beyond database persistence and CLI JSON
-- Blinded review workflow
+- A complete clinical-realism guarantee; human review is required
+- Additional reconciliation-error families beyond those with deterministic preconditions

@@ -1,6 +1,6 @@
 {
-  "version": "1",
-  "description": "Bounded development subset. Entries are human-readable search requests, not fabricated codes.",
+  "version": "2",
+  "description": "Bounded resident-validation subset. Entries are human-readable search requests, not fabricated codes.",
   "medications": [
     "lisinopril",
     "furosemide",
@@ -9,26 +9,41 @@
     "apixaban",
     "spironolactone",
     "carvedilol",
-    "atorvastatin"
+    "atorvastatin",
+    "amlodipine",
+    "hydrochlorothiazide",
+    "metformin",
+    "aspirin",
+    "azithromycin",
+    "albuterol",
+    "pantoprazole",
+    "ibuprofen"
   ],
   "diagnoses": [
     "systolic (congestive) heart failure",
     "atrial fibrillation",
     "essential (primary) hypertension",
-    "type 2 diabetes mellitus"
+    "type 2 diabetes mellitus",
+    "pneumonia, unspecified organism"
   ],
   "symptoms": [
     "dyspnea",
     "edema",
     "fatigue",
-    "orthopnea"
+    "orthopnea",
+    "chest pain",
+    "cough",
+    "wheezing",
+    "polyuria"
   ],
   "labs": [
     "potassium",
     "creatinine",
     "inr",
     "natriuretic peptide",
-    "hemoglobin"
+    "hemoglobin",
+    "glucose",
+    "sodium"
   ],
   "units": [
     "gram",
@@ -37,6 +52,8 @@
     "celsius",
     "mercury",
     "percent",
-    "mole"
+    "mole",
+    "milligram",
+    "milliliter"
   ]
 }

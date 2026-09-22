@@ -16,7 +16,14 @@ from typing import Any
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from app.models.reference import RefDiagnosis, RefDrugLabel, RefLabTest, RefMedication, RefUnit
+from app.models.reference import (
+    RefDiagnosis,
+    RefDrugLabel,
+    RefLabTest,
+    RefMedication,
+    RefSymptom,
+    RefUnit,
+)
 from app.repositories.reference import (
     get_data_source,
     list_medications,
@@ -38,8 +45,9 @@ from app.services.reference_sync import (
 from app.sources.conditions import ConditionsClient
 from app.sources.dailymed import DailyMedClient, DailyMedLabel
 from app.sources.exceptions import SourceNotConfigured
+from app.sources.hpo import HpoClient
 from app.sources.icd10cm import Icd10CmClient
-from app.sources.loinc import LoincClient
+from app.sources.loinc import LoincClient, LoincConcept
 from app.sources.rxclass import RxClassClient
 from app.sources.rxnorm import RxNormClient, RxNormConcept
 from app.sources.ucum import UcumClient
@@ -82,6 +90,7 @@ class SourceClients:
     ucum: UcumClient | None = None
     loinc: LoincClient | None = None
     conditions: ConditionsClient | None = None
+    hpo: HpoClient | None = None
     dailymed: DailyMedClient | None = None
     rxclass: RxClassClient | None = None
 
@@ -148,6 +157,9 @@ def bootstrap_reference_data(
         conditions = bundle.conditions or ConditionsClient()
         if bundle.conditions is None:
             owned.append(conditions)
+        hpo = bundle.hpo or HpoClient()
+        if bundle.hpo is None:
+            owned.append(hpo)
         dailymed = bundle.dailymed or DailyMedClient()
         if bundle.dailymed is None:
             owned.append(dailymed)
@@ -157,7 +169,7 @@ def bootstrap_reference_data(
 
         _bootstrap_medications(session, rxnorm, manifest["medications"], result)
         _bootstrap_diagnoses(session, icd, manifest["diagnoses"], result)
-        _bootstrap_symptoms(session, conditions, manifest["symptoms"], result)
+        _bootstrap_symptoms(session, conditions, hpo, manifest["symptoms"], result)
         _bootstrap_units(session, ucum, manifest["units"], result)
         _bootstrap_labs(session, bundle.loinc, manifest["labs"], result)
         if sync_labels:
@@ -219,7 +231,7 @@ def _bootstrap_medications(
                 client.search_by_name(name),
                 key=lambda item: (TTY_PRIORITY.get(item.tty or "", 9), item.rxcui),
             )
-            chosen = _prefer_rxnorm_concept(concepts, name)
+            chosen = _prefer_rxnorm_concept(concepts, name, client=client)
             if chosen is None:
                 result.unresolved.append(
                     UnresolvedRequest("medication", name, "RxNorm returned no concept")
@@ -255,6 +267,7 @@ def _bootstrap_diagnoses(
 def _bootstrap_symptoms(
     session: Session,
     client: ConditionsClient,
+    hpo: HpoClient | None,
     names: list[str],
     result: BootstrapResult,
 ) -> None:
@@ -270,33 +283,70 @@ def _bootstrap_symptoms(
                 ),
                 None,
             )
-            if chosen is None:
-                result.unresolved.append(
-                    UnresolvedRequest(
-                        "symptom",
-                        name,
-                        "NLM conditions returned no token-matched concept",
-                    )
+            if chosen is not None:
+                provenance = build_provenance("NLM_CONDITIONS")
+                row = upsert_symptom(
+                    session,
+                    {
+                        "snomed_code": None,
+                        "preferred_name": chosen.name,
+                        "synonyms": chosen.synonyms or None,
+                        "body_system": None,
+                        "semantic_category": "symptom",
+                        "active": True,
+                        "source_system": provenance["source_system"],
+                        "source_version": provenance["source_version"],
+                        "retrieved_at": provenance["retrieved_at"],
+                    },
                 )
+                result.upserted["symptoms"].append(row.preferred_name or chosen.name)
                 continue
-            provenance = build_provenance("NLM_CONDITIONS")
-            row = upsert_symptom(
-                session,
-                {
-                    "snomed_code": None,
-                    "preferred_name": chosen.name,
-                    "synonyms": chosen.synonyms or None,
-                    "body_system": None,
-                    "semantic_category": "symptom",
-                    "active": True,
-                    "source_system": provenance["source_system"],
-                    "source_version": provenance["source_version"],
-                    "retrieved_at": provenance["retrieved_at"],
-                },
+            hpo_row = _bootstrap_hpo_symptom(session, hpo, name) if hpo is not None else None
+            if hpo_row is not None:
+                result.upserted["symptoms"].append(hpo_row.preferred_name or name)
+                continue
+            result.unresolved.append(
+                UnresolvedRequest(
+                    "symptom",
+                    name,
+                    "NLM conditions and HPO returned no token-matched concept",
+                )
             )
-            result.upserted["symptoms"].append(row.preferred_name or chosen.name)
         except Exception as exc:
             result.unresolved.append(UnresolvedRequest("symptom", name, str(exc)))
+
+
+def _bootstrap_hpo_symptom(
+    session: Session, client: HpoClient, name: str
+) -> RefSymptom | None:
+    hits = sorted(client.search(name, count=DEFAULT_SYNC_LIMIT), key=lambda item: item.hpo_id)
+    chosen = next(
+        (
+            item
+            for item in hits
+            if token_match(item.name, name)
+            or any(token_match(synonym, name) for synonym in item.synonyms)
+        ),
+        None,
+    )
+    if chosen is None:
+        return None
+    provenance = build_provenance("NLM_HPO")
+    synonyms = [chosen.hpo_id, *chosen.synonyms]
+    return upsert_symptom(
+        session,
+        {
+            "snomed_code": None,
+            "preferred_name": chosen.name,
+            "synonyms": synonyms,
+            "body_system": None,
+            "semantic_category": "symptom",
+            "active": True,
+            "source_system": provenance["source_system"],
+            "source_version": provenance["source_version"],
+            "retrieved_at": provenance["retrieved_at"],
+        },
+    )
 
 
 def _bootstrap_units(
@@ -386,10 +436,17 @@ def _bootstrap_labs(
     try:
         for name in names:
             try:
-                sync = sync_loinc(session, query=name, client=client)
-                if not sync.identifiers:
+                hits = client.search_by_name(name, count=DEFAULT_SYNC_LIMIT)
+                chosen = _prefer_loinc_concept(hits, name)
+                if chosen is None:
                     result.unresolved.append(
                         UnresolvedRequest("lab", name, "LOINC returned no concept")
+                    )
+                    continue
+                sync = sync_loinc(session, code=chosen.loinc_code, client=client)
+                if not sync.identifiers:
+                    result.unresolved.append(
+                        UnresolvedRequest("lab", name, "LOINC lookup returned no concept")
                     )
                     continue
                 result.upserted["labs"].extend(sync.identifiers)
@@ -443,18 +500,41 @@ def _label_values(label: DailyMedLabel, provenance: dict[str, Any]) -> dict[str,
     }
 
 
-def _prefer_rxnorm_concept(concepts: list[RxNormConcept], query: str) -> RxNormConcept | None:
+def _prefer_rxnorm_concept(
+    concepts: list[RxNormConcept],
+    query: str,
+    *,
+    client: RxNormClient | None = None,
+) -> RxNormConcept | None:
     if not concepts:
         return None
+    filtered = [
+        item
+        for item in concepts
+        if not is_unintended_combination(item, query, client=client)
+    ]
     ranked = sorted(
-        concepts,
+        filtered or [],
         key=lambda item: (
             0 if _contains(item.name, query) else 1,
             TTY_PRIORITY.get(item.tty or "", 9),
             item.rxcui,
         ),
     )
-    return ranked[0]
+    return ranked[0] if ranked else None
+
+
+def _prefer_loinc_concept(concepts: list[LoincConcept], query: str) -> LoincConcept | None:
+    ranked = sorted(
+        concepts,
+        key=lambda item: (
+            0
+            if _contains(item.long_common_name, query) or _contains(item.component, query)
+            else 1,
+            item.loinc_code,
+        ),
+    )
+    return ranked[0] if ranked else None
 
 
 def _prefer_icd_concept(concepts: Any, query: str) -> Any | None:
@@ -470,8 +550,15 @@ def _prefer_icd_concept(concepts: Any, query: str) -> Any | None:
 
 
 def _prefer_medication_row(rows: list[RefMedication], query: str) -> RefMedication | None:
+    filtered = [
+        row
+        for row in rows
+        if not looks_like_combination_name(row.concept_name)
+        and not looks_like_combination_name(row.generic_name)
+        and (row.term_type or "") != "MIN"
+    ]
     ranked = sorted(
-        rows,
+        filtered,
         key=lambda row: (
             0
             if _contains(row.ingredient, query)
@@ -483,6 +570,40 @@ def _prefer_medication_row(rows: list[RefMedication], query: str) -> RefMedicati
         ),
     )
     return ranked[0] if ranked else None
+
+
+def is_unintended_combination(
+    concept: RxNormConcept,
+    query: str,
+    *,
+    client: RxNormClient | None = None,
+) -> bool:
+    """True when a search hit is a multi-ingredient product the query did not request."""
+    if query_allows_combination(query):
+        return False
+    if (concept.tty or "") == "MIN":
+        return True
+    if looks_like_combination_name(concept.name) or looks_like_combination_name(concept.synonym):
+        return True
+    if client is None or (concept.tty or "") not in {"SCD", "SBD", "GPCK", "BPCK", "SBDC"}:
+        return False
+    try:
+        related = client.related_concepts(concept.rxcui, tty="IN")
+    except Exception:
+        return False
+    ingredients = [item for item in related if (item.tty or "") == "IN"]
+    return len(ingredients) > 1
+
+
+def looks_like_combination_name(value: str | None) -> bool:
+    if value is None:
+        return False
+    return " / " in value
+
+
+def query_allows_combination(query: str) -> bool:
+    text = query.strip().casefold()
+    return " / " in text or " and " in text
 
 
 def _refresh_registry_counts(session: Session) -> None:

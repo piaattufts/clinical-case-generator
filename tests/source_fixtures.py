@@ -13,11 +13,17 @@ TEST_RXCUI_RELATED_BN = "TEST_RXCUI_BN"
 TEST_RXCUI_RELATED_DF = "TEST_RXCUI_DF"
 TEST_RXCUI_WARFARIN = "TEST_RXCUI_W"
 TEST_RXCUI_APIXABAN = "TEST_RXCUI_A"
+TEST_RXCUI_IBU = "TEST_RXCUI_I"
+TEST_RXCUI_COMBO = "TEST_RXCUI_COMBO"
+TEST_RXCUI_COMBO_IN1 = "TEST_RXCUI_COMBO_IN1"
+TEST_RXCUI_COMBO_IN2 = "TEST_RXCUI_COMBO_IN2"
 TEST_LOINC = "TEST_LOINC_1"
 TEST_ICD = "TEST_ICD_1"
 TEST_UCUM = "TEST_U1"
 TEST_UCUM_NO_FACTOR = "TEST_U2"
 TEST_SYMPTOM_NAME = "TEST_symptom_1"
+TEST_HPO_ID = "HP:TEST_1"
+TEST_HPO_NAME = "TEST_orthopnea"
 TEST_SET_ID = "TEST_SET_1"
 TEST_RULE_CODE = "TEST_NO_DUAL_ANTICOAG"
 
@@ -37,10 +43,12 @@ def rxnorm_transport() -> httpx.MockTransport:
                 return httpx.Response(
                     200, json=_named_drug_payload(TEST_RXCUI_WARFARIN, "TEST_warfarin", "IN")
                 )
-            if "apixaban" in name.casefold():
+            if "ibuprofen" in name.casefold():
                 return httpx.Response(
-                    200, json=_named_drug_payload(TEST_RXCUI_APIXABAN, "TEST_apixaban", "IN")
+                    200, json=_named_drug_payload(TEST_RXCUI_IBU, "TEST_ibuprofen", "IN")
                 )
+            if "TEST_combo" in name:
+                return httpx.Response(200, json=_combo_drug_payload())
             return httpx.Response(200, json={"drugGroup": {"name": name, "conceptGroup": []}})
         if path.endswith("/rxcui.json"):
             if "TEST_med" in name:
@@ -51,6 +59,14 @@ def rxnorm_transport() -> httpx.MockTransport:
             return httpx.Response(200, json=payload)
         if f"/rxcui/{TEST_RXCUI_APIXABAN}/properties.json" in path:
             payload = _named_properties_payload(TEST_RXCUI_APIXABAN, "TEST_apixaban", "IN")
+            return httpx.Response(200, json=payload)
+        if f"/rxcui/{TEST_RXCUI_IBU}/properties.json" in path:
+            payload = _named_properties_payload(TEST_RXCUI_IBU, "TEST_ibuprofen", "IN")
+            return httpx.Response(200, json=payload)
+        if f"/rxcui/{TEST_RXCUI_COMBO}/properties.json" in path:
+            payload = _named_properties_payload(
+                TEST_RXCUI_COMBO, "TEST_med / TEST_other", "SCD"
+            )
             return httpx.Response(200, json=payload)
         if f"/rxcui/{TEST_RXCUI}/properties.json" in path:
             return httpx.Response(200, json=_properties_payload())
@@ -63,12 +79,22 @@ def rxnorm_transport() -> httpx.MockTransport:
             f"/rxcui/{TEST_RXCUI_WARFARIN}/allrelated.json" in path,
             f"/rxcui/{TEST_RXCUI_APIXABAN}/related.json" in path,
             f"/rxcui/{TEST_RXCUI_APIXABAN}/allrelated.json" in path,
+            f"/rxcui/{TEST_RXCUI_IBU}/related.json" in path,
+            f"/rxcui/{TEST_RXCUI_IBU}/allrelated.json" in path,
         )
         if any(related_paths):
             return httpx.Response(200, json=_related_payload())
+        if f"/rxcui/{TEST_RXCUI_COMBO}/related.json" in path or (
+            f"/rxcui/{TEST_RXCUI_COMBO}/allrelated.json" in path
+        ):
+            return httpx.Response(200, json=_combo_related_payload())
         if f"/rxcui/{TEST_RXCUI_WARFARIN}/allProperties.json" in path:
             return httpx.Response(200, json=_all_properties_payload())
         if f"/rxcui/{TEST_RXCUI_APIXABAN}/allProperties.json" in path:
+            return httpx.Response(200, json=_all_properties_payload())
+        if f"/rxcui/{TEST_RXCUI_IBU}/allProperties.json" in path:
+            return httpx.Response(200, json=_all_properties_payload())
+        if f"/rxcui/{TEST_RXCUI_COMBO}/allProperties.json" in path:
             return httpx.Response(200, json=_all_properties_payload())
         if path.endswith("/properties.json"):
             return httpx.Response(200, json={})
@@ -144,6 +170,30 @@ def conditions_transport() -> httpx.MockTransport:
         terms = params.get("terms", "")
         if "TEST_symptom" in terms:
             return httpx.Response(200, json=_conditions_payload())
+        return httpx.Response(200, json=[0, [], {}, []])
+
+    return httpx.MockTransport(handler)
+
+
+def hpo_transport() -> httpx.MockTransport:
+    def handler(request: httpx.Request) -> httpx.Response:
+        parsed = urlparse(str(request.url))
+        params = {key: values[-1] for key, values in parse_qs(parsed.query).items()}
+        terms = params.get("terms", "")
+        if "orthopnea" in terms.casefold() or "TEST_orthopnea" in terms:
+            return httpx.Response(
+                200,
+                json=[
+                    1,
+                    [TEST_HPO_NAME],
+                    {
+                        "id": [TEST_HPO_ID],
+                        "name": [TEST_HPO_NAME],
+                        "synonyms": [["orthopnea"]],
+                    },
+                    [[TEST_HPO_ID, TEST_HPO_NAME]],
+                ],
+            )
         return httpx.Response(200, json=[0, [], {}, []])
 
     return httpx.MockTransport(handler)
@@ -308,6 +358,62 @@ def _dailymed_spl_xml() -> str:
   </component>
 </document>
 """
+
+
+def _combo_drug_payload() -> dict[str, Any]:
+    return {
+        "drugGroup": {
+            "name": "TEST_combo",
+            "conceptGroup": [
+                {
+                    "tty": "SCD",
+                    "conceptProperties": {
+                        "rxcui": TEST_RXCUI_COMBO,
+                        "name": "TEST_med / TEST_other Oral Tablet",
+                        "synonym": "TEST_combo",
+                        "tty": "SCD",
+                        "suppress": "N",
+                    },
+                },
+                {
+                    "tty": "IN",
+                    "conceptProperties": {
+                        "rxcui": TEST_RXCUI,
+                        "name": "TEST_med branded product",
+                        "synonym": "TEST_med",
+                        "tty": "IN",
+                        "suppress": "N",
+                    },
+                },
+            ],
+        }
+    }
+
+
+def _combo_related_payload() -> dict[str, Any]:
+    return {
+        "relatedGroup": {
+            "conceptGroup": [
+                {
+                    "tty": "IN",
+                    "conceptProperties": [
+                        {
+                            "rxcui": TEST_RXCUI_COMBO_IN1,
+                            "name": "TEST_med",
+                            "tty": "IN",
+                            "suppress": "N",
+                        },
+                        {
+                            "rxcui": TEST_RXCUI_COMBO_IN2,
+                            "name": "TEST_other",
+                            "tty": "IN",
+                            "suppress": "N",
+                        },
+                    ],
+                }
+            ]
+        }
+    }
 
 
 def _drugs_payload() -> dict[str, Any]:

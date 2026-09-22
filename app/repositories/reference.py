@@ -233,6 +233,11 @@ def upsert_rule(session: Session, values: dict[str, Any]) -> ClinicalRule:
     return _upsert_row(session, row, ClinicalRule, values, identity_keys=("rule_code",))
 
 
+def list_rules(session: Session) -> list[ClinicalRule]:
+    rows = session.scalars(select(ClinicalRule).order_by(ClinicalRule.rule_code)).all()
+    return list(rows)
+
+
 def list_enabled_rules(session: Session) -> list[ClinicalRule]:
     rows = session.scalars(
         select(ClinicalRule).where(ClinicalRule.enabled.is_(True)).order_by(ClinicalRule.rule_code)

@@ -27,7 +27,12 @@ from app.models.cases import (
     CaseWeight,
     ClinicalCase,
 )
-from app.models.generation import CaseBlueprint, CaseGenerationRun, CaseMedicationPlan
+from app.models.generation import (
+    CaseBlueprint,
+    CaseGenerationRun,
+    CaseMedicationPlan,
+    ValidationBatchCase,
+)
 from app.models.reference import (
     ClinicalRule,
     DataSourceRegistry,
@@ -86,4 +91,5 @@ __all__ = [
     "RefSymptom",
     "RefUnit",
     "RefVital",
+    "ValidationBatchCase",
 ]

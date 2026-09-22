@@ -31,6 +31,7 @@ from app.repositories.reference import (
 from app.services.bootstrap import (
     SourceClients,
     bootstrap_reference_data,
+    looks_like_combination_name,
     token_match,
 )
 from app.services.generation import Scenario, generate_one_case
@@ -44,6 +45,7 @@ from app.services.validation import require_valid, validate_case
 from app.sources.conditions import ConditionsClient
 from app.sources.dailymed import DailyMedClient
 from app.sources.exceptions import CaseValidationError
+from app.sources.hpo import HpoClient
 from app.sources.icd10cm import Icd10CmClient
 from app.sources.loinc import LoincClient
 from app.sources.rxclass import RxClassClient
@@ -54,16 +56,21 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from tests.source_fixtures import (
+    TEST_HPO_ID,
+    TEST_HPO_NAME,
     TEST_ICD,
     TEST_LOINC,
     TEST_RXCUI,
     TEST_RXCUI_APIXABAN,
+    TEST_RXCUI_COMBO,
+    TEST_RXCUI_IBU,
     TEST_RXCUI_WARFARIN,
     TEST_SET_ID,
     TEST_SYMPTOM_NAME,
     TEST_UCUM,
     conditions_transport,
     dailymed_transport,
+    hpo_transport,
     icd10cm_transport,
     loinc_transport,
     official_shaped_ucum_xml,
@@ -92,6 +99,7 @@ def _clients() -> SourceClients:
             client=httpx.Client(base_url="https://fhir.loinc.org", transport=loinc_transport()),
         ),
         conditions=ConditionsClient(client=httpx.Client(transport=conditions_transport())),
+        hpo=HpoClient(client=httpx.Client(transport=hpo_transport())),
         dailymed=DailyMedClient(client=httpx.Client(transport=dailymed_transport())),
         rxclass=RxClassClient(client=httpx.Client(transport=rxclass_transport())),
     )
@@ -338,6 +346,15 @@ def _seed_generation_refs(session: Session) -> None:
         )
     )
     session.add(
+        RefMedication(
+            rxcui=TEST_RXCUI_IBU,
+            concept_name="TEST_ibuprofen",
+            generic_name="TEST_ibuprofen",
+            ingredient="TEST_ibuprofen",
+            **rx,
+        )
+    )
+    session.add(
         RefDiagnosis(
             icd10cm_code=TEST_ICD,
             preferred_name="TEST_heart failure description",
@@ -517,3 +534,97 @@ def test_clinical_conditional_rejects_dual_anticoagulant(db_session: Session) ->
         if row is not None:
             snapshot_rxcuis.add(row.rxcui)
     assert not ({TEST_RXCUI_WARFARIN, TEST_RXCUI_APIXABAN} <= snapshot_rxcuis)
+
+
+def test_combination_name_is_rejected_for_single_ingredient_query(
+    db_session: Session, tmp_path: Path
+) -> None:
+    assert looks_like_combination_name("TEST_med / TEST_other Oral Tablet")
+    assert not looks_like_combination_name("TEST_med branded product")
+    manifest = tmp_path / "manifest.json"
+    manifest.write_text(
+        json.dumps(
+            {
+                "medications": ["TEST_combo"],
+                "diagnoses": [],
+                "symptoms": [],
+                "labs": [],
+                "units": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    result = bootstrap_reference_data(db_session, manifest_path=manifest, clients=_clients())
+    assert TEST_RXCUI in result.upserted["medications"]
+    assert TEST_RXCUI_COMBO not in result.upserted["medications"]
+
+
+def test_hpo_fallback_resolves_orthopnea(db_session: Session, tmp_path: Path) -> None:
+    manifest = tmp_path / "manifest.json"
+    manifest.write_text(
+        json.dumps(
+            {
+                "medications": [],
+                "diagnoses": [],
+                "symptoms": ["orthopnea"],
+                "labs": [],
+                "units": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    result = bootstrap_reference_data(db_session, manifest_path=manifest, clients=_clients())
+    assert TEST_HPO_NAME in result.upserted["symptoms"]
+    row = db_session.scalar(select(RefSymptom).where(RefSymptom.preferred_name == TEST_HPO_NAME))
+    assert row is not None
+    assert row.snomed_code is None
+    assert row.source_system == "NLM_HPO"
+    assert TEST_HPO_ID in (row.synonyms or [])
+
+
+def test_supported_error_categories_inject_exactly_one(db_session: Session) -> None:
+    _seed_generation_refs(db_session)
+    scenario = _test_scenario()
+    scenario.stop_medication_queries = ["ibuprofen"]
+    dose = generate_one_case(
+        db_session,
+        sequence=11,
+        seed=3,
+        scenario=scenario,
+        inject_error=True,
+        use_openai=False,
+        error_category="dose_mismatch",
+    )
+    assert dose.injected is not None
+    assert dose.injected.category == "dose_mismatch"
+    freq = generate_one_case(
+        db_session,
+        sequence=12,
+        seed=3,
+        scenario=scenario,
+        inject_error=True,
+        use_openai=False,
+        error_category="frequency_mismatch",
+    )
+    assert freq.injected is not None
+    assert freq.injected.category == "frequency_mismatch"
+    cont = generate_one_case(
+        db_session,
+        sequence=13,
+        seed=3,
+        scenario=scenario,
+        inject_error=True,
+        use_openai=False,
+        error_category="incorrect_continuation",
+    )
+    assert cont.injected is not None
+    assert cont.injected.category == "incorrect_continuation"
+    case = db_session.get(ClinicalCase, cont.case_id)
+    assert case is not None
+    report = validate_case(db_session, case, expect_injected_error=True)
+    require_valid(report)
+    targets = [plan for plan in list_plans_for_case(db_session, case.id) if plan.is_error_target]
+    assert len(targets) == 1
+    keys = list_answer_keys_for_case(db_session, case.id)
+    assert len(keys) == 1
+    assert keys[0].error_category == "incorrect_continuation"

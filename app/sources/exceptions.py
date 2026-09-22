@@ -76,3 +76,14 @@ class CaseValidationError(Exception):
         self.layer = layer
         self.details = details or []
         super().__init__(f"{layer} validation failed: {message}")
+
+
+class FrozenValidationCaseError(Exception):
+    """Raised when a frozen VAL-* assignment would be silently overwritten."""
+
+    def __init__(self, validation_case_id: str, detail: str = "") -> None:
+        self.validation_case_id = validation_case_id
+        message = f"Frozen validation case {validation_case_id} cannot be overwritten"
+        if detail:
+            message = f"{message}: {detail}"
+        super().__init__(message)

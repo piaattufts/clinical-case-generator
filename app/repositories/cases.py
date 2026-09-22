@@ -15,7 +15,13 @@ from app.models.cases import (
     CaseSymptom,
     ClinicalCase,
 )
-from app.models.generation import CaseBlueprint, CaseGenerationRun, CaseMedicationPlan
+from app.models.generation import (
+    CaseBlueprint,
+    CaseGenerationRun,
+    CaseMedicationPlan,
+    ValidationBatchCase,
+)
+from app.sources.exceptions import FrozenValidationCaseError
 from app.utils.identifiers import CASE_CODE_RE
 
 
@@ -94,6 +100,33 @@ def next_case_sequence(session: Session) -> int:
     return highest + 1
 
 
+def get_frozen_case_for_clinical_id(
+    session: Session, case_id: uuid.UUID
+) -> ValidationBatchCase | None:
+    return session.scalar(
+        select(ValidationBatchCase).where(ValidationBatchCase.case_id == case_id)
+    )
+
+
+def get_frozen_case_by_validation_id(
+    session: Session, validation_case_id: str
+) -> ValidationBatchCase | None:
+    return session.scalar(
+        select(ValidationBatchCase).where(
+            ValidationBatchCase.validation_case_id == validation_case_id
+        )
+    )
+
+
+def list_frozen_batch(session: Session, batch_code: str) -> list[ValidationBatchCase]:
+    rows = session.scalars(
+        select(ValidationBatchCase)
+        .where(ValidationBatchCase.batch_code == batch_code)
+        .order_by(ValidationBatchCase.validation_case_id)
+    ).all()
+    return list(rows)
+
+
 def delete_case_graph(session: Session, case: ClinicalCase) -> None:
     """Remove a case, generation runs, plans, and associated blueprints.
 
@@ -102,6 +135,12 @@ def delete_case_graph(session: Session, case: ClinicalCase) -> None:
     blueprint and run business ids for this case code are also cleared so a
     later generate of SYN-000001 can reuse BP-SYN000001-001.
     """
+    frozen = get_frozen_case_for_clinical_id(session, case.id)
+    if frozen is not None and frozen.immutable:
+        raise FrozenValidationCaseError(
+            frozen.validation_case_id,
+            f"underlying case {case.case_id_code} is frozen",
+        )
     compact = _compact_case_token(case.case_id_code)
     blueprint_ids = list(
         session.scalars(

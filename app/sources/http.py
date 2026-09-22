@@ -127,5 +127,6 @@ SOURCE_BASE_URLS: dict[str, str] = {
     "ICD10CM": "https://clinicaltables.nlm.nih.gov/api/icd10cm/v3/search",
     "DAILYMED": "https://dailymed.nlm.nih.gov/dailymed/services/v2",
     "NLM_CONDITIONS": "https://clinicaltables.nlm.nih.gov/api/conditions/v3/search",
+    "NLM_HPO": "https://clinicaltables.nlm.nih.gov/api/hpo/v3/search",
     "RXCLASS": "https://rxnav.nlm.nih.gov/REST/rxclass",
 }
