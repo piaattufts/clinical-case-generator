@@ -246,3 +246,61 @@ class RefDevice(BaseModel):
     source_system: str | None = None
     source_version: str | None = None
     retrieved_at: datetime | None = None
+
+
+class MedicationSearchPage(BaseModel):
+    items: list[RefMedication]
+    total: int
+    limit: int
+    offset: int
+    query: str
+
+
+class LabSearchPage(BaseModel):
+    items: list[RefLabTest]
+    total: int
+    limit: int
+    offset: int
+    query: str
+
+
+class DiagnosisSearchPage(BaseModel):
+    items: list[RefDiagnosis]
+    total: int
+    limit: int
+    offset: int
+    query: str
+
+
+class SymptomSearchPage(BaseModel):
+    items: list[RefSymptom]
+    total: int
+    limit: int
+    offset: int
+    query: str
+
+
+class ClinicalRule(BaseModel):
+    model_config = ConfigDict(from_attributes=True, populate_by_name=True)
+
+    rule_code: str
+    rule_type: str
+    severity: str
+    enabled: bool
+    input_icd10cm_code: str | None = None
+    input_rxcui: str | None = None
+    input_loinc_code: str | None = None
+    related_rxcui: str | None = None
+    age_min: int | None = None
+    age_max: int | None = None
+    sex: str | None = None
+    care_context: str | None = None
+    constraint_json: Any | None = None
+    logic_notes: str | None = None
+    source_identifier: str | None = None
+    source_url: str | None = None
+    evidence_excerpt: str | None = None
+    id: UUID
+    source_system: str | None = None
+    source_version: str | None = None
+    retrieved_at: datetime | None = None

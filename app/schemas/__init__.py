@@ -31,9 +31,14 @@ from app.schemas.generation import (
     CaseBlueprint,
     CaseGenerationRun,
     CaseMedicationPlan,
+    ValidationBatchCase,
 )
 from app.schemas.reference import (
+    ClinicalRule,
     DataSourceRegistry,
+    DiagnosisSearchPage,
+    LabSearchPage,
+    MedicationSearchPage,
     RefClinicalDistribution,
     RefDevice,
     RefDiagnosis,
@@ -45,6 +50,7 @@ from app.schemas.reference import (
     RefSymptom,
     RefUnit,
     RefVital,
+    SymptomSearchPage,
 )
 
 __all__ = [
@@ -76,7 +82,11 @@ __all__ = [
     "CaseVital",
     "CaseWeight",
     "ClinicalCase",
+    "ClinicalRule",
     "DataSourceRegistry",
+    "DiagnosisSearchPage",
+    "LabSearchPage",
+    "MedicationSearchPage",
     "RefClinicalDistribution",
     "RefDevice",
     "RefDiagnosis",
@@ -88,4 +98,6 @@ __all__ = [
     "RefSymptom",
     "RefUnit",
     "RefVital",
+    "SymptomSearchPage",
+    "ValidationBatchCase",
 ]

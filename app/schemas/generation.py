@@ -65,3 +65,27 @@ class CaseMedicationPlan(BaseModel):
     decision_reason: str | None = None
     is_error_target: bool
     id: UUID
+
+
+class ValidationBatchCase(BaseModel):
+    model_config = ConfigDict(from_attributes=True, populate_by_name=True)
+
+    validation_case_id: str
+    batch_code: str
+    case_id: UUID
+    scenario_code: str
+    master_seed: int
+    case_seed: str
+    is_clean_control: bool
+    error_category: str | None = None
+    generator_version: str | None = None
+    reference_snapshot: Any | None = None
+    rule_snapshot: Any | None = None
+    clean_validation: Any | None = None
+    final_validation: Any | None = None
+    clean_state: Any | None = None
+    resident_state: Any | None = None
+    answer_key_payload: Any | None = None
+    frozen_at: datetime
+    immutable: bool
+    id: UUID
