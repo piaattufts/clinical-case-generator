@@ -2,37 +2,115 @@
 
 Status: machine-validated synthetic resident-review cases pending clinician validation.
 
-This rubric is for clinician review of frozen `CLINIPROOF_TAXONOMY_V1` cases (`VAL-201`–`VAL-224`). The five criteria serve different purposes. C1 can be completed from resident-visible documents alone. C2–C5 require the concealed assessment specification and belong on the investigator packet.
+This rubric is for clinician and investigator review of frozen `CLINIPROOF_TAXONOMY_V1` cases (`VAL-201`–`VAL-224`). The five criteria serve different purposes.
 
-`CLINIPROOF_TAXONOMY_V1` covers all currently implemented CliniProof error categories. `f2_coprescription_omitted` is not represented in this frozen batch and remains `not_yet_implementable`.
+- **C1 (clinical plausibility)** can be completed from the resident-visible chart alone. It is *fixable*: a case that is implausible should be revised rather than scored as an assessment item.
+- **C2–C4** are *hard gates*. They require the concealed assessment specification (investigator packet). A failure means the case cannot be used against its intended answer key until it is fixed or retired.
+- **C5 (difficulty)** is *advisory*. It must not by itself reject a case.
+
+`f2_coprescription_omitted` is not represented in this frozen batch and remains `not_yet_implementable`.
 
 ## Family-specific guidance for C2–C4
 
-**Family 1** categories are medication-list / transition discrepancies:
+C2–C4 must account for different structures.
 
-- `f1_omission`
-- `f1_commission`
-- `f1_dose_mismatch`
-- `f1_route_mismatch`
-- `f1_frequency_mismatch`
-- `f1_therapeutic_substitution`
+### Family 1 — medication-list / transition discrepancies
 
-**Family 2** categories are transition-of-care gaps. They may occur without changing the medication list:
+These generally involve comparing home, inpatient, and discharge medication lists.
 
-- `f2_monitoring_not_arranged`
-- `f2_held_med_no_restart_plan`
-- `f2_insufficient_supply`
-- `f2_hospital_only_continued`
-- `f2_inpatient_substitution_not_reverted`
-- `f2_pending_decision_followup_missing`
+#### Medication omitted at discharge
 
-Do **not** identify Family 2 solely by comparing home versus discharge medication lists. For Family 2, confirm that the trigger or precondition is visible and that the missing companion action (monitoring, restart plan, supply, hospital-only stop, substitution revert, or follow-up) is the specified target.
+`f1_omission`
 
-## C1. Clinical plausibility — fixable
+A medication intended to continue after hospitalization is absent from the discharge medication list without a documented reason.
 
-Definition: the resident-visible case forms a coherent and clinically credible inpatient encounter.
+#### Medication inappropriately added or continued
 
-Assess the following domains independently:
+`f1_commission`
+
+A medication that should not be on the discharge list (for example, one that was held or stopped) appears there without a documented decision to continue it.
+
+#### Unexplained dose discrepancy
+
+`f1_dose_mismatch`
+
+The discharge dose differs from the intended continued dose without an explanation.
+
+#### Unexplained route discrepancy
+
+`f1_route_mismatch`
+
+The discharge route differs from the intended continued route without an explanation.
+
+#### Unexplained frequency discrepancy
+
+`f1_frequency_mismatch`
+
+The discharge frequency differs from the intended continued frequency without an explanation.
+
+#### Unexplained therapeutic substitution
+
+`f1_therapeutic_substitution`
+
+The discharge list replaces an intended continued medication with another agent of the same class without documenting an intentional switch.
+
+### Family 2 — transition-of-care gaps
+
+These may involve absence of monitoring, follow-up, supply, restart planning, or another transition action. Do **not** identify Family 2 solely by comparing medication lists. For Family 2, the trigger or precondition must be visible, and the missing companion action is the specified target.
+
+#### Required monitoring not arranged
+
+`f2_monitoring_not_arranged`
+
+**Clinical explanation.** Warfarin is continued at discharge, but outpatient INR monitoring has not been arranged.
+
+**Technical concept.** In CliniProof this is classified as a Family 2 transition-of-care gap because the medication order itself remains unchanged; the missing element is the required follow-up action.
+
+#### Held medication without a restart plan
+
+`f2_held_med_no_restart_plan`
+
+A home medication is intentionally held in the hospital for a legitimate temporary reason, but discharge documentation does not say when or under what conditions it should be resumed.
+
+#### Insufficient medication supply
+
+`f2_insufficient_supply`
+
+Days’ supply at discharge is too short to last until the planned follow-up.
+
+#### Hospital-only medication continued after discharge
+
+`f2_hospital_only_continued`
+
+A medication started for an inpatient-only indication is still on the discharge list.
+
+#### Temporary inpatient substitution not addressed at discharge
+
+`f2_inpatient_substitution_not_reverted`
+
+A temporary inpatient substitute was used, but discharge does not revert to home therapy or document an intentional decision to continue the substitute.
+
+#### Follow-up missing for an unresolved treatment decision
+
+`f2_pending_decision_followup_missing`
+
+A treatment decision was left pending, but no follow-up is arranged to resolve it.
+
+#### Required companion medication omitted (not in this freeze)
+
+`f2_coprescription_omitted`
+
+Specified conceptually. Not currently implementable because no source-backed companion-prescription rule exists in this repository.
+
+## Criterion 1 — Clinical plausibility — fixable
+
+### Clinical question
+
+“Apart from any intentionally planted reconciliation discrepancy, could this case reasonably represent a patient encountered in the stated clinical setting?”
+
+### Reviewer should look for
+
+Assess these domains independently:
 
 1. Presentation and demographics
 2. Diagnosis-presentation coherence
@@ -43,18 +121,18 @@ Assess the following domains independently:
 7. Cross-document consistency
 8. Discharge context and follow-up
 
-Scale for each domain:
+Clinical plausibility is **not** synonymous with optimal management or complete guideline concordance. Unusual but source-backed formulations or units should be recorded if they undermine credibility; they should not be silently “corrected” in the frozen case.
+
+### Scale (each domain)
 
 - **4 — Fully plausible.** No clinically meaningful concern.
 - **3 — Plausible with minor concern.** A minor issue is present but would not materially alter interpretation.
 - **2 — Questionable.** A clinically meaningful inconsistency or implausibility is present and the case requires revision.
 - **1 — Implausible.** A major contradiction or unrealistic feature prevents the case from representing a credible inpatient encounter.
 
-Global question:
+### Result
 
-“Apart from the intentionally planted reconciliation discrepancy, could this case reasonably represent a patient encountered in the stated clinical setting?”
-
-Yes / No
+Global judgment: Yes / No.
 
 **C1 pass:** all clinically relevant domains ≥ 3 **and** global judgment = Yes.
 
@@ -62,51 +140,91 @@ Yes / No
 
 Require comments identifying the exact field or issue for any rating below 3.
 
-Clinical plausibility is **not** synonymous with optimal management or complete guideline concordance.
+### Technical interpretation
 
-## C2. Intended error present and correctly classified — hard gate
+C1 is a clinical-realism gate on the resident-visible export. It does not inspect `error_family` / `error_category`. Software already checked schema, terminology identifiers, and implemented rules; C1 asks whether a physician still finds the chart coherent.
 
-Standard: the planted error is actually present and matches the specified CliniProof family/category.
+## Criterion 2 — Intended error present and correctly classified — hard gate
 
-Response: Pass / Fail
+### Clinical question
 
-Questions:
+“Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims?”
 
-- Is the intended discrepancy/gap actually present?
-- Is it correctly classified?
+### Reviewer should look for
+
+- Is the intended discrepancy or gap actually present?
+- Is it correctly classified (Family 1 list discrepancy versus Family 2 transition gap, and the specific category)?
 - Does the investigator specification describe what is actually visible in the case?
+
+### Result
+
+Pass / Fail.
 
 A failure means the case cannot be scored against its intended answer key.
 
-## C3. Detectability from documents alone — hard gate
+### Technical interpretation
 
-Standard: the target is recoverable from the resident-visible case alone. The resident should not require withheld clinical information. The error must also not be artificially disclosed by formatting or wording.
+This is fidelity of the deterministic injection to the planned canonical category. Planned category, injected `kind`, and answer-key `error_category` must describe the same visible target.
 
-For Family 2: the trigger/precondition must be visible and unambiguous.
+## Criterion 3 — Detectability from documents alone — hard gate
 
-Response: Pass / Fail
+### Clinical question
 
-Require comments on evidence location, ambiguity, missing information, and cueing.
+“Could a resident identify and resolve the intended problem using only the information available in this case?”
 
-## C4. Absence of unintended errors — hard gate
+### Reviewer should look for
 
-Standard: no additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap exists beyond the specified target.
+- required clinical evidence is present
+- information is not contradictory
+- no critical information is withheld
+- wording does not accidentally reveal the answer (cueing)
+- for Family 2: the trigger or precondition is visible and unambiguous
 
-This must be assessed by **active hunt**. Do not merely record errors that happen to be noticed.
+### Result
 
-Ask raters to list any additional possible error and its severity/importance.
+Pass / Fail.
 
-Response: Pass / Fail
+Comment on evidence location, ambiguity, missing information, and cueing.
 
-## C5. Difficulty for target learner — advisory
+### Technical interpretation
 
-Target learner: internal medicine resident.
+This corresponds to evidentiary sufficiency and cue integrity in the CliniProof assessment model. The resident export must be sufficient without investigator fields.
 
-Rating: Easy / Moderate / Hard / Outlier / inappropriate
+## Criterion 4 — Absence of unintended errors — hard gate
 
-This is an expert provisional estimate only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+### Clinical question
 
-C5 alone should not reject a case.
+“Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target?”
+
+### Reviewer should look for
+
+This must be assessed by **active hunt**. Do not merely record errors that happen to be noticed. List any additional possible error and its severity or importance.
+
+### Result
+
+Pass / Fail.
+
+### Technical interpretation
+
+Error isolation: exactly one intended assessment target on error-bearing cases, zero on clean controls. Unintended second targets make the answer key unusable.
+
+## Criterion 5 — Difficulty for target learner — advisory
+
+### Clinical question
+
+“How difficult would this item be for an internal medicine resident?”
+
+### Reviewer should look for
+
+A provisional expert estimate: Easy / Moderate / Hard / Outlier / inappropriate.
+
+### Result
+
+Advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration. C5 alone should not reject a case.
+
+### Technical interpretation
+
+`difficulty_a_priori` in the answer key is optional metadata, not a software-computed score.
 
 ## Final disposition
 
