@@ -34,26 +34,26 @@ Give residents only [`resident_validation_cases.json`](resident_validation_cases
 
 ## Audited coverage
 
-A read-only integrity audit of these frozen files, without regeneration, found no defect on VAL-201 through VAL-224. The table lists counts by category. The paragraphs after the table state the same facts in clinical language.
+A read-only integrity audit of these frozen files, without regeneration, found no defect on VAL-201 through VAL-224. The table lists counts by category. Clinical names are shown first, with the software identifier in parentheses. The paragraphs after the table state the same facts in clinical language.
 
 | Bucket | Count |
 | --- | --- |
 | Clean controls | **4** |
-| Family 1 total | **11** |
-| `f1_omission` | 3 |
-| `f1_commission` | 2 |
-| `f1_dose_mismatch` | 2 |
-| `f1_frequency_mismatch` | 2 |
-| `f1_route_mismatch` | 1 |
-| `f1_therapeutic_substitution` | 1 |
-| Family 2 implemented total | **9** |
-| `f2_monitoring_not_arranged` | 2 |
-| `f2_held_med_no_restart_plan` | 2 |
-| `f2_insufficient_supply` | 2 |
-| `f2_hospital_only_continued` | 1 |
-| `f2_inpatient_substitution_not_reverted` | 1 |
-| `f2_pending_decision_followup_missing` | 1 |
-| not_yet_implementable `f2_coprescription_omitted` | **0** |
+| Family 1 medication-list discrepancies, total | **11** |
+| Medication omitted at discharge (`f1_omission`) | 3 |
+| Medication inappropriately added or continued (`f1_commission`) | 2 |
+| Unexplained dose discrepancy (`f1_dose_mismatch`) | 2 |
+| Unexplained frequency discrepancy (`f1_frequency_mismatch`) | 2 |
+| Unexplained route discrepancy (`f1_route_mismatch`) | 1 |
+| Unexplained therapeutic substitution (`f1_therapeutic_substitution`) | 1 |
+| Family 2 transition-of-care gaps, implemented total | **9** |
+| Required outpatient monitoring not arranged (`f2_monitoring_not_arranged`) | 2 |
+| Held medication without a restart plan (`f2_held_med_no_restart_plan`) | 2 |
+| Insufficient medication supply (`f2_insufficient_supply`) | 2 |
+| Hospital-only medication continued after discharge (`f2_hospital_only_continued`) | 1 |
+| Temporary inpatient substitution not addressed at discharge (`f2_inpatient_substitution_not_reverted`) | 1 |
+| Follow-up missing for an unresolved treatment decision (`f2_pending_decision_followup_missing`) | 1 |
+| Required companion medication omitted (`f2_coprescription_omitted`), not yet implementable | **0** |
 
 Of the twenty cases containing an intended assessment problem, eleven represent Family 1 medication-reconciliation discrepancies, in which the medication regimen itself differs across the transition to discharge. The remaining nine represent Family 2 transition-of-care gaps, in which the medication order may be correct but an important action such as monitoring, medication supply, restart instructions, or follow-up is missing.
 
@@ -182,31 +182,31 @@ The packet index is [`readable/README.md`](readable/README.md). Regenerate the M
 
 ## Assignment index (investigator only)
 
-Do not distribute this table to residents. It maps each public VAL identifier to its internal generation identifier, scenario, seed, family, and category. Family 1 is a discharge or plan mutation. Family 2 is generally an absence of monitoring, restart plan, supply, hospital-only stop, substitution revert, or follow-up while the trigger medication remains visible. Clean controls keep the intended companion actions.
+Do not distribute this table to residents. It maps each public VAL identifier to its internal generation identifier, scenario, seed, family, and category. Family 1 is a discharge or plan mutation. Family 2 is generally an absence of monitoring, restart plan, supply, hospital-only stop, substitution revert, or follow-up while the trigger medication remains visible. Clean controls keep the intended companion actions. Clinical names are shown first, with software identifiers in parentheses.
 
-| VAL | SYN | Scenario | Seed | Family | Category |
+| VAL | SYN | Scenario | Seed | Family | Clinical category |
 | --- | --- | --- | --- | --- | --- |
-| VAL-201 | SYN-000801 | HF_INPATIENT | `20260922:801:HF_INPATIENT` | family_1 | `f1_omission` |
-| VAL-202 | SYN-000802 | HF_INPATIENT | `20260922:802:HF_INPATIENT` | family_1 | `f1_commission` |
-| VAL-203 | SYN-000803 | HF_INPATIENT | `20260922:803:HF_INPATIENT` | family_1 | `f1_dose_mismatch` |
-| VAL-204 | SYN-000804 | HF_INPATIENT | `20260922:804:HF_INPATIENT` | family_1 | `f1_route_mismatch` |
-| VAL-205 | SYN-000805 | HF_INPATIENT | `20260922:805:HF_INPATIENT` | family_1 | `f1_frequency_mismatch` |
-| VAL-206 | SYN-000806 | HF_INPATIENT | `20260922:806:HF_INPATIENT` | family_1 | `f1_therapeutic_substitution` |
-| VAL-207 | SYN-000807 | HF_INPATIENT | `20260922:807:HF_INPATIENT` | family_2 | `f2_monitoring_not_arranged` |
-| VAL-208 | SYN-000808 | HF_INPATIENT | `20260922:808:HF_INPATIENT` | family_2 | `f2_held_med_no_restart_plan` |
-| VAL-209 | SYN-000809 | HF_INPATIENT | `20260922:809:HF_INPATIENT` | family_2 | `f2_insufficient_supply` |
-| VAL-210 | SYN-000810 | HF_INPATIENT | `20260922:810:HF_INPATIENT` | family_2 | `f2_hospital_only_continued` |
-| VAL-211 | SYN-000811 | HF_INPATIENT | `20260922:811:HF_INPATIENT` | family_2 | `f2_inpatient_substitution_not_reverted` |
-| VAL-212 | SYN-000812 | HF_INPATIENT | `20260922:812:HF_INPATIENT` | family_2 | `f2_pending_decision_followup_missing` |
-| VAL-213 | SYN-000813 | HF_INPATIENT | `20260922:813:HF_INPATIENT` | none | **clean control** |
-| VAL-214 | SYN-000814 | AF_ANTICOAGULATION | `20260922:814:AF_ANTICOAGULATION` | family_1 | `f1_omission` |
-| VAL-215 | SYN-000815 | AF_ANTICOAGULATION | `20260922:815:AF_ANTICOAGULATION` | family_2 | `f2_monitoring_not_arranged` |
-| VAL-216 | SYN-000816 | AF_ANTICOAGULATION | `20260922:816:AF_ANTICOAGULATION` | none | **clean control** |
-| VAL-217 | SYN-000817 | HTN_INPATIENT | `20260922:817:HTN_INPATIENT` | family_1 | `f1_dose_mismatch` |
-| VAL-218 | SYN-000818 | HTN_INPATIENT | `20260922:818:HTN_INPATIENT` | family_1 | `f1_commission` |
-| VAL-219 | SYN-000819 | HTN_INPATIENT | `20260922:819:HTN_INPATIENT` | family_2 | `f2_held_med_no_restart_plan` |
-| VAL-220 | SYN-000820 | HTN_INPATIENT | `20260922:820:HTN_INPATIENT` | none | **clean control** |
-| VAL-221 | SYN-000821 | T2DM_INPATIENT | `20260922:821:T2DM_INPATIENT` | family_1 | `f1_omission` |
-| VAL-222 | SYN-000822 | T2DM_INPATIENT | `20260922:822:T2DM_INPATIENT` | family_2 | `f2_insufficient_supply` |
-| VAL-223 | SYN-000823 | T2DM_INPATIENT | `20260922:823:T2DM_INPATIENT` | none | **clean control** |
-| VAL-224 | SYN-000824 | CAP_INPATIENT | `20260922:824:CAP_INPATIENT` | family_1 | `f1_frequency_mismatch` |
+| VAL-201 | SYN-000801 | Heart-failure inpatient (`HF_INPATIENT`) | `20260922:801:HF_INPATIENT` | Family 1 (`family_1`) | Medication omitted at discharge (`f1_omission`) |
+| VAL-202 | SYN-000802 | Heart-failure inpatient (`HF_INPATIENT`) | `20260922:802:HF_INPATIENT` | Family 1 (`family_1`) | Medication inappropriately added or continued (`f1_commission`) |
+| VAL-203 | SYN-000803 | Heart-failure inpatient (`HF_INPATIENT`) | `20260922:803:HF_INPATIENT` | Family 1 (`family_1`) | Unexplained dose discrepancy (`f1_dose_mismatch`) |
+| VAL-204 | SYN-000804 | Heart-failure inpatient (`HF_INPATIENT`) | `20260922:804:HF_INPATIENT` | Family 1 (`family_1`) | Unexplained route discrepancy (`f1_route_mismatch`) |
+| VAL-205 | SYN-000805 | Heart-failure inpatient (`HF_INPATIENT`) | `20260922:805:HF_INPATIENT` | Family 1 (`family_1`) | Unexplained frequency discrepancy (`f1_frequency_mismatch`) |
+| VAL-206 | SYN-000806 | Heart-failure inpatient (`HF_INPATIENT`) | `20260922:806:HF_INPATIENT` | Family 1 (`family_1`) | Unexplained therapeutic substitution (`f1_therapeutic_substitution`) |
+| VAL-207 | SYN-000807 | Heart-failure inpatient (`HF_INPATIENT`) | `20260922:807:HF_INPATIENT` | Family 2 (`family_2`) | Required outpatient monitoring not arranged (`f2_monitoring_not_arranged`) |
+| VAL-208 | SYN-000808 | Heart-failure inpatient (`HF_INPATIENT`) | `20260922:808:HF_INPATIENT` | Family 2 (`family_2`) | Held medication without a restart plan (`f2_held_med_no_restart_plan`) |
+| VAL-209 | SYN-000809 | Heart-failure inpatient (`HF_INPATIENT`) | `20260922:809:HF_INPATIENT` | Family 2 (`family_2`) | Insufficient medication supply (`f2_insufficient_supply`) |
+| VAL-210 | SYN-000810 | Heart-failure inpatient (`HF_INPATIENT`) | `20260922:810:HF_INPATIENT` | Family 2 (`family_2`) | Hospital-only medication continued after discharge (`f2_hospital_only_continued`) |
+| VAL-211 | SYN-000811 | Heart-failure inpatient (`HF_INPATIENT`) | `20260922:811:HF_INPATIENT` | Family 2 (`family_2`) | Temporary inpatient substitution not addressed at discharge (`f2_inpatient_substitution_not_reverted`) |
+| VAL-212 | SYN-000812 | Heart-failure inpatient (`HF_INPATIENT`) | `20260922:812:HF_INPATIENT` | Family 2 (`family_2`) | Follow-up missing for an unresolved treatment decision (`f2_pending_decision_followup_missing`) |
+| VAL-213 | SYN-000813 | Heart-failure inpatient (`HF_INPATIENT`) | `20260922:813:HF_INPATIENT` | No planted target (`none`) | Clean control |
+| VAL-214 | SYN-000814 | Atrial fibrillation with anticoagulation (`AF_ANTICOAGULATION`) | `20260922:814:AF_ANTICOAGULATION` | Family 1 (`family_1`) | Medication omitted at discharge (`f1_omission`) |
+| VAL-215 | SYN-000815 | Atrial fibrillation with anticoagulation (`AF_ANTICOAGULATION`) | `20260922:815:AF_ANTICOAGULATION` | Family 2 (`family_2`) | Required outpatient monitoring not arranged (`f2_monitoring_not_arranged`) |
+| VAL-216 | SYN-000816 | Atrial fibrillation with anticoagulation (`AF_ANTICOAGULATION`) | `20260922:816:AF_ANTICOAGULATION` | No planted target (`none`) | Clean control |
+| VAL-217 | SYN-000817 | Hypertension inpatient (`HTN_INPATIENT`) | `20260922:817:HTN_INPATIENT` | Family 1 (`family_1`) | Unexplained dose discrepancy (`f1_dose_mismatch`) |
+| VAL-218 | SYN-000818 | Hypertension inpatient (`HTN_INPATIENT`) | `20260922:818:HTN_INPATIENT` | Family 1 (`family_1`) | Medication inappropriately added or continued (`f1_commission`) |
+| VAL-219 | SYN-000819 | Hypertension inpatient (`HTN_INPATIENT`) | `20260922:819:HTN_INPATIENT` | Family 2 (`family_2`) | Held medication without a restart plan (`f2_held_med_no_restart_plan`) |
+| VAL-220 | SYN-000820 | Hypertension inpatient (`HTN_INPATIENT`) | `20260922:820:HTN_INPATIENT` | No planted target (`none`) | Clean control |
+| VAL-221 | SYN-000821 | Type 2 diabetes inpatient (`T2DM_INPATIENT`) | `20260922:821:T2DM_INPATIENT` | Family 1 (`family_1`) | Medication omitted at discharge (`f1_omission`) |
+| VAL-222 | SYN-000822 | Type 2 diabetes inpatient (`T2DM_INPATIENT`) | `20260922:822:T2DM_INPATIENT` | Family 2 (`family_2`) | Insufficient medication supply (`f2_insufficient_supply`) |
+| VAL-223 | SYN-000823 | Type 2 diabetes inpatient (`T2DM_INPATIENT`) | `20260922:823:T2DM_INPATIENT` | No planted target (`none`) | Clean control |
+| VAL-224 | SYN-000824 | Community-acquired pneumonia inpatient (`CAP_INPATIENT`) | `20260922:824:CAP_INPATIENT` | Family 1 (`family_1`) | Unexplained frequency discrepancy (`f1_frequency_mismatch`) |

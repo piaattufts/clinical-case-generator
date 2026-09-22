@@ -36,19 +36,19 @@ A medication that should not continue, for example one held or stopped, appears 
 
 ##### Unexplained dose discrepancy (`f1_dose_mismatch`)
 
-The discharge dose differs from the intended continued dose without explanation. The injector changes only that field on the discharge entry.
+The discharge dose differs from the intended continued dose without a documented explanation. This is a Family 1 medication-list discrepancy. After the clean case passes validation, the injector changes only the dose field on the discharge entry. Home and inpatient lists remain unchanged so that a reviewer can see the intended dose.
 
 ##### Unexplained route discrepancy (`f1_route_mismatch`)
 
-The discharge route differs from the intended continued route without explanation.
+The discharge route differs from the intended continued route without a documented explanation. For example, an oral medication might appear as a different route at discharge with no rationale in the chart.
 
 ##### Unexplained frequency discrepancy (`f1_frequency_mismatch`)
 
-The discharge frequency differs from the intended continued frequency without explanation.
+The discharge frequency differs from the intended continued frequency without a documented explanation. For example, a once-daily medication might appear as twice daily at discharge, or the reverse.
 
 ##### Unexplained therapeutic substitution (`f1_therapeutic_substitution`)
 
-The discharge list shows a same-class substitute instead of the intended continued product, without documenting an intentional switch.
+The discharge list shows a same-class substitute instead of the intended continued product, without documenting an intentional switch. The original product remains visible on the home or inpatient list so that the substitution can be noticed.
 
 #### Family 2
 
@@ -58,23 +58,23 @@ Warfarin is continued at discharge, but outpatient INR monitoring has not been a
 
 ##### Held medication without a restart plan (`f2_held_med_no_restart_plan`)
 
-The original medication is intentionally stopped during hospitalization for a legitimate temporary reason, but the discharge documentation does not tell the patient or outpatient clinician when or under what conditions it should be resumed.
+The original medication is intentionally stopped during hospitalization for a legitimate temporary reason, but the discharge documentation does not tell the patient or outpatient clinician when or under what conditions it should be resumed. The hold itself remains visible; what is missing is the restart plan.
 
 ##### Insufficient medication supply (`f2_insufficient_supply`)
 
-Days’ supply is shortened so that treatment cannot last until planned follow-up.
+Days’ supply at discharge is shortened so that treatment cannot last until the planned follow-up. The medication identity on the discharge list may be correct; the missing element is enough supply to bridge to the next visit.
 
 ##### Hospital-only medication continued after discharge (`f2_hospital_only_continued`)
 
-A drug started for an inpatient-only indication remains on the discharge list.
+A drug started for an inpatient-only indication remains on the discharge list. Reviewers are expected to notice that a hospital-only product was not stopped at the transition home.
 
 ##### Temporary inpatient substitution not addressed at discharge (`f2_inpatient_substitution_not_reverted`)
 
-A temporary inpatient substitute is left in place without reverting to home therapy or documenting an intentional decision.
+A temporary inpatient substitute is left in place without reverting to home therapy or documenting an intentional decision to continue the substitute.
 
 ##### Follow-up missing for an unresolved treatment decision (`f2_pending_decision_followup_missing`)
 
-A pending therapeutic decision has no arranged follow-up.
+A pending therapeutic decision has no arranged follow-up. The medication list may look intact, but the chart does not say when or by whom the unresolved decision will be revisited.
 
 ##### Required companion medication omitted (`f2_coprescription_omitted`)
 
@@ -102,40 +102,18 @@ Official source ranking can yield technically valid but clinically atypical form
 
 ## C. Generation pipeline
 
-The pipeline below is the order of operations, not a suggestion to skip steps. Each arrow is a completed software stage before the next stage begins.
+Cases are built in a fixed order. Each stage completes before the next stage begins.
 
-```
-Clinical scenario
-→ terminology resolution
-→ clean synthetic patient
-→ rule checks
-→ clean validation
-→ assessment target eligibility
-→ controlled error introduction
-→ post-error validation
-→ blinded resident export
-→ clinician validation
-```
-
-A clinical scenario is an inpatient teaching skeleton chosen by an operator. It specifies specialty, age band, diagnosis and medication search phrases, and which assessment categories are allowed.
-
-Terminology resolution matches those search phrases to identifiers already stored from official services, including RxNorm, ICD-10-CM, LOINC, UCUM, and related sources. The generator does not invent codes.
-
-A clean synthetic patient is then assembled: demographics, vital signs, laboratory values, medication lists, notes, and follow-up, internally consistent with the scenario and the stored concepts.
-
-Rule checks apply a small set of source-backed if-then constraints, and only those with attached DailyMed or RxClass evidence. This is not a complete clinical guideline.
-
-Clean validation checks structure, confirms that every coded concept exists in local reference tables, confirms that hard rules hold, and confirms that the clean chart does not already contain the assessment target that would later be planted.
-
-Assessment target eligibility then asks whether the planned category can actually be applied to this case. If not, generation stops. Another category is not silently substituted.
-
-Controlled error introduction applies exactly one planned change for assessment cases. Clean controls skip this step.
-
-Post-error validation checks that the intended target is now present, that required evidence remains visible, and that a second assessment target was not introduced.
-
-Blinded resident export gives residents the chart without family, category, trigger metadata, or answer keys.
-
-Clinician validation is the human step. Reviewers apply criteria C1 through C5. Automated checks cannot certify realism or educational appropriateness.
+1. A clinical scenario is selected. A clinical scenario is an inpatient teaching skeleton chosen by an operator. It specifies specialty, age band, diagnosis and medication search phrases, and which assessment categories are allowed.
+2. Terminology is resolved. Search phrases are matched to identifiers already stored from official services, including RxNorm, ICD-10-CM, LOINC, UCUM, and related sources. The generator does not invent codes.
+3. A clean synthetic patient is assembled: demographics, vital signs, laboratory values, medication lists, notes, and follow-up, internally consistent with the scenario and the stored concepts.
+4. Rule checks apply a small set of source-backed if-then constraints, and only those with attached DailyMed or RxClass evidence. This is not a complete clinical guideline.
+5. Clean validation checks structure, confirms that every coded concept exists in local reference tables, confirms that hard rules hold, and confirms that the clean chart does not already contain the assessment target that would later be planted.
+6. Assessment target eligibility asks whether the planned category can actually be applied to this case. If not, generation stops. Another category is not silently substituted.
+7. Controlled error introduction applies exactly one planned change for assessment cases. Clean controls skip this step.
+8. Post-error validation checks that the intended target is now present, that required evidence remains visible, and that a second assessment target was not introduced.
+9. Blinded resident export gives residents the chart without family, category, trigger metadata, or answer keys.
+10. Clinician validation is the human step. Reviewers apply criteria C1 through C5. Automated checks cannot certify realism or educational appropriateness.
 
 ## D. What OpenAI does
 

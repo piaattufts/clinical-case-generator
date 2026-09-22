@@ -156,7 +156,7 @@ This section is for physicians and clinical reviewers. It explains how a synthet
 
 **Worked examples below are educational demonstrations**, not members of the blinded resident-validation study. They were generated with the same code path as the study freeze (`app/services/generation.py`), with template admission wording (no OpenAI call), sequences **901–904**, and seed **20260926**. Snapshots: [`data/docs/clinician_examples/`](data/docs/clinician_examples/). Study cases for residents are `VAL-201`–`VAL-224` in [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json). This walkthrough does **not** say which `VAL-*` cases are controls or which discrepancy was planted.
 
-Status of every generated record until a clinician finishes review: treat it as a machine-validated synthetic resident-review case pending clinician validation. The software has checked structure and implemented rules; it has not certified clinical realism.
+Until a clinician finishes review, treat every generated record as a machine-validated synthetic resident-review case pending clinician validation. The software has checked structure and implemented rules; it has not certified clinical realism.
 
 The implemented pipeline is not “ask a language model to make a clinical case and then find an error.” The order of operations is: an assessment or batch specification is written; a scenario is selected; canonical terminology is resolved from local authoritative reference tables; a deterministic structured clean case is generated; source-backed clinical rules are applied; the clean case is machine-validated; eligibility for the requested standardized error category is checked; the exact requested error is injected deterministically, or skipped for a clean control; hidden assessment and answer-key state is recorded; post-injection category-aware validation runs; the case is frozen under an immutable VAL identifier; and blinded resident and investigator exports are written.
 
@@ -181,181 +181,111 @@ Those six kinds of content are stored in PostgreSQL as described in [Database, t
 
 ## The Case Generation Process — Clinical View
 
-Order below matches `generate_one_case` in [`app/services/generation.py`](app/services/generation.py). Study freeze adds steps 11–12 (`app/services/validation_batch.py`). Step 13 is not software.
+The thirteen steps below follow `generate_one_case` in [`app/services/generation.py`](app/services/generation.py). Study freeze adds the freeze and export steps (`app/services/validation_batch.py`). The last step is clinician review, which is not performed by software. Each step is written as ordinary clinical and technical explanation rather than as a labeled checklist.
 
 ### 1. Select a clinical scenario
 
-**What happens.** An operator (or the freeze plan) chooses one inpatient *family* from [`data/bootstrap/scenarios.json`](data/bootstrap/scenarios.json). The family is a teaching skeleton: specialty, age band, diagnosis search text, symptom search text, medication search text, optional “stop” medication, optional hospital-only medication, optional anticoagulant either/or list, laboratory search text, and which canonical CliniProof error categories (`f1_*` / `f2_*`) are allowed.
+What happens at this step is that an operator, or the freeze plan, chooses one inpatient teaching family from [`data/bootstrap/scenarios.json`](data/bootstrap/scenarios.json). The family is a teaching skeleton. It names the specialty, age band, diagnosis search text, symptom search text, medication search text, an optional stop medication, an optional hospital-only medication, an optional anticoagulant either-or list, laboratory search text, and which standardized CliniProof error categories (`f1_*` / `f2_*`) are allowed.
 
-**Example.** Heart-failure family `HF_INPATIENT`: cardiology, ages 55–85, diagnosis query `heart failure`, symptoms `dyspnea` / `edema` / `orthopnea`, continue-med queries lisinopril, furosemide, metoprolol, spironolactone, atorvastatin, stop query `ibuprofen`, hospital-only query `pantoprazole` (used only when the target category is `f2_hospital_only_continued`), anticoagulant mutex `warfarin` **or** `apixaban`, labs potassium / creatinine / INR / natriuretic peptide.
+For example, the heart-failure family `HF_INPATIENT` is a cardiology inpatient skeleton for ages 55 through 85. Its diagnosis query is `heart failure`. Its symptom queries are `dyspnea`, `edema`, and `orthopnea`. Its continue-medication queries are lisinopril, furosemide, metoprolol, spironolactone, and atorvastatin. Its stop query is `ibuprofen`. Its hospital-only query is `pantoprazole`, which is constructed only when the target category is hospital-only medication continued after discharge (`f2_hospital_only_continued`). Its anticoagulant mutex chooses warfarin or apixaban, but not both. Its laboratory queries are potassium, creatinine, INR, and natriuretic peptide.
 
-**Why it matters clinically.** The scenario decides the *problem list theme* and which drug classes will appear. It does not yet pick a specific RXCUI or ICD-10-CM code.
+This matters clinically because the scenario decides the problem-list theme and which drug classes will appear. It does not yet pick a specific RxNorm identifier (RXCUI) or ICD-10-CM code.
 
-**Authoritative source.** None yet — this file is a curated search list, not a codebook.
+There is no authoritative terminology source at this step. The scenario file is a curated search list, not a codebook. No patient-specific synthetic values have been generated yet. The software automatically rejects unknown scenario codes at freeze time.
 
-**Synthetic.** Not yet.
-
-**Checked automatically.** Unknown scenario codes are rejected at freeze time.
-
-**Physician judgment.** Whether five inpatient families are enough for your study is a protocol question, not a software check.
+Whether five inpatient families are enough for a given study remains a protocol question for physicians, not a software check.
 
 ### 2. Resolve clinical concepts
 
-**What happens.** For each search phrase, Python looks up **already stored** local reference rows (`match_diagnosis`, `match_medication`, `match_lab` in [`app/services/bootstrap.py`](app/services/bootstrap.py); symptoms via `search_symptoms`). Those rows were filled earlier by `bootstrap-reference-data` from official APIs listed in [`data/bootstrap/manifest.json`](data/bootstrap/manifest.json). Combination RxNorm products are filtered at bootstrap. Official LOINC **term** codes are stored; LOINC Parts are not. SNOMED CT is **not** ingested; `snomed_code` stays null rather than invented.
+What happens next is that, for each search phrase, Python looks up already stored local reference rows. Diagnosis, medication, and laboratory matching live in `match_diagnosis`, `match_medication`, and `match_lab` in [`app/services/bootstrap.py`](app/services/bootstrap.py); symptoms are matched through `search_symptoms`. Those rows were filled earlier by `bootstrap-reference-data` from official APIs listed in [`data/bootstrap/manifest.json`](data/bootstrap/manifest.json). Combination RxNorm products are filtered at bootstrap. Official LOINC term codes are stored; LOINC Parts are not. SNOMED CT is not ingested, so `snomed_code` stays null rather than being invented.
 
-**Example.** Query `heart failure` → local ICD-10-CM **I50.20** “Unspecified systolic (congestive) heart failure”. Query `lisinopril` → RxNorm **1806884** “lisinopril 1 MG/ML Oral Solution”. Query `creatinine` → LOINC **14682-9**. Query `edema` → NLM conditions name **Anasarca** (token match, not the word “edema”). Query `orthopnea` → NLM HPO name **Orthopnea**; `snomed_code` is null; synonym list contains `HP:0012764` (that HPO id is **not** written into `snomed_code`).
+For example, the query `heart failure` resolves to local ICD-10-CM **I50.20**, “Unspecified systolic (congestive) heart failure.” The query `lisinopril` resolves to RxNorm **1806884**, “lisinopril 1 MG/ML Oral Solution.” The query `creatinine` resolves to LOINC **14682-9**. The query `edema` resolves to the NLM conditions name **Anasarca** by token match, not because the stored preferred name is the word “edema.” The query `orthopnea` resolves to the NLM HPO name **Orthopnea**; `snomed_code` remains null, and the synonym list contains `HP:0012764`, which is an HPO identifier and is not written into `snomed_code`.
 
-**Why it matters clinically.** Every named drug, diagnosis, and lab *concept* on the case is traceable to an official code the source actually returned. Ranking can prefer an oral solution or an oximetry hemoglobin term over the tablet or methodless term you might expect in clinic.
+This matters clinically because every named drug, diagnosis, and laboratory concept on the case is traceable to an official code that the source actually returned. Ranking can prefer an oral solution or an oximetry hemoglobin term over the tablet or methodless term a clinician might expect.
 
-**Authoritative source.** RxNav, NLM ICD-10-CM, LOINC FHIR TS, NLM conditions, NLM HPO, UCUM essence XML (units), DailyMed (labels, later), RxClass (rule evidence and medication-class membership).
+The authoritative sources at this step are RxNav, NLM ICD-10-CM, LOINC FHIR terminology services, NLM conditions, NLM HPO, UCUM essence XML for units, DailyMed for later label text, and RxClass for rule evidence and medication-class membership. The search phrases in the scenario file are synthetic teaching queries. The identifiers those queries retrieve are not.
 
-**Synthetic.** The search phrases in the scenario file. Not the identifiers.
-
-**Checked automatically.** If a required diagnosis, medication, or lab query does not resolve, generation raises `ReferenceResolutionError` and does not invent a code.
-
-**Physician judgment.** Whether I50.20, an oral-solution lisinopril, or hemoglobin LOINC 55782-7 (oximetry) is a fair teaching proxy is for reviewers.
+If a required diagnosis, medication, or laboratory query does not resolve, generation raises `ReferenceResolutionError` and does not invent a code. Whether I50.20, an oral-solution lisinopril, or hemoglobin LOINC 55782-7 (oximetry) is a fair teaching proxy is a reviewer judgment.
 
 ### 3. Apply clinical constraints (before the patient is built)
 
-**What happens.** `_assert_rules_allow` builds a snapshot of the chosen ICD-10-CM codes, RXCUIs, and LOINC codes and runs **hard** rules (`app/services/rules.py`). If a hard rule fails, generation stops. Soft rules become warnings later, not blockers.
+What happens here is that `_assert_rules_allow` builds a snapshot of the chosen ICD-10-CM codes, RxNorm identifiers, and LOINC codes and runs hard rules in `app/services/rules.py`. If a hard rule fails, generation stops. Soft rules become warnings later; they do not block construction.
 
-**Example.** Warfarin and apixaban are never both selected (anticoagulant mutex in the scenario, plus hard rule `NO_DUAL_ORAL_ANTICOAGULANT`). If warfarin is selected, INR LOINC `38875-1` must be among the labs (`WARFARIN_INR_MONITORING`).
+For example, warfarin and apixaban are never both selected. That restriction is both the anticoagulant mutex in the scenario and the hard rule `NO_DUAL_ORAL_ANTICOAGULANT`. If warfarin is selected, INR LOINC `38875-1` must be among the laboratories because of `WARFARIN_INR_MONITORING`.
 
-**Why it matters clinically.** The machine prevents two implemented unsafe patterns. It does **not** encode GDMT completeness, antibiotic duration, or renal dosing.
-
-**Authoritative source.** Rule *enablement* requires DailyMed or RxClass evidence (`data/bootstrap/rule_templates.json`). Terminology lookup alone does not turn a rule on.
-
-**Synthetic.** None.
-
-**Checked automatically.** Hard violations abort generation.
-
-**Physician judgment.** Absence of a guideline in this engine is not evidence that the guideline is unimportant.
+This matters clinically because the machine prevents two implemented unsafe patterns. It does not encode guideline-directed medical therapy completeness, antibiotic duration, or renal dosing. A rule is enabled only when DailyMed or RxClass evidence is attached in `data/bootstrap/rule_templates.json`. Terminology lookup alone does not turn a rule on. No patient-specific synthetic values are created at this step. Hard violations abort generation. Absence of a guideline in this engine is not evidence that the guideline is unimportant.
 
 ### 4. Generate patient-specific synthetic values
 
-**What happens.** A Python `random.Random` object is seeded with `{seed}:{sequence}:{scenario}` (example: `20260926:901:HF_INPATIENT`). Age is drawn in the scenario band; sex is `Female` or `Male`; weight 60–110 kg; blood pressure, heart rate, respiratory rate, and SpO2 from integer ranges; temperature is fixed `36.8`; lab *numbers* use analyte-specific draws in `_synthetic_lab_value`. Display name is `SYN Patient {sequence}`. Numeric origin is labeled `synthetic_model_generated` on generation metadata and on some dose notes (`app/services/generation.py`).
+A Python `random.Random` object is then seeded with `{seed}:{sequence}:{scenario}`, for example `20260926:901:HF_INPATIENT`. Age is drawn in the scenario band. Sex is `Female` or `Male`. Weight is drawn between 60 and 110 kg. Blood pressure, heart rate, respiratory rate, and SpO2 come from integer ranges. Temperature is fixed at `36.8`. Laboratory numbers use analyte-specific draws in `_synthetic_lab_value`. The display name is `SYN Patient {sequence}`. Numeric origin is labeled `synthetic_model_generated` on generation metadata and on some dose notes in `app/services/generation.py`.
 
-**Example.** Demonstration HF case `SYN-000901`: 83-year-old male, 69 kg, BP 124/70, HR 108, RR 23, SpO2 98%, creatinine **1.6** with unit `umol/L`.
+The demonstration heart-failure case `SYN-000901` is an 83-year-old man weighing 69 kg, with blood pressure 124/70, heart rate 108, respiratory rate 23, SpO2 98%, and creatinine **1.6** with unit `umol/L`.
 
-**Why it matters clinically.** The **lab concept** (creatinine, LOINC 14682-9) is source-backed. The **result 1.6 umol/L** is synthetic and uses the first example UCUM unit stored on that LOINC row (often SI moles/volume). Do not read it as a real patient’s mg/dL creatinine.
-
-**Authoritative source.** None for the numbers. Units come from stored LOINC example UCUM text.
-
-**Synthetic.** Age, sex, name, weight, vitals, lab numbers, intake/output.
-
-**Checked automatically.** Ranges are code constants, not physiologic plausibility checks.
-
-**Physician judgment.** Whether HR 108 with BP 124/70 and SpO2 98% forms a coherent decompensated-HF picture is a clinical question. The machine does not score that.
+This matters clinically because the laboratory concept, creatinine LOINC 14682-9, is source-backed, while the result 1.6 umol/L is synthetic and uses the first example UCUM unit stored on that LOINC row, which is often an SI moles-per-volume unit. Do not read it as a real patient’s mg/dL creatinine. There is no authoritative source for the numbers themselves. Units come from stored LOINC example UCUM text. Age, sex, name, weight, vital signs, laboratory numbers, and intake and output are synthetic. The ranges are code constants, not physiologic plausibility checks. Whether heart rate 108 with blood pressure 124/70 and SpO2 98% forms a coherent decompensated-heart-failure picture is a clinical question. The machine does not score that.
 
 ### 5. Word the narrative
 
-**What happens.** `_template_narrative` writes chief complaint, HPI, and an admission note from the already chosen age, sex, diagnosis name, symptom names, and medication names. If OpenAI is enabled *and* a key is set, `assemble_narrative` may reword those facts; unknown drugs or diagnoses in the model text cause fallback to the template. Freeze never calls OpenAI.
+`_template_narrative` writes the chief complaint, history of present illness, and an admission note from the already chosen age, sex, diagnosis name, symptom names, and medication names. If OpenAI is enabled and a key is set, `assemble_narrative` may reword those facts. Unknown drugs or diagnoses in the model text cause fallback to the template. Freeze never calls OpenAI.
 
-**Example.** `SYN-000901` chief complaint: “Dyspnea, Anasarca, Orthopnea in the setting of Unspecified systolic (congestive) heart failure.” Note `source_type` is `template`.
+On `SYN-000901`, the chief complaint is “Dyspnea, Anasarca, Orthopnea in the setting of Unspecified systolic (congestive) heart failure,” and the note `source_type` is `template`.
 
-**Why it matters clinically.** The prose is a label on structured facts, not an independent history.
-
-**Authoritative source.** None.
-
-**Synthetic.** The sentences.
-
-**Checked automatically.** OpenAI output is rejected if none of the allowed names appear (`_narrative_rejected`). Freeze skips OpenAI entirely.
-
-**Physician judgment.** Template HPI is short and generic. Reviewers may judge it too thin for a real admission note.
+This matters clinically because the prose is a label on structured facts, not an independent history. There is no authoritative source for the sentences. The sentences themselves are synthetic. OpenAI output is rejected if none of the allowed names appear (`_narrative_rejected`). Freeze skips OpenAI entirely. Template history of present illness is short and generic, and reviewers may judge it too thin for a real admission note.
 
 ### 6. Construct medication timelines
 
-**What happens.** Each **continue** medication is written three times: home (`status: home`), inpatient (`status: active`), discharge (`status: discharge`), same dose and `once daily`. Each **stop** medication is written on home and inpatient as `held`, and is **absent** from the clean discharge list. A `CaseMedicationPlan` row records the intended reconciliation decision (`continue` vs `stop`). Dose is the RxNorm `strength` string when present, otherwise the synthetic fallback **`1 tablet`**.
+Each continue medication is written three times: at home (`status: home`), in the hospital (`status: active`), and at discharge (`status: discharge`), at the same dose and `once daily`. Each stop medication is written on the home and inpatient lists as `held`, and it is absent from the clean discharge list. A `CaseMedicationPlan` row records the intended reconciliation decision, continue versus stop. Dose is the RxNorm `strength` string when present; otherwise the synthetic fallback is **`1 tablet`**.
 
-**Example.** See the HF medication table in Worked Example 1.
+The heart-failure medication table in Worked Example 1 shows this pattern on a complete chart.
 
-**Why it matters clinically.** Review is about **transitions** (home → hospital → discharge), not “is this drug name valid?”
-
-**Authoritative source.** Drug *concept* and RXCUI. Dose string often copies RxNorm strength; `1 tablet` is synthetic fallback.
-
-**Synthetic.** The three-context copies, default frequency `once daily`, fallback dose.
-
-**Checked automatically.** Later, the **assessment** layer counts mechanically detectable findings (Family 1 discharge/plan mismatches and Family 2 missing companion actions).
-
-**Physician judgment.** Oral-solution ACE inhibitor, topical ibuprofen as the NSAID, and `1 tablet` of furosemide solution are ranking/fallback artifacts, not a claim that this is usual inpatient prescribing.
+This matters clinically because review is about transitions from home through hospital to discharge, not about whether a drug name is a valid RxNorm concept. The drug concept and RXCUI are source-backed. The dose string often copies RxNorm strength, and `1 tablet` is a synthetic fallback. The three-context copies, the default frequency `once daily`, and the fallback dose are synthetic. Later, the assessment layer counts mechanically detectable findings, including Family 1 discharge or plan mismatches and Family 2 missing companion actions. Oral-solution ACE inhibitor, topical ibuprofen as the NSAID, and `1 tablet` of furosemide solution are ranking and fallback artifacts. They are not a claim that this is usual inpatient prescribing.
 
 ### 7. Create the clean structured case
 
-**What happens.** Remaining dashboard arrays are filled with constants or simple templates: living situation “Lives at home”, symptom duration “several days”, severity “moderate”, course “worsening”, primary-care follow-up in 7 days, medication instruction “Take discharge medications exactly as listed.”, disposition home. If warfarin and INR are both present, a monitoring row is added (`_maybe_add_warfarin_monitoring`). A clean-state snapshot is stored for the investigator key.
+Remaining dashboard arrays are filled with constants or simple templates: living situation “Lives at home,” symptom duration “several days,” severity “moderate,” course “worsening,” primary-care follow-up in 7 days, the medication instruction “Take discharge medications exactly as listed,” and disposition home. If warfarin and INR are both present, a monitoring row is added (`_maybe_add_warfarin_monitoring`). A clean-state snapshot is stored for the investigator key.
 
-**Example.** `SYN-000901` has INR monitoring “as labeled” because warfarin was selected. `SYN-000904` selected apixaban, so that monitoring row is absent — even though INR is still on the lab list (the HF lab list always includes the INR query).
+`SYN-000901` has INR monitoring labeled as arranged because warfarin was selected. `SYN-000904` selected apixaban, so that monitoring row is absent, even though INR is still on the laboratory list because the heart-failure laboratory list always includes the INR query.
 
-**Why it matters clinically.** Much of the “chart” is scaffolding. Empty allergies and null ethnicity are empty, not “none documented after a real interview.”
-
-**Authoritative source.** Only fields linked to `ref_*` rows.
-
-**Synthetic.** Social support, follow-up, instructions, problem-list plan sentence, return precautions.
-
-**Checked automatically.** Structural layer requires at least one diagnosis and legal medication contexts.
-
-**Physician judgment.** Whether missing allergies, language “English”, and a single problem are acceptable for teaching.
+This matters clinically because much of the chart is scaffolding. Empty allergies and null ethnicity are empty fields, not a claim that “none documented” after a real interview. Only fields linked to `ref_*` rows are source-backed. Social support, follow-up, instructions, the problem-list plan sentence, and return precautions are synthetic. The structural layer requires at least one diagnosis and legal medication contexts. Whether missing allergies, language “English,” and a single problem are acceptable for teaching is a physician judgment.
 
 ### 8. Perform machine validation (clean case)
 
-**What happens.** `validate_case` in [`app/services/validation.py`](app/services/validation.py) runs four layers: **structural**, **terminology**, **clinical** (hard rules), **assessment** (zero mechanically detectable findings and no answer key on a clean case). `require_valid` aborts on failure.
+`validate_case` in [`app/services/validation.py`](app/services/validation.py) then runs four layers: structural, terminology, clinical hard rules, and assessment. On a clean case the assessment layer requires zero mechanically detectable findings and no answer key. `require_valid` aborts on failure.
 
-**Example.** `SYN-000901` validation: all four layers `passed: true`, `rules: []` (no hard or soft *violations*; furosemide is paired with I50.20, so the soft allow-rule does not fire).
+On `SYN-000901`, all four layers report `passed: true`, and `rules` is empty. There are no hard or soft violations; furosemide is paired with I50.20, so the soft allow-rule does not fire.
 
-**Why it matters clinically.** This is integrity checking, not a finding that therapy is appropriate.
-
-**Authoritative source.** Checks that identifiers still resolve to provenance-bearing `ref_*` rows.
-
-**Synthetic.** Not applicable.
-
-**Checked automatically.** The four layers above. External APIs are **not** called on this read.
-
-**Physician judgment.** Everything else (see [Why machine validation is not clinical validation](#why-machine-validation-is-not-clinical-validation)).
+This is integrity checking, not a finding that therapy is appropriate. The terminology layer checks that identifiers still resolve to provenance-bearing `ref_*` rows. External APIs are not called on this read. Everything else remains a clinician question; see [Why machine validation is not clinical validation](#why-machine-validation-is-not-clinical-validation).
 
 ### 9. Optionally inject one controlled CliniProof error
 
-**What happens.** The **assessment blueprint selects the target error family and category first**. A clinically suitable clean case is then constructed for that target, preconditions are checked, the clean case is machine-validated, and only then does `inject_reconciliation_error` in [`app/services/error_injection.py`](app/services/error_injection.py) plant **exactly one** discrepancy using the same RNG. OpenAI does not choose the error. If the requested category is unknown, `not_yet_implementable`, or ineligible for that case, generation **fails**. It does not silently switch to another category.
+The assessment blueprint selects the target error family and category first. A clinically suitable clean case is then constructed for that target, preconditions are checked, the clean case is machine-validated, and only then does `inject_reconciliation_error` in [`app/services/error_injection.py`](app/services/error_injection.py) plant exactly one discrepancy using the same random-number generator. OpenAI does not choose the error. If the requested category is unknown, marked `not_yet_implementable`, or ineligible for that case, generation fails. It does not silently switch to another category.
 
-Canonical identifiers follow the CliniProof manuscript (Family 1 reconciliation discrepancies, Family 2 transition-of-care gaps, plus clean controls). See [CliniProof error taxonomy](#cliniproof-error-taxonomy).
+The current dataset uses the canonical CliniProof taxonomy. Family 1 names medication-reconciliation discrepancies on the lists themselves. Family 2 names transition-of-care gaps. Clean controls have no planted target. The identifiers and clinical meanings are in [CliniProof error taxonomy](#cliniproof-error-taxonomy).
 
-**Example.** Educational case `SYN-000904` (investigator-only section below): one continue-med (apixaban) omitted from discharge (`error_family = family_1`, `error_category = f1_omission`). Demonstration cases 901–903 used `--no-inject-error` and have no planted discrepancy.
+The educational case `SYN-000904`, in the investigator-only section below, omits one continued medication, apixaban, from discharge. That is a Family 1 medication omitted at discharge (`f1_omission`). Demonstration cases 901 through 903 used `--no-inject-error` and have no planted discrepancy.
 
-**Why it matters clinically.** The study signal is a **specified** assessment error, not “whatever discrepancy happened to appear after generation.”
-
-**Authoritative source.** None for the mutation itself. Trigger medications, class membership (RxClass), and monitoring rules remain source-backed.
-
-**Synthetic.** The mutation itself.
-
-**Checked automatically.** Deterministic preconditions (`eligible_errors`); requested category == injected category == answer-key category; mechanical error-isolation checks; leak audit on resident export.
-
-**Physician judgment.** Clinical coherence, error fidelity, evidentiary sufficiency, error isolation beyond mechanical checks, cue integrity, and educational appropriateness.
+The study signal is a specified assessment error, not whatever discrepancy happened to appear after generation. There is no authoritative source for the mutation itself. Trigger medications, class membership from RxClass, and monitoring rules remain source-backed. The mutation is synthetic. Software then checks deterministic preconditions (`eligible_errors`), that the requested category equals the injected category and the answer-key category, mechanical error-isolation, and a leak audit on the resident export. Clinical coherence, error fidelity, evidentiary sufficiency, error isolation beyond mechanical checks, cue integrity, and educational appropriateness remain physician judgments.
 
 ### 10. Revalidate and save
 
-**What happens.** Validation runs again with `expect_injected_error` matching whether injection occurred. Family 1 is checked as a medication-plan mutation. Family 2 is checked as trigger present + required companion action absent, with evidence remaining in the resident-visible case. A `CaseGenerationRun` stores seed, generator version, narrative source, rule list, and validation reports.
+Validation runs again with `expect_injected_error` matching whether injection occurred. Family 1 is checked as a medication-plan mutation. Family 2 is checked as a present trigger plus a required companion action that is now absent, with evidence remaining in the resident-visible case. A `CaseGenerationRun` stores seed, generator version, narrative source, rule list, and validation reports.
 
-**Example.** `SYN-000904` post-injection validation still passes: the assessment layer *expects* the requested category.
+On `SYN-000904`, post-injection validation still passes because the assessment layer expects the requested category.
 
-**Why it matters clinically.** A planted assessment error is allowed to remain; it is not “fixed” by the validator. Machine validation does **not** mean the case is clinically valid.
-
-**Checked automatically.** Requested category == injected category == answer-key category; structural/terminology/hard-rule layers; no second mechanically detectable discrepancy.
-
-**Physician judgment.** Everything the machine cannot see (see [CliniProof error taxonomy](#cliniproof-error-taxonomy)).
+A planted assessment error is allowed to remain; it is not “fixed” by the validator. Machine validation does not mean the case is clinically valid. Software checks that the requested category, injected kind, and answer-key category agree, that structural, terminology, and hard-rule layers still pass, and that a second mechanically detectable discrepancy was not introduced. Everything the machine cannot see remains a clinician question; see [CliniProof error taxonomy](#cliniproof-error-taxonomy).
 
 ### 11. Freeze the validation case (study path only)
 
-**What happens.** `freeze-validation-batch` generates as above with `use_openai=False`, audits (no `TEST_` identifiers, plan matches control vs error), and writes an immutable `VAL-###` row (`validation_batch_cases`). A second freeze **reuses** matching VAL IDs and will not overwrite them.
+`freeze-validation-batch` generates as above with `use_openai=False`, audits that there are no `TEST_` identifiers and that the plan matches control versus error, and writes an immutable `VAL-###` row in `validation_batch_cases`. A second freeze reuses matching VAL identifiers and will not overwrite them.
 
-**Example.** Study batch `CLINIPROOF_TAXONOMY_V1` assigns `VAL-201`–`VAL-224` to sequences 801–824. Demonstration `SYN-000901` was **not** frozen into a VAL ID.
-
-**Physician judgment.** Freeze is an operational lock, not clinical sign-off.
+The study batch `CLINIPROOF_TAXONOMY_V1` assigns VAL-201 through VAL-224 to sequences 801 through 824. Demonstration `SYN-000901` was not frozen into a VAL identifier. Freeze is an operational lock, not clinical sign-off.
 
 ### 12. Export resident-facing and investigator-facing versions
 
-**What happens.** `export-validation-batch` writes a blinded resident JSON (VAL ids, no answer key, RXCUI `source_reference` cleared, titles rewritten) and investigator files (answer key, manifest, coverage). Default `--batch-code` is `CLINIPROOF_TAXONOMY_V1` and default `--output-dir` is `data/validation/`. A leak audit fails export if resident JSON contains markers such as `syn-000`, `answer_key`, or `is_clean_control`.
+`export-validation-batch` writes a blinded resident JSON, with VAL identifiers, no answer key, RXCUI `source_reference` cleared, and titles rewritten, plus investigator files including the answer key, manifest, and coverage. The default `--batch-code` is `CLINIPROOF_TAXONOMY_V1`, and the default `--output-dir` is `data/validation/`. A leak audit fails export if resident JSON contains markers such as `syn-000`, `answer_key`, or `is_clean_control`.
 
 ### 13. Obtain clinician validation
 
-**What happens.** Humans review. The worksheet schema in [`data/validation/resident_review_schema.json`](data/validation/resident_review_schema.json) asks for ratings (clinical realism, medication-reconciliation correctness, clarity, confidence), identified error type and medication, comments, overall acceptability, and revision recommendation. Software does not fill those ratings.
+Humans review the cases. The worksheet schema in [`data/validation/resident_review_schema.json`](data/validation/resident_review_schema.json) asks for ratings of clinical realism, medication-reconciliation correctness, clarity, and confidence, plus identified error type and medication, comments, overall acceptability, and a revision recommendation. Software does not fill those ratings.
 
 ---
 
@@ -367,22 +297,22 @@ An LLM is never used to decide which error is planted. The injector is determini
 
 ### What the resident must notice
 
-The table below lists each implemented or specified assessment category. The first columns name the family and the clinical problem; the identifier column is the software token; the last column says what a resident should be able to notice from the chart.
+The table below lists each implemented or specified assessment category. The first column names the family in clinical language. The second column names the clinical problem. The third column is the software identifier used in investigator files. The last column says what a resident should be able to notice from the chart. Read the clinical name first; the identifier is a token for software and answer keys, not a substitute for the clinical meaning.
 
-| Family | Error | Identifier | What the resident must notice |
+| Family | Clinical problem | Identifier | What the resident must notice |
 | --- | --- | --- | --- |
-| F1 | Omission | `f1_omission` | Required discharge medication is absent |
-| F1 | Commission | `f1_commission` | Unindicated medication appears at discharge |
-| F1 | Dose/route/frequency | `f1_dose_mismatch`, `f1_route_mismatch`, `f1_frequency_mismatch` | Discharge order differs without rationale |
-| F1 | Therapeutic substitution | `f1_therapeutic_substitution` | Different same-class drug without explanation |
-| F2 | Co-prescription omitted | `f2_coprescription_omitted` | Trigger drug present but required companion absent |
-| F2 | Monitoring not arranged | `f2_monitoring_not_arranged` | Trigger drug present but required monitoring missing |
-| F2 | Held med, no restart plan | `f2_held_med_no_restart_plan` | Legitimate hold has no resumption plan |
-| F2 | Insufficient supply | `f2_insufficient_supply` | Supply does not reach follow-up/end point |
-| F2 | Hospital-only med continued | `f2_hospital_only_continued` | Inpatient-only drug remains at discharge |
-| F2 | Substitution not reverted | `f2_inpatient_substitution_not_reverted` | Temporary inpatient substitute persists unexplained |
-| F2 | Pending decision, no follow-up | `f2_pending_decision_followup_missing` | Ongoing treatment lacks planned reassessment |
-| Control | None | `none` | No planted discrepancy |
+| Family 1 — list-transition discrepancy | Medication omitted at discharge | `f1_omission` | A medication that should continue is absent from the discharge list |
+| Family 1 — list-transition discrepancy | Medication inappropriately added or continued | `f1_commission` | An unindicated medication appears on the discharge list |
+| Family 1 — list-transition discrepancy | Unexplained dose, route, or frequency discrepancy | `f1_dose_mismatch`, `f1_route_mismatch`, `f1_frequency_mismatch` | The discharge order differs from the intended plan without a documented rationale |
+| Family 1 — list-transition discrepancy | Unexplained therapeutic substitution | `f1_therapeutic_substitution` | A different same-class drug appears without an explanation |
+| Family 2 — transition-of-care gap | Required companion medication omitted | `f2_coprescription_omitted` | The trigger drug is present, but a required companion medication is absent |
+| Family 2 — transition-of-care gap | Required outpatient monitoring not arranged | `f2_monitoring_not_arranged` | The trigger drug is present, but required monitoring is missing |
+| Family 2 — transition-of-care gap | Held medication without a restart plan | `f2_held_med_no_restart_plan` | A legitimate hold has no documented resumption plan |
+| Family 2 — transition-of-care gap | Insufficient medication supply | `f2_insufficient_supply` | Days’ supply does not last until the planned follow-up |
+| Family 2 — transition-of-care gap | Hospital-only medication continued after discharge | `f2_hospital_only_continued` | An inpatient-only drug remains on the discharge list |
+| Family 2 — transition-of-care gap | Temporary inpatient substitution not addressed at discharge | `f2_inpatient_substitution_not_reverted` | A temporary inpatient substitute persists without explanation |
+| Family 2 — transition-of-care gap | Follow-up missing for an unresolved treatment decision | `f2_pending_decision_followup_missing` | An unresolved treatment decision has no planned reassessment |
+| Clean control | No planted assessment problem | `none` | No planted discrepancy; the chart is an intact reconciliation |
 
 The taxonomy also defines required companion medication omitted (`f2_coprescription_omitted`), which represents a situation in which a clinically required companion medication is missing. This category is not included in the current validation set because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category. Manuscript examples such as a steroid without a proton-pump inhibitor, or an opioid without a bowel regimen, are not hard-coded.
 
@@ -398,48 +328,37 @@ The freeze plan specifies the standardized family and category in [`data/validat
 
 ### Example A — Family 1 dose mismatch (demonstration)
 
-This is a teaching sketch, **not** a blinded `VAL-*` answer.
+This is a teaching sketch. It is not a blinded `VAL-*` answer.
 
-**Clinical knowledge / source-backed constraint.** Lisinopril is a stored RxNorm concept. The clean intended discharge plan continues it.
+The clinical knowledge in this sketch is source-backed: lisinopril is a stored RxNorm concept, and the clean intended discharge plan continues it. The synthetic patient-specific information is that the patient has heart failure, and that home, inpatient, and intended discharge lists all show lisinopril **10 mg oral once daily**.
 
-**Synthetic patient-specific information.** The patient has heart failure; home, inpatient, and intended discharge all list lisinopril **10 mg oral once daily**.
+The deliberately injected assessment error is an unexplained dose discrepancy (`f1_dose_mismatch`). That category is selected first. After the clean case passes validation, only the discharge dose is changed to **20 mg**. Home and inpatient lists, diagnosis, and laboratories are left intact.
 
-**Deliberately injected assessment error.** Target category `f1_dose_mismatch` is selected first. After the clean case passes validation, only the discharge dose is changed to **20 mg**. Home and inpatient lists, diagnosis, and labs are left intact.
+After injection, the resident-visible case shows lisinopril 20 mg oral once daily at discharge while home and inpatient lists still show 10 mg, with no documented rationale for a dose change.
 
-Resident-visible case after injection: discharge shows lisinopril 20 mg oral once daily while home/inpatient still show 10 mg, with no documented rationale for a dose change.
+The hidden investigator answer key records Family 1 (`family_1`), unexplained dose discrepancy (`f1_dose_mismatch`), the changed field `dose`, clean expected state `10 mg`, injected state `20 mg`, the trigger medication, evidence locations on the home and discharge medication lists, and the expected action, which is to restore the intended dose.
 
-Hidden investigator answer key records:
-
-- `error_family`: `family_1`
-- `error_category`: `f1_dose_mismatch`
-- `changed_field`: `dose`
-- `clean_expected_state`: `10 mg`
-- `injected_state`: `20 mg`
-- trigger medication, evidence location (`home_medications`, `discharge_medications`), and expected action (restore the intended dose)
-
-The same pattern applies to `f1_route_mismatch` and `f1_frequency_mismatch`: the answer key preserves the **field** that changed, plus expected vs planted values. `f1_omission` removes the discharge row only. `f1_commission` copies an unindicated stop-medication onto discharge.
+The same pattern applies to unexplained route discrepancy (`f1_route_mismatch`) and unexplained frequency discrepancy (`f1_frequency_mismatch`): the answer key preserves the field that changed, plus expected versus planted values. Medication omitted at discharge (`f1_omission`) removes the discharge row only. Medication inappropriately added or continued (`f1_commission`) copies an unindicated stop medication onto discharge.
 
 ### Example B — Family 2 monitoring not arranged (demonstration)
 
-**Clinical knowledge / source-backed constraint.** Enabled rule `WARFARIN_INR_MONITORING` (`require_lab`) is attached only when DailyMed/RxClass evidence exists. It is not inferred from the drug name.
+The clinical knowledge here is a source-backed rule. The enabled rule `WARFARIN_INR_MONITORING` (`require_lab`) is attached only when DailyMed or RxClass evidence exists. It is not inferred from the drug name.
 
-**Synthetic patient-specific information.** Clean case: warfarin is continued at discharge **and** outpatient INR monitoring is arranged (`CaseMonitoring` plus a medication `monitoring` note). Admission INR remains on the case as a laboratory result.
+The synthetic patient-specific information on the clean case is that warfarin is continued at discharge and that outpatient INR monitoring is arranged, stored as a `CaseMonitoring` row plus a medication monitoring note. Admission INR remains on the case as a laboratory result.
 
-**Deliberately injected assessment error.** Target `f2_monitoring_not_arranged` is selected first. Injection **does not change the warfarin order**. It removes the monitoring arrangement only.
+The deliberately injected assessment error is required outpatient monitoring not arranged (`f2_monitoring_not_arranged`). That target is selected first. Injection does not change the warfarin order. It removes the monitoring arrangement only.
 
-Resident-visible case after injection: warfarin is still on the discharge list; the required outpatient monitoring row is absent; the fact that warfarin is being continued remains visible.
+After injection, the resident-visible case still lists warfarin at discharge. The required outpatient monitoring row is absent. The fact that warfarin is being continued remains visible.
 
-Hidden investigator answer key records the trigger medication, required monitoring (INR), the field removed (`CaseMonitoring` / `CaseMedication.monitoring`), and the expected action (arrange outpatient INR monitoring). This is **not** a home-vs-discharge medication mismatch.
+The hidden investigator answer key records the trigger medication, the required monitoring (INR), the field removed (`CaseMonitoring` / `CaseMedication.monitoring`), and the expected action, which is to arrange outpatient INR monitoring. This is not a home-versus-discharge medication mismatch.
 
 ### Example C — Clean control (demonstration)
 
-**Clinical knowledge / source-backed constraint.** Ibuprofen is a stored RxNorm concept. The scenario lists it as a stop medication.
+The clinical knowledge in this sketch is that ibuprofen is a stored RxNorm concept and that the scenario lists it as a stop medication. The synthetic patient-specific information is that the home list includes ibuprofen, that it is held on admission with an explicit instruction not to restart at discharge, and that continued heart-failure therapy remains on the discharge list. That home-versus-discharge difference is documented and intended.
 
-**Synthetic patient-specific information.** Home list includes ibuprofen. It is **held** on admission with an explicit instruction not to restart at discharge. Continued heart-failure therapy remains on the discharge list. That home-vs-discharge **difference is documented and intended**.
+No assessment error is injected. The family is `none`, the category is `none`, and `clean_case` is true.
 
-**Deliberately injected assessment error.** None. `error_family = none`, `error_category = none`, `clean_case = true`.
-
-A difference between home and discharge does **not** automatically mean an error. Residents still review the case; investigators score it as a control. The hidden key states `NO INTENTIONAL ERROR`.
+A difference between home and discharge does not automatically mean an error. Residents still review the case; investigators score it as a control. The hidden key states `NO INTENTIONAL ERROR`.
 
 ### Machine validation versus clinician review
 
@@ -451,19 +370,19 @@ It does **not** establish overall clinical realism, guideline completeness, opti
 
 ## Worked Example 1 — Heart Failure
 
-Educational demonstration **`SYN-000901`**. Snapshot: [`data/docs/clinician_examples/syn-000901.json`](data/docs/clinician_examples/syn-000901.json). Seed `20260926:901:HF_INPATIENT`. This is **not** a `VAL-*` study case.
+Educational demonstration **`SYN-000901`**. The snapshot is [`data/docs/clinician_examples/syn-000901.json`](data/docs/clinician_examples/syn-000901.json). The case seed is `20260926:901:HF_INPATIENT`. This is not a `VAL-*` study case.
 
 ### Patient presentation
 
-**Patient:** 83-year-old man, 69 kg. Display name `SYN Patient 901` (synthetic). Ethnicity not recorded (`null`).
+The patient is an 83-year-old man weighing 69 kg. The display name is `SYN Patient 901`, which is synthetic. Ethnicity is not recorded (`null`).
 
-**Reason for admission:** Unspecified systolic (congestive) heart failure (ICD-10-CM **I50.20**). Specialty cardiology. Disposition planned home.
+The reason for admission is unspecified systolic (congestive) heart failure, ICD-10-CM **I50.20**, on a cardiology service, with planned disposition home.
 
-**Symptoms:** Dyspnea, Anasarca, Orthopnea (duration “several days”, severity “moderate”, course “worsening” — those three qualifiers are template constants).
+The presenting symptoms are dyspnea, anasarca, and orthopnea. Duration “several days,” severity “moderate,” and course “worsening” are template constants.
 
-**Relevant vitals:** Temperature 36.8 °C (fixed), BP 124/70, HR 108, RR 23, SpO2 98%. No vital-sign terminology row is linked (`ref_vital_id` is null).
+Admission vital signs are temperature 36.8 °C (fixed in code), blood pressure 124/70, heart rate 108, respiratory rate 23, and SpO2 98%. No vital-sign terminology row is linked (`ref_vital_id` is null).
 
-**Relevant labs:**
+The following table lists the laboratory concepts retrieved from LOINC and the synthetic numeric results written onto this demonstration case. The concept identity is source-backed. The number is not a real-patient measurement.
 
 | Test (LOINC long name) | Result | Unit on case | LOINC | Concept source | Result source |
 | --- | ---: | --- | --- | --- | --- |
@@ -472,42 +391,29 @@ Educational demonstration **`SYN-000901`**. Snapshot: [`data/docs/clinician_exam
 | Natriuretic peptide B [Mass/volume] in Serum or Plasma | 648 | pg/mL | 30934-4 | LOINC 2.83 | Synthetic |
 | INR in Platelet poor plasma or blood by Coagulation assay | 2.6 | {INR} | 38875-1 | LOINC 2.83 | Synthetic |
 
-**Home medications:** furosemide solution, spironolactone suspension, metoprolol 37.5 mg, lisinopril solution, atorvastatin 80 mg, warfarin 1 mg, all once daily; ibuprofen topical gel **held**.
+Home medications are furosemide solution, spironolactone suspension, metoprolol 37.5 mg, lisinopril solution, atorvastatin 80 mg, and warfarin 1 mg, all once daily, with ibuprofen topical gel held.
 
-**Inpatient medications:** same continue set as active; ibuprofen still held.
+Inpatient medications are the same continue set as active, with ibuprofen still held.
 
-**Discharge medications (clean case):** same six continue medications, once daily; ibuprofen **not** listed.
+Discharge medications on this clean case are the same six continue medications, once daily. Ibuprofen is not listed.
 
 ### Step 1 — Clinical scenario
 
-Family `HF_INPATIENT` in [`data/bootstrap/scenarios.json`](data/bootstrap/scenarios.json):
-
-- Specialty: cardiology; care context: inpatient; age 55–85
-- Diagnosis query: heart failure
-- Symptom queries: dyspnea, edema, orthopnea
-- Continue-med queries: lisinopril, furosemide, metoprolol, spironolactone, atorvastatin
-- Stop-med query: ibuprofen
-- Hospital-only query: pantoprazole (constructed only when the target is `f2_hospital_only_continued`)
-- Anticoagulant mutex (exactly one): warfarin or apixaban
-- Lab queries: potassium, creatinine, inr, natriuretic peptide
-- Allowed error categories if injection is on are the standardized `f1_*` and `f2_*` identifiers in `scenarios.json`. Required companion medication omitted (`f2_coprescription_omitted`) is not listed because it is `not_yet_implementable`.
+Family `HF_INPATIENT` in [`data/bootstrap/scenarios.json`](data/bootstrap/scenarios.json) is a cardiology inpatient skeleton for ages 55 through 85. The diagnosis query is heart failure. The symptom queries are dyspnea, edema, and orthopnea. The continue-medication queries are lisinopril, furosemide, metoprolol, spironolactone, and atorvastatin. The stop-medication query is ibuprofen. The hospital-only query is pantoprazole, which is constructed only when the target is hospital-only medication continued after discharge (`f2_hospital_only_continued`). The anticoagulant mutex chooses exactly one of warfarin or apixaban. The laboratory queries are potassium, creatinine, INR, and natriuretic peptide. If injection is turned on, the allowed error categories are the standardized `f1_*` and `f2_*` identifiers in `scenarios.json`. Required companion medication omitted (`f2_coprescription_omitted`) is not listed because the software does not yet have a sufficiently source-backed deterministic rule for that situation (`not_yet_implementable`).
 
 This demonstration used `--no-inject-error`, so the discharge list matches the clean plan.
 
 ### Step 2 — Diagnosis terminology
 
-Human-readable query **heart failure**
-→ NLM ICD-10-CM search at bootstrap (`app/sources/icd10cm.py`)
-→ local `ref_diagnoses` row ICD-10-CM **I50.20**, preferred name “Unspecified systolic (congestive) heart failure”, `source_system` ICD10CM
-→ copied onto the case as admission diagnosis
+The human-readable query **heart failure** is sent to NLM ICD-10-CM search at bootstrap (`app/sources/icd10cm.py`). The matching local `ref_diagnoses` row is ICD-10-CM **I50.20**, preferred name “Unspecified systolic (congestive) heart failure,” with `source_system` ICD10CM. That row is copied onto the case as the admission diagnosis.
 
-**SNOMED CT identifier:** not stored (`snomed_code` is null). This repository has no SNOMED ingestion client.
+A SNOMED CT identifier is not stored (`snomed_code` is null). This repository has no SNOMED ingestion client.
 
 ### Step 3 — Medication terminology
 
-RxNorm resolution happens at bootstrap, **before** this patient is built. Generation only matches local rows.
+RxNorm resolution happens at bootstrap, before this patient is built. Generation only matches local rows.
 
-| Clinical medication (as stored) | Source | Identifier | Role on `SYN-000901` |
+The following table lists the medications stored on `SYN-000901`, the official source of each concept, the RxNorm identifier, and the intended reconciliation role.
 | --- | --- | --- | --- |
 | lisinopril 1 MG/ML Oral Solution | RxNorm | RXCUI `1806884` | Continue (home, inpatient, discharge) |
 | furosemide 4 MG/ML Oral Solution | RxNorm | RXCUI `104220` | Continue |
@@ -523,6 +429,8 @@ Dose strings `37.5 MG`, `80 MG`, `1 MG`, and `1 MG/ML` are RxNorm `strength` val
 
 ### Step 4 — Symptoms and clinical context
 
+The following table shows how each scenario symptom query resolved, and which parts of the symptom line are synthetic constants rather than retrieved names.
+
 | Scenario query | Stored name | Terminology source | What is synthetic |
 | --- | --- | --- | --- |
 | dyspnea | Dyspnea | NLM conditions | duration / severity / course constants |
@@ -532,6 +440,8 @@ Dose strings `37.5 MG`, `80 MG`, `1 MG`, and `1 MG/ML` are RxNorm `strength` val
 Chief complaint and HPI are template sentences that concatenate those names with the diagnosis name (`_template_narrative`).
 
 ### Step 5 — Vitals and labs
+
+The following table lists the vital signs and laboratory numbers on this demonstration case and whether each value is synthetic.
 
 | Field | Example value | Source/type |
 | --- | ---: | --- |
@@ -556,25 +466,25 @@ Only three templates exist ([`data/bootstrap/rule_templates.json`](data/bootstra
 
 > IF warfarin RXCUI `855288` **and** apixaban RXCUI `1364435` are both on the case snapshot THEN prohibit co-administration.
 
-**Clinical meaning:** the engine will not emit a chart that lists both oral anticoagulants. It is not a complete anticoagulation guideline (no CHA₂DS₂-VASc, no bleeding score, no procedure hold).
+The clinical meaning is that the engine will not emit a chart that lists both oral anticoagulants. It is not a complete anticoagulation guideline. It does not compute CHA₂DS₂-VASc, a bleeding score, or a procedure hold.
 
 **`WARFARIN_INR_MONITORING`** (hard, DailyMed set id `724b0061-f42a-4008-a078-09c800ee9785`, LOINC `38875-1`)
 
 > IF warfarin RXCUI `855288` is on the case AND INR LOINC `38875-1` is missing THEN fail.
 
-**Clinical meaning:** a warfarin case must include that INR term. The engine does not check whether 2.6 is a suitable INR target or whether the patient has a valid indication for warfarin.
+The clinical meaning is that a warfarin case must include that INR term. The engine does not check whether 2.6 is a suitable INR target or whether the patient has a valid indication for warfarin.
 
 **`FUROSEMIDE_HF_INDICATION`** (soft, RxClass class name `Edema`)
 
 > IF furosemide RXCUI `104220` is on the case AND ICD-10-CM `I50.20` is missing THEN warn (soft; does not fail the case).
 
-**Clinical meaning:** a weak pairing check between furosemide and the stored HF code, enabled from an RxClass “Edema” hit, not from a full labeling review. It does **not** require ACE inhibitor, beta blocker, MRA, or GDMT doses. Soft hits are warnings in the clinical validation layer; this example had no warning because I50.20 is present.
+The clinical meaning is a weak pairing check between furosemide and the stored heart-failure code, enabled from an RxClass “Edema” hit, not from a full labeling review. It does not require an ACE inhibitor, beta blocker, mineralocorticoid-receptor antagonist, or guideline-directed doses. Soft hits are warnings in the clinical validation layer; this example had no warning because I50.20 is present.
 
 No other clinical guidelines are encoded (no NSAID–HF hard stop, no antibiotic duration, no renal dosing). Ibuprofen is held because the **scenario lists it as a stop medication**, not because an NSAID rule fired.
 
 ### Step 7 — Clean medication timeline
 
-Intended plan (investigator view of the **correct** reconciliation, before any experimental discrepancy):
+The following table is the investigator view of the intended reconciliation on the clean case, before any experimental discrepancy.
 
 | Medication | Home | Inpatient | Discharge |
 | --- | --- | --- | --- |
@@ -610,21 +520,21 @@ The clinically relevant question on review is whether those transitions are inte
 
 ## Worked Example 2 — Atrial Fibrillation
 
-Educational demonstration **`SYN-000902`**. Snapshot: [`data/docs/clinician_examples/syn-000902.json`](data/docs/clinician_examples/syn-000902.json). Seed `20260926:902:AF_ANTICOAGULATION`. Not a `VAL-*` study case. Clean case (`--no-inject-error`).
+Educational demonstration **`SYN-000902`**. The snapshot is [`data/docs/clinician_examples/syn-000902.json`](data/docs/clinician_examples/syn-000902.json). The case seed is `20260926:902:AF_ANTICOAGULATION`. This is not a `VAL-*` study case. It is a clean case (`--no-inject-error`).
 
 ### Patient presentation
 
-**Patient:** 75-year-old woman, 109 kg.
+The patient is a 75-year-old woman weighing 109 kg.
 
-**Reason for admission:** Paroxysmal atrial fibrillation (ICD-10-CM **I48.0**). Cardiology.
+The reason for admission is paroxysmal atrial fibrillation, ICD-10-CM **I48.0**, on a cardiology service.
 
-**Symptoms:** Dyspnea; **Chronic fatigue syndrome** (this is the NLM conditions token match for scenario query `fatigue` — not a claim that the patient meets CFS diagnostic criteria).
+The presenting symptoms are dyspnea and **Chronic fatigue syndrome**. The second name is the NLM conditions token match for the scenario query `fatigue`. It is not a claim that the patient meets diagnostic criteria for chronic fatigue syndrome.
 
-**Relevant vitals:** 36.8 °C, BP 125/77, HR 79, RR 16, SpO2 96%.
+Admission vital signs are 36.8 °C, blood pressure 125/77, heart rate 79, respiratory rate 16, and SpO2 96%.
 
-**Relevant labs:** creatinine 0.9 umol/L (LOINC 14682-9); INR 3.2 (LOINC 38875-1). No potassium or BNP — those queries are not in the AF scenario.
+The laboratory results are creatinine 0.9 umol/L (LOINC 14682-9) and INR 3.2 (LOINC 38875-1). There is no potassium or BNP because those queries are not in the atrial-fibrillation scenario.
 
-**Home / inpatient / discharge (continue):** metoprolol tartrate 37.5 mg daily (RXCUI `1606347`), atorvastatin 80 mg daily (`259255`), warfarin 1 mg daily (`855288`). **Held:** ibuprofen topical gel (`141997`), not on discharge.
+Home, inpatient, and discharge continue medications are metoprolol tartrate 37.5 mg daily (RXCUI `1606347`), atorvastatin 80 mg daily (`259255`), and warfarin 1 mg daily (`855288`). Ibuprofen topical gel (`141997`) is held and is not on the discharge list.
 
 This family is thinner than HF: rate-control + statin + **exactly one** oral anticoagulant, plus a held NSAID. The mutex again chose warfarin on this seed (apixaban is the other official option). Hard rules still forbid listing warfarin and apixaban together and still require INR when warfarin is present.
 
@@ -641,21 +551,21 @@ SNOMED remains unset on I48.0.
 
 ## Worked Example 3 — Pulmonology (community pneumonia family)
 
-Educational demonstration **`SYN-000903`**. Snapshot: [`data/docs/clinician_examples/syn-000903.json`](data/docs/clinician_examples/syn-000903.json). Seed `20260926:903:CAP_INPATIENT`. Specialty **pulmonology**. Clean case. Not a `VAL-*` study case.
+Educational demonstration **`SYN-000903`**. The snapshot is [`data/docs/clinician_examples/syn-000903.json`](data/docs/clinician_examples/syn-000903.json). The case seed is `20260926:903:CAP_INPATIENT`. Specialty is **pulmonology**. This is a clean case and is not a `VAL-*` study case.
 
 ### Patient presentation
 
-**Patient:** 58-year-old woman, 103 kg.
+The patient is a 58-year-old woman weighing 103 kg.
 
-**Reason for admission:** Lobar pneumonia, unspecified organism (ICD-10-CM **J18.1**).
+The reason for admission is lobar pneumonia, unspecified organism, ICD-10-CM **J18.1**.
 
-**Symptoms:** Cough, Dyspnea, Wheezing (all NLM conditions; `snomed_code` null).
+The presenting symptoms are cough, dyspnea, and wheezing, all from NLM conditions, with `snomed_code` null.
 
-**Relevant vitals:** 36.8 °C, BP 130/80, HR 73, RR 21, SpO2 92%.
+Admission vital signs are 36.8 °C, blood pressure 130/80, heart rate 73, respiratory rate 21, and SpO2 92%.
 
-**Relevant labs:** creatinine 1.3 umol/L (14682-9); sodium 139 mmol/L (2951-2); hemoglobin 13.9 g/dL on LOINC **55782-7** “Hemoglobin [Mass/volume] in Blood **by Oximetry**” — that method is what LOINC ranking stored, not a methodless CBC hemoglobin.
+The laboratory results are creatinine 1.3 umol/L (14682-9), sodium 139 mmol/L (2951-2), and hemoglobin 13.9 g/dL on LOINC **55782-7**, “Hemoglobin [Mass/volume] in Blood **by Oximetry**.” That method is what LOINC ranking stored; it is not a methodless CBC hemoglobin.
 
-**Medications (continue on home, inpatient, and discharge):**
+The following table lists the continue medications on home, inpatient, and discharge lists for this pneumonia demonstration.
 
 | Drug as stored | RXCUI | Dose on case | Note |
 | --- | --- | --- | --- |
@@ -663,7 +573,7 @@ Educational demonstration **`SYN-000903`**. Snapshot: [`data/docs/clinician_exam
 | azithromycin 250 MG Oral Capsule | 141962 | `1 tablet` once daily | strength empty → `1 tablet` |
 | pantoprazole 20 MG Delayed Release Oral Tablet | 251872 | 20 MG once daily | strength copied from RxNorm |
 
-**No stop medication** and **no anticoagulant mutex** in this family ([`data/bootstrap/scenarios.json`](data/bootstrap/scenarios.json)). Allowed error categories therefore omit `f1_commission` (no held drug to copy onto discharge) and `f2_monitoring_not_arranged` (no warfarin/INR monitoring trigger). Canonical IDs still include `f1_omission`, `f1_dose_mismatch`, `f1_frequency_mismatch`, `f1_therapeutic_substitution`, and several Family 2 gaps.
+This pneumonia family has no stop medication and no anticoagulant mutex ([`data/bootstrap/scenarios.json`](data/bootstrap/scenarios.json)). Allowed error categories therefore omit medication inappropriately added or continued (`f1_commission`), because there is no held drug to copy onto discharge, and required outpatient monitoring not arranged (`f2_monitoring_not_arranged`), because there is no warfarin and INR monitoring trigger. Canonical identifiers still include medication omitted at discharge (`f1_omission`), unexplained dose discrepancy (`f1_dose_mismatch`), unexplained frequency discrepancy (`f1_frequency_mismatch`), unexplained therapeutic substitution (`f1_therapeutic_substitution`), and several Family 2 gaps.
 
 None of the three implemented rules is about pneumonia or macrolides. Dual-anticoagulant and warfarin/INR rules are idle here (those RXCUIs are absent). Furosemide/HF is idle (no furosemide).
 
@@ -701,11 +611,11 @@ Family 2 injectors generally do **not** change the intended discharge identity o
 
 ## Clean Cases Versus Error-Injected Cases
 
-Terms as used in this codebase (`clinical_cases.clean_case`, `validation_batch_cases.is_clean_control`, freeze plan `inject_error`):
+The following terms are used in this codebase (`clinical_cases.clean_case`, `validation_batch_cases.is_clean_control`, and freeze plan `inject_error`).
 
 ### Clean case
 
-The structured patient **after** concept selection, synthetic values, and narrative, **before** experimental mutation. Machine validation in this state requires **zero** mechanically detectable findings and **no** answer key.
+A clean case is the structured patient after concept selection, synthetic values, and narrative, and before any experimental mutation. Machine validation in this state requires zero mechanically detectable findings and no answer key.
 
 Demonstration `SYN-000901`, `SYN-000902`, and `SYN-000903` were left in this state (`--no-inject-error`).
 
@@ -715,9 +625,9 @@ After a clean pass, `inject_reconciliation_error` plants one controlled assessme
 
 ### Control case (study freeze)
 
-A freeze-plan assignment with `inject_error: false`. It remains a clean case and is stored as `is_clean_control = true`. Residents are **not** told which `VAL-*` ids are controls. This README therefore does not list the study control ids in a resident-facing way; investigators should use [`data/validation/README.md`](data/validation/README.md) (investigator-only).
+A freeze-plan assignment with `inject_error: false` remains a clean case and is stored as `is_clean_control = true`. Residents are not told which `VAL-*` identifiers are controls. This README therefore does not list the study control identifiers in a resident-facing way; investigators should use [`data/validation/README.md`](data/validation/README.md), which is investigator-only.
 
-Ad-hoc `generate-synthetic-cases` defaults to **injecting** an error unless `--no-inject-error` is passed. Freeze follows the JSON plan.
+Ad-hoc `generate-synthetic-cases` defaults to injecting an error unless `--no-inject-error` is passed. Freeze follows the JSON plan.
 
 ---
 
@@ -727,25 +637,21 @@ Ad-hoc `generate-synthetic-cases` defaults to **injecting** an error unless `--n
 >
 > This subsection shows how a planted medication-reconciliation error is created. **Do not distribute it to resident study participants.** It uses educational case `SYN-000904`, which is **not** in the `VAL-*` blinded set. The method is the same one used on error-bearing study cases; naming the method here must not be attached to a specific `VAL` identifier in resident packets.
 
-Snapshot: [`data/docs/clinician_examples/syn-000904.json`](data/docs/clinician_examples/syn-000904.json). Seed `20260926:904:HF_INPATIENT`. Scenario `HF_INPATIENT`. Mutex pick on this seed: **apixaban** 2.5 mg (RXCUI `1364435`), not warfarin. HF labs still include INR (scenario lab list), but no warfarin monitoring row was added.
+The snapshot is [`data/docs/clinician_examples/syn-000904.json`](data/docs/clinician_examples/syn-000904.json). The case seed is `20260926:904:HF_INPATIENT`. The scenario is heart-failure inpatient (`HF_INPATIENT`). The anticoagulant mutex on this seed chose **apixaban** 2.5 mg (RXCUI `1364435`), not warfarin. Heart-failure laboratories still include INR because that query is on the scenario laboratory list, but no warfarin monitoring row was added.
 
 ### Before error injection
 
-Same continue set as other HF cases, with apixaban instead of warfarin. Ibuprofen held. Clean discharge would list furosemide, spironolactone, apixaban, metoprolol, lisinopril, atorvastatin.
+The continue set is the same as other heart-failure cases, with apixaban instead of warfarin. Ibuprofen is held. Clean discharge would list furosemide, spironolactone, apixaban, metoprolol, lisinopril, and atorvastatin.
 
 ### Error injection operation
 
-Preferred category is canonical **`f1_omission`** (`error_family = family_1`). `inject_reconciliation_error` (`app/services/error_injection.py`) does not ask an LLM which error to plant:
-
-1. Collect continue-plan medications that have a discharge row
-2. Sort by RXCUI and choose one with the case RNG
-3. **Delete the discharge row** for that medication
-4. Mark the plan `is_error_target = true` (here: `PLAN-SYN000904-003`, apixaban)
-5. Write `CaseAnswerKey` (`error_family: family_1`, `error_category: f1_omission`, `detectability_location: discharge_medications`)
+The preferred category is medication omitted at discharge (`f1_omission`), which is a Family 1 list-transition discrepancy (`family_1`). `inject_reconciliation_error` in `app/services/error_injection.py` does not ask a language model which error to plant. It collects continue-plan medications that have a discharge row, sorts them by RXCUI, chooses one with the case random-number generator, deletes the discharge row for that medication, marks the plan `is_error_target = true` (here: `PLAN-SYN000904-003`, apixaban), and writes `CaseAnswerKey` with Family 1, `f1_omission`, and detectability on the discharge medication list.
 
 Home and inpatient apixaban rows are left unchanged.
 
 ### After error injection
+
+The following table shows home, inpatient, and discharge status after the omission was injected. Apixaban remains on the home and inpatient lists and is missing at discharge.
 
 | Medication | Home | Inpatient | Discharge after injection |
 | --- | --- | --- | --- |
@@ -759,15 +665,7 @@ Home and inpatient apixaban rows are left unchanged.
 
 ### Hidden answer key (what the software stores)
 
-From `SYN-000904` (fields defined in `app/models/cases.py` / written by `_write_answer_key`):
-
-- `error_category`: `f1_omission`
-- `error_family`: `family_1`
-- `trigger_meds`: apixaban 2.5 MG Oral Tablet, RXCUI `1364435`
-- `error_description` / rationale: “The correct discharge medication list includes this continued home medication; it was intentionally omitted from the discharge list.”
-- `correct_action`: “Restore the omitted continued discharge medication from the medication plan.”
-- `intentional_changes`: `clean_state: present`, `injected_state: absent`, `context: discharge`, seed `20260926:904:HF_INPATIENT`
-- `severity_ncc_merp` and `difficulty_a_priori`: **null** (not scored by software)
+The following fields are stored for `SYN-000904` by `_write_answer_key` using definitions in `app/models/cases.py`. The clinical category is medication omitted at discharge (`f1_omission`). The family is Family 1 (`family_1`). The trigger medication is apixaban 2.5 MG Oral Tablet, RXCUI `1364435`. The rationale is that the correct discharge medication list includes this continued home medication and that it was intentionally omitted from the discharge list. The expected action is to restore the omitted continued discharge medication from the medication plan. The intentional change records clean state present, injected state absent, context discharge, and seed `20260926:904:HF_INPATIENT`. Severity (`severity_ncc_merp`) and a priori difficulty (`difficulty_a_priori`) are null because software does not score them.
 
 Study investigator exports add control/error status, SYN id, seed, rule snapshots, and source versions (`app/services/validation_batch.py` `_investigator_payload`). Those files for `VAL-*` cases live next to the study JSON and **must stay off the resident packet**.
 
@@ -779,7 +677,7 @@ The implemented CliniProof injector set is in [CliniProof error taxonomy](#clini
 
 Study residents receive [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json) plus [`resident_review_worksheet.csv`](data/validation/resident_review_worksheet.csv) (`CLINIPROOF_TAXONOMY_V1`). They do **not** receive the investigator key, freeze plan, manifest, coverage files, or [`data/validation/README.md`](data/validation/README.md).
 
-The audited resident export contains: no `CaseAnswerKey`; no `SYN-*` identifiers; no `TEST_*` identifiers; no `LEAK_MARKERS`; no planted-error category; no error-family field; no target-medication metadata; no `clean_expected_state`; no `injected_state`; no correct-action answer. The resident worksheet retains **empty** rating/response fields. Do not pre-populate resident judgments.
+The audited resident export contains no `CaseAnswerKey`, no `SYN-*` identifiers, no `TEST_*` identifiers, no `LEAK_MARKERS`, no planted-error category, no error-family field, no target-medication metadata, no `clean_expected_state`, no `injected_state`, and no correct-action answer. The resident worksheet retains empty rating and response fields. Do not pre-populate resident judgments.
 
 Export (`_resident_payload`) rewrites ids to `VAL-*`, sets `case_status` to `review`, clears `source_reference` (so RXCUI is not on the resident med rows), omits `CaseAnswerKey`, and strips leak markers. Patient display names become `VAL Patient 201`, not `SYN Patient 801`.
 
@@ -787,45 +685,31 @@ Educational analogue using **clean** demonstration `SYN-000901` (if this were ex
 
 ### Educational case SYN-000901 (shape of a resident case)
 
-**Presentation**
+The presentation is an 83-year-old man with unspecified systolic (congestive) heart failure. The chief complaint is dyspnea, anasarca, and orthopnea in the setting of that diagnosis. The history of present illness is the short template paragraph listing those symptoms and the home medication names, including that ibuprofen was held.
 
-83-year-old man with unspecified systolic (congestive) heart failure. Chief complaint: Dyspnea, Anasarca, Orthopnea in the setting of that diagnosis. HPI is the short template paragraph listing those symptoms and the home medication names, including that ibuprofen was held.
+Admission vital signs are 36.8 °C, 124/70, heart rate 108, respiratory rate 23, and SpO2 98%. Weight is 69 kg.
 
-**Vitals**
+The laboratory results are creatinine 1.6 umol/L, potassium 3.6 mmol/L, BNP 648 pg/mL, and INR 2.6. LOINC codes are not required on the resident laboratory rows; `source_reference` is null in the study export.
 
-36.8 °C, 124/70, HR 108, RR 23, SpO2 98%. Weight 69 kg.
+Home medications are furosemide solution, spironolactone suspension, metoprolol 37.5 mg, lisinopril solution, atorvastatin 80 mg, and warfarin 1 mg, all once daily, with ibuprofen gel held.
 
-**Labs**
+Hospital medications are the same continue set, marked active, with ibuprofen held.
 
-Creatinine 1.6 umol/L; potassium 3.6 mmol/L; BNP 648 pg/mL; INR 2.6. (LOINC codes are not required on the resident lab rows; `source_reference` is null in the study export.)
+Discharge medications are the same six continue medications. This educational case was not error-injected. Study cases may differ on discharge; residents are not told which.
 
-**Home medications**
+Follow-up is primary care in 7 days. The instruction is to take discharge medications exactly as listed. When warfarin is continued, a clean case also includes outpatient INR monitoring. Family 2 study cases may omit a companion action such as that monitoring row or a follow-up; residents are not told which.
 
-Furosemide solution, spironolactone suspension, metoprolol 37.5 mg, lisinopril solution, atorvastatin 80 mg, warfarin 1 mg (all once daily); ibuprofen gel held.
+The worksheet asks residents to record the following fields, defined in [`data/validation/resident_review_schema.json`](data/validation/resident_review_schema.json):
 
-**Hospital medications**
-
-Same continue set, active; ibuprofen held.
-
-**Discharge medications**
-
-Same six continue medications (this educational case was not error-injected). Study cases may differ on discharge; residents are not told which.
-
-**Follow-up and monitoring**
-
-Primary care follow-up in 7 days. Instruction: take discharge medications exactly as listed. When warfarin is continued, a clean case also includes outpatient INR monitoring. Family 2 study cases may omit a companion action such as that monitoring row or a follow-up; residents are not told which.
-
-**What they are asked to record** (actual worksheet fields, [`data/validation/resident_review_schema.json`](data/validation/resident_review_schema.json)):
-
-- `clinical_realism_rating` (1–5)
-- `medication_reconciliation_correctness_rating` (1–5)
-- `case_clarity_rating` (1–5)
-- `identified_error_type`
-- `identified_affected_medication`
-- `confidence_rating` (1–5)
-- `free_text_comments`
-- `overall_acceptability`
-- `revision_recommendation`
+- Clinical realism rating (`clinical_realism_rating`), on a 1 through 5 scale
+- Medication-reconciliation correctness rating (`medication_reconciliation_correctness_rating`), on a 1 through 5 scale
+- Case clarity rating (`case_clarity_rating`), on a 1 through 5 scale
+- Identified error type (`identified_error_type`)
+- Identified affected medication (`identified_affected_medication`)
+- Confidence rating (`confidence_rating`), on a 1 through 5 scale
+- Free-text comments (`free_text_comments`)
+- Overall acceptability (`overall_acceptability`)
+- Revision recommendation (`revision_recommendation`)
 
 The software does not pre-fill those answers and does not tell the resident whether a discrepancy was planted.
 
@@ -833,7 +717,7 @@ The software does not pre-fill those answers and does not tell the resident whet
 
 ## What the Investigator Sees
 
-In addition to the resident JSON, freeze export writes (directory [`data/validation/`](data/validation/) for the study batch):
+In addition to the resident JSON, freeze export writes the following investigator files in [`data/validation/`](data/validation/) for the study batch. The table says what extra information each file contains. Residents should not receive these files.
 
 | Artifact | Extra information |
 | --- | --- |
@@ -849,7 +733,7 @@ This split exists so residents cannot score from the key. Do not “fix” blind
 
 ## Source Versus Synthetic — One-Page Table
 
-Answer to “which parts are real source knowledge, and which parts were generated?”
+The following table answers which parts of a case are official terminology or rules, and which parts were generated. Examples are from `SYN-000901` unless noted.
 
 | Case element | Source-backed or synthetic? | Example from `SYN-000901` unless noted |
 | --- | --- | --- |
@@ -904,43 +788,27 @@ Passing `validate-cases` or a freeze audit means the record is a **machine-valid
 
 ## Generation Lineage for One Case
 
-Exact path for educational `SYN-000901` (and the same function for study freeze, with VAL assignment afterward):
+The following sequence is the exact path for educational `SYN-000901`. Study freeze uses the same function and then assigns a VAL identifier.
 
-```text
-Scenario definition (data/bootstrap/scenarios.json → HF_INPATIENT)
-      ↓
-Human-readable requests (manifest.json / scenario queries)
-      ↓
-Official terminology resolution at bootstrap (RxNav, ICD-10-CM, LOINC, …)
-      ↓
-Local reference rows (ref_medications, ref_diagnoses, ref_lab_tests, ref_symptoms)
-      ↓
-Per-case concept selection (match_* + anticoagulant mutex RNG)
-      ↓
-Hard clinical-rule check on the selected codes (_assert_rules_allow)
-      ↓
-Synthetic demographics, vitals, lab numbers, weight (seeded RNG)
-      ↓
-Template (or optional OpenAI) narrative from already chosen names
-      ↓
-Three-context medication lists + continue/stop plan
-      ↓
-Clean structured case (other dashboard arrays)
-      ↓
-Machine validation (structural / terminology / hard rules / assessment)
-      ↓
-Optional controlled CliniProof category (skipped on 901; Family 1 omission used on 904; Family 2 may leave the medication list unchanged)
-      ↓
-Revalidation and CaseGenerationRun
-      ↓
-[Study only] Freeze audit → immutable VAL-* → blinded resident export
-      ↓
-Clinician / resident review (worksheet; not performed by software)
-```
+1. A scenario definition is read from `data/bootstrap/scenarios.json`; for this example the family is `HF_INPATIENT`.
+2. Human-readable search requests come from `manifest.json` and the scenario queries.
+3. Official terminology is resolved at bootstrap from RxNav, ICD-10-CM, LOINC, and related sources.
+4. Matching local reference rows are stored in `ref_medications`, `ref_diagnoses`, `ref_lab_tests`, and `ref_symptoms`.
+5. Per-case concept selection matches those rows and, when needed, applies the anticoagulant mutex using the seeded random-number generator.
+6. Hard clinical-rule checks run on the selected codes (`_assert_rules_allow`).
+7. Synthetic demographics, vital signs, laboratory numbers, and weight are drawn with the seeded generator.
+8. Template narrative, or optional OpenAI rewording, is written from already chosen names.
+9. Three-context medication lists and a continue-or-stop plan are assembled.
+10. The remaining dashboard arrays complete a clean structured case.
+11. Machine validation runs on structure, terminology, hard rules, and assessment consistency.
+12. An optional controlled CliniProof category may then be applied. It is skipped on 901. Family 1 omission is used on 904. Family 2 may leave the medication list unchanged.
+13. Revalidation runs and a `CaseGenerationRun` is stored.
+14. On the study path only, a freeze audit writes an immutable VAL identifier and a blinded resident export.
+15. Clinician and resident review use the worksheet. That review is not performed by software.
 
 ---
 
-## Tracing claims to the repository
+The following table maps each clinical or operational claim in this walkthrough to the repository file that implements or stores it.
 
 | Claim | Where to look |
 | --- | --- |
@@ -1638,26 +1506,21 @@ If local labs/meds/diagnoses are missing: `Could not resolve ... from an authori
 
 ## 14. OpenAI usage
 
-**Only module:** `app/openai/narrative.py` (`assemble_narrative`). Generation calls it after concept selection. `tests/test_cli_phase2.py` asserts that `app/sources`, `app/services`, `app/api`, and `app/cli` do not import the `openai` package (`from openai import OpenAI` lives inside `assemble_narrative`).
+The only OpenAI module is `app/openai/narrative.py` (`assemble_narrative`). Generation calls it after concept selection. `tests/test_cli_phase2.py` asserts that `app/sources`, `app/services`, `app/api`, and `app/cli` do not import the `openai` package. `from openai import OpenAI` lives inside `assemble_narrative`.
 
-**When the key is absent.** `openai_api_key.strip() == ""` → return `None` immediately. Generation uses `_template_narrative` and `narrative_source="template"`.
+OpenAI is optional in the CliniProof pipeline and is used only to help word narrative text from clinical facts that have already been selected by the structured generator. It does not choose diagnoses, medications, terminology codes, error categories, clinical rules, or answer-key content.
 
-**When the key is present.** Lazy-import `OpenAI`. Request:
+When the key is absent, `openai_api_key.strip() == ""` causes an immediate `None` return. Generation uses `_template_narrative` and `narrative_source="template"`.
 
-- `client.responses.parse`
-- `model=settings.openai_model` (default `gpt-5`)
-- `store=False`
-- system instructions: write admission narrative from structured facts only; do not add diagnoses, medications, labs, units, doses, frequencies, procedures, devices, or identifiers that are not listed; do not invent reference ranges or label facts
-- user content: `str({age, sex, diagnosis, symptoms, medications, chief_complaint_seed})`
-- `text_format=CaseNarrative` (`chief_complaint`, `hpi`, `note_text`)
+When the key is present, the client is imported lazily as `OpenAI`. The request uses `client.responses.parse`, `model=settings.openai_model` (default `gpt-5`), and `store=False`. System instructions tell the model to write admission narrative from structured facts only, and not to add diagnoses, medications, labs, units, doses, frequencies, procedures, devices, or identifiers that are not listed, and not to invent reference ranges or unlabeled facts. User content is `str({age, sex, diagnosis, symptoms, medications, chief_complaint_seed})`. The text format is `CaseNarrative` with `chief_complaint`, `hpi`, and `note_text`.
 
-**On any exception** (including missing SDK or HTTP failure): return `None` → template fallback. There is no retry UI and no raised OpenAI error on the generate CLI path.
+On any exception, including a missing SDK or HTTP failure, the function returns `None` and generation falls back to the template. There is no retry user interface and no raised OpenAI error on the generate CLI path.
 
-**After a successful parse.** Generation rejects the narrative and falls back to template if none of the allowed names appear in the text (`_narrative_rejected`).
+After a successful parse, generation rejects the narrative and falls back to the template if none of the allowed names appear in the text (`_narrative_rejected`).
 
-**Freeze.** `freeze_validation_batch(..., use_openai=False)` so OpenAI is not called for `CLINIPROOF_TAXONOMY_V1` even if a key is set.
+Freeze calls `freeze_validation_batch(..., use_openai=False)`, so OpenAI is not called for `CLINIPROOF_TAXONOMY_V1` even if a key is set.
 
-**What OpenAI cannot do here:** invent or choose diagnoses, RXCUIs, LOINC codes, ICD-10-CM codes, UCUM codes, clinical rules, error categories, error families, or answer-key contents. Raw MIMIC rows are not in the payload. CliniProof structured cases are not wholly LLM-generated.
+OpenAI cannot invent or choose diagnoses, RxNorm identifiers, LOINC codes, ICD-10-CM codes, UCUM codes, clinical rules, error categories, error families, or answer-key contents. Raw MIMIC rows are not in the payload. CliniProof structured cases are not wholly generated by a language model.
 
 This documents what the code sends. It is not a broader privacy certification.
 
@@ -1796,7 +1659,7 @@ Printed paths: `resident_path`, `investigator_path`, `manifest_path`, `coverage_
 
 ## 17. Resident-validation output files
 
-Directory: `data/validation/` for `CLINIPROOF_TAXONOMY_V1`. Tracked study artifacts live here (`data/exports/**` is gitignored).
+Directory `data/validation/` holds tracked study artifacts for `CLINIPROOF_TAXONOMY_V1`. Generated files under `data/exports/` are gitignored. The table below tells you which file a resident may receive and which files are investigator-only.
 
 | File | Purpose | Who should see it | Blinded? | Contains answer key? | Give to residents? |
 | --- | --- | --- | --- | --- | --- |
@@ -1852,11 +1715,11 @@ Do not tell residents which cases are clean controls.
 
 ## 19. Reproducing the frozen validation batch
 
-**Study source of truth:** the committed JSON/Markdown under `data/validation/`, not a later live API run.
+The committed JSON and Markdown under `data/validation/` are the study source of truth, not a later live API run.
 
-Why live bootstrap can differ: RxNav and LOINC ranking can change. The same string (`lisinopril`, `hemoglobin`, `edema`) may resolve to a different official concept. Seeds do not freeze upstream search order.
+Live bootstrap can differ because RxNav and LOINC ranking can change. The same string (`lisinopril`, `hemoglobin`, `edema`) may resolve to a different official concept. Seeds do not freeze upstream search order.
 
-**Reprint without mutating VAL IDs** (database already has this freeze):
+To reprint without mutating VAL identifiers, when the database already has this freeze, run:
 
 ```bash
 clinical-case-generator freeze-validation-batch
@@ -1917,7 +1780,7 @@ Response: `{"status":"ok"}` (HTTP 200).
 
 ### `GET /reference/medications` | `/labs` | `/diagnoses` | `/symptoms`
 
-Query parameters (`app/api/reference.py`):
+The table below lists query parameters for the local reference search routes in `app/api/reference.py`. These endpoints search already stored terminology rows; they do not call external APIs.
 
 | Name | Type | Default | Constraints |
 | --- | --- | --- | --- |
@@ -2091,95 +1954,81 @@ mypy
 
 ### `clinical-case-generator: command not found` (or PowerShell “not recognized”)
 
-**Cause.** Virtualenv not active, or package not installed.  
-**Fix.** Activate `.venv` ([§5](#5-clone-and-initial-setup)), then `python -m pip install -e ".[dev]"`. Confirm with `clinical-case-generator --help`.
+This usually means the virtual environment is not active, or the package is not installed. Activate `.venv` ([§5](#5-clone-and-initial-setup)), then run `python -m pip install -e ".[dev]"`. Confirm with `clinical-case-generator --help`.
 
 ### Connection refused / database errors talking to port 5432
 
-**Cause.** Postgres not running, wrong port, or `DATABASE_URL` host/user/password mismatch.  
-**Fix.** `docker compose up -d` then `docker compose exec postgres pg_isready -U postgres -d clinical_cases`. Confirm `DATABASE_URL` matches Compose (`postgres:postgres@localhost:5432/clinical_cases`) unless you intend a different server.
+This usually means PostgreSQL is not running, the port is wrong, or `DATABASE_URL` does not match the host, user, or password. Run `docker compose up -d`, then `docker compose exec postgres pg_isready -U postgres -d clinical_cases`. Confirm `DATABASE_URL` matches Compose (`postgres:postgres@localhost:5432/clinical_cases`) unless you intend a different server.
 
 ### Missing `.env`
 
-**Cause.** Settings fall back to defaults (`app/config.py`); LOINC and OpenAI stay empty.  
-**Fix.** Copy `.env.example` to `.env`. Alembic still uses `get_settings().database_url`.
+Settings then fall back to defaults in `app/config.py`, so LOINC and OpenAI stay empty. Copy `.env.example` to `.env`. Alembic still uses `get_settings().database_url`.
 
 ### `LOINC is not configured. Missing LOINC_USERNAME, LOINC_PASSWORD. No generated fallback is used.`
 
-**Cause.** `SourceNotConfigured` from `LoincClient`.  
-**Fix.** Set both variables in `.env`. `sync-loinc` exits 2. Bootstrap **skips** labs (`skipped` in JSON) and continues. Generation that requires labs then fails resolution.
+`LoincClient` raises `SourceNotConfigured` when those variables are missing. Set both in `.env`. `sync-loinc` exits 2. Bootstrap skips labs (`skipped` in JSON) and continues. Generation that requires laboratories then fails resolution.
 
 ### `Could not resolve lab request '...' from an authoritative source`
 
-**Cause.** `ReferenceResolutionError` — scenario lab query not in `ref_lab_tests` (often because LOINC was skipped).  
-**Fix.** Configure LOINC, re-run `bootstrap-reference-data`, confirm `reference-search labs`.
+This is a `ReferenceResolutionError`: the scenario laboratory query is not in `ref_lab_tests`, often because LOINC was skipped. Configure LOINC, re-run `bootstrap-reference-data`, and confirm `reference-search labs`.
 
 ### Unresolved medication / diagnosis / symptom during bootstrap
 
-**Cause.** Official search returned nothing acceptable (combination filter, token match, ranking).  
-**Fix.** Inspect `unresolved` in bootstrap JSON. Do not invent a code. Adjust the **search string** in the manifest only if you still query the official API.
+Official search returned nothing acceptable after combination filtering, token matching, or ranking. Inspect `unresolved` in the bootstrap JSON. Do not invent a code. Adjust the search string in the manifest only if you still query the official API.
 
 ### Duplicate / idempotent bootstrap or `db-init`
 
-**Cause.** Unique identifiers; registry `on_conflict_do_nothing`.  
-**Fix.** None required. `db-init` reports `inserted this call: 0`. Bootstrap upserts the same RXCUI/LOINC again.
+This is expected when unique identifiers already exist; the registry uses `on_conflict_do_nothing`. No additional fix is required. `db-init` reports `inserted this call: 0`. Bootstrap upserts the same RXCUI or LOINC again.
 
 ### Alembic / migration problems
 
-**Cause.** Database not empty of conflicting objects, or URL missing.  
-**Fix.** Confirm `alembic current` and `DATABASE_URL`. Do not edit `1c236aeaadc7`. Destructive last resort on **dev Docker only**: `docker compose down -v`, then up and `db-init`.
+The database is not empty of conflicting objects, or the URL is missing. Confirm `alembic current` and `DATABASE_URL`. Do not edit `1c236aeaadc7`. The destructive last resort on a development Docker database only is `docker compose down -v`, then bring the stack up and run `db-init`.
 
 ### OpenAI key missing
 
-**Cause.** Empty `OPENAI_API_KEY`.  
-**Fix.** None if template narrative is acceptable. Generate still runs; `narrative_source` is `template`.
+`OPENAI_API_KEY` is empty. No additional configuration is required if template narrative is acceptable. Generation still runs, and `narrative_source` is `template`.
 
 ### OpenAI request failure
 
-**Cause.** `assemble_narrative` catches all exceptions and returns `None`.  
-**Fix.** Generation continues with the template. Check key/model/network if you expected `"openai"` in CLI output.
+`assemble_narrative` catches all exceptions and returns `None`. Generation continues with the template. Check the key, model, and network if you expected `"openai"` in CLI output.
 
 ### `case validation failed: ...`
 
-**Cause.** A validation layer failed; CLI prints the first error and exits 2.  
-**Fix.** Read the `layer:` prefix. Clean cases must have zero mechanically detectable findings. Error-bearing cases must match the requested CliniProof category: Family 1 requires one discharge or plan mutation, and Family 2 requires the specified missing companion action. A hard dual-anticoagulant conflict, or missing INR when warfarin is selected, fails the clinical layer.
+A validation layer failed. The CLI prints the first error and exits 2. Read the `layer:` prefix. Clean cases must have zero mechanically detectable findings. Error-bearing cases must match the requested CliniProof category: Family 1 requires one discharge or plan mutation, and Family 2 requires the specified missing companion action. A hard dual-anticoagulant conflict, or missing INR when warfarin is selected, fails the clinical layer.
 
 ### `Frozen validation case VAL-00N cannot be overwritten`
 
-**Cause.** Immutable freeze row; seed/scenario mismatch, or `generate-synthetic-cases` targeting a frozen `SYN-000101`–`SYN-000124` or `SYN-000801`–`SYN-000824`.  
-**Fix.** Do not overwrite. Use a new batch/VAL IDs, or reuse via freeze when the plan matches.
+The freeze row is immutable, the seed or scenario does not match, or `generate-synthetic-cases` targeted a frozen `SYN-000101`–`SYN-000124` or `SYN-000801`–`SYN-000824` identifier. Do not overwrite. Use a new batch and VAL identifiers, or reuse via freeze when the plan matches.
 
 ### `no frozen cases for batch CLINIPROOF_TAXONOMY_V1`
 
-**Cause.** Export ran before freeze, or pytest/downgrade wiped rows, or wrong database.  
-**Fix.** Run `freeze-validation-batch` on this `DATABASE_URL`, or use committed JSON without export.
+Export ran before freeze, pytest or a downgrade wiped rows, or the command used the wrong database. Run `freeze-validation-batch` on this `DATABASE_URL`, or use the committed JSON without exporting.
 
 ### Port 5432 or 8765 already in use
 
-**Cause.** Another Postgres or an old uvicorn.  
-**Fix.** Stop the other process, or change host port in Compose / `--port` (and `DATABASE_URL` if you change 5432).
+Another PostgreSQL instance or an old uvicorn process is bound to the port. Stop the other process, or change the host port in Compose or `--port`, and update `DATABASE_URL` if you change 5432.
 
 ### `Provide a name or RXCUI. Full RxNorm import is not run by default.`
 
-**Cause.** `sync-rxnorm` with no `--name` or `--rxcui`. Similar messages exist for LOINC, UCUM, and ICD-10-CM.  
-**Fix.** Pass a selector. There is no full-import flag except `sync-ucum --all`.
+`sync-rxnorm` was invoked with no `--name` or `--rxcui`. Similar messages exist for LOINC, UCUM, and ICD-10-CM. Pass a selector. There is no full-import flag except `sync-ucum --all`.
 
 ### pytest wiped my generated cases
 
-**Cause.** Session fixture downgrades to `base`.  
-**Fix.** Re-run bootstrap and freeze, or use a separate test database URL.
+The pytest session fixture downgrades the schema to `base`. Re-run bootstrap and freeze, or use a separate test database URL.
 
 ---
 
 ## 24. Data provenance and safety constraints
 
-- **Official-source provenance** on reference rows: `source_system`, `source_version` (nullable if the API omitted it), timezone-aware `retrieved_at`.
-- **Canonical identifiers** come only from those sources or from `TEST_` fixtures in tests. No generated RXCUI/LOINC/ICD/UCUM/SNOMED/UDI.
-- **Unknown scalars** on cases are `NULL`, not `""`.
-- **Synthetic vs empirical:** vitals/labs are RNG draws labeled `synthetic_model_generated`. `ref_clinical_distributions` is unused by this pipeline; `MIMIC_IV_RAW` is rejected by check constraint.
-- **MIMIC:** not ingested. Registry documents that raw rows are never stored as concepts and never sent to OpenAI. `MIMIC_LOCAL_PATH` is unused.
-- **OpenAI:** optional wording of selected names only; `store=False`; freeze path disables it.
-- **Clinician review is required** because official-source ranking can yield atypical formulations (oral solutions, topical gel), SI example units, and oximetry hemoglobin LOINC. In the committed freeze, NLM conditions token-match stored **Anasarca** for an `edema` query and **Chronic fatigue syndrome** for `fatigue`. Software does not certify clinical realism.
+Every real reference row keeps official-source provenance: `source_system`, `source_version` (nullable if the API omitted it), and a timezone-aware `retrieved_at`. Canonical identifiers come only from those sources or from `TEST_` fixtures in tests. The generator does not invent RxNorm, LOINC, ICD-10-CM, UCUM, SNOMED CT, or UDI codes.
+
+Unknown scalars on cases are stored as `NULL`, not empty strings. Vital signs and laboratory numbers are random-number-generator draws labeled `synthetic_model_generated`. `ref_clinical_distributions` is unused by this pipeline, and `MIMIC_IV_RAW` is rejected by a check constraint.
+
+MIMIC is not ingested. The registry documents that raw rows are never stored as concepts and never sent to OpenAI. `MIMIC_LOCAL_PATH` is unused.
+
+OpenAI is optional in the CliniProof pipeline and is used only to help word narrative text from clinical facts that have already been selected by the structured generator. Calls use `store=False`. The freeze path disables OpenAI.
+
+Clinician review is required because official-source ranking can yield atypical formulations such as oral solutions or topical gel, SI example units, and oximetry hemoglobin LOINC. In the committed freeze, NLM conditions token-match stored **Anasarca** for an `edema` query and **Chronic fatigue syndrome** for `fatigue`. Software does not certify clinical realism.
 
 ---
 
@@ -2190,6 +2039,8 @@ This section is the schema map. Models: `app/models/`. Mixins: `app/database.py`
 Residents never connect to this database. They receive blinded JSON. Investigators who need planted-error catalogs use [`data/validation/README.md`](data/validation/README.md) — not a live SQL dump of `case_answer_keys`.
 
 ### What the database is
+
+The table below records the local PostgreSQL identity used by this repository’s default Compose file. It is an implementation snapshot, not a claim about a hospital production database.
 
 | Item | Value |
 | --- | --- |
@@ -2211,7 +2062,7 @@ The same three data classes from [Project overview](#1-project-overview) are thr
 
 ### Identity rules (read this before the diagrams)
 
-Every application table has an internal UUID primary key `id` (`gen_random_uuid()`). That UUID is **not** an RxNorm, LOINC, ICD-10-CM, or dashboard id.
+Every application table has an internal UUID primary key `id` (`gen_random_uuid()`). That UUID is not an RxNorm, LOINC, ICD-10-CM, or dashboard identifier. The table below distinguishes internal primary keys, official terminology codes, dashboard case identifiers, and frozen study identifiers. Read the kind of identifier first; the examples are tokens stored in the schema.
 
 | Kind of identifier | Where it lives | Example |
 | --- | --- | --- |
@@ -2225,7 +2076,7 @@ Optional foreign keys from a case child to a `ref_*` row use `ON DELETE RESTRICT
 
 ### UML — overall layout
 
-How data moves into tables. This is not a claim that every `ref_*` table is populated by the current pipeline.
+The diagram below shows how data moves into tables. It is not a claim that every `ref_*` table is populated by the current pipeline.
 
 ```mermaid
 flowchart TB
@@ -2547,6 +2398,8 @@ Family 1 planted errors mutate discharge `case_medications` (and mark a plan `is
 
 ### Clinical content → table (physician map)
 
+The table below maps what a clinician sees on the chart to the PostgreSQL table that stores it. The notes column says whether the content is source-backed, synthetic, or hidden from residents.
+
 | What you see on the chart | Table | Notes |
 | --- | --- | --- |
 | Patient age, sex, specialty, SYN id | `clinical_cases` | Synthetic demographics |
@@ -2560,22 +2413,28 @@ Family 1 planted errors mutate discharge `case_medications` (and mark a plan `is
 | Weight | `case_weights` | Synthetic |
 | Home / inpatient / discharge medications | `case_medications` | One row per drug per context; RXCUI via `ref_medications` |
 | Intended continue/stop plan | `case_medication_plans` | Correct plan **before** injection; residents do not see this table |
-| Held-med / restart language | `case_instructions` | Family 2.3 reads this |
-| Outpatient monitoring (e.g. INR) | `case_monitoring` | Family 2.2 removes this on error-bearing cases |
-| Follow-up appointments | `case_followups` | Family 2.7 may remove a pending-decision follow-up |
+| Held-med / restart language | `case_instructions` | Held medication without a restart plan (`f2_held_med_no_restart_plan`) reads this |
+| Outpatient monitoring (e.g. INR) | `case_monitoring` | Required outpatient monitoring not arranged (`f2_monitoring_not_arranged`) removes this on error-bearing cases |
+| Follow-up appointments | `case_followups` | Follow-up missing for an unresolved treatment decision (`f2_pending_decision_followup_missing`) may remove a pending-decision follow-up |
 | Discharge disposition | `case_discharge_planning` | Template “home” |
 | Planted-error answer | `case_answer_keys` | Investigator only |
 | Frozen VAL assignment | `validation_batch_cases` | Immutable lock + snapshots |
 
 ### Table catalog
 
+The tables below list every application relation in this schema. Counts in the headings are how many tables sit in that group. They are an engineering inventory, not a clinical completeness claim.
+
 **Registry (1)**
+
+The registry stores metadata about official sources. `db-init` inserts nine rows and does not load vocabulary concepts.
 
 | Table | Purpose | Loaded by |
 | --- | --- | --- |
 | `data_source_registry` | Nine source-metadata rows (`RXNORM`, `DAILYMED`, `RXCLASS`, `LOINC`, `UCUM`, `ICD10CM`, `SNOMED_CT`, `ACCESS_GUDID`, `MIMIC_IV`) | `db-init` only |
 
 **Authoritative reference (12)**
+
+These tables hold official terminology rows. Identifiers are stored only after an official service returns them.
 
 | Table | Official identifier | Loaded by this pipeline? |
 | --- | --- | --- |
@@ -2594,11 +2453,15 @@ Family 1 planted errors mutate discharge `case_medications` (and mark a plan `is
 
 **Rules (1)**
 
+The rules table stores curated if-then constraints. A rule is enabled only when DailyMed or RxClass evidence is attached.
+
 | Table | Purpose |
 | --- | --- |
 | `clinical_rules` | Curated IF/THEN rows. `enabled` becomes true only when DailyMed/RxClass evidence is attached. Severity `hard` or `soft`. Current codes: `NO_DUAL_ORAL_ANTICOAGULANT`, `WARFARIN_INR_MONITORING`, `FUROSEMIDE_HF_INDICATION` |
 
 **Synthetic case hub and children (25)**
+
+These tables store one synthetic chart and its child documents. Empty schema tables exist for dashboard completeness even when generation does not populate them.
 
 | Table | Role in generation |
 | --- | --- |
@@ -2630,6 +2493,8 @@ Family 1 planted errors mutate discharge `case_medications` (and mark a plan `is
 
 **Generation and freeze (4)**
 
+These tables record generation intent, run metadata, the correct medication plan before injection, and the immutable VAL freeze.
+
 | Table | Purpose | Delete rule |
 | --- | --- | --- |
 | `case_blueprints` | Per-case generation intent (scenario, age band, `target_error_category`) | Referenced by runs `RESTRICT` |
@@ -2639,6 +2504,8 @@ Family 1 planted errors mutate discharge `case_medications` (and mark a plan `is
 
 **Alembic**
 
+Alembic stores the current migration revision. It is not an application model.
+
 | Table | Purpose |
 | --- | --- |
 | `alembic_version` | Current revision string. Not an application model |
@@ -2647,11 +2514,7 @@ Migration chain: `1c236aeaadc7` (Phase 1 clinical schema) → `7b9e4c21d6a0` (`c
 
 ### Delete behavior (summary)
 
-- Case children (`CaseChildMixin` and `case_medication_plans`): `ON DELETE CASCADE` from `clinical_cases.id`
-- Optional FKs to `ref_*`: `ON DELETE RESTRICT`
-- `case_generation_runs.case_id`: `ON DELETE SET NULL`
-- `case_generation_runs.blueprint_id`: `ON DELETE RESTRICT`
-- `validation_batch_cases.case_id`: `ON DELETE RESTRICT`
+Case children, including `CaseChildMixin` rows and `case_medication_plans`, use `ON DELETE CASCADE` from `clinical_cases.id`. Optional foreign keys to `ref_*` tables use `ON DELETE RESTRICT`. `case_generation_runs.case_id` uses `ON DELETE SET NULL`. `case_generation_runs.blueprint_id` uses `ON DELETE RESTRICT`. `validation_batch_cases.case_id` uses `ON DELETE RESTRICT`, so a frozen case cannot be deleted out from under a VAL identifier.
 
 ### Inspecting the live schema
 
@@ -2667,37 +2530,15 @@ After `db-init` and before bootstrap, every clinical table except `data_source_r
 
 ## 26. Current limitations
 
-The lists below are an inventory of what the software does and does not do. They are not a clinical evaluation of the frozen cases.
-
-**Implemented**
+The paragraphs below inventory what the software does and does not do. They are not a clinical evaluation of the frozen cases.
 
 The repository currently includes a PostgreSQL schema and Alembic migrations through `d4e8b17c6a91`; clients for RxNorm, credentialed LOINC, UCUM, ICD-10-CM, DailyMed, RxClass, NLM conditions, and NLM HPO; bounded bootstrap; three curated rules; five inpatient scenarios; deterministic generation with Family 1 and Family 2 injectors (see the taxonomy section); freeze and export of the blinded VAL batch `CLINIPROOF_TAXONOMY_V1`; a local reference search API and `/health`; and optional OpenAI narrative wording that was not used on the committed study freeze.
 
-**Partially implemented**
+Several pieces are only partially implemented. SNOMED CT columns and a disabled registry row exist, but there is no ingestion client. AccessGUDID has enabled registry metadata but no client. `ref_clinical_distributions` has a table and a MIMIC_IV_RAW guard, but no calculator. LOINC laboratory bootstrap works only with credentials; otherwise those laboratories are skipped. The taxonomy specifies required companion medication omitted (`f2_coprescription_omitted`), but the software does not yet have a sufficiently source-backed deterministic companion-prescription rule (`not_yet_implementable`), so freeze rejects that category rather than guessing. Narrative wording always has a template path. OpenAI is optional in the CliniProof pipeline and is used only to help word narrative text from clinical facts that have already been selected by the structured generator. If the call fails, wording falls back silently to the template.
 
-- SNOMED CT: columns and a disabled registry row exist; **no ingestion**
-- AccessGUDID: enabled registry metadata; **no client**
-- `ref_clinical_distributions`: table and MIMIC_IV_RAW guard; **no calculator**
-- LOINC labs: bootstrap works only with credentials; otherwise skipped
-- `f2_coprescription_omitted` is specified in the taxonomy, but the software does not yet have a sufficiently source-backed deterministic companion-prescription rule (`not_yet_implementable`), so freeze rejects that category rather than guessing
-- Narrative wording always has a template path. OpenAI is optional and, if the call fails, wording falls back silently to the template.
+The following capabilities are not implemented: AccessGUDID or SNOMED CT ingestion; MIMIC ingestion or aggregate calculation; a resident review user interface or dashboard application; a full vocabulary import (`sync-all` does not exist); companion co-prescription errors such as a steroid without a proton-pump inhibitor or an opioid without a bowel regimen, unless a stored rule exists; a complete clinical-realism guarantee, because human review is required; and using OpenAI as clinical truth, error chooser, or answer-key writer.
 
-**Not implemented**
-
-- AccessGUDID or SNOMED CT ingestion
-- MIMIC ingestion or aggregate calculation
-- Resident review UI / dashboard application
-- Full vocabulary import (`sync-all` does not exist)
-- Companion co-prescription errors (steroid/PPI, opioid/bowel regimen) without a stored rule
-- A complete clinical-realism guarantee; human review is required
-- Using OpenAI as clinical truth, error chooser, or answer-key writer
-
-**`CLINIPROOF_TAXONOMY_V1` study limitations**
-
-- **Clinical distribution.** The batch is not evenly distributed by scenario (`HF_INPATIENT` 13/24, `HTN_INPATIENT` 4/24, `AF_ANTICOAGULATION` 3/24, `T2DM_INPATIENT` 3/24, `CAP_INPATIENT` 1/24). It is not a prevalence-weighted or representative sample of inpatient medicine. CAP is represented by one case.
-- **Error-category distribution.** Several categories occur only once. This batch alone does **not** support stable category-specific psychometric estimates. It is primarily intended for clinician assessment of clinical plausibility, assessment-object integrity, error fidelity, detectability, and isolation.
-- **Missing category.** Required companion medication omitted (`f2_coprescription_omitted`) is intentionally absent because the software does not yet have a sufficiently source-backed deterministic rule for that situation (`not_yet_implementable`).
-- **Terminology ranking.** Official source ranking can produce technically source-valid but clinically atypical formulations or units (RxNorm solutions/gels, SI laboratory units). Clinical plausibility requires physician review.
+The frozen study set `CLINIPROOF_TAXONOMY_V1` has additional study-design limits. The batch is not evenly distributed by scenario: thirteen of twenty-four cases use the heart-failure inpatient skeleton, four use hypertension, three use atrial fibrillation with anticoagulation, three use type 2 diabetes, and one uses community-acquired pneumonia. It is not a prevalence-weighted or representative sample of inpatient medicine. Several error categories occur only once, so this batch alone does not support stable category-specific psychometric estimates. It is primarily intended for clinician assessment of clinical plausibility, assessment-object integrity, error fidelity, detectability, and isolation. Required companion medication omitted (`f2_coprescription_omitted`) is intentionally absent because the software does not yet have a sufficiently source-backed deterministic rule for that situation (`not_yet_implementable`). Official source ranking can produce technically source-valid but clinically atypical formulations or units, such as RxNorm solutions or gels, or SI laboratory units. Clinical plausibility therefore requires physician review.
 
 ---
 

@@ -56,11 +56,11 @@ A home medication is intentionally held in the hospital for a legitimate tempora
 
 #### Insufficient medication supply (`f2_insufficient_supply`)
 
-Days’ supply at discharge is too short to last until the planned follow-up.
+Days’ supply at discharge is too short to last until the planned follow-up. The medication identity on the list may be correct; the missing element is enough supply to bridge to the next visit.
 
 #### Hospital-only medication continued after discharge (`f2_hospital_only_continued`)
 
-A medication started for an inpatient-only indication is still on the discharge list.
+A medication started for an inpatient-only indication is still on the discharge list. Reviewers should notice that a hospital-only product was not stopped at the transition home.
 
 #### Temporary inpatient substitution not addressed at discharge (`f2_inpatient_substitution_not_reverted`)
 
@@ -68,11 +68,11 @@ A temporary inpatient substitute was used, but discharge does not revert to home
 
 #### Follow-up missing for an unresolved treatment decision (`f2_pending_decision_followup_missing`)
 
-A treatment decision was left pending, but no follow-up is arranged to resolve it.
+A treatment decision was left pending, but no follow-up is arranged to resolve it. The medication list may look intact, but the chart does not say when or by whom the unresolved decision will be revisited.
 
 #### Required companion medication omitted (`f2_coprescription_omitted`)
 
-This category is specified conceptually. It is not currently implementable because no source-backed companion-prescription rule exists in this repository.
+The taxonomy also defines this category for a situation in which a clinically required companion medication is missing. This category is not included in the current validation set because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
 
 ## Criterion 1 — Clinical plausibility — fixable
 

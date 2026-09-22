@@ -16,6 +16,8 @@ Until clinicians finish review, treat every record as a machine-validated synthe
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 78
 - **Sex/gender:** Male
 - **Weight:** 104.000 kg
@@ -25,6 +27,8 @@ Until clinicians finish review, treat every record as a machine-validated synthe
 - **One-liner:** 78-year-old Male with Unspecified systolic (congestive) heart failure
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Dyspnea, Anasarca, Orthopnea in the setting of Unspecified systolic (congestive) heart failure
 - **Symptoms:** Dyspnea, Anasarca, Orthopnea
@@ -38,11 +42,15 @@ Admission note for a 78-year-old Male with Unspecified systolic (congestive) hea
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Unspecified systolic (congestive) heart failure | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -52,11 +60,13 @@ Not specified.
 
 On hospital day 1, intake was 1927 mL and output was 1119 mL (net 808 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -68,6 +78,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 0.9 | umol/L |
@@ -76,6 +88,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.1 | mmol/L |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -89,6 +103,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | atorvastatin 80 MG Oral Tablet | 80 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
@@ -100,6 +116,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | warfarin sodium 1 MG Oral Tablet | 1 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure; monitoring: Outpatient monitoring arranged. |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -118,11 +136,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
 - INR in Platelet poor plasma or blood by Coagulation assay (frequency: as labeled; responsible service: outpatient anticoagulation)
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -133,7 +151,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Dyspnea (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -146,9 +164,9 @@ Serial weights:
 
 - admission: 104.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -232,6 +250,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -239,6 +259,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -250,6 +272,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -259,6 +283,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -288,6 +314,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 60
 - **Sex/gender:** Male
 - **Weight:** 81.000 kg
@@ -297,6 +325,8 @@ Overall comments:
 - **One-liner:** 60-year-old Male with Unspecified systolic (congestive) heart failure
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Dyspnea, Anasarca, Orthopnea in the setting of Unspecified systolic (congestive) heart failure
 - **Symptoms:** Dyspnea, Anasarca, Orthopnea
@@ -310,11 +340,15 @@ Admission note for a 60-year-old Male with Unspecified systolic (congestive) hea
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Unspecified systolic (congestive) heart failure | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -324,11 +358,13 @@ Not specified.
 
 On hospital day 1, intake was 1751 mL and output was 1598 mL (net 153 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -340,6 +376,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.3 | umol/L |
@@ -348,6 +386,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 3.8 | mmol/L |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -361,6 +401,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | atorvastatin 80 MG Oral Tablet | 80 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
@@ -372,6 +414,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | warfarin sodium 1 MG Oral Tablet | 1 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure; monitoring: Outpatient monitoring arranged. |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -392,11 +436,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
 - INR in Platelet poor plasma or blood by Coagulation assay (frequency: as labeled; responsible service: outpatient anticoagulation)
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -407,7 +451,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Dyspnea (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -420,9 +464,9 @@ Serial weights:
 
 - admission: 81.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -506,6 +550,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -513,6 +559,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -524,6 +572,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -533,6 +583,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -562,6 +614,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 57
 - **Sex/gender:** Female
 - **Weight:** 92.000 kg
@@ -571,6 +625,8 @@ Overall comments:
 - **One-liner:** 57-year-old Female with Unspecified systolic (congestive) heart failure
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Dyspnea, Anasarca, Orthopnea in the setting of Unspecified systolic (congestive) heart failure
 - **Symptoms:** Dyspnea, Anasarca, Orthopnea
@@ -584,11 +640,15 @@ Admission note for a 57-year-old Female with Unspecified systolic (congestive) h
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Unspecified systolic (congestive) heart failure | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -598,11 +658,13 @@ Not specified.
 
 On hospital day 1, intake was 1577 mL and output was 1621 mL (net -44 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -614,6 +676,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.0 | umol/L |
@@ -622,6 +686,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 3.7 | mmol/L |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -635,6 +701,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | apixaban 2.5 MG Oral Tablet | 2.5 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
@@ -646,6 +714,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | spironolactone 1 MG/ML Oral Suspension | 1 tablet | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -665,11 +735,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
-Not specified.
+No scheduled monitoring was specified.
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -680,7 +750,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Dyspnea (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -693,9 +763,9 @@ Serial weights:
 
 - admission: 92.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -779,6 +849,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -786,6 +858,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -797,6 +871,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -806,6 +882,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -835,6 +913,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 79
 - **Sex/gender:** Female
 - **Weight:** 109.000 kg
@@ -844,6 +924,8 @@ Overall comments:
 - **One-liner:** 79-year-old Female with Unspecified systolic (congestive) heart failure
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Dyspnea, Anasarca, Orthopnea in the setting of Unspecified systolic (congestive) heart failure
 - **Symptoms:** Dyspnea, Anasarca, Orthopnea
@@ -857,11 +939,15 @@ Admission note for a 79-year-old Female with Unspecified systolic (congestive) h
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Unspecified systolic (congestive) heart failure | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -871,11 +957,13 @@ Not specified.
 
 On hospital day 1, intake was 1609 mL and output was 1491 mL (net 118 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -887,6 +975,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 0.9 | umol/L |
@@ -895,6 +985,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.0 | mmol/L |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -908,6 +1000,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | apixaban 2.5 MG Oral Tablet | 2.5 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
@@ -919,6 +1013,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | spironolactone 1 MG/ML Oral Suspension | 1 tablet | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -938,11 +1034,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
-Not specified.
+No scheduled monitoring was specified.
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -953,7 +1049,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Dyspnea (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -966,9 +1062,9 @@ Serial weights:
 
 - admission: 109.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -1052,6 +1148,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -1059,6 +1157,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -1070,6 +1170,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -1079,6 +1181,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -1108,6 +1212,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 85
 - **Sex/gender:** Male
 - **Weight:** 71.000 kg
@@ -1117,6 +1223,8 @@ Overall comments:
 - **One-liner:** 85-year-old Male with Unspecified systolic (congestive) heart failure
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Dyspnea, Anasarca, Orthopnea in the setting of Unspecified systolic (congestive) heart failure
 - **Symptoms:** Dyspnea, Anasarca, Orthopnea
@@ -1130,11 +1238,15 @@ Admission note for a 85-year-old Male with Unspecified systolic (congestive) hea
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Unspecified systolic (congestive) heart failure | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -1144,11 +1256,13 @@ Not specified.
 
 On hospital day 1, intake was 2032 mL and output was 1169 mL (net 863 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -1160,6 +1274,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.0 | umol/L |
@@ -1168,6 +1284,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.6 | mmol/L |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -1181,6 +1299,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | apixaban 2.5 MG Oral Tablet | 2.5 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
@@ -1192,6 +1312,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | spironolactone 1 MG/ML Oral Suspension | 1 tablet | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -1211,11 +1333,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
-Not specified.
+No scheduled monitoring was specified.
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -1226,7 +1348,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Dyspnea (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -1239,9 +1361,9 @@ Serial weights:
 
 - admission: 71.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -1325,6 +1447,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -1332,6 +1456,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -1343,6 +1469,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -1352,6 +1480,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -1381,6 +1511,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 55
 - **Sex/gender:** Male
 - **Weight:** 98.000 kg
@@ -1390,6 +1522,8 @@ Overall comments:
 - **One-liner:** 55-year-old Male with Unspecified systolic (congestive) heart failure
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Dyspnea, Anasarca, Orthopnea in the setting of Unspecified systolic (congestive) heart failure
 - **Symptoms:** Dyspnea, Anasarca, Orthopnea
@@ -1403,11 +1537,15 @@ Admission note for a 55-year-old Male with Unspecified systolic (congestive) hea
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Unspecified systolic (congestive) heart failure | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -1417,11 +1555,13 @@ Not specified.
 
 On hospital day 1, intake was 1578 mL and output was 959 mL (net 619 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -1433,6 +1573,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.1 | umol/L |
@@ -1441,6 +1583,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.1 | mmol/L |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -1454,6 +1598,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | atorvastatin 80 MG Oral Tablet | 80 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
@@ -1465,6 +1611,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | warfarin sodium 1 MG Oral Tablet | 1 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure; monitoring: Outpatient monitoring arranged. |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -1484,11 +1632,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
 - INR in Platelet poor plasma or blood by Coagulation assay (frequency: as labeled; responsible service: outpatient anticoagulation)
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -1499,7 +1647,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Dyspnea (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -1512,9 +1660,9 @@ Serial weights:
 
 - admission: 98.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -1599,6 +1747,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -1606,6 +1756,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -1617,6 +1769,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -1626,6 +1780,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -1655,6 +1811,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 68
 - **Sex/gender:** Male
 - **Weight:** 97.000 kg
@@ -1664,6 +1822,8 @@ Overall comments:
 - **One-liner:** 68-year-old Male with Unspecified systolic (congestive) heart failure
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Dyspnea, Anasarca, Orthopnea in the setting of Unspecified systolic (congestive) heart failure
 - **Symptoms:** Dyspnea, Anasarca, Orthopnea
@@ -1677,11 +1837,15 @@ Admission note for a 68-year-old Male with Unspecified systolic (congestive) hea
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Unspecified systolic (congestive) heart failure | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -1691,11 +1855,13 @@ Not specified.
 
 On hospital day 1, intake was 2080 mL and output was 1294 mL (net 786 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -1707,6 +1873,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.1 | umol/L |
@@ -1715,6 +1883,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 3.9 | mmol/L |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -1728,6 +1898,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | atorvastatin 80 MG Oral Tablet | 80 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
@@ -1739,6 +1911,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | warfarin sodium 1 MG Oral Tablet | 1 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure; monitoring: Outpatient monitoring arranged. |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -1758,11 +1932,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
-Not specified.
+No scheduled monitoring was specified.
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -1773,7 +1947,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Dyspnea (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -1786,9 +1960,9 @@ Serial weights:
 
 - admission: 97.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -1802,7 +1976,7 @@ The case has undergone automated checks for structure, terminology consistency, 
 
 **Clinical category:**
 
-Required monitoring not arranged
+Required outpatient monitoring not arranged
 
 **CliniProof identifier:**
 
@@ -1872,6 +2046,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -1879,6 +2055,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -1890,6 +2068,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -1899,6 +2079,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -1928,6 +2110,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 59
 - **Sex/gender:** Female
 - **Weight:** 92.000 kg
@@ -1937,6 +2121,8 @@ Overall comments:
 - **One-liner:** 59-year-old Female with Unspecified systolic (congestive) heart failure
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Dyspnea, Anasarca, Orthopnea in the setting of Unspecified systolic (congestive) heart failure
 - **Symptoms:** Dyspnea, Anasarca, Orthopnea
@@ -1950,11 +2136,15 @@ Admission note for a 59-year-old Female with Unspecified systolic (congestive) h
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Unspecified systolic (congestive) heart failure | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -1964,11 +2154,13 @@ Not specified.
 
 On hospital day 1, intake was 1510 mL and output was 1049 mL (net 461 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -1980,6 +2172,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.1 | umol/L |
@@ -1988,6 +2182,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.5 | mmol/L |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -2001,6 +2197,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | atorvastatin 80 MG Oral Tablet | 80 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
@@ -2012,6 +2210,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | warfarin sodium 1 MG Oral Tablet | 1 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure; monitoring: Outpatient monitoring arranged. |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -2031,11 +2231,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
 - INR in Platelet poor plasma or blood by Coagulation assay (frequency: as labeled; responsible service: outpatient anticoagulation)
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -2046,7 +2246,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Dyspnea (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -2059,9 +2259,9 @@ Serial weights:
 
 - admission: 92.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -2145,6 +2345,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -2152,6 +2354,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -2163,6 +2367,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -2172,6 +2378,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -2201,6 +2409,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 62
 - **Sex/gender:** Male
 - **Weight:** 63.000 kg
@@ -2210,6 +2420,8 @@ Overall comments:
 - **One-liner:** 62-year-old Male with Unspecified systolic (congestive) heart failure
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Dyspnea, Anasarca, Orthopnea in the setting of Unspecified systolic (congestive) heart failure
 - **Symptoms:** Dyspnea, Anasarca, Orthopnea
@@ -2223,11 +2435,15 @@ Admission note for a 62-year-old Male with Unspecified systolic (congestive) hea
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Unspecified systolic (congestive) heart failure | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -2237,11 +2453,13 @@ Not specified.
 
 On hospital day 1, intake was 1547 mL and output was 1368 mL (net 179 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -2253,6 +2471,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 0.9 | umol/L |
@@ -2261,6 +2481,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.3 | mmol/L |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -2274,6 +2496,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | apixaban 2.5 MG Oral Tablet | 2.5 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
@@ -2285,6 +2509,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | spironolactone 1 MG/ML Oral Suspension | 1 tablet | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -2304,11 +2530,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
-Not specified.
+No scheduled monitoring was specified.
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 14 days; with service: primary care)
 
@@ -2319,7 +2545,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Dyspnea (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -2332,9 +2558,9 @@ Serial weights:
 
 - admission: 63.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -2418,6 +2644,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -2425,6 +2653,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -2436,6 +2666,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -2445,6 +2677,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -2474,6 +2708,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 71
 - **Sex/gender:** Female
 - **Weight:** 74.000 kg
@@ -2483,6 +2719,8 @@ Overall comments:
 - **One-liner:** 71-year-old Female with Unspecified systolic (congestive) heart failure
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Dyspnea, Anasarca, Orthopnea in the setting of Unspecified systolic (congestive) heart failure
 - **Symptoms:** Dyspnea, Anasarca, Orthopnea
@@ -2496,11 +2734,15 @@ Admission note for a 71-year-old Female with Unspecified systolic (congestive) h
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Unspecified systolic (congestive) heart failure | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -2510,11 +2752,13 @@ Not specified.
 
 On hospital day 1, intake was 1487 mL and output was 1482 mL (net 5 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -2526,6 +2770,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 0.9 | umol/L |
@@ -2534,6 +2780,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.2 | mmol/L |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -2547,6 +2795,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | apixaban 2.5 MG Oral Tablet | 2.5 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
@@ -2559,6 +2809,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | spironolactone 1 MG/ML Oral Suspension | 1 tablet | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -2579,11 +2831,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
-Not specified.
+No scheduled monitoring was specified.
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -2594,7 +2846,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Dyspnea (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -2607,9 +2859,9 @@ Serial weights:
 
 - admission: 74.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -2693,6 +2945,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -2700,6 +2954,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -2711,6 +2967,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -2720,6 +2978,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -2749,6 +3009,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 77
 - **Sex/gender:** Male
 - **Weight:** 60.000 kg
@@ -2758,6 +3020,8 @@ Overall comments:
 - **One-liner:** 77-year-old Male with Unspecified systolic (congestive) heart failure
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Dyspnea, Anasarca, Orthopnea in the setting of Unspecified systolic (congestive) heart failure
 - **Symptoms:** Dyspnea, Anasarca, Orthopnea
@@ -2771,11 +3035,15 @@ Admission note for a 77-year-old Male with Unspecified systolic (congestive) hea
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Unspecified systolic (congestive) heart failure | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -2785,11 +3053,13 @@ Not specified.
 
 On hospital day 1, intake was 1532 mL and output was 973 mL (net 559 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -2801,6 +3071,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.5 | umol/L |
@@ -2809,6 +3081,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 3.8 | mmol/L |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -2822,6 +3096,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | atorvastatin 80 MG Oral Tablet | 80 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
@@ -2833,6 +3109,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | warfarin sodium 1 MG Oral Tablet | 1 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure; monitoring: Outpatient monitoring arranged. |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -2852,11 +3130,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
 - INR in Platelet poor plasma or blood by Coagulation assay (frequency: as labeled; responsible service: outpatient anticoagulation)
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -2867,7 +3145,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Dyspnea (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -2880,9 +3158,9 @@ Serial weights:
 
 - admission: 60.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -2967,6 +3245,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -2974,6 +3254,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -2985,6 +3267,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -2994,6 +3278,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -3023,6 +3309,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 66
 - **Sex/gender:** Male
 - **Weight:** 79.000 kg
@@ -3032,6 +3320,8 @@ Overall comments:
 - **One-liner:** 66-year-old Male with Unspecified systolic (congestive) heart failure
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Dyspnea, Anasarca, Orthopnea in the setting of Unspecified systolic (congestive) heart failure
 - **Symptoms:** Dyspnea, Anasarca, Orthopnea
@@ -3045,11 +3335,15 @@ Admission note for a 66-year-old Male with Unspecified systolic (congestive) hea
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Unspecified systolic (congestive) heart failure | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -3059,11 +3353,13 @@ Not specified.
 
 On hospital day 1, intake was 2115 mL and output was 1763 mL (net 352 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -3075,6 +3371,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.0 | umol/L |
@@ -3083,6 +3381,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 3.5 | mmol/L |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -3096,6 +3396,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | atorvastatin 80 MG Oral Tablet | 80 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
@@ -3107,6 +3409,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | warfarin sodium 1 MG Oral Tablet | 1 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure; monitoring: Outpatient monitoring arranged. |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -3126,13 +3430,13 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
 - INR in Platelet poor plasma or blood by Coagulation assay (frequency: as labeled; responsible service: outpatient anticoagulation)
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
-Not specified.
+No follow-up appointments were specified.
 
 ## Discharge instructions
 
@@ -3142,7 +3446,7 @@ Not specified.
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Dyspnea (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -3155,9 +3459,9 @@ Serial weights:
 
 - admission: 79.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -3241,6 +3545,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -3248,6 +3554,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -3259,6 +3567,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -3268,6 +3578,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -3297,6 +3609,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 81
 - **Sex/gender:** Female
 - **Weight:** 63.000 kg
@@ -3306,6 +3620,8 @@ Overall comments:
 - **One-liner:** 81-year-old Female with Unspecified systolic (congestive) heart failure
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Dyspnea, Anasarca, Orthopnea in the setting of Unspecified systolic (congestive) heart failure
 - **Symptoms:** Dyspnea, Anasarca, Orthopnea
@@ -3319,11 +3635,15 @@ Admission note for a 81-year-old Female with Unspecified systolic (congestive) h
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Unspecified systolic (congestive) heart failure | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -3333,11 +3653,13 @@ Not specified.
 
 On hospital day 1, intake was 1743 mL and output was 1291 mL (net 452 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -3349,6 +3671,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.5 | umol/L |
@@ -3357,6 +3681,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.4 | mmol/L |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -3370,6 +3696,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | apixaban 2.5 MG Oral Tablet | 2.5 MG | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
@@ -3381,6 +3709,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | spironolactone 1 MG/ML Oral Suspension | 1 tablet | oral | once daily | indication: Unspecified systolic (congestive) heart failure |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -3400,11 +3730,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
-Not specified.
+No scheduled monitoring was specified.
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -3415,7 +3745,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Dyspnea (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -3428,9 +3758,9 @@ Serial weights:
 
 - admission: 63.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -3452,7 +3782,7 @@ No intentional assessment problem (clean control)
 
 **Medication(s) involved:**
 
-Not specified.
+No trigger medication is specified because this is a clean control.
 
 **What should have occurred:**
 
@@ -3503,6 +3833,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -3510,6 +3842,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -3521,6 +3855,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -3530,6 +3866,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -3559,6 +3897,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 88
 - **Sex/gender:** Male
 - **Weight:** 89.000 kg
@@ -3568,6 +3908,8 @@ Overall comments:
 - **One-liner:** 88-year-old Male with Paroxysmal atrial fibrillation
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Dyspnea, Chronic fatigue syndrome in the setting of Paroxysmal atrial fibrillation
 - **Symptoms:** Dyspnea, Chronic fatigue syndrome
@@ -3581,11 +3923,15 @@ Admission note for a 88-year-old Male with Paroxysmal atrial fibrillation. Sympt
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Paroxysmal atrial fibrillation | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -3595,11 +3941,13 @@ Not specified.
 
 On hospital day 1, intake was 2139 mL and output was 1397 mL (net 742 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -3611,12 +3959,16 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 0.9 | umol/L |
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 2.0 | {INR} |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -3627,6 +3979,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | apixaban 2.5 MG Oral Tablet | 2.5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
@@ -3635,6 +3989,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | metoprolol tartrate 37.5 MG Oral Tablet | 37.5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -3650,11 +4006,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
-Not specified.
+No scheduled monitoring was specified.
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -3665,7 +4021,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Dyspnea (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -3678,9 +4034,9 @@ Serial weights:
 
 - admission: 89.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -3764,6 +4120,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -3771,6 +4129,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -3782,6 +4142,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -3791,6 +4153,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -3820,6 +4184,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 82
 - **Sex/gender:** Female
 - **Weight:** 72.000 kg
@@ -3829,6 +4195,8 @@ Overall comments:
 - **One-liner:** 82-year-old Female with Paroxysmal atrial fibrillation
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Dyspnea, Chronic fatigue syndrome in the setting of Paroxysmal atrial fibrillation
 - **Symptoms:** Dyspnea, Chronic fatigue syndrome
@@ -3842,11 +4210,15 @@ Admission note for a 82-year-old Female with Paroxysmal atrial fibrillation. Sym
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Paroxysmal atrial fibrillation | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -3856,11 +4228,13 @@ Not specified.
 
 On hospital day 1, intake was 2197 mL and output was 1316 mL (net 881 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -3872,12 +4246,16 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.1 | umol/L |
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 3.0 | {INR} |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -3888,6 +4266,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | atorvastatin 80 MG Oral Tablet | 80 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
@@ -3896,6 +4276,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | warfarin sodium 1 MG Oral Tablet | 1 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; monitoring: Outpatient monitoring arranged. |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -3912,11 +4294,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
-Not specified.
+No scheduled monitoring was specified.
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -3927,7 +4309,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Dyspnea (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -3940,9 +4322,9 @@ Serial weights:
 
 - admission: 72.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -3956,7 +4338,7 @@ The case has undergone automated checks for structure, terminology consistency, 
 
 **Clinical category:**
 
-Required monitoring not arranged
+Required outpatient monitoring not arranged
 
 **CliniProof identifier:**
 
@@ -4026,6 +4408,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -4033,6 +4417,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -4044,6 +4430,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -4053,6 +4441,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -4082,6 +4472,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 64
 - **Sex/gender:** Male
 - **Weight:** 110.000 kg
@@ -4091,6 +4483,8 @@ Overall comments:
 - **One-liner:** 64-year-old Male with Paroxysmal atrial fibrillation
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Dyspnea, Chronic fatigue syndrome in the setting of Paroxysmal atrial fibrillation
 - **Symptoms:** Dyspnea, Chronic fatigue syndrome
@@ -4104,11 +4498,15 @@ Admission note for a 64-year-old Male with Paroxysmal atrial fibrillation. Sympt
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Paroxysmal atrial fibrillation | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -4118,11 +4516,13 @@ Not specified.
 
 On hospital day 1, intake was 1213 mL and output was 1459 mL (net -246 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -4134,12 +4534,16 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 0.9 | umol/L |
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 2.6 | {INR} |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -4150,6 +4554,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | atorvastatin 80 MG Oral Tablet | 80 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
@@ -4158,6 +4564,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | warfarin sodium 1 MG Oral Tablet | 1 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; monitoring: Outpatient monitoring arranged. |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -4174,11 +4582,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
 - INR in Platelet poor plasma or blood by Coagulation assay (frequency: as labeled; responsible service: outpatient anticoagulation)
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -4189,7 +4597,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Dyspnea (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -4202,9 +4610,9 @@ Serial weights:
 
 - admission: 110.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -4226,7 +4634,7 @@ No intentional assessment problem (clean control)
 
 **Medication(s) involved:**
 
-Not specified.
+No trigger medication is specified because this is a clean control.
 
 **What should have occurred:**
 
@@ -4277,6 +4685,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -4284,6 +4694,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -4295,6 +4707,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -4304,6 +4718,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -4333,6 +4749,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 53
 - **Sex/gender:** Male
 - **Weight:** 72.000 kg
@@ -4342,6 +4760,8 @@ Overall comments:
 - **One-liner:** 53-year-old Male with Essential (primary) hypertension
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Chronic fatigue syndrome in the setting of Essential (primary) hypertension
 - **Symptoms:** Chronic fatigue syndrome
@@ -4355,11 +4775,15 @@ Admission note for a 53-year-old Male with Essential (primary) hypertension. Sym
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Essential (primary) hypertension | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -4369,11 +4793,13 @@ Not specified.
 
 On hospital day 1, intake was 1969 mL and output was 849 mL (net 1120 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -4385,6 +4811,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.5 | umol/L |
@@ -4392,6 +4820,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Sodium [Moles/volume] in Serum or Plasma (admission) | 134.0 | mmol/L |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -4403,6 +4833,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | amlodipine 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Essential (primary) hypertension |
@@ -4412,6 +4844,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | lisinopril 1 MG/ML Oral Solution | 1 MG/ML | oral | once daily | indication: Essential (primary) hypertension |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -4429,11 +4863,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
-Not specified.
+No scheduled monitoring was specified.
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -4444,7 +4878,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Chronic fatigue syndrome (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -4457,9 +4891,9 @@ Serial weights:
 
 - admission: 72.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -4543,6 +4977,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -4550,6 +4986,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -4561,6 +4999,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -4570,6 +5010,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -4599,6 +5041,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 51
 - **Sex/gender:** Male
 - **Weight:** 109.000 kg
@@ -4608,6 +5052,8 @@ Overall comments:
 - **One-liner:** 51-year-old Male with Essential (primary) hypertension
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Chronic fatigue syndrome in the setting of Essential (primary) hypertension
 - **Symptoms:** Chronic fatigue syndrome
@@ -4621,11 +5067,15 @@ Admission note for a 51-year-old Male with Essential (primary) hypertension. Sym
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Essential (primary) hypertension | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -4635,11 +5085,13 @@ Not specified.
 
 On hospital day 1, intake was 1977 mL and output was 942 mL (net 1035 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -4651,6 +5103,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.4 | umol/L |
@@ -4658,6 +5112,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Sodium [Moles/volume] in Serum or Plasma (admission) | 136.0 | mmol/L |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -4669,6 +5125,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | amlodipine 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Essential (primary) hypertension |
@@ -4678,6 +5136,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | lisinopril 1 MG/ML Oral Solution | 1 MG/ML | oral | once daily | indication: Essential (primary) hypertension |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -4696,11 +5156,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
-Not specified.
+No scheduled monitoring was specified.
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -4711,7 +5171,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Chronic fatigue syndrome (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -4724,9 +5184,9 @@ Serial weights:
 
 - admission: 109.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -4810,6 +5270,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -4817,6 +5279,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -4828,6 +5292,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -4837,6 +5303,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -4866,6 +5334,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 58
 - **Sex/gender:** Female
 - **Weight:** 106.000 kg
@@ -4875,6 +5345,8 @@ Overall comments:
 - **One-liner:** 58-year-old Female with Essential (primary) hypertension
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Chronic fatigue syndrome in the setting of Essential (primary) hypertension
 - **Symptoms:** Chronic fatigue syndrome
@@ -4888,11 +5360,15 @@ Admission note for a 58-year-old Female with Essential (primary) hypertension. S
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Essential (primary) hypertension | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -4902,11 +5378,13 @@ Not specified.
 
 On hospital day 1, intake was 1877 mL and output was 884 mL (net 993 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -4918,6 +5396,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.5 | umol/L |
@@ -4925,6 +5405,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Sodium [Moles/volume] in Serum or Plasma (admission) | 138.0 | mmol/L |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -4936,6 +5418,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | amlodipine 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Essential (primary) hypertension |
@@ -4945,6 +5429,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | lisinopril 1 MG/ML Oral Solution | 1 MG/ML | oral | once daily | held; held reason: Held inpatient for documented in-hospital hypotension; intended to restart.; indication: Essential (primary) hypertension |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -4962,11 +5448,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
-Not specified.
+No scheduled monitoring was specified.
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -4977,7 +5463,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Chronic fatigue syndrome (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -4990,9 +5476,9 @@ Serial weights:
 
 - admission: 106.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -5076,6 +5562,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -5083,6 +5571,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -5094,6 +5584,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -5103,6 +5595,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -5132,6 +5626,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 52
 - **Sex/gender:** Female
 - **Weight:** 83.000 kg
@@ -5141,6 +5637,8 @@ Overall comments:
 - **One-liner:** 52-year-old Female with Essential (primary) hypertension
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Chronic fatigue syndrome in the setting of Essential (primary) hypertension
 - **Symptoms:** Chronic fatigue syndrome
@@ -5154,11 +5652,15 @@ Admission note for a 52-year-old Female with Essential (primary) hypertension. S
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Essential (primary) hypertension | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -5168,11 +5670,13 @@ Not specified.
 
 On hospital day 1, intake was 1688 mL and output was 811 mL (net 877 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -5184,6 +5688,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 0.9 | umol/L |
@@ -5191,6 +5697,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Sodium [Moles/volume] in Serum or Plasma (admission) | 142.0 | mmol/L |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -5202,6 +5710,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | amlodipine 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Essential (primary) hypertension |
@@ -5211,6 +5721,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | lisinopril 1 MG/ML Oral Solution | 1 MG/ML | oral | once daily | indication: Essential (primary) hypertension |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -5228,11 +5740,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
-Not specified.
+No scheduled monitoring was specified.
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -5243,7 +5755,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Chronic fatigue syndrome (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -5256,9 +5768,9 @@ Serial weights:
 
 - admission: 83.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -5280,7 +5792,7 @@ No intentional assessment problem (clean control)
 
 **Medication(s) involved:**
 
-Not specified.
+No trigger medication is specified because this is a clean control.
 
 **What should have occurred:**
 
@@ -5331,6 +5843,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -5338,6 +5852,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -5349,6 +5865,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -5358,6 +5876,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -5387,6 +5907,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 77
 - **Sex/gender:** Female
 - **Weight:** 95.000 kg
@@ -5396,6 +5918,8 @@ Overall comments:
 - **One-liner:** 77-year-old Female with Type 2 diabetes mellitus with unspecified complications
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Polyuria, Chronic fatigue syndrome in the setting of Type 2 diabetes mellitus with unspecified complications
 - **Symptoms:** Polyuria, Chronic fatigue syndrome
@@ -5409,11 +5933,15 @@ Admission note for a 77-year-old Female with Type 2 diabetes mellitus with unspe
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Type 2 diabetes mellitus with unspecified complications | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -5423,11 +5951,13 @@ Not specified.
 
 On hospital day 1, intake was 1814 mL and output was 1179 mL (net 635 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -5439,6 +5969,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.0 | umol/L |
@@ -5446,6 +5978,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Hemoglobin [Mass/volume] in Blood by Oximetry (admission) | 12.9 | g/dL |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -5455,6 +5989,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | Modified 24 HR metformin hydrochloride 1000 MG Extended Release Oral Tablet | 1000 MG | oral | once daily | indication: Type 2 diabetes mellitus with unspecified complications |
@@ -5462,6 +5998,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | lisinopril 1 MG/ML Oral Solution | 1 MG/ML | oral | once daily | indication: Type 2 diabetes mellitus with unspecified complications |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -5477,11 +6015,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
-Not specified.
+No scheduled monitoring was specified.
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -5491,7 +6029,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Polyuria (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -5504,9 +6042,9 @@ Serial weights:
 
 - admission: 95.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -5590,6 +6128,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -5597,6 +6137,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -5608,6 +6150,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -5617,6 +6161,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -5646,6 +6192,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 53
 - **Sex/gender:** Female
 - **Weight:** 85.000 kg
@@ -5655,6 +6203,8 @@ Overall comments:
 - **One-liner:** 53-year-old Female with Type 2 diabetes mellitus with unspecified complications
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Polyuria, Chronic fatigue syndrome in the setting of Type 2 diabetes mellitus with unspecified complications
 - **Symptoms:** Polyuria, Chronic fatigue syndrome
@@ -5668,11 +6218,15 @@ Admission note for a 53-year-old Female with Type 2 diabetes mellitus with unspe
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Type 2 diabetes mellitus with unspecified complications | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -5682,11 +6236,13 @@ Not specified.
 
 On hospital day 1, intake was 1644 mL and output was 940 mL (net 704 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -5698,6 +6254,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.5 | umol/L |
@@ -5705,6 +6263,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Hemoglobin [Mass/volume] in Blood by Oximetry (admission) | 11.3 | g/dL |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -5714,6 +6274,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | Modified 24 HR metformin hydrochloride 1000 MG Extended Release Oral Tablet | 1000 MG | oral | once daily | indication: Type 2 diabetes mellitus with unspecified complications |
@@ -5721,6 +6283,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | lisinopril 1 MG/ML Oral Solution | 1 MG/ML | oral | once daily | indication: Type 2 diabetes mellitus with unspecified complications |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -5737,11 +6301,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
-Not specified.
+No scheduled monitoring was specified.
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 14 days; with service: primary care)
 
@@ -5751,7 +6315,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Polyuria (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -5764,9 +6328,9 @@ Serial weights:
 
 - admission: 85.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -5850,6 +6414,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -5857,6 +6423,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -5868,6 +6436,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -5877,6 +6447,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -5906,6 +6478,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 60
 - **Sex/gender:** Female
 - **Weight:** 82.000 kg
@@ -5915,6 +6489,8 @@ Overall comments:
 - **One-liner:** 60-year-old Female with Type 2 diabetes mellitus with unspecified complications
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Polyuria, Chronic fatigue syndrome in the setting of Type 2 diabetes mellitus with unspecified complications
 - **Symptoms:** Polyuria, Chronic fatigue syndrome
@@ -5928,11 +6504,15 @@ Admission note for a 60-year-old Female with Type 2 diabetes mellitus with unspe
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Type 2 diabetes mellitus with unspecified complications | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -5942,11 +6522,13 @@ Not specified.
 
 On hospital day 1, intake was 1452 mL and output was 1089 mL (net 363 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -5958,6 +6540,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.6 | umol/L |
@@ -5965,6 +6549,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Hemoglobin [Mass/volume] in Blood by Oximetry (admission) | 12.8 | g/dL |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -5974,6 +6560,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | Modified 24 HR metformin hydrochloride 1000 MG Extended Release Oral Tablet | 1000 MG | oral | once daily | indication: Type 2 diabetes mellitus with unspecified complications |
@@ -5981,6 +6569,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | lisinopril 1 MG/ML Oral Solution | 1 MG/ML | oral | once daily | indication: Type 2 diabetes mellitus with unspecified complications |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -5997,11 +6587,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
-Not specified.
+No scheduled monitoring was specified.
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -6011,7 +6601,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Polyuria (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -6024,9 +6614,9 @@ Serial weights:
 
 - admission: 82.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -6048,7 +6638,7 @@ No intentional assessment problem (clean control)
 
 **Medication(s) involved:**
 
-Not specified.
+No trigger medication is specified because this is a clean control.
 
 **What should have occurred:**
 
@@ -6099,6 +6689,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -6106,6 +6698,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -6117,6 +6711,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -6126,6 +6722,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -6155,6 +6753,8 @@ Overall comments:
 
 ## Patient overview
 
+The following overview lists the demographic and admission facts stored for this synthetic patient.
+
 - **Age:** 55
 - **Sex/gender:** Male
 - **Weight:** 101.000 kg
@@ -6164,6 +6764,8 @@ Overall comments:
 - **One-liner:** 55-year-old Male with Lobar pneumonia, unspecified organism
 
 ## Reason for hospitalization
+
+The following fields are the presenting complaint and history stored on the case.
 
 - **Chief complaint:** Cough, Dyspnea, Wheezing in the setting of Lobar pneumonia, unspecified organism
 - **Symptoms:** Cough, Dyspnea, Wheezing
@@ -6177,11 +6779,15 @@ Admission note for a 55-year-old Male with Lobar pneumonia, unspecified organism
 
 ## Relevant medical history
 
-Not specified.
+No additional past medical history or allergy fields were specified.
+
+The following table lists diagnoses stored on the case.
 
 | Diagnosis | Type | Status | Context |
 | --- | --- | --- | --- |
 | Lobar pneumonia, unspecified organism | admission | active | inpatient |
+
+The following table lists problem-list entries stored on the case.
 
 | Problem | Type | Priority | Status |
 | --- | --- | --- | --- |
@@ -6191,11 +6797,13 @@ Not specified.
 
 On hospital day 1, intake was 2029 mL and output was 888 mL (net 1141 mL).
 
-Disposition home. Discharge readiness: ready. Home health ordered: No.
+The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Clinical status at discharge
 
 ### Vital signs
+
+The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -6207,6 +6815,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ### Laboratory results
 
+The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.2 | umol/L |
@@ -6214,6 +6824,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | Sodium [Moles/volume] in Serum or Plasma (admission) | 138.0 | mmol/L |
 
 ## Home medications
+
+The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -6223,6 +6835,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Medications during hospitalization
 
+The following table lists medications recorded as active during the hospital stay.
+
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | albuterol 0.4 MG Inhalation Powder | 1 tablet | oral | once daily | indication: Lobar pneumonia, unspecified organism |
@@ -6230,6 +6844,8 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 | pantoprazole 20 MG Delayed Release Oral Tablet | 20 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism |
 
 ## Discharge medications
+
+The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
@@ -6246,11 +6862,11 @@ Disposition home. Discharge readiness: ready. Home health ordered: No.
 
 ## Follow-up and monitoring
 
-Scheduled monitoring:
+The following items are scheduled monitoring tasks stored on the case.
 
-Not specified.
+No scheduled monitoring was specified.
 
-Appointments / follow-up plan:
+The following items are follow-up appointments stored on the case.
 
 - Primary care follow-up (timing: 7 days; with service: primary care)
 
@@ -6260,7 +6876,7 @@ Appointments / follow-up plan:
 
 ## Other relevant clinical information
 
-Return precautions:
+The following items are return precautions stored on the case.
 
 - Cough (reason: Worsening of the presenting symptom; action: Seek urgent evaluation; severity: urgent)
 
@@ -6273,9 +6889,9 @@ Serial weights:
 
 - admission: 101.000 kg
 
-Imaging: Not specified.
+No imaging studies were specified in this case.
 
-Consultations: Not specified.
+No consultations were specified in this case.
 
 ## About the case data
 
@@ -6359,6 +6975,8 @@ Overall C1:
 
 ### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -6366,6 +6984,8 @@ Overall C1:
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -6377,6 +6997,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -6386,6 +7008,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
