@@ -99,6 +99,10 @@ The software performs automated checks of structure, terminology provenance, imp
 
 The resident JSON omits answer-key objects, internal generation identifiers, family and category fields, trigger metadata, and clean or injected state. Readable files `all_cases.md`, `plausibility_only_packet.md`, and the individual case pages are derived only from that blinded export.
 
+## Clinician dual expert review
+
+Human validation of the frozen set uses independent dual expert review with structured consensus resolution. Two clinical reviewers complete blinded C1, then independently complete C2 through C5. Original independent ratings are stored on `clinical_validation_worksheet.csv`. Consensus outcomes are stored separately on `consensus_worksheet.csv` and do not overwrite those ratings. Reviewer comments do not rewrite frozen JSON. The protocol is `reviewer_protocol.md`.
+
 ## Freeze immutability and provenance
 
 Frozen files for batch `CLINIPROOF_TAXONOMY_V1` under `data/validation/` are the study source of truth. Regenerating live terminology from APIs is not expected to reproduce bit-identical JSON. Readable Markdown is allowed to be regenerated from those frozen files; the frozen files themselves must not be rewritten to improve clinical content.
