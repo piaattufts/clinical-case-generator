@@ -4,9 +4,9 @@ Clinical Case Generator is a Python application that loads **official clinical t
 
 It does **not** invent RxNorm, LOINC, SNOMED CT, ICD-10-CM, UCUM, or device identifiers. It does **not** send raw MIMIC patient rows, notes, identifiers, or events to OpenAI. Generated cases are **machine-validated synthetic records pending clinician validation**. Software checks terminology, structure, and the implemented source-backed rules. That is not the same as clinical validity.
 
-The frozen resident-review batch `RESIDENT_VALIDATION_V1` (`VAL-001`–`VAL-024`), per-case seeds, official source versions, and the investigator catalog are in [`data/validation/README.md`](data/validation/README.md). Treat that file as **investigator-only**: it describes planted errors.
+The frozen resident-review batch `RESIDENT_VALIDATION_V1` (`VAL-001`–`VAL-024`) lives in [`data/validation/`](data/validation/). A second freeze, `CLINIPROOF_TAXONOMY_V1` (`VAL-201`–`VAL-224`), lives in [`data/validation/cliniproof_v1/`](data/validation/cliniproof_v1/). Investigator catalogs describe planted errors — treat them as **investigator-only**. Do not rewrite V1 artifacts to canonical CliniProof IDs.
 
-**Clinicians:** start at [For Clinicians: How a Synthetic Case Is Built](#for-clinicians-how-a-synthetic-case-is-built). Worked examples there are educational `SYN-000901`–`SYN-000903` cases, not the blinded `VAL-*` study set.
+**Clinicians:** start at [For Clinicians: How a Synthetic Case Is Built](#for-clinicians-how-a-synthetic-case-is-built). Worked examples there are educational `SYN-000901`–`SYN-000903` cases, not the blinded `VAL-*` study sets. Canonical error identifiers are in [CliniProof error taxonomy](#cliniproof-error-taxonomy).
 
 ---
 
@@ -64,7 +64,7 @@ CLI entry point (from `pyproject.toml`): `clinical-case-generator = "app.cli:mai
 
 ### Problem it solves
 
-Medication-reconciliation review studies need realistic-looking cases with known (hidden) discharge-list errors, using **canonical codes that can be cited**. This tool generates those cases from official vocabularies instead of free-text invention, then blinds the answer key for residents.
+Medication-reconciliation review studies need realistic-looking cases with known (hidden) **assessment** errors — Family 1 discharge-list mismatches and Family 2 transition-of-care gaps — using **canonical codes that can be cited**. This tool generates those cases from official vocabularies instead of free-text invention, then blinds the answer key for residents.
 
 ### Three data classes
 
@@ -92,7 +92,7 @@ Machine validation ≠ clinical validation. Cases remain **machine-validated syn
 
 This section is for physicians and clinical reviewers. It explains how a synthetic inpatient case is assembled, using language from ordinary clinical work (presentation, admission diagnosis, home / inpatient / discharge medications, medication reconciliation) rather than software architecture.
 
-**Worked examples below are educational demonstrations**, not members of the blinded resident-validation study. They were generated with the same code path as the study freeze (`app/services/generation.py`), with template admission wording (no OpenAI call), sequences **901–904**, and seed **20260926**. Snapshots: [`data/docs/clinician_examples/`](data/docs/clinician_examples/). Study cases for residents are `VAL-001`–`VAL-024` in [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json). This walkthrough does **not** say which `VAL-*` cases are controls or which discharge-list discrepancy was planted.
+**Worked examples below are educational demonstrations**, not members of the blinded resident-validation study. They were generated with the same code path as the study freeze (`app/services/generation.py`), with template admission wording (no OpenAI call), sequences **901–904**, and seed **20260926**. Snapshots: [`data/docs/clinician_examples/`](data/docs/clinician_examples/). Study cases for residents are `VAL-001`–`VAL-024` in [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json) (historical V1 freeze) and, separately, `VAL-201`–`VAL-224` in [`data/validation/cliniproof_v1/resident_validation_cases.json`](data/validation/cliniproof_v1/resident_validation_cases.json). This walkthrough does **not** say which `VAL-*` cases are controls or which discrepancy was planted.
 
 Status of every generated record until a clinician finishes review: **machine-validated synthetic resident-review cases pending clinician validation**.
 
@@ -106,7 +106,7 @@ The generator does not ask a language model to invent an entire patient. It firs
 | **Synthetic patient-specific value** | Age, sex, blood pressure, heart rate, the *numeric* lab result, weight, display name | These numbers were drawn by a seeded random generator. They are **not** measurements from a real patient and are **not** MIMIC rows. |
 | **Deterministic clinical rule** | A stored IF/THEN constraint, enabled only when DailyMed or RxClass evidence was attached | Only three rules exist. They are not a complete heart-failure or pneumonia guideline. |
 | **Narrative wording** | Chief complaint, HPI, admission note | Template sentences (or optional OpenAI rewording) built from names already selected. Not a source of new diagnoses or drugs. |
-| **Medication-reconciliation discrepancy** | At most one controlled change to the **discharge** list after the clean case passed machine validation | Present only when error injection is turned on. Hidden from residents. |
+| **Assessment discrepancy (CliniProof)** | At most one controlled change after the clean case passed machine validation. **Family 1** changes the discharge list. **Family 2** typically leaves the continued-drug identity intact and removes a required companion action (monitoring, restart plan, supply, follow-up, or similar). | Present only when error injection is turned on. Hidden from residents. |
 | **Human clinical validation** | Resident or investigator judgment | Software cannot certify that the picture is realistic, complete, or appropriate for teaching. |
 
 ---
@@ -117,9 +117,9 @@ Order below matches `generate_one_case` in [`app/services/generation.py`](app/se
 
 ### 1. Select a clinical scenario
 
-**What happens.** An operator (or the freeze plan) chooses one inpatient *family* from [`data/bootstrap/scenarios.json`](data/bootstrap/scenarios.json). The family is a teaching skeleton: specialty, age band, diagnosis search text, symptom search text, medication search text, optional “stop” medication, optional anticoagulant either/or list, laboratory search text, and which reconciliation-error families are allowed.
+**What happens.** An operator (or the freeze plan) chooses one inpatient *family* from [`data/bootstrap/scenarios.json`](data/bootstrap/scenarios.json). The family is a teaching skeleton: specialty, age band, diagnosis search text, symptom search text, medication search text, optional “stop” medication, optional hospital-only medication, optional anticoagulant either/or list, laboratory search text, and which CliniProof error categories are allowed (canonical `f1_*` / `f2_*` IDs plus historical V1 aliases).
 
-**Example.** Heart-failure family `HF_INPATIENT`: cardiology, ages 55–85, diagnosis query `heart failure`, symptoms `dyspnea` / `edema` / `orthopnea`, continue-med queries lisinopril, furosemide, metoprolol, spironolactone, atorvastatin, stop query `ibuprofen`, anticoagulant mutex `warfarin` **or** `apixaban`, labs potassium / creatinine / INR / natriuretic peptide.
+**Example.** Heart-failure family `HF_INPATIENT`: cardiology, ages 55–85, diagnosis query `heart failure`, symptoms `dyspnea` / `edema` / `orthopnea`, continue-med queries lisinopril, furosemide, metoprolol, spironolactone, atorvastatin, stop query `ibuprofen`, hospital-only query `pantoprazole` (used only when the target category is `f2_hospital_only_continued`), anticoagulant mutex `warfarin` **or** `apixaban`, labs potassium / creatinine / INR / natriuretic peptide.
 
 **Why it matters clinically.** The scenario decides the *problem list theme* and which drug classes will appear. It does not yet pick a specific RXCUI or ICD-10-CM code.
 
@@ -139,7 +139,7 @@ Order below matches `generate_one_case` in [`app/services/generation.py`](app/se
 
 **Why it matters clinically.** Every named drug, diagnosis, and lab *concept* on the case is traceable to an official code the source actually returned. Ranking can prefer an oral solution or an oximetry hemoglobin term over the tablet or methodless term you might expect in clinic.
 
-**Authoritative source.** RxNav, NLM ICD-10-CM, LOINC FHIR TS, NLM conditions, NLM HPO, UCUM essence XML (units), DailyMed (labels, later), RxClass (rule evidence).
+**Authoritative source.** RxNav, NLM ICD-10-CM, LOINC FHIR TS, NLM conditions, NLM HPO, UCUM essence XML (units), DailyMed (labels, later), RxClass (rule evidence and medication-class membership).
 
 **Synthetic.** The search phrases in the scenario file. Not the identifiers.
 
@@ -207,7 +207,7 @@ Order below matches `generate_one_case` in [`app/services/generation.py`](app/se
 
 **Synthetic.** The three-context copies, default frequency `once daily`, fallback dose.
 
-**Checked automatically.** Later, the medication-plan layer counts discharge discrepancies against the plan.
+**Checked automatically.** Later, the **assessment** layer counts mechanically detectable findings (Family 1 discharge/plan mismatches and Family 2 missing companion actions).
 
 **Physician judgment.** Oral-solution ACE inhibitor, topical ibuprofen as the NSAID, and `1 tablet` of furosemide solution are ranking/fallback artifacts, not a claim that this is usual inpatient prescribing.
 
@@ -229,7 +229,7 @@ Order below matches `generate_one_case` in [`app/services/generation.py`](app/se
 
 ### 8. Perform machine validation (clean case)
 
-**What happens.** `validate_case` in [`app/services/validation.py`](app/services/validation.py) runs four layers: **structural**, **terminology**, **clinical** (hard rules), **medication_plan** (zero discrepancies and no answer key on a clean case). `require_valid` aborts on failure.
+**What happens.** `validate_case` in [`app/services/validation.py`](app/services/validation.py) runs four layers: **structural**, **terminology**, **clinical** (hard rules), **assessment** (zero mechanically detectable findings and no answer key on a clean case). `require_valid` aborts on failure.
 
 **Example.** `SYN-000901` validation: all four layers `passed: true`, `rules: []` (no hard or soft *violations*; furosemide is paired with I50.20, so the soft allow-rule does not fire).
 
@@ -279,13 +279,13 @@ The frozen study batch `RESIDENT_VALIDATION_V1` still stores the historical name
 
 **What happens.** `freeze-validation-batch` generates as above with `use_openai=False`, audits (no `TEST_` identifiers, plan matches control vs error), and writes an immutable `VAL-###` row (`validation_batch_cases`). A second freeze **reuses** matching VAL IDs and will not overwrite them.
 
-**Example.** Study batch `RESIDENT_VALIDATION_V1` assigns `VAL-001`–`VAL-024` to sequences 101–124. Demonstration `SYN-000901` was **not** frozen into a VAL ID.
+**Example.** Study batch `RESIDENT_VALIDATION_V1` assigns `VAL-001`–`VAL-024` to sequences 101–124. `CLINIPROOF_TAXONOMY_V1` assigns `VAL-201`–`VAL-224` to sequences 801–824. Demonstration `SYN-000901` was **not** frozen into a VAL ID.
 
 **Physician judgment.** Freeze is an operational lock, not clinical sign-off.
 
 ### 12. Export resident-facing and investigator-facing versions
 
-**What happens.** `export-validation-batch` writes blinded [`resident_validation_cases.json`](data/validation/resident_validation_cases.json) (VAL ids, no answer key, RXCUI `source_reference` cleared, titles rewritten) and investigator files (answer key, manifest, coverage). A leak audit fails export if resident JSON contains markers such as `syn-000`, `answer_key`, or `is_clean_control`.
+**What happens.** `export-validation-batch` writes a blinded resident JSON (VAL ids, no answer key, RXCUI `source_reference` cleared, titles rewritten) and investigator files (answer key, manifest, coverage). Default `--output-dir` is `data/validation/` (`RESIDENT_VALIDATION_V1`). `CLINIPROOF_TAXONOMY_V1` must use `--output-dir data/validation/cliniproof_v1` so V1 is not overwritten. A leak audit fails export if resident JSON contains markers such as `syn-000`, `answer_key`, or `is_clean_control`.
 
 ### 13. Obtain clinician validation
 
@@ -434,9 +434,10 @@ Family `HF_INPATIENT` in [`data/bootstrap/scenarios.json`](data/bootstrap/scenar
 - Symptom queries: dyspnea, edema, orthopnea
 - Continue-med queries: lisinopril, furosemide, metoprolol, spironolactone, atorvastatin
 - Stop-med query: ibuprofen
+- Hospital-only query: pantoprazole (constructed only when the target is `f2_hospital_only_continued`)
 - Anticoagulant mutex (exactly one): warfarin or apixaban
 - Lab queries: potassium, creatinine, inr, natriuretic peptide
-- Allowed error families if injection is on: omission, dose mismatch, frequency mismatch, incorrect continuation
+- Allowed error categories if injection is on: canonical `f1_*` / `f2_*` IDs in `scenarios.json` (historical aliases `omission`, `dose_mismatch`, `frequency_mismatch`, `incorrect_continuation` still accepted). `f2_coprescription_omitted` is not listed (`not_yet_implementable`).
 
 This demonstration used `--no-inject-error`, so the discharge list matches the clean plan.
 
@@ -541,7 +542,7 @@ The clinically relevant question on review is whether those transitions are inte
 - Case id format `SYN-000901`; medication contexts `home` / `inpatient` / `discharge`; at least one diagnosis (**structural**)
 - Every med/diagnosis/lab links to a `ref_*` row with provenance; units are stored UCUM or LOINC example units (**terminology**)
 - No hard rule violations (**clinical**)
-- Discharge list matches the continue/stop plan; no answer key (**medication_plan**, clean mode)
+- Discharge list matches the continue/stop plan; required companion actions (for example warfarin INR monitoring) are present; no answer key (**assessment**, clean mode)
 
 **Requires clinician review (not checked):**
 
@@ -609,7 +610,7 @@ Educational demonstration **`SYN-000903`**. Snapshot: [`data/docs/clinician_exam
 | azithromycin 250 MG Oral Capsule | 141962 | `1 tablet` once daily | strength empty → `1 tablet` |
 | pantoprazole 20 MG Delayed Release Oral Tablet | 251872 | 20 MG once daily | strength copied from RxNorm |
 
-**No stop medication** and **no anticoagulant mutex** in this family ([`data/bootstrap/scenarios.json`](data/bootstrap/scenarios.json)). Allowed error families are omission, dose mismatch, and frequency mismatch only — `incorrect_continuation` is not available because there is no held drug to restart incorrectly.
+**No stop medication** and **no anticoagulant mutex** in this family ([`data/bootstrap/scenarios.json`](data/bootstrap/scenarios.json)). Allowed error categories therefore omit `f1_commission` (no held drug to copy onto discharge) and `f2_monitoring_not_arranged` (no warfarin/INR monitoring trigger). Canonical IDs still include `f1_omission`, `f1_dose_mismatch`, `f1_frequency_mismatch`, `f1_therapeutic_substitution`, and several Family 2 gaps. Historical aliases `omission`, `dose_mismatch`, and `frequency_mismatch` remain accepted. `incorrect_continuation` is not available because there is no held drug.
 
 None of the three implemented rules is about pneumonia or macrolides. Dual-anticoagulant and warfarin/INR rules are idle here (those RXCUIs are absent). Furosemide/HF is idle (no furosemide).
 
@@ -639,7 +640,9 @@ Discharge: Drug A 10 mg  once daily   ← dose transition
 
 The clinically relevant question is: **was the change from 5 mg to 10 mg intentional and supported by the rest of the case?** The engine’s dose-mismatch injector performs a mechanical first-digit change (`_altered_dose`); it does not consult renal function, INR, or blood pressure to justify a new dose.
 
-Frequency mismatch flips `once daily` ↔ `twice daily` on discharge only. Omission deletes a continue drug from discharge only (it remains on home and inpatient). Incorrect continuation copies a held stop drug onto discharge.
+Frequency mismatch flips `once daily` ↔ `twice daily` on discharge only. Omission deletes a continue drug from discharge only (it remains on home and inpatient). Incorrect continuation copies a held stop drug onto discharge (CliniProof **commission**, `f1_commission` — not Family 2 “held medication, no restart plan”).
+
+Family 2 injectors generally do **not** change the intended discharge identity of a continued drug. They remove a required companion action while leaving the trigger medication visible (for example, warfarin continued without outpatient INR monitoring). See [CliniProof error taxonomy](#cliniproof-error-taxonomy).
 
 ---
 
@@ -649,13 +652,13 @@ Terms as used in this codebase (`clinical_cases.clean_case`, `validation_batch_c
 
 ### Clean case
 
-The structured patient **after** concept selection, synthetic values, and narrative, **before** experimental discharge mutation. Machine validation in this state requires **zero** plan discrepancies and **no** answer key.
+The structured patient **after** concept selection, synthetic values, and narrative, **before** experimental mutation. Machine validation in this state requires **zero** mechanically detectable findings and **no** answer key.
 
 Demonstration `SYN-000901`, `SYN-000902`, and `SYN-000903` were left in this state (`--no-inject-error`).
 
 ### Error-injected case
 
-After a clean pass, `inject_reconciliation_error` makes **one** controlled discharge change, writes `CaseAnswerKey`, sets `clean_case = false` and `case_status = error_injected`. Revalidation **expects** that single discrepancy.
+After a clean pass, `inject_reconciliation_error` plants **one** controlled assessment error (Family 1: a discharge-list change; Family 2: a missing companion action such as monitoring, restart plan, supply, or follow-up), writes `CaseAnswerKey`, sets `clean_case = false` and `case_status = error_injected`. Revalidation **expects** that single specified category. Family 2 may pass without a discharge-list mutation.
 
 ### Control case (study freeze)
 
@@ -721,7 +724,7 @@ The full CliniProof injector set is in [CliniProof error taxonomy](#cliniproof-e
 
 ## What the Resident Actually Sees
 
-Study residents receive [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json) and an empty [`resident_review_worksheet.csv`](data/validation/resident_review_worksheet.csv). They do **not** receive the investigator key, freeze plan, manifest, coverage files, or [`data/validation/README.md`](data/validation/README.md).
+Study residents receive a blinded resident JSON and an empty worksheet. For `RESIDENT_VALIDATION_V1` that is [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json) plus [`resident_review_worksheet.csv`](data/validation/resident_review_worksheet.csv). For `CLINIPROOF_TAXONOMY_V1` use the same filenames under [`data/validation/cliniproof_v1/`](data/validation/cliniproof_v1/). They do **not** receive the investigator key, freeze plan, manifest, coverage files, or [`data/validation/README.md`](data/validation/README.md).
 
 Export (`_resident_payload`) rewrites ids to `VAL-*`, sets `case_status` to `review`, clears `source_reference` (so RXCUI is not on the resident med rows), omits `CaseAnswerKey`, and strips leak markers. Patient display names become `VAL Patient 001`, not `SYN Patient 101`.
 
@@ -753,9 +756,9 @@ Same continue set, active; ibuprofen held.
 
 Same six continue medications (this educational case was not error-injected). Study cases may differ on discharge; residents are not told which.
 
-**Follow-up**
+**Follow-up and monitoring**
 
-Primary care follow-up in 7 days. Instruction: take discharge medications exactly as listed.
+Primary care follow-up in 7 days. Instruction: take discharge medications exactly as listed. When warfarin is continued, a clean case also includes outpatient INR monitoring. Family 2 study cases may omit a companion action such as that monitoring row or a follow-up; residents are not told which.
 
 **What they are asked to record** (actual worksheet fields, [`data/validation/resident_review_schema.json`](data/validation/resident_review_schema.json)):
 
@@ -781,7 +784,7 @@ In addition to the resident JSON, freeze export writes (directory [`data/validat
 | --- | --- |
 | `investigator_answer_key.json` / `.md` | Internal `SYN-*` id, seed, control vs error-bearing, error category, affected RXCUI, clean expected state, rule/reference snapshots |
 | `validation_manifest.json` | Batch code, generator version, per-VAL freeze metadata, official source versions and sync times |
-| `batch_plan.json` | Planned VAL id, scenario, inject flag, error category, sequence |
+| `batch_plan.json` | Planned VAL id, scenario, inject flag, `error_family`, `error_category`, sequence |
 | `coverage_report.md` / `scenario_coverage_matrix.md` | Mix counts and resolved concepts per family |
 | `data/validation/README.md` | Investigator catalog of planted errors for the study freeze |
 
@@ -822,7 +825,7 @@ Software can confirm, for a given case:
 - identifiers point at stored RxNorm / ICD-10-CM / LOINC / UCUM rows with provenance
 - the chart structure uses allowed medication contexts and plan decisions
 - the three **implemented** hard rules are not violated
-- the discharge list either matches the clean plan or contains exactly one intended experimental discrepancy with an answer key
+- the discharge list and companion actions (monitoring, follow-up, instructions, supply) either match the clean assessment or contain exactly one intended experimental discrepancy with an answer key
 
 Software **cannot** establish that:
 
@@ -862,9 +865,9 @@ Three-context medication lists + continue/stop plan
       ↓
 Clean structured case (other dashboard arrays)
       ↓
-Machine validation (structural / terminology / hard rules / clean plan)
+Machine validation (structural / terminology / hard rules / assessment)
       ↓
-Optional controlled discharge discrepancy (skipped on 901; used on 904)
+Optional controlled CliniProof discrepancy (skipped on 901; Family 1 omission used on 904)
       ↓
 Revalidation and CaseGenerationRun
       ↓
@@ -884,12 +887,13 @@ Clinician / resident review (worksheet; not performed by software)
 | Rule templates and evidence needles | `data/bootstrap/rule_templates.json`, `app/services/rules.py` |
 | Concept matching and LOINC ranking | `app/services/bootstrap.py` |
 | Case assembly, RNG, doses, labs, mutex | `app/services/generation.py` |
-| Four-layer validation | `app/services/validation.py` |
-| Error families and answer key | `app/services/error_injection.py` |
+| Four-layer validation (`structural`, `terminology`, `clinical`, `assessment`) | `app/services/validation.py` |
+| CliniProof taxonomy, eligibility, isolation | `app/services/error_taxonomy.py` |
+| Error injectors and answer key | `app/services/error_injection.py` |
 | Freeze, export, leak audit | `app/services/validation_batch.py` |
 | Optional narrative LLM | `app/openai/narrative.py` |
-| Study resident JSON | `data/validation/resident_validation_cases.json` |
-| Study investigator key | `data/validation/investigator_answer_key.json` (investigator-only) |
+| Study resident JSON | `data/validation/resident_validation_cases.json` (V1); `data/validation/cliniproof_v1/resident_validation_cases.json` (canonical taxonomy) |
+| Study investigator key | `data/validation/investigator_answer_key.json` and `data/validation/cliniproof_v1/` (investigator-only) |
 | These worked examples | `data/docs/clinician_examples/` |
 
 ---
@@ -932,7 +936,7 @@ clinical-case-generator generate-synthetic-cases --count 3 --seed 42
 clinical-case-generator validate-cases --case-id SYN-000001
 ```
 
-To **use the committed resident-review files** without regenerating: give reviewers [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json) and the empty worksheet. Do not send the investigator key. Details: [How to give cases to residents](#18-how-to-give-cases-to-residents).
+To **use the committed resident-review files** without regenerating: give reviewers [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json) (V1) or [`data/validation/cliniproof_v1/resident_validation_cases.json`](data/validation/cliniproof_v1/resident_validation_cases.json) (canonical taxonomy batch) plus the matching empty worksheet. Do not send the investigator key. Details: [How to give cases to residents](#18-how-to-give-cases-to-residents).
 
 To **rebuild the frozen batch in a local database** (after bootstrap):
 
@@ -940,6 +944,8 @@ To **rebuild the frozen batch in a local database** (after bootstrap):
 clinical-case-generator freeze-validation-batch
 clinical-case-generator export-validation-batch --batch-code RESIDENT_VALIDATION_V1
 ```
+
+Canonical taxonomy batch: `--plan data/validation/cliniproof_v1/batch_plan.json` and `--output-dir data/validation/cliniproof_v1` (required so V1 resident JSON is not overwritten).
 
 `freeze-validation-batch` generates, validates, and freezes internally. A prior `validate-cases` run is not a prerequisite. See [Resident-validation workflow](#16-resident-validation-workflow).
 
@@ -956,9 +962,9 @@ Clinical rules (enabled only with DailyMed / RxClass evidence)
         ↓
 Case generation (local ref_* only)
         ↓
-Machine validation (structural / terminology / hard rules / medication plan)
+Machine validation (structural / terminology / hard rules / assessment)
         ↓
-Optional error injection (exactly one reconciliation error)
+Optional CliniProof error injection (exactly one pre-specified Family 1 or Family 2 discrepancy)
         ↓
 Freeze resident-validation batch (immutable VAL-* IDs)
         ↓
@@ -973,7 +979,7 @@ This matches `app/cli/__init__.py` and `app/services/validation_batch.py`. There
 | `app/schemas` | Pydantic v2 models matching those tables |
 | `app/repositories` | Lookups, upserts by official identifiers, `data_source_registry` seed |
 | `app/sources` | HTTP clients: RxNav, LOINC FHIR, UCUM essence XML, NLM ICD-10-CM, NLM conditions, NLM HPO, DailyMed, RxClass |
-| `app/services` | Sync, bootstrap, local search, rules, generation, validation, error injection, freeze/export |
+| `app/services` | Sync, bootstrap, local search, rules, generation, validation, CliniProof taxonomy/injection, freeze/export |
 | `app/cli` | Typer CLI (`clinical-case-generator`) |
 | `app/api` | `GET /reference/medications`, `/labs`, `/diagnoses`, `/symptoms` |
 | `app/main.py` | FastAPI app plus `GET /health` |
@@ -981,7 +987,7 @@ This matches `app/cli/__init__.py` and `app/services/validation_batch.py`. There
 | `app/config.py` | Settings from `.env` |
 | `app/database.py` | Engine, sessions, `ProvenanceMixin`, `CaseChildMixin` |
 | `data/bootstrap` | `manifest.json`, `rule_templates.json`, `scenarios.json` |
-| `data/validation` | Frozen batch plan, blinded/investigator exports, [pipeline catalog](data/validation/README.md) |
+| `data/validation` | Frozen V1 batch plan and exports ([pipeline catalog](data/validation/README.md)); canonical taxonomy batch in [`cliniproof_v1/`](data/validation/cliniproof_v1/) |
 | `data/exports` | Gitignored local export directory (placeholder `.gitkeep` only) |
 | `data/imports`, `data/aggregates`, `data/mimic` | Gitignored placeholders; this pipeline does not read them |
 | `alembic/versions` | Migrations |
@@ -1194,7 +1200,7 @@ Printed message (exact template):
 Schema is at Alembic head. DataSourceRegistry metadata rows inserted this call: <n>. No clinical reference rows were loaded.
 ```
 
-First run typically inserts `8`. Later runs insert `0`.
+First run typically inserts `9`. Later runs insert `0`.
 
 ### Verify
 
@@ -1273,7 +1279,8 @@ Related files (not passed as CLI flags except rules via bootstrap internals):
 5. **Labs** — LOINC FHIR search with ranking (prefer serum/plasma/blood term codes). Missing LOINC credentials: each lab request is **skipped** with `SourceNotConfigured`, registry marked `not_configured`, and bootstrap **continues**.
 6. **Labels** — DailyMed SPL XML for resolved RXCUIs.
 7. **Rules** — `enable_rules_from_templates` (see [Clinical rules](#12-clinical-rules)).
-8. Registry `records_imported` counts are refreshed.
+8. **Medication classes** — RxClass membership copied into `ref_medication_classes` for therapeutic-substitution eligibility (source-backed; not inferred from drug names).
+9. Registry `records_imported` counts are refreshed.
 
 ### Provenance
 
@@ -1472,6 +1479,12 @@ One atrial-fibrillation family case at sequence 10:
 clinical-case-generator generate-synthetic-cases --count 1 --seed 42 --start-index 10 --scenario AF_ANTICOAGULATION --no-inject-error
 ```
 
+Request a specific CliniProof category (fails instead of substituting another category if the case is ineligible):
+
+```bash
+clinical-case-generator generate-synthetic-cases --count 1 --seed 42 --scenario HF_INPATIENT --error-category f2_monitoring_not_arranged
+```
+
 Scenario codes in `data/bootstrap/scenarios.json`: `HF_INPATIENT`, `AF_ANTICOAGULATION`, `HTN_INPATIENT`, `T2DM_INPATIENT`, `CAP_INPATIENT`.
 
 ### Lifecycle
@@ -1483,8 +1496,8 @@ Load scenario
   → persist clean case (IDs, vitals, labs, plans)
   → optional OpenAI wording of already-selected names (or template)
   → validate clean case (must pass)
-  → optional inject exactly one error; write answer key in Python
-  → validate again (expects exactly one plan discrepancy if injected)
+  → optional inject exactly one pre-specified CliniProof error; write answer key in Python
+  → validate again (expects that category; Family 1 is a plan/discharge mutation, Family 2 may be a missing companion action)
 ```
 
 Case seed: `f"{seed}:{sequence}:{scenario.code}"` (Python `random.Random`). Example: `42:1:HF_INPATIENT`.
@@ -1503,7 +1516,7 @@ Not synthetic: RXCUI, LOINC, ICD-10-CM, UCUM codes (must already exist in `ref_*
 
 ### Expected CLI JSON
 
-A list of objects with `case_id_code`, `seed`, `clean_passed`, `narrative_source` (`template` or `openai`), `error_category`, `error_rxcui`, `validation_passed`. Compact JSON (no extra spaces).
+A list of objects with `case_id_code`, `seed`, `clean_passed`, `narrative_source` (`template` or `openai`), `error_family`, `error_category`, `error_rxcui`, `validation_passed`. Compact JSON (no extra spaces).
 
 If local labs/meds/diagnoses are missing: `Could not resolve ... from an authoritative source` (exit 2).
 
@@ -1552,7 +1565,7 @@ If `--case-id` is missing in the database: `case validation failed: case SYN-...
 The first failing case raises `CaseValidationError` and stops the rest (exit 2). On success, prints a JSON list of reports:
 
 - `case_id_code`, `passed`, `errors`
-- `layers`: `structural`, `terminology`, `clinical`, `medication_plan` (each with `passed`, `errors`, `warnings`)
+- `layers`: `structural`, `terminology`, `clinical`, `assessment` (each with `passed`, `errors`, `warnings`)
 - `rules`: enabled-rule hits (`rule_code`, `severity`, `message`)
 
 **What it checks** (`app/services/validation.py`)
@@ -1562,7 +1575,7 @@ The first failing case raises `CaseValidationError` and stops the rest (exit 2).
 | structural | Case id matches `SYN-######`; medication context/status and plan decisions are in allowed sets; at least one diagnosis |
 | terminology | Meds/diagnoses/labs link to `ref_*` with provenance; units are stored UCUM or LOINC example units; invented `fake_` / `invented_` ids rejected (`TEST_` fixtures allowed in tests) |
 | clinical | No **hard** rule violations (soft → warnings) |
-| medication_plan | Clean case: zero discharge/plan discrepancies and no answer key. Error-bearing (`clinical_cases.clean_case` is false): exactly one discrepancy, one answer key, one `is_error_target` plan |
+| assessment | Clean case: no mechanically detectable findings and no answer key. Error-bearing (`clinical_cases.clean_case` is false): exactly one answer key whose category matches the requested CliniProof ID; isolation checks pass (no second mechanically detectable discrepancy). Family 1 is a discharge/plan mutation. Family 2 may pass with an intact discharge list when the missing companion action is the intended finding. A missing `is_error_target` plan is a warning, not a silent category change. |
 
 **What it does not establish:** clinical realism, guideline completeness, or resident-review quality. It does not call external terminology APIs on ordinary reads.
 
@@ -1588,7 +1601,7 @@ clinical-case-generator freeze-validation-batch
 clinical-case-generator export-validation-batch --batch-code RESIDENT_VALIDATION_V1
 ```
 
-Optional inspection of persisted `SYN-*` rows (including freeze sequences 101–124):
+Optional inspection of persisted `SYN-*` rows (including freeze sequences 101–124 or 801–824):
 
 ```bash
 clinical-case-generator validate-cases
@@ -1624,7 +1637,7 @@ If any assignment fails generation, eligibility, or audit, freeze **raises** and
 | Public IDs | `VAL-001`–`VAL-024` |
 | Internal IDs | `SYN-000101`–`SYN-000124` |
 | Families | `HF_INPATIENT` (5), `AF_ANTICOAGULATION` (5), `HTN_INPATIENT` (5), `T2DM_INPATIENT` (5), `CAP_INPATIENT` (4) |
-| Mix | 5 clean controls, 19 error-bearing (exactly one planted reconciliation error each) |
+| Mix | 5 clean controls, 19 error-bearing (exactly one planted historical Family 1 error each) |
 | Error families used | Historical injector names: `omission`, `dose_mismatch`, `frequency_mismatch`, `incorrect_continuation` (see [CliniProof error taxonomy](#cliniproof-error-taxonomy) for the mapping) |
 | Dataset status | `machine-validated synthetic resident-review cases pending clinician validation` |
 
@@ -1637,12 +1650,21 @@ clinical-case-generator export-validation-batch --batch-code CLINIPROOF_TAXONOMY
 
 Export **must** use that `--output-dir`. The default export directory is `data/validation/` and would overwrite V1 resident JSON.
 
+| Item | `CLINIPROOF_TAXONOMY_V1` |
+| --- | --- |
+| Public IDs | `VAL-201`–`VAL-224` |
+| Internal IDs | `SYN-000801`–`SYN-000824` |
+| Mix | 4 clean controls, 20 error-bearing (exactly one pre-specified canonical category each) |
+| Identifiers | Canonical `f1_*` / `f2_*` / `none` in that batch plan (not listed per VAL in this README) |
+| Dataset status | `machine-validated synthetic resident-review cases pending clinician validation` |
+
 **How controls vs planted errors work (do not tell residents which is which):**
 
-- **Clean control** (`inject_error: false`): discharge list matches the correct plan. A held “stop” medication (when the scenario has one) stays off the discharge list.
-- **Error-bearing**: after the clean case passes validation, Python plants one of: omit a continue-med from discharge; change discharge dose; flip frequency `once daily` ↔ `twice daily`; or copy a held stop-med onto discharge (`incorrect_continuation`). The answer key is written by that injector.
+- **Clean control** (`inject_error: false`, `error_family` / `error_category` `none`): the clean intended plan remains. A held “stop” medication (when the scenario has one) stays off the discharge list. Companion actions that belong on a clean case (for example warfarin INR monitoring) remain present.
+- **Error-bearing `RESIDENT_VALIDATION_V1`:** historical injector names only — omit a continue-med from discharge; change discharge dose; flip frequency `once daily` ↔ `twice daily`; or copy a held stop-med onto discharge (`incorrect_continuation` → `f1_commission`). Those four operations are preserved on V1 artifacts and are **not rewritten**.
+- **Error-bearing `CLINIPROOF_TAXONOMY_V1`:** one canonical `f1_*` or `f2_*` category specified in that batch plan **before** generation. Family 2 cases may look like a complete discharge list while a required monitoring row, restart instruction, supply duration, hospital-only stop, substitution revert, or follow-up is missing. This README does not list which `VAL-201`–`VAL-224` ids received which category.
 
-Residents should review every case as if the discharge list might be wrong. Investigators score against [`data/validation/investigator_answer_key.md`](data/validation/investigator_answer_key.md) and the catalog in [`data/validation/README.md`](data/validation/README.md)—not in resident packets.
+Residents should review every case as if the assessment might be wrong (discharge list **and** monitoring / follow-up / instructions). Investigators score V1 against [`data/validation/investigator_answer_key.md`](data/validation/investigator_answer_key.md) and [`data/validation/README.md`](data/validation/README.md), and the taxonomy batch against [`data/validation/cliniproof_v1/`](data/validation/cliniproof_v1/) — not in resident packets.
 
 ### Freeze CLI output
 
@@ -1666,7 +1688,7 @@ Printed paths: `resident_path`, `investigator_path`, `manifest_path`, `coverage_
 
 ## 17. Resident-validation output files
 
-Directory: `data/validation/`. Tracked study artifacts live here (`data/exports/**` is gitignored).
+Directory: `data/validation/` for `RESIDENT_VALIDATION_V1`. Tracked study artifacts live here (`data/exports/**` is gitignored). Canonical-taxonomy exports for `CLINIPROOF_TAXONOMY_V1` are the same filenames under [`data/validation/cliniproof_v1/`](data/validation/cliniproof_v1/).
 
 | File | Purpose | Who should see it | Blinded? | Contains answer key? | Give to residents? |
 | --- | --- | --- | --- | --- | --- |
@@ -1676,7 +1698,7 @@ Directory: `data/validation/`. Tracked study artifacts live here (`data/exports/
 | [`investigator_answer_key.json`](data/validation/investigator_answer_key.json) | Seeds, `SYN-*`, error category, affected RXCUI, clean expected state, snapshots | Investigators | No | **Yes** | **No** |
 | [`investigator_answer_key.md`](data/validation/investigator_answer_key.md) | Human-readable key | Investigators | No | **Yes** | **No** |
 | [`validation_manifest.json`](data/validation/validation_manifest.json) | Freeze metadata, source versions, control status | Investigators | No | Control/error status | **No** |
-| [`batch_plan.json`](data/validation/batch_plan.json) | Planned VAL IDs, scenarios, inject flags, error categories | Operators / investigators | No | Planned errors | **No** |
+| [`batch_plan.json`](data/validation/batch_plan.json) | Planned VAL IDs, scenarios, inject flags, `error_family`, `error_category` | Operators / investigators | No | Planned errors | **No** |
 | [`coverage_report.md`](data/validation/coverage_report.md) | Counts by scenario/error/terminology | Investigators | No | Mix summary | **No** |
 | [`scenario_coverage_matrix.md`](data/validation/scenario_coverage_matrix.md) | Resolved meds/labs/diagnoses per family | Investigators | No | Not per-case answers | **No** |
 | [`README.md`](data/validation/README.md) | Full pipeline + **per-case planted-error catalog** | Investigators | No | **Yes (catalog)** | **No** |
@@ -1689,8 +1711,8 @@ Resident vs investigator split is enforced in export code (`LEAK_MARKERS` in `ap
 
 This repository **does not contain a resident review UI**, dashboard importer, or scoring app. The HTTP API only searches local reference rows and serves `/health`. Delivery is a file handoff into whatever review process the study already uses.
 
-1. **Send / import for review:** [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json). Each element has `case_id_code` (`VAL-001` …) and dashboard-style arrays (`CaseMedication`, `CaseLab`, `CaseDiagnosis`, …).
-2. **Keep investigator-only:** answer keys, `batch_plan.json`, `validation_manifest.json`, coverage files, [`data/validation/README.md`](data/validation/README.md), [`data/docs/clinician_examples/syn-000904.json`](data/docs/clinician_examples/syn-000904.json), and the README subsection [Investigator-only generation example](#investigator-only-generation-example). The rest of [For Clinicians: How a Synthetic Case Is Built](#for-clinicians-how-a-synthetic-case-is-built) uses clean educational cases (`SYN-000901`–`SYN-000903`) and may be shown to clinicians who are not scoring the blinded `VAL-*` packet.
+1. **Send / import for review:** [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json) (`VAL-001` … `VAL-024`) or [`data/validation/cliniproof_v1/resident_validation_cases.json`](data/validation/cliniproof_v1/resident_validation_cases.json) (`VAL-201` … `VAL-224`). Each element has `case_id_code` and dashboard-style arrays (`CaseMedication`, `CaseLab`, `CaseDiagnosis`, `CaseMonitoring`, …). Do not mix investigator files from one batch into the other packet.
+2. **Keep investigator-only:** answer keys, `batch_plan.json`, `validation_manifest.json`, coverage files, [`data/validation/README.md`](data/validation/README.md), [`data/validation/cliniproof_v1/`](data/validation/cliniproof_v1/) investigator files, [`data/docs/clinician_examples/syn-000904.json`](data/docs/clinician_examples/syn-000904.json), and the README subsection [Investigator-only generation example](#investigator-only-generation-example). The rest of [For Clinicians: How a Synthetic Case Is Built](#for-clinicians-how-a-synthetic-case-is-built) uses clean educational cases (`SYN-000901`–`SYN-000903`) and may be shown to clinicians who are not scoring the blinded `VAL-*` packet.
 3. **Capture responses** in [`resident_review_worksheet.csv`](data/validation/resident_review_worksheet.csv) (or an equivalent form that uses [`resident_review_schema.json`](data/validation/resident_review_schema.json)). Do not pre-fill ratings.
 4. **Worksheet ↔ cases:** `validation_case_id` on each CSV row matches `case_id_code` in the resident JSON.
 5. **“Clinically validated” in this project** means a clinician/resident review concluded the case is acceptable for the study protocol. Until that happens, use the dataset-status sentence: machine-validated synthetic resident-review cases pending clinician validation.
@@ -1723,6 +1745,13 @@ clinical-case-generator db-init
 clinical-case-generator bootstrap-reference-data
 clinical-case-generator freeze-validation-batch
 clinical-case-generator export-validation-batch --batch-code RESIDENT_VALIDATION_V1
+```
+
+Canonical taxonomy batch (does **not** overwrite V1; must pass `--output-dir`):
+
+```bash
+clinical-case-generator freeze-validation-batch --plan data/validation/cliniproof_v1/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_TAXONOMY_V1 --output-dir data/validation/cliniproof_v1
 ```
 
 If ranking differs, keep the committed files as the dataset. Start a new `batch_code` and new VAL IDs for any replacement study set. Do not hand-edit frozen JSON to substitute a “more typical” tablet RXCUI or conventional US lab unit the source did not return.
@@ -1907,9 +1936,11 @@ clinical-case-generator validate-cases --case-id SYN-000001
 ```bash
 clinical-case-generator freeze-validation-batch
 clinical-case-generator export-validation-batch --batch-code RESIDENT_VALIDATION_V1
+clinical-case-generator freeze-validation-batch --plan data/validation/cliniproof_v1/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_TAXONOMY_V1 --output-dir data/validation/cliniproof_v1
 ```
 
-**Warnings:** VAL IDs are immutable; freeze reuses existing matching rows. Export overwrites files in `data/validation/` (or `--output-dir`). Live APIs may change ranking. `pytest` can wipe the same database. Sequences 101–124; do not generate ad-hoc cases onto those ids if they are frozen.
+**Warnings:** VAL IDs are immutable; freeze reuses existing matching rows. Export overwrites files in `data/validation/` (or `--output-dir`). Live APIs may change ranking. `pytest` can wipe the same database. Sequences 101–124 are V1; 801–824 are `CLINIPROOF_TAXONOMY_V1`. Do not generate ad-hoc cases onto those ids if they are frozen. Exporting `CLINIPROOF_TAXONOMY_V1` without `--output-dir data/validation/cliniproof_v1` would overwrite V1 resident JSON.
 
 ### G. Run the API
 
@@ -1982,11 +2013,11 @@ mypy
 ### `case validation failed: ...`
 
 **Cause.** A validation layer failed; CLI prints the first error and exits 2.  
-**Fix.** Read the `layer:` prefix. Clean cases must have zero plan discrepancies; error-bearing cases must have exactly one. Hard dual-anticoagulant or missing INR (when warfarin is selected) fails `clinical`.
+**Fix.** Read the `layer:` prefix. Clean cases must have zero mechanically detectable findings; error-bearing cases must match the requested CliniProof category (Family 1: one discharge/plan mutation; Family 2: the specified missing companion action). Hard dual-anticoagulant or missing INR (when warfarin is selected) fails `clinical`.
 
 ### `Frozen validation case VAL-00N cannot be overwritten`
 
-**Cause.** Immutable freeze row; seed/scenario mismatch, or `generate-synthetic-cases` targeting a frozen `SYN-000101`–`SYN-000124`.  
+**Cause.** Immutable freeze row; seed/scenario mismatch, or `generate-synthetic-cases` targeting a frozen `SYN-000101`–`SYN-000124` or `SYN-000801`–`SYN-000824`.  
 **Fix.** Do not overwrite. Use a new batch/VAL IDs, or reuse via freeze when the plan matches.
 
 ### `no frozen cases for batch RESIDENT_VALIDATION_V1`
@@ -2029,12 +2060,12 @@ Models: `app/models/`. Migrations: `alembic/versions/`. Tests list expected tabl
 
 | Area | Tables |
 | --- | --- |
-| Registry | `data_source_registry` (8 metadata rows after `db-init`) |
-| `ref_*` | `ref_medications`, `ref_drug_labels`, `ref_diagnoses`, `ref_symptoms`, `ref_lab_tests`, `ref_units`, `ref_vitals`, `ref_procedures`, `ref_devices`, `ref_microbiology`, `ref_clinical_distributions` |
+| Registry | `data_source_registry` (9 metadata rows after `db-init`) |
+| `ref_*` | `ref_medications`, `ref_medication_classes`, `ref_drug_labels`, `ref_diagnoses`, `ref_symptoms`, `ref_lab_tests`, `ref_units`, `ref_vitals`, `ref_procedures`, `ref_devices`, `ref_microbiology`, `ref_clinical_distributions` |
 | Rules | `clinical_rules` |
 | Cases | `clinical_cases` plus children (`case_presentations`, `case_symptoms`, `case_diagnoses`, `case_labs`, `case_medications`, `case_answer_keys`, …) |
 | Generation | `case_blueprints`, `case_generation_runs`, `case_medication_plans` |
-| Freeze | `validation_batch_cases` (`VAL-###` unique, `immutable`, snapshots, `ON DELETE RESTRICT` to `clinical_cases`) |
+| Freeze | `validation_batch_cases` (`VAL-###` unique, `immutable`, `error_family`, snapshots, `ON DELETE RESTRICT` to `clinical_cases`) |
 
 Delete behavior:
 
