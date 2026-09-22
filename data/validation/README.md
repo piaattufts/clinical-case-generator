@@ -1,10 +1,25 @@
 # Resident-validation dataset and full generation pipeline
 
-This directory is the study copy of batch **`RESIDENT_VALIDATION_V1`**: 24 machine-validated synthetic resident-review cases pending clinician validation.
+This directory holds the frozen resident-review study copies. All batches are **machine-validated synthetic resident-review cases pending clinician validation**. Software checks terminology, structure, and the three implemented source-backed rules. These records are **not clinically validated** until residents complete review.
 
-Software checks terminology, structure, and the three implemented source-backed rules. These records are **not clinically validated** until residents complete review. Do not describe this freeze as a clinically validated dataset.
+| Batch | Public IDs | Internal IDs | Master seed | Plan / exports |
+| --- | --- | --- | --- | --- |
+| `RESIDENT_VALIDATION_V1` | `VAL-001`–`VAL-024` | `SYN-000101`–`SYN-000124` | `20260922` | this folder ([`batch_plan.json`](batch_plan.json)) |
+| `RESIDENT_VALIDATION_V2` | `VAL-025`–`VAL-048` | `SYN-000201`–`SYN-000224` | `20260923` | [`v2/`](v2/) |
+| `RESIDENT_VALIDATION_V3` | `VAL-049`–`VAL-072` | `SYN-000301`–`SYN-000324` | `20260924` | [`v3/`](v3/) |
+| `RESIDENT_VALIDATION_V4` | `VAL-073`–`VAL-096` | `SYN-000401`–`SYN-000424` | `20260925` | [`v4/`](v4/) |
 
-The committed JSON and Markdown files in this folder are the **study source of truth**. Regenerating against live terminology APIs can change RxNorm or LOINC ranking even with the same seeds. Use the files here to score, reprint, or reload the frozen batch; do not treat a new live freeze as bit-identical unless the exports match.
+Each later batch uses the **same five inpatient families and error mix** as V1, with a new `batch_code`, new VAL IDs, new sequences, and a new master seed. VAL IDs are globally unique and immutable. Do not freeze V2–V4 with the default plan (that would try to reuse `VAL-001`–`VAL-024`). Do not export V2–V4 into this folder (that would overwrite the V1 study files).
+
+```bash
+clinical-case-generator freeze-validation-batch --plan data/validation/v2/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code RESIDENT_VALIDATION_V2 --output-dir data/validation/v2
+# repeat for v3 / v4 and RESIDENT_VALIDATION_V3 / V4
+```
+
+The remainder of this README is the investigator catalog for **`RESIDENT_VALIDATION_V1`**. Investigator catalogs for V2–V4 live in the corresponding subdirectory README.
+
+The committed JSON and Markdown files are the **study source of truth**. Regenerating against live terminology APIs can change RxNorm or LOINC ranking even with the same seeds. Use the committed files to score, reprint, or reload a frozen batch; do not treat a new live freeze as bit-identical unless the exports match.
 
 ---
 
@@ -46,7 +61,13 @@ Sequences **101–124** are intentional. They keep this freeze away from earlier
 
 Do **not** give residents the investigator key, the manifest, this README’s planted-error tables, `batch_plan.json`, or the coverage files. Those leak control status, seeds, and intended errors.
 
-`data/exports/**` is gitignored. Tracked study artifacts live only under `data/validation/`.
+`data/exports/**` is gitignored. Tracked study artifacts live only under `data/validation/` (V1 in this folder; V2–V4 in `v2/`, `v3/`, `v4/`).
+
+| Folder | Audience | Contents |
+| --- | --- | --- |
+| [`v2/`](v2/) | Investigators / residents (split files as in this folder) | `RESIDENT_VALIDATION_V2` plan, freeze exports, investigator catalog |
+| [`v3/`](v3/) | same split | `RESIDENT_VALIDATION_V3` |
+| [`v4/`](v4/) | same split | `RESIDENT_VALIDATION_V4` |
 
 ---
 

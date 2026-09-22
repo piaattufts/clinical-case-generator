@@ -4,7 +4,7 @@ Clinical Case Generator is a Python application that loads **official clinical t
 
 It does **not** invent RxNorm, LOINC, SNOMED CT, ICD-10-CM, UCUM, or device identifiers. It does **not** send raw MIMIC patient rows, notes, identifiers, or events to OpenAI. Generated cases are **machine-validated synthetic records pending clinician validation**. Software checks terminology, structure, and the implemented source-backed rules. That is not the same as clinical validity.
 
-The frozen resident-review batch `RESIDENT_VALIDATION_V1` (`VAL-001`–`VAL-024`), per-case seeds, official source versions, and the investigator catalog are in [`data/validation/README.md`](data/validation/README.md). Treat that file as **investigator-only**: it describes planted errors.
+Four frozen resident-review batches are committed under [`data/validation/`](data/validation/): `RESIDENT_VALIDATION_V1` (`VAL-001`–`VAL-024`) in that folder, plus independent V2–V4 copies in [`data/validation/v2/`](data/validation/v2/), [`v3/`](data/validation/v3/), and [`v4/`](data/validation/v4/). Per-case seeds, official source versions, and investigator catalogs are in [`data/validation/README.md`](data/validation/README.md) (V1) and the matching subdirectory README. Treat those files as **investigator-only**: they describe planted errors.
 
 ---
 
@@ -120,7 +120,7 @@ clinical-case-generator generate-synthetic-cases --count 3 --seed 42
 clinical-case-generator validate-cases --case-id SYN-000001
 ```
 
-To **use the committed resident-review files** without regenerating: give reviewers [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json) and the empty worksheet. Do not send the investigator key. Details: [How to give cases to residents](#18-how-to-give-cases-to-residents).
+To **use the committed resident-review files** without regenerating: give reviewers the `resident_validation_cases.json` and empty worksheet for that batch (V1 in [`data/validation/`](data/validation/), later batches in [`v2/`](data/validation/v2/), [`v3/`](data/validation/v3/), [`v4/`](data/validation/v4/)). Do not send the investigator key. Details: [How to give cases to residents](#18-how-to-give-cases-to-residents).
 
 To **rebuild the frozen batch in a local database** (after bootstrap):
 
@@ -774,6 +774,17 @@ clinical-case-generator freeze-validation-batch
 clinical-case-generator export-validation-batch --batch-code RESIDENT_VALIDATION_V1
 ```
 
+Additional independent batches (same family/error mix, new seeds and VAL IDs). **Always** pass `--plan` and `--output-dir` so V1 files are not overwritten:
+
+```bash
+clinical-case-generator freeze-validation-batch --plan data/validation/v2/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code RESIDENT_VALIDATION_V2 --output-dir data/validation/v2
+clinical-case-generator freeze-validation-batch --plan data/validation/v3/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code RESIDENT_VALIDATION_V3 --output-dir data/validation/v3
+clinical-case-generator freeze-validation-batch --plan data/validation/v4/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code RESIDENT_VALIDATION_V4 --output-dir data/validation/v4
+```
+
 Optional inspection of persisted `SYN-*` rows (including freeze sequences 101–124):
 
 ```bash
@@ -787,11 +798,11 @@ Default plan: `data/validation/batch_plan.json` (`--plan` overrides).
 
 Controls:
 
-- `batch_code` (committed value `RESIDENT_VALIDATION_V1`)
-- `master_seed` (`20260922`)
+- `batch_code` (committed values `RESIDENT_VALIDATION_V1` … `V4`)
+- `master_seed` (`20260922` / `20260923` / `20260924` / `20260925`)
 - `cases[]`: `validation_case_id` (`VAL-###`), `scenario`, `inject_error`, `error_category`, `sequence`
 
-Case seed: `{master_seed}:{sequence}:{scenario}`. Sequences **101–124** avoid smoke ids `SYN-000001`–`SYN-000003`.
+Case seed: `{master_seed}:{sequence}:{scenario}`. Sequences **101–124**, **201–224**, **301–324**, and **401–424** avoid smoke ids `SYN-000001`–`SYN-000003` and do not overlap each other.
 
 ### Immutable `VAL-*` IDs
 
@@ -803,16 +814,20 @@ Frozen validation case VAL-00N cannot be overwritten: existing frozen assignment
 
 Rejected assignments (generation/audit failure) appear in the `rejected` list and are not frozen. The committed freeze had zero rejections.
 
-### Current batch `RESIDENT_VALIDATION_V1`
+### Current batches `RESIDENT_VALIDATION_V1`–`V4`
 
-| Item | Value |
-| --- | --- |
-| Public IDs | `VAL-001`–`VAL-024` |
-| Internal IDs | `SYN-000101`–`SYN-000124` |
-| Families | `HF_INPATIENT` (5), `AF_ANTICOAGULATION` (5), `HTN_INPATIENT` (5), `T2DM_INPATIENT` (5), `CAP_INPATIENT` (4) |
-| Mix | 5 clean controls, 19 error-bearing (exactly one planted reconciliation error each) |
-| Error families used | `omission`, `dose_mismatch`, `frequency_mismatch`, `incorrect_continuation` |
-| Dataset status | `machine-validated synthetic resident-review cases pending clinician validation` |
+Each batch uses the same five families and the same 5-clean / 19-error mix. V2–V4 are independent freezes (new seeds, new VAL/SYN IDs), not copies of V1 payloads.
+
+| Item | V1 | V2 | V3 | V4 |
+| --- | --- | --- | --- | --- |
+| Public IDs | `VAL-001`–`VAL-024` | `VAL-025`–`VAL-048` | `VAL-049`–`VAL-072` | `VAL-073`–`VAL-096` |
+| Internal IDs | `SYN-000101`–`SYN-000124` | `SYN-000201`–`SYN-000224` | `SYN-000301`–`SYN-000324` | `SYN-000401`–`SYN-000424` |
+| Master seed | `20260922` | `20260923` | `20260924` | `20260925` |
+| Plan / export dir | [`data/validation/`](data/validation/) | [`data/validation/v2/`](data/validation/v2/) | [`data/validation/v3/`](data/validation/v3/) | [`data/validation/v4/`](data/validation/v4/) |
+| Families | `HF_INPATIENT` (5), `AF_ANTICOAGULATION` (5), `HTN_INPATIENT` (5), `T2DM_INPATIENT` (5), `CAP_INPATIENT` (4) | same | same | same |
+| Mix | 5 clean controls, 19 error-bearing (exactly one planted reconciliation error each) | same | same | same |
+| Error families used | `omission`, `dose_mismatch`, `frequency_mismatch`, `incorrect_continuation` | same | same | same |
+| Dataset status | `machine-validated synthetic resident-review cases pending clinician validation` | same | same | same |
 
 **How controls vs planted errors work (do not tell residents which is which):**
 
@@ -831,9 +846,10 @@ Residents should review every case as if the discharge list might be wrong. Inve
 
 ```bash
 clinical-case-generator export-validation-batch --batch-code RESIDENT_VALIDATION_V1
+clinical-case-generator export-validation-batch --batch-code RESIDENT_VALIDATION_V2 --output-dir data/validation/v2
 ```
 
-`--output-dir` defaults to `data/validation/`. Requires frozen rows **in the local database**. If none: `no frozen cases for batch RESIDENT_VALIDATION_V1` (exit 2).
+`--output-dir` defaults to `data/validation/`. **Must** be set for V2–V4 so the V1 study files are not overwritten. Requires frozen rows **in the local database**. If none: `no frozen cases for batch RESIDENT_VALIDATION_V1` (exit 2; the batch code in the message follows `--batch-code`).
 
 Export regenerates blinded payloads, writes files listed in [§17](#17-resident-validation-output-files), and runs a leak audit (fails `audit_passed` if resident JSON contains markers such as `syn-000`, `answer_key`, `is_clean_control`, `rxcui:`, or `TEST_` identifier values).
 
@@ -843,7 +859,7 @@ Printed paths: `resident_path`, `investigator_path`, `manifest_path`, `coverage_
 
 ## 17. Resident-validation output files
 
-Directory: `data/validation/`. Tracked study artifacts live here (`data/exports/**` is gitignored).
+Directory: `data/validation/` for V1. Parallel copies for V2–V4 live in `data/validation/v2/`, `v3/`, and `v4/` (same filenames). Tracked study artifacts live here (`data/exports/**` is gitignored).
 
 | File | Purpose | Who should see it | Blinded? | Contains answer key? | Give to residents? |
 | --- | --- | --- | --- | --- | --- |
@@ -866,8 +882,8 @@ Resident vs investigator split is enforced in export code (`LEAK_MARKERS` in `ap
 
 This repository **does not contain a resident review UI**, dashboard importer, or scoring app. The HTTP API only searches local reference rows and serves `/health`. Delivery is a file handoff into whatever review process the study already uses.
 
-1. **Send / import for review:** [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json). Each element has `case_id_code` (`VAL-001` …) and dashboard-style arrays (`CaseMedication`, `CaseLab`, `CaseDiagnosis`, …).
-2. **Keep investigator-only:** answer keys, `batch_plan.json`, `validation_manifest.json`, coverage files, and [`data/validation/README.md`](data/validation/README.md).
+1. **Send / import for review:** the resident JSON for that batch — [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json) for V1, or the same filename under [`v2/`](data/validation/v2/), [`v3/`](data/validation/v3/), [`v4/`](data/validation/v4/). Each element has `case_id_code` (`VAL-001` … `VAL-096`) and dashboard-style arrays (`CaseMedication`, `CaseLab`, `CaseDiagnosis`, …).
+2. **Keep investigator-only:** answer keys, `batch_plan.json`, `validation_manifest.json`, coverage files, and the investigator READMEs ([`data/validation/README.md`](data/validation/README.md) and the `v2`/`v3`/`v4` catalogs).
 3. **Capture responses** in [`resident_review_worksheet.csv`](data/validation/resident_review_worksheet.csv) (or an equivalent form that uses [`resident_review_schema.json`](data/validation/resident_review_schema.json)). Do not pre-fill ratings.
 4. **Worksheet ↔ cases:** `validation_case_id` on each CSV row matches `case_id_code` in the resident JSON.
 5. **“Clinically validated” in this project** means a clinician/resident review concluded the case is acceptable for the study protocol. Until that happens, use the dataset-status sentence: machine-validated synthetic resident-review cases pending clinician validation.
