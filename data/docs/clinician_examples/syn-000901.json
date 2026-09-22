@@ -1,0 +1,600 @@
+{
+  "case_id_code": "SYN-000901",
+  "title": "cardiology inpatient case SYN-000901",
+  "one_liner": "83-year-old Male with Unspecified systolic (congestive) heart failure",
+  "admission_dx": "Unspecified systolic (congestive) heart failure",
+  "chief_complaint": "Dyspnea, Anasarca, Orthopnea in the setting of Unspecified systolic (congestive) heart failure",
+  "patient_name": "SYN Patient 901",
+  "patient_age": 83,
+  "patient_gender": "Male",
+  "ethnicity": null,
+  "specialty": "cardiology",
+  "clean_case": true,
+  "case_status": "validated_clean",
+  "generation_source": "clinical-case-generator",
+  "source_type": "synthetic",
+  "presentation": {
+    "chief_complaint": "Dyspnea, Anasarca, Orthopnea in the setting of Unspecified systolic (congestive) heart failure",
+    "hpi": "A 83-year-old Male is admitted with Unspecified systolic (congestive) heart failure. Presenting symptoms include Dyspnea, Anasarca, Orthopnea. Home medications include furosemide 4 MG/ML Oral Solution, spironolactone 1 MG/ML Oral Suspension, metoprolol tartrate 37.5 MG Oral Tablet, lisinopril 1 MG/ML Oral Solution, atorvastatin 80 MG Oral Tablet, warfarin sodium 1 MG Oral Tablet. ibuprofen 0.05 MG/MG Topical Gel was held on admission and is not intended for discharge continuation.",
+    "symptom_duration": "several days",
+    "symptom_course": "worsening"
+  },
+  "note": {
+    "note_type": "admission",
+    "note_text": "Admission note for a 83-year-old Male with Unspecified systolic (congestive) heart failure. Symptoms: Dyspnea, Anasarca, Orthopnea. Medications continued from home: furosemide 4 MG/ML Oral Solution, spironolactone 1 MG/ML Oral Suspension, metoprolol tartrate 37.5 MG Oral Tablet, lisinopril 1 MG/ML Oral Solution, atorvastatin 80 MG Oral Tablet, warfarin sodium 1 MG Oral Tablet. ibuprofen 0.05 MG/MG Topical Gel was held on admission and is not intended for discharge continuation.",
+    "source_type": "template"
+  },
+  "vitals": {
+    "temp_c": "36.80",
+    "bp_systolic": 124,
+    "bp_diastolic": 70,
+    "heart_rate": 108,
+    "resp_rate": 23,
+    "spo2_percent": "98.00",
+    "ref_vital_id": null
+  },
+  "weight_kg": "69.000",
+  "diagnoses": [
+    {
+      "diagnosis": "Unspecified systolic (congestive) heart failure",
+      "icd10cm_code": "I50.20",
+      "snomed_code": null,
+      "source_system": "ICD10CM",
+      "source_version": null,
+      "preferred_name": "Unspecified systolic (congestive) heart failure"
+    }
+  ],
+  "symptoms": [
+    {
+      "symptom": "Dyspnea",
+      "duration": "several days",
+      "severity": "moderate",
+      "course": "worsening",
+      "source_system": "NLM_CONDITIONS",
+      "snomed_code": null,
+      "hpo_id": null
+    },
+    {
+      "symptom": "Anasarca",
+      "duration": "several days",
+      "severity": "moderate",
+      "course": "worsening",
+      "source_system": "NLM_CONDITIONS",
+      "snomed_code": null,
+      "hpo_id": null
+    },
+    {
+      "symptom": "Orthopnea",
+      "duration": "several days",
+      "severity": "moderate",
+      "course": "worsening",
+      "source_system": "NLM_HPO",
+      "snomed_code": null,
+      "hpo_id": null
+    }
+  ],
+  "labs": [
+    {
+      "test_name": "Creatinine [Moles/volume] in Serum or Plasma",
+      "value": 1.6,
+      "unit": "umol/L",
+      "loinc_code": "14682-9",
+      "long_common_name": "Creatinine [Moles/volume] in Serum or Plasma",
+      "source_system": "LOINC",
+      "source_version": "2.83",
+      "numeric_origin_note": "synthetic_model_generated"
+    },
+    {
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 3.6,
+      "unit": "mmol/L",
+      "loinc_code": "2823-3",
+      "long_common_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "source_system": "LOINC",
+      "source_version": "2.83",
+      "numeric_origin_note": "synthetic_model_generated"
+    },
+    {
+      "test_name": "Natriuretic peptide B [Mass/volume] in Serum or Plasma",
+      "value": 648.0,
+      "unit": "pg/mL",
+      "loinc_code": "30934-4",
+      "long_common_name": "Natriuretic peptide B [Mass/volume] in Serum or Plasma",
+      "source_system": "LOINC",
+      "source_version": "2.83",
+      "numeric_origin_note": "synthetic_model_generated"
+    },
+    {
+      "test_name": "INR in Platelet poor plasma or blood by Coagulation assay",
+      "value": 2.6,
+      "unit": "{INR}",
+      "loinc_code": "38875-1",
+      "long_common_name": "INR in Platelet poor plasma or blood by Coagulation assay",
+      "source_system": "LOINC",
+      "source_version": "2.83",
+      "numeric_origin_note": "synthetic_model_generated"
+    }
+  ],
+  "medications": [
+    {
+      "medication_id": "MED-SYN000901-001",
+      "context": "home",
+      "status": "home",
+      "drug": "furosemide 4 MG/ML Oral Solution",
+      "dose": "1 tablet",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": null,
+      "source_reference": "RXCUI:104220",
+      "rxcui": "104220",
+      "tty": null,
+      "strength": null,
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-002",
+      "context": "inpatient",
+      "status": "active",
+      "drug": "furosemide 4 MG/ML Oral Solution",
+      "dose": "1 tablet",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": null,
+      "source_reference": "RXCUI:104220",
+      "rxcui": "104220",
+      "tty": null,
+      "strength": null,
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-003",
+      "context": "discharge",
+      "status": "discharge",
+      "drug": "furosemide 4 MG/ML Oral Solution",
+      "dose": "1 tablet",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": null,
+      "source_reference": "RXCUI:104220",
+      "rxcui": "104220",
+      "tty": null,
+      "strength": null,
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-004",
+      "context": "home",
+      "status": "home",
+      "drug": "spironolactone 1 MG/ML Oral Suspension",
+      "dose": "1 tablet",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": null,
+      "source_reference": "RXCUI:104230",
+      "rxcui": "104230",
+      "tty": null,
+      "strength": null,
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-005",
+      "context": "inpatient",
+      "status": "active",
+      "drug": "spironolactone 1 MG/ML Oral Suspension",
+      "dose": "1 tablet",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": null,
+      "source_reference": "RXCUI:104230",
+      "rxcui": "104230",
+      "tty": null,
+      "strength": null,
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-006",
+      "context": "discharge",
+      "status": "discharge",
+      "drug": "spironolactone 1 MG/ML Oral Suspension",
+      "dose": "1 tablet",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": null,
+      "source_reference": "RXCUI:104230",
+      "rxcui": "104230",
+      "tty": null,
+      "strength": null,
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-007",
+      "context": "home",
+      "status": "home",
+      "drug": "metoprolol tartrate 37.5 MG Oral Tablet",
+      "dose": "37.5 MG",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": null,
+      "source_reference": "RXCUI:1606347",
+      "rxcui": "1606347",
+      "tty": null,
+      "strength": "37.5 MG",
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-008",
+      "context": "inpatient",
+      "status": "active",
+      "drug": "metoprolol tartrate 37.5 MG Oral Tablet",
+      "dose": "37.5 MG",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": null,
+      "source_reference": "RXCUI:1606347",
+      "rxcui": "1606347",
+      "tty": null,
+      "strength": "37.5 MG",
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-009",
+      "context": "discharge",
+      "status": "discharge",
+      "drug": "metoprolol tartrate 37.5 MG Oral Tablet",
+      "dose": "37.5 MG",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": null,
+      "source_reference": "RXCUI:1606347",
+      "rxcui": "1606347",
+      "tty": null,
+      "strength": "37.5 MG",
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-010",
+      "context": "home",
+      "status": "home",
+      "drug": "lisinopril 1 MG/ML Oral Solution",
+      "dose": "1 MG/ML",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": null,
+      "source_reference": "RXCUI:1806884",
+      "rxcui": "1806884",
+      "tty": null,
+      "strength": "1 MG/ML",
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-011",
+      "context": "inpatient",
+      "status": "active",
+      "drug": "lisinopril 1 MG/ML Oral Solution",
+      "dose": "1 MG/ML",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": null,
+      "source_reference": "RXCUI:1806884",
+      "rxcui": "1806884",
+      "tty": null,
+      "strength": "1 MG/ML",
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-012",
+      "context": "discharge",
+      "status": "discharge",
+      "drug": "lisinopril 1 MG/ML Oral Solution",
+      "dose": "1 MG/ML",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": null,
+      "source_reference": "RXCUI:1806884",
+      "rxcui": "1806884",
+      "tty": null,
+      "strength": "1 MG/ML",
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-013",
+      "context": "home",
+      "status": "home",
+      "drug": "atorvastatin 80 MG Oral Tablet",
+      "dose": "80 MG",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": null,
+      "source_reference": "RXCUI:259255",
+      "rxcui": "259255",
+      "tty": null,
+      "strength": "80 MG",
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-014",
+      "context": "inpatient",
+      "status": "active",
+      "drug": "atorvastatin 80 MG Oral Tablet",
+      "dose": "80 MG",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": null,
+      "source_reference": "RXCUI:259255",
+      "rxcui": "259255",
+      "tty": null,
+      "strength": "80 MG",
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-015",
+      "context": "discharge",
+      "status": "discharge",
+      "drug": "atorvastatin 80 MG Oral Tablet",
+      "dose": "80 MG",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": null,
+      "source_reference": "RXCUI:259255",
+      "rxcui": "259255",
+      "tty": null,
+      "strength": "80 MG",
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-016",
+      "context": "home",
+      "status": "home",
+      "drug": "warfarin sodium 1 MG Oral Tablet",
+      "dose": "1 MG",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": null,
+      "source_reference": "RXCUI:855288",
+      "rxcui": "855288",
+      "tty": null,
+      "strength": "1 MG",
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-017",
+      "context": "inpatient",
+      "status": "active",
+      "drug": "warfarin sodium 1 MG Oral Tablet",
+      "dose": "1 MG",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": null,
+      "source_reference": "RXCUI:855288",
+      "rxcui": "855288",
+      "tty": null,
+      "strength": "1 MG",
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-018",
+      "context": "discharge",
+      "status": "discharge",
+      "drug": "warfarin sodium 1 MG Oral Tablet",
+      "dose": "1 MG",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": null,
+      "source_reference": "RXCUI:855288",
+      "rxcui": "855288",
+      "tty": null,
+      "strength": "1 MG",
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-019",
+      "context": "home",
+      "status": "held",
+      "drug": "ibuprofen 0.05 MG/MG Topical Gel",
+      "dose": "1 tablet",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": "Held on admission; not continued at discharge.",
+      "source_reference": "RXCUI:141997",
+      "rxcui": "141997",
+      "tty": null,
+      "strength": null,
+      "source_system": "RXNORM"
+    },
+    {
+      "medication_id": "MED-SYN000901-020",
+      "context": "inpatient",
+      "status": "held",
+      "drug": "ibuprofen 0.05 MG/MG Topical Gel",
+      "dose": "1 tablet",
+      "frequency": "once daily",
+      "route": "oral",
+      "held_reason": "Held on admission; not continued at discharge.",
+      "source_reference": "RXCUI:141997",
+      "rxcui": "141997",
+      "tty": null,
+      "strength": null,
+      "source_system": "RXNORM"
+    }
+  ],
+  "plans": [
+    {
+      "plan_id": "PLAN-SYN000901-001",
+      "drug": "furosemide 4 MG/ML Oral Solution",
+      "decision": "continue",
+      "home_state": "continue",
+      "inpatient_state": "continue",
+      "correct_discharge_state": "continue",
+      "is_error_target": false,
+      "decision_reason": "Home therapy is continued through discharge in the clean case."
+    },
+    {
+      "plan_id": "PLAN-SYN000901-002",
+      "drug": "spironolactone 1 MG/ML Oral Suspension",
+      "decision": "continue",
+      "home_state": "continue",
+      "inpatient_state": "continue",
+      "correct_discharge_state": "continue",
+      "is_error_target": false,
+      "decision_reason": "Home therapy is continued through discharge in the clean case."
+    },
+    {
+      "plan_id": "PLAN-SYN000901-003",
+      "drug": "metoprolol tartrate 37.5 MG Oral Tablet",
+      "decision": "continue",
+      "home_state": "continue",
+      "inpatient_state": "continue",
+      "correct_discharge_state": "continue",
+      "is_error_target": false,
+      "decision_reason": "Home therapy is continued through discharge in the clean case."
+    },
+    {
+      "plan_id": "PLAN-SYN000901-004",
+      "drug": "lisinopril 1 MG/ML Oral Solution",
+      "decision": "continue",
+      "home_state": "continue",
+      "inpatient_state": "continue",
+      "correct_discharge_state": "continue",
+      "is_error_target": false,
+      "decision_reason": "Home therapy is continued through discharge in the clean case."
+    },
+    {
+      "plan_id": "PLAN-SYN000901-005",
+      "drug": "atorvastatin 80 MG Oral Tablet",
+      "decision": "continue",
+      "home_state": "continue",
+      "inpatient_state": "continue",
+      "correct_discharge_state": "continue",
+      "is_error_target": false,
+      "decision_reason": "Home therapy is continued through discharge in the clean case."
+    },
+    {
+      "plan_id": "PLAN-SYN000901-006",
+      "drug": "warfarin sodium 1 MG Oral Tablet",
+      "decision": "continue",
+      "home_state": "continue",
+      "inpatient_state": "continue",
+      "correct_discharge_state": "continue",
+      "is_error_target": false,
+      "decision_reason": "Home therapy is continued through discharge in the clean case."
+    },
+    {
+      "plan_id": "PLAN-SYN000901-007",
+      "drug": "ibuprofen 0.05 MG/MG Topical Gel",
+      "decision": "stop",
+      "home_state": "held",
+      "inpatient_state": "held",
+      "correct_discharge_state": "stop",
+      "is_error_target": false,
+      "decision_reason": "Home medication is held and is not continued at discharge."
+    }
+  ],
+  "answer_keys": [],
+  "monitoring": [
+    {
+      "parameter": "INR in Platelet poor plasma or blood by Coagulation assay",
+      "frequency": "as labeled",
+      "responsible_service": "inpatient medicine"
+    }
+  ],
+  "followup": {
+    "item": "Primary care follow-up",
+    "timing": "7 days",
+    "with_service": "primary care"
+  },
+  "instruction": {
+    "category": "medications",
+    "instruction_text": "Take discharge medications exactly as listed."
+  },
+  "medrec": {
+    "medrec_status": "complete_clean",
+    "discrepancies_found": false,
+    "discrepancy_types": [],
+    "notes": "Clean case before intentional error injection."
+  },
+  "validation": {
+    "case_id_code": "SYN-000901",
+    "passed": true,
+    "errors": [],
+    "layers": [
+      {
+        "layer": "structural",
+        "passed": true,
+        "errors": [],
+        "warnings": []
+      },
+      {
+        "layer": "terminology",
+        "passed": true,
+        "errors": [],
+        "warnings": []
+      },
+      {
+        "layer": "clinical",
+        "passed": true,
+        "errors": [],
+        "warnings": []
+      },
+      {
+        "layer": "medication_plan",
+        "passed": true,
+        "errors": [],
+        "warnings": []
+      }
+    ],
+    "rules": []
+  },
+  "enabled_rules": [
+    {
+      "rule_code": "FUROSEMIDE_HF_INDICATION",
+      "rule_type": "medication_diagnosis_allow",
+      "severity": "soft",
+      "enabled": true,
+      "input_rxcui": "104220",
+      "related_rxcui": null,
+      "input_loinc_code": null,
+      "input_icd10cm_code": "I50.20",
+      "constraint_json": {
+        "action": "allow_with_diagnosis"
+      },
+      "logic_notes": "Soft allow-rule when DailyMed indication text mentions heart failure or edema.",
+      "source_system": "RXCLASS",
+      "source_identifier": "Edema",
+      "source_url": "https://rxnav.nlm.nih.gov/REST/rxclass"
+    },
+    {
+      "rule_code": "NO_DUAL_ORAL_ANTICOAGULANT",
+      "rule_type": "medication_incompatibility",
+      "severity": "hard",
+      "enabled": true,
+      "input_rxcui": "855288",
+      "related_rxcui": "1364435",
+      "input_loinc_code": null,
+      "input_icd10cm_code": null,
+      "constraint_json": {
+        "action": "prohibit_coadministration"
+      },
+      "logic_notes": "Enable only when DailyMed warning or contraindication text supports coadministration risk.",
+      "source_system": "DAILYMED",
+      "source_identifier": "a454cd24-0c6d-46e8-b1e4-197388606175",
+      "source_url": "https://dailymed.nlm.nih.gov/dailymed/services/v2/spls/a454cd24-0c6d-46e8-b1e4-197388606175.xml"
+    },
+    {
+      "rule_code": "WARFARIN_INR_MONITORING",
+      "rule_type": "monitoring_dependency",
+      "severity": "hard",
+      "enabled": true,
+      "input_rxcui": "855288",
+      "related_rxcui": null,
+      "input_loinc_code": "38875-1",
+      "input_icd10cm_code": null,
+      "constraint_json": {
+        "action": "require_lab"
+      },
+      "logic_notes": "Enable only when a source-backed INR/prothrombin lab exists and DailyMed mentions INR or prothrombin.",
+      "source_system": "DAILYMED",
+      "source_identifier": "724b0061-f42a-4008-a078-09c800ee9785",
+      "source_url": "https://dailymed.nlm.nih.gov/dailymed/services/v2/spls/724b0061-f42a-4008-a078-09c800ee9785.xml"
+    }
+  ]
+}
