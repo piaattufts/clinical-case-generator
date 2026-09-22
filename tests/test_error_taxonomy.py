@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import random
 from pathlib import Path
 from typing import Any
 
@@ -18,6 +19,7 @@ from app.repositories.cases import (
     list_monitoring_for_case,
     list_plans_for_case,
 )
+from app.services.error_injection import inject_reconciliation_error
 from app.services.error_taxonomy import (
     F1_COMMISSION,
     F1_DOSE,
@@ -33,6 +35,7 @@ from app.services.error_taxonomy import (
     F2_PENDING_FOLLOWUP,
     F2_SUPPLY,
     FAMILY_FOR_CATEGORY,
+    IMPLEMENTABLE_CATEGORIES,
     NONE,
     canonicalize_category,
     canonicalize_family,
@@ -276,10 +279,17 @@ def _assert_category_case(session: Session, sequence: int, category: str) -> Gen
     assert category not in blob
     assert "answer_key" not in blob
     assert "error_family" not in blob
-    assert investigator["error"]["error_category"] == category
-    assert investigator["error"]["error_family"] == FAMILY_FOR_CATEGORY[category]
-    assert investigator["error"]["correct_action"]
-    assert investigator["error"]["clean_expected_state"] is not None
+    error = investigator["error"]
+    assert error["error_category"] == category
+    assert error["error_family"] == FAMILY_FOR_CATEGORY[category]
+    assert error["correct_action"]
+    assert error["clean_expected_state"] is not None
+    assert error["trigger_meds"]
+    assert error["detectability_location"]
+    assert error["changed_field"]
+    assert error["evidence_required"]
+    assert error["evidence_location"]
+    assert error["intentional_changes"]
     return second
 
 
@@ -375,6 +385,13 @@ def test_f2_monitoring_not_arranged(db_session: Session) -> None:
             if item.context == "discharge":
                 assert not item.monitoring
     assert warfarin_rows
+    home_w = [item for item in warfarin_rows if item.context == "home"]
+    discharge_w = [item for item in warfarin_rows if item.context == "discharge"]
+    assert home_w and discharge_w
+    assert home_w[0].dose == discharge_w[0].dose
+    assert home_w[0].route == discharge_w[0].route
+    assert home_w[0].frequency == discharge_w[0].frequency
+    assert home_w[0].ref_medication_id == discharge_w[0].ref_medication_id
 
 
 def test_f2_held_med_no_restart_plan(db_session: Session) -> None:
@@ -662,4 +679,60 @@ def test_freeze_rejects_category_not_allowed_for_scenario(
     with pytest.raises(CaseValidationError, match="not allowed for scenario"):
         freeze_validation_batch(
             db_session, plan_path=plan, use_openai=False, allow_test_identifiers=True
+        )
+
+
+def test_ineligible_categories_on_a_plain_clean_case_do_not_fallback(
+    db_session: Session,
+) -> None:
+    _seed_taxonomy_refs(db_session)
+    result = _generate(db_session, 81, None, inject=False)
+    case = db_session.get(ClinicalCase, result.case_id)
+    assert case is not None
+    allowed = set(eligible_errors(db_session, case))
+    assert NONE in allowed
+    assert F2_COPRESCRIPTION not in allowed
+    rng = random.Random("no-fallback")
+    rejected: list[str] = []
+    for category in sorted(IMPLEMENTABLE_CATEGORIES - {NONE}):
+        if category in allowed:
+            continue
+        with pytest.raises(
+            CaseValidationError, match="not eligible|no substitute|cannot be injected"
+        ):
+            inject_reconciliation_error(
+                db_session,
+                case,
+                rng=rng,
+                seed="ineligible",
+                preferred_category=category,
+            )
+        rejected.append(category)
+        assert detect_findings(db_session, case) == []
+    assert F2_HOSPITAL_ONLY in rejected
+    assert F2_HELD_RESTART in rejected
+    assert F2_SUPPLY in rejected
+    assert F2_PENDING_FOLLOWUP in rejected
+    assert F2_INPATIENT_SUB in rejected
+
+
+def test_clearing_dose_makes_dose_mismatch_ineligible(db_session: Session) -> None:
+    _seed_taxonomy_refs(db_session)
+    result = _generate(db_session, 82, None, inject=False)
+    case = db_session.get(ClinicalCase, result.case_id)
+    assert case is not None
+    for item in list_medications_for_case(db_session, case.id):
+        item.dose = None
+    db_session.flush()
+    db_session.expire_all()
+    case = db_session.get(ClinicalCase, result.case_id)
+    assert case is not None
+    assert F1_DOSE not in eligible_errors(db_session, case)
+    with pytest.raises(CaseValidationError, match="not eligible"):
+        inject_reconciliation_error(
+            db_session,
+            case,
+            rng=random.Random("dose"),
+            seed="ineligible-dose",
+            preferred_category=F1_DOSE,
         )

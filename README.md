@@ -679,13 +679,13 @@ Same continue set as other HF cases, with apixaban instead of warfarin. Ibuprofe
 
 ### Error injection operation
 
-Preferred category came from the scenario’s `target_error_category`: **omission**. `inject_reconciliation_error` (`app/services/error_injection.py`):
+Preferred category came from the scenario’s `target_error_category`. This educational snapshot was frozen under the historical injector name **`omission`**, which maps to canonical **`f1_omission`**. `inject_reconciliation_error` (`app/services/error_injection.py`) does not ask an LLM which error to plant:
 
 1. Collect continue-plan medications that have a discharge row
 2. Sort by RXCUI and choose one with the case RNG
 3. **Delete the discharge row** for that medication
 4. Mark the plan `is_error_target = true` (here: `PLAN-SYN000904-003`, apixaban)
-5. Write `CaseAnswerKey` (`error_family: medication_reconciliation`, `detectability_location: discharge_medications`)
+5. Write `CaseAnswerKey` (`error_family: family_1` on new cases; this snapshot still stores historical `medication_reconciliation`, `detectability_location: discharge_medications`)
 
 Home and inpatient apixaban rows are left unchanged.
 
@@ -705,7 +705,8 @@ Home and inpatient apixaban rows are left unchanged.
 
 From `SYN-000904` (fields defined in `app/models/cases.py` / written by `_write_answer_key`):
 
-- `error_category`: `omission`
+- `error_category`: historical `omission` on this snapshot (canonical `f1_omission`)
+- `error_family`: historical `medication_reconciliation` on this snapshot (canonical `family_1`)
 - `trigger_meds`: apixaban 2.5 MG Oral Tablet, RXCUI `1364435`
 - `error_description` / rationale: “The correct discharge medication list includes this continued home medication; it was intentionally omitted from the discharge list.”
 - `correct_action`: “Restore the omitted continued discharge medication from the medication plan.”
@@ -714,7 +715,7 @@ From `SYN-000904` (fields defined in `app/models/cases.py` / written by `_write_
 
 Study investigator exports add control/error status, SYN id, seed, rule snapshots, and source versions (`app/services/validation_batch.py` `_investigator_payload`). Those files for `VAL-*` cases live next to the study JSON and **must stay off the resident packet**.
 
-Other implemented families (not shown on 904): dose first-digit change; frequency flip `once daily` ↔ `twice daily`; incorrect continuation copies the held ibuprofen onto discharge. Duplicate therapy, missing co-prescription, and contraindicated restart are **not** implemented.
+The full CliniProof injector set is in [CliniProof error taxonomy](#cliniproof-error-taxonomy). This educational snapshot is not rewritten to canonical IDs. `f2_coprescription_omitted` remains `not_yet_implementable` until a source-backed companion-prescription rule exists.
 
 ---
 
