@@ -15,11 +15,14 @@ from typing import Any
 from app.services.readable_docs import (
     ABOUT_CASE_DATA,
     ALL_CASES_HEADER,
+    CLINICAL_VALIDATION_WORKSHEET_CSV,
+    CONSENSUS_WORKSHEET_CSV,
     DEVELOPER_NOTES_MD,
     HOW_CLINIPROOF_WORKS_MD,
     INVESTIGATOR_HEADER,
     PLAUSIBILITY_HEADER,
     READABLE_INDEX_MD,
+    REVIEWER_PROTOCOL_MD,
     VALIDATION_RUBRIC_MD,
 )
 
@@ -72,73 +75,69 @@ LOCATION_LABELS = {
 
 C1_FORM = """### C1 Clinical plausibility
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
 
 | Domain | 1 | 2 | 3 | 4 |
 | --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
 | Vital signs | ☐ | ☐ | ☐ | ☐ |
 | Laboratory findings | ☐ | ☐ | ☐ | ☐ |
 | Medication regimen | ☐ | ☐ | ☐ | ☐ |
 | Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
 
-Global plausibility:
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
 
 ☐ Yes
 
 ☐ No
 
-Specific concerns / fields requiring correction:
+Written explanation for any domain rated 1 or 2:
 
 ____________________________________
 
-Overall C1:
+C1 result:
 
-☐ Pass
+☐ Clinically plausible
 
-☐ Revise
+☐ Revision needed for clinical plausibility
 """
 
-C2_TO_C5_FORM = """### C2 Intended error present and correctly classified
+C2_TO_C5_FORM = """### C2 Intended assessment problem
 
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
-
-☐ Pass
-
-☐ Fail
-
-Comments:
-
-### C3 Detectability from documents alone
-
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Evidence reviewed:
+Written explanation if Fail:
 
-Ambiguity / cueing concerns:
+### C3 Detectability
 
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -146,21 +145,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 """
 
 
@@ -795,7 +798,7 @@ def render_investigator_spec(row: Mapping[str, Any]) -> str:
             "",
             "No trigger medication is specified because this is a clean control.",
             "",
-            "**What should have occurred:**",
+            "**What should have occurred clinically:**",
             "",
             "No planted medication-reconciliation discrepancy or transition-of-care gap.",
             "",
@@ -803,7 +806,7 @@ def render_investigator_spec(row: Mapping[str, Any]) -> str:
             "",
             "The resident-visible chart is the clean expected state.",
             "",
-            "**Where the relevant clinical evidence appears:**",
+            "**Where the relevant evidence appears:**",
             "",
             "Review the full chart; there is no concealed target.",
             "",
@@ -830,7 +833,7 @@ def render_investigator_spec(row: Mapping[str, Any]) -> str:
         "",
         _trigger_lines(error.get("trigger_meds") or error.get("affected_medication")),
         "",
-        "**What should have occurred:**",
+        "**What should have occurred clinically:**",
         "",
         should_occur,
         "",
@@ -838,7 +841,7 @@ def render_investigator_spec(row: Mapping[str, Any]) -> str:
         "",
         appears,
         "",
-        "**Where the relevant clinical evidence appears:**",
+        "**Where the relevant evidence appears:**",
         "",
         _location_text(error.get("evidence_location") or error.get("detectability_location")),
         "",
@@ -887,8 +890,6 @@ def render_investigator_packet(
             + "\n\n"
             + spec.rstrip()
             + "\n\n"
-            + C1_FORM.rstrip()
-            + "\n\n"
             + C2_TO_C5_FORM.rstrip()
         )
     return "\n\n---\n\n".join(blocks) + "\n"
@@ -924,6 +925,9 @@ def build_readable_packets(
         "clinician_validation_packet": output_dir / "clinician_validation_packet.md",
         "how_cliniproof_works": output_dir / "how_cliniproof_works.md",
         "developer_notes": output_dir / "developer_notes.md",
+        "reviewer_protocol": output_dir / "reviewer_protocol.md",
+        "clinical_validation_worksheet": output_dir / "clinical_validation_worksheet.csv",
+        "consensus_worksheet": output_dir / "consensus_worksheet.csv",
     }
     files["readme"].write_text(
         _with_trailing_newline(READABLE_INDEX_MD), encoding="utf-8", newline="\n"
@@ -945,6 +949,15 @@ def build_readable_packets(
     )
     files["developer_notes"].write_text(
         _with_trailing_newline(DEVELOPER_NOTES_MD), encoding="utf-8", newline="\n"
+    )
+    files["reviewer_protocol"].write_text(
+        _with_trailing_newline(REVIEWER_PROTOCOL_MD), encoding="utf-8", newline="\n"
+    )
+    files["clinical_validation_worksheet"].write_text(
+        CLINICAL_VALIDATION_WORKSHEET_CSV, encoding="utf-8", newline="\n"
+    )
+    files["consensus_worksheet"].write_text(
+        CONSENSUS_WORKSHEET_CSV, encoding="utf-8", newline="\n"
     )
     written.update(files)
     return written
