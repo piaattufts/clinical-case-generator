@@ -26,4 +26,3 @@ def is_storeable_lab_code(code: str | None) -> bool:
     if is_loinc_term_code(text):
         return True
     return text.startswith("TEST_")
-

@@ -9,7 +9,7 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -33,6 +33,7 @@ from app.repositories.reference import (
     search_lab_tests,
     search_medications,
     upsert_drug_label,
+    upsert_medication_class,
     upsert_symptom,
     upsert_unit,
 )
@@ -192,6 +193,7 @@ def bootstrap_reference_data(
             owned.append(rxclass)
 
         _bootstrap_medications(session, rxnorm, manifest["medications"], result)
+        _bootstrap_medication_classes(session, rxclass, result)
         _bootstrap_diagnoses(session, icd, manifest["diagnoses"], result)
         _bootstrap_symptoms(session, conditions, hpo, manifest["symptoms"], result)
         _bootstrap_units(session, ucum, manifest["units"], result)
@@ -260,6 +262,46 @@ def _bootstrap_medications(
             result.upserted["medications"].extend(sync.identifiers)
         except Exception as exc:
             result.unresolved.append(UnresolvedRequest("medication", name, str(exc)))
+
+
+def _bootstrap_medication_classes(
+    session: Session,
+    client: RxClassClient,
+    result: BootstrapResult,
+) -> None:
+    imported = 0
+    for medication in list_medications(session):
+        try:
+            hits = client.classes_for_rxcui(medication.rxcui)
+        except Exception as exc:
+            result.unresolved.append(
+                UnresolvedRequest("medication_class", medication.rxcui, str(exc))
+            )
+            continue
+        for hit in hits:
+            if hit.class_id.strip() == "" or hit.class_name.strip() == "":
+                continue
+            provenance = build_provenance("RXCLASS")
+            upsert_medication_class(
+                session,
+                {
+                    "rxcui": hit.rxcui or medication.rxcui,
+                    "class_id": hit.class_id,
+                    "class_name": hit.class_name,
+                    "class_type": hit.class_type,
+                    "rela": hit.rela,
+                    **provenance,
+                },
+            )
+            imported += 1
+    if imported:
+        mark_source_sync_success(
+            session,
+            "RXCLASS",
+            records_imported=imported,
+            source_version=None,
+            retrieved_at=datetime.now(UTC),
+        )
 
 
 def _bootstrap_diagnoses(
@@ -335,9 +377,7 @@ def _bootstrap_symptoms(
             result.unresolved.append(UnresolvedRequest("symptom", name, str(exc)))
 
 
-def _bootstrap_hpo_symptom(
-    session: Session, client: HpoClient, name: str
-) -> RefSymptom | None:
+def _bootstrap_hpo_symptom(session: Session, client: HpoClient, name: str) -> RefSymptom | None:
     hits = sorted(client.search(name, count=DEFAULT_SYNC_LIMIT), key=lambda item: item.hpo_id)
     chosen = next(
         (
@@ -536,9 +576,7 @@ def _prefer_rxnorm_concept(
     if not concepts:
         return None
     filtered = [
-        item
-        for item in concepts
-        if not is_unintended_combination(item, query, client=client)
+        item for item in concepts if not is_unintended_combination(item, query, client=client)
     ]
     ranked = sorted(
         filtered or [],
@@ -666,7 +704,6 @@ def _concept_from_lab_row(row: RefLabTest) -> LoincConcept:
         status=row.status,
         example_ucum_units=[str(item) for item in units] if units else None,
     )
-
 
 
 def _prefer_icd_concept(concepts: Any, query: str) -> Any | None:

@@ -19,6 +19,7 @@ from app.models.reference import (
     RefDrugLabel,
     RefLabTest,
     RefMedication,
+    RefMedicationClass,
     RefSymptom,
     RefUnit,
 )
@@ -55,6 +56,21 @@ SOURCE_REGISTRY_ROWS: tuple[dict[str, Any], ...] = (
         "records_imported": 0,
         "license_or_terms": (
             "DailyMed label text is not bundled. NLM and FDA terms apply when it is retrieved."
+        ),
+        "metadata": {"required_env": []},
+    },
+    {
+        "source_code": "RXCLASS",
+        "source_name": "RxClass",
+        "provider": "U.S. National Library of Medicine",
+        "source_category": "medication_class",
+        "access_type": "public",
+        "requires_credentials": False,
+        "enabled": True,
+        "sync_status": SYNC_NEVER_SYNCED,
+        "records_imported": 0,
+        "license_or_terms": (
+            "NLM RxClass terms apply. Class membership is copied from RxNav, not inferred."
         ),
         "metadata": {"required_env": []},
     },
@@ -429,6 +445,52 @@ def mark_source_sync_success(
         row.version = source_version
     session.flush()
     return row
+
+
+def list_medication_classes_for_rxcui(session: Session, rxcui: str) -> list[RefMedicationClass]:
+    rows = session.scalars(
+        select(RefMedicationClass)
+        .where(RefMedicationClass.rxcui == rxcui)
+        .order_by(RefMedicationClass.class_id, RefMedicationClass.class_name)
+    ).all()
+    return list(rows)
+
+
+def list_medications_sharing_class(
+    session: Session, class_id: str, *, exclude_rxcui: str | None = None
+) -> list[RefMedication]:
+    query = (
+        select(RefMedication)
+        .join(RefMedicationClass, RefMedicationClass.rxcui == RefMedication.rxcui)
+        .where(RefMedicationClass.class_id == class_id)
+    )
+    if exclude_rxcui:
+        query = query.where(RefMedication.rxcui != exclude_rxcui)
+    rows = session.scalars(query.order_by(RefMedication.rxcui).distinct()).all()
+    return list(rows)
+
+
+def upsert_medication_class(session: Session, values: dict[str, Any]) -> RefMedicationClass:
+    rxcui = str(values["rxcui"])
+    class_id = str(values["class_id"])
+    class_type = values.get("class_type")
+    rela = values.get("rela")
+    stmt = select(RefMedicationClass).where(
+        RefMedicationClass.rxcui == rxcui,
+        RefMedicationClass.class_id == class_id,
+        RefMedicationClass.class_type.is_(class_type)
+        if class_type is None
+        else RefMedicationClass.class_type == class_type,
+        RefMedicationClass.rela.is_(rela) if rela is None else RefMedicationClass.rela == rela,
+    )
+    row = session.scalar(stmt.limit(1))
+    return _upsert_row(
+        session,
+        row,
+        RefMedicationClass,
+        values,
+        identity_keys=("rxcui", "class_id", "class_type", "rela"),
+    )
 
 
 def mark_source_sync_error(

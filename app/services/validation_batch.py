@@ -26,6 +26,7 @@ from app.models.cases import (
     CaseInstruction,
     CaseIntakeOutput,
     CaseMedicationReconciliation,
+    CaseMonitoring,
     CaseNote,
     CasePresentation,
     CaseProblemList,
@@ -58,6 +59,13 @@ from app.repositories.reference import (
     list_rules,
 )
 from app.services.bootstrap import load_json_object, match_diagnosis, match_lab, match_medication
+from app.services.error_taxonomy import (
+    FAMILY_NONE,
+    NONE,
+    canonicalize_category,
+    canonicalize_family,
+    categories_equal,
+)
 from app.services.generation import (
     GENERATOR_NAME,
     GeneratedCaseResult,
@@ -65,16 +73,14 @@ from app.services.generation import (
     load_scenarios,
 )
 from app.services.validation import validate_case
-from app.sources.exceptions import FrozenValidationCaseError
+from app.sources.exceptions import CaseValidationError, FrozenValidationCaseError
 from app.utils.identifiers import VALIDATION_CASE_RE, format_validation_child_id
 from app.utils.jsonio import dumps_json, loads_json
 
 VALIDATION_DIR = Path(__file__).resolve().parents[2] / "data" / "validation"
 DEFAULT_BATCH_PLAN_PATH = VALIDATION_DIR / "batch_plan.json"
 DEFAULT_EXPORT_DIR = VALIDATION_DIR
-DATASET_STATUS = (
-    "machine-validated synthetic resident-review cases pending clinician validation"
-)
+DATASET_STATUS = "machine-validated synthetic resident-review cases pending clinician validation"
 LEAK_MARKERS = (
     "intentional error",
     "error_injected",
@@ -88,6 +94,18 @@ LEAK_MARKERS = (
     "retrieved_at",
     "rxcui:",
     "syn-000",
+    "error_family",
+    "error_category",
+    "detectability_location",
+    "correct_action",
+    "clean_expected_state",
+    "injected_state",
+    "evidence_required",
+    "difficulty_a_priori",
+    "severity_ncc_merp",
+    "intentional_changes",
+    "trigger_meds",
+    "is_primary_error",
 )
 
 
@@ -98,6 +116,7 @@ class Assignment:
     inject_error: bool
     error_category: str | None
     sequence: int
+    error_family: str | None = None
 
 
 @dataclass
@@ -148,6 +167,11 @@ def parse_assignments(plan: dict[str, Any]) -> list[Assignment]:
                 validation_case_id=validation_case_id,
                 scenario=str(item.get("scenario") or ""),
                 inject_error=bool(item.get("inject_error")),
+                error_family=(
+                    None
+                    if item.get("error_family") in (None, "")
+                    else str(item.get("error_family"))
+                ),
                 error_category=(
                     None
                     if item.get("error_category") in (None, "")
@@ -190,6 +214,7 @@ def freeze_validation_batch(
             )
             continue
         try:
+            _assert_assignment_matches_plan(assignment, scenario)
             generated = generate_one_case(
                 session,
                 sequence=assignment.sequence,
@@ -237,7 +262,52 @@ def freeze_validation_batch(
         )
         result.frozen.append(frozen)
     session.flush()
+    if result.rejected:
+        details = "; ".join(f"{item.validation_case_id}: {item.reason}" for item in result.rejected)
+        raise CaseValidationError(
+            "freeze_validation_batch",
+            f"one or more assignments were rejected; no substitute category was used; {details}",
+            [item.reason for item in result.rejected],
+        )
     return result
+
+
+def _assert_assignment_matches_plan(assignment: Assignment, scenario: Any) -> None:
+    """Fail closed: the plan's family/category is the assessment target, not a hint."""
+    if assignment.inject_error:
+        if assignment.error_category in (None, ""):
+            raise ValueError(
+                "error-bearing assignment must specify error_category; "
+                "no substitute category will be used"
+            )
+        requested = canonicalize_category(assignment.error_category)
+        if requested == NONE:
+            raise ValueError("error-bearing assignment cannot use error_category none")
+        canonicalize_family(assignment.error_family, category=requested)
+        if not _category_permitted(scenario, requested):
+            raise ValueError(
+                f"requested category {requested} is not allowed for scenario "
+                f"{scenario.code}; no substitute category will be used"
+            )
+        return
+    if assignment.error_category not in (None, "", NONE):
+        raise ValueError("clean control must use error_category none")
+    if assignment.error_family not in (None, "", FAMILY_NONE):
+        canonicalize_family(assignment.error_family, category=NONE)
+
+
+def _category_permitted(scenario: Any, category: str) -> bool:
+    allowed = getattr(scenario, "allowed_error_categories", None) or []
+    if not allowed:
+        return True
+    wanted = canonicalize_category(category)
+    for item in allowed:
+        try:
+            if canonicalize_category(item) == wanted:
+                return True
+        except CaseValidationError:
+            continue
+    return False
 
 
 def export_validation_batch(
@@ -279,9 +349,7 @@ def export_validation_batch(
                 "rule_snapshot": frozen.rule_snapshot,
             }
         )
-    audit = audit_frozen_batch(
-        session, batch_code, allow_test_identifiers=allow_test_identifiers
-    )
+    audit = audit_frozen_batch(session, batch_code, allow_test_identifiers=allow_test_identifiers)
     coverage = build_coverage_report(session, batch_code, audit)
     resident_doc = {
         "dataset_status": DATASET_STATUS,
@@ -356,7 +424,10 @@ def audit_frozen_batch(
         else:
             errors.append(f"{frozen.validation_case_id}: clean validation did not pass")
         report = validate_case(
-            session, case, expect_injected_error=not frozen.is_clean_control
+            session,
+            case,
+            expect_injected_error=not frozen.is_clean_control,
+            expected_category=None if frozen.is_clean_control else frozen.error_category,
         )
         if not report.passed:
             unexpected_errors += 1
@@ -375,7 +446,7 @@ def audit_frozen_batch(
                 errors.append(f"{frozen.validation_case_id}: expected one answer key")
             else:
                 intended_one += 1
-                if keys[0].error_category != frozen.error_category:
+                if not categories_equal(keys[0].error_category, frozen.error_category):
                     errors.append(
                         f"{frozen.validation_case_id}: answer key category "
                         f"{keys[0].error_category!r} != {frozen.error_category!r}"
@@ -392,13 +463,9 @@ def audit_frozen_batch(
         blob = dumps_json(resident).casefold()
         for marker in LEAK_MARKERS:
             if marker in blob:
-                errors.append(
-                    f"{frozen.validation_case_id}: resident export leaked {marker!r}"
-                )
+                errors.append(f"{frozen.validation_case_id}: resident export leaked {marker!r}")
         if not allow_test_identifiers and _json_has_test_identifier(resident):
-            errors.append(
-                f"{frozen.validation_case_id}: resident export leaked TEST_ identifier"
-            )
+            errors.append(f"{frozen.validation_case_id}: resident export leaked TEST_ identifier")
         labs = list_labs_for_case(session, case.id)
         if labs:
             loinc_cases += 1
@@ -437,9 +504,7 @@ def build_coverage_report(
         else:
             error_bearing += 1
             if frozen.error_category:
-                error_types[frozen.error_category] = (
-                    error_types.get(frozen.error_category, 0) + 1
-                )
+                error_types[frozen.error_category] = error_types.get(frozen.error_category, 0) + 1
         case = session.get(ClinicalCase, frozen.case_id)
         if case is None:
             continue
@@ -538,7 +603,19 @@ def _persist_frozen_row(
         master_seed=master_seed,
         case_seed=case_seed,
         is_clean_control=not assignment.inject_error,
-        error_category=None if not assignment.inject_error else assignment.error_category,
+        error_family=(
+            FAMILY_NONE
+            if not assignment.inject_error
+            else canonicalize_family(
+                assignment.error_family,
+                category=canonicalize_category(assignment.error_category),
+            )
+        ),
+        error_category=(
+            None
+            if not assignment.inject_error
+            else canonicalize_category(assignment.error_category)
+        ),
         generator_version=__version__,
         reference_snapshot=_reference_snapshot(session),
         rule_snapshot=_rule_snapshot(session),
@@ -572,11 +649,18 @@ def _audit_generated(
     if assignment.inject_error:
         if generated.injected is None:
             errors.append("expected an injected error")
-        elif assignment.error_category and generated.injected.category != assignment.error_category:
+        elif assignment.error_category and not categories_equal(
+            generated.injected.category, assignment.error_category
+        ):
             errors.append(
                 "injected category "
                 f"{generated.injected.category!r} != {assignment.error_category!r}"
             )
+        elif assignment.error_family:
+            try:
+                canonicalize_family(assignment.error_family, category=generated.injected.category)
+            except Exception as exc:
+                errors.append(str(exc))
     elif generated.injected is not None:
         errors.append("clean control received an injected error")
     errors.extend(
@@ -662,9 +746,7 @@ def _resident_payload(
     presentation = session.scalar(
         select(CasePresentation).where(CasePresentation.case_id == case.id)
     )
-    social = session.scalar(
-        select(CaseSocialSupport).where(CaseSocialSupport.case_id == case.id)
-    )
+    social = session.scalar(select(CaseSocialSupport).where(CaseSocialSupport.case_id == case.id))
     discharge = session.scalar(
         select(CaseDischargePlanning).where(CaseDischargePlanning.case_id == case.id)
     )
@@ -704,7 +786,9 @@ def _resident_payload(
                 "symptom_duration": None if presentation is None else presentation.symptom_duration,
                 "symptom_course": None if presentation is None else presentation.symptom_course,
             },
-            "social_support": None if social is None else {
+            "social_support": None
+            if social is None
+            else {
                 "living_situation": social.living_situation,
                 "caregiver_support": social.caregiver_support,
                 "transportation": social.transportation,
@@ -714,7 +798,9 @@ def _resident_payload(
                 "substance_use": social.substance_use,
                 "advance_directive": social.advance_directive,
             },
-            "discharge_planning": None if discharge is None else {
+            "discharge_planning": None
+            if discharge is None
+            else {
                 "disposition": discharge.disposition,
                 "disposition_detail": discharge.disposition_detail,
                 "transportation_needed": discharge.transportation_needed,
@@ -860,6 +946,22 @@ def _resident_payload(
             }
             for index, item in enumerate(
                 _list(session, CaseInstruction, case.id, CaseInstruction.instruction_id), start=1
+            )
+        ],
+        "CaseMonitoring": [
+            {
+                "monitoring_id": _child_id("MON", val_id, index),
+                "case_id": val_id,
+                "parameter": item.parameter,
+                "frequency": item.frequency,
+                "target": item.target,
+                "trigger_for_action": item.trigger_for_action,
+                "duration": item.duration,
+                "responsible_service": item.responsible_service,
+                "source_reference": None,
+            }
+            for index, item in enumerate(
+                _list(session, CaseMonitoring, case.id, CaseMonitoring.monitoring_id), start=1
             )
         ],
         "CaseProblemList": [
@@ -1023,81 +1125,105 @@ def _investigator_payload(
         status = "NO INTENTIONAL ERROR"
         error_block: dict[str, Any] = {
             "control_error_status": "clean_control",
-            "error_category": None,
+            "error_family": FAMILY_NONE,
+            "error_category": NONE,
             "statement": "NO INTENTIONAL ERROR",
         }
     else:
         status = "error_bearing"
         key = keys[0] if keys else None
+        changes = None if key is None else key.intentional_changes
+        first_change = changes[0] if isinstance(changes, list) and changes else {}
         error_block = {
             "control_error_status": "error_bearing",
+            "error_family": frozen.error_family or (None if key is None else key.error_family),
             "error_category": frozen.error_category,
+            "error_description": None if key is None else key.error_description,
+            "trigger_meds": None if key is None else key.trigger_meds,
+            "detectability_location": None if key is None else key.detectability_location,
+            "correct_action": None if key is None else key.correct_action,
+            "clean_expected_state": frozen.clean_state,
+            "injected_state": changes,
+            "changed_field": first_change.get("changed_field")
+            if isinstance(first_change, dict)
+            else None,
+            "evidence_required": first_change.get("evidence_required")
+            if isinstance(first_change, dict)
+            else None,
+            "evidence_location": first_change.get("evidence_location")
+            if isinstance(first_change, dict)
+            else None,
+            "severity_ncc_merp": None if key is None else key.severity_ncc_merp,
+            "intentional_changes": changes,
+            "difficulty_a_priori": None if key is None else key.difficulty_a_priori,
             "affected_medication": None if key is None else key.trigger_meds,
-            "correct_expected_state": frozen.clean_state,
-            "injected_state": None if key is None else key.intentional_changes,
             "rationale": None if key is None else key.error_description,
         }
     return _json_object(
-            {
-                "validation_case_id": frozen.validation_case_id,
-                "internal_case_id_code": case.case_id_code,
-                "scenario": frozen.scenario_code,
-                "control_error_status": status,
-                "error": error_block,
-                "supporting_clinical_rules": frozen.rule_snapshot,
-                "canonical_identifiers": {
-                    "rxcuis": sorted(
-                        {
-                            med_row.rxcui
-                            for item in list_medications_for_case(session, case.id)
-                            if item.ref_medication_id is not None
-                            for med_row in [session.get(RefMedication, item.ref_medication_id)]
-                            if med_row is not None
-                        }
-                    ),
-                    "icd10cm_codes": sorted(
-                        {
-                            dx_row.icd10cm_code
-                            for item in list_diagnoses_for_case(session, case.id)
-                            if item.ref_diagnosis_id is not None
-                            for dx_row in [session.get(RefDiagnosis, item.ref_diagnosis_id)]
-                            if dx_row is not None and dx_row.icd10cm_code
-                        }
-                    ),
-                    "loinc_codes": sorted(
-                        {
-                            lab_row.loinc_code
-                            for item in list_labs_for_case(session, case.id)
-                            if item.ref_lab_id is not None
-                            for lab_row in [session.get(RefLabTest, item.ref_lab_id)]
-                            if lab_row is not None
-                        }
-                    ),
-                },
-                "generation_seed": frozen.case_seed,
-                "master_seed": frozen.master_seed,
-                "generator_version": frozen.generator_version,
-                "generator_name": GENERATOR_NAME,
-                "reference_snapshot": frozen.reference_snapshot,
-                "rule_snapshot": frozen.rule_snapshot,
-                "clean_validation": frozen.clean_validation,
-                "post_injection_validation": frozen.final_validation,
-                "frozen_at": frozen.frozen_at,
-                "dataset_status": DATASET_STATUS,
-            }
+        {
+            "validation_case_id": frozen.validation_case_id,
+            "internal_case_id_code": case.case_id_code,
+            "scenario": frozen.scenario_code,
+            "control_error_status": status,
+            "error": error_block,
+            "supporting_clinical_rules": frozen.rule_snapshot,
+            "canonical_identifiers": {
+                "rxcuis": sorted(
+                    {
+                        med_row.rxcui
+                        for item in list_medications_for_case(session, case.id)
+                        if item.ref_medication_id is not None
+                        for med_row in [session.get(RefMedication, item.ref_medication_id)]
+                        if med_row is not None
+                    }
+                ),
+                "icd10cm_codes": sorted(
+                    {
+                        dx_row.icd10cm_code
+                        for item in list_diagnoses_for_case(session, case.id)
+                        if item.ref_diagnosis_id is not None
+                        for dx_row in [session.get(RefDiagnosis, item.ref_diagnosis_id)]
+                        if dx_row is not None and dx_row.icd10cm_code
+                    }
+                ),
+                "loinc_codes": sorted(
+                    {
+                        lab_row.loinc_code
+                        for item in list_labs_for_case(session, case.id)
+                        if item.ref_lab_id is not None
+                        for lab_row in [session.get(RefLabTest, item.ref_lab_id)]
+                        if lab_row is not None
+                    }
+                ),
+            },
+            "generation_seed": frozen.case_seed,
+            "master_seed": frozen.master_seed,
+            "generator_version": frozen.generator_version,
+            "generator_name": GENERATOR_NAME,
+            "reference_snapshot": frozen.reference_snapshot,
+            "rule_snapshot": frozen.rule_snapshot,
+            "clean_validation": frozen.clean_validation,
+            "post_injection_validation": frozen.final_validation,
+            "frozen_at": frozen.frozen_at,
+            "dataset_status": DATASET_STATUS,
+        }
     )
 
 
 def _reference_snapshot(session: Session) -> dict[str, Any]:
     payload: dict[str, Any] = {}
-    for code in ("RXNORM", "ICD10CM", "LOINC", "UCUM", "DAILYMED"):
+    for code in ("RXNORM", "ICD10CM", "LOINC", "UCUM", "DAILYMED", "RXCLASS"):
         row = get_data_source(session, code)
-        payload[code] = None if row is None else {
-            "version": row.version,
-            "records_imported": row.records_imported,
-            "last_successful_sync_at": row.last_successful_sync_at,
-            "sync_status": row.sync_status,
-        }
+        payload[code] = (
+            None
+            if row is None
+            else {
+                "version": row.version,
+                "records_imported": row.records_imported,
+                "last_successful_sync_at": row.last_successful_sync_at,
+                "sync_status": row.sync_status,
+            }
+        )
     return _json_object(payload)
 
 
@@ -1175,6 +1301,7 @@ def _investigator_markdown(doc: dict[str, Any]) -> str:
         if item["control_error_status"] == "NO INTENTIONAL ERROR":
             lines.append("- NO INTENTIONAL ERROR")
         else:
+            lines.append(f"- Error family: `{error.get('error_family')}`")
             lines.append(f"- Error category: `{error.get('error_category')}`")
             lines.append(f"- Rationale: {error.get('rationale')}")
         lines.append(f"- Seed: `{item['generation_seed']}`")
