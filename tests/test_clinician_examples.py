@@ -36,7 +36,8 @@ def test_educational_examples_are_not_study_val_ids() -> None:
     assert cap["diagnoses"][0]["icd10cm_code"] == "J18.1"
     assert cap["specialty"] == "pulmonology"
     assert injected["clean_case"] is False
-    assert injected["answer_keys"][0]["error_category"] == "omission"
+    assert injected["answer_keys"][0]["error_category"] == "f1_omission"
+    assert injected["answer_keys"][0]["error_family"] == "family_1"
     assert injected["answer_keys"][0]["trigger_meds"][0]["rxcui"] == "1364435"
     assert hf["answer_keys"] == []
     assert "investigator" in (ROOT / "README.md").read_text(encoding="utf-8").casefold()

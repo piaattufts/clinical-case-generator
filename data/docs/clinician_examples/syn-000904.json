@@ -476,8 +476,8 @@
   ],
   "answer_keys": [
     {
-      "error_family": "medication_reconciliation",
-      "error_category": "omission",
+      "error_family": "family_1",
+      "error_category": "f1_omission",
       "error_description": "The correct discharge medication list includes this continued home medication; it was intentionally omitted from the discharge list.",
       "trigger_meds": [
         {
@@ -490,7 +490,7 @@
       "intentional_changes": [
         {
           "drug": "apixaban 2.5 MG Oral Tablet",
-          "kind": "omission",
+          "kind": "f1_omission",
           "seed": "20260926:904:HF_INPATIENT",
           "rxcui": "1364435",
           "context": "discharge",
@@ -515,7 +515,7 @@
     "medrec_status": "error_injected",
     "discrepancies_found": true,
     "discrepancy_types": [
-      "omission"
+      "f1_omission"
     ],
     "notes": "The correct discharge medication list includes this continued home medication; it was intentionally omitted from the discharge list."
   },

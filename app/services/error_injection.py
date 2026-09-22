@@ -71,17 +71,6 @@ INJECTORS = {
     F2_PENDING_FOLLOWUP,
 }
 
-# Backward-compatible alias used by older tests and docs.
-SUPPORTED_ERROR_FAMILIES = frozenset(
-    {
-        "omission",
-        "dose_mismatch",
-        "frequency_mismatch",
-        "incorrect_continuation",
-        *INJECTORS,
-    }
-)
-
 
 @dataclass
 class InjectionResult:

@@ -80,6 +80,7 @@ from app.utils.jsonio import dumps_json, loads_json
 VALIDATION_DIR = Path(__file__).resolve().parents[2] / "data" / "validation"
 DEFAULT_BATCH_PLAN_PATH = VALIDATION_DIR / "batch_plan.json"
 DEFAULT_EXPORT_DIR = VALIDATION_DIR
+DEFAULT_BATCH_CODE = "CLINIPROOF_TAXONOMY_V1"
 DATASET_STATUS = "machine-validated synthetic resident-review cases pending clinician validation"
 LEAK_MARKERS = (
     "intentional error",
@@ -191,7 +192,7 @@ def freeze_validation_batch(
     allow_test_identifiers: bool = False,
 ) -> FreezeResult:
     plan = load_batch_plan(plan_path)
-    batch_code = str(plan.get("batch_code") or "RESIDENT_VALIDATION_V1")
+    batch_code = str(plan.get("batch_code") or DEFAULT_BATCH_CODE)
     master_seed = int(plan.get("master_seed") or 0)
     scenarios = {item.code: item for item in load_scenarios()}
     result = FreezeResult(batch_code=batch_code, master_seed=master_seed)

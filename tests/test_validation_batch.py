@@ -44,7 +44,7 @@ def _write_plan(path: Path, *, inject: bool, category: str | None, sequence: int
 
 def test_freeze_is_immutable_and_export_is_blinded(db_session: Session, tmp_path: Path) -> None:
     _seed_generation_refs(db_session)
-    plan = _write_plan(tmp_path / "plan.json", inject=True, category="omission", sequence=21)
+    plan = _write_plan(tmp_path / "plan.json", inject=True, category="f1_omission", sequence=21)
     # Patch load_scenarios by writing through generate_one_case first so the case exists,
     # then freeze using a plan that points at an already generated sequence after we
     # intercept unknown scenario by generating with the test scenario directly.
@@ -55,7 +55,7 @@ def test_freeze_is_immutable_and_export_is_blinded(db_session: Session, tmp_path
         scenario=_test_scenario(),
         inject_error=True,
         use_openai=False,
-        error_category="omission",
+        error_category="f1_omission",
     )
     case = db_session.get(ClinicalCase, generated.case_id)
     assert case is not None
@@ -67,7 +67,7 @@ def test_freeze_is_immutable_and_export_is_blinded(db_session: Session, tmp_path
         master_seed=9,
         case_seed=generated.seed,
         is_clean_control=False,
-        error_category="omission",
+        error_category="f1_omission",
         generator_version="0.1.0",
         reference_snapshot={},
         rule_snapshot=[],
@@ -103,12 +103,12 @@ def test_freeze_is_immutable_and_export_is_blinded(db_session: Session, tmp_path
     blob = json.dumps(resident).casefold()
     assert "val-001" in blob
     assert "caseanswerkey" not in blob
-    assert "omission" not in blob
+    assert "f1_omission" not in blob
     assert "is_clean_control" not in blob
     assert "rxcui:" not in blob
     assert "random_seed" not in blob
     assert investigator["control_error_status"] == "error_bearing"
-    assert investigator["error"]["error_category"] == "omission"
+    assert investigator["error"]["error_category"] == "f1_omission"
     assert DATASET_STATUS in investigator["dataset_status"]
     keys = list_answer_keys_for_case(db_session, case.id)
     assert len(keys) == 1
