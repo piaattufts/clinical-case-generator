@@ -1,23 +1,298 @@
 # RESIDENT_VALIDATION_V2
 
-Independent freeze of 24 machine-validated synthetic resident-review cases pending clinician validation. Same five inpatient families and error mix as V1. New master seed, sequences, and VAL IDs.
+Second independent freeze of 24 machine-validated synthetic resident-review cases pending clinician validation. Same five inpatient families and error mix as V1. New master seed, sequences, and VAL IDs. These records are **not clinically validated** until residents complete review.
+
+The committed JSON in this folder is the **study source of truth** for this batch. Shared pipeline, official sources, planted-error mechanics, and limitations: [`../README.md`](../README.md).
+
+---
+
+## Dataset identity (this freeze)
 
 | Field | Value |
 | --- | --- |
 | Batch code | `RESIDENT_VALIDATION_V2` |
+| Generator | `clinical-case-generator` `0.1.0` |
 | Master seed | `20260923` |
 | Case seed formula | `{master_seed}:{sequence}:{scenario}` |
 | Internal case IDs | `SYN-000201`–`SYN-000224` |
 | Frozen public IDs | `VAL-025`–`VAL-048` |
+| Frozen at | `2026-09-22T14:19:23.711067+00:00` |
+| Exported at | `2026-09-22T14:19:41.836935+00:00` |
+| Cases | 24 frozen, 0 rejected |
+| Clean controls | 5 (`VAL-029`, `VAL-034`, `VAL-039`, `VAL-044`, `VAL-048`) |
+| Error-bearing | 19 (exactly one planted medication-reconciliation error each) |
 | OpenAI | **not used** (`freeze-validation-batch` hardcodes `use_openai=False`) |
+| Dataset status string | `machine-validated synthetic resident-review cases pending clinician validation` |
+| Leak audit | `audit_passed: true` |
 
-Plan: [`batch_plan.json`](batch_plan.json). Export blinded resident JSON and investigator files into **this directory** (`--output-dir data/validation/v2`). Do not export into `data/validation/` (that overwrites V1).
+Sequences **201–224** keep this freeze away from smoke cases `SYN-000001`–`SYN-000003` and from the other resident-validation batches.
+
+Official source versions recorded on this freeze:
+
+| Source | Version | Rows imported | Last successful sync |
+| --- | --- | --- | --- |
+| RXNORM | `08-Sep-2026` | 16 | `2026-09-22T14:18:57.947304+00:00` |
+| LOINC | `2.83` | 7 | `2026-09-22T14:19:12.743784+00:00` |
+| UCUM | `2.2` | 16 | `2026-09-22T14:18:58.828843+00:00` |
+| ICD10CM | none supplied by API | 5 | `2026-09-22T14:18:58.224692+00:00` |
+| DAILYMED | none supplied by API | 10 | `2026-09-22T14:19:17.058217+00:00` |
+
+---
+
+## Files in this directory
+
+| File | Audience | Contents |
+| --- | --- | --- |
+| [`batch_plan.json`](batch_plan.json) | Investigators / operators | Master seed, VAL IDs, scenarios, inject flags, error categories, sequences |
+| [`resident_validation_cases.json`](resident_validation_cases.json) | Residents | Blinded dashboard-shaped cases. **Give this file to reviewers.** |
+| [`investigator_answer_key.json`](investigator_answer_key.json) | Investigators only | Seeds, SYN IDs, error category, affected RXCUI, clean expected state |
+| [`investigator_answer_key.md`](investigator_answer_key.md) | Investigators only | Human-readable answer key |
+| [`validation_manifest.json`](validation_manifest.json) | Investigators | Per-VAL freeze metadata, source versions, enabled rules |
+| [`coverage_report.md`](coverage_report.md) | Investigators | Scenario, error, terminology, and rule counts |
+| [`scenario_coverage_matrix.md`](scenario_coverage_matrix.md) | Investigators | Resolved diagnoses, meds, labs, and allowed error types per family |
+| [`resident_review_worksheet.csv`](resident_review_worksheet.csv) | Residents / study staff | Empty capture rows; no fabricated ratings |
+| [`resident_review_schema.json`](resident_review_schema.json) | Study staff | Field definitions for the worksheet |
+
+Do **not** give residents this README, the investigator key, the manifest, `batch_plan.json`, or the coverage files.
 
 ```bash
 clinical-case-generator freeze-validation-batch --plan data/validation/v2/batch_plan.json
 clinical-case-generator export-validation-batch --batch-code RESIDENT_VALIDATION_V2 --output-dir data/validation/v2
 ```
 
-Give residents only `resident_validation_cases.json` and `resident_review_worksheet.csv`. Keep this README, the answer key, the manifest, the plan, and coverage files investigator-only.
+Do not omit `--plan` / `--output-dir`. The CLI defaults would reuse or overwrite V1.
 
-Shared pipeline, sources, and planted-error mechanics: [`../README.md`](../README.md).
+---
+
+## Assignment index
+
+| VAL | SYN | Scenario | Seed | Age / sex | Status | Error | Affected medication (RXCUI) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| VAL-025 | SYN-000201 | HF_INPATIENT | `20260923:201:HF_INPATIENT` | 78 F | error | omission | warfarin sodium 1 MG Oral Tablet (`855288`) |
+| VAL-026 | SYN-000202 | HF_INPATIENT | `20260923:202:HF_INPATIENT` | 69 F | error | dose_mismatch | furosemide 4 MG/ML Oral Solution (`104220`) — discharge **2 tablet** vs home `1 tablet` |
+| VAL-027 | SYN-000203 | HF_INPATIENT | `20260923:203:HF_INPATIENT` | 55 F | error | frequency_mismatch | atorvastatin 80 MG Oral Tablet (`259255`) — discharge **twice daily** |
+| VAL-028 | SYN-000204 | HF_INPATIENT | `20260923:204:HF_INPATIENT` | 59 M | error | incorrect_continuation | ibuprofen 0.05 MG/MG Topical Gel (`141997`) appears on discharge |
+| VAL-029 | SYN-000205 | HF_INPATIENT | `20260923:205:HF_INPATIENT` | 57 F | **clean control** | — | — |
+| VAL-030 | SYN-000206 | AF_ANTICOAGULATION | `20260923:206:AF_ANTICOAGULATION` | 78 F | error | omission | warfarin sodium 1 MG Oral Tablet (`855288`) |
+| VAL-031 | SYN-000207 | AF_ANTICOAGULATION | `20260923:207:AF_ANTICOAGULATION` | 83 M | error | dose_mismatch | metoprolol tartrate 37.5 MG Oral Tablet (`1606347`) — discharge **27.5 MG** vs home `37.5 MG` |
+| VAL-032 | SYN-000208 | AF_ANTICOAGULATION | `20260923:208:AF_ANTICOAGULATION` | 61 M | error | frequency_mismatch | apixaban 2.5 MG Oral Tablet (`1364435`) — discharge **twice daily** |
+| VAL-033 | SYN-000209 | AF_ANTICOAGULATION | `20260923:209:AF_ANTICOAGULATION` | 85 M | error | incorrect_continuation | ibuprofen 0.05 MG/MG Topical Gel (`141997`) appears on discharge |
+| VAL-034 | SYN-000210 | AF_ANTICOAGULATION | `20260923:210:AF_ANTICOAGULATION` | 64 M | **clean control** | — | — |
+| VAL-035 | SYN-000211 | HTN_INPATIENT | `20260923:211:HTN_INPATIENT` | 80 M | error | omission | hydrochlorothiazide 50 MG Oral Tablet (`197770`) |
+| VAL-036 | SYN-000212 | HTN_INPATIENT | `20260923:212:HTN_INPATIENT` | 55 M | error | dose_mismatch | lisinopril 1 MG/ML Oral Solution (`1806884`) — discharge **2 MG/ML** vs home `1 MG/ML` |
+| VAL-037 | SYN-000213 | HTN_INPATIENT | `20260923:213:HTN_INPATIENT` | 69 M | error | frequency_mismatch | lisinopril 1 MG/ML Oral Solution (`1806884`) — discharge **twice daily** |
+| VAL-038 | SYN-000214 | HTN_INPATIENT | `20260923:214:HTN_INPATIENT` | 60 F | error | incorrect_continuation | ibuprofen 0.05 MG/MG Topical Gel (`141997`) appears on discharge |
+| VAL-039 | SYN-000215 | HTN_INPATIENT | `20260923:215:HTN_INPATIENT` | 76 M | **clean control** | — | — |
+| VAL-040 | SYN-000216 | T2DM_INPATIENT | `20260923:216:T2DM_INPATIENT` | 53 M | error | omission | atorvastatin 80 MG Oral Tablet (`259255`) |
+| VAL-041 | SYN-000217 | T2DM_INPATIENT | `20260923:217:T2DM_INPATIENT` | 62 M | error | dose_mismatch | atorvastatin 80 MG Oral Tablet (`259255`) — discharge **20 MG** vs home `80 MG` |
+| VAL-042 | SYN-000218 | T2DM_INPATIENT | `20260923:218:T2DM_INPATIENT` | 46 F | error | frequency_mismatch | Modified 24 HR metformin hydrochloride 1000 MG Extended Release Oral Tablet (`1807888`) — discharge **twice daily** |
+| VAL-043 | SYN-000219 | T2DM_INPATIENT | `20260923:219:T2DM_INPATIENT` | 48 M | error | omission | Modified 24 HR metformin hydrochloride 1000 MG Extended Release Oral Tablet (`1807888`) |
+| VAL-044 | SYN-000220 | T2DM_INPATIENT | `20260923:220:T2DM_INPATIENT` | 47 F | **clean control** | — | — |
+| VAL-045 | SYN-000221 | CAP_INPATIENT | `20260923:221:CAP_INPATIENT` | 85 M | error | omission | azithromycin 250 MG Oral Capsule (`141962`) |
+| VAL-046 | SYN-000222 | CAP_INPATIENT | `20260923:222:CAP_INPATIENT` | 57 F | error | dose_mismatch | albuterol 0.4 MG Inhalation Powder (`104514`) — discharge **2 tablet** vs home `1 tablet` |
+| VAL-047 | SYN-000223 | CAP_INPATIENT | `20260923:223:CAP_INPATIENT` | 71 M | error | frequency_mismatch | albuterol 0.4 MG Inhalation Powder (`104514`) — discharge **twice daily** |
+| VAL-048 | SYN-000224 | CAP_INPATIENT | `20260923:224:CAP_INPATIENT` | 84 F | **clean control** | — | — |
+
+Clean expected discharge lists **never** include ibuprofen. Clean controls still list ibuprofen on home and inpatient with an explicit hold when the scenario has a stop medication. Error-bearing `incorrect_continuation` cases are the only ones with ibuprofen on discharge.
+
+---
+
+## Per-case catalog
+
+Each block is the frozen case as exported. Lab/vital numbers are synthetic. Continue vs stop is the **correct** reconciliation plan (investigator view). Discharge-list mutations are listed under “Planted error”.
+
+### `HF_INPATIENT` — I50.20, Unspecified systolic (congestive) heart failure
+
+Symptoms (as stored on this freeze): Dyspnea, Anasarca, Orthopnea. Specialty: cardiology.
+Shared continue meds: furosemide, spironolactone, metoprolol, lisinopril, atorvastatin, plus exactly one of warfarin or apixaban (mutex pick from the seed).
+Held stop med: ibuprofen 0.05 MG/MG Topical Gel.
+Labs: Cr `14682-9`, K `2823-3`, BNP `30934-4`, INR `38875-1`.
+
+#### VAL-025 (`SYN-000201`) — omission
+
+- Seed `20260923:201:HF_INPATIENT`. 78-year-old Female, 70 kg. Vitals: BP 150/85, HR 93, RR 24, SpO2 97.
+- Anticoagulant: **warfarin sodium 1 MG Oral Tablet**.
+- Labs: Cr 0.8 umol/L, K 3.7 mmol/L, BNP 265 pg/mL, INR 2.3.
+- Planted error: warfarin sodium 1 MG Oral Tablet (`855288`) omitted from discharge (present home + inpatient).
+
+#### VAL-026 (`SYN-000202`) — dose_mismatch
+
+- Seed `20260923:202:HF_INPATIENT`. 69-year-old Female, 99 kg. Vitals: BP 148/90, HR 104, RR 18, SpO2 95.
+- Anticoagulant: **warfarin sodium 1 MG Oral Tablet**.
+- Labs: Cr 1.5 umol/L, K 4.4 mmol/L, BNP 632 pg/mL, INR 2.9.
+- Planted error: discharge furosemide 4 MG/ML Oral Solution (`104220`) dose **2 tablet** (home/inpatient remain `1 tablet`).
+
+#### VAL-027 (`SYN-000203`) — frequency_mismatch
+
+- Seed `20260923:203:HF_INPATIENT`. 55-year-old Female, 66 kg. Vitals: BP 158/78, HR 96, RR 23, SpO2 94.
+- Anticoagulant: **apixaban 2.5 MG Oral Tablet**.
+- Labs: Cr 1.2 umol/L, K 3.5 mmol/L, BNP 856 pg/mL, INR 2.
+- Planted error: discharge atorvastatin 80 MG Oral Tablet (`259255`) frequency **twice daily** (home/inpatient remain `once daily`).
+
+#### VAL-028 (`SYN-000204`) — incorrect_continuation
+
+- Seed `20260923:204:HF_INPATIENT`. 59-year-old Male, 96 kg. Vitals: BP 157/72, HR 108, RR 23, SpO2 97.
+- Anticoagulant: **warfarin sodium 1 MG Oral Tablet**.
+- Labs: Cr 0.8 umol/L, K 4 mmol/L, BNP 750 pg/mL, INR 2.8.
+- Planted error: ibuprofen 0.05 MG/MG Topical Gel (`141997`) **continued on discharge** (correct plan is stop).
+
+#### VAL-029 (`SYN-000205`) — clean control
+
+- Seed `20260923:205:HF_INPATIENT`. 57-year-old Female, 93 kg. Vitals: BP 119/87, HR 100, RR 23, SpO2 97.
+- Anticoagulant: **apixaban 2.5 MG Oral Tablet**.
+- Labs: Cr 1.2 umol/L, K 4.3 mmol/L, BNP 668 pg/mL, INR 2.2.
+- Discharge list: apixaban 2.5 MG Oral Tablet, atorvastatin 80 MG Oral Tablet, furosemide 4 MG/ML Oral Solution, lisinopril 1 MG/ML Oral Solution, metoprolol tartrate 37.5 MG Oral Tablet, spironolactone 1 MG/ML Oral Suspension. No planted error.
+
+### `AF_ANTICOAGULATION` — I48.0, Paroxysmal atrial fibrillation
+
+Symptoms (as stored on this freeze): Dyspnea, Chronic fatigue syndrome. Specialty: cardiology.
+Shared continue meds: metoprolol, atorvastatin, plus exactly one of warfarin or apixaban (mutex pick from the seed).
+Held stop med: ibuprofen 0.05 MG/MG Topical Gel.
+Labs: Cr `14682-9`, INR `38875-1`.
+
+#### VAL-030 (`SYN-000206`) — omission
+
+- Seed `20260923:206:AF_ANTICOAGULATION`. 78-year-old Female, 102 kg. Vitals: BP 155/96, HR 74, RR 19, SpO2 95.
+- Anticoagulant: **warfarin sodium 1 MG Oral Tablet**.
+- Labs: Cr 1 umol/L, INR 1.9.
+- Planted error: warfarin sodium 1 MG Oral Tablet (`855288`) omitted from discharge (present home + inpatient).
+
+#### VAL-031 (`SYN-000207`) — dose_mismatch
+
+- Seed `20260923:207:AF_ANTICOAGULATION`. 83-year-old Male, 85 kg. Vitals: BP 131/88, HR 97, RR 20, SpO2 97.
+- Anticoagulant: **warfarin sodium 1 MG Oral Tablet**.
+- Labs: Cr 1 umol/L, INR 2.1.
+- Planted error: discharge metoprolol tartrate 37.5 MG Oral Tablet (`1606347`) dose **27.5 MG** (home/inpatient remain `37.5 MG`).
+
+#### VAL-032 (`SYN-000208`) — frequency_mismatch
+
+- Seed `20260923:208:AF_ANTICOAGULATION`. 61-year-old Male, 94 kg. Vitals: BP 134/71, HR 78, RR 20, SpO2 93.
+- Anticoagulant: **apixaban 2.5 MG Oral Tablet**.
+- Labs: Cr 1.4 umol/L, INR 3.1.
+- Planted error: discharge apixaban 2.5 MG Oral Tablet (`1364435`) frequency **twice daily** (home/inpatient remain `once daily`).
+
+#### VAL-033 (`SYN-000209`) — incorrect_continuation
+
+- Seed `20260923:209:AF_ANTICOAGULATION`. 85-year-old Male, 107 kg. Vitals: BP 155/71, HR 82, RR 19, SpO2 92.
+- Anticoagulant: **apixaban 2.5 MG Oral Tablet**.
+- Labs: Cr 0.9 umol/L, INR 2.1.
+- Planted error: ibuprofen 0.05 MG/MG Topical Gel (`141997`) **continued on discharge** (correct plan is stop).
+
+#### VAL-034 (`SYN-000210`) — clean control
+
+- Seed `20260923:210:AF_ANTICOAGULATION`. 64-year-old Male, 85 kg. Vitals: BP 144/79, HR 88, RR 18, SpO2 93.
+- Anticoagulant: **apixaban 2.5 MG Oral Tablet**.
+- Labs: Cr 1.4 umol/L, INR 2.6.
+- Discharge list: apixaban 2.5 MG Oral Tablet, atorvastatin 80 MG Oral Tablet, metoprolol tartrate 37.5 MG Oral Tablet. No planted error.
+
+### `HTN_INPATIENT` — I10, Essential (primary) hypertension
+
+Symptoms (as stored on this freeze): Chronic fatigue syndrome. Specialty: general medicine.
+Correct continue meds on the clean plan: lisinopril 1 MG/ML Oral Solution, amlodipine 5 MG Oral Tablet, hydrochlorothiazide 50 MG Oral Tablet, atorvastatin 80 MG Oral Tablet.
+Held stop med: ibuprofen 0.05 MG/MG Topical Gel.
+Labs: Cr `14682-9`, K `2823-3`, Na `2951-2`.
+
+#### VAL-035 (`SYN-000211`) — omission
+
+- Seed `20260923:211:HTN_INPATIENT`. 80-year-old Male, 106 kg. Vitals: BP 134/83, HR 107, RR 21, SpO2 94.
+- Labs: Cr 1 umol/L, K 3.7 mmol/L, Na 143 mmol/L.
+- Planted error: hydrochlorothiazide 50 MG Oral Tablet (`197770`) omitted from discharge (present home + inpatient).
+
+#### VAL-036 (`SYN-000212`) — dose_mismatch
+
+- Seed `20260923:212:HTN_INPATIENT`. 55-year-old Male, 70 kg. Vitals: BP 145/79, HR 94, RR 23, SpO2 92.
+- Labs: Cr 1.6 umol/L, K 3.8 mmol/L, Na 134 mmol/L.
+- Planted error: discharge lisinopril 1 MG/ML Oral Solution (`1806884`) dose **2 MG/ML** (home/inpatient remain `1 MG/ML`).
+
+#### VAL-037 (`SYN-000213`) — frequency_mismatch
+
+- Seed `20260923:213:HTN_INPATIENT`. 69-year-old Male, 102 kg. Vitals: BP 134/88, HR 72, RR 21, SpO2 94.
+- Labs: Cr 0.9 umol/L, K 3.8 mmol/L, Na 135 mmol/L.
+- Planted error: discharge lisinopril 1 MG/ML Oral Solution (`1806884`) frequency **twice daily** (home/inpatient remain `once daily`).
+
+#### VAL-038 (`SYN-000214`) — incorrect_continuation
+
+- Seed `20260923:214:HTN_INPATIENT`. 60-year-old Female, 94 kg. Vitals: BP 156/84, HR 91, RR 16, SpO2 94.
+- Labs: Cr 0.8 umol/L, K 4.7 mmol/L, Na 140 mmol/L.
+- Planted error: ibuprofen 0.05 MG/MG Topical Gel (`141997`) **continued on discharge** (correct plan is stop).
+
+#### VAL-039 (`SYN-000215`) — clean control
+
+- Seed `20260923:215:HTN_INPATIENT`. 76-year-old Male, 108 kg. Vitals: BP 137/86, HR 75, RR 20, SpO2 98.
+- Labs: Cr 1.2 umol/L, K 4.6 mmol/L, Na 136 mmol/L.
+- Discharge list: amlodipine 5 MG Oral Tablet, atorvastatin 80 MG Oral Tablet, hydrochlorothiazide 50 MG Oral Tablet, lisinopril 1 MG/ML Oral Solution. No planted error.
+
+### `T2DM_INPATIENT` — E11.8, Type 2 diabetes mellitus with unspecified complications
+
+Symptoms (as stored on this freeze): Polyuria, Chronic fatigue syndrome. Specialty: general medicine.
+Correct continue meds on the clean plan: lisinopril 1 MG/ML Oral Solution, Modified 24 HR metformin hydrochloride 1000 MG Extended Release Oral Tablet, atorvastatin 80 MG Oral Tablet.
+Labs: Cr `14682-9`, glucose `14749-6`, Hb `55782-7`.
+
+#### VAL-040 (`SYN-000216`) — omission
+
+- Seed `20260923:216:T2DM_INPATIENT`. 53-year-old Male, 79 kg. Vitals: BP 147/71, HR 108, RR 17, SpO2 98.
+- Labs: Cr 1.6 umol/L, glucose 116 mmol/L, Hb 10.7 g/dL.
+- Planted error: atorvastatin 80 MG Oral Tablet (`259255`) omitted from discharge (present home + inpatient).
+
+#### VAL-041 (`SYN-000217`) — dose_mismatch
+
+- Seed `20260923:217:T2DM_INPATIENT`. 62-year-old Male, 106 kg. Vitals: BP 149/71, HR 101, RR 16, SpO2 94.
+- Labs: Cr 1.2 umol/L, glucose 178 mmol/L, Hb 11.4 g/dL.
+- Planted error: discharge atorvastatin 80 MG Oral Tablet (`259255`) dose **20 MG** (home/inpatient remain `80 MG`).
+
+#### VAL-042 (`SYN-000218`) — frequency_mismatch
+
+- Seed `20260923:218:T2DM_INPATIENT`. 46-year-old Female, 74 kg. Vitals: BP 135/72, HR 76, RR 20, SpO2 94.
+- Labs: Cr 1.3 umol/L, glucose 147 mmol/L, Hb 12.8 g/dL.
+- Planted error: discharge Modified 24 HR metformin hydrochloride 1000 MG Extended Release Oral Tablet (`1807888`) frequency **twice daily** (home/inpatient remain `once daily`).
+
+#### VAL-043 (`SYN-000219`) — omission
+
+- Seed `20260923:219:T2DM_INPATIENT`. 48-year-old Male, 75 kg. Vitals: BP 129/91, HR 86, RR 19, SpO2 96.
+- Labs: Cr 1.2 umol/L, glucose 164 mmol/L, Hb 12.3 g/dL.
+- Planted error: Modified 24 HR metformin hydrochloride 1000 MG Extended Release Oral Tablet (`1807888`) omitted from discharge (present home + inpatient).
+
+#### VAL-044 (`SYN-000220`) — clean control
+
+- Seed `20260923:220:T2DM_INPATIENT`. 47-year-old Female, 95 kg. Vitals: BP 140/94, HR 103, RR 24, SpO2 94.
+- Labs: Cr 1.5 umol/L, glucose 110 mmol/L, Hb 11.2 g/dL.
+- Discharge list: atorvastatin 80 MG Oral Tablet, lisinopril 1 MG/ML Oral Solution, Modified 24 HR metformin hydrochloride 1000 MG Extended Release Oral Tablet. No planted error.
+
+### `CAP_INPATIENT` — J18.1, Lobar pneumonia, unspecified organism
+
+Symptoms (as stored on this freeze): Cough, Dyspnea, Wheezing. Specialty: pulmonology.
+Correct continue meds on the clean plan: albuterol 0.4 MG Inhalation Powder, azithromycin 250 MG Oral Capsule, pantoprazole 20 MG Delayed Release Oral Tablet.
+Labs: Cr `14682-9`, Na `2951-2`, Hb `55782-7`.
+
+#### VAL-045 (`SYN-000221`) — omission
+
+- Seed `20260923:221:CAP_INPATIENT`. 85-year-old Male, 95 kg. Vitals: BP 155/84, HR 86, RR 19, SpO2 95.
+- Labs: Cr 0.8 umol/L, Na 137 mmol/L, Hb 12 g/dL.
+- Planted error: azithromycin 250 MG Oral Capsule (`141962`) omitted from discharge (present home + inpatient).
+
+#### VAL-046 (`SYN-000222`) — dose_mismatch
+
+- Seed `20260923:222:CAP_INPATIENT`. 57-year-old Female, 91 kg. Vitals: BP 118/72, HR 100, RR 22, SpO2 93.
+- Labs: Cr 1.6 umol/L, Na 138 mmol/L, Hb 12.3 g/dL.
+- Planted error: discharge albuterol 0.4 MG Inhalation Powder (`104514`) dose **2 tablet** (home/inpatient remain `1 tablet`).
+
+#### VAL-047 (`SYN-000223`) — frequency_mismatch
+
+- Seed `20260923:223:CAP_INPATIENT`. 71-year-old Male, 94 kg. Vitals: BP 137/79, HR 82, RR 22, SpO2 93.
+- Labs: Cr 1.3 umol/L, Na 135 mmol/L, Hb 11.6 g/dL.
+- Planted error: discharge albuterol 0.4 MG Inhalation Powder (`104514`) frequency **twice daily** (home/inpatient remain `once daily`).
+
+#### VAL-048 (`SYN-000224`) — clean control
+
+- Seed `20260923:224:CAP_INPATIENT`. 84-year-old Female, 65 kg. Vitals: BP 137/89, HR 93, RR 17, SpO2 98.
+- Labs: Cr 1.3 umol/L, Na 135 mmol/L, Hb 12.9 g/dL.
+- Discharge list: albuterol 0.4 MG Inhalation Powder, azithromycin 250 MG Oral Capsule, pantoprazole 20 MG Delayed Release Oral Tablet. No planted error.
+
+---
+
+## Repeatability
+
+**Bit-identical study reprint:** use the committed files in this directory.
+
+A second `freeze-validation-batch` on this plan reuses immutable VAL IDs and does not rewrite cases. Live API re-bootstrap is not guaranteed bit-identical. If ranking drifts, keep this freeze and start a new `batch_code` rather than editing JSON to substitute a “more typical” RXCUI or unit.
+
