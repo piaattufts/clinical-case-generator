@@ -10,6 +10,7 @@ from app.main import app
 from app.models.reference import RefDiagnosis, RefLabTest, RefMedication, RefSymptom
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
+
 from tests.source_fixtures import TEST_ICD, TEST_LOINC, TEST_RXCUI, TEST_SYMPTOM_NAME
 
 

@@ -6,9 +6,13 @@ It does **not** invent RxNorm, LOINC, SNOMED CT, ICD-10-CM, UCUM, or device iden
 
 The frozen resident-review batch `RESIDENT_VALIDATION_V1` (`VAL-001`–`VAL-024`), per-case seeds, official source versions, and the investigator catalog are in [`data/validation/README.md`](data/validation/README.md). Treat that file as **investigator-only**: it describes planted errors.
 
+**Clinicians:** start at [For Clinicians: How a Synthetic Case Is Built](#for-clinicians-how-a-synthetic-case-is-built). Worked examples there are educational `SYN-000901`–`SYN-000903` cases, not the blinded `VAL-*` study set.
+
 ---
 
 ## Contents
+
+**Clinician walkthrough:** [For Clinicians: How a Synthetic Case Is Built](#for-clinicians-how-a-synthetic-case-is-built)
 
 1. [Project overview](#1-project-overview)
 2. [Quick start](#2-quick-start)
@@ -79,6 +83,702 @@ OpenAI is **not** used to choose or invent diagnoses, medications, laboratory co
 ### Clinical validation
 
 Machine validation ≠ clinical validation. Cases remain **machine-validated synthetic resident-review cases pending clinician validation** until humans complete review.
+
+---
+
+## For Clinicians: How a Synthetic Case Is Built
+
+This section is for physicians and clinical reviewers. It explains how a synthetic inpatient case is assembled, using language from ordinary clinical work (presentation, admission diagnosis, home / inpatient / discharge medications, medication reconciliation) rather than software architecture.
+
+**Worked examples below are educational demonstrations**, not members of the blinded resident-validation study. They were generated with the same code path as the study freeze (`app/services/generation.py`), with template admission wording (no OpenAI call), sequences **901–904**, and seed **20260926**. Snapshots: [`data/docs/clinician_examples/`](data/docs/clinician_examples/). Study cases for residents are `VAL-001`–`VAL-024` in [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json). This walkthrough does **not** say which `VAL-*` cases are controls or which discharge-list discrepancy was planted.
+
+Status of every generated record until a clinician finishes review: **machine-validated synthetic resident-review cases pending clinician validation**.
+
+The generator does not ask a language model to invent an entire patient. It first selects clinically relevant concepts that have already been resolved against approved terminology sources (RxNorm, ICD-10-CM, LOINC, and related services). It then assembles a structured synthetic patient from a predefined scenario and a small set of source-backed clinical rules, machine-validates the result, and only afterward *may* ask a language model to reword the admission narrative from those already-chosen facts. The committed study freeze does **not** call a language model (`freeze-validation-batch` sets `use_openai=False` in `app/cli/__init__.py`). These demonstration cases also used template wording (`OPENAI_API_KEY` empty → `narrative_source: template` in `app/openai/narrative.py`).
+
+### Six kinds of content on a case
+
+| Kind | What it is | Clinical implication |
+| --- | --- | --- |
+| **Source-backed clinical concept** | A diagnosis, medication, laboratory *test*, unit, or symptom name stored locally after an official terminology service returned it | You can cite the identifier (ICD-10-CM, RXCUI, LOINC). The software did not invent the code. |
+| **Synthetic patient-specific value** | Age, sex, blood pressure, heart rate, the *numeric* lab result, weight, display name | These numbers were drawn by a seeded random generator. They are **not** measurements from a real patient and are **not** MIMIC rows. |
+| **Deterministic clinical rule** | A stored IF/THEN constraint, enabled only when DailyMed or RxClass evidence was attached | Only three rules exist. They are not a complete heart-failure or pneumonia guideline. |
+| **Narrative wording** | Chief complaint, HPI, admission note | Template sentences (or optional OpenAI rewording) built from names already selected. Not a source of new diagnoses or drugs. |
+| **Medication-reconciliation discrepancy** | At most one controlled change to the **discharge** list after the clean case passed machine validation | Present only when error injection is turned on. Hidden from residents. |
+| **Human clinical validation** | Resident or investigator judgment | Software cannot certify that the picture is realistic, complete, or appropriate for teaching. |
+
+---
+
+## The Case Generation Process — Clinical View
+
+Order below matches `generate_one_case` in [`app/services/generation.py`](app/services/generation.py). Study freeze adds steps 11–12 (`app/services/validation_batch.py`). Step 13 is not software.
+
+### 1. Select a clinical scenario
+
+**What happens.** An operator (or the freeze plan) chooses one inpatient *family* from [`data/bootstrap/scenarios.json`](data/bootstrap/scenarios.json). The family is a teaching skeleton: specialty, age band, diagnosis search text, symptom search text, medication search text, optional “stop” medication, optional anticoagulant either/or list, laboratory search text, and which reconciliation-error families are allowed.
+
+**Example.** Heart-failure family `HF_INPATIENT`: cardiology, ages 55–85, diagnosis query `heart failure`, symptoms `dyspnea` / `edema` / `orthopnea`, continue-med queries lisinopril, furosemide, metoprolol, spironolactone, atorvastatin, stop query `ibuprofen`, anticoagulant mutex `warfarin` **or** `apixaban`, labs potassium / creatinine / INR / natriuretic peptide.
+
+**Why it matters clinically.** The scenario decides the *problem list theme* and which drug classes will appear. It does not yet pick a specific RXCUI or ICD-10-CM code.
+
+**Authoritative source.** None yet — this file is a curated search list, not a codebook.
+
+**Synthetic.** Not yet.
+
+**Checked automatically.** Unknown scenario codes are rejected at freeze time.
+
+**Physician judgment.** Whether five inpatient families are enough for your study is a protocol question, not a software check.
+
+### 2. Resolve clinical concepts
+
+**What happens.** For each search phrase, Python looks up **already stored** local reference rows (`match_diagnosis`, `match_medication`, `match_lab` in [`app/services/bootstrap.py`](app/services/bootstrap.py); symptoms via `search_symptoms`). Those rows were filled earlier by `bootstrap-reference-data` from official APIs listed in [`data/bootstrap/manifest.json`](data/bootstrap/manifest.json). Combination RxNorm products are filtered at bootstrap. Official LOINC **term** codes are stored; LOINC Parts are not. SNOMED CT is **not** ingested; `snomed_code` stays null rather than invented.
+
+**Example.** Query `heart failure` → local ICD-10-CM **I50.20** “Unspecified systolic (congestive) heart failure”. Query `lisinopril` → RxNorm **1806884** “lisinopril 1 MG/ML Oral Solution”. Query `creatinine` → LOINC **14682-9**. Query `edema` → NLM conditions name **Anasarca** (token match, not the word “edema”). Query `orthopnea` → NLM HPO name **Orthopnea**; `snomed_code` is null; synonym list contains `HP:0012764` (that HPO id is **not** written into `snomed_code`).
+
+**Why it matters clinically.** Every named drug, diagnosis, and lab *concept* on the case is traceable to an official code the source actually returned. Ranking can prefer an oral solution or an oximetry hemoglobin term over the tablet or methodless term you might expect in clinic.
+
+**Authoritative source.** RxNav, NLM ICD-10-CM, LOINC FHIR TS, NLM conditions, NLM HPO, UCUM essence XML (units), DailyMed (labels, later), RxClass (rule evidence).
+
+**Synthetic.** The search phrases in the scenario file. Not the identifiers.
+
+**Checked automatically.** If a required diagnosis, medication, or lab query does not resolve, generation raises `ReferenceResolutionError` and does not invent a code.
+
+**Physician judgment.** Whether I50.20, an oral-solution lisinopril, or hemoglobin LOINC 55782-7 (oximetry) is a fair teaching proxy is for reviewers.
+
+### 3. Apply clinical constraints (before the patient is built)
+
+**What happens.** `_assert_rules_allow` builds a snapshot of the chosen ICD-10-CM codes, RXCUIs, and LOINC codes and runs **hard** rules (`app/services/rules.py`). If a hard rule fails, generation stops. Soft rules become warnings later, not blockers.
+
+**Example.** Warfarin and apixaban are never both selected (anticoagulant mutex in the scenario, plus hard rule `NO_DUAL_ORAL_ANTICOAGULANT`). If warfarin is selected, INR LOINC `38875-1` must be among the labs (`WARFARIN_INR_MONITORING`).
+
+**Why it matters clinically.** The machine prevents two implemented unsafe patterns. It does **not** encode GDMT completeness, antibiotic duration, or renal dosing.
+
+**Authoritative source.** Rule *enablement* requires DailyMed or RxClass evidence (`data/bootstrap/rule_templates.json`). Terminology lookup alone does not turn a rule on.
+
+**Synthetic.** None.
+
+**Checked automatically.** Hard violations abort generation.
+
+**Physician judgment.** Absence of a guideline in this engine is not evidence that the guideline is unimportant.
+
+### 4. Generate patient-specific synthetic values
+
+**What happens.** A Python `random.Random` object is seeded with `{seed}:{sequence}:{scenario}` (example: `20260926:901:HF_INPATIENT`). Age is drawn in the scenario band; sex is `Female` or `Male`; weight 60–110 kg; blood pressure, heart rate, respiratory rate, and SpO2 from integer ranges; temperature is fixed `36.8`; lab *numbers* use analyte-specific draws in `_synthetic_lab_value`. Display name is `SYN Patient {sequence}`. Numeric origin is labeled `synthetic_model_generated` on generation metadata and on some dose notes (`app/services/generation.py`).
+
+**Example.** Demonstration HF case `SYN-000901`: 83-year-old male, 69 kg, BP 124/70, HR 108, RR 23, SpO2 98%, creatinine **1.6** with unit `umol/L`.
+
+**Why it matters clinically.** The **lab concept** (creatinine, LOINC 14682-9) is source-backed. The **result 1.6 umol/L** is synthetic and uses the first example UCUM unit stored on that LOINC row (often SI moles/volume). Do not read it as a real patient’s mg/dL creatinine.
+
+**Authoritative source.** None for the numbers. Units come from stored LOINC example UCUM text.
+
+**Synthetic.** Age, sex, name, weight, vitals, lab numbers, intake/output.
+
+**Checked automatically.** Ranges are code constants, not physiologic plausibility checks.
+
+**Physician judgment.** Whether HR 108 with BP 124/70 and SpO2 98% forms a coherent decompensated-HF picture is a clinical question. The machine does not score that.
+
+### 5. Word the narrative
+
+**What happens.** `_template_narrative` writes chief complaint, HPI, and an admission note from the already chosen age, sex, diagnosis name, symptom names, and medication names. If OpenAI is enabled *and* a key is set, `assemble_narrative` may reword those facts; unknown drugs or diagnoses in the model text cause fallback to the template. Freeze never calls OpenAI.
+
+**Example.** `SYN-000901` chief complaint: “Dyspnea, Anasarca, Orthopnea in the setting of Unspecified systolic (congestive) heart failure.” Note `source_type` is `template`.
+
+**Why it matters clinically.** The prose is a label on structured facts, not an independent history.
+
+**Authoritative source.** None.
+
+**Synthetic.** The sentences.
+
+**Checked automatically.** OpenAI output is rejected if none of the allowed names appear (`_narrative_rejected`). Freeze skips OpenAI entirely.
+
+**Physician judgment.** Template HPI is short and generic. Reviewers may judge it too thin for a real admission note.
+
+### 6. Construct medication timelines
+
+**What happens.** Each **continue** medication is written three times: home (`status: home`), inpatient (`status: active`), discharge (`status: discharge`), same dose and `once daily`. Each **stop** medication is written on home and inpatient as `held`, and is **absent** from the clean discharge list. A `CaseMedicationPlan` row records the intended reconciliation decision (`continue` vs `stop`). Dose is the RxNorm `strength` string when present, otherwise the synthetic fallback **`1 tablet`**.
+
+**Example.** See the HF medication table in Worked Example 1.
+
+**Why it matters clinically.** Review is about **transitions** (home → hospital → discharge), not “is this drug name valid?”
+
+**Authoritative source.** Drug *concept* and RXCUI. Dose string often copies RxNorm strength; `1 tablet` is synthetic fallback.
+
+**Synthetic.** The three-context copies, default frequency `once daily`, fallback dose.
+
+**Checked automatically.** Later, the medication-plan layer counts discharge discrepancies against the plan.
+
+**Physician judgment.** Oral-solution ACE inhibitor, topical ibuprofen as the NSAID, and `1 tablet` of furosemide solution are ranking/fallback artifacts, not a claim that this is usual inpatient prescribing.
+
+### 7. Create the clean structured case
+
+**What happens.** Remaining dashboard arrays are filled with constants or simple templates: living situation “Lives at home”, symptom duration “several days”, severity “moderate”, course “worsening”, primary-care follow-up in 7 days, medication instruction “Take discharge medications exactly as listed.”, disposition home. If warfarin and INR are both present, a monitoring row is added (`_maybe_add_warfarin_monitoring`). A clean-state snapshot is stored for the investigator key.
+
+**Example.** `SYN-000901` has INR monitoring “as labeled” because warfarin was selected. `SYN-000904` selected apixaban, so that monitoring row is absent — even though INR is still on the lab list (the HF lab list always includes the INR query).
+
+**Why it matters clinically.** Much of the “chart” is scaffolding. Empty allergies and null ethnicity are empty, not “none documented after a real interview.”
+
+**Authoritative source.** Only fields linked to `ref_*` rows.
+
+**Synthetic.** Social support, follow-up, instructions, problem-list plan sentence, return precautions.
+
+**Checked automatically.** Structural layer requires at least one diagnosis and legal medication contexts.
+
+**Physician judgment.** Whether missing allergies, language “English”, and a single problem are acceptable for teaching.
+
+### 8. Perform machine validation (clean case)
+
+**What happens.** `validate_case` in [`app/services/validation.py`](app/services/validation.py) runs four layers: **structural**, **terminology**, **clinical** (hard rules), **medication_plan** (zero discrepancies and no answer key on a clean case). `require_valid` aborts on failure.
+
+**Example.** `SYN-000901` validation: all four layers `passed: true`, `rules: []` (no hard or soft *violations*; furosemide is paired with I50.20, so the soft allow-rule does not fire).
+
+**Why it matters clinically.** This is integrity checking, not a finding that therapy is appropriate.
+
+**Authoritative source.** Checks that identifiers still resolve to provenance-bearing `ref_*` rows.
+
+**Synthetic.** Not applicable.
+
+**Checked automatically.** The four layers above. External APIs are **not** called on this read.
+
+**Physician judgment.** Everything else (see [Why machine validation is not clinical validation](#why-machine-validation-is-not-clinical-validation)).
+
+### 9. Optionally inject one controlled medication-reconciliation error
+
+**What happens.** If `inject_error` is true, `inject_reconciliation_error` in [`app/services/error_injection.py`](app/services/error_injection.py) plants **exactly one** discharge-list change using the same RNG. OpenAI does not choose the error. Families: `omission`, `dose_mismatch`, `frequency_mismatch`, `incorrect_continuation`. If the requested family has no eligible target, generation fails rather than silently switching families.
+
+**Example.** Educational case `SYN-000904` (investigator-only section below): one continue-med (apixaban) omitted from discharge. Demonstration cases 901–903 used `--no-inject-error` and have no discrepancy.
+
+**Why it matters clinically.** The study signal is a **reconciliation** problem on discharge, not a newly invented diagnosis.
+
+**Authoritative source.** None for the mutation. The affected RXCUI was already source-backed.
+
+**Synthetic.** The mutation itself.
+
+**Checked automatically.** Eligibility preconditions; freeze audit expects exactly one intended error when planned.
+
+**Physician judgment.** Whether that mutation is a fair resident task.
+
+### 10. Revalidate and save
+
+**What happens.** Validation runs again with `expect_injected_error` matching whether injection occurred. A `CaseGenerationRun` stores seed, generator version, narrative source, rule list, and validation reports.
+
+**Example.** `SYN-000904` post-injection validation still passes: the medication-plan layer *expects* exactly one discrepancy.
+
+**Why it matters clinically.** A planted discharge error is allowed to remain; it is not “fixed” by the validator.
+
+**Checked automatically.** Exactly one discrepancy + one answer key + one `is_error_target` plan when injection is expected.
+
+### 11. Freeze the validation case (study path only)
+
+**What happens.** `freeze-validation-batch` generates as above with `use_openai=False`, audits (no `TEST_` identifiers, plan matches control vs error), and writes an immutable `VAL-###` row (`validation_batch_cases`). A second freeze **reuses** matching VAL IDs and will not overwrite them.
+
+**Example.** Study batch `RESIDENT_VALIDATION_V1` assigns `VAL-001`–`VAL-024` to sequences 101–124. Demonstration `SYN-000901` was **not** frozen into a VAL ID.
+
+**Physician judgment.** Freeze is an operational lock, not clinical sign-off.
+
+### 12. Export resident-facing and investigator-facing versions
+
+**What happens.** `export-validation-batch` writes blinded [`resident_validation_cases.json`](data/validation/resident_validation_cases.json) (VAL ids, no answer key, RXCUI `source_reference` cleared, titles rewritten) and investigator files (answer key, manifest, coverage). A leak audit fails export if resident JSON contains markers such as `syn-000`, `answer_key`, or `is_clean_control`.
+
+### 13. Obtain clinician validation
+
+**What happens.** Humans review. The worksheet schema in [`data/validation/resident_review_schema.json`](data/validation/resident_review_schema.json) asks for ratings (clinical realism, medication-reconciliation correctness, clarity, confidence), identified error type and medication, comments, overall acceptability, and revision recommendation. Software does not fill those ratings.
+
+---
+
+## Worked Example 1 — Heart Failure
+
+Educational demonstration **`SYN-000901`**. Snapshot: [`data/docs/clinician_examples/syn-000901.json`](data/docs/clinician_examples/syn-000901.json). Seed `20260926:901:HF_INPATIENT`. This is **not** a `VAL-*` study case.
+
+### Patient presentation
+
+**Patient:** 83-year-old man, 69 kg. Display name `SYN Patient 901` (synthetic). Ethnicity not recorded (`null`).
+
+**Reason for admission:** Unspecified systolic (congestive) heart failure (ICD-10-CM **I50.20**). Specialty cardiology. Disposition planned home.
+
+**Symptoms:** Dyspnea, Anasarca, Orthopnea (duration “several days”, severity “moderate”, course “worsening” — those three qualifiers are template constants).
+
+**Relevant vitals:** Temperature 36.8 °C (fixed), BP 124/70, HR 108, RR 23, SpO2 98%. No vital-sign terminology row is linked (`ref_vital_id` is null).
+
+**Relevant labs:**
+
+| Test (LOINC long name) | Result | Unit on case | LOINC | Concept source | Result source |
+| --- | ---: | --- | --- | --- | --- |
+| Creatinine [Moles/volume] in Serum or Plasma | 1.6 | umol/L | 14682-9 | LOINC 2.83 | Synthetic |
+| Potassium [Moles/volume] in Serum or Plasma | 3.6 | mmol/L | 2823-3 | LOINC 2.83 | Synthetic |
+| Natriuretic peptide B [Mass/volume] in Serum or Plasma | 648 | pg/mL | 30934-4 | LOINC 2.83 | Synthetic |
+| INR in Platelet poor plasma or blood by Coagulation assay | 2.6 | {INR} | 38875-1 | LOINC 2.83 | Synthetic |
+
+**Home medications:** furosemide solution, spironolactone suspension, metoprolol 37.5 mg, lisinopril solution, atorvastatin 80 mg, warfarin 1 mg, all once daily; ibuprofen topical gel **held**.
+
+**Inpatient medications:** same continue set as active; ibuprofen still held.
+
+**Discharge medications (clean case):** same six continue medications, once daily; ibuprofen **not** listed.
+
+### Step 1 — Clinical scenario
+
+Family `HF_INPATIENT` in [`data/bootstrap/scenarios.json`](data/bootstrap/scenarios.json):
+
+- Specialty: cardiology; care context: inpatient; age 55–85
+- Diagnosis query: heart failure
+- Symptom queries: dyspnea, edema, orthopnea
+- Continue-med queries: lisinopril, furosemide, metoprolol, spironolactone, atorvastatin
+- Stop-med query: ibuprofen
+- Anticoagulant mutex (exactly one): warfarin or apixaban
+- Lab queries: potassium, creatinine, inr, natriuretic peptide
+- Allowed error families if injection is on: omission, dose mismatch, frequency mismatch, incorrect continuation
+
+This demonstration used `--no-inject-error`, so the discharge list matches the clean plan.
+
+### Step 2 — Diagnosis terminology
+
+Human-readable query **heart failure**
+→ NLM ICD-10-CM search at bootstrap (`app/sources/icd10cm.py`)
+→ local `ref_diagnoses` row ICD-10-CM **I50.20**, preferred name “Unspecified systolic (congestive) heart failure”, `source_system` ICD10CM
+→ copied onto the case as admission diagnosis
+
+**SNOMED CT identifier:** not stored (`snomed_code` is null). This repository has no SNOMED ingestion client.
+
+### Step 3 — Medication terminology
+
+RxNorm resolution happens at bootstrap, **before** this patient is built. Generation only matches local rows.
+
+| Clinical medication (as stored) | Source | Identifier | Role on `SYN-000901` |
+| --- | --- | --- | --- |
+| lisinopril 1 MG/ML Oral Solution | RxNorm | RXCUI `1806884` | Continue (home, inpatient, discharge) |
+| furosemide 4 MG/ML Oral Solution | RxNorm | RXCUI `104220` | Continue |
+| metoprolol tartrate 37.5 MG Oral Tablet | RxNorm | RXCUI `1606347` | Continue |
+| spironolactone 1 MG/ML Oral Suspension | RxNorm | RXCUI `104230` | Continue |
+| atorvastatin 80 MG Oral Tablet | RxNorm | RXCUI `259255` | Continue |
+| warfarin sodium 1 MG Oral Tablet | RxNorm | RXCUI `855288` | Continue (mutex pick on this seed) |
+| ibuprofen 0.05 MG/MG Topical Gel | RxNorm | RXCUI `141997` | Held stop medication; absent from clean discharge |
+
+Apixaban RXCUI `1364435` exists in the local reference table and is the other mutex option; it was **not** selected for 901.
+
+Dose strings `37.5 MG`, `80 MG`, `1 MG`, and `1 MG/ML` are RxNorm `strength` values. Furosemide, spironolactone, and ibuprofen have empty strength in the stored row, so the generator wrote the synthetic fallback **`1 tablet`**.
+
+### Step 4 — Symptoms and clinical context
+
+| Scenario query | Stored name | Terminology source | What is synthetic |
+| --- | --- | --- | --- |
+| dyspnea | Dyspnea | NLM conditions | duration / severity / course constants |
+| edema | **Anasarca** | NLM conditions (token match; synonym includes “massive edema”) | same constants |
+| orthopnea | Orthopnea | NLM HPO (`source_system` NLM_HPO). Synonym list includes `HP:0012764`. **`snomed_code` is null** — the HPO id is not treated as SNOMED | same constants |
+
+Chief complaint and HPI are template sentences that concatenate those names with the diagnosis name (`_template_narrative`).
+
+### Step 5 — Vitals and labs
+
+| Field | Example value | Source/type |
+| --- | ---: | --- |
+| Temperature | 36.8 °C | Synthetic (fixed in code) |
+| Blood pressure | 124/70 | Synthetic (`randint` ranges) |
+| Heart rate | 108 | Synthetic |
+| Respiratory rate | 23 | Synthetic |
+| SpO2 | 98% | Synthetic |
+| Weight | 69 kg | Synthetic |
+| Creatinine | 1.6 umol/L | **Synthetic value**; LOINC concept `14682-9` is source-backed |
+| Potassium | 3.6 mmol/L | Synthetic value; LOINC `2823-3` source-backed |
+| BNP | 648 pg/mL | Synthetic value; LOINC `30934-4` source-backed |
+| INR | 2.6 | Synthetic value; LOINC `38875-1` source-backed |
+
+The **test identity** (what was ordered) comes from LOINC. The **patient’s number** does not. These are not real-patient or MIMIC values.
+
+### Step 6 — Clinical rules
+
+Only three templates exist ([`data/bootstrap/rule_templates.json`](data/bootstrap/rule_templates.json)). All three were enabled in the local rule table when this case was built (DailyMed / RxClass evidence attached in `app/services/rules.py`).
+
+**`NO_DUAL_ORAL_ANTICOAGULANT`** (hard, DailyMed set id `a454cd24-0c6d-46e8-b1e4-197388606175`)
+
+> IF warfarin RXCUI `855288` **and** apixaban RXCUI `1364435` are both on the case snapshot THEN prohibit co-administration.
+
+**Clinical meaning:** the engine will not emit a chart that lists both oral anticoagulants. It is not a complete anticoagulation guideline (no CHA₂DS₂-VASc, no bleeding score, no procedure hold).
+
+**`WARFARIN_INR_MONITORING`** (hard, DailyMed set id `724b0061-f42a-4008-a078-09c800ee9785`, LOINC `38875-1`)
+
+> IF warfarin RXCUI `855288` is on the case AND INR LOINC `38875-1` is missing THEN fail.
+
+**Clinical meaning:** a warfarin case must include that INR term. The engine does not check whether 2.6 is a suitable INR target or whether the patient has a valid indication for warfarin.
+
+**`FUROSEMIDE_HF_INDICATION`** (soft, RxClass class name `Edema`)
+
+> IF furosemide RXCUI `104220` is on the case AND ICD-10-CM `I50.20` is missing THEN warn (soft; does not fail the case).
+
+**Clinical meaning:** a weak pairing check between furosemide and the stored HF code, enabled from an RxClass “Edema” hit, not from a full labeling review. It does **not** require ACE inhibitor, beta blocker, MRA, or GDMT doses. Soft hits are warnings in the clinical validation layer; this example had no warning because I50.20 is present.
+
+No other clinical guidelines are encoded (no NSAID–HF hard stop, no antibiotic duration, no renal dosing). Ibuprofen is held because the **scenario lists it as a stop medication**, not because an NSAID rule fired.
+
+### Step 7 — Clean medication timeline
+
+Intended plan (investigator view of the **correct** reconciliation, before any experimental discrepancy):
+
+| Medication | Home | Inpatient | Discharge |
+| --- | --- | --- | --- |
+| furosemide 4 MG/ML Oral Solution | continue, `1 tablet` daily | active, same | listed, same |
+| spironolactone 1 MG/ML Oral Suspension | continue, `1 tablet` daily | active, same | listed, same |
+| metoprolol tartrate 37.5 MG Oral Tablet | continue, 37.5 MG daily | active, same | listed, same |
+| lisinopril 1 MG/ML Oral Solution | continue, 1 MG/ML daily | active, same | listed, same |
+| atorvastatin 80 MG Oral Tablet | continue, 80 MG daily | active, same | listed, same |
+| warfarin sodium 1 MG Oral Tablet | continue, 1 MG daily | active, same | listed, same |
+| ibuprofen 0.05 MG/MG Topical Gel | held | held | **not listed** |
+
+The clinically relevant question on review is whether those transitions are intentional and supported — not whether “warfarin” is a real RxNorm concept.
+
+### Step 8 — Machine validation
+
+**Machine-checkable on this example (all passed):**
+
+- Case id format `SYN-000901`; medication contexts `home` / `inpatient` / `discharge`; at least one diagnosis (**structural**)
+- Every med/diagnosis/lab links to a `ref_*` row with provenance; units are stored UCUM or LOINC example units (**terminology**)
+- No hard rule violations (**clinical**)
+- Discharge list matches the continue/stop plan; no answer key (**medication_plan**, clean mode)
+
+**Requires clinician review (not checked):**
+
+- Overall plausibility of an 83-year-old with HR 108, BP 124/70, SpO2 98%, creatinine 1.6 **umol/L**
+- Whether oral-solution ACE inhibitor / loop diuretic and topical ibuprofen are acceptable teaching formulations
+- Whether warfarin 1 mg daily plus INR 2.6 is a defensible regimen
+- Missing allergies, missing additional diagnoses (AF, CKD, etc.), missing imaging
+- Whether the one-paragraph template HPI is sufficient context
+- Whether difficulty is appropriate for residents
+
+---
+
+## Worked Example 2 — Atrial Fibrillation
+
+Educational demonstration **`SYN-000902`**. Snapshot: [`data/docs/clinician_examples/syn-000902.json`](data/docs/clinician_examples/syn-000902.json). Seed `20260926:902:AF_ANTICOAGULATION`. Not a `VAL-*` study case. Clean case (`--no-inject-error`).
+
+### Patient presentation
+
+**Patient:** 75-year-old woman, 109 kg.
+
+**Reason for admission:** Paroxysmal atrial fibrillation (ICD-10-CM **I48.0**). Cardiology.
+
+**Symptoms:** Dyspnea; **Chronic fatigue syndrome** (this is the NLM conditions token match for scenario query `fatigue` — not a claim that the patient meets CFS diagnostic criteria).
+
+**Relevant vitals:** 36.8 °C, BP 125/77, HR 79, RR 16, SpO2 96%.
+
+**Relevant labs:** creatinine 0.9 umol/L (LOINC 14682-9); INR 3.2 (LOINC 38875-1). No potassium or BNP — those queries are not in the AF scenario.
+
+**Home / inpatient / discharge (continue):** metoprolol tartrate 37.5 mg daily (RXCUI `1606347`), atorvastatin 80 mg daily (`259255`), warfarin 1 mg daily (`855288`). **Held:** ibuprofen topical gel (`141997`), not on discharge.
+
+This family is thinner than HF: rate-control + statin + **exactly one** oral anticoagulant, plus a held NSAID. The mutex again chose warfarin on this seed (apixaban is the other official option). Hard rules still forbid listing warfarin and apixaban together and still require INR when warfarin is present.
+
+What is different from Example 1, clinically:
+
+- Admission diagnosis is AF, not HF; furosemide/MRA/ACE inhibitor are **not** in this scenario’s medication list
+- Symptom set is dyspnea + fatigue-query result, not orthopnea/anasarca
+- Reconciliation still uses three contexts. The teaching point is: metoprolol and warfarin continue across home, hospital, and discharge at the **same** dose and frequency on the clean case. A later dose or frequency injection would change **only discharge**, which is the difference residents are meant to notice
+- Template HPI still states that ibuprofen was held and is not intended for discharge continuation
+
+SNOMED remains unset on I48.0.
+
+---
+
+## Worked Example 3 — Pulmonology (community pneumonia family)
+
+Educational demonstration **`SYN-000903`**. Snapshot: [`data/docs/clinician_examples/syn-000903.json`](data/docs/clinician_examples/syn-000903.json). Seed `20260926:903:CAP_INPATIENT`. Specialty **pulmonology**. Clean case. Not a `VAL-*` study case.
+
+### Patient presentation
+
+**Patient:** 58-year-old woman, 103 kg.
+
+**Reason for admission:** Lobar pneumonia, unspecified organism (ICD-10-CM **J18.1**).
+
+**Symptoms:** Cough, Dyspnea, Wheezing (all NLM conditions; `snomed_code` null).
+
+**Relevant vitals:** 36.8 °C, BP 130/80, HR 73, RR 21, SpO2 92%.
+
+**Relevant labs:** creatinine 1.3 umol/L (14682-9); sodium 139 mmol/L (2951-2); hemoglobin 13.9 g/dL on LOINC **55782-7** “Hemoglobin [Mass/volume] in Blood **by Oximetry**” — that method is what LOINC ranking stored, not a methodless CBC hemoglobin.
+
+**Medications (continue on home, inpatient, and discharge):**
+
+| Drug as stored | RXCUI | Dose on case | Note |
+| --- | --- | --- | --- |
+| albuterol 0.4 MG Inhalation Powder | 104514 | `1 tablet` once daily | RxNorm strength empty → synthetic `1 tablet`; `route` stored as `oral` (default when the reference row has no route) |
+| azithromycin 250 MG Oral Capsule | 141962 | `1 tablet` once daily | strength empty → `1 tablet` |
+| pantoprazole 20 MG Delayed Release Oral Tablet | 251872 | 20 MG once daily | strength copied from RxNorm |
+
+**No stop medication** and **no anticoagulant mutex** in this family ([`data/bootstrap/scenarios.json`](data/bootstrap/scenarios.json)). Allowed error families are omission, dose mismatch, and frequency mismatch only — `incorrect_continuation` is not available because there is no held drug to restart incorrectly.
+
+None of the three implemented rules is about pneumonia or macrolides. Dual-anticoagulant and warfarin/INR rules are idle here (those RXCUIs are absent). Furosemide/HF is idle (no furosemide).
+
+This family shows that disease-specific scenarios differ by diagnosis query, specialty label, symptom set, lab panel, and whether a held NSAID exists — not by a second copy of the HF template with the title changed.
+
+---
+
+## Medication Reconciliation Explained Clinically
+
+Each continue medication is stored in three **contexts** (`CaseMedication.context` in `app/models/cases.py`):
+
+- **HOME** — what the patient was taking before admission (`status: home`)
+- **INPATIENT** — what is marked active in hospital (`status: active`)
+- **DISCHARGE** — what is written on the discharge list (`status: discharge`)
+
+Held drugs use home and inpatient with `status: held` and a held reason, and they are omitted from the **clean** discharge list.
+
+The validator compares those lists to `CaseMedicationPlan` (`continue` vs `stop`, and dose/frequency equality between home and discharge for continue drugs). It is not scoring “is Drug A a valid RxNorm concept?” — that already passed terminology checks.
+
+A schematic of the *kind* of discrepancy residents are asked to notice (not a study answer):
+
+```text
+Home:      Drug A  5 mg  once daily
+Hospital:  Drug A  5 mg  once daily
+Discharge: Drug A 10 mg  once daily   ← dose transition
+```
+
+The clinically relevant question is: **was the change from 5 mg to 10 mg intentional and supported by the rest of the case?** The engine’s dose-mismatch injector performs a mechanical first-digit change (`_altered_dose`); it does not consult renal function, INR, or blood pressure to justify a new dose.
+
+Frequency mismatch flips `once daily` ↔ `twice daily` on discharge only. Omission deletes a continue drug from discharge only (it remains on home and inpatient). Incorrect continuation copies a held stop drug onto discharge.
+
+---
+
+## Clean Cases Versus Error-Injected Cases
+
+Terms as used in this codebase (`clinical_cases.clean_case`, `validation_batch_cases.is_clean_control`, freeze plan `inject_error`):
+
+### Clean case
+
+The structured patient **after** concept selection, synthetic values, and narrative, **before** experimental discharge mutation. Machine validation in this state requires **zero** plan discrepancies and **no** answer key.
+
+Demonstration `SYN-000901`, `SYN-000902`, and `SYN-000903` were left in this state (`--no-inject-error`).
+
+### Error-injected case
+
+After a clean pass, `inject_reconciliation_error` makes **one** controlled discharge change, writes `CaseAnswerKey`, sets `clean_case = false` and `case_status = error_injected`. Revalidation **expects** that single discrepancy.
+
+### Control case (study freeze)
+
+A freeze-plan assignment with `inject_error: false`. It remains a clean case and is stored as `is_clean_control = true`. Residents are **not** told which `VAL-*` ids are controls. This README therefore does not list the study control ids in a resident-facing way; investigators should use [`data/validation/README.md`](data/validation/README.md) (investigator-only).
+
+Ad-hoc `generate-synthetic-cases` defaults to **injecting** an error unless `--no-inject-error` is passed. Freeze follows the JSON plan.
+
+---
+
+## Investigator-only generation example
+
+> **WARNING — INVESTIGATOR ONLY**
+>
+> This subsection shows how a planted medication-reconciliation error is created. **Do not distribute it to resident study participants.** It uses educational case `SYN-000904`, which is **not** in the `VAL-*` blinded set. The method is the same one used on error-bearing study cases; naming the method here must not be attached to a specific `VAL` identifier in resident packets.
+
+Snapshot: [`data/docs/clinician_examples/syn-000904.json`](data/docs/clinician_examples/syn-000904.json). Seed `20260926:904:HF_INPATIENT`. Scenario `HF_INPATIENT`. Mutex pick on this seed: **apixaban** 2.5 mg (RXCUI `1364435`), not warfarin. HF labs still include INR (scenario lab list), but no warfarin monitoring row was added.
+
+### Before error injection
+
+Same continue set as other HF cases, with apixaban instead of warfarin. Ibuprofen held. Clean discharge would list furosemide, spironolactone, apixaban, metoprolol, lisinopril, atorvastatin.
+
+### Error injection operation
+
+Preferred category came from the scenario’s `target_error_category`: **omission**. `inject_reconciliation_error` (`app/services/error_injection.py`):
+
+1. Collect continue-plan medications that have a discharge row
+2. Sort by RXCUI and choose one with the case RNG
+3. **Delete the discharge row** for that medication
+4. Mark the plan `is_error_target = true` (here: `PLAN-SYN000904-003`, apixaban)
+5. Write `CaseAnswerKey` (`error_family: medication_reconciliation`, `detectability_location: discharge_medications`)
+
+Home and inpatient apixaban rows are left unchanged.
+
+### After error injection
+
+| Medication | Home | Inpatient | Discharge after injection |
+| --- | --- | --- | --- |
+| furosemide 4 MG/ML Oral Solution | continue | active | listed |
+| spironolactone 1 MG/ML Oral Suspension | continue | active | listed |
+| **apixaban 2.5 MG Oral Tablet** | **continue 2.5 mg daily** | **active 2.5 mg daily** | **omitted** |
+| metoprolol tartrate 37.5 MG Oral Tablet | continue | active | listed |
+| lisinopril 1 MG/ML Oral Solution | continue | active | listed |
+| atorvastatin 80 MG Oral Tablet | continue | active | listed |
+| ibuprofen topical gel | held | held | not listed |
+
+### Hidden answer key (what the software stores)
+
+From `SYN-000904` (fields defined in `app/models/cases.py` / written by `_write_answer_key`):
+
+- `error_category`: `omission`
+- `trigger_meds`: apixaban 2.5 MG Oral Tablet, RXCUI `1364435`
+- `error_description` / rationale: “The correct discharge medication list includes this continued home medication; it was intentionally omitted from the discharge list.”
+- `correct_action`: “Restore the omitted continued discharge medication from the medication plan.”
+- `intentional_changes`: `clean_state: present`, `injected_state: absent`, `context: discharge`, seed `20260926:904:HF_INPATIENT`
+- `severity_ncc_merp` and `difficulty_a_priori`: **null** (not scored by software)
+
+Study investigator exports add control/error status, SYN id, seed, rule snapshots, and source versions (`app/services/validation_batch.py` `_investigator_payload`). Those files for `VAL-*` cases live next to the study JSON and **must stay off the resident packet**.
+
+Other implemented families (not shown on 904): dose first-digit change; frequency flip `once daily` ↔ `twice daily`; incorrect continuation copies the held ibuprofen onto discharge. Duplicate therapy, missing co-prescription, and contraindicated restart are **not** implemented.
+
+---
+
+## What the Resident Actually Sees
+
+Study residents receive [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json) and an empty [`resident_review_worksheet.csv`](data/validation/resident_review_worksheet.csv). They do **not** receive the investigator key, freeze plan, manifest, coverage files, or [`data/validation/README.md`](data/validation/README.md).
+
+Export (`_resident_payload`) rewrites ids to `VAL-*`, sets `case_status` to `review`, clears `source_reference` (so RXCUI is not on the resident med rows), omits `CaseAnswerKey`, and strips leak markers. Patient display names become `VAL Patient 001`, not `SYN Patient 101`.
+
+Educational analogue using **clean** demonstration `SYN-000901` (if this were exported as a resident case, RXCUIs would be omitted). Layout:
+
+### Educational case SYN-000901 (shape of a resident case)
+
+**Presentation**
+
+83-year-old man with unspecified systolic (congestive) heart failure. Chief complaint: Dyspnea, Anasarca, Orthopnea in the setting of that diagnosis. HPI is the short template paragraph listing those symptoms and the home medication names, including that ibuprofen was held.
+
+**Vitals**
+
+36.8 °C, 124/70, HR 108, RR 23, SpO2 98%. Weight 69 kg.
+
+**Labs**
+
+Creatinine 1.6 umol/L; potassium 3.6 mmol/L; BNP 648 pg/mL; INR 2.6. (LOINC codes are not required on the resident lab rows; `source_reference` is null in the study export.)
+
+**Home medications**
+
+Furosemide solution, spironolactone suspension, metoprolol 37.5 mg, lisinopril solution, atorvastatin 80 mg, warfarin 1 mg (all once daily); ibuprofen gel held.
+
+**Hospital medications**
+
+Same continue set, active; ibuprofen held.
+
+**Discharge medications**
+
+Same six continue medications (this educational case was not error-injected). Study cases may differ on discharge; residents are not told which.
+
+**Follow-up**
+
+Primary care follow-up in 7 days. Instruction: take discharge medications exactly as listed.
+
+**What they are asked to record** (actual worksheet fields, [`data/validation/resident_review_schema.json`](data/validation/resident_review_schema.json)):
+
+- `clinical_realism_rating` (1–5)
+- `medication_reconciliation_correctness_rating` (1–5)
+- `case_clarity_rating` (1–5)
+- `identified_error_type`
+- `identified_affected_medication`
+- `confidence_rating` (1–5)
+- `free_text_comments`
+- `overall_acceptability`
+- `revision_recommendation`
+
+The software does not pre-fill those answers and does not tell the resident whether a discrepancy was planted.
+
+---
+
+## What the Investigator Sees
+
+In addition to the resident JSON, freeze export writes (directory [`data/validation/`](data/validation/) for the study batch):
+
+| Artifact | Extra information |
+| --- | --- |
+| `investigator_answer_key.json` / `.md` | Internal `SYN-*` id, seed, control vs error-bearing, error category, affected RXCUI, clean expected state, rule/reference snapshots |
+| `validation_manifest.json` | Batch code, generator version, per-VAL freeze metadata, official source versions and sync times |
+| `batch_plan.json` | Planned VAL id, scenario, inject flag, error category, sequence |
+| `coverage_report.md` / `scenario_coverage_matrix.md` | Mix counts and resolved concepts per family |
+| `data/validation/README.md` | Investigator catalog of planted errors for the study freeze |
+
+This split exists so residents cannot score from the key. Do not “fix” blinding by pasting RXCUIs or control flags into the resident JSON.
+
+---
+
+## Source Versus Synthetic — One-Page Table
+
+Answer to “which parts are real source knowledge, and which parts were generated?”
+
+| Case element | Source-backed or synthetic? | Example from `SYN-000901` unless noted |
+| --- | --- | --- |
+| Medication *concept* | Source-backed (RxNorm, after bootstrap) | warfarin sodium 1 MG Oral Tablet |
+| Drug identifier | Source-backed | RXCUI `855288` |
+| Lab *concept* | Source-backed (LOINC) | Creatinine LOINC `14682-9` |
+| Lab *result* | Synthetic | creatinine **1.6** umol/L |
+| Vital sign values | Synthetic; no vital LOINC linked | HR 108, BP 124/70 |
+| Diagnosis concept | Source-backed where resolved (ICD-10-CM) | I50.20 |
+| SNOMED CT | **Not stored** | `snomed_code` null; not invented |
+| Symptom name | Source-backed (NLM conditions or HPO) | Anasarca; Orthopnea |
+| Clinical rule | Curated template; enabled only with DailyMed or RxClass evidence | `NO_DUAL_ORAL_ANTICOAGULANT` |
+| Patient age / sex / name | Synthetic | 83-year-old Male, `SYN Patient 901` |
+| Weight | Synthetic | 69 kg |
+| Narrative wording | Template here; optional OpenAI rewording on the ad-hoc path; freeze forces template | HPI paragraph |
+| Dose when RxNorm strength exists | Copied from stored strength | metoprolol `37.5 MG` |
+| Dose when strength is empty | Synthetic fallback | furosemide `1 tablet` |
+| Frequency on the clean case | Synthetic constant | `once daily` |
+| Medication-reconciliation error | Deterministically injected **after** clean validation, only if enabled | Educational `SYN-000904`: apixaban omitted on discharge |
+| MIMIC patient-level data | **Not used** | No raw MIMIC rows, notes, or identifiers appear on these cases |
+
+---
+
+## Why Machine Validation Is Not Clinical Validation
+
+Software can confirm, for a given case:
+
+- identifiers point at stored RxNorm / ICD-10-CM / LOINC / UCUM rows with provenance
+- the chart structure uses allowed medication contexts and plan decisions
+- the three **implemented** hard rules are not violated
+- the discharge list either matches the clean plan or contains exactly one intended experimental discrepancy with an answer key
+
+Software **cannot** establish that:
+
+- the whole picture is realistic (formulations, units, vital-sign clustering, template HPI)
+- necessary clinical context is present (allergies, CKD, cultures, imaging, social needs)
+- therapy is optimal or guideline-concordant beyond those three rules
+- a medication change would be clinically justified in a real patient
+- practice patterns match your hospital
+- difficulty is appropriate for residents
+
+Passing `validate-cases` or a freeze audit means the record is a **machine-validated synthetic** case **pending clinician validation**. It is not a clinically validated teaching case until reviewers say so.
+
+---
+
+## Generation Lineage for One Case
+
+Exact path for educational `SYN-000901` (and the same function for study freeze, with VAL assignment afterward):
+
+```text
+Scenario definition (data/bootstrap/scenarios.json → HF_INPATIENT)
+      ↓
+Human-readable requests (manifest.json / scenario queries)
+      ↓
+Official terminology resolution at bootstrap (RxNav, ICD-10-CM, LOINC, …)
+      ↓
+Local reference rows (ref_medications, ref_diagnoses, ref_lab_tests, ref_symptoms)
+      ↓
+Per-case concept selection (match_* + anticoagulant mutex RNG)
+      ↓
+Hard clinical-rule check on the selected codes (_assert_rules_allow)
+      ↓
+Synthetic demographics, vitals, lab numbers, weight (seeded RNG)
+      ↓
+Template (or optional OpenAI) narrative from already chosen names
+      ↓
+Three-context medication lists + continue/stop plan
+      ↓
+Clean structured case (other dashboard arrays)
+      ↓
+Machine validation (structural / terminology / hard rules / clean plan)
+      ↓
+Optional controlled discharge discrepancy (skipped on 901; used on 904)
+      ↓
+Revalidation and CaseGenerationRun
+      ↓
+[Study only] Freeze audit → immutable VAL-* → blinded resident export
+      ↓
+Clinician / resident review (worksheet; not performed by software)
+```
+
+---
+
+## Tracing claims to the repository
+
+| Claim | Where to look |
+| --- | --- |
+| Scenario families and queries | `data/bootstrap/scenarios.json` |
+| Bootstrap search requests | `data/bootstrap/manifest.json` |
+| Rule templates and evidence needles | `data/bootstrap/rule_templates.json`, `app/services/rules.py` |
+| Concept matching and LOINC ranking | `app/services/bootstrap.py` |
+| Case assembly, RNG, doses, labs, mutex | `app/services/generation.py` |
+| Four-layer validation | `app/services/validation.py` |
+| Error families and answer key | `app/services/error_injection.py` |
+| Freeze, export, leak audit | `app/services/validation_batch.py` |
+| Optional narrative LLM | `app/openai/narrative.py` |
+| Study resident JSON | `data/validation/resident_validation_cases.json` |
+| Study investigator key | `data/validation/investigator_answer_key.json` (investigator-only) |
+| These worked examples | `data/docs/clinician_examples/` |
 
 ---
 
@@ -867,7 +1567,7 @@ Resident vs investigator split is enforced in export code (`LEAK_MARKERS` in `ap
 This repository **does not contain a resident review UI**, dashboard importer, or scoring app. The HTTP API only searches local reference rows and serves `/health`. Delivery is a file handoff into whatever review process the study already uses.
 
 1. **Send / import for review:** [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json). Each element has `case_id_code` (`VAL-001` …) and dashboard-style arrays (`CaseMedication`, `CaseLab`, `CaseDiagnosis`, …).
-2. **Keep investigator-only:** answer keys, `batch_plan.json`, `validation_manifest.json`, coverage files, and [`data/validation/README.md`](data/validation/README.md).
+2. **Keep investigator-only:** answer keys, `batch_plan.json`, `validation_manifest.json`, coverage files, [`data/validation/README.md`](data/validation/README.md), [`data/docs/clinician_examples/syn-000904.json`](data/docs/clinician_examples/syn-000904.json), and the README subsection [Investigator-only generation example](#investigator-only-generation-example). The rest of [For Clinicians: How a Synthetic Case Is Built](#for-clinicians-how-a-synthetic-case-is-built) uses clean educational cases (`SYN-000901`–`SYN-000903`) and may be shown to clinicians who are not scoring the blinded `VAL-*` packet.
 3. **Capture responses** in [`resident_review_worksheet.csv`](data/validation/resident_review_worksheet.csv) (or an equivalent form that uses [`resident_review_schema.json`](data/validation/resident_review_schema.json)). Do not pre-fill ratings.
 4. **Worksheet ↔ cases:** `validation_case_id` on each CSV row matches `case_id_code` in the resident JSON.
 5. **“Clinically validated” in this project** means a clinician/resident review concluded the case is acceptable for the study protocol. Until that happens, use the dataset-status sentence: machine-validated synthetic resident-review cases pending clinician validation.

@@ -19,6 +19,7 @@ from app.sources.loinc import LoincClient
 from app.sources.rxnorm import RxNormClient
 from app.sources.ucum import UcumClient
 from sqlalchemy.orm import Session
+
 from tests.source_fixtures import (
     TEST_ICD,
     TEST_LOINC,
