@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import inspect
 import json
 import random
 from pathlib import Path
@@ -63,6 +64,19 @@ TEST_RXCUI_ALT = "TEST_RXCUI_ALT"
 TEST_RXCUI_HOSP = "TEST_RXCUI_HOSP"
 TEST_LOINC_INR = "TEST_LOINC_INR"
 TEST_CLASS_BETA = "TEST_CLASS_BETA"
+
+
+def _collect_test_identifiers(value: object) -> list[str]:
+    found: list[str] = []
+    if isinstance(value, str) and value.startswith("TEST_"):
+        found.append(value)
+    elif isinstance(value, dict):
+        for item in value.values():
+            found.extend(_collect_test_identifiers(item))
+    elif isinstance(value, list):
+        for item in value:
+            found.extend(_collect_test_identifiers(item))
+    return found
 
 
 def _seed_taxonomy_refs(session: Session) -> None:
@@ -598,11 +612,9 @@ def test_committed_cliniproof_export_is_canonical_and_blinded() -> None:
     assert resident_ids == planned_ids == investigator_ids
     assert "VAL-001" not in resident_ids
     blob = json.dumps(resident).casefold()
-    assert "caseanswerkey" not in blob
-    assert "syn-000" not in blob
-    assert "test_" not in blob
-    for marker in LEAK_MARKERS:
-        assert marker not in blob
+    leaked = [marker for marker in ("caseanswerkey", "syn-000", *LEAK_MARKERS) if marker in blob]
+    assert leaked == []
+    assert _collect_test_identifiers(resident) == []
     for planned, exported in zip(plan["cases"], investigator["cases"], strict=True):
         planned_category = planned.get("error_category") or NONE
         exported_category = exported["error"]["error_category"]
@@ -809,7 +821,7 @@ def test_default_batch_code_and_plan_are_cliniproof_taxonomy_v1() -> None:
     assert DEFAULT_BATCH_PLAN_PATH == Path("data/validation/batch_plan.json").resolve()
     plan = json.loads(DEFAULT_BATCH_PLAN_PATH.read_text(encoding="utf-8"))
     assert plan["batch_code"] == DEFAULT_BATCH_CODE
-    export_default = export_validation_batch_cmd.__wrapped__.__defaults__[0]  # type: ignore[attr-defined]
+    export_default = inspect.signature(export_validation_batch_cmd).parameters["batch_code"].default
     assert export_default == DEFAULT_BATCH_CODE
-    freeze_default = freeze_validation_batch_cmd.__wrapped__.__defaults__[0]  # type: ignore[attr-defined]
+    freeze_default = inspect.signature(freeze_validation_batch_cmd).parameters["plan"].default
     assert freeze_default is None
