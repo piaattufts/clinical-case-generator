@@ -72,8 +72,7 @@ LOCATION_LABELS = {
 
 C1_FORM = """### C1 Clinical plausibility
 
-Could this chart reasonably represent a patient in the stated clinical setting?
-Clinical plausibility is not the same as optimal or fully guideline-concordant care.
+Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
 
 | Domain | 1 | 2 | 3 | 4 |
 | --- | --- | --- | --- | --- |
