@@ -18,7 +18,8 @@ from app.sources.http import as_list, get_json, new_client
 
 LOINC_FHIR_BASE_URL = "https://fhir.loinc.org"
 LOINC_SYSTEM = "http://loinc.org"
-LOINC_VALUESET_URL = "http://loinc.org/vs"
+# Implicit FHIR valueset for the LOINC CodeSystem on fhir.loinc.org (not a guessed code).
+LOINC_VALUESET_URL = "http://loinc.org?fhir_vs"
 SOURCE_CODE = "LOINC"
 
 _LOOKUP_PROPERTY_MAP = {
@@ -75,6 +76,7 @@ class LoincClient:
             headers={"Accept": "application/fhir+json"},
             auth=(user, secret),
             transport=transport,
+            timeout=httpx.Timeout(connect=10.0, read=60.0, write=30.0, pool=10.0),
         )
 
     def close(self) -> None:
@@ -102,7 +104,7 @@ class LoincClient:
             return None
         return _concept_from_lookup(loinc_code, payload)
 
-    def search_by_name(self, query: str, *, count: int = 20) -> list[LoincConcept]:
+    def search_by_name(self, query: str, *, count: int = 20, offset: int = 0) -> list[LoincConcept]:
         """Search via ValueSet $expand with a required text filter. No unfiltered dump."""
         text = query.strip()
         if text == "":
@@ -111,15 +113,20 @@ class LoincClient:
             )
         if count < 1:
             raise ValueError("count must be a positive integer")
+        if offset < 0:
+            raise ValueError("offset must be >= 0")
+        params = {
+            "url": LOINC_VALUESET_URL,
+            "filter": text,
+            "count": str(count),
+        }
+        if offset > 0:
+            params["offset"] = str(offset)
         payload = get_json(
             self._client,
             "ValueSet/$expand",
             source_code=SOURCE_CODE,
-            params={
-                "url": LOINC_VALUESET_URL,
-                "filter": text,
-                "count": str(count),
-            },
+            params=params,
         )
         expansion = payload.get("expansion", {})
         concepts: list[LoincConcept] = []

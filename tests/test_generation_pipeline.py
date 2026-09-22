@@ -32,6 +32,7 @@ from app.services.bootstrap import (
     SourceClients,
     bootstrap_reference_data,
     looks_like_combination_name,
+    prefer_loinc_concept,
     token_match,
 )
 from app.services.generation import Scenario, generate_one_case
@@ -44,10 +45,10 @@ from app.services.rules import (
 from app.services.validation import require_valid, validate_case
 from app.sources.conditions import ConditionsClient
 from app.sources.dailymed import DailyMedClient
-from app.sources.exceptions import CaseValidationError
+from app.sources.exceptions import CaseValidationError, ReferenceResolutionError
 from app.sources.hpo import HpoClient
 from app.sources.icd10cm import Icd10CmClient
-from app.sources.loinc import LoincClient
+from app.sources.loinc import LoincClient, LoincConcept
 from app.sources.rxclass import RxClassClient
 from app.sources.rxnorm import RxNormClient
 from app.sources.ucum import UcumClient
@@ -628,3 +629,102 @@ def test_supported_error_categories_inject_exactly_one(db_session: Session) -> N
     keys = list_answer_keys_for_case(db_session, case.id)
     assert len(keys) == 1
     assert keys[0].error_category == "incorrect_continuation"
+
+
+def test_prefer_loinc_ranks_query_match_ahead_of_code_order() -> None:
+    panel = LoincConcept(
+        loinc_code="TEST_10000-0",
+        long_common_name="TEST_unrelated panel",
+        status="ACTIVE",
+    )
+    inr = LoincConcept(
+        loinc_code="TEST_20000-0",
+        long_common_name="TEST_INR in Platelet poor plasma",
+        component="TEST_INR",
+        status="ACTIVE",
+    )
+    chosen = prefer_loinc_concept([panel, inr], "inr")
+    assert chosen is not None
+    assert chosen.loinc_code == "TEST_20000-0"
+
+
+def test_prefer_loinc_ignores_part_codes() -> None:
+    part = LoincConcept(loinc_code="LP15098-4", long_common_name="Potassium", status="ACTIVE")
+    term = LoincConcept(
+        loinc_code="TEST_2823-3",
+        long_common_name="TEST_Potassium [Moles/volume] in Serum or Plasma",
+        status="ACTIVE",
+        example_ucum_units=["mmol/L"],
+    )
+    chosen = prefer_loinc_concept([part, term], "potassium")
+    assert chosen is not None
+    assert chosen.loinc_code == "TEST_2823-3"
+
+
+def test_prefer_loinc_ranks_serum_over_timed_variant() -> None:
+    dialysis = LoincConcept(
+        loinc_code="TEST_11041-1",
+        long_common_name="TEST_Creatinine [Mass/volume] in Serum or Plasma --post dialysis",
+        status="ACTIVE",
+        example_ucum_units=["mg/dL"],
+    )
+    serum = LoincConcept(
+        loinc_code="TEST_2160-0",
+        long_common_name="TEST_Creatinine [Mass/volume] in Serum or Plasma",
+        status="ACTIVE",
+        example_ucum_units=["mg/dL"],
+    )
+    chosen = prefer_loinc_concept([dialysis, serum], "creatinine")
+    assert chosen is not None
+    assert chosen.loinc_code == "TEST_2160-0"
+
+
+def test_prefer_loinc_skips_ratio_fraction_hemoglobin() -> None:
+    ratio = LoincConcept(
+        loinc_code="TEST_35125-4",
+        long_common_name="TEST_Hemoglobin Lepore/Hemoglobin.total in Blood",
+        status="ACTIVE",
+        example_ucum_units=["%"],
+    )
+    total = LoincConcept(
+        loinc_code="TEST_718-7",
+        long_common_name="TEST_Hemoglobin [Mass/volume] in Blood",
+        status="ACTIVE",
+        example_ucum_units=["g/dL"],
+    )
+    chosen = prefer_loinc_concept([ratio, total], "hemoglobin")
+    assert chosen is not None
+    assert chosen.loinc_code == "TEST_718-7"
+
+
+def test_prefer_loinc_prefers_base_hemoglobin_over_a2() -> None:
+    subtype = LoincConcept(
+        loinc_code="TEST_4550-0",
+        long_common_name="TEST_Hemoglobin A2 [Moles/volume] in Blood by Chromatography column",
+        status="ACTIVE",
+        example_ucum_units=["mmol/L"],
+    )
+    total = LoincConcept(
+        loinc_code="TEST_718-7",
+        long_common_name="TEST_Hemoglobin [Mass/volume] in Blood",
+        status="ACTIVE",
+        example_ucum_units=["g/dL"],
+    )
+    chosen = prefer_loinc_concept([subtype, total], "hemoglobin")
+    assert chosen is not None
+    assert chosen.loinc_code == "TEST_718-7"
+
+
+def test_generation_rejects_unresolved_scenario_lab(db_session: Session) -> None:
+    _seed_generation_refs(db_session)
+    scenario = _test_scenario()
+    scenario.lab_queries = ["TEST_lab", "missing_lab_query"]
+    with pytest.raises(ReferenceResolutionError, match="missing_lab_query"):
+        generate_one_case(
+            db_session,
+            sequence=31,
+            seed=9,
+            scenario=scenario,
+            inject_error=False,
+            use_openai=False,
+        )

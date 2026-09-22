@@ -913,12 +913,18 @@ def _select_medications(
 def _select_labs(session: Session, scenario: Scenario) -> list[RefLabTest]:
     found: list[RefLabTest] = []
     seen: set[str] = set()
+    missing: list[str] = []
     for query in scenario.lab_queries:
         row = match_lab(session, query)
-        if row is None or row.loinc_code in seen:
+        if row is None:
+            missing.append(query)
+            continue
+        if row.loinc_code in seen:
             continue
         seen.add(row.loinc_code)
         found.append(row)
+    if missing:
+        raise ReferenceResolutionError("lab", ",".join(missing))
     found.sort(key=lambda item: item.loinc_code)
     return found
 

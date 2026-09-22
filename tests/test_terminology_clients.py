@@ -11,6 +11,7 @@ from app.sources.icd10cm import Icd10CmClient
 from app.sources.loinc import LoincClient
 from app.sources.rxnorm import RxNormClient
 from app.sources.ucum import UcumClient, parse_essence_xml
+from app.utils.loinc_codes import is_loinc_term_code, is_storeable_lab_code
 
 from tests.source_fixtures import (
     TEST_ICD,
@@ -84,6 +85,57 @@ def test_loinc_lookup_and_filtered_search() -> None:
     assert concept.example_ucum_units == ["TEST_mg/dL", "TEST_mmol/L"]
     hits = client.search_by_name("TEST_lab", count=5)
     assert [item.loinc_code for item in hits] == [TEST_LOINC]
+
+
+def test_loinc_search_uses_implicit_code_system_valueset() -> None:
+    seen: list[str] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen.append(str(request.url))
+        if request.url.path.endswith("ValueSet/$expand"):
+            assert request.url.params.get("url") == "http://loinc.org?fhir_vs"
+            assert request.url.params.get("filter") == "TEST_lab"
+            return httpx.Response(
+                200,
+                json={
+                    "resourceType": "ValueSet",
+                    "expansion": {
+                        "version": "TEST_LOINC_VERSION",
+                        "contains": [
+                            {
+                                "system": "http://loinc.org",
+                                "code": TEST_LOINC,
+                                "display": "TEST_lab long name",
+                            }
+                        ],
+                    },
+                },
+            )
+        return httpx.Response(404, json={"resourceType": "OperationOutcome"})
+
+    client = LoincClient(
+        username="TEST_USER",
+        password="TEST_PASS",
+        client=httpx.Client(
+            base_url="https://fhir.loinc.org",
+            transport=httpx.MockTransport(handler),
+        ),
+    )
+    hits = client.search_by_name("TEST_lab", count=5)
+    assert [item.loinc_code for item in hits] == [TEST_LOINC]
+    assert any("ValueSet/$expand" in url and "fhir_vs" in url for url in seen)
+
+
+def test_loinc_term_code_shape_excludes_parts_answers_and_groups() -> None:
+    assert is_loinc_term_code("2823-3")
+    assert is_loinc_term_code("34714-6")
+    assert not is_loinc_term_code("LP15098-4")
+    assert not is_loinc_term_code("LA33991-3")
+    assert not is_loinc_term_code("LG44906-2")
+    assert not is_loinc_term_code("TEST_LOINC_1")
+    assert is_storeable_lab_code("2823-3")
+    assert is_storeable_lab_code("TEST_LOINC_1")
+    assert not is_storeable_lab_code("LP15098-4")
 
 
 def test_loinc_search_refuses_unfiltered_dump() -> None:

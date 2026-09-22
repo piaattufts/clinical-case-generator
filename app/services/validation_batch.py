@@ -57,7 +57,7 @@ from app.repositories.reference import (
     list_enabled_rules,
     list_rules,
 )
-from app.services.bootstrap import load_json_object
+from app.services.bootstrap import load_json_object, match_diagnosis, match_lab, match_medication
 from app.services.generation import (
     GENERATOR_NAME,
     GeneratedCaseResult,
@@ -87,7 +87,7 @@ LEAK_MARKERS = (
     "source_system",
     "retrieved_at",
     "rxcui:",
-    "test_",
+    "syn-000",
 )
 
 
@@ -260,6 +260,7 @@ def export_validation_batch(
         if case is None:
             continue
         resident = _resident_payload(session, case, frozen)
+        frozen.resident_state = resident
         investigator = _investigator_payload(session, case, frozen)
         resident_cases.append(resident)
         investigator_cases.append(investigator)
@@ -317,6 +318,10 @@ def export_validation_batch(
     coverage_path.write_text(_coverage_markdown(coverage), encoding="utf-8")
     worksheet_path.write_text(_worksheet_csv(rows), encoding="utf-8")
     schema_path.write_text(dumps_json(_review_schema()), encoding="utf-8")
+    (output / "scenario_coverage_matrix.md").write_text(
+        _scenario_matrix_markdown(session),
+        encoding="utf-8",
+    )
     return ExportResult(
         resident_path=resident_path,
         investigator_path=investigator_path,
@@ -383,13 +388,17 @@ def audit_frozen_batch(
                 allow_test_identifiers=allow_test_identifiers,
             )
         )
-        resident = frozen.resident_state or _resident_payload(session, case, frozen)
+        resident = _resident_payload(session, case, frozen)
         blob = dumps_json(resident).casefold()
         for marker in LEAK_MARKERS:
             if marker in blob:
                 errors.append(
                     f"{frozen.validation_case_id}: resident export leaked {marker!r}"
                 )
+        if not allow_test_identifiers and _json_has_test_identifier(resident):
+            errors.append(
+                f"{frozen.validation_case_id}: resident export leaked TEST_ identifier"
+            )
         labs = list_labs_for_case(session, case.id)
         if labs:
             loinc_cases += 1
@@ -664,7 +673,7 @@ def _resident_payload(
     payload = {
         "case_id_code": val_id,
         "ClinicalCase": {
-            "title": case.title,
+            "title": _resident_title(case, val_id),
             "case_id_code": val_id,
             "case_status": "review",
             "generation_source": "synthetic",
@@ -1121,6 +1130,23 @@ def _json_object(payload: object) -> dict[str, Any]:
     return loaded
 
 
+def _resident_title(case: ClinicalCase, val_id: str) -> str:
+    title = case.title or f"{case.specialty or 'inpatient'} case {val_id}"
+    if case.case_id_code:
+        title = title.replace(case.case_id_code, val_id)
+    return title
+
+
+def _json_has_test_identifier(value: Any) -> bool:
+    if isinstance(value, dict):
+        return any(_json_has_test_identifier(item) for item in value.values())
+    if isinstance(value, list):
+        return any(_json_has_test_identifier(item) for item in value)
+    if isinstance(value, str):
+        return "TEST_" in value
+    return False
+
+
 def _child_id(prefix: str, validation_case_id: str, sequence: int) -> str:
     return format_validation_child_id(prefix, validation_case_id, sequence)
 
@@ -1231,6 +1257,57 @@ def _coverage_markdown(coverage: dict[str, Any]) -> str:
         ]
     )
     return "\n".join(lines)
+
+
+def _scenario_matrix_markdown(session: Session) -> str:
+    lines = [
+        "# Internal scenario coverage matrix",
+        "",
+        "Resolved from local source-backed reference rows. Hidden answer data is not included.",
+        "",
+    ]
+    for scenario in load_scenarios():
+        diagnoses = [
+            _resolved_label(match_diagnosis(session, query), "preferred_name", "icd10cm_code")
+            for query in scenario.diagnosis_queries
+        ]
+        medications = [
+            _resolved_label(match_medication(session, query), "concept_name", "rxcui")
+            for query in scenario.medication_queries
+        ]
+        labs = [
+            _resolved_label(match_lab(session, query), "long_common_name", "loinc_code")
+            for query in scenario.lab_queries
+        ]
+        enabled = [rule.rule_code for rule in list_enabled_rules(session)]
+        error_types = scenario.allowed_error_categories or [scenario.target_error_category]
+        lines.extend(
+            [
+                f"## {scenario.code}",
+                "",
+                f"- context: {scenario.care_context} / {scenario.specialty}",
+                f"- diagnoses: {', '.join(diagnoses) or '(unresolved)'}",
+                f"- medications: {', '.join(medications) or '(unresolved)'}",
+                f"- labs: {', '.join(labs) or '(none)'}",
+                "- units: scenario uses UCUM-backed case units where present",
+                (
+                    "- enabled rules in the local rule table: "
+                    + (", ".join(enabled) or "(none enabled)")
+                ),
+                f"- possible error types: {', '.join(error_types)}",
+                "- source support: RxNorm, ICD-10-CM, LOINC, UCUM, DailyMed/RxClass as stored",
+                "",
+            ]
+        )
+    return "\n".join(lines) + "\n"
+
+
+def _resolved_label(row: Any, name_attr: str, code_attr: str) -> str:
+    if row is None:
+        return "(unresolved)"
+    name = getattr(row, name_attr, None) or "(unnamed)"
+    code = getattr(row, code_attr, None) or "(no code)"
+    return f"{name} [{code}]"
 
 
 def _worksheet_csv(rows: list[ValidationBatchCase]) -> str:

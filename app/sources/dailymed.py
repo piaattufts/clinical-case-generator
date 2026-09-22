@@ -104,7 +104,13 @@ def extract_spl_sections(xml_text: str) -> dict[str, str]:
         "indications": ("indication", "indications and usage", "indications & usage"),
         "contraindications": ("contraindication",),
         "warnings": ("warning", "boxed warning", "precautions"),
-        "dosage": ("dosage and administration", "dosage & administration", "dosage"),
+        "dosage": (
+            "dosage and administration",
+            "dosage & administration",
+            "dosage",
+            "dosing",
+            "monitoring",
+        ),
         "active_ingredient": ("active ingredient",),
     }
     found: dict[str, str] = {}
@@ -112,8 +118,12 @@ def extract_spl_sections(xml_text: str) -> dict[str, str]:
         for blob_name, blob_text in blobs:
             lowered = blob_name.casefold()
             if any(needle in lowered for needle in needles) and blob_text.strip():
-                found[target] = blob_text.strip()
-                break
+                previous = found.get(target)
+                found[target] = (
+                    blob_text.strip()
+                    if previous is None
+                    else f"{previous} {blob_text.strip()}"
+                )
     return found
 
 

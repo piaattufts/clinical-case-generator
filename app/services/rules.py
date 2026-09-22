@@ -186,9 +186,13 @@ def _rule_values_from_template(
         except Exception:
             pass
     combined = " ".join(excerpts).casefold()
-    label_evidence = bool(evidence_needles) and all(
-        needle in combined for needle in evidence_needles
-    )
+    evidence_mode = str(template.get("evidence_mode") or "all").casefold()
+    if evidence_needles and evidence_mode == "any":
+        label_evidence = any(needle in combined for needle in evidence_needles)
+    else:
+        label_evidence = bool(evidence_needles) and all(
+            needle in combined for needle in evidence_needles
+        )
     class_evidence = False
     if not label_evidence and rxclass_names:
         joined_classes = " ".join(rxclass_names).casefold()

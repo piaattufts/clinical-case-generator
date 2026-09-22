@@ -18,6 +18,7 @@
       "medication_names": ["warfarin"],
       "lab_names": ["inr", "international normalized ratio"],
       "evidence_needles": ["inr", "prothrombin"],
+      "evidence_mode": "any",
       "constraint": {"action": "require_lab"},
       "logic_notes": "Enable only when a source-backed INR/prothrombin lab exists and DailyMed mentions INR or prothrombin."
     },

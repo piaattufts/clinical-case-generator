@@ -51,6 +51,7 @@ from app.sources.loinc import LoincClient, LoincConcept
 from app.sources.rxclass import RxClassClient
 from app.sources.rxnorm import RxNormClient, RxNormConcept
 from app.sources.ucum import UcumClient
+from app.utils.loinc_codes import is_storeable_lab_code
 from app.utils.provenance import build_provenance
 
 BOOTSTRAP_DIR = Path(__file__).resolve().parents[2] / "data" / "bootstrap"
@@ -66,6 +67,29 @@ TTY_PRIORITY = {
     "SBD": 4,
     "BN": 5,
 }
+LOINC_RANK_LOOKUPS = 8
+_LOINC_DEPRIORITIZE = (
+    "panel",
+    "calibrator",
+    "control",
+    "challenge",
+    "deprecated",
+    "hedis",
+    "value set",
+    "days in therapeutic",
+    "adjusted for egfr",
+    "dialysis",
+    " --",
+    "fetus",
+    "blood product",
+    "free hemoglobin",
+)
+_LOINC_PREFERRED_SPECIMEN = (
+    "serum or plasma",
+    "platelet poor plasma",
+)
+_LOINC_PREFERRED_SPECIMEN_SECONDARY = (" in blood",)
+_LOINC_DEPRIORITIZE_SPECIMEN = ("urine", "stool", "hair", "csf", "cord blood")
 
 
 @dataclass
@@ -209,13 +233,8 @@ def match_diagnosis(session: Session, query: str) -> RefDiagnosis | None:
 
 def match_lab(session: Session, query: str) -> RefLabTest | None:
     rows, _ = search_lab_tests(session, query, limit=50, offset=0)
-    ranked = sorted(
-        rows,
-        key=lambda row: (
-            0 if _contains(row.long_common_name, query) or _contains(row.component, query) else 1,
-            row.loinc_code,
-        ),
-    )
+    usable = [row for row in rows if is_storeable_lab_code(row.loinc_code)]
+    ranked = sorted(usable, key=lambda row: _loinc_rank_key(_concept_from_lab_row(row), query))
     return ranked[0] if ranked else None
 
 
@@ -436,11 +455,19 @@ def _bootstrap_labs(
     try:
         for name in names:
             try:
-                hits = client.search_by_name(name, count=DEFAULT_SYNC_LIMIT)
-                chosen = _prefer_loinc_concept(hits, name)
-                if chosen is None:
+                hits = _collect_loinc_term_hits(client, name)
+                preview = sorted(
+                    hits,
+                    key=lambda item: _loinc_rank_key(item, name),
+                )
+                detailed: list[LoincConcept] = []
+                for hit in preview[:LOINC_RANK_LOOKUPS]:
+                    looked = client.lookup_by_code(hit.loinc_code)
+                    detailed.append(looked if looked is not None else hit)
+                chosen = prefer_loinc_concept(detailed, name)
+                if chosen is None or not is_storeable_lab_code(chosen.loinc_code):
                     result.unresolved.append(
-                        UnresolvedRequest("lab", name, "LOINC returned no concept")
+                        UnresolvedRequest("lab", name, "LOINC returned no observation concept")
                     )
                     continue
                 sync = sync_loinc(session, code=chosen.loinc_code, client=client)
@@ -524,17 +551,122 @@ def _prefer_rxnorm_concept(
     return ranked[0] if ranked else None
 
 
-def _prefer_loinc_concept(concepts: list[LoincConcept], query: str) -> LoincConcept | None:
-    ranked = sorted(
-        concepts,
-        key=lambda item: (
-            0
-            if _contains(item.long_common_name, query) or _contains(item.component, query)
-            else 1,
-            item.loinc_code,
-        ),
-    )
+def prefer_loinc_concept(concepts: list[LoincConcept], query: str) -> LoincConcept | None:
+    usable = [item for item in concepts if is_storeable_lab_code(item.loinc_code)]
+    ranked = sorted(usable, key=lambda item: _loinc_rank_key(item, query))
     return ranked[0] if ranked else None
+
+
+def _collect_loinc_term_hits(client: LoincClient, name: str) -> list[LoincConcept]:
+    seen: set[str] = set()
+    collected: list[LoincConcept] = []
+    for query in _loinc_search_queries(name):
+        hits = client.search_by_name(query, count=DEFAULT_SYNC_LIMIT)
+        for hit in hits:
+            if hit.loinc_code in seen or not is_storeable_lab_code(hit.loinc_code):
+                continue
+            seen.add(hit.loinc_code)
+            collected.append(hit)
+    return collected
+
+
+def _loinc_search_queries(name: str) -> list[str]:
+    queries: list[str] = []
+    lowered = name.casefold()
+    if not any(token in lowered for token in ("serum", "plasma", "blood")):
+        queries.append(f"{name} in serum or plasma")
+        queries.append(f"{name} in blood")
+    if "[" not in name:
+        queries.append(f"{name} [Mass/volume]")
+        queries.append(f"{name} [Moles/volume]")
+    queries.append(name)
+    return queries
+
+
+def _loinc_rank_key(
+    item: LoincConcept, query: str
+) -> tuple[int, int, int, int, int, int, int, int, str]:
+    return (
+        0 if _loinc_text_matches(item, query) else 1,
+        _loinc_analyte_rank(item, query),
+        0 if (item.status or "ACTIVE").upper() == "ACTIVE" else 1,
+        1 if _loinc_deprioritized(item) else 0,
+        _loinc_specimen_rank(item),
+        1 if _loinc_deprioritized_specimen(item) else 0,
+        0 if item.example_ucum_units else 1,
+        0 if item.long_common_name and "[" in item.long_common_name else 1,
+        item.loinc_code,
+    )
+
+
+def _loinc_text_matches(item: LoincConcept, query: str) -> bool:
+    return (
+        _contains(item.long_common_name, query)
+        or _contains(item.short_name, query)
+        or _contains(item.component, query)
+    )
+
+
+def _loinc_analyte_rank(item: LoincConcept, query: str) -> int:
+    name = (item.long_common_name or "").casefold()
+    needle = re.escape(query.casefold().strip())
+    if re.search(rf"{needle}(?: \[[^\]]+\]| in )", name) is not None:
+        return 0
+    return 1
+
+
+def _loinc_deprioritized(item: LoincConcept) -> bool:
+    blob = _loinc_blob(item)
+    if any(token in blob for token in _LOINC_DEPRIORITIZE):
+        return True
+    return _loinc_ratio_outside_property(item.long_common_name)
+
+
+def _loinc_ratio_outside_property(name: str | None) -> bool:
+    if not name:
+        return False
+    stripped = re.sub(r"\[[^\]]*\]", "", name)
+    return "/" in stripped
+
+
+def _loinc_preferred_specimen(item: LoincConcept) -> bool:
+    return _loinc_specimen_rank(item) == 0
+
+
+def _loinc_specimen_rank(item: LoincConcept) -> int:
+    blob = _loinc_blob(item)
+    if any(token in blob for token in _LOINC_PREFERRED_SPECIMEN):
+        return 0
+    if any(token in blob for token in _LOINC_PREFERRED_SPECIMEN_SECONDARY):
+        return 1
+    return 2
+
+
+def _loinc_deprioritized_specimen(item: LoincConcept) -> bool:
+    blob = _loinc_blob(item)
+    return any(token in blob for token in _LOINC_DEPRIORITIZE_SPECIMEN)
+
+
+def _loinc_blob(item: LoincConcept) -> str:
+    return " ".join(
+        part
+        for part in (item.long_common_name, item.short_name, item.component, item.class_name)
+        if part
+    ).casefold()
+
+
+def _concept_from_lab_row(row: RefLabTest) -> LoincConcept:
+    units = row.example_ucum_units if isinstance(row.example_ucum_units, list) else None
+    return LoincConcept(
+        loinc_code=row.loinc_code,
+        long_common_name=row.long_common_name,
+        short_name=row.short_name,
+        component=row.component,
+        class_name=row.class_name,
+        status=row.status,
+        example_ucum_units=[str(item) for item in units] if units else None,
+    )
+
 
 
 def _prefer_icd_concept(concepts: Any, query: str) -> Any | None:

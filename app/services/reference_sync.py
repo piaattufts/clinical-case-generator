@@ -27,6 +27,7 @@ from app.sources.rxnorm import (
     RxNormConcept,
 )
 from app.sources.ucum import UcumClient, UcumUnit
+from app.utils.loinc_codes import is_storeable_lab_code
 from app.utils.provenance import build_provenance
 
 DEFAULT_SYNC_LIMIT = 20
@@ -148,6 +149,8 @@ def sync_loinc(
         identifiers: list[str] = []
         retrieved_at: datetime | None = None
         for concept in selected:
+            if concept is None or not is_storeable_lab_code(concept.loinc_code):
+                continue
             version = concept.version or version
             provenance = build_provenance("LOINC", version)
             retrieved_at = _retrieved_at(provenance)
