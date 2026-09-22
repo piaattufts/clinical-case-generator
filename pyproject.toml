@@ -43,7 +43,7 @@ asyncio_mode = "auto"
 [tool.ruff]
 target-version = "py312"
 line-length = 100
-src = ["app", "tests"]
+src = ["app", "tests", "scripts"]
 extend-exclude = ["alembic/versions"]
 
 [tool.ruff.lint]
@@ -52,11 +52,12 @@ select = ["E", "F", "I", "UP", "B", "W"]
 [tool.ruff.lint.per-file-ignores]
 "alembic/env.py" = ["E402"]
 "alembic/versions/*" = ["E501"]
+"app/services/readable_packets.py" = ["E501"]
 
 [tool.mypy]
 python_version = "3.12"
 strict = true
-files = ["app", "tests"]
+files = ["app", "tests", "scripts"]
 exclude = ["alembic/"]
 warn_unused_ignores = true
 plugins = []

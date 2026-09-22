@@ -154,6 +154,24 @@ Terminology versions recorded on this freeze (from the manifest; do not invent m
 | [`scenario_coverage_matrix.md`](scenario_coverage_matrix.md) | Investigators | Resolved concepts per family |
 | [`resident_review_worksheet.csv`](resident_review_worksheet.csv) | Residents / study staff | Empty capture rows |
 | [`resident_review_schema.json`](resident_review_schema.json) | Study staff | Worksheet fields |
+| [`readable/`](readable/) | See below | Derived Markdown clinician-validation views |
+
+## Human-readable clinician validation packets
+
+These files are generated from the frozen JSON. They do **not** replace it.
+
+**Safe for plausibility-only review** (resident-visible content; no planted-error answers):
+
+- [`readable/all_cases.md`](readable/all_cases.md)
+- [`readable/plausibility_only_packet.md`](readable/plausibility_only_packet.md)
+- [`readable/cases/VAL-201.md`](readable/cases/VAL-201.md) through [`VAL-224.md`](readable/cases/VAL-224.md)
+- [`readable/validation_rubric.md`](readable/validation_rubric.md) (rubric only; no per-case answers)
+
+**Investigator / validator only — do not distribute to resident participants:**
+
+- [`readable/clinician_validation_packet.md`](readable/clinician_validation_packet.md)
+
+Index: [`readable/README.md`](readable/README.md). Regenerate with `python scripts/build_readable_validation_packets.py`.
 
 Shared pipeline, official sources, and limitations: [`../../README.md`](../../README.md).
 
