@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
 import pytest
 from app.models.cases import ClinicalCase
@@ -41,7 +42,11 @@ from app.services.error_taxonomy import (
 )
 from app.services.generation import generate_one_case
 from app.services.validation import require_valid, validate_case
-from app.services.validation_batch import _investigator_payload, _resident_payload
+from app.services.validation_batch import (
+    _investigator_payload,
+    _resident_payload,
+    freeze_validation_batch,
+)
 from app.sources.exceptions import CaseValidationError, ReferenceResolutionError
 from app.utils.provenance import build_provenance
 from sqlalchemy.orm import Session
@@ -498,16 +503,44 @@ def test_broad_rxclass_is_not_used_for_substitution() -> None:
 
 def test_ineligible_substitution_does_not_fallback(db_session: Session) -> None:
     _seed_generation_refs(db_session)
+    scenario = _scenario()
+    scenario.lab_queries = ["TEST_lab"]
     with pytest.raises(CaseValidationError, match="same-class substitute"):
         generate_one_case(
             db_session,
             sequence=58,
             seed=11,
-            scenario=_scenario(),
+            scenario=scenario,
             inject_error=True,
             use_openai=False,
             error_category=F1_SUBSTITUTION,
         )
+
+
+def test_coprescription_never_appears_in_eligible_errors(db_session: Session) -> None:
+    _seed_taxonomy_refs(db_session)
+    result = _generate(db_session, 60, None, inject=False)
+    case = db_session.get(ClinicalCase, result.case_id)
+    assert case is not None
+    allowed = eligible_errors(db_session, case)
+    assert F2_COPRESCRIPTION not in allowed
+    assert NONE in allowed
+
+
+def test_resident_validation_v1_plan_was_not_rewritten() -> None:
+    plan = json.loads(Path("data/validation/batch_plan.json").read_text(encoding="utf-8"))
+    assert plan["batch_code"] == "RESIDENT_VALIDATION_V1"
+    assert plan["cases"][0]["validation_case_id"] == "VAL-001"
+    assert plan["cases"][0]["error_category"] == "omission"
+    assert plan["cases"][3]["error_category"] == "incorrect_continuation"
+    assert plan["cases"][-1]["validation_case_id"] == "VAL-024"
+    assert "error_family" not in plan["cases"][0]
+    cliniproof = json.loads(
+        Path("data/validation/cliniproof_v1/batch_plan.json").read_text(encoding="utf-8")
+    )
+    assert cliniproof["batch_code"] == "CLINIPROOF_TAXONOMY_V1"
+    assert cliniproof["cases"][0]["error_category"] == F1_OMISSION
+    assert cliniproof["cases"][0]["error_family"] == "family_1"
 
 
 def test_ineligible_monitoring_does_not_fallback(db_session: Session) -> None:
@@ -524,4 +557,104 @@ def test_ineligible_monitoring_does_not_fallback(db_session: Session) -> None:
             inject_error=True,
             use_openai=False,
             error_category=F2_MONITORING,
+        )
+
+
+def test_freeze_persists_canonical_ids(
+    db_session: Session, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _seed_taxonomy_refs(db_session)
+    scenario = _scenario()
+    monkeypatch.setattr("app.services.validation_batch.load_scenarios", lambda: [scenario])
+    plan = tmp_path / "plan.json"
+    plan.write_text(
+        json.dumps(
+            {
+                "batch_code": "TEST_CANON",
+                "master_seed": 11,
+                "cases": [
+                    {
+                        "validation_case_id": "VAL-101",
+                        "scenario": scenario.code,
+                        "inject_error": True,
+                        "error_family": "family_1",
+                        "error_category": "omission",
+                        "sequence": 71,
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    result = freeze_validation_batch(
+        db_session, plan_path=plan, use_openai=False, allow_test_identifiers=True
+    )
+    assert result.rejected == []
+    assert result.frozen[0].error_category == F1_OMISSION
+    assert result.frozen[0].error_family == "family_1"
+
+
+def test_freeze_does_not_substitute_ineligible_category(
+    db_session: Session, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _seed_generation_refs(db_session)
+    scenario = _scenario()
+    scenario.lab_queries = ["TEST_lab"]
+    monkeypatch.setattr("app.services.validation_batch.load_scenarios", lambda: [scenario])
+    plan = tmp_path / "plan.json"
+    plan.write_text(
+        json.dumps(
+            {
+                "batch_code": "TEST_NO_FALLBACK",
+                "master_seed": 11,
+                "cases": [
+                    {
+                        "validation_case_id": "VAL-102",
+                        "scenario": scenario.code,
+                        "inject_error": True,
+                        "error_family": "family_1",
+                        "error_category": F1_SUBSTITUTION,
+                        "sequence": 72,
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    with pytest.raises(CaseValidationError, match="rejected assignments|same-class substitute"):
+        freeze_validation_batch(
+            db_session, plan_path=plan, use_openai=False, allow_test_identifiers=True
+        )
+
+
+def test_freeze_rejects_category_not_allowed_for_scenario(
+    db_session: Session, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _seed_taxonomy_refs(db_session)
+    scenario = _scenario()
+    scenario.allowed_error_categories = [F1_OMISSION]
+    monkeypatch.setattr("app.services.validation_batch.load_scenarios", lambda: [scenario])
+    plan = tmp_path / "plan.json"
+    plan.write_text(
+        json.dumps(
+            {
+                "batch_code": "TEST_ALLOWED",
+                "master_seed": 11,
+                "cases": [
+                    {
+                        "validation_case_id": "VAL-103",
+                        "scenario": scenario.code,
+                        "inject_error": True,
+                        "error_family": "family_1",
+                        "error_category": F1_DOSE,
+                        "sequence": 73,
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    with pytest.raises(CaseValidationError, match="not allowed for scenario"):
+        freeze_validation_batch(
+            db_session, plan_path=plan, use_openai=False, allow_test_identifiers=True
         )

@@ -73,7 +73,7 @@ from app.services.generation import (
     load_scenarios,
 )
 from app.services.validation import validate_case
-from app.sources.exceptions import FrozenValidationCaseError
+from app.sources.exceptions import CaseValidationError, FrozenValidationCaseError
 from app.utils.identifiers import VALIDATION_CASE_RE, format_validation_child_id
 from app.utils.jsonio import dumps_json, loads_json
 
@@ -214,11 +214,7 @@ def freeze_validation_batch(
             )
             continue
         try:
-            if assignment.inject_error:
-                requested = canonicalize_category(assignment.error_category)
-                canonicalize_family(assignment.error_family, category=requested)
-            elif assignment.error_category not in (None, "", NONE):
-                raise ValueError("clean control must use error_category none")
+            _assert_assignment_matches_plan(assignment, scenario)
             generated = generate_one_case(
                 session,
                 sequence=assignment.sequence,
@@ -266,7 +262,55 @@ def freeze_validation_batch(
         )
         result.frozen.append(frozen)
     session.flush()
+    if result.rejected:
+        details = "; ".join(
+            f"{item.validation_case_id}: {item.reason}" for item in result.rejected
+        )
+        raise CaseValidationError(
+            "freeze_validation_batch",
+            "one or more assignments were rejected; no substitute category was used; "
+            f"{details}",
+            [item.reason for item in result.rejected],
+        )
     return result
+
+
+def _assert_assignment_matches_plan(assignment: Assignment, scenario: Any) -> None:
+    """Fail closed: the plan's family/category is the assessment target, not a hint."""
+    if assignment.inject_error:
+        if assignment.error_category in (None, ""):
+            raise ValueError(
+                "error-bearing assignment must specify error_category; "
+                "no substitute category will be used"
+            )
+        requested = canonicalize_category(assignment.error_category)
+        if requested == NONE:
+            raise ValueError("error-bearing assignment cannot use error_category none")
+        canonicalize_family(assignment.error_family, category=requested)
+        if not _category_permitted(scenario, requested):
+            raise ValueError(
+                f"requested category {requested} is not allowed for scenario "
+                f"{scenario.code}; no substitute category will be used"
+            )
+        return
+    if assignment.error_category not in (None, "", NONE):
+        raise ValueError("clean control must use error_category none")
+    if assignment.error_family not in (None, "", FAMILY_NONE):
+        canonicalize_family(assignment.error_family, category=NONE)
+
+
+def _category_permitted(scenario: Any, category: str) -> bool:
+    allowed = getattr(scenario, "allowed_error_categories", None) or []
+    if not allowed:
+        return True
+    wanted = canonicalize_category(category)
+    for item in allowed:
+        try:
+            if canonicalize_category(item) == wanted:
+                return True
+        except CaseValidationError:
+            continue
+    return False
 
 
 def export_validation_batch(

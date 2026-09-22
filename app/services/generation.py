@@ -262,17 +262,19 @@ def generate_one_case(
             ",".join(scenario.stop_medication_queries) or preferred_error,
             "f1_commission requires a source-backed discontinued home medication",
         )
-    hospital_only = _select_named_medications(
-        session,
-        scenario.hospital_only_medication_queries,
-        {item.rxcui for item in medications + stop_medications},
-    )
-    if inject_error and preferred_error == F2_HOSPITAL_ONLY and not hospital_only:
-        raise ReferenceResolutionError(
-            "hospital_only_medication",
-            ",".join(scenario.hospital_only_medication_queries) or preferred_error,
-            "f2_hospital_only_continued requires a source-backed inpatient-only medication",
+    hospital_only: list[RefMedication] = []
+    if inject_error and preferred_error == F2_HOSPITAL_ONLY:
+        hospital_only = _select_named_medications(
+            session,
+            scenario.hospital_only_medication_queries,
+            {item.rxcui for item in medications + stop_medications},
         )
+        if not hospital_only:
+            raise ReferenceResolutionError(
+                "hospital_only_medication",
+                ",".join(scenario.hospital_only_medication_queries) or preferred_error,
+                "f2_hospital_only_continued requires a source-backed inpatient-only medication",
+            )
     labs = _select_labs(session, scenario)
     if inject_error and preferred_error == F2_MONITORING:
         _require_warfarin_and_inr(medications, labs)
