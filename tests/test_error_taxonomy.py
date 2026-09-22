@@ -565,6 +565,23 @@ def test_resident_validation_v1_plan_was_not_rewritten() -> None:
     assert cliniproof["cases"][0]["error_family"] == "family_1"
 
 
+def test_v2_v4_plans_are_separate_from_v1() -> None:
+    v1 = json.loads(Path("data/validation/batch_plan.json").read_text(encoding="utf-8"))
+    v2 = json.loads(Path("data/validation/v2/batch_plan.json").read_text(encoding="utf-8"))
+    v3 = json.loads(Path("data/validation/v3/batch_plan.json").read_text(encoding="utf-8"))
+    v4 = json.loads(Path("data/validation/v4/batch_plan.json").read_text(encoding="utf-8"))
+    assert v1["batch_code"] == "RESIDENT_VALIDATION_V1"
+    assert v2["batch_code"] == "RESIDENT_VALIDATION_V2"
+    assert v3["batch_code"] == "RESIDENT_VALIDATION_V3"
+    assert v4["batch_code"] == "RESIDENT_VALIDATION_V4"
+    assert v2["cases"][0]["validation_case_id"] == "VAL-025"
+    assert v3["cases"][0]["validation_case_id"] == "VAL-049"
+    assert v4["cases"][0]["validation_case_id"] == "VAL-073"
+    assert v2["cases"][0]["error_category"] == "omission"
+    assert "error_family" not in v2["cases"][0]
+    assert v1["cases"][0]["error_category"] == "omission"
+
+
 def test_ineligible_monitoring_does_not_fallback(db_session: Session) -> None:
     _seed_generation_refs(db_session)
     scenario = _scenario()

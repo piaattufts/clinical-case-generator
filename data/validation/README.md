@@ -1,12 +1,30 @@
 # Resident-validation dataset and full generation pipeline
 
-This directory is the study copy of batch **`RESIDENT_VALIDATION_V1`**: 24 machine-validated synthetic resident-review cases pending clinician validation.
+This directory holds frozen resident-review study copies. Every batch is **machine-validated synthetic resident-review cases pending clinician validation**. Software checks terminology, structure, and the three implemented source-backed rules. These records are **not clinically validated** until residents complete review.
 
-A **separate** freeze, **`CLINIPROOF_TAXONOMY_V1`** (`VAL-201`–`VAL-224`), lives in [`cliniproof_v1/`](cliniproof_v1/). Do not export that batch into this directory; it would overwrite V1 resident JSON. V1 stored names (`omission`, `dose_mismatch`, `frequency_mismatch`, `incorrect_continuation`) are **not rewritten** to canonical CliniProof IDs.
+| Batch | Public IDs | Internal IDs | Master seed | Plan / exports | Injector names on disk |
+| --- | --- | --- | --- | --- | --- |
+| `RESIDENT_VALIDATION_V1` | `VAL-001`–`VAL-024` | `SYN-000101`–`SYN-000124` | `20260922` | this folder | historical: `omission`, `dose_mismatch`, `frequency_mismatch`, `incorrect_continuation` |
+| `RESIDENT_VALIDATION_V2` | `VAL-025`–`VAL-048` | `SYN-000201`–`SYN-000224` | `20260923` | [`v2/`](v2/) | same four historical names as V1 |
+| `RESIDENT_VALIDATION_V3` | `VAL-049`–`VAL-072` | `SYN-000301`–`SYN-000324` | `20260924` | [`v3/`](v3/) | same four historical names as V1 |
+| `RESIDENT_VALIDATION_V4` | `VAL-073`–`VAL-096` | `SYN-000401`–`SYN-000424` | `20260925` | [`v4/`](v4/) | same four historical names as V1 |
+| `CLINIPROOF_TAXONOMY_V1` | `VAL-201`–`VAL-224` | `SYN-000801`–`SYN-000824` | `20260922` | [`cliniproof_v1/`](cliniproof_v1/) | canonical `f1_*` / `f2_*` / `none` |
 
-Software checks terminology, structure, and the three implemented source-backed rules. These records are **not clinically validated** until residents complete review. Do not describe this freeze as a clinically validated dataset.
+V1–V4 use the **same five inpatient families** and the same four-name error mix, with a new `batch_code`, new VAL IDs, new sequences, and a new master seed. VAL IDs are globally unique and immutable. Historical names on V1–V4 are **not rewritten** to canonical CliniProof IDs. Mapping: `omission` → `f1_omission`, `dose_mismatch` → `f1_dose_mismatch`, `frequency_mismatch` → `f1_frequency_mismatch`, `incorrect_continuation` → `f1_commission` (MATCH commission, **not** Family 2 held-med/no-restart-plan).
 
-The committed JSON and Markdown files in this folder are the **study source of truth**. Regenerating against live terminology APIs can change RxNorm or LOINC ranking even with the same seeds. Use the files here to score, reprint, or reload the frozen batch; do not treat a new live freeze as bit-identical unless the exports match.
+`CLINIPROOF_TAXONOMY_V1` is a **new** prospective set. Target `error_family` and `error_category` are specified in that plan **before** generation. Do not freeze it, or V2–V4, with the default plan or into this folder — that would reuse or overwrite V1.
+
+```bash
+clinical-case-generator freeze-validation-batch --plan data/validation/v2/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code RESIDENT_VALIDATION_V2 --output-dir data/validation/v2
+# repeat for v3 / v4
+clinical-case-generator freeze-validation-batch --plan data/validation/cliniproof_v1/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_TAXONOMY_V1 --output-dir data/validation/cliniproof_v1
+```
+
+The remainder of this README is the investigator catalog for **`RESIDENT_VALIDATION_V1`**. Catalogs for V2–V4 and the taxonomy batch live in those subdirectories.
+
+The committed JSON and Markdown files are the **study source of truth**. Regenerating against live terminology APIs can change RxNorm or LOINC ranking even with the same seeds. Use the committed files to score, reprint, or reload a frozen batch; do not treat a new live freeze as bit-identical unless the exports match.
 
 ---
 
@@ -48,16 +66,26 @@ Sequences **101–124** are intentional. They keep this freeze away from earlier
 
 Do **not** give residents the investigator key, the manifest, this README’s planted-error tables, `batch_plan.json`, or the coverage files. Those leak control status, seeds, and intended errors.
 
-`data/exports/**` is gitignored. Tracked study artifacts live only under `data/validation/`.
+`data/exports/**` is gitignored. Tracked study artifacts live under `data/validation/` (V1 in this folder; later batches in subdirectories).
+
+| Folder | Batch |
+| --- | --- |
+| this folder | `RESIDENT_VALIDATION_V1` |
+| [`v2/`](v2/) | `RESIDENT_VALIDATION_V2` |
+| [`v3/`](v3/) | `RESIDENT_VALIDATION_V3` |
+| [`v4/`](v4/) | `RESIDENT_VALIDATION_V4` |
+| [`cliniproof_v1/`](cliniproof_v1/) | `CLINIPROOF_TAXONOMY_V1` |
 
 ---
 
 ## Who receives which file
 
-**Residents** receive:
+**Residents** receive, from **one** batch folder only:
 
-- `resident_validation_cases.json`
-- `resident_review_worksheet.csv` (and optionally the schema)
+- that folder’s `resident_validation_cases.json`
+- that folder’s `resident_review_worksheet.csv` (and optionally the schema)
+
+Do not mix V1 JSON with V2–V4 or CliniProof investigator files in the same packet.
 
 The resident JSON follows the dashboard case template: nested `ClinicalCase` (presentation, social_support, discharge_planning) plus `CaseDiagnosis`, `CaseNote`, `CaseVital`, `CaseLab`, `CaseImaging`, `CaseConsult`, `CaseMedication`, `CaseFollowup`, `CaseInstruction`, and the other dashboard arrays. It **omits** `CaseAnswerKey`. Titles and child business IDs use `VAL-*` (`DX-VAL001-001`, `MED-VAL001-001`, …), not `SYN-*`. RXCUI `source_reference`, error category, seeds, rule names, and the clean-control flag are redacted. Patient display names are `VAL Patient 001`, not `SYN Patient 101`.
 
@@ -85,9 +113,10 @@ bootstrap-reference-data      official APIs → ref_* rows + rule enablement
         ▼
 freeze-validation-batch       per VAL assignment:
         │                       generate clean case from local ref_*
-        │                       validate (structural / terminology / clinical / plan)
-        │                       optionally inject exactly one recon error
-        │                       re-validate
+        │                       validate (structural / terminology / clinical / assessment)
+        │                       optionally inject exactly one pre-specified error
+        │                       re-validate (Family 1 = discharge/plan mutation;
+        │                        Family 2 = missing companion action; V1–V4 are Family 1)
         │                       assign immutable VAL-* if audit passes
         ▼
 export-validation-batch       blinded resident JSON + investigator key
@@ -180,9 +209,9 @@ For each assignment the freeze:
 1. Builds `case_seed = f"{master_seed}:{sequence}:{scenario}"`.
 2. Reuses the existing row if that VAL ID is already immutable **and** the stored seed/scenario match the plan.
 3. Otherwise generates `SYN-{sequence:06d}` from local `ref_*` rows only.
-4. Validates the clean case (four layers: structural, terminology, clinical rules, medication plan).
-5. Injects the planned error category when `inject_error` is true, using Python `random.Random(case_seed)` — not an LLM.
-6. Validates again. Post-injection validation is expected to pass the implemented rule engine; planted discharge-list discrepancies are the intended study signal, not unexpected failures.
+4. Validates the clean case (four layers: structural, terminology, clinical rules, **assessment**).
+5. Injects the planned error category when `inject_error` is true, using Python `random.Random(case_seed)` — not an LLM. The injector never substitutes a different category.
+6. Validates again. Post-injection validation is expected to pass the implemented rule engine. On **V1–V4**, the planted signal is a Family 1 discharge-list mutation. On **`CLINIPROOF_TAXONOMY_V1`**, Family 2 cases may leave the discharge list intact and omit monitoring, a restart plan, supply, follow-up, or a similar companion action.
 7. Rejects the assignment instead of freezing if generation, resolution, or audit fails. This freeze had **zero** rejections. New batches abort the whole freeze (no substitute category, no partial commit) if any assignment is rejected.
 8. Persists an immutable `validation_batch_cases` row: VAL ID, SYN ID, seed, scenario, control status, snapshots.
 
@@ -261,7 +290,9 @@ Human-readable requests: 16 medication names, 5 diagnoses, 8 symptoms, 7 labs, 9
 
 Aspirin and carvedilol were bootstrapped and stored in `ref_medications`. They are **not used** in any of the 24 frozen cases.
 
-### `data/bootstrap/scenarios.json` (v2)
+### `data/bootstrap/scenarios.json`
+
+The **V1 freeze** used the five families below with historical allowed-error names. The current checked-in file is **version 3**: it still has those families and also lists canonical `f1_*` / `f2_*` IDs plus `hospital_only_medication_queries`. That file change does **not** rewrite this freeze.
 
 Five inpatient families (within the 5–6 family bound):
 
@@ -676,7 +707,7 @@ These are properties of the official-source ranking and the generator, documente
 - **Glucose** LOINC 14749-6 is moles/volume; values 138–174 are labeled `mmol/L` from the source example unit (not a conventional mg/dL fingerstick range).
 - **Hemoglobin** is LOINC **55782-7** (oximetry method), not a methodless mass/volume term.
 - **NLM names** Anasarca and Chronic fatigue syndrome are what the conditions API returned for `edema` and `fatigue`.
-- **Only four** reconciliation-error families exist. Duplicate therapy, missing co-prescription, contraindicated restart, and failure-to-restart are not generated.
+- **V1–V4 planted errors** use four historical families only. Duplicate therapy, missing co-prescription, and Family 2 transition-of-care gaps are **not** in those freezes. Canonical Family 1 / Family 2 IDs are used on the separate `CLINIPROOF_TAXONOMY_V1` batch (`f2_coprescription_omitted` remains `not_yet_implementable`).
 - **INR** is still generated on apixaban HF/AF cases because the HF/AF lab list always includes the INR query; warfarin-specific monitoring is a hard rule only when warfarin is selected.
 - Numeric vitals/labs are synthetic, not empirical MIMIC distributions. Raw MIMIC rows are never sent to OpenAI (and OpenAI was not used here).
 
@@ -705,6 +736,8 @@ clinical-case-generator export-validation-batch --batch-code RESIDENT_VALIDATION
 
 If live ranking differs, **stop** and keep the committed `data/validation/*.json` as the dataset. Do not overwrite git with a drifted export unless the study team explicitly starts a new batch.
 
+Reprint V2–V4 or the taxonomy batch the same way, always with that batch’s `--plan` and `--output-dir` (see the table at the top of this file).
+
 ---
 
 ## Code map
@@ -715,8 +748,9 @@ If live ranking differs, **stop** and keep the committed `data/validation/*.json
 | Bounded import + rule enablement | `app/services/bootstrap.py` |
 | Concept selection + case persist | `app/services/generation.py` |
 | Clinical IF/THEN | `app/services/rules.py` |
-| Four-layer validation | `app/services/validation.py` |
-| Reconciliation mutation | `app/services/error_injection.py` |
+| Four-layer validation (`structural`, `terminology`, `clinical`, `assessment`) | `app/services/validation.py` |
+| CliniProof taxonomy, eligibility, isolation | `app/services/error_taxonomy.py` |
+| Reconciliation / assessment mutation | `app/services/error_injection.py` |
 | VAL freeze / blinded export / leak audit | `app/services/validation_batch.py` |
 | CLI | `app/cli/__init__.py` (`db-init`, `bootstrap-reference-data`, `freeze-validation-batch`, `export-validation-batch`) |
 | LOINC term-code shape | `app/utils/loinc_codes.py` |
