@@ -160,11 +160,24 @@ Terminology versions recorded on this freeze (from the manifest; do not invent m
 
 These files are generated from the frozen JSON. They do **not** replace it.
 
-**Safe for plausibility-only review** (resident-visible content; no planted-error answers):
+**Where should I start?**
+
+| If you are... | Start here |
+| --- | --- |
+| Resident or clinician reviewing cases | [`readable/all_cases.md`](readable/all_cases.md) |
+| Clinician validating clinical plausibility | [`readable/plausibility_only_packet.md`](readable/plausibility_only_packet.md) |
+| Investigator / expert validator | [`readable/clinician_validation_packet.md`](readable/clinician_validation_packet.md) |
+| Medical educator reviewing the framework | [`readable/validation_rubric.md`](readable/validation_rubric.md) |
+| Clinician or resident curious how CliniProof works | [`readable/how_cliniproof_works.md`](readable/how_cliniproof_works.md) |
+| Clinical informatics / AI engineer | [`readable/developer_notes.md`](readable/developer_notes.md) |
+
+**Safe for residents and plausibility-only review** (resident-visible content; no per-case planted-error answers):
 
 - [`readable/all_cases.md`](readable/all_cases.md)
 - [`readable/plausibility_only_packet.md`](readable/plausibility_only_packet.md)
 - [`readable/cases/VAL-201.md`](readable/cases/VAL-201.md) through [`VAL-224.md`](readable/cases/VAL-224.md)
+- [`readable/how_cliniproof_works.md`](readable/how_cliniproof_works.md) (mechanisms only; no per-case answers)
+- [`readable/developer_notes.md`](readable/developer_notes.md) (generic implementation; no per-case answers)
 - [`readable/validation_rubric.md`](readable/validation_rubric.md) (rubric only; no per-case answers)
 
 **Investigator / validator only — do not distribute to resident participants:**

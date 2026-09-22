@@ -12,14 +12,68 @@ from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
-MISSING = "Not documented"
+from app.services.readable_docs import (
+    ABOUT_CASE_DATA,
+    ALL_CASES_HEADER,
+    DEVELOPER_NOTES_MD,
+    HOW_CLINIPROOF_WORKS_MD,
+    INVESTIGATOR_HEADER,
+    PLAUSIBILITY_HEADER,
+    READABLE_INDEX_MD,
+    VALIDATION_RUBRIC_MD,
+)
+
+MISSING = "Not specified"
 CASE_IDS = tuple(f"VAL-{index:03d}" for index in range(201, 225))
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_RESIDENT_PATH = REPO_ROOT / "data" / "validation" / "resident_validation_cases.json"
 DEFAULT_INVESTIGATOR_PATH = REPO_ROOT / "data" / "validation" / "investigator_answer_key.json"
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "data" / "validation" / "readable"
 
+INTERNAL_MED_STATUS = frozenset({"home", "active", "discharge"})
+
+CLINICAL_CATEGORY_LABELS = {
+    "f1_omission": "Medication omitted at discharge",
+    "f1_commission": "Medication inappropriately added or continued",
+    "f1_dose_mismatch": "Unexplained dose discrepancy",
+    "f1_route_mismatch": "Unexplained route discrepancy",
+    "f1_frequency_mismatch": "Unexplained frequency discrepancy",
+    "f1_therapeutic_substitution": "Unexplained therapeutic substitution",
+    "f2_monitoring_not_arranged": "Required monitoring not arranged",
+    "f2_held_med_no_restart_plan": "Held medication without a restart plan",
+    "f2_insufficient_supply": "Insufficient medication supply",
+    "f2_hospital_only_continued": "Hospital-only medication continued after discharge",
+    "f2_inpatient_substitution_not_reverted": (
+        "Temporary inpatient substitution not addressed at discharge"
+    ),
+    "f2_pending_decision_followup_missing": (
+        "Follow-up missing for an unresolved treatment decision"
+    ),
+    "f2_coprescription_omitted": "Required companion medication omitted",
+    "none": "No intentional assessment problem",
+}
+
+FAMILY_LABELS = {
+    "family_1": "Family 1 — medication-list / transition discrepancy",
+    "family_2": "Family 2 — transition-of-care gap",
+    "none": "No planted assessment target (clean control)",
+}
+
+LOCATION_LABELS = {
+    "discharge_medications": "Discharge medications",
+    "home_medications": "Home medications",
+    "inpatient_medications": "Medications during hospitalization",
+    "CaseLab": "Laboratory results",
+    "CaseMonitoring": "Scheduled monitoring",
+    "CaseInstruction": "Discharge instructions",
+    "CaseFollowup": "Follow-up appointments",
+    "plan.decision_reason": "Medication plan / decision reason",
+}
+
 C1_FORM = """### C1 Clinical plausibility
+
+Could this chart reasonably represent a patient in the stated clinical setting?
+Clinical plausibility is not the same as optimal or fully guideline-concordant care.
 
 | Domain | 1 | 2 | 3 | 4 |
 | --- | --- | --- | --- | --- |
@@ -100,159 +154,6 @@ Comments:
 ☐ Adjudication required
 
 Overall comments:
-"""
-
-VALIDATION_RUBRIC_MD = """# CliniProof clinician-validation rubric
-
-Status: machine-validated synthetic resident-review cases pending clinician validation.
-
-This rubric is for clinician review of frozen `CLINIPROOF_TAXONOMY_V1` cases (`VAL-201`–`VAL-224`). The five criteria serve different purposes. C1 can be completed from resident-visible documents alone. C2–C5 require the concealed assessment specification and belong on the investigator packet.
-
-`CLINIPROOF_TAXONOMY_V1` covers all currently implemented CliniProof error categories. `f2_coprescription_omitted` is not represented in this frozen batch and remains `not_yet_implementable`.
-
-## Family-specific guidance for C2–C4
-
-**Family 1** categories are medication-list / transition discrepancies:
-
-- `f1_omission`
-- `f1_commission`
-- `f1_dose_mismatch`
-- `f1_route_mismatch`
-- `f1_frequency_mismatch`
-- `f1_therapeutic_substitution`
-
-**Family 2** categories are transition-of-care gaps. They may occur without changing the medication list:
-
-- `f2_monitoring_not_arranged`
-- `f2_held_med_no_restart_plan`
-- `f2_insufficient_supply`
-- `f2_hospital_only_continued`
-- `f2_inpatient_substitution_not_reverted`
-- `f2_pending_decision_followup_missing`
-
-Do **not** identify Family 2 solely by comparing home versus discharge medication lists. For Family 2, confirm that the trigger or precondition is visible and that the missing companion action (monitoring, restart plan, supply, hospital-only stop, substitution revert, or follow-up) is the specified target.
-
-## C1. Clinical plausibility — fixable
-
-Definition: the resident-visible case forms a coherent and clinically credible inpatient encounter.
-
-Assess the following domains independently:
-
-1. Presentation and demographics
-2. Diagnosis-presentation coherence
-3. Vital signs
-4. Laboratory findings
-5. Medication regimen
-6. Hospital course
-7. Cross-document consistency
-8. Discharge context and follow-up
-
-Scale for each domain:
-
-- **4 — Fully plausible.** No clinically meaningful concern.
-- **3 — Plausible with minor concern.** A minor issue is present but would not materially alter interpretation.
-- **2 — Questionable.** A clinically meaningful inconsistency or implausibility is present and the case requires revision.
-- **1 — Implausible.** A major contradiction or unrealistic feature prevents the case from representing a credible inpatient encounter.
-
-Global question:
-
-“Apart from the intentionally planted reconciliation discrepancy, could this case reasonably represent a patient encountered in the stated clinical setting?”
-
-Yes / No
-
-**C1 pass:** all clinically relevant domains ≥ 3 **and** global judgment = Yes.
-
-**C1 revise:** any domain ≤ 2 **or** global judgment = No.
-
-Require comments identifying the exact field or issue for any rating below 3.
-
-Clinical plausibility is **not** synonymous with optimal management or complete guideline concordance.
-
-## C2. Intended error present and correctly classified — hard gate
-
-Standard: the planted error is actually present and matches the specified CliniProof family/category.
-
-Response: Pass / Fail
-
-Questions:
-
-- Is the intended discrepancy/gap actually present?
-- Is it correctly classified?
-- Does the investigator specification describe what is actually visible in the case?
-
-A failure means the case cannot be scored against its intended answer key.
-
-## C3. Detectability from documents alone — hard gate
-
-Standard: the target is recoverable from the resident-visible case alone. The resident should not require withheld clinical information. The error must also not be artificially disclosed by formatting or wording.
-
-For Family 2: the trigger/precondition must be visible and unambiguous.
-
-Response: Pass / Fail
-
-Require comments on evidence location, ambiguity, missing information, and cueing.
-
-## C4. Absence of unintended errors — hard gate
-
-Standard: no additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap exists beyond the specified target.
-
-This must be assessed by **active hunt**. Do not merely record errors that happen to be noticed.
-
-Ask raters to list any additional possible error and its severity/importance.
-
-Response: Pass / Fail
-
-## C5. Difficulty for target learner — advisory
-
-Target learner: internal medicine resident.
-
-Rating: Easy / Moderate / Hard / Outlier / inappropriate
-
-This is an expert provisional estimate only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
-
-C5 alone should not reject a case.
-
-## Final disposition
-
-- Accept
-- Revise and re-rate
-- Regenerate / retire
-- Adjudication required
-"""
-
-READABLE_INDEX_MD = """# Readable clinician-validation packets
-
-These files are derived human-readable views of frozen `CLINIPROOF_TAXONOMY_V1` (`VAL-201`–`VAL-224`). They do **not** replace the frozen JSON. They were generated by `scripts/build_readable_validation_packets.py` from:
-
-- [`../resident_validation_cases.json`](../resident_validation_cases.json) for all clinician-visible patient information
-- [`../investigator_answer_key.json`](../investigator_answer_key.json) only for the investigator packet
-
-Status: machine-validated synthetic resident-review cases pending clinician validation.
-
-Regenerate (from the repository root; does not modify frozen JSON):
-
-```bash
-python scripts/build_readable_validation_packets.py
-```
-
-## Safe for plausibility-only review
-
-These files contain resident-visible case content plus, where noted, the C1 form. They do **not** include planted-error family, category, trigger labels, control status, or answer keys.
-
-| File | Contents |
-| --- | --- |
-| [`all_cases.md`](all_cases.md) | All 24 readable cases, sequential |
-| [`plausibility_only_packet.md`](plausibility_only_packet.md) | Each readable case followed by the C1 assessment form |
-| [`cases/VAL-201.md`](cases/VAL-201.md) … [`VAL-224.md`](cases/VAL-224.md) | One readable case per page |
-| [`validation_rubric.md`](validation_rubric.md) | C1–C5 rubric (no per-case answers) |
-
-## Investigator / validator only
-
-| File | Contents |
-| --- | --- |
-| [`clinician_validation_packet.md`](clinician_validation_packet.md) | Readable case + concealed target specification + C1–C5 forms |
-
-**Do not provide `clinician_validation_packet.md` to resident study participants.**
 """
 
 
@@ -352,16 +253,21 @@ def _index_cases(payload: dict[str, Any], id_field: str) -> dict[str, dict[str, 
 
 def _medication_note(row: Mapping[str, Any]) -> str:
     parts: list[str] = []
-    for key in ("status", "held_reason", "monitoring", "quantity_or_days", "notes"):
+    status = row.get("status")
+    if not _is_missing(status) and str(status) not in INTERNAL_MED_STATUS:
+        parts.append(display(status))
+    for key, label in (
+        ("held_reason", "held reason"),
+        ("indication", "indication"),
+        ("monitoring", "monitoring"),
+        ("quantity_or_days", "supply"),
+        ("target_or_goal", "target"),
+        ("notes", "note"),
+    ):
         value = row.get(key)
         if _is_missing(value):
             continue
-        if key == "quantity_or_days":
-            parts.append(f"supply: {display(value)}")
-        elif key == "status":
-            parts.append(display(value))
-        else:
-            parts.append(f"{key.replace('_', ' ')}: {display(value)}")
+        parts.append(f"{label}: {display(value)}")
     return "; ".join(parts)
 
 
@@ -379,7 +285,7 @@ def _medication_table(rows: Sequence[Mapping[str, Any]], context: str) -> str:
         for row in ordered
     ]
     return _md_table(
-        ("Medication", "Dose", "Route", "Frequency", "Status / note"),
+        ("Medication", "Dose", "Route", "Frequency", "Relevant note"),
         table_rows,
     )
 
@@ -407,7 +313,7 @@ def _vitals_table(rows: Sequence[Mapping[str, Any]]) -> str:
         if not _is_missing(row.get("spo2_percent")):
             measures.append([f"{prefix}SpO2", row.get("spo2_percent"), "%"])
         if not _is_missing(row.get("oxygen_support")):
-            measures.append([f"{prefix}Oxygen support", row.get("oxygen_support"), MISSING])
+            measures.append([f"{prefix}Oxygen support", row.get("oxygen_support"), ""])
     return _md_table(("Measure", "Value", "Unit"), measures)
 
 
@@ -497,19 +403,6 @@ def _hospital_course(clinical: Mapping[str, Any], case: Mapping[str, Any]) -> st
     plan_text = " ".join(bit for bit in plan_bits if bit)
     if plan_text:
         paragraphs.append(plan_text)
-    inpatient = [
-        row
-        for row in _as_list(case.get("CaseMedication"))
-        if str(row.get("context") or "") == "inpatient"
-    ]
-    if inpatient:
-        names = display(
-            [
-                row.get("drug") or row.get("reported_name")
-                for row in _sort_maps(inpatient, ("drug", "medication_id"))
-            ]
-        )
-        paragraphs.append(f"Inpatient medications documented: {names}.")
     return "\n\n".join(paragraphs) if paragraphs else f"{MISSING}."
 
 
@@ -519,10 +412,10 @@ def _medrec_block(rows: Sequence[Mapping[str, Any]]) -> str:
     blocks: list[str] = []
     for row in _sort_maps(rows, ("medrec_id",)):
         items = [
-            ("Best possible medication history source", row.get("bpmh_source")),
+            ("Best possible medication history source", _labelize(row.get("bpmh_source"))),
             ("Interviewer", row.get("bpmh_interviewer")),
             ("Date", row.get("bpmh_date")),
-            ("Reconciliation status", row.get("medrec_status")),
+            ("Reconciliation status", _labelize(row.get("medrec_status"))),
             ("Patient able to participate", row.get("patient_able_to_participate")),
             ("Unverified medications present", row.get("unverified_medications_present")),
             ("Pharmacist review", row.get("pharmacist_review")),
@@ -531,7 +424,10 @@ def _medrec_block(rows: Sequence[Mapping[str, Any]]) -> str:
         ]
         admission = _as_dict(row.get("reconciliation_admission"))
         discharge = _as_dict(row.get("reconciliation_discharge"))
-        for prefix, payload in (("Admission reconciliation", admission), ("Discharge reconciliation", discharge)):
+        for prefix, payload in (
+            ("Admission reconciliation", admission),
+            ("Discharge reconciliation", discharge),
+        ):
             if any(not _is_missing(payload.get(key)) for key in ("discrepancies_found", "resolved", "notes")):
                 items.append(
                     (
@@ -564,10 +460,6 @@ def _other_visible(case: Mapping[str, Any], clinical: Mapping[str, Any]) -> str:
     )
     if support_text != f"{MISSING}.":
         sections.append("Social context:\n\n" + support_text)
-    if not _is_missing(clinical.get("allergies")):
-        sections.append("Allergies: " + display(clinical.get("allergies")))
-    if not _is_missing(clinical.get("medical_history")):
-        sections.append("Medical history: " + display(clinical.get("medical_history")))
     weights = _as_list(case.get("CaseWeight"))
     if weights:
         weight_lines = []
@@ -581,6 +473,16 @@ def _other_visible(case: Mapping[str, Any], clinical: Mapping[str, Any]) -> str:
                 )
             )
         sections.append("Serial weights:\n\n" + "\n".join(weight_lines))
+    imaging = _as_list(case.get("CaseImaging"))
+    consults = _as_list(case.get("CaseConsult"))
+    if imaging:
+        sections.append("Imaging:\n\n" + display(imaging))
+    else:
+        sections.append(f"Imaging: {MISSING}.")
+    if consults:
+        sections.append("Consultations:\n\n" + display(consults))
+    else:
+        sections.append(f"Consultations: {MISSING}.")
     for label, key in (
         ("Procedures", "CaseProcedure"),
         ("Devices", "CaseDevice"),
@@ -603,17 +505,29 @@ def render_resident_case(case: Mapping[str, Any]) -> str:
         for row in _sort_maps(notes, ("note_type", "note_id"))
         if not _is_missing(row.get("note_text"))
     )
-    symptoms = presentation.get("presenting_symptoms")
+    history_bits = []
+    if not _is_missing(clinical.get("medical_history")):
+        history_bits.append("**Past medical history:** " + display(clinical.get("medical_history")))
+    if not _is_missing(clinical.get("allergies")):
+        history_bits.append("**Allergies:** " + display(clinical.get("allergies")))
+    diagnoses = _diagnoses_table(_as_list(case.get("CaseDiagnosis")))
+    problems = _problems_table(_as_list(case.get("CaseProblemList")))
+    history_body = "\n\n".join(history_bits) if history_bits else f"{MISSING}."
     lines = [
         f"# {case_id}",
         "",
-        "## Patient summary",
+        "## Patient overview",
         "",
         _bullet_map(
             [
                 ("Age", clinical.get("patient_age")),
                 ("Sex/gender", clinical.get("patient_gender")),
-                ("Weight", None if _is_missing(clinical.get("weight_kg")) else f"{display(clinical.get('weight_kg'))} kg"),
+                (
+                    "Weight",
+                    None
+                    if _is_missing(clinical.get("weight_kg"))
+                    else f"{display(clinical.get('weight_kg'))} kg",
+                ),
                 ("Clinical setting/specialty", clinical.get("specialty")),
                 ("Admission diagnosis", clinical.get("admission_dx")),
                 ("Disposition", clinical.get("disposition_status")),
@@ -621,12 +535,15 @@ def render_resident_case(case: Mapping[str, Any]) -> str:
             ]
         ),
         "",
-        "## Presentation",
+        "## Reason for hospitalization",
         "",
         _bullet_map(
             [
-                ("Chief complaint", presentation.get("chief_complaint") or clinical.get("chief_complaint")),
-                ("Symptoms", symptoms),
+                (
+                    "Chief complaint",
+                    presentation.get("chief_complaint") or clinical.get("chief_complaint"),
+                ),
+                ("Symptoms", presentation.get("presenting_symptoms")),
                 ("Symptom duration", presentation.get("symptom_duration")),
                 ("Symptom course", presentation.get("symptom_course")),
                 ("History of present illness", presentation.get("hpi")),
@@ -634,41 +551,37 @@ def render_resident_case(case: Mapping[str, Any]) -> str:
             ]
         ),
         "",
-        "### H&P / admission note",
+        "### Admission note",
         "",
         note_text if note_text else f"{MISSING}.",
+        "",
+        "## Relevant medical history",
+        "",
+        history_body,
+        "",
+        diagnoses,
+        "",
+        problems,
         "",
         "## Hospital course",
         "",
         _hospital_course(clinical, case),
         "",
-        "## Diagnoses / problem list",
+        "## Clinical status at discharge",
         "",
-        _diagnoses_table(_as_list(case.get("CaseDiagnosis"))),
-        "",
-        _problems_table(_as_list(case.get("CaseProblemList"))),
-        "",
-        "## Vitals",
+        "### Vital signs",
         "",
         _vitals_table(_as_list(case.get("CaseVital"))),
         "",
-        "## Laboratory results",
+        "### Laboratory results",
         "",
         _labs_table(_as_list(case.get("CaseLab"))),
-        "",
-        "## Imaging",
-        "",
-        f"{MISSING}." if not _as_list(case.get("CaseImaging")) else display(case.get("CaseImaging")),
-        "",
-        "## Consultations",
-        "",
-        f"{MISSING}." if not _as_list(case.get("CaseConsult")) else display(case.get("CaseConsult")),
         "",
         "## Home medications",
         "",
         _medication_table(medications, "home"),
         "",
-        "## Inpatient medications",
+        "## Medications during hospitalization",
         "",
         _medication_table(medications, "inpatient"),
         "",
@@ -676,11 +589,11 @@ def render_resident_case(case: Mapping[str, Any]) -> str:
         "",
         _medication_table(medications, "discharge"),
         "",
-        "## Medication reconciliation / relevant transition information",
+        "## Medication reconciliation",
         "",
         _medrec_block(_as_list(case.get("CaseMedicationReconciliation"))),
         "",
-        "## Monitoring / follow-up",
+        "## Follow-up and monitoring",
         "",
         "Scheduled monitoring:",
         "",
@@ -702,7 +615,9 @@ def render_resident_case(case: Mapping[str, Any]) -> str:
         "",
         _named_rows(_as_list(case.get("CaseInstruction")), "instruction_text", ("category",)),
         "",
-        "## Return precautions",
+        "## Other relevant clinical information",
+        "",
+        "Return precautions:",
         "",
         _named_rows(
             _as_list(case.get("CaseReturnPrecaution")),
@@ -710,20 +625,42 @@ def render_resident_case(case: Mapping[str, Any]) -> str:
             ("reason", "action", "severity", "patient_instruction"),
         ),
         "",
-        "## Other resident-visible information",
-        "",
         _other_visible(case, clinical),
+        "",
+        ABOUT_CASE_DATA.rstrip(),
         "",
     ]
     return "\n".join(lines).rstrip() + "\n"
 
 
-def _format_nested(value: object) -> str:
-    if _is_missing(value):
-        return MISSING
-    if isinstance(value, bool | int | float | str):
-        return display(value)
-    return json.dumps(value, sort_keys=True, ensure_ascii=False, indent=2)
+def _format_state(value: object) -> str:
+    """Render clean/injected state. Empty collections are meaningful (absence)."""
+    if value is None:
+        return "none"
+    if isinstance(value, bool):
+        return "Yes" if value else "No"
+    if isinstance(value, int | float):
+        return str(value)
+    if isinstance(value, str):
+        text = value.strip()
+        if not text:
+            return "none"
+        if "SYN" in text and any(character.isdigit() for character in text):
+            return "present"
+        return text.replace("_", " ")
+    if isinstance(value, list):
+        if not value:
+            return "none"
+        return "; ".join(_format_state(item) for item in value)
+    if isinstance(value, Mapping):
+        if not value:
+            return "none"
+        bits = [
+            f"{str(key).replace('_', ' ')}: {_format_state(item)}"
+            for key, item in sorted(value.items())
+        ]
+        return "; ".join(bits) if bits else "none"
+    return str(value)
 
 
 def _trigger_lines(value: object) -> str:
@@ -743,53 +680,120 @@ def _trigger_lines(value: object) -> str:
     return "\n".join(lines)
 
 
+def _location_text(value: object) -> str:
+    if _is_missing(value):
+        return MISSING
+    if isinstance(value, list | tuple):
+        parts = [_location_text(item) for item in value if not _is_missing(item)]
+        return ", ".join(parts) if parts else MISSING
+    labels = []
+    for token in str(value).split(","):
+        token = token.strip()
+        if not token:
+            continue
+        labels.append(LOCATION_LABELS.get(token, token.replace("_", " ")))
+    return ", ".join(labels) if labels else MISSING
+
+
 def render_investigator_spec(row: Mapping[str, Any]) -> str:
     error = _as_dict(row.get("error"))
+    category = str(error.get("error_category") or "none")
+    family = str(error.get("error_family") or row.get("control_error_status") or "none")
+    control = str(
+        row.get("control_error_status") or error.get("control_error_status") or ""
+    )
+    clinical_label = CLINICAL_CATEGORY_LABELS.get(category, _labelize(category))
+    family_label = FAMILY_LABELS.get(family, _labelize(family))
     changes = error.get("injected_state")
     if _is_missing(changes):
         changes = error.get("intentional_changes")
     change_rows = changes if isinstance(changes, list) else []
-    change_blocks: list[str] = []
-    for index, item in enumerate(change_rows, start=1):
-        payload = _as_dict(item)
-        skip = {
-            "seed",
-            "kind",
-            "error_family",
-            "error_category",
-            "source_backed_rationale",
-        }
-        fields = [
-            (key.replace("_", " "), payload.get(key))
-            for key in sorted(payload)
-            if key not in skip
+    first = _as_dict(change_rows[0]) if change_rows else {}
+    should_parts: list[str] = []
+    description = error.get("error_description") or error.get("rationale")
+    if not _is_missing(description):
+        should_parts.append(display(description))
+    if first:
+        should_parts.append("Clean expected state: " + _format_state(first.get("clean_expected_state")))
+    appears = _format_state(first.get("injected_state")) if first else MISSING
+    should_occur = "\n\n".join(should_parts) if should_parts else MISSING
+    if control == "clean_control" or category == "none":
+        lines = [
+            "## Intended assessment issue",
+            "",
+            "**Clinical category:**",
+            "",
+            "No intentional assessment problem (clean control)",
+            "",
+            "**CliniProof identifier:**",
+            "",
+            "`none`",
+            "",
+            "**Medication(s) involved:**",
+            "",
+            f"{MISSING}.",
+            "",
+            "**What should have occurred:**",
+            "",
+            "No planted medication-reconciliation discrepancy or transition-of-care gap.",
+            "",
+            "**What appears in the case:**",
+            "",
+            "The resident-visible chart is the clean expected state.",
+            "",
+            "**Where the relevant clinical evidence appears:**",
+            "",
+            "Review the full chart; there is no concealed target.",
+            "",
+            "**Expected clinical action:**",
+            "",
+            "NO INTENTIONAL ERROR",
+            "",
         ]
-        change_blocks.append(f"Change {index}:\n\n" + "\n".join(f"- **{label}:** {_format_nested(value)}" for label, value in fields if not _is_missing(value)))
-    change_text = "\n\n".join(change_blocks) if change_blocks else f"{MISSING}."
+        return "\n".join(lines)
     lines = [
-        "## Investigator specification",
+        "## Intended assessment issue",
         "",
-        _bullet_map(
-            [
-                ("Error family", error.get("error_family")),
-                ("Error category", error.get("error_category")),
-                ("Control / error status", row.get("control_error_status") or error.get("control_error_status")),
-                ("Detectability location", error.get("detectability_location")),
-                ("Evidence location", error.get("evidence_location")),
-                ("Evidence required", error.get("evidence_required")),
-                ("Correct action", error.get("correct_action")),
-                ("Changed field", error.get("changed_field")),
-                ("Rationale", error.get("rationale") or error.get("error_description")),
-            ]
-        ),
+        "**Clinical category:**",
         "",
-        "Trigger medication(s):",
+        clinical_label,
+        "",
+        "**CliniProof identifier:**",
+        "",
+        f"`{category}`",
+        "",
+        f"**Family:** {family_label} (`{family}`)",
+        "",
+        "**Medication(s) involved:**",
         "",
         _trigger_lines(error.get("trigger_meds") or error.get("affected_medication")),
         "",
-        "Intended clean state / injected state:",
+        "**What should have occurred:**",
         "",
-        change_text,
+        should_occur,
+        "",
+        "**What appears in the case:**",
+        "",
+        appears,
+        "",
+        "**Where the relevant clinical evidence appears:**",
+        "",
+        _location_text(error.get("evidence_location") or error.get("detectability_location")),
+        "",
+        "**Expected clinical action:**",
+        "",
+        display(error.get("correct_action")),
+        "",
+        "### Technical implementation",
+        "",
+        _bullet_map(
+            [
+                ("Changed field", first.get("changed_field") or error.get("changed_field")),
+                ("Detectability location", _location_text(error.get("detectability_location"))),
+                ("Evidence required", error.get("evidence_required")),
+                ("Rationale", error.get("rationale") or error.get("error_description")),
+            ]
+        ),
         "",
     ]
     return "\n".join(lines).rstrip() + "\n"
@@ -800,37 +804,11 @@ def _join_pages(pages: Sequence[str]) -> str:
 
 
 def render_all_cases(case_pages: Sequence[tuple[str, str]]) -> str:
-    header = """# CLINIPROOF_TAXONOMY_V1 — Readable Case Set
-
-Status:
-
-Machine-validated synthetic resident-review cases pending clinician validation.
-
-Cases:
-
-VAL-201 through VAL-224
-
-Total:
-
-24
-
-This file contains resident-visible case content only.
-"""
-    return header.rstrip() + "\n\n---\n\n" + _join_pages([page for _, page in case_pages])
+    return ALL_CASES_HEADER.rstrip() + "\n\n---\n\n" + _join_pages([page for _, page in case_pages])
 
 
 def render_plausibility_packet(case_pages: Sequence[tuple[str, str]]) -> str:
-    header = """# CLINIPROOF_TAXONOMY_V1 — Plausibility-only packet
-
-This packet is for an independent clinician assessing **C1 clinical plausibility**.
-
-It contains resident-visible case information only. It does **not** reveal planted error, error family, error category, trigger medication, correct action, clean versus error-bearing status, or investigator answer keys.
-
-Complete the C1 form after each case. Rubric: [`validation_rubric.md`](validation_rubric.md).
-
-Status: machine-validated synthetic resident-review cases pending clinician validation.
-"""
-    blocks = [header.rstrip()]
+    blocks = [PLAUSIBILITY_HEADER.rstrip()]
     for _, page in case_pages:
         blocks.append(page.rstrip() + "\n\n" + C1_FORM.rstrip())
     return "\n\n---\n\n".join(blocks) + "\n"
@@ -839,17 +817,7 @@ Status: machine-validated synthetic resident-review cases pending clinician vali
 def render_investigator_packet(
     case_pages: Sequence[tuple[str, str]], investigator_rows: Mapping[str, Mapping[str, Any]]
 ) -> str:
-    header = """# INVESTIGATOR / VALIDATOR ONLY
-
-This file contains the concealed assessment specification.
-
-**Do not provide it to resident study participants.**
-
-Use this packet for primary expert raters completing the full CliniProof C1–C5 validation rubric. Rubric: [`validation_rubric.md`](validation_rubric.md).
-
-Status: machine-validated synthetic resident-review cases pending clinician validation.
-"""
-    blocks = [header.rstrip()]
+    blocks = [INVESTIGATOR_HEADER.rstrip()]
     for case_id, page in case_pages:
         spec = render_investigator_spec(investigator_rows[case_id])
         blocks.append(
@@ -892,6 +860,8 @@ def build_readable_packets(
         "validation_rubric": output_dir / "validation_rubric.md",
         "plausibility_only_packet": output_dir / "plausibility_only_packet.md",
         "clinician_validation_packet": output_dir / "clinician_validation_packet.md",
+        "how_cliniproof_works": output_dir / "how_cliniproof_works.md",
+        "developer_notes": output_dir / "developer_notes.md",
     }
     files["readme"].write_text(
         _with_trailing_newline(READABLE_INDEX_MD), encoding="utf-8", newline="\n"
@@ -907,6 +877,12 @@ def build_readable_packets(
     )
     files["clinician_validation_packet"].write_text(
         render_investigator_packet(pages, investigator), encoding="utf-8", newline="\n"
+    )
+    files["how_cliniproof_works"].write_text(
+        _with_trailing_newline(HOW_CLINIPROOF_WORKS_MD), encoding="utf-8", newline="\n"
+    )
+    files["developer_notes"].write_text(
+        _with_trailing_newline(DEVELOPER_NOTES_MD), encoding="utf-8", newline="\n"
     )
     written.update(files)
     return written
