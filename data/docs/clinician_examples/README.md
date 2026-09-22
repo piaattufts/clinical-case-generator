@@ -1,15 +1,21 @@
 # Educational demonstration cases (not the resident-validation study)
 
-These snapshots support the clinician walkthrough in the root [`README.md`](../../README.md). They were generated with the same pipeline as the study cases (`app/services/generation.py`, `use_openai=False` because `OPENAI_API_KEY` was empty) using sequences **901–904** and seed **20260926**. Those identifiers are **not** `VAL-*` study IDs and are **not** part of `RESIDENT_VALIDATION_V1` (or later batches).
+These snapshots support the clinician walkthrough in the root [`README.md`](../../README.md). They were generated with the same structured pipeline as the study cases (`app/services/generation.py`, `use_openai=False` because `OPENAI_API_KEY` was empty) using sequences **901–904** and seed **20260926**. OpenAI is optional in this repository and, when used, only rewords narrative text from facts already selected by the structured generator. These demonstrations are **not** wholly LLM-generated.
+
+Those identifiers are **not** `VAL-*` study IDs and are **not** members of any of the three dataset identities:
+
+- **A.** `RESIDENT_VALIDATION_V1` (`VAL-001`–`VAL-024`)
+- **B.** `CLINIPROOF_TAXONOMY_V1` (`VAL-201`–`VAL-224`) — current post-taxonomy clinician-validation batch
+- **C.** `legacy_pre_taxonomy` (`RESIDENT_VALIDATION_V2`–`V4`, `VAL-025`–`VAL-096`) — provenance archive only
 
 | File | Internal id | Scenario | Error injection | Audience |
 | --- | --- | --- | --- | --- |
 | [`syn-000901.json`](syn-000901.json) | `SYN-000901` | `HF_INPATIENT` | none (clean) | Clinician teaching |
 | [`syn-000902.json`](syn-000902.json) | `SYN-000902` | `AF_ANTICOAGULATION` | none (clean) | Clinician teaching |
 | [`syn-000903.json`](syn-000903.json) | `SYN-000903` | `CAP_INPATIENT` | none (clean) | Clinician teaching |
-| [`syn-000904.json`](syn-000904.json) | `SYN-000904` | `HF_INPATIENT` | one `omission` | **Investigator-only teaching** |
+| [`syn-000904.json`](syn-000904.json) | `SYN-000904` | `HF_INPATIENT` | one historical `omission` (retrospective map: `f1_omission`) | **Investigator-only teaching** |
 
-`SYN-000904.json` includes the planted-error answer key. Do **not** give that file, or the investigator-only README section that quotes it, to resident study participants. It is not a `VAL-*` case, but it teaches the injection method.
+`SYN-000904.json` includes the planted-error answer key. Do **not** give that file, or the investigator-only README section that quotes it, to resident study participants. It is not a `VAL-*` case, but it teaches the injection method. The stored category name is the historical injector vocabulary and is not rewritten.
 
 Commands used (after `db-init` and `bootstrap-reference-data`):
 

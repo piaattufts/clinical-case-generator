@@ -1,6 +1,14 @@
 # Legacy pre-taxonomy V2–V4 artifacts
 
-These folders are **not** taxonomy-compliant resident-validation batches. They are an archive of the pre-taxonomy V2–V4 generation. Do not list them as current CliniProof Family 1 / Family 2 study sets. Do not silently regenerate them in place with the current injector.
+These folders are **not** taxonomy-compliant resident-validation batches. They are an archive of the pre-taxonomy V2–V4 generation. They are preserved **for provenance only**.
+
+They are **not**:
+
+- current resident packets
+- taxonomy-compliant validation batches
+- evidence of Family 2 implementation
+
+Do **not** list them as current CliniProof Family 1 / Family 2 study sets. Do **not** silently regenerate them in place with the current injector. Do **not** move them back into `data/validation/` (outside this archive) as current study copies.
 
 The historical record of that generation is **PR #4**, closed without merge. The PR branch was kept:
 
@@ -10,7 +18,7 @@ The historical record of that generation is **PR #4**, closed without merge. The
 | Branch | `cursor/three-more-validation-batches-9f03` |
 | Generating commit | `ba346834b7685b2e6ae13bee374995c9c118ccf3` (`Freeze and export resident-validation batches V2–V4.`) |
 | Plan commit | `4711f17` (`Add three additional resident-validation batch plans (V2–V4).`) |
-| Injector at that commit | `SUPPORTED_ERROR_FAMILIES = {omission, dose_mismatch, frequency_mismatch, incorrect_continuation}`; unknown preferred category **silently fell back to `omission`** |
+| Injector at that commit | Four-name pre-taxonomy injector: `SUPPORTED_ERROR_FAMILIES = {omission, dose_mismatch, frequency_mismatch, incorrect_continuation}`; **no** canonical `error_family`; **no** `f1_*` / `f2_*` IDs; unknown preferred category **silently fell back to `omission`** |
 | Artifact vocabulary | Historical names only; no `error_family` on plans or answer keys |
 
 Byte-for-byte freeze exports (JSON, CSV, coverage Markdown) match that generating commit. Only the per-folder READMEs were labeled after the move.
@@ -31,7 +39,7 @@ The CliniProof injector on this branch uses canonical IDs (`f1_*`, `f2_*`, `none
 
 Current study copies:
 
-- `RESIDENT_VALIDATION_V1` (`VAL-001`–`VAL-024`) — also historical injector names; immutable; lives in [`../`](../)
-- `CLINIPROOF_TAXONOMY_V1` (`VAL-201`–`VAL-224`) — canonical IDs; lives in [`../cliniproof_v1/`](../cliniproof_v1/)
+- **A.** `RESIDENT_VALIDATION_V1` (`VAL-001`–`VAL-024`) — historical injector names; immutable; predates the canonical taxonomy; lives in [`../`](../)
+- **B.** `CLINIPROOF_TAXONOMY_V1` (`VAL-201`–`VAL-224`) — current post-taxonomy clinician-validation batch; canonical IDs; lives in [`../cliniproof_v1/`](../cliniproof_v1/)
 
-A new taxonomy-compliant validation set must use a **new** `batch_code` and **new** VAL IDs. Do not reuse `RESIDENT_VALIDATION_V2`–`V4` or `VAL-025`–`VAL-096`.
+This archive is **C. `legacy_pre_taxonomy`**. A new taxonomy-compliant validation set must use a **new** `batch_code` and **new** VAL IDs. Do not reuse `RESIDENT_VALIDATION_V2`–`V4` or `VAL-025`–`VAL-096`.
