@@ -2,6 +2,8 @@
 
 PostgreSQL schema, official terminology clients, source-backed reference bootstrap, deterministic clinical conditionals, and constrained synthetic case generation. The application does not invent RxNorm, LOINC, SNOMED, ICD-10-CM, UCUM, or device identifiers. Raw MIMIC patient rows, notes, identifiers, and events are never sent to OpenAI.
 
+The frozen resident-review batch `RESIDENT_VALIDATION_V1` (VAL-001–024), the full generate → validate → freeze → export pipeline, seeds, and per-case terminology are documented in [`data/validation/README.md`](data/validation/README.md).
+
 ## Three data classes
 
 **Authoritative reference data.** RxNorm, DailyMed, LOINC, UCUM, ICD-10-CM, SNOMED CT, and AccessGUDID concepts live in `ref_*` tables. Every real reference row keeps `source_system`, `source_version`, and a timezone-aware `retrieved_at`.
@@ -27,7 +29,7 @@ Terminology and dataset content is not bundled. RxNorm, DailyMed, LOINC, UCUM, I
 - `app/api` — `GET /reference/medications`, `/labs`, `/diagnoses`, `/symptoms`
 - `app/openai` — optional narrative wording after canonical concepts are selected
 - `data/bootstrap` — human-readable concept requests, curated rule templates, and generation scenarios
-- `data/validation` — frozen VAL-* batch plan and blinded / investigator exports
+- `data/validation` — frozen VAL-* batch plan, blinded / investigator exports, and the full pipeline + case catalog ([`data/validation/README.md`](data/validation/README.md))
 
 `CaseGenerationRun.blueprint_id` is the UUID foreign key to `case_blueprints.id`. Optional links to reference rows use `ON DELETE RESTRICT`. Case children use `ON DELETE CASCADE` on `case_id`.
 
@@ -97,6 +99,8 @@ OpenAI is not used to invent diagnoses, medications, laboratory codes, units, cl
 - `data/validation/investigator_answer_key.json` and `.md` — control/error status and seeds
 - `data/validation/validation_manifest.json` — machine-readable freeze metadata
 - `data/validation/resident_review_worksheet.csv` and `resident_review_schema.json` — empty review capture (no fabricated ratings)
+
+**Pipeline, seeds, official source versions, and the VAL-001–024 catalog** (demographics, RXCUIs, LOINC, planted errors, clean controls) are documented in [`data/validation/README.md`](data/validation/README.md). That file is the repeatability guide for batch `RESIDENT_VALIDATION_V1`. The committed JSON in `data/validation/` is the study source of truth; a later live bootstrap can change RxNorm/LOINC ranking even with the same seeds.
 
 These records are machine-validated synthetic resident-review cases pending clinician validation. Software checks terminology, structure, and implemented source-backed rules. They are not clinically validated until residents complete review.
 
