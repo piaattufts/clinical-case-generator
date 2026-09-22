@@ -113,7 +113,7 @@ Cases are built in a fixed order. Each stage completes before the next stage beg
 7. Controlled error introduction applies exactly one planned change for assessment cases. Clean controls skip this step.
 8. Post-error validation checks that the intended target is now present, that required evidence remains visible, and that a second assessment target was not introduced.
 9. Blinded resident export gives residents the chart without family, category, trigger metadata, or answer keys.
-10. Clinician validation is the human step. Reviewers apply criteria C1 through C5. Automated checks cannot certify realism or educational appropriateness.
+10. Clinician validation is the human step. Two clinical reviewers independently complete blinded clinical plausibility (C1). After those ratings are submitted and locked, they independently complete C2 through C5 and an Accept, Revise, or Exclude recommendation. Important disagreements undergo structured consensus review. Original independent ratings are preserved. Automated checks cannot certify realism or educational appropriateness.
 
 ## D. What OpenAI does
 

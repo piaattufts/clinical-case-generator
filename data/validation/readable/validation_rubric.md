@@ -1,16 +1,139 @@
-# CliniProof clinician-validation rubric
+# CliniProof Clinical Case Validation Rubric
 
-This rubric is for clinician and investigator review of the frozen validation set whose batch code is `CLINIPROOF_TAXONOMY_V1`, which contains cases VAL-201 through VAL-224. Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation.
+## Purpose
 
-The five criteria serve different purposes, and they should not be collapsed into a single pass/fail judgment.
+Two clinical reviewers independently evaluate each synthetic inpatient case before it is accepted for use in the resident assessment. The study method is independent dual expert review with structured consensus resolution. It is not a Delphi process.
 
-Clinical plausibility (C1) can be completed from the resident-visible chart alone. It is fixable: a case that is implausible should be revised rather than scored as an assessment item.
+Review proceeds in two stages.
 
-Criteria C2 through C4 are hard gates. They require the concealed assessment specification in the investigator packet. A failure means the case cannot be used against its intended answer key until it is fixed or retired.
+1. Blinded clinical plausibility review. Both reviewers first receive only the resident-visible version of each case. They do not see whether the case is a control, the intended error family, the intended error category, the medication targeted by the assessment, the correct action, or any other answer-key field. They independently complete Criterion 1 (C1). Those ratings are submitted and locked before Stage 2 begins.
+2. Assessment-target validation. After C1 ratings are locked, both reviewers receive the investigator packet that names the intended assessment target. They then independently complete Criteria C2 through C5 and record an overall recommendation of Accept, Revise, or Exclude.
 
-Difficulty (C5) is advisory. It must not by itself reject a case.
+Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. The frozen set is `CLINIPROOF_TAXONOMY_V1`, containing cases VAL-201 through VAL-224.
+
+The five criteria serve different purposes and should not be collapsed into a single pass or fail judgment. C1 can be completed from the resident-visible chart alone. C2 through C4 are hard requirements: if any of them fails, the case cannot be used against its intended answer key until it is revised or excluded. C5 is advisory and must not by itself cause a case to fail validation.
 
 The taxonomy also defines required companion medication omitted (`f2_coprescription_omitted`), which represents a situation in which a clinically required companion medication is missing. This category is not included in the current validation set because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
+
+## C1 — Clinical plausibility
+
+### Clinical question
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+### Reviewer should look for
+
+Both reviewers independently rate the following eight domains from the resident-visible chart only:
+
+1. Presentation and demographics
+2. Fit between presentation and diagnosis
+3. Vital signs
+4. Laboratory findings
+5. Medication regimen
+6. Hospital course
+7. Consistency across the chart
+8. Discharge plan and follow-up
+
+Clinical plausibility is not the same as optimal management or complete guideline concordance. Unusual but source-backed formulations or units should be recorded if they undermine credibility. They should not be silently corrected in the frozen case.
+
+### Scale for each domain
+
+A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible.
+
+Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+Reviewers also answer the overall question: could this reasonably represent a patient encountered in the stated inpatient clinical setting? The allowed answers are Yes or No.
+
+### Result
+
+C1 passes when all clinically relevant domains are rated 3 or 4 and the overall clinical plausibility answer is Yes.
+
+If any domain is rated 1 or 2, or if the overall answer is No, record that revision is needed for clinical plausibility.
+
+On the Stage 1 form, record only:
+
+- Clinically plausible
+- Revision needed for clinical plausibility
+
+Do not record Accept, Revise, or Exclude until Stage 2 is complete.
+
+### Technical interpretation
+
+C1 is a clinical-realism judgment on the resident-visible export. It does not inspect the concealed family or category fields. Software already checked schema, terminology identifiers, and implemented rules. C1 asks whether a physician still finds the chart coherent.
+
+## C2 — Intended assessment problem
+
+### Clinical question
+
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess?
+
+### Reviewer should look for
+
+Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case.
+
+### Result
+
+Record Pass or Fail. C2 is a hard requirement. If C2 fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
+
+### Technical interpretation
+
+This criterion checks fidelity of the deterministic injection to the planned standardized category. The planned category, the injected kind, and the answer-key category must describe the same visible target.
+
+## C3 — Detectability
+
+### Clinical question
+
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case?
+
+### Reviewer should look for
+
+Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. For Family 2, the trigger or precondition must be visible and unambiguous.
+
+### Result
+
+Record Pass or Fail. C3 is a hard requirement. A written explanation is required for a failure.
+
+### Technical interpretation
+
+This corresponds to evidentiary sufficiency and cue integrity in the CliniProof assessment model. The resident export must be sufficient without investigator fields.
+
+## C4 — Absence of unintended problems
+
+### Clinical question
+
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem?
+
+### Reviewer should look for
+
+Reviewers must actively search for additional problems. This is not simply a record of problems that happen to be noticed. After reviewing the complete case, ask whether another clinically meaningful discrepancy is present that a reasonable resident could interpret as an assessment target.
+
+### Result
+
+Record Pass or Fail. C4 is a hard requirement. If the result is Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful.
+
+### Technical interpretation
+
+Error isolation means exactly one intended assessment target on error-bearing cases and zero on clean controls. An unintended second target makes the answer key unusable.
+
+## C5 — Expected learner difficulty
+
+### Clinical question
+
+How difficult would this case likely be for an internal medicine resident?
+
+### Reviewer should look for
+
+Provide a provisional expert estimate using Easy, Moderate, Hard, or Inappropriate / outlier.
+
+This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance.
+
+### Result
+
+C5 is advisory. It should not by itself cause a case to fail validation.
+
+### Technical interpretation
+
+Any prior difficulty field in the answer key is optional metadata, not a software-computed score.
 
 ## Family-specific guidance for C2 through C4
 
@@ -74,108 +197,58 @@ A treatment decision was left pending, but no follow-up is arranged to resolve i
 
 The taxonomy also defines this category for a situation in which a clinically required companion medication is missing. This category is not included in the current validation set because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
 
-## Criterion 1 — Clinical plausibility — fixable
+## Reviewer recommendation
 
-### Clinical question
+Each reviewer records one independent recommendation after completing C1 through C5. Consensus is not a recommendation option on this form.
 
-Apart from any intentionally planted reconciliation discrepancy, could this case reasonably represent a patient encountered in the stated clinical setting?
+☐ Accept
 
-### Reviewer should look for
+☐ Revise
 
-Assess the following domains independently: presentation and demographics; diagnosis-presentation coherence; vital signs; laboratory findings; medication regimen; hospital course; cross-document consistency; and discharge context and follow-up.
+☐ Exclude
 
-Clinical plausibility is not synonymous with optimal management or complete guideline concordance. Unusual but source-backed formulations or units should be recorded if they undermine credibility. They should not be silently corrected in the frozen case.
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-### Scale for each domain
+If revision is requested:
 
-A rating of 4 means fully plausible, with no clinically meaningful concern. A rating of 3 means plausible with minor concern: an issue is present but would not materially alter interpretation. A rating of 2 means questionable: a clinically meaningful inconsistency or implausibility is present and the case requires revision. A rating of 1 means implausible: a major contradiction or unrealistic feature prevents the case from representing a credible inpatient encounter.
+### Recommended revision
 
-### Result
+____________________________________
 
-Record a global judgment of Yes or No.
+### Clinical reason for revision
 
-C1 pass requires that all clinically relevant domains are rated 3 or 4 and that the global judgment is Yes.
+____________________________________
 
-C1 revise applies if any domain is rated 2 or 1, or if the global judgment is No.
+Recommended revisions are required whenever Revise is selected. Examples may include changing an implausible formulation, clarifying the hospital course, correcting an unrealistic laboratory unit, adding information needed to detect the intended problem, or removing an unintended second discrepancy.
 
-Require comments identifying the exact field or issue for any rating below 3.
+Do not automatically modify a case based on reviewer comments. Human review comments are recommendations that must be considered by the study team. Do not overwrite the frozen CLINIPROOF_TAXONOMY_V1 case files during human review. Reviewer comments and revision requests should be stored separately.
 
-### Technical interpretation
+## Consensus review
 
-C1 is a clinical-realism gate on the resident-visible export. It does not inspect the concealed family or category fields. Software already checked schema, terminology identifiers, and implemented rules. C1 asks whether a physician still finds the chart coherent.
+Complete only when independent reviewers disagree.
 
-## Criterion 2 — Intended error present and correctly classified — hard gate
+Reviewer A initial recommendation:
 
-### Clinical question
+Reviewer B initial recommendation:
 
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims?
+Areas of disagreement:
 
-### Reviewer should look for
+Consensus discussion summary:
 
-Ask whether the intended discrepancy or gap is actually present, whether it is correctly classified as a Family 1 list discrepancy or a Family 2 transition gap and as the specific category named in the specification, and whether the investigator specification describes what is actually visible in the case.
+Consensus outcome:
 
-### Result
+☐ Accepted
 
-Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+☐ Revision required
 
-### Technical interpretation
+☐ Excluded
 
-This criterion checks fidelity of the deterministic injection to the planned standardized category. The planned category, the injected kind, and the answer-key category must describe the same visible target.
+☐ Unresolved
 
-## Criterion 3 — Detectability from documents alone — hard gate
+Preserve both original independent ratings. Show both reviewers the areas of disagreement. Discuss the clinical rationale. Record a consensus outcome separately. Do not overwrite original reviewer ratings with the consensus result.
 
-### Clinical question
+If the two reviewers cannot reach consensus, mark Unresolved. Do not automatically accept the case. An unresolved case is not considered clinically validated. It may receive an additional clinical opinion if one becomes available, or it may remain excluded from the clinically validated set.
 
-Could a resident identify and resolve the intended problem using only the information available in this case?
+Structured consensus review is required when reviewers disagree on C1 pass versus revision needed, when either reviewer fails C2, when reviewers disagree on C2, C3, C4, or Accept / Revise / Exclude, or when clinically important reviewer comments conflict. Cases with agreement require no consensus discussion unless the investigators choose to review them.
 
-### Reviewer should look for
-
-Confirm that the required clinical evidence is present, that information is not contradictory, that no critical information is withheld, and that wording does not accidentally reveal the answer. For Family 2, the trigger or precondition must be visible and unambiguous.
-
-### Result
-
-Record Pass or Fail. Comment on evidence location, ambiguity, missing information, and cueing.
-
-### Technical interpretation
-
-This corresponds to evidentiary sufficiency and cue integrity in the CliniProof assessment model. The resident export must be sufficient without investigator fields.
-
-## Criterion 4 — Absence of unintended errors — hard gate
-
-### Clinical question
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target?
-
-### Reviewer should look for
-
-This must be assessed by an active hunt. Do not merely record errors that happen to be noticed. List any additional possible error and its severity or importance.
-
-### Result
-
-Record Pass or Fail.
-
-### Technical interpretation
-
-Error isolation means exactly one intended assessment target on error-bearing cases and zero on clean controls. An unintended second target makes the answer key unusable.
-
-## Criterion 5 — Difficulty for target learner — advisory
-
-### Clinical question
-
-How difficult would this item be for an internal medicine resident?
-
-### Reviewer should look for
-
-Provide a provisional expert estimate using Easy, Moderate, Hard, or Outlier / inappropriate.
-
-### Result
-
-This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration. C5 alone should not reject a case.
-
-### Technical interpretation
-
-Any prior difficulty field in the answer key is optional metadata, not a software-computed score.
-
-## Final disposition
-
-Choose one of the following: Accept; Revise and re-rate; Regenerate / retire; or Adjudication required.
+If the consensus outcome is Revision required, record the specific requested revision, the reason, the criterion affected, and the date or version of the revision. After the case is revised, it should be reviewed again. Only the criteria affected by the revision need to be repeated unless the change materially alters the whole case. If a revision changes the clinical presentation, medication regimen, target discrepancy, evidence needed to detect the problem, or answer key, then repeat the relevant C1 through C4 assessments.

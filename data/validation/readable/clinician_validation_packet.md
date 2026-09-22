@@ -1,12 +1,16 @@
 # Investigator / Clinical Validator Copy
 
-This document contains the intended assessment target for each case and must not be provided to resident participants.
+This document contains the intended assessment target for each case. Reviewers should complete and submit the blinded C1 plausibility review before using this packet.
 
 **INVESTIGATOR / VALIDATOR ONLY — DO NOT DISTRIBUTE TO RESIDENT PARTICIPANTS**
 
-Use this packet if you are a primary expert rater completing the full CliniProof C1 through C5 validation rubric. Each case appears in three parts. First is the resident-visible clinical chart, which is the same content residents see. Second is the intended assessment issue, written with a clinical label and the standardized CliniProof identifier. Third are the C1 through C5 rating forms.
+This is Stage 2 of independent dual expert review with structured consensus resolution. After both reviewers have submitted and locked their C1 ratings, they receive this packet and independently evaluate C2 through C5, then record Accept, Revise, or Exclude. Original independent C1 ratings remain unchanged.
 
-The rating criteria are defined in [`validation_rubric.md`](validation_rubric.md). A clinical-to-technical overview of the pipeline is in [`how_cliniproof_works.md`](how_cliniproof_works.md). Module-level notes for informatics and engineering readers are in [`developer_notes.md`](developer_notes.md).
+Each case appears in two parts after the reminder above. First is the resident-visible clinical chart, which is the same content residents see. Second is the intended assessment issue, written with a clinical label and the standardized CliniProof identifier, followed by the C2 through C5 forms and the independent recommendation.
+
+Do not record consensus on this independent form. After both reviewers have submitted, compare ratings and, when needed, complete structured consensus review on [`consensus_worksheet.csv`](consensus_worksheet.csv). Consensus does not overwrite the original independent ratings.
+
+The rating criteria are defined in [`validation_rubric.md`](validation_rubric.md). The two-reviewer workflow is in [`reviewer_protocol.md`](reviewer_protocol.md).
 
 Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation.
 
@@ -192,7 +196,7 @@ Medication omitted at discharge
 
 - lisinopril 1 MG/ML Oral Solution (rxcui=1806884)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 A medication indicated at discharge was omitted from the discharge medication list.
 
@@ -202,7 +206,7 @@ Clean expected state: present
 
 absent
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Home medications, Medications during hospitalization, Discharge medications
 
@@ -217,74 +221,39 @@ Restore the omitted continued discharge medication.
 - **Evidence required:** Home/inpatient continuation of this medication with no stop rationale.
 - **Rationale:** A medication indicated at discharge was omitted from the discharge medication list.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -292,21 +261,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -492,7 +465,7 @@ Medication inappropriately added or continued
 
 - ibuprofen 0.05 MG/MG Topical Gel (rxcui=141997)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 A medication was prescribed at discharge without a clinical indication or intended discharge role.
 
@@ -502,7 +475,7 @@ Clean expected state: absent
 
 present
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Home medications, discharge instructions, Discharge medications
 
@@ -517,74 +490,39 @@ Remove the unindicated medication from the discharge list.
 - **Evidence required:** Home medication was discontinued and should not appear at discharge.
 - **Rationale:** A medication was prescribed at discharge without a clinical indication or intended discharge role.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -592,21 +530,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -791,7 +733,7 @@ Unexplained dose discrepancy
 
 - furosemide 4 MG/ML Oral Solution (rxcui=104220)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 The discharge dose differs from the intended medication plan without a documented clinical rationale.
 
@@ -801,7 +743,7 @@ Clean expected state: 1 tablet
 
 2 tablet
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Home medications, Discharge medications
 
@@ -816,74 +758,39 @@ Restore the correct continued discharge dose.
 - **Evidence required:** Intended dose on the home/inpatient medication plan.
 - **Rationale:** The discharge dose differs from the intended medication plan without a documented clinical rationale.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -891,21 +798,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -1090,7 +1001,7 @@ Unexplained route discrepancy
 
 - lisinopril 1 MG/ML Oral Solution (rxcui=1806884)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 The discharge route differs from the intended medication plan without a documented clinical rationale.
 
@@ -1100,7 +1011,7 @@ Clean expected state: oral
 
 intravenous
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Home medications, Discharge medications
 
@@ -1115,74 +1026,39 @@ Restore the correct continued discharge route.
 - **Evidence required:** Intended route on the home/inpatient medication plan.
 - **Rationale:** The discharge route differs from the intended medication plan without a documented clinical rationale.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -1190,21 +1066,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -1389,7 +1269,7 @@ Unexplained frequency discrepancy
 
 - lisinopril 1 MG/ML Oral Solution (rxcui=1806884)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 The discharge frequency differs from the intended medication plan without a documented clinical rationale.
 
@@ -1399,7 +1279,7 @@ Clean expected state: once daily
 
 twice daily
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Home medications, Discharge medications
 
@@ -1414,74 +1294,39 @@ Restore the correct continued discharge frequency.
 - **Evidence required:** Intended frequency on the home/inpatient medication plan.
 - **Rationale:** The discharge frequency differs from the intended medication plan without a documented clinical rationale.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -1489,21 +1334,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -1689,7 +1538,7 @@ Unexplained therapeutic substitution
 - metoprolol tartrate 37.5 MG Oral Tablet (role=source; rxcui=1606347)
 - carvedilol 6.25 MG Oral Tablet (role=substitute; rxcui=200031)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 A different medication in the same therapeutic class was substituted at discharge without a documented clinical or formulary explanation.
 
@@ -1699,7 +1548,7 @@ Clean expected state: dose: 37.5 MG; drug: metoprolol tartrate 37.5 MG Oral Tabl
 
 dose: 37.5 MG; drug: carvedilol 6.25 MG Oral Tablet; frequency: once daily; monitoring: none; quantity or days: none; route: oral; rxcui: 200031; status: discharge
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Home medications, Medications during hospitalization, Discharge medications
 
@@ -1714,74 +1563,39 @@ Restore the original continued medication; do not leave an unexplained same-clas
 - **Evidence required:** RxClass CV100 (BETA BLOCKERS/RELATED) relates the source and substitute.
 - **Rationale:** A different medication in the same therapeutic class was substituted at discharge without a documented clinical or formulary explanation.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -1789,21 +1603,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -1988,7 +1806,7 @@ Required outpatient monitoring not arranged
 
 - warfarin sodium 1 MG Oral Tablet (rxcui=855288; rule_code=WARFARIN_INR_MONITORING)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 A medication requiring outpatient laboratory or physiological monitoring was discharged without that monitoring being arranged.
 
@@ -1998,7 +1816,7 @@ Clean expected state: case monitoring ids: present; medication monitoring: Outpa
 
 case monitoring: none; medication monitoring: none
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Discharge medications, Laboratory results, Scheduled monitoring
 
@@ -2013,74 +1831,39 @@ Arrange the required outpatient monitoring for the trigger medication.
 - **Evidence required:** Trigger medication remains; source-backed rule WARFARIN_INR_MONITORING requires 38875-1.
 - **Rationale:** A medication requiring outpatient laboratory or physiological monitoring was discharged without that monitoring being arranged.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -2088,21 +1871,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -2287,7 +2074,7 @@ Held medication without a restart plan
 
 - furosemide 4 MG/ML Oral Solution (rxcui=104220)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 A home medication legitimately held during hospitalization has no documented resumption criterion or timing at discharge.
 
@@ -2297,7 +2084,7 @@ Clean expected state: instructions: Resume when holding furosemide 4 MG/ML Oral 
 
 instructions: none; target or goal: none
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Home medications, Medications during hospitalization, Discharge instructions
 
@@ -2312,74 +2099,39 @@ Document when and under what criteria the held medication should be restarted.
 - **Evidence required:** The medication was held for a documented reason and needs a restart plan.
 - **Rationale:** A home medication legitimately held during hospitalization has no documented resumption criterion or timing at discharge.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -2387,21 +2139,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -2586,7 +2342,7 @@ Insufficient medication supply
 
 - furosemide 4 MG/ML Oral Solution (rxcui=104220)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 The prescribed quantity or days' supply is insufficient to cover the patient until the planned follow-up.
 
@@ -2596,7 +2352,7 @@ Clean expected state: 30 days
 
 7 days
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Follow-up appointments, discharge medications.quantity or days
 
@@ -2611,74 +2367,39 @@ Increase days' supply so treatment continues through the planned follow-up.
 - **Evidence required:** Days' supply must cover the scheduled follow-up or treatment endpoint.
 - **Rationale:** The prescribed quantity or days' supply is insufficient to cover the patient until the planned follow-up.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -2686,21 +2407,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -2887,7 +2612,7 @@ Hospital-only medication continued after discharge
 
 - pantoprazole 20 MG Delayed Release Oral Tablet (rxcui=251872)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 A medication started for an inpatient-only indication was erroneously continued at discharge despite no ongoing outpatient indication.
 
@@ -2897,7 +2622,7 @@ Clean expected state: absent
 
 present
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Home medications, Medications during hospitalization, Discharge medications, Medication plan / decision reason
 
@@ -2912,74 +2637,39 @@ Stop the hospital-only medication at discharge.
 - **Evidence required:** Medication was started in hospital for an inpatient-only indication and should stop.
 - **Rationale:** A medication started for an inpatient-only indication was erroneously continued at discharge despite no ongoing outpatient indication.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -2987,21 +2677,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -3187,7 +2881,7 @@ Temporary inpatient substitution not addressed at discharge
 - metoprolol tartrate 37.5 MG Oral Tablet (role=home_therapy; rxcui=1606347)
 - carvedilol 6.25 MG Oral Tablet (role=inpatient_substitute; rxcui=200031)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 A home therapy temporarily replaced during hospitalization for formulary or protocol reasons was neither reverted nor explicitly re-decided at discharge.
 
@@ -3197,7 +2891,7 @@ Clean expected state: dose: 37.5 MG; drug: metoprolol tartrate 37.5 MG Oral Tabl
 
 dose: 37.5 MG; drug: carvedilol 6.25 MG Oral Tablet; frequency: once daily; monitoring: none; quantity or days: none; route: oral; rxcui: 200031; status: discharge
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Home medications, Medications during hospitalization, Discharge medications, Discharge instructions
 
@@ -3212,74 +2906,39 @@ Revert to the home therapy or document an intentional decision to continue the i
 - **Evidence required:** Home therapy was temporarily replaced inpatient and should be reverted or explicitly re-decided.
 - **Rationale:** A home therapy temporarily replaced during hospitalization for formulary or protocol reasons was neither reverted nor explicitly re-decided at discharge.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -3287,21 +2946,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -3487,7 +3150,7 @@ Follow-up missing for an unresolved treatment decision
 
 - furosemide 4 MG/ML Oral Solution (rxcui=104220)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 Treatment continues after discharge while a pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
 
@@ -3497,7 +3160,7 @@ Clean expected state: item: Reassess pending therapeutic decision; timing: 7 day
 
 none
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Discharge instructions, Follow-up appointments
 
@@ -3512,74 +3175,39 @@ Arrange follow-up to resolve the pending therapeutic decision.
 - **Evidence required:** A pending therapeutic decision remains unresolved and requires scheduled follow-up.
 - **Rationale:** Treatment continues after discharge while a pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -3587,21 +3215,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -3784,7 +3416,7 @@ No intentional assessment problem (clean control)
 
 No trigger medication is specified because this is a clean control.
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 No planted medication-reconciliation discrepancy or transition-of-care gap.
 
@@ -3792,7 +3424,7 @@ No planted medication-reconciliation discrepancy or transition-of-care gap.
 
 The resident-visible chart is the clean expected state.
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Review the full chart; there is no concealed target.
 
@@ -3800,74 +3432,39 @@ Review the full chart; there is no concealed target.
 
 NO INTENTIONAL ERROR
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -3875,21 +3472,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -4062,7 +3663,7 @@ Medication omitted at discharge
 
 - apixaban 2.5 MG Oral Tablet (rxcui=1364435)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 A medication indicated at discharge was omitted from the discharge medication list.
 
@@ -4072,7 +3673,7 @@ Clean expected state: present
 
 absent
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Home medications, Medications during hospitalization, Discharge medications
 
@@ -4087,74 +3688,39 @@ Restore the omitted continued discharge medication.
 - **Evidence required:** Home/inpatient continuation of this medication with no stop rationale.
 - **Rationale:** A medication indicated at discharge was omitted from the discharge medication list.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -4162,21 +3728,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -4350,7 +3920,7 @@ Required outpatient monitoring not arranged
 
 - warfarin sodium 1 MG Oral Tablet (rxcui=855288; rule_code=WARFARIN_INR_MONITORING)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 A medication requiring outpatient laboratory or physiological monitoring was discharged without that monitoring being arranged.
 
@@ -4360,7 +3930,7 @@ Clean expected state: case monitoring ids: present; medication monitoring: Outpa
 
 case monitoring: none; medication monitoring: none
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Discharge medications, Laboratory results, Scheduled monitoring
 
@@ -4375,74 +3945,39 @@ Arrange the required outpatient monitoring for the trigger medication.
 - **Evidence required:** Trigger medication remains; source-backed rule WARFARIN_INR_MONITORING requires 38875-1.
 - **Rationale:** A medication requiring outpatient laboratory or physiological monitoring was discharged without that monitoring being arranged.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -4450,21 +3985,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -4636,7 +4175,7 @@ No intentional assessment problem (clean control)
 
 No trigger medication is specified because this is a clean control.
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 No planted medication-reconciliation discrepancy or transition-of-care gap.
 
@@ -4644,7 +4183,7 @@ No planted medication-reconciliation discrepancy or transition-of-care gap.
 
 The resident-visible chart is the clean expected state.
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Review the full chart; there is no concealed target.
 
@@ -4652,74 +4191,39 @@ Review the full chart; there is no concealed target.
 
 NO INTENTIONAL ERROR
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -4727,21 +4231,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -4919,7 +4427,7 @@ Unexplained dose discrepancy
 
 - amlodipine 5 MG Oral Tablet (rxcui=197361)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 The discharge dose differs from the intended medication plan without a documented clinical rationale.
 
@@ -4929,7 +4437,7 @@ Clean expected state: 5 MG
 
 2 MG
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Home medications, Discharge medications
 
@@ -4944,74 +4452,39 @@ Restore the correct continued discharge dose.
 - **Evidence required:** Intended dose on the home/inpatient medication plan.
 - **Rationale:** The discharge dose differs from the intended medication plan without a documented clinical rationale.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -5019,21 +4492,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -5212,7 +4689,7 @@ Medication inappropriately added or continued
 
 - ibuprofen 0.05 MG/MG Topical Gel (rxcui=141997)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 A medication was prescribed at discharge without a clinical indication or intended discharge role.
 
@@ -5222,7 +4699,7 @@ Clean expected state: absent
 
 present
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Home medications, discharge instructions, Discharge medications
 
@@ -5237,74 +4714,39 @@ Remove the unindicated medication from the discharge list.
 - **Evidence required:** Home medication was discontinued and should not appear at discharge.
 - **Rationale:** A medication was prescribed at discharge without a clinical indication or intended discharge role.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -5312,21 +4754,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -5504,7 +4950,7 @@ Held medication without a restart plan
 
 - lisinopril 1 MG/ML Oral Solution (rxcui=1806884)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 A home medication legitimately held during hospitalization has no documented resumption criterion or timing at discharge.
 
@@ -5514,7 +4960,7 @@ Clean expected state: instructions: Resume when holding lisinopril 1 MG/ML Oral 
 
 instructions: none; target or goal: none
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Home medications, Medications during hospitalization, Discharge instructions
 
@@ -5529,74 +4975,39 @@ Document when and under what criteria the held medication should be restarted.
 - **Evidence required:** The medication was held for a documented reason and needs a restart plan.
 - **Rationale:** A home medication legitimately held during hospitalization has no documented resumption criterion or timing at discharge.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -5604,21 +5015,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -5794,7 +5209,7 @@ No intentional assessment problem (clean control)
 
 No trigger medication is specified because this is a clean control.
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 No planted medication-reconciliation discrepancy or transition-of-care gap.
 
@@ -5802,7 +5217,7 @@ No planted medication-reconciliation discrepancy or transition-of-care gap.
 
 The resident-visible chart is the clean expected state.
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Review the full chart; there is no concealed target.
 
@@ -5810,74 +5225,39 @@ Review the full chart; there is no concealed target.
 
 NO INTENTIONAL ERROR
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -5885,21 +5265,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -6070,7 +5454,7 @@ Medication omitted at discharge
 
 - lisinopril 1 MG/ML Oral Solution (rxcui=1806884)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 A medication indicated at discharge was omitted from the discharge medication list.
 
@@ -6080,7 +5464,7 @@ Clean expected state: present
 
 absent
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Home medications, Medications during hospitalization, Discharge medications
 
@@ -6095,74 +5479,39 @@ Restore the omitted continued discharge medication.
 - **Evidence required:** Home/inpatient continuation of this medication with no stop rationale.
 - **Rationale:** A medication indicated at discharge was omitted from the discharge medication list.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -6170,21 +5519,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -6356,7 +5709,7 @@ Insufficient medication supply
 
 - Modified 24 HR metformin hydrochloride 1000 MG Extended Release Oral Tablet (rxcui=1807888)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 The prescribed quantity or days' supply is insufficient to cover the patient until the planned follow-up.
 
@@ -6366,7 +5719,7 @@ Clean expected state: 30 days
 
 7 days
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Follow-up appointments, discharge medications.quantity or days
 
@@ -6381,74 +5734,39 @@ Increase days' supply so treatment continues through the planned follow-up.
 - **Evidence required:** Days' supply must cover the scheduled follow-up or treatment endpoint.
 - **Rationale:** The prescribed quantity or days' supply is insufficient to cover the patient until the planned follow-up.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -6456,21 +5774,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -6640,7 +5962,7 @@ No intentional assessment problem (clean control)
 
 No trigger medication is specified because this is a clean control.
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 No planted medication-reconciliation discrepancy or transition-of-care gap.
 
@@ -6648,7 +5970,7 @@ No planted medication-reconciliation discrepancy or transition-of-care gap.
 
 The resident-visible chart is the clean expected state.
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Review the full chart; there is no concealed target.
 
@@ -6656,74 +5978,39 @@ Review the full chart; there is no concealed target.
 
 NO INTENTIONAL ERROR
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -6731,21 +6018,25 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
 
 ---
 
@@ -6917,7 +6208,7 @@ Unexplained frequency discrepancy
 
 - azithromycin 250 MG Oral Capsule (rxcui=141962)
 
-**What should have occurred:**
+**What should have occurred clinically:**
 
 The discharge frequency differs from the intended medication plan without a documented clinical rationale.
 
@@ -6927,7 +6218,7 @@ Clean expected state: once daily
 
 twice daily
 
-**Where the relevant clinical evidence appears:**
+**Where the relevant evidence appears:**
 
 Home medications, Discharge medications
 
@@ -6942,74 +6233,39 @@ Restore the correct continued discharge frequency.
 - **Evidence required:** Intended frequency on the home/inpatient medication plan.
 - **Rationale:** The discharge frequency differs from the intended medication plan without a documented clinical rationale.
 
-### C1 Clinical plausibility
+### C2 Intended assessment problem
 
-Could this chart reasonably represent a patient encountered in the stated clinical setting? Clinical plausibility is not the same as optimal management or fully guideline-concordant care. Rate each domain independently, and comment on the exact field or issue for any rating below 3.
-
-| Domain | 1 | 2 | 3 | 4 |
-| --- | --- | --- | --- | --- |
-| Presentation/demographics | ☐ | ☐ | ☐ | ☐ |
-| Diagnosis-presentation coherence | ☐ | ☐ | ☐ | ☐ |
-| Vital signs | ☐ | ☐ | ☐ | ☐ |
-| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
-| Medication regimen | ☐ | ☐ | ☐ | ☐ |
-| Hospital course | ☐ | ☐ | ☐ | ☐ |
-| Cross-document consistency | ☐ | ☐ | ☐ | ☐ |
-| Discharge context/follow-up | ☐ | ☐ | ☐ | ☐ |
-
-Global plausibility:
-
-☐ Yes
-
-☐ No
-
-Specific concerns / fields requiring correction:
-
-____________________________________
-
-Overall C1:
-
-☐ Pass
-
-☐ Revise
-
-### C2 Intended error present and correctly classified
-
-Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Comments:
+Written explanation if Fail:
 
-### C3 Detectability from documents alone
+### C3 Detectability
 
-Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
-
-☐ Pass
-
-☐ Fail
-
-Evidence reviewed:
-
-Ambiguity / cueing concerns:
-
-### C4 Absence of unintended errors
-
-Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+Could an internal medicine resident identify and resolve the intended problem using only the clinical information provided in the case? Consider whether all necessary evidence is available, whether important information is missing, whether the case is ambiguous, and whether wording or formatting gives away the answer. C3 is a hard requirement. A written explanation is required for a failure.
 
 ☐ Pass
 
 ☐ Fail
 
-Additional possible discrepancies/gaps found:
+Written explanation if Fail:
 
-Severity / importance:
+### C4 Absence of unintended problems
 
-### C5 Difficulty for internal medicine resident
+Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem? After reviewing the complete case, actively search for another discrepancy that a reasonable resident could interpret as an assessment target. Do not merely record problems that happen to be noticed. C4 is a hard requirement.
 
-How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
+☐ Pass
+
+☐ Fail
+
+If Fail, identify the additional problem, the medication or clinical issue involved, and why it is clinically meaningful:
+
+### C5 Expected learner difficulty
+
+How difficult would this case likely be for an internal medicine resident? This is an expert estimate of difficulty. Actual difficulty should ultimately be determined from resident performance. C5 is advisory and should not by itself cause a case to fail validation.
 
 ☐ Easy
 
@@ -7017,18 +6273,22 @@ How difficult would this item be for an internal medicine resident? This rating 
 
 ☐ Hard
 
-☐ Outlier / inappropriate
+☐ Inappropriate / outlier
 
 Comments:
 
-### Final case disposition
+## Reviewer recommendation
 
 ☐ Accept
 
-☐ Revise and re-rate
+☐ Revise
 
-☐ Regenerate / retire
+☐ Exclude
 
-☐ Adjudication required
+Accept means the case is suitable for use without clinically meaningful revision. Revise means the case requires one or more changes before it should be used. Exclude means the case should not be used in the validation set because its problems cannot be reasonably corrected without substantially reconstructing it.
 
-Overall comments:
+Recommended revisions are required whenever Revise is selected. Comments are recommendations for the study team. Do not modify the frozen case files from this form.
+
+### Recommended revisions, if any
+
+____________________________________
