@@ -9,7 +9,7 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -270,7 +270,6 @@ def _bootstrap_medication_classes(
     result: BootstrapResult,
 ) -> None:
     imported = 0
-    retrieved_at = None
     for medication in list_medications(session):
         try:
             hits = client.classes_for_rxcui(medication.rxcui)
@@ -283,7 +282,6 @@ def _bootstrap_medication_classes(
             if hit.class_id.strip() == "" or hit.class_name.strip() == "":
                 continue
             provenance = build_provenance("RXCLASS")
-            retrieved_at = provenance["retrieved_at"]
             upsert_medication_class(
                 session,
                 {
@@ -296,13 +294,13 @@ def _bootstrap_medication_classes(
                 },
             )
             imported += 1
-    if imported and retrieved_at is not None:
+    if imported:
         mark_source_sync_success(
             session,
             "RXCLASS",
             records_imported=imported,
             source_version=None,
-            retrieved_at=retrieved_at,
+            retrieved_at=datetime.now(UTC),
         )
 
 

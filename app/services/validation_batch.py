@@ -263,13 +263,10 @@ def freeze_validation_batch(
         result.frozen.append(frozen)
     session.flush()
     if result.rejected:
-        details = "; ".join(
-            f"{item.validation_case_id}: {item.reason}" for item in result.rejected
-        )
+        details = "; ".join(f"{item.validation_case_id}: {item.reason}" for item in result.rejected)
         raise CaseValidationError(
             "freeze_validation_batch",
-            "one or more assignments were rejected; no substitute category was used; "
-            f"{details}",
+            f"one or more assignments were rejected; no substitute category was used; {details}",
             [item.reason for item in result.rejected],
         )
     return result
