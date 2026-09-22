@@ -26,7 +26,11 @@ from app.services.reference_search import (
     search_reference_symptoms,
 )
 from app.services.reference_sync import sync_icd10cm, sync_loinc, sync_rxnorm, sync_ucum
-from app.services.validation_batch import export_validation_batch, freeze_validation_batch
+from app.services.validation_batch import (
+    DEFAULT_BATCH_CODE,
+    export_validation_batch,
+    freeze_validation_batch,
+)
 from app.sources.exceptions import (
     CaseValidationError,
     FrozenValidationCaseError,
@@ -235,7 +239,7 @@ def generate_synthetic_cases_cmd(
         str | None,
         typer.Option(
             "--error-category",
-            help="CliniProof category or historical alias. Never silently replaced.",
+            help="Canonical CliniProof category. Unknown names fail; never silently replaced.",
         ),
     ] = None,
 ) -> None:
@@ -315,7 +319,7 @@ def freeze_validation_batch_cmd(
 def export_validation_batch_cmd(
     batch_code: Annotated[
         str, typer.Option("--batch-code", help="Frozen batch code to export.")
-    ] = "RESIDENT_VALIDATION_V1",
+    ] = DEFAULT_BATCH_CODE,
     output_dir: Annotated[
         Path | None,
         typer.Option("--output-dir", help="Directory for blinded and investigator exports."),
