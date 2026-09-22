@@ -10,7 +10,7 @@ Resolved from local source-backed reference rows. Hidden answer data is not incl
 - labs: Potassium [Moles/volume] in Serum or Plasma [2823-3], Creatinine [Moles/volume] in Serum or Plasma [14682-9], INR in Platelet poor plasma or blood by Coagulation assay [38875-1], Natriuretic peptide B [Mass/volume] in Serum or Plasma [30934-4]
 - units: scenario uses UCUM-backed case units where present
 - enabled rules in the local rule table: FUROSEMIDE_HF_INDICATION, NO_DUAL_ORAL_ANTICOAGULANT, WARFARIN_INR_MONITORING
-- possible error types: omission, dose_mismatch, frequency_mismatch, incorrect_continuation
+- possible error types: omission, dose_mismatch, frequency_mismatch, incorrect_continuation, f1_omission, f1_commission, f1_dose_mismatch, f1_route_mismatch, f1_frequency_mismatch, f1_therapeutic_substitution, f2_monitoring_not_arranged, f2_held_med_no_restart_plan, f2_insufficient_supply, f2_hospital_only_continued, f2_inpatient_substitution_not_reverted, f2_pending_decision_followup_missing
 - source support: RxNorm, ICD-10-CM, LOINC, UCUM, DailyMed/RxClass as stored
 
 ## AF_ANTICOAGULATION
@@ -21,7 +21,7 @@ Resolved from local source-backed reference rows. Hidden answer data is not incl
 - labs: INR in Platelet poor plasma or blood by Coagulation assay [38875-1], Creatinine [Moles/volume] in Serum or Plasma [14682-9]
 - units: scenario uses UCUM-backed case units where present
 - enabled rules in the local rule table: FUROSEMIDE_HF_INDICATION, NO_DUAL_ORAL_ANTICOAGULANT, WARFARIN_INR_MONITORING
-- possible error types: omission, dose_mismatch, frequency_mismatch, incorrect_continuation
+- possible error types: omission, dose_mismatch, frequency_mismatch, incorrect_continuation, f1_omission, f1_commission, f1_dose_mismatch, f1_route_mismatch, f1_frequency_mismatch, f1_therapeutic_substitution, f2_monitoring_not_arranged, f2_held_med_no_restart_plan, f2_insufficient_supply, f2_hospital_only_continued, f2_inpatient_substitution_not_reverted, f2_pending_decision_followup_missing
 - source support: RxNorm, ICD-10-CM, LOINC, UCUM, DailyMed/RxClass as stored
 
 ## HTN_INPATIENT
@@ -32,7 +32,7 @@ Resolved from local source-backed reference rows. Hidden answer data is not incl
 - labs: Creatinine [Moles/volume] in Serum or Plasma [14682-9], Potassium [Moles/volume] in Serum or Plasma [2823-3], Sodium [Moles/volume] in Serum or Plasma [2951-2]
 - units: scenario uses UCUM-backed case units where present
 - enabled rules in the local rule table: FUROSEMIDE_HF_INDICATION, NO_DUAL_ORAL_ANTICOAGULANT, WARFARIN_INR_MONITORING
-- possible error types: omission, dose_mismatch, frequency_mismatch, incorrect_continuation
+- possible error types: omission, dose_mismatch, frequency_mismatch, incorrect_continuation, f1_omission, f1_commission, f1_dose_mismatch, f1_route_mismatch, f1_frequency_mismatch, f1_therapeutic_substitution, f2_held_med_no_restart_plan, f2_insufficient_supply, f2_hospital_only_continued, f2_inpatient_substitution_not_reverted, f2_pending_decision_followup_missing
 - source support: RxNorm, ICD-10-CM, LOINC, UCUM, DailyMed/RxClass as stored
 
 ## T2DM_INPATIENT
@@ -43,7 +43,7 @@ Resolved from local source-backed reference rows. Hidden answer data is not incl
 - labs: Glucose [Moles/volume] in Serum or Plasma [14749-6], Creatinine [Moles/volume] in Serum or Plasma [14682-9], Hemoglobin [Mass/volume] in Blood by Oximetry [55782-7]
 - units: scenario uses UCUM-backed case units where present
 - enabled rules in the local rule table: FUROSEMIDE_HF_INDICATION, NO_DUAL_ORAL_ANTICOAGULANT, WARFARIN_INR_MONITORING
-- possible error types: omission, dose_mismatch, frequency_mismatch
+- possible error types: omission, dose_mismatch, frequency_mismatch, f1_omission, f1_dose_mismatch, f1_route_mismatch, f1_frequency_mismatch, f1_therapeutic_substitution, f2_held_med_no_restart_plan, f2_insufficient_supply, f2_hospital_only_continued, f2_pending_decision_followup_missing
 - source support: RxNorm, ICD-10-CM, LOINC, UCUM, DailyMed/RxClass as stored
 
 ## CAP_INPATIENT
@@ -54,6 +54,6 @@ Resolved from local source-backed reference rows. Hidden answer data is not incl
 - labs: Hemoglobin [Mass/volume] in Blood by Oximetry [55782-7], Creatinine [Moles/volume] in Serum or Plasma [14682-9], Sodium [Moles/volume] in Serum or Plasma [2951-2]
 - units: scenario uses UCUM-backed case units where present
 - enabled rules in the local rule table: FUROSEMIDE_HF_INDICATION, NO_DUAL_ORAL_ANTICOAGULANT, WARFARIN_INR_MONITORING
-- possible error types: omission, dose_mismatch, frequency_mismatch
+- possible error types: omission, dose_mismatch, frequency_mismatch, f1_omission, f1_dose_mismatch, f1_route_mismatch, f1_frequency_mismatch, f1_therapeutic_substitution, f2_held_med_no_restart_plan, f2_insufficient_supply, f2_hospital_only_continued, f2_pending_decision_followup_missing
 - source support: RxNorm, ICD-10-CM, LOINC, UCUM, DailyMed/RxClass as stored
 

@@ -1,7 +1,8 @@
 """CliniProof reconciliation-error taxonomy.
 
-Canonical identifiers, historical aliases, deterministic eligibility, and
-mechanical finding detection. An LLM never chooses the planted error.
+Canonical identifiers, deterministic eligibility, and mechanical finding
+detection. An LLM never chooses the planted error. Unknown or obsolete names
+raise rather than being translated.
 """
 
 from __future__ import annotations
@@ -91,17 +92,6 @@ FAMILY_FOR_CATEGORY = {
     F2_INPATIENT_SUB: FAMILY_2,
     F2_PENDING_FOLLOWUP: FAMILY_2,
     NONE: FAMILY_NONE,
-}
-
-# Historical injector names stored on RESIDENT_VALIDATION_V1. Do not rewrite those artifacts.
-LEGACY_CATEGORY_MAP = {
-    "omission": F1_OMISSION,
-    "dose_mismatch": F1_DOSE,
-    "frequency_mismatch": F1_FREQUENCY,
-    "incorrect_continuation": F1_COMMISSION,
-    "commission": F1_COMMISSION,
-    "route_mismatch": F1_ROUTE,
-    "medication_reconciliation": FAMILY_1,
 }
 
 NOT_YET_IMPLEMENTABLE = {
@@ -316,10 +306,6 @@ def canonicalize_category(value: str | None) -> str:
         return NONE
     raw = str(value).strip()
     lowered = raw.casefold()
-    if lowered in LEGACY_CATEGORY_MAP:
-        mapped = LEGACY_CATEGORY_MAP[lowered]
-        if mapped in CANONICAL_CATEGORIES:
-            return mapped
     if raw in CANONICAL_CATEGORIES:
         return raw
     if lowered in CANONICAL_CATEGORIES:
@@ -337,19 +323,10 @@ def canonicalize_family(value: str | None, *, category: str | None = None) -> st
         if value is None or str(value).strip() == "":
             return expected
         raw = str(value).strip().casefold()
-        aliases = {
-            "1": FAMILY_1,
-            "family_1": FAMILY_1,
-            "family1": FAMILY_1,
-            "medication_reconciliation": FAMILY_1,
-            "2": FAMILY_2,
-            "family_2": FAMILY_2,
-            "family2": FAMILY_2,
-            "none": FAMILY_NONE,
-            "control": FAMILY_NONE,
-        }
-        mapped = aliases.get(raw, raw)
-        if mapped != expected:
+        allowed = {FAMILY_1, FAMILY_2, FAMILY_NONE}
+        if raw not in allowed:
+            raise CaseValidationError("error_taxonomy", f"unknown error family {value!r}")
+        if raw != expected:
             raise CaseValidationError(
                 "error_taxonomy",
                 f"error_family {value!r} does not match error_category {resolved}",
@@ -358,16 +335,8 @@ def canonicalize_family(value: str | None, *, category: str | None = None) -> st
     if value is None or str(value).strip() == "":
         return FAMILY_NONE
     raw = str(value).strip().casefold()
-    aliases = {
-        "1": FAMILY_1,
-        "family_1": FAMILY_1,
-        "2": FAMILY_2,
-        "family_2": FAMILY_2,
-        "none": FAMILY_NONE,
-        "medication_reconciliation": FAMILY_1,
-    }
-    if raw in aliases:
-        return aliases[raw]
+    if raw in {FAMILY_1, FAMILY_2, FAMILY_NONE}:
+        return raw
     raise CaseValidationError("error_taxonomy", f"unknown error family {value!r}")
 
 
@@ -1313,17 +1282,6 @@ def _pair_violates_hard_rule(
 def _finding_label(item: Finding) -> str:
     target = item.drug or item.rxcui or "unknown"
     return f"{item.category}:{target}"
-
-
-def historical_taxonomy_mapping() -> dict[str, str]:
-    """Documented mapping from RESIDENT_VALIDATION_V1 names to canonical IDs."""
-    return {
-        "omission": F1_OMISSION,
-        "dose_mismatch": F1_DOSE,
-        "frequency_mismatch": F1_FREQUENCY,
-        "incorrect_continuation": F1_COMMISSION,
-        "null/clean": NONE,
-    }
 
 
 continue_discharge_targets = _continue_discharge_targets
