@@ -128,13 +128,14 @@ docker compose up -d
 clinical-case-generator db-init
 ```
 
-`db-init` runs `alembic upgrade head` and seeds eight `data_source_registry` metadata rows. It does not load RxNorm, LOINC, or diagnoses.
+`db-init` runs `alembic upgrade head` and seeds nine `data_source_registry` metadata rows. It does not load RxNorm, LOINC, or diagnoses.
 
 Alembic ancestry that must remain intact:
 
 - `1c236aeaadc7` — Phase 1 clinical schema (do not rewrite)
 - `7b9e4c21d6a0` — `clinical_rules`
 - `c3f8a91b2e47` — `validation_batch_cases` (immutable VAL-* assignments)
+- `d4e8b17c6a91` — CliniProof taxonomy columns and `ref_medication_classes` (does not rewrite V1 rows)
 
 ### 2. Bounded reference bootstrap
 
@@ -339,6 +340,22 @@ Exactly one family per error-bearing case. If the assigned family has no eligibl
 | `incorrect_continuation` | Stop med on home, **not** on clean discharge | Copy it onto the discharge list | Requires a scenario `stop_medication_queries` hit (ibuprofen in this freeze) |
 
 Home and inpatient lists stay internally consistent with the clean plan. Residents should reconcile **discharge** against home/inpatient/held meds.
+
+These four names are the **historical V1 injector vocabulary**. They are preserved on committed `RESIDENT_VALIDATION_V1` artifacts and are **not rewritten**. The CliniProof manuscript taxonomy uses canonical IDs. Mapping:
+
+| V1 stored name | Canonical CliniProof ID | Family |
+| --- | --- | --- |
+| `omission` | `f1_omission` | Family 1 |
+| `incorrect_continuation` | `f1_commission` | Family 1 |
+| `dose_mismatch` | `f1_dose_mismatch` | Family 1 |
+| `frequency_mismatch` | `f1_frequency_mismatch` | Family 1 |
+| `null` / clean control | `none` | none |
+
+`incorrect_continuation` is MATCH commission (an unindicated home medication appears at discharge). It is **not** Family 2 “held medication, no restart plan.”
+
+A new batch, **`CLINIPROOF_TAXONOMY_V1`**, uses the canonical IDs prospectively. Plan and exports live in [`cliniproof_v1/`](cliniproof_v1/). Do not freeze that plan into this directory; it would overwrite V1 resident JSON.
+
+`f2_coprescription_omitted` is `not_yet_implementable` until a source-backed companion-prescription rule exists. Manuscript examples (steroid/PPI, opioid/bowel regimen) are not hard-coded.
 
 ---
 

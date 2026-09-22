@@ -305,6 +305,31 @@ class RefClinicalDistribution(Base, UUIDPrimaryKeyMixin):
     calculated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
 
+class RefMedicationClass(Base, UUIDPrimaryKeyMixin, ProvenanceMixin):
+    """RxClass membership copied from RxNav. Classes are not inferred from names."""
+
+    __tablename__ = "ref_medication_classes"
+    __table_args__ = (
+        CheckConstraint("btrim(rxcui) <> ''", name="rxcui_not_blank"),
+        CheckConstraint("btrim(class_id) <> ''", name="class_id_not_blank"),
+        Index(
+            "uq_ref_medication_classes_membership",
+            "rxcui",
+            "class_id",
+            "class_type",
+            "rela",
+            unique=True,
+            postgresql_nulls_not_distinct=True,
+        ),
+    )
+
+    rxcui: Mapped[str] = mapped_column(String(64), index=True)
+    class_id: Mapped[str] = mapped_column(String(64), index=True)
+    class_name: Mapped[str] = mapped_column(String(512))
+    class_type: Mapped[str | None] = mapped_column(String(64))
+    rela: Mapped[str | None] = mapped_column(String(128))
+
+
 class ClinicalRule(Base, UUIDPrimaryKeyMixin, ProvenanceMixin):
     """Source-backed clinical conditional. Logic is deterministic; it is not model-generated."""
 

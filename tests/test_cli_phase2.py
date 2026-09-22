@@ -83,7 +83,13 @@ def test_phase1_alembic_revision_is_unchanged() -> None:
         "1c236aeaadc7_phase_1_clinical_schema.py",
         "7b9e4c21d6a0_clinical_rules.py",
         "c3f8a91b2e47_validation_batch.py",
+        "d4e8b17c6a91_cliniproof_error_taxonomy.py",
     ]
     batch = Path("alembic/versions/c3f8a91b2e47_validation_batch.py").read_text(encoding="utf-8")
     assert 'revision: str = "c3f8a91b2e47"' in batch
     assert 'down_revision: str | None = "7b9e4c21d6a0"' in batch
+    taxonomy = Path("alembic/versions/d4e8b17c6a91_cliniproof_error_taxonomy.py").read_text(
+        encoding="utf-8"
+    )
+    assert 'revision: str = "d4e8b17c6a91"' in taxonomy
+    assert 'down_revision: str | None = "c3f8a91b2e47"' in taxonomy

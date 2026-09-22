@@ -132,6 +132,7 @@ class ValidationBatchCase(Base, UUIDPrimaryKeyMixin):
     master_seed: Mapped[int] = mapped_column(Integer)
     case_seed: Mapped[str] = mapped_column(String(128))
     is_clean_control: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
+    error_family: Mapped[str | None] = mapped_column(String(64))
     error_category: Mapped[str | None] = mapped_column(String(64))
     generator_version: Mapped[str | None] = mapped_column(String(32))
     reference_snapshot: Mapped[dict[str, Any] | None] = mapped_column(JSONB)

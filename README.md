@@ -42,6 +42,8 @@ The frozen resident-review batch `RESIDENT_VALIDATION_V1` (`VAL-001`–`VAL-024`
 26. [Current limitations](#26-current-limitations)
 27. [Licensing](#27-licensing)
 
+**Error taxonomy (CliniProof):** [CliniProof error taxonomy](#cliniproof-error-taxonomy)
+
 ---
 
 ## 1. Project overview
@@ -54,8 +56,8 @@ The application:
 2. Stores only identifiers and text those sources return, with provenance (`source_system`, `source_version`, `retrieved_at`).
 3. Enables curated clinical conditionals only when DailyMed or RxClass evidence is attached.
 4. Builds synthetic inpatient cases from **already stored** `ref_*` rows.
-5. Validates each case (structural, terminology, hard clinical rules, medication-plan consistency).
-6. Optionally plants exactly one medication-reconciliation error.
+5. Validates each case (structural, terminology, hard clinical rules, assessment consistency for Family 1 and Family 2).
+6. Optionally plants **exactly one** pre-specified CliniProof error after the target category is selected. An LLM never chooses the error.
 7. Freezes a resident-review batch as immutable `VAL-*` IDs and exports a **blinded** resident JSON plus an **investigator** answer key.
 
 CLI entry point (from `pyproject.toml`): `clinical-case-generator = "app.cli:main"`.
@@ -241,31 +243,37 @@ Order below matches `generate_one_case` in [`app/services/generation.py`](app/se
 
 **Physician judgment.** Everything else (see [Why machine validation is not clinical validation](#why-machine-validation-is-not-clinical-validation)).
 
-### 9. Optionally inject one controlled medication-reconciliation error
+### 9. Optionally inject one controlled CliniProof error
 
-**What happens.** If `inject_error` is true, `inject_reconciliation_error` in [`app/services/error_injection.py`](app/services/error_injection.py) plants **exactly one** discharge-list change using the same RNG. OpenAI does not choose the error. Families: `omission`, `dose_mismatch`, `frequency_mismatch`, `incorrect_continuation`. If the requested family has no eligible target, generation fails rather than silently switching families.
+**What happens.** The **assessment blueprint selects the target error family and category first**. A clinically suitable clean case is then constructed for that target, preconditions are checked, the clean case is machine-validated, and only then does `inject_reconciliation_error` in [`app/services/error_injection.py`](app/services/error_injection.py) plant **exactly one** discrepancy using the same RNG. OpenAI does not choose the error. If the requested category is unknown, `not_yet_implementable`, or ineligible for that case, generation **fails**. It does not silently switch to another category.
 
-**Example.** Educational case `SYN-000904` (investigator-only section below): one continue-med (apixaban) omitted from discharge. Demonstration cases 901–903 used `--no-inject-error` and have no discrepancy.
+Canonical identifiers follow the CliniProof manuscript (Family 1 reconciliation discrepancies, Family 2 transition-of-care gaps, plus clean controls). See [CliniProof error taxonomy](#cliniproof-error-taxonomy).
 
-**Why it matters clinically.** The study signal is a **reconciliation** problem on discharge, not a newly invented diagnosis.
+The frozen study batch `RESIDENT_VALIDATION_V1` still stores the historical names `omission`, `dose_mismatch`, `frequency_mismatch`, and `incorrect_continuation`. Those names map to `f1_omission`, `f1_dose_mismatch`, `f1_frequency_mismatch`, and `f1_commission`. They are **not rewritten** on committed V1 artifacts.
 
-**Authoritative source.** None for the mutation. The affected RXCUI was already source-backed.
+**Example.** Educational case `SYN-000904` (investigator-only section below): one continue-med (apixaban) omitted from discharge (`f1_omission` / historical `omission`). Demonstration cases 901–903 used `--no-inject-error` and have no planted discrepancy.
+
+**Why it matters clinically.** The study signal is a **specified** assessment error, not “whatever discrepancy happened to appear after generation.”
+
+**Authoritative source.** None for the mutation itself. Trigger medications, class membership (RxClass), and monitoring rules remain source-backed.
 
 **Synthetic.** The mutation itself.
 
-**Checked automatically.** Eligibility preconditions; freeze audit expects exactly one intended error when planned.
+**Checked automatically.** Deterministic preconditions (`eligible_errors`); requested category == injected category == answer-key category; mechanical error-isolation checks; leak audit on resident export.
 
-**Physician judgment.** Whether that mutation is a fair resident task.
+**Physician judgment.** Clinical coherence, error fidelity, evidentiary sufficiency, error isolation beyond mechanical checks, cue integrity, and educational appropriateness.
 
 ### 10. Revalidate and save
 
-**What happens.** Validation runs again with `expect_injected_error` matching whether injection occurred. A `CaseGenerationRun` stores seed, generator version, narrative source, rule list, and validation reports.
+**What happens.** Validation runs again with `expect_injected_error` matching whether injection occurred. Family 1 is checked as a medication-plan mutation. Family 2 is checked as trigger present + required companion action absent, with evidence remaining in the resident-visible case. A `CaseGenerationRun` stores seed, generator version, narrative source, rule list, and validation reports.
 
-**Example.** `SYN-000904` post-injection validation still passes: the medication-plan layer *expects* exactly one discrepancy.
+**Example.** `SYN-000904` post-injection validation still passes: the assessment layer *expects* the requested category.
 
-**Why it matters clinically.** A planted discharge error is allowed to remain; it is not “fixed” by the validator.
+**Why it matters clinically.** A planted assessment error is allowed to remain; it is not “fixed” by the validator. Machine validation does **not** mean the case is clinically valid.
 
-**Checked automatically.** Exactly one discrepancy + one answer key + one `is_error_target` plan when injection is expected.
+**Checked automatically.** Requested category == injected category == answer-key category; structural/terminology/hard-rule layers; no second mechanically detectable discrepancy.
+
+**Physician judgment.** Everything the machine cannot see (see [CliniProof error taxonomy](#cliniproof-error-taxonomy)).
 
 ### 11. Freeze the validation case (study path only)
 
@@ -282,6 +290,109 @@ Order below matches `generate_one_case` in [`app/services/generation.py`](app/se
 ### 13. Obtain clinician validation
 
 **What happens.** Humans review. The worksheet schema in [`data/validation/resident_review_schema.json`](data/validation/resident_review_schema.json) asks for ratings (clinical realism, medication-reconciliation correctness, clarity, confidence), identified error type and medication, comments, overall acceptability, and revision recommendation. Software does not fill those ratings.
+
+---
+
+## CliniProof error taxonomy
+
+The assessment target is selected **before** the final case is produced:
+
+assessment blueprint → target family/category → clinically suitable clean case → preconditions verified → clean case machine-validated → exactly **one** target discrepancy injected → post-injection validation → error-isolation audit → hidden answer key → blinded resident export.
+
+An LLM is never used to decide which error is planted. The injector is deterministic. If the category requested in `batch_plan.json` is not eligible for that scenario, freeze **rejects** the assignment instead of substituting another category.
+
+### What the resident must notice
+
+| Family | Error | Identifier | What the resident must notice |
+| --- | --- | --- | --- |
+| F1 | Omission | `f1_omission` | Required discharge medication is absent |
+| F1 | Commission | `f1_commission` | Unindicated medication appears at discharge |
+| F1 | Dose/route/frequency | `f1_dose_mismatch`, `f1_route_mismatch`, `f1_frequency_mismatch` | Discharge order differs without rationale |
+| F1 | Therapeutic substitution | `f1_therapeutic_substitution` | Different same-class drug without explanation |
+| F2 | Co-prescription omitted | `f2_coprescription_omitted` | Trigger drug present but required companion absent |
+| F2 | Monitoring not arranged | `f2_monitoring_not_arranged` | Trigger drug present but required monitoring missing |
+| F2 | Held med, no restart plan | `f2_held_med_no_restart_plan` | Legitimate hold has no resumption plan |
+| F2 | Insufficient supply | `f2_insufficient_supply` | Supply does not reach follow-up/end point |
+| F2 | Hospital-only med continued | `f2_hospital_only_continued` | Inpatient-only drug remains at discharge |
+| F2 | Substitution not reverted | `f2_inpatient_substitution_not_reverted` | Temporary inpatient substitute persists unexplained |
+| F2 | Pending decision, no follow-up | `f2_pending_decision_followup_missing` | Ongoing treatment lacks planned reassessment |
+| Control | None | `none` | No planted discrepancy |
+
+`f2_coprescription_omitted` is **`not_yet_implementable`**: this repository has no source-backed companion-prescription rule. Manuscript examples (steroid/PPI, opioid/bowel regimen) are **not** hard-coded.
+
+Family 1 is a mismatch between medication-information sources (especially intended discharge plan vs discharge list). Family 2 is generally an **absence**: a trigger condition/medication is present, but a required companion action is missing. Detection evidence remains in the resident-visible case.
+
+### Historical V1 names (do not rewrite committed artifacts)
+
+`RESIDENT_VALIDATION_V1` (`VAL-001`–`VAL-024`) is an immutable study freeze that used four injector names. Those files are **not** rewritten to canonical IDs.
+
+| V1 stored name | Canonical ID | Family |
+| --- | --- | --- |
+| `omission` | `f1_omission` | Family 1 |
+| `incorrect_continuation` | `f1_commission` | Family 1 |
+| `dose_mismatch` | `f1_dose_mismatch` | Family 1 |
+| `frequency_mismatch` | `f1_frequency_mismatch` | Family 1 |
+| (clean control) | `none` | none |
+
+`incorrect_continuation` is MATCH **commission** (an unindicated home medication appears at discharge). It is **not** Family 2 “held medication, no restart plan.”
+
+A new batch, **`CLINIPROOF_TAXONOMY_V1`**, specifies canonical `error_family` and `error_category` in [`data/validation/cliniproof_v1/batch_plan.json`](data/validation/cliniproof_v1/batch_plan.json) **before** generation. Export that batch to `data/validation/cliniproof_v1/` so V1 resident JSON is not overwritten.
+
+### Example A — Family 1 dose mismatch (demonstration)
+
+This is a teaching sketch, **not** a blinded `VAL-*` answer.
+
+**Clinical knowledge / source-backed constraint.** Lisinopril is a stored RxNorm concept. The clean intended discharge plan continues it.
+
+**Synthetic patient-specific information.** The patient has heart failure; home, inpatient, and intended discharge all list lisinopril **10 mg oral once daily**.
+
+**Deliberately injected assessment error.** Target category `f1_dose_mismatch` is selected first. After the clean case passes validation, only the discharge dose is changed to **20 mg**. Home and inpatient lists, diagnosis, and labs are left intact.
+
+Resident-visible case after injection: discharge shows lisinopril 20 mg oral once daily while home/inpatient still show 10 mg, with no documented rationale for a dose change.
+
+Hidden investigator answer key records:
+
+- `error_family`: `family_1`
+- `error_category`: `f1_dose_mismatch`
+- `changed_field`: `dose`
+- `clean_expected_state`: `10 mg`
+- `injected_state`: `20 mg`
+- trigger medication, evidence location (`home_medications`, `discharge_medications`), and expected action (restore the intended dose)
+
+The same pattern applies to `f1_route_mismatch` and `f1_frequency_mismatch`: the answer key preserves the **field** that changed, plus expected vs planted values. `f1_omission` removes the discharge row only. `f1_commission` copies an unindicated stop-medication onto discharge.
+
+### Example B — Family 2 monitoring not arranged (demonstration)
+
+**Clinical knowledge / source-backed constraint.** Enabled rule `WARFARIN_INR_MONITORING` (`require_lab`) is attached only when DailyMed/RxClass evidence exists. It is not inferred from the drug name.
+
+**Synthetic patient-specific information.** Clean case: warfarin is continued at discharge **and** outpatient INR monitoring is arranged (`CaseMonitoring` plus a medication `monitoring` note). Admission INR remains on the case as a laboratory result.
+
+**Deliberately injected assessment error.** Target `f2_monitoring_not_arranged` is selected first. Injection **does not change the warfarin order**. It removes the monitoring arrangement only.
+
+Resident-visible case after injection: warfarin is still on the discharge list; the required outpatient monitoring row is absent; the fact that warfarin is being continued remains visible.
+
+Hidden investigator answer key records the trigger medication, required monitoring (INR), the field removed (`CaseMonitoring` / `CaseMedication.monitoring`), and the expected action (arrange outpatient INR monitoring). This is **not** a home-vs-discharge medication mismatch.
+
+### Example C — Clean control (demonstration)
+
+**Clinical knowledge / source-backed constraint.** Ibuprofen is a stored RxNorm concept. The scenario lists it as a stop medication.
+
+**Synthetic patient-specific information.** Home list includes ibuprofen. It is **held** on admission with an explicit instruction not to restart at discharge. Continued heart-failure therapy remains on the discharge list. That home-vs-discharge **difference is documented and intended**.
+
+**Deliberately injected assessment error.** None. `error_family = none`, `error_category = none`, `clean_case = true`.
+
+A difference between home and discharge does **not** automatically mean an error. Residents still review the case; investigators score it as a control. The hidden key states `NO INTENTIONAL ERROR`.
+
+### Machine validation vs clinician review
+
+Machine validation means:
+
+- the requested error was injected as specified
+- structural and terminology constraints pass
+- implemented deterministic clinical rules pass
+- no **mechanically detectable** extra discrepancy exists
+
+Clinician review still evaluates clinical coherence, error fidelity, evidentiary sufficiency, error isolation, cue integrity, and educational appropriateness. Code alone does not prove clinical validity.
 
 ---
 
@@ -882,7 +993,8 @@ Alembic:
 
 - `1c236aeaadc7` — Phase 1 clinical schema (do not rewrite)
 - `7b9e4c21d6a0` — `clinical_rules` (revises `1c236aeaadc7`)
-- `c3f8a91b2e47` — `validation_batch_cases` (revises `7b9e4c21d6a0`; current head)
+- `c3f8a91b2e47` — `validation_batch_cases` (revises `7b9e4c21d6a0`)
+- `d4e8b17c6a91` — CliniProof `error_family` column and `ref_medication_classes` (current head)
 
 ---
 
@@ -1071,7 +1183,7 @@ clinical-case-generator db-init
 What it does (`app/cli/__init__.py`):
 
 1. `alembic upgrade head` using `alembic.ini` (URL from application settings).
-2. `seed_data_source_registry(session)` — inserts the eight `data_source_registry` metadata rows if missing (`on_conflict_do_nothing` on `source_code`). Existing rows are unchanged.
+2. `seed_data_source_registry(session)` — inserts the nine `data_source_registry` metadata rows if missing (`on_conflict_do_nothing` on `source_code`). Existing rows are unchanged.
 
 It does **not** load RxNorm, LOINC, diagnoses, or other clinical concepts.
 
@@ -1092,7 +1204,7 @@ First run typically inserts `8`. Later runs insert `0`.
 docker compose exec postgres psql -U postgres -d clinical_cases -c "SELECT source_code, enabled, sync_status, records_imported FROM data_source_registry ORDER BY source_code;"
 ```
 
-Expected source codes: `ACCESS_GUDID`, `DAILYMED`, `ICD10CM`, `LOINC`, `MIMIC_IV`, `RXNORM`, `SNOMED_CT`, `UCUM`.
+Expected source codes: `ACCESS_GUDID`, `DAILYMED`, `ICD10CM`, `LOINC`, `MIMIC_IV`, `RXCLASS`, `RXNORM`, `SNOMED_CT`, `UCUM`.
 
 3. Optional Alembic:
 
@@ -1100,7 +1212,7 @@ Expected source codes: `ACCESS_GUDID`, `DAILYMED`, `ICD10CM`, `LOINC`, `MIMIC_IV
 alembic current
 ```
 
-Head revision is `c3f8a91b2e47`.
+Head revision is `d4e8b17c6a91`.
 
 ---
 
@@ -1117,7 +1229,7 @@ Official base URLs are in `app/sources/http.py` (`SOURCE_BASE_URLS`) and the mat
 | ICD-10-CM | **Implemented** (public) | Diagnoses (`ref_diagnoses`) | `https://clinicaltables.nlm.nih.gov/api/icd10cm/v3/search` |
 | NLM conditions | **Implemented** (public) | Symptom names during bootstrap | `https://clinicaltables.nlm.nih.gov/api/conditions/v3/search` |
 | NLM HPO | **Implemented** (public) | Symptom fallback if conditions token-match fails | `https://clinicaltables.nlm.nih.gov/api/hpo/v3/search`. HPO `HP:` ids are source metadata/synonyms, **not** written to `snomed_code`. |
-| RxClass | **Implemented** (public) | Rule evidence when DailyMed needles do not match | `https://rxnav.nlm.nih.gov/REST/rxclass` |
+| RxClass | **Implemented** (public) | Rule evidence; source-backed medication-class membership (`ref_medication_classes`) for therapeutic substitution | `https://rxnav.nlm.nih.gov/REST/rxclass`. Classes are copied from RxNav, not inferred from drug names. |
 | SNOMED CT | **Registered, not implemented** | Registry row only (`enabled=False`, `sync_status=not_configured`) | No client. `SNOMED_*` env vars are unused. |
 | AccessGUDID | **Registered, not implemented** | Registry row only (`enabled=True` in metadata, `never_synced`) | No client, no CLI sync. |
 | MIMIC-IV | **Registered, disabled, not implemented** | Registry row only | No reader. `MIMIC_LOCAL_PATH` unused. Raw rows must never be stored as reference concepts and are never sent to OpenAI. |
@@ -1330,7 +1442,8 @@ Implemented flags (`generate-synthetic-cases --help`):
 | `--seed` | `42` | Integer; combined with sequence and scenario into the case seed |
 | `--start-index` | `1` | Integer ≥ 1; becomes `SYN-{index:06d}` |
 | `--scenario` | omitted | Must match a `code` in `data/bootstrap/scenarios.json`. If omitted, the **first** scenario in that file is used (`HF_INPATIENT`). |
-| `--inject-error` / `--no-inject-error` | `--inject-error` | Exactly one reconciliation error after a clean, validated case |
+| `--inject-error` / `--no-inject-error` | `--inject-error` | Exactly one pre-specified CliniProof error after a clean, validated case |
+| `--error-category` | omitted | Canonical ID (`f1_omission`, …) or historical alias. Required target; never silently replaced. Omitted error-bearing generation uses the scenario default. |
 
 There is **no** `--use-openai` flag. The service default is `use_openai=True`; OpenAI is still skipped when the key is empty. Freeze is the path that forces `use_openai=False`.
 
@@ -1489,9 +1602,9 @@ Controls:
 
 - `batch_code` (committed value `RESIDENT_VALIDATION_V1`)
 - `master_seed` (`20260922`)
-- `cases[]`: `validation_case_id` (`VAL-###`), `scenario`, `inject_error`, `error_category`, `sequence`
+- `cases[]`: `validation_case_id` (`VAL-###`), `scenario`, `inject_error`, `error_family`, `error_category`, `sequence`
 
-Case seed: `{master_seed}:{sequence}:{scenario}`. Sequences **101–124** avoid smoke ids `SYN-000001`–`SYN-000003`.
+Case seed: `{master_seed}:{sequence}:{scenario}`. Sequences **101–124** are `RESIDENT_VALIDATION_V1`. Sequences **801–824** are `CLINIPROOF_TAXONOMY_V1`.
 
 ### Immutable `VAL-*` IDs
 
@@ -1511,8 +1624,17 @@ Rejected assignments (generation/audit failure) appear in the `rejected` list an
 | Internal IDs | `SYN-000101`–`SYN-000124` |
 | Families | `HF_INPATIENT` (5), `AF_ANTICOAGULATION` (5), `HTN_INPATIENT` (5), `T2DM_INPATIENT` (5), `CAP_INPATIENT` (4) |
 | Mix | 5 clean controls, 19 error-bearing (exactly one planted reconciliation error each) |
-| Error families used | `omission`, `dose_mismatch`, `frequency_mismatch`, `incorrect_continuation` |
+| Error families used | Historical injector names: `omission`, `dose_mismatch`, `frequency_mismatch`, `incorrect_continuation` (see [CliniProof error taxonomy](#cliniproof-error-taxonomy) for the mapping) |
 | Dataset status | `machine-validated synthetic resident-review cases pending clinician validation` |
+
+**This freeze is immutable.** Do not regenerate it “to match” the canonical taxonomy. A separate batch, `CLINIPROOF_TAXONOMY_V1` (`VAL-201`–`VAL-224`, sequences 801–824), uses the complete implemented CliniProof identifiers. Plan and exports: [`data/validation/cliniproof_v1/`](data/validation/cliniproof_v1/).
+
+```bash
+clinical-case-generator freeze-validation-batch --plan data/validation/cliniproof_v1/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_TAXONOMY_V1 --output-dir data/validation/cliniproof_v1
+```
+
+Export **must** use that `--output-dir`. The default export directory is `data/validation/` and would overwrite V1 resident JSON.
 
 **How controls vs planted errors work (do not tell residents which is which):**
 
@@ -1928,11 +2050,11 @@ Internal PK is UUID (`gen_random_uuid()`). Dashboard ids (`SYN-*`, `VAL-*`, `DX-
 
 **Implemented**
 
-- PostgreSQL schema and Alembic through `c3f8a91b2e47`
+- PostgreSQL schema and Alembic through `d4e8b17c6a91`
 - RxNorm, LOINC (credentialed), UCUM, ICD-10-CM, DailyMed, RxClass, NLM conditions, NLM HPO clients
 - Bounded bootstrap, three curated rules, five inpatient scenarios
-- Deterministic generation, four reconciliation-error families, four-layer validation
-- Freeze/export of blinded `VAL-*` batch
+- Deterministic generation with CliniProof Family 1 / Family 2 injectors (see taxonomy section)
+- Freeze/export of blinded `VAL-*` batches (`RESIDENT_VALIDATION_V1` historical; `CLINIPROOF_TAXONOMY_V1` canonical)
 - Local reference search API + `/health`
 - Optional OpenAI narrative wording
 
@@ -1942,7 +2064,7 @@ Internal PK is UUID (`gen_random_uuid()`). Dashboard ids (`SYN-*`, `VAL-*`, `DX-
 - AccessGUDID: enabled registry metadata; **no client**
 - `ref_clinical_distributions`: table and MIMIC_IV_RAW guard; **no calculator**
 - LOINC labs: bootstrap works only with credentials; otherwise skipped
-- Error families: only omission, dose mismatch, frequency mismatch, incorrect continuation (the last needs a scenario stop medication)
+- `f2_coprescription_omitted`: taxonomy ID exists; **not_yet_implementable** until a source-backed companion-prescription rule exists
 - Narrative: template always available; OpenAI optional with silent fallback
 
 **Not implemented**
@@ -1951,7 +2073,7 @@ Internal PK is UUID (`gen_random_uuid()`). Dashboard ids (`SYN-*`, `VAL-*`, `DX-
 - MIMIC ingestion or aggregate calculation
 - Resident review UI / dashboard application
 - Full vocabulary import (`sync-all` does not exist)
-- Duplicate therapy, missing co-prescription, contraindicated restart, failure-to-restart error families
+- Companion co-prescription errors (steroid/PPI, opioid/bowel regimen) without a stored rule
 - A complete clinical-realism guarantee; human review is required
 - Using OpenAI as clinical truth, error chooser, or answer-key writer
 

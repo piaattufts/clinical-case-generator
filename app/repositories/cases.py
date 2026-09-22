@@ -10,8 +10,11 @@ from sqlalchemy.orm import Session
 from app.models.cases import (
     CaseAnswerKey,
     CaseDiagnosis,
+    CaseFollowup,
+    CaseInstruction,
     CaseLab,
     CaseMedication,
+    CaseMonitoring,
     CaseSymptom,
     ClinicalCase,
 )
@@ -90,6 +93,33 @@ def list_answer_keys_for_case(session: Session, case_id: uuid.UUID) -> list[Case
     return list(rows)
 
 
+def list_monitoring_for_case(session: Session, case_id: uuid.UUID) -> list[CaseMonitoring]:
+    rows = session.scalars(
+        select(CaseMonitoring)
+        .where(CaseMonitoring.case_id == case_id)
+        .order_by(CaseMonitoring.monitoring_id.nulls_last())
+    ).all()
+    return list(rows)
+
+
+def list_followups_for_case(session: Session, case_id: uuid.UUID) -> list[CaseFollowup]:
+    rows = session.scalars(
+        select(CaseFollowup)
+        .where(CaseFollowup.case_id == case_id)
+        .order_by(CaseFollowup.followup_id.nulls_last())
+    ).all()
+    return list(rows)
+
+
+def list_instructions_for_case(session: Session, case_id: uuid.UUID) -> list[CaseInstruction]:
+    rows = session.scalars(
+        select(CaseInstruction)
+        .where(CaseInstruction.case_id == case_id)
+        .order_by(CaseInstruction.instruction_id.nulls_last())
+    ).all()
+    return list(rows)
+
+
 def next_case_sequence(session: Session) -> int:
     codes = session.scalars(select(ClinicalCase.case_id_code)).all()
     highest = 0
@@ -103,9 +133,7 @@ def next_case_sequence(session: Session) -> int:
 def get_frozen_case_for_clinical_id(
     session: Session, case_id: uuid.UUID
 ) -> ValidationBatchCase | None:
-    return session.scalar(
-        select(ValidationBatchCase).where(ValidationBatchCase.case_id == case_id)
-    )
+    return session.scalar(select(ValidationBatchCase).where(ValidationBatchCase.case_id == case_id))
 
 
 def get_frozen_case_by_validation_id(
