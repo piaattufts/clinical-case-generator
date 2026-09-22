@@ -384,7 +384,7 @@ def _test_scenario() -> Scenario:
         care_context="inpatient",
         age_min=60,
         age_max=60,
-        target_error_category="omission",
+        target_error_category="f1_omission",
         diagnosis_queries=["TEST_heart"],
         symptom_queries=["TEST_symptom"],
         medication_queries=["TEST_med"],
@@ -595,7 +595,7 @@ def test_supported_error_categories_inject_exactly_one(db_session: Session) -> N
         scenario=scenario,
         inject_error=True,
         use_openai=False,
-        error_category="dose_mismatch",
+        error_category="f1_dose_mismatch",
     )
     assert dose.injected is not None
     assert dose.injected.category == "f1_dose_mismatch"
@@ -606,7 +606,7 @@ def test_supported_error_categories_inject_exactly_one(db_session: Session) -> N
         scenario=scenario,
         inject_error=True,
         use_openai=False,
-        error_category="frequency_mismatch",
+        error_category="f1_frequency_mismatch",
     )
     assert freq.injected is not None
     assert freq.injected.category == "f1_frequency_mismatch"
@@ -617,7 +617,7 @@ def test_supported_error_categories_inject_exactly_one(db_session: Session) -> N
         scenario=scenario,
         inject_error=True,
         use_openai=False,
-        error_category="incorrect_continuation",
+        error_category="f1_commission",
     )
     assert cont.injected is not None
     assert cont.injected.category == "f1_commission"

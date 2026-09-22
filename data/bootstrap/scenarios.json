@@ -1,6 +1,6 @@
 {
   "version": "3",
-  "description": "Inpatient medication-reconciliation scenario families. Concepts are selected from local source-backed reference rows. Error category names accept CliniProof canonical IDs and historical V1 aliases.",
+  "description": "Inpatient medication-reconciliation scenario families. Concepts are selected from local source-backed reference rows. Error categories are canonical CliniProof IDs only.",
   "scenarios": [
     {
       "code": "HF_INPATIENT",
@@ -10,10 +10,6 @@
       "age_max": 85,
       "target_error_category": "f1_omission",
       "allowed_error_categories": [
-        "omission",
-        "dose_mismatch",
-        "frequency_mismatch",
-        "incorrect_continuation",
         "f1_omission",
         "f1_commission",
         "f1_dose_mismatch",
@@ -27,8 +23,14 @@
         "f2_inpatient_substitution_not_reverted",
         "f2_pending_decision_followup_missing"
       ],
-      "diagnosis_queries": ["heart failure"],
-      "symptom_queries": ["dyspnea", "edema", "orthopnea"],
+      "diagnosis_queries": [
+        "heart failure"
+      ],
+      "symptom_queries": [
+        "dyspnea",
+        "edema",
+        "orthopnea"
+      ],
       "medication_queries": [
         "lisinopril",
         "furosemide",
@@ -36,10 +38,22 @@
         "spironolactone",
         "atorvastatin"
       ],
-      "stop_medication_queries": ["ibuprofen"],
-      "hospital_only_medication_queries": ["pantoprazole"],
-      "anticoagulant_mutex_queries": ["warfarin", "apixaban"],
-      "lab_queries": ["potassium", "creatinine", "inr", "natriuretic peptide"]
+      "stop_medication_queries": [
+        "ibuprofen"
+      ],
+      "hospital_only_medication_queries": [
+        "pantoprazole"
+      ],
+      "anticoagulant_mutex_queries": [
+        "warfarin",
+        "apixaban"
+      ],
+      "lab_queries": [
+        "potassium",
+        "creatinine",
+        "inr",
+        "natriuretic peptide"
+      ]
     },
     {
       "code": "AF_ANTICOAGULATION",
@@ -49,10 +63,6 @@
       "age_max": 88,
       "target_error_category": "f1_omission",
       "allowed_error_categories": [
-        "omission",
-        "dose_mismatch",
-        "frequency_mismatch",
-        "incorrect_continuation",
         "f1_omission",
         "f1_commission",
         "f1_dose_mismatch",
@@ -66,13 +76,31 @@
         "f2_inpatient_substitution_not_reverted",
         "f2_pending_decision_followup_missing"
       ],
-      "diagnosis_queries": ["atrial fibrillation"],
-      "symptom_queries": ["dyspnea", "fatigue"],
-      "medication_queries": ["metoprolol", "atorvastatin"],
-      "stop_medication_queries": ["ibuprofen"],
-      "hospital_only_medication_queries": ["pantoprazole"],
-      "anticoagulant_mutex_queries": ["warfarin", "apixaban"],
-      "lab_queries": ["inr", "creatinine"]
+      "diagnosis_queries": [
+        "atrial fibrillation"
+      ],
+      "symptom_queries": [
+        "dyspnea",
+        "fatigue"
+      ],
+      "medication_queries": [
+        "metoprolol",
+        "atorvastatin"
+      ],
+      "stop_medication_queries": [
+        "ibuprofen"
+      ],
+      "hospital_only_medication_queries": [
+        "pantoprazole"
+      ],
+      "anticoagulant_mutex_queries": [
+        "warfarin",
+        "apixaban"
+      ],
+      "lab_queries": [
+        "inr",
+        "creatinine"
+      ]
     },
     {
       "code": "HTN_INPATIENT",
@@ -82,10 +110,6 @@
       "age_max": 80,
       "target_error_category": "f1_dose_mismatch",
       "allowed_error_categories": [
-        "omission",
-        "dose_mismatch",
-        "frequency_mismatch",
-        "incorrect_continuation",
         "f1_omission",
         "f1_commission",
         "f1_dose_mismatch",
@@ -98,13 +122,30 @@
         "f2_inpatient_substitution_not_reverted",
         "f2_pending_decision_followup_missing"
       ],
-      "diagnosis_queries": ["essential (primary) hypertension"],
-      "symptom_queries": ["fatigue"],
-      "medication_queries": ["lisinopril", "amlodipine", "hydrochlorothiazide", "atorvastatin"],
-      "stop_medication_queries": ["ibuprofen"],
-      "hospital_only_medication_queries": ["pantoprazole"],
+      "diagnosis_queries": [
+        "essential (primary) hypertension"
+      ],
+      "symptom_queries": [
+        "fatigue"
+      ],
+      "medication_queries": [
+        "lisinopril",
+        "amlodipine",
+        "hydrochlorothiazide",
+        "atorvastatin"
+      ],
+      "stop_medication_queries": [
+        "ibuprofen"
+      ],
+      "hospital_only_medication_queries": [
+        "pantoprazole"
+      ],
       "anticoagulant_mutex_queries": [],
-      "lab_queries": ["creatinine", "potassium", "sodium"]
+      "lab_queries": [
+        "creatinine",
+        "potassium",
+        "sodium"
+      ]
     },
     {
       "code": "T2DM_INPATIENT",
@@ -114,9 +155,6 @@
       "age_max": 80,
       "target_error_category": "f1_omission",
       "allowed_error_categories": [
-        "omission",
-        "dose_mismatch",
-        "frequency_mismatch",
         "f1_omission",
         "f1_dose_mismatch",
         "f1_route_mismatch",
@@ -127,13 +165,28 @@
         "f2_hospital_only_continued",
         "f2_pending_decision_followup_missing"
       ],
-      "diagnosis_queries": ["type 2 diabetes mellitus"],
-      "symptom_queries": ["polyuria", "fatigue"],
-      "medication_queries": ["metformin", "lisinopril", "atorvastatin"],
+      "diagnosis_queries": [
+        "type 2 diabetes mellitus"
+      ],
+      "symptom_queries": [
+        "polyuria",
+        "fatigue"
+      ],
+      "medication_queries": [
+        "metformin",
+        "lisinopril",
+        "atorvastatin"
+      ],
       "stop_medication_queries": [],
-      "hospital_only_medication_queries": ["pantoprazole"],
+      "hospital_only_medication_queries": [
+        "pantoprazole"
+      ],
       "anticoagulant_mutex_queries": [],
-      "lab_queries": ["glucose", "creatinine", "hemoglobin"]
+      "lab_queries": [
+        "glucose",
+        "creatinine",
+        "hemoglobin"
+      ]
     },
     {
       "code": "CAP_INPATIENT",
@@ -143,9 +196,6 @@
       "age_max": 85,
       "target_error_category": "f1_frequency_mismatch",
       "allowed_error_categories": [
-        "omission",
-        "dose_mismatch",
-        "frequency_mismatch",
         "f1_omission",
         "f1_dose_mismatch",
         "f1_route_mismatch",
@@ -156,13 +206,29 @@
         "f2_hospital_only_continued",
         "f2_pending_decision_followup_missing"
       ],
-      "diagnosis_queries": ["pneumonia"],
-      "symptom_queries": ["cough", "dyspnea", "wheezing"],
-      "medication_queries": ["azithromycin", "albuterol", "pantoprazole"],
+      "diagnosis_queries": [
+        "pneumonia"
+      ],
+      "symptom_queries": [
+        "cough",
+        "dyspnea",
+        "wheezing"
+      ],
+      "medication_queries": [
+        "azithromycin",
+        "albuterol",
+        "pantoprazole"
+      ],
       "stop_medication_queries": [],
-      "hospital_only_medication_queries": ["aspirin"],
+      "hospital_only_medication_queries": [
+        "aspirin"
+      ],
       "anticoagulant_mutex_queries": [],
-      "lab_queries": ["hemoglobin", "creatinine", "sodium"]
+      "lab_queries": [
+        "hemoglobin",
+        "creatinine",
+        "sodium"
+      ]
     }
   ]
 }
