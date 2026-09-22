@@ -82,6 +82,7 @@ from app.services.error_taxonomy import (
     FAMILY_FOR_CATEGORY,
     FOLLOWUP_DAYS_FOR_SUPPLY,
     NONE,
+    canonicalize_category,
     class_usable_for_substitution,
     require_eligible,
     resolve_requested_category,
@@ -754,7 +755,7 @@ def validate_persisted_cases(
         if expect_error:
             keys = list_answer_keys_for_case(session, case.id)
             if keys:
-                expected_category = keys[0].error_category
+                expected_category = canonicalize_category(keys[0].error_category)
         report = validate_case(
             session,
             case,

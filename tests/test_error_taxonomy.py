@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 
 import pytest
 from app.models.cases import ClinicalCase
@@ -40,7 +41,7 @@ from app.services.error_taxonomy import (
     eligible_errors,
     historical_taxonomy_mapping,
 )
-from app.services.generation import generate_one_case
+from app.services.generation import GeneratedCaseResult, Scenario, generate_one_case
 from app.services.validation import require_valid, validate_case
 from app.services.validation_batch import (
     _investigator_payload,
@@ -132,7 +133,7 @@ def _seed_taxonomy_refs(session: Session) -> None:
     session.flush()
 
 
-def _scenario():
+def _scenario() -> Scenario:
     scenario = _test_scenario()
     scenario.medication_queries = ["TEST_med"]
     scenario.stop_medication_queries = ["ibuprofen"]
@@ -142,7 +143,9 @@ def _scenario():
     return scenario
 
 
-def _generate(session: Session, sequence: int, category: str | None, inject: bool = True):
+def _generate(
+    session: Session, sequence: int, category: str | None, inject: bool = True
+) -> GeneratedCaseResult:
     return generate_one_case(
         session,
         sequence=sequence,
@@ -154,7 +157,9 @@ def _generate(session: Session, sequence: int, category: str | None, inject: boo
     )
 
 
-def _payloads(session: Session, result, category: str | None):
+def _payloads(
+    session: Session, result: GeneratedCaseResult, category: str | None
+) -> tuple[ClinicalCase, dict[str, Any], dict[str, Any]]:
     case = session.get(ClinicalCase, result.case_id)
     assert case is not None
     val_id = f"VAL-{int(result.case_id_code.rsplit('-', 1)[-1]):03d}"
@@ -241,7 +246,7 @@ def test_clean_control(db_session: Session) -> None:
     assert investigator["error"]["error_category"] == NONE
 
 
-def _assert_category_case(session: Session, sequence: int, category: str):
+def _assert_category_case(session: Session, sequence: int, category: str) -> GeneratedCaseResult:
     first = _generate(session, sequence, category)
     assert first.injected is not None
     assert first.injected.category == category

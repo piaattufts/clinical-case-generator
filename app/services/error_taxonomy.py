@@ -539,8 +539,8 @@ def isolation_errors(
 ) -> list[str]:
     canonical = canonicalize_category(expected_category)
     findings = detect_findings(session, case)
+    errors = _duplicate_discharge_errors(session, load_case_view(session, case))
     if canonical == NONE:
-        errors = _duplicate_discharge_errors(session, load_case_view(session, case))
         if findings:
             errors.append(
                 "clean control has mechanically detectable extra discrepancy: "
@@ -549,8 +549,6 @@ def isolation_errors(
         return errors
     matching = [item for item in findings if item.category == canonical]
     extra = [item for item in findings if item.category != canonical]
-    errors: list[str] = []
-    errors.extend(_duplicate_discharge_errors(session, load_case_view(session, case)))
     if len(matching) != 1:
         errors.append(
             f"expected exactly one {canonical} finding, found {len(matching)} "
@@ -952,7 +950,10 @@ def _find_hospital_only(
     for plan in view.plans:
         if plan.id in consumed_plans or not _is_hospital_only_plan(plan):
             continue
-        listed = by_discharge.get(plan.ref_medication_id)
+        ref_id = plan.ref_medication_id
+        if ref_id is None:
+            continue
+        listed = by_discharge.get(ref_id)
         if listed is None or listed.id in consumed_discharge:
             continue
         consumed_plans.add(plan.id)
@@ -1179,13 +1180,13 @@ def _held_evidence(view: CaseView, plan: CaseMedicationPlan) -> bool:
 
 
 def _restart_plan_present(view: CaseView, plan: CaseMedicationPlan) -> bool:
-    for item in view.instructions:
-        if contains_needle(item.instruction_text, RESTART_NEEDLE):
+    for instruction in view.instructions:
+        if contains_needle(instruction.instruction_text, RESTART_NEEDLE):
             return True
-    for item in view.medications:
-        if item.ref_medication_id != plan.ref_medication_id:
+    for medication in view.medications:
+        if medication.ref_medication_id != plan.ref_medication_id:
             continue
-        if contains_needle(item.target_or_goal, RESTART_NEEDLE):
+        if contains_needle(medication.target_or_goal, RESTART_NEEDLE):
             return True
     return False
 
