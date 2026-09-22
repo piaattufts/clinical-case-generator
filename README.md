@@ -1103,6 +1103,48 @@ Copy-Item .env.example .env
 
 `.env` is gitignored. Fill LOINC fields before lab import. Do not commit credentials.
 
+### 4. Update an existing clone
+
+GitHub’s default branch is `main`. `git pull` on `main` only brings in **merged** commits. Open pull requests (README, validation batches, CliniProof taxonomy, and so on) are **not** on `main` until they are merged.
+
+From the repository root, with a clean working tree:
+
+```bash
+git fetch origin
+git checkout main
+git pull --ff-only origin main
+```
+
+`--ff-only` refuses to create a merge commit if local `main` has diverged. If that happens, inspect `git status` and `git log --oneline main..origin/main` before deciding.
+
+To look at a feature branch without merging it into `main`:
+
+```bash
+git fetch origin
+git checkout <branch-name>
+git pull --ff-only origin <branch-name>
+```
+
+After a pull that changed Python packaging or migrations:
+
+```bash
+source .venv/bin/activate   # Windows: .\.venv\Scripts\Activate.ps1
+python -m pip install -e ".[dev]"
+clinical-case-generator db-init
+```
+
+`db-init` applies Alembic to the current head. It does **not** rewrite committed files under `data/validation/`. Do not regenerate frozen `VAL-*` JSON “to match” a pull.
+
+To confirm what you have:
+
+```bash
+git status
+git log -1 --oneline
+git rev-parse --abbrev-ref HEAD
+```
+
+The GitHub homepage README is the README on `main`. A newer README on another branch is visible in that branch or its pull request until merge.
+
 ---
 
 ## 6. Environment configuration
@@ -1905,6 +1947,16 @@ Copy-Item .env.example .env
 docker compose up -d
 clinical-case-generator db-init
 ```
+
+### A2. Update an existing git clone
+
+```bash
+git fetch origin
+git checkout main
+git pull --ff-only origin main
+```
+
+That updates **merged** `main` only. Feature-branch work (including a README or `data/validation/` that is still in an open PR) needs `git checkout <branch-name>` after `git fetch`. Full notes: [§5.4](#4-update-an-existing-clone).
 
 ### B. Refresh terminology
 
