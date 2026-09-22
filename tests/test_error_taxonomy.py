@@ -565,11 +565,22 @@ def test_resident_validation_v1_plan_was_not_rewritten() -> None:
     assert cliniproof["cases"][0]["error_family"] == "family_1"
 
 
-def test_v2_v4_plans_are_separate_from_v1() -> None:
+def test_legacy_pre_taxonomy_v2_v4_are_archived_not_current_study() -> None:
+    historical = {"omission", "dose_mismatch", "frequency_mismatch", "incorrect_continuation", None}
+    archive = Path("data/validation/legacy_pre_taxonomy")
+    provenance = json.loads((archive / "provenance.json").read_text(encoding="utf-8"))
+    assert provenance["taxonomy_compliant"] is False
+    assert provenance["do_not_regenerate_in_place"] is True
+    assert provenance["historical_record"]["generating_commit"] == (
+        "ba346834b7685b2e6ae13bee374995c9c118ccf3"
+    )
+    assert provenance["historical_record"]["pull_request"] == 4
+    assert provenance["injector"]["unknown_category_behavior"] == "silent_fallback_to_omission"
+
     v1 = json.loads(Path("data/validation/batch_plan.json").read_text(encoding="utf-8"))
-    v2 = json.loads(Path("data/validation/v2/batch_plan.json").read_text(encoding="utf-8"))
-    v3 = json.loads(Path("data/validation/v3/batch_plan.json").read_text(encoding="utf-8"))
-    v4 = json.loads(Path("data/validation/v4/batch_plan.json").read_text(encoding="utf-8"))
+    v2 = json.loads((archive / "v2/batch_plan.json").read_text(encoding="utf-8"))
+    v3 = json.loads((archive / "v3/batch_plan.json").read_text(encoding="utf-8"))
+    v4 = json.loads((archive / "v4/batch_plan.json").read_text(encoding="utf-8"))
     assert v1["batch_code"] == "RESIDENT_VALIDATION_V1"
     assert v2["batch_code"] == "RESIDENT_VALIDATION_V2"
     assert v3["batch_code"] == "RESIDENT_VALIDATION_V3"
@@ -579,7 +590,17 @@ def test_v2_v4_plans_are_separate_from_v1() -> None:
     assert v4["cases"][0]["validation_case_id"] == "VAL-073"
     assert v2["cases"][0]["error_category"] == "omission"
     assert "error_family" not in v2["cases"][0]
-    assert v1["cases"][0]["error_category"] == "omission"
+    assert {row.get("error_category") for row in v2["cases"]} <= historical
+    assert {row.get("error_category") for row in v3["cases"]} <= historical
+    assert {row.get("error_category") for row in v4["cases"]} <= historical
+    assert not Path("data/validation/v2").exists()
+    assert not Path("data/validation/v3").exists()
+    assert not Path("data/validation/v4").exists()
+    cliniproof = json.loads(
+        Path("data/validation/cliniproof_v1/batch_plan.json").read_text(encoding="utf-8")
+    )
+    assert cliniproof["batch_code"] == "CLINIPROOF_TAXONOMY_V1"
+    assert cliniproof["cases"][0]["validation_case_id"] == "VAL-201"
 
 
 def test_ineligible_monitoring_does_not_fallback(db_session: Session) -> None:

@@ -1,6 +1,6 @@
 # CLINIPROOF_TAXONOMY_V1
 
-This directory is the study copy of batch **`CLINIPROOF_TAXONOMY_V1`**. It is a **new** validation set. It does **not** replace or rewrite `RESIDENT_VALIDATION_V1` (`VAL-001`–`VAL-024`) or `RESIDENT_VALIDATION_V2`–`V4`.
+This directory is the study copy of batch **`CLINIPROOF_TAXONOMY_V1`**. It is a **new** validation set with a new `batch_code` and new VAL IDs. It does **not** replace or rewrite `RESIDENT_VALIDATION_V1` (`VAL-001`–`VAL-024`). Pre-taxonomy `RESIDENT_VALIDATION_V2`–`V4` are archived under [`../legacy_pre_taxonomy/`](../legacy_pre_taxonomy/) and are **not** taxonomy-compliant batches.
 
 Target `error_family` and `error_category` are specified in [`batch_plan.json`](batch_plan.json) **before** generation. The injector never asks an LLM which error to plant. If the requested category is ineligible, freeze **rejects** the assignment and aborts the batch instead of substituting another category.
 
