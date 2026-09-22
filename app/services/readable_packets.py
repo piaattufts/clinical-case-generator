@@ -39,7 +39,7 @@ CLINICAL_CATEGORY_LABELS = {
     "f1_route_mismatch": "Unexplained route discrepancy",
     "f1_frequency_mismatch": "Unexplained frequency discrepancy",
     "f1_therapeutic_substitution": "Unexplained therapeutic substitution",
-    "f2_monitoring_not_arranged": "Required monitoring not arranged",
+    "f2_monitoring_not_arranged": "Required outpatient monitoring not arranged",
     "f2_held_med_no_restart_plan": "Held medication without a restart plan",
     "f2_insufficient_supply": "Insufficient medication supply",
     "f2_hospital_only_continued": "Hospital-only medication continued after discharge",
@@ -104,6 +104,8 @@ Overall C1:
 
 C2_TO_C5_FORM = """### C2 Intended error present and correctly classified
 
+Is the intended medication-reconciliation problem actually present in this chart, and is it the problem the specification claims? Record Pass or Fail. A failure means the case cannot be scored against its intended answer key.
+
 ☐ Pass
 
 ☐ Fail
@@ -111,6 +113,8 @@ C2_TO_C5_FORM = """### C2 Intended error present and correctly classified
 Comments:
 
 ### C3 Detectability from documents alone
+
+Could a resident identify and resolve the intended problem using only the information available in this case? Confirm that required evidence is present and that wording does not accidentally reveal the answer.
 
 ☐ Pass
 
@@ -122,6 +126,8 @@ Ambiguity / cueing concerns:
 
 ### C4 Absence of unintended errors
 
+Is there any additional clinically meaningful medication-reconciliation discrepancy or transition-of-care gap beyond the specified target? This must be assessed by an active hunt, not only by recording errors that happen to be noticed.
+
 ☐ Pass
 
 ☐ Fail
@@ -131,6 +137,8 @@ Additional possible discrepancies/gaps found:
 Severity / importance:
 
 ### C5 Difficulty for internal medicine resident
+
+How difficult would this item be for an internal medicine resident? This rating is advisory only. Difficulty is ultimately an empirical property to be calibrated after resident administration.
 
 ☐ Easy
 
@@ -189,10 +197,15 @@ def _cell(value: object) -> str:
     return display(value).replace("|", "\\|").replace("\n", " ")
 
 
-def _md_table(headers: Sequence[str], rows: Sequence[Sequence[object]]) -> str:
+def _md_table(
+    headers: Sequence[str],
+    rows: Sequence[Sequence[object]],
+    *,
+    empty: str | None = None,
+) -> str:
     usable = [row for row in rows if any(not _is_missing(cell) for cell in row)]
     if not usable:
-        return f"{MISSING}."
+        return empty or "No rows were specified for this table."
     header_line = "| " + " | ".join(headers) + " |"
     align = []
     for header in headers:
@@ -286,6 +299,7 @@ def _medication_table(rows: Sequence[Mapping[str, Any]], context: str) -> str:
     return _md_table(
         ("Medication", "Dose", "Route", "Frequency", "Relevant note"),
         table_rows,
+        empty="No medications were specified for this list.",
     )
 
 
@@ -313,7 +327,11 @@ def _vitals_table(rows: Sequence[Mapping[str, Any]]) -> str:
             measures.append([f"{prefix}SpO2", row.get("spo2_percent"), "%"])
         if not _is_missing(row.get("oxygen_support")):
             measures.append([f"{prefix}Oxygen support", row.get("oxygen_support"), ""])
-    return _md_table(("Measure", "Value", "Unit"), measures)
+    return _md_table(
+        ("Measure", "Value", "Unit"),
+        measures,
+        empty="No vital signs were specified in this case.",
+    )
 
 
 def _labs_table(rows: Sequence[Mapping[str, Any]]) -> str:
@@ -328,7 +346,11 @@ def _labs_table(rows: Sequence[Mapping[str, Any]]) -> str:
         if not _is_missing(timepoint):
             label = f"{display(label)} ({_labelize(timepoint)})"
         table_rows.append([label, result, row.get("unit")])
-    return _md_table(("Test", "Result", "Unit"), table_rows)
+    return _md_table(
+        ("Test", "Result", "Unit"),
+        table_rows,
+        empty="No laboratory results were specified in this case.",
+    )
 
 
 def _diagnoses_table(rows: Sequence[Mapping[str, Any]]) -> str:
@@ -339,6 +361,7 @@ def _diagnoses_table(rows: Sequence[Mapping[str, Any]]) -> str:
             [row.get("diagnosis"), row.get("diagnosis_type"), row.get("status"), row.get("context")]
             for row in ordered
         ],
+        empty="No diagnoses were specified in this case.",
     )
 
 
@@ -350,12 +373,19 @@ def _problems_table(rows: Sequence[Mapping[str, Any]]) -> str:
             [row.get("problem"), row.get("problem_type"), row.get("priority"), row.get("status")]
             for row in ordered
         ],
+        empty="No problem-list entries were specified in this case.",
     )
 
 
-def _named_rows(rows: Sequence[Mapping[str, Any]], label_key: str, extra: Sequence[str]) -> str:
+def _named_rows(
+    rows: Sequence[Mapping[str, Any]],
+    label_key: str,
+    extra: Sequence[str],
+    *,
+    empty: str | None = None,
+) -> str:
     if not rows:
-        return f"{MISSING}."
+        return empty or "No items were specified for this list."
     ordered = _sort_maps(rows, (label_key, *extra))
     lines: list[str] = []
     for row in ordered:
@@ -369,7 +399,7 @@ def _named_rows(rows: Sequence[Mapping[str, Any]], label_key: str, extra: Sequen
             lines.append(f"- {head} ({'; '.join(details)})")
         else:
             lines.append(f"- {head}")
-    return "\n".join(lines) if lines else f"{MISSING}."
+    return "\n".join(lines) if lines else (empty or "No items were specified for this list.")
 
 
 def _hospital_course(clinical: Mapping[str, Any], case: Mapping[str, Any]) -> str:
@@ -385,29 +415,32 @@ def _hospital_course(clinical: Mapping[str, Any], case: Mapping[str, Any]) -> st
             sentence += f" Note: {display(row.get('notes'))}"
         paragraphs.append(sentence)
     planning = _as_dict(clinical.get("discharge_planning"))
-    plan_bits = [
-        f"Disposition {display(planning.get('disposition'))}."
-        if not _is_missing(planning.get("disposition"))
-        else "",
-        f"Discharge readiness: {display(planning.get('discharge_readiness'))}."
-        if not _is_missing(planning.get("discharge_readiness"))
-        else "",
-        f"Home health ordered: {display(planning.get('home_health_ordered'))}."
-        if not _is_missing(planning.get("home_health_ordered"))
-        else "",
-        f"Barriers to discharge: {display(planning.get('barriers_to_discharge'))}."
-        if not _is_missing(planning.get("barriers_to_discharge"))
-        else "",
-    ]
+    plan_bits = []
+    if not _is_missing(planning.get("disposition")):
+        plan_bits.append(f"The planned disposition is {display(planning.get('disposition'))}.")
+    if not _is_missing(planning.get("discharge_readiness")):
+        plan_bits.append(
+            f"Discharge readiness is recorded as {display(planning.get('discharge_readiness'))}."
+        )
+    if not _is_missing(planning.get("home_health_ordered")):
+        ordered = planning.get("home_health_ordered")
+        if ordered is False or str(ordered).strip().lower() in {"no", "false"}:
+            plan_bits.append("Home health was not ordered.")
+        else:
+            plan_bits.append(f"Home health ordered: {display(ordered)}.")
+    if not _is_missing(planning.get("barriers_to_discharge")):
+        plan_bits.append(
+            f"Barriers to discharge are recorded as {display(planning.get('barriers_to_discharge'))}."
+        )
     plan_text = " ".join(bit for bit in plan_bits if bit)
     if plan_text:
         paragraphs.append(plan_text)
-    return "\n\n".join(paragraphs) if paragraphs else f"{MISSING}."
+    return "\n\n".join(paragraphs) if paragraphs else "No hospital-course details were specified."
 
 
 def _medrec_block(rows: Sequence[Mapping[str, Any]]) -> str:
     if not rows:
-        return f"{MISSING}."
+        return "No medication-reconciliation documentation was specified."
     blocks: list[str] = []
     for row in _sort_maps(rows, ("medrec_id",)):
         items = [
@@ -477,11 +510,11 @@ def _other_visible(case: Mapping[str, Any], clinical: Mapping[str, Any]) -> str:
     if imaging:
         sections.append("Imaging:\n\n" + display(imaging))
     else:
-        sections.append(f"Imaging: {MISSING}.")
+        sections.append("No imaging studies were specified in this case.")
     if consults:
         sections.append("Consultations:\n\n" + display(consults))
     else:
-        sections.append(f"Consultations: {MISSING}.")
+        sections.append("No consultations were specified in this case.")
     for label, key in (
         ("Procedures", "CaseProcedure"),
         ("Devices", "CaseDevice"),
@@ -490,7 +523,7 @@ def _other_visible(case: Mapping[str, Any], clinical: Mapping[str, Any]) -> str:
         rows = _as_list(case.get(key))
         if rows:
             sections.append(f"{label}:\n\n" + display(rows))
-    return "\n\n".join(sections) if sections else f"{MISSING}."
+    return "\n\n".join(sections) if sections else "No additional clinical information was specified."
 
 
 def render_resident_case(case: Mapping[str, Any]) -> str:
@@ -511,11 +544,17 @@ def render_resident_case(case: Mapping[str, Any]) -> str:
         history_bits.append("**Allergies:** " + display(clinical.get("allergies")))
     diagnoses = _diagnoses_table(_as_list(case.get("CaseDiagnosis")))
     problems = _problems_table(_as_list(case.get("CaseProblemList")))
-    history_body = "\n\n".join(history_bits) if history_bits else f"{MISSING}."
+    history_body = (
+        "\n\n".join(history_bits)
+        if history_bits
+        else "No additional past medical history or allergy fields were specified."
+    )
     lines = [
         f"# {case_id}",
         "",
         "## Patient overview",
+        "",
+        "The following overview lists the demographic and admission facts stored for this synthetic patient.",
         "",
         _bullet_map(
             [
@@ -536,6 +575,8 @@ def render_resident_case(case: Mapping[str, Any]) -> str:
         "",
         "## Reason for hospitalization",
         "",
+        "The following fields are the presenting complaint and history stored on the case.",
+        "",
         _bullet_map(
             [
                 (
@@ -552,13 +593,17 @@ def render_resident_case(case: Mapping[str, Any]) -> str:
         "",
         "### Admission note",
         "",
-        note_text if note_text else f"{MISSING}.",
+        note_text if note_text else "No admission note was specified.",
         "",
         "## Relevant medical history",
         "",
         history_body,
         "",
+        "The following table lists diagnoses stored on the case.",
+        "",
         diagnoses,
+        "",
+        "The following table lists problem-list entries stored on the case.",
         "",
         problems,
         "",
@@ -570,21 +615,31 @@ def render_resident_case(case: Mapping[str, Any]) -> str:
         "",
         "### Vital signs",
         "",
+        "The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.",
+        "",
         _vitals_table(_as_list(case.get("CaseVital"))),
         "",
         "### Laboratory results",
+        "",
+        "The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.",
         "",
         _labs_table(_as_list(case.get("CaseLab"))),
         "",
         "## Home medications",
         "",
+        "The following table lists medications recorded as the home regimen.",
+        "",
         _medication_table(medications, "home"),
         "",
         "## Medications during hospitalization",
         "",
+        "The following table lists medications recorded as active during the hospital stay.",
+        "",
         _medication_table(medications, "inpatient"),
         "",
         "## Discharge medications",
+        "",
+        "The following table lists medications recorded on the discharge list.",
         "",
         _medication_table(medications, "discharge"),
         "",
@@ -594,34 +649,42 @@ def render_resident_case(case: Mapping[str, Any]) -> str:
         "",
         "## Follow-up and monitoring",
         "",
-        "Scheduled monitoring:",
+        "The following items are scheduled monitoring tasks stored on the case.",
         "",
         _named_rows(
             _as_list(case.get("CaseMonitoring")),
             "parameter",
             ("frequency", "target", "trigger_for_action", "duration", "responsible_service"),
+            empty="No scheduled monitoring was specified.",
         ),
         "",
-        "Appointments / follow-up plan:",
+        "The following items are follow-up appointments stored on the case.",
         "",
         _named_rows(
             _as_list(case.get("CaseFollowup")),
             "item",
             ("timing", "with_service"),
+            empty="No follow-up appointments were specified.",
         ),
         "",
         "## Discharge instructions",
         "",
-        _named_rows(_as_list(case.get("CaseInstruction")), "instruction_text", ("category",)),
+        _named_rows(
+            _as_list(case.get("CaseInstruction")),
+            "instruction_text",
+            ("category",),
+            empty="No discharge instructions were specified.",
+        ),
         "",
         "## Other relevant clinical information",
         "",
-        "Return precautions:",
+        "The following items are return precautions stored on the case.",
         "",
         _named_rows(
             _as_list(case.get("CaseReturnPrecaution")),
             "symptom",
             ("reason", "action", "severity", "patient_instruction"),
+            empty="No return precautions were specified.",
         ),
         "",
         _other_visible(case, clinical),
@@ -665,7 +728,7 @@ def _format_state(value: object) -> str:
 def _trigger_lines(value: object) -> str:
     rows = value if isinstance(value, list) else []
     if not rows:
-        return f"{MISSING}."
+        return "No trigger medications were specified."
     lines: list[str] = []
     for row in rows:
         payload = _as_dict(row)
@@ -730,7 +793,7 @@ def render_investigator_spec(row: Mapping[str, Any]) -> str:
             "",
             "**Medication(s) involved:**",
             "",
-            f"{MISSING}.",
+            "No trigger medication is specified because this is a clean control.",
             "",
             "**What should have occurred:**",
             "",

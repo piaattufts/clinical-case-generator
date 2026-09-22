@@ -4,14 +4,14 @@ These snapshots support the clinician walkthrough in the root [`README.md`](../.
 
 Those identifiers are not `VAL-*` study IDs and are not members of the frozen validation set `CLINIPROOF_TAXONOMY_V1` (VAL-201 through VAL-224).
 
-The table below lists the four teaching files. Three are clean charts for clinician teaching. The fourth plants one medication omitted at discharge (`f1_omission`) and is investigator-only.
+The table below lists the four teaching files. Three are clean charts for clinician teaching. The fourth plants one medication omitted at discharge (`f1_omission`) and is investigator-only. Do not give the fourth file to resident study participants.
 
 | File | Internal id | Scenario | Error injection | Audience |
 | --- | --- | --- | --- | --- |
-| [`syn-000901.json`](syn-000901.json) | `SYN-000901` | `HF_INPATIENT` | none (clean) | Clinician teaching |
-| [`syn-000902.json`](syn-000902.json) | `SYN-000902` | `AF_ANTICOAGULATION` | none (clean) | Clinician teaching |
-| [`syn-000903.json`](syn-000903.json) | `SYN-000903` | `CAP_INPATIENT` | none (clean) | Clinician teaching |
-| [`syn-000904.json`](syn-000904.json) | `SYN-000904` | `HF_INPATIENT` | one `f1_omission` (`error_family = family_1`) | **Investigator-only teaching** |
+| [`syn-000901.json`](syn-000901.json) | `SYN-000901` | Heart-failure inpatient (`HF_INPATIENT`) | none (clean) | Clinician teaching |
+| [`syn-000902.json`](syn-000902.json) | `SYN-000902` | Atrial fibrillation with anticoagulation (`AF_ANTICOAGULATION`) | none (clean) | Clinician teaching |
+| [`syn-000903.json`](syn-000903.json) | `SYN-000903` | Community-acquired pneumonia inpatient (`CAP_INPATIENT`) | none (clean) | Clinician teaching |
+| [`syn-000904.json`](syn-000904.json) | `SYN-000904` | Heart-failure inpatient (`HF_INPATIENT`) | one medication omitted at discharge (`f1_omission`; Family 1) | **Investigator-only teaching** |
 
 `SYN-000904.json` includes the planted-error answer key. Do not give that file, or the investigator-only README section that quotes it, to resident study participants. It is not a `VAL-*` case, but it teaches the injection method.
 
