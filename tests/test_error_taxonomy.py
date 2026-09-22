@@ -623,9 +623,12 @@ def test_committed_cliniproof_export_is_canonical_and_blinded() -> None:
             assert exported["control_error_status"] == "error_bearing"
             assert exported["error"]["error_family"] in {"family_1", "family_2"}
             assert len(exported["error"].get("trigger_meds") or []) >= 1
+            injected_state = exported["error"].get("injected_state") or []
+            assert len(injected_state) == 1
         else:
             assert exported["control_error_status"] == "NO INTENTIONAL ERROR"
             assert exported["error"]["error_category"] == NONE
+            assert exported["error"].get("injected_state") in (None, [], {})
     assert worksheet.splitlines()[1].startswith("VAL-201,")
     assert worksheet.splitlines()[-1].startswith("VAL-224,")
     for line in worksheet.splitlines()[1:]:

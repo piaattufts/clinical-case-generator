@@ -1,10 +1,18 @@
-# Clinical Case Generator
+# Clinical Case Generator / CliniProof
 
-Clinical Case Generator is a Python application that loads **official clinical terminology** into PostgreSQL, applies **source-backed IF/THEN rules**, and generates **constrained synthetic inpatient cases** for medication-reconciliation review.
+Clinical Case Generator / CliniProof:
 
-It does **not** invent RxNorm, LOINC, SNOMED CT, ICD-10-CM, UCUM, or device identifiers. It does **not** send raw MIMIC patient rows, notes, identifiers, or events to OpenAI. Generated cases are **machine-validated synthetic records pending clinician validation**. Software checks terminology, structure, and the implemented source-backed rules. That is not the same as clinical validity.
+- loads official terminology into PostgreSQL
+- applies source-backed deterministic clinical rules
+- builds constrained synthetic inpatient cases
+- supports controlled CliniProof error injection
+- produces blinded resident-review cases
+- produces investigator-only answer keys
+- machine validation does not equal clinical validity
 
-The current resident-review batch is **`CLINIPROOF_TAXONOMY_V1`** (`VAL-201`–`VAL-224`, sequences 801–824) in [`data/validation/`](data/validation/): 24 cases, 20 error-bearing, 4 clean controls. It uses canonical `error_family` / `error_category` identifiers. It covers all **currently implemented** CliniProof error categories. That is **not** complete coverage of the full conceptual taxonomy. `f2_coprescription_omitted` remains specified conceptually but is `not_yet_implementable` (count **0** on this freeze).
+It does **not** invent RxNorm, LOINC, SNOMED CT, ICD-10-CM, UCUM, or device identifiers. It does **not** send raw MIMIC patient rows, notes, identifiers, or events to OpenAI. Generated cases are **machine-validated synthetic resident-review cases pending clinician validation**. Software checks terminology, structure, and the implemented source-backed rules. That is not the same as clinical validity.
+
+**Current study dataset:** **`CLINIPROOF_TAXONOMY_V1`** (`VAL-201`–`VAL-224`, sequences 801–824) in [`data/validation/`](data/validation/): 24 cases, 20 error-bearing, 4 clean controls. Canonical `error_family` / `error_category` identifiers only. `CLINIPROOF_TAXONOMY_V1` covers all **currently implemented** CliniProof error categories. That is **not** complete coverage of the full conceptual taxonomy. `f2_coprescription_omitted` remains specified conceptually but is `not_yet_implementable` (count **0** on this freeze).
 
 Investigator catalogs describe planted errors — treat them as **investigator-only**. This repository has **no resident review UI or dashboard application**. Delivery is a blinded JSON/CSV file handoff.
 
@@ -960,17 +968,27 @@ Official terminology sources
         ↓
 Local reference tables (ref_*)
         ↓
-Clinical rules (enabled only with DailyMed / RxClass evidence)
+Scenario specification
         ↓
-Case generation (local ref_* only)
+Deterministic structured clean case
         ↓
-Machine validation (structural / terminology / hard rules / assessment)
+Source-backed clinical rules
         ↓
-Optional CliniProof error injection (exactly one pre-specified category; Family 1 is a list-transition discrepancy; Family 2 may leave the medication list unchanged)
+Clean machine validation
         ↓
-Freeze resident-validation batch (immutable VAL-* IDs)
+Category eligibility
         ↓
-Resident export + investigator answer key
+Deterministic error injection (exactly one pre-specified canonical category; skipped for controls)
+        ↓
+Category-aware post-injection validation
+        ↓
+Immutable VAL assignment
+        ↓
+Blinded resident export
+        ↓
+Investigator answer key
+        ↓
+Clinician review
 ```
 
 This matches `app/cli/__init__.py` and `app/services/validation_batch.py`. There is no AccessGUDID, SNOMED, or MIMIC stage in the running pipeline.
@@ -2604,10 +2622,10 @@ After `db-init` and before bootstrap, every clinical table except `data_source_r
 
 **`CLINIPROOF_TAXONOMY_V1` study limitations**
 
-- **Clinical distribution.** The batch is not evenly distributed by scenario (`HF_INPATIENT` 13/24, `HTN_INPATIENT` 4/24, `AF_ANTICOAGULATION` 3/24, `T2DM_INPATIENT` 3/24, `CAP_INPATIENT` 1/24). It is not a prevalence-weighted or representative sample of inpatient medicine.
-- **Error-category distribution.** Several categories occur only once. This batch alone does **not** support stable category-specific psychometric estimates. Its immediate purpose is clinician validation of case quality and assessment-object integrity.
+- **Clinical distribution.** The batch is not evenly distributed by scenario (`HF_INPATIENT` 13/24, `HTN_INPATIENT` 4/24, `AF_ANTICOAGULATION` 3/24, `T2DM_INPATIENT` 3/24, `CAP_INPATIENT` 1/24). It is not a prevalence-weighted or representative sample of inpatient medicine. CAP is represented by one case.
+- **Error-category distribution.** Several categories occur only once. This batch alone does **not** support stable category-specific psychometric estimates. It is primarily intended for clinician assessment of clinical plausibility, assessment-object integrity, error fidelity, detectability, and isolation.
 - **Missing category.** `f2_coprescription_omitted` is intentionally absent (`not_yet_implementable`).
-- **Terminology ranking.** Official source ranking can produce technically source-valid but clinically atypical formulations or units (RxNorm solutions/gels, SI laboratory units). Those are among the issues clinician plausibility review should detect.
+- **Terminology ranking.** Official source ranking can produce technically source-valid but clinically atypical formulations or units (RxNorm solutions/gels, SI laboratory units). Clinical plausibility requires physician review.
 
 ---
 

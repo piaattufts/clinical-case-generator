@@ -136,7 +136,7 @@ Terminology versions recorded on this freeze (from the manifest; do not invent m
 ## Limitations
 
 - **Clinical distribution.** This set is not a prevalence-weighted or representative sample of inpatient medicine (`HF_INPATIENT` 13/24; `CAP_INPATIENT` 1/24).
-- **Error-category distribution.** Several categories occur only once. This batch alone does **not** support stable category-specific psychometric estimates. Its immediate purpose is clinician validation of case quality and assessment-object integrity.
+- **Error-category distribution.** Several categories occur only once. This batch alone does **not** support stable category-specific psychometric estimates. It is primarily intended for clinician assessment of clinical plausibility, assessment-object integrity, error fidelity, detectability, and isolation.
 - **Missing category.** `f2_coprescription_omitted` is intentionally absent (`not_yet_implementable`).
 - **Terminology ranking.** Official source ranking can produce technically source-valid but clinically atypical formulations or units (RxNorm solutions/gels, SI laboratory units). Those are among the issues clinician plausibility review should detect.
 
