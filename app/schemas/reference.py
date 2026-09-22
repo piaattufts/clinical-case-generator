@@ -124,6 +124,20 @@ class RefMedication(BaseModel):
     retrieved_at: datetime | None = None
 
 
+class RefMedicationClass(BaseModel):
+    model_config = ConfigDict(from_attributes=True, populate_by_name=True)
+
+    rxcui: str
+    class_id: str
+    class_name: str
+    class_type: str | None = None
+    rela: str | None = None
+    id: UUID
+    source_system: str | None = None
+    source_version: str | None = None
+    retrieved_at: datetime | None = None
+
+
 class RefDiagnosis(BaseModel):
     model_config = ConfigDict(from_attributes=True, populate_by_name=True)
 

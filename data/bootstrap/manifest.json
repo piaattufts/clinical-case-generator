@@ -3,6 +3,7 @@
   "description": "Bounded resident-validation subset. Entries are human-readable search requests, not fabricated codes.",
   "medications": [
     "lisinopril",
+    "enalapril",
     "furosemide",
     "metoprolol",
     "warfarin",

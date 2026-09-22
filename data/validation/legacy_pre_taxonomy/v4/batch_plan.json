@@ -1,0 +1,175 @@
+{
+  "batch_code": "RESIDENT_VALIDATION_V4",
+  "master_seed": 20260925,
+  "description": "Fourth independent resident-validation freeze. Same five inpatient families and error mix as V1. VAL IDs continue from VAL-073. Do not silently overwrite frozen IDs.",
+  "cases": [
+    {
+      "validation_case_id": "VAL-073",
+      "scenario": "HF_INPATIENT",
+      "inject_error": true,
+      "error_category": "omission",
+      "sequence": 401
+    },
+    {
+      "validation_case_id": "VAL-074",
+      "scenario": "HF_INPATIENT",
+      "inject_error": true,
+      "error_category": "dose_mismatch",
+      "sequence": 402
+    },
+    {
+      "validation_case_id": "VAL-075",
+      "scenario": "HF_INPATIENT",
+      "inject_error": true,
+      "error_category": "frequency_mismatch",
+      "sequence": 403
+    },
+    {
+      "validation_case_id": "VAL-076",
+      "scenario": "HF_INPATIENT",
+      "inject_error": true,
+      "error_category": "incorrect_continuation",
+      "sequence": 404
+    },
+    {
+      "validation_case_id": "VAL-077",
+      "scenario": "HF_INPATIENT",
+      "inject_error": false,
+      "error_category": null,
+      "sequence": 405
+    },
+    {
+      "validation_case_id": "VAL-078",
+      "scenario": "AF_ANTICOAGULATION",
+      "inject_error": true,
+      "error_category": "omission",
+      "sequence": 406
+    },
+    {
+      "validation_case_id": "VAL-079",
+      "scenario": "AF_ANTICOAGULATION",
+      "inject_error": true,
+      "error_category": "dose_mismatch",
+      "sequence": 407
+    },
+    {
+      "validation_case_id": "VAL-080",
+      "scenario": "AF_ANTICOAGULATION",
+      "inject_error": true,
+      "error_category": "frequency_mismatch",
+      "sequence": 408
+    },
+    {
+      "validation_case_id": "VAL-081",
+      "scenario": "AF_ANTICOAGULATION",
+      "inject_error": true,
+      "error_category": "incorrect_continuation",
+      "sequence": 409
+    },
+    {
+      "validation_case_id": "VAL-082",
+      "scenario": "AF_ANTICOAGULATION",
+      "inject_error": false,
+      "error_category": null,
+      "sequence": 410
+    },
+    {
+      "validation_case_id": "VAL-083",
+      "scenario": "HTN_INPATIENT",
+      "inject_error": true,
+      "error_category": "omission",
+      "sequence": 411
+    },
+    {
+      "validation_case_id": "VAL-084",
+      "scenario": "HTN_INPATIENT",
+      "inject_error": true,
+      "error_category": "dose_mismatch",
+      "sequence": 412
+    },
+    {
+      "validation_case_id": "VAL-085",
+      "scenario": "HTN_INPATIENT",
+      "inject_error": true,
+      "error_category": "frequency_mismatch",
+      "sequence": 413
+    },
+    {
+      "validation_case_id": "VAL-086",
+      "scenario": "HTN_INPATIENT",
+      "inject_error": true,
+      "error_category": "incorrect_continuation",
+      "sequence": 414
+    },
+    {
+      "validation_case_id": "VAL-087",
+      "scenario": "HTN_INPATIENT",
+      "inject_error": false,
+      "error_category": null,
+      "sequence": 415
+    },
+    {
+      "validation_case_id": "VAL-088",
+      "scenario": "T2DM_INPATIENT",
+      "inject_error": true,
+      "error_category": "omission",
+      "sequence": 416
+    },
+    {
+      "validation_case_id": "VAL-089",
+      "scenario": "T2DM_INPATIENT",
+      "inject_error": true,
+      "error_category": "dose_mismatch",
+      "sequence": 417
+    },
+    {
+      "validation_case_id": "VAL-090",
+      "scenario": "T2DM_INPATIENT",
+      "inject_error": true,
+      "error_category": "frequency_mismatch",
+      "sequence": 418
+    },
+    {
+      "validation_case_id": "VAL-091",
+      "scenario": "T2DM_INPATIENT",
+      "inject_error": true,
+      "error_category": "omission",
+      "sequence": 419
+    },
+    {
+      "validation_case_id": "VAL-092",
+      "scenario": "T2DM_INPATIENT",
+      "inject_error": false,
+      "error_category": null,
+      "sequence": 420
+    },
+    {
+      "validation_case_id": "VAL-093",
+      "scenario": "CAP_INPATIENT",
+      "inject_error": true,
+      "error_category": "omission",
+      "sequence": 421
+    },
+    {
+      "validation_case_id": "VAL-094",
+      "scenario": "CAP_INPATIENT",
+      "inject_error": true,
+      "error_category": "dose_mismatch",
+      "sequence": 422
+    },
+    {
+      "validation_case_id": "VAL-095",
+      "scenario": "CAP_INPATIENT",
+      "inject_error": true,
+      "error_category": "frequency_mismatch",
+      "sequence": 423
+    },
+    {
+      "validation_case_id": "VAL-096",
+      "scenario": "CAP_INPATIENT",
+      "inject_error": false,
+      "error_category": null,
+      "sequence": 424
+    }
+  ]
+}

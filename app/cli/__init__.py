@@ -231,6 +231,13 @@ def generate_synthetic_cases_cmd(
         bool,
         typer.Option("--inject-error/--no-inject-error"),
     ] = True,
+    error_category: Annotated[
+        str | None,
+        typer.Option(
+            "--error-category",
+            help="CliniProof category or historical alias. Never silently replaced.",
+        ),
+    ] = None,
 ) -> None:
     """Generate constrained synthetic cases from local reference data."""
     try:
@@ -242,6 +249,7 @@ def generate_synthetic_cases_cmd(
                 start_index=start_index,
                 scenario_code=scenario,
                 inject_error=inject_error,
+                error_category=error_category,
             )
             payload = [
                 {
@@ -249,6 +257,7 @@ def generate_synthetic_cases_cmd(
                     "seed": item.seed,
                     "clean_passed": item.clean_passed,
                     "narrative_source": item.narrative_source,
+                    "error_family": None if item.injected is None else item.injected.family,
                     "error_category": None if item.injected is None else item.injected.category,
                     "error_rxcui": None if item.injected is None else item.injected.rxcui,
                     "validation_passed": item.validation.get("passed"),
@@ -315,9 +324,7 @@ def export_validation_batch_cmd(
     """Write resident-facing, investigator, and manifest exports for a frozen batch."""
     try:
         with session_scope() as session:
-            result = export_validation_batch(
-                session, batch_code=batch_code, output_dir=output_dir
-            )
+            result = export_validation_batch(session, batch_code=batch_code, output_dir=output_dir)
             payload = {
                 "resident_path": str(result.resident_path),
                 "investigator_path": str(result.investigator_path),

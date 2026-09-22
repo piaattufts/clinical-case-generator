@@ -60,9 +60,7 @@ class ClinicalCase(Base, UUIDPrimaryKeyMixin):
     """One synthetic case. case_id_code is required because every row is a case."""
 
     __tablename__ = "clinical_cases"
-    __table_args__ = (
-        CheckConstraint("btrim(case_id_code) <> ''", name="case_id_code_not_blank"),
-    )
+    __table_args__ = (CheckConstraint("btrim(case_id_code) <> ''", name="case_id_code_not_blank"),)
 
     case_id_code: Mapped[str] = mapped_column(String(32), unique=True)
     title: Mapped[str | None] = mapped_column(String(512))
