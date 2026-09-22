@@ -1,0 +1,31 @@
+{
+  "batch_code": "RESIDENT_VALIDATION_V1",
+  "master_seed": 20260922,
+  "description": "Fixed resident-validation assignments. VAL IDs are assigned only after clean validation. Do not silently overwrite frozen IDs.",
+  "cases": [
+    {"validation_case_id": "VAL-001", "scenario": "HF_INPATIENT", "inject_error": true, "error_category": "omission", "sequence": 101},
+    {"validation_case_id": "VAL-002", "scenario": "HF_INPATIENT", "inject_error": true, "error_category": "dose_mismatch", "sequence": 102},
+    {"validation_case_id": "VAL-003", "scenario": "HF_INPATIENT", "inject_error": true, "error_category": "frequency_mismatch", "sequence": 103},
+    {"validation_case_id": "VAL-004", "scenario": "HF_INPATIENT", "inject_error": true, "error_category": "incorrect_continuation", "sequence": 104},
+    {"validation_case_id": "VAL-005", "scenario": "HF_INPATIENT", "inject_error": false, "error_category": null, "sequence": 105},
+    {"validation_case_id": "VAL-006", "scenario": "AF_ANTICOAGULATION", "inject_error": true, "error_category": "omission", "sequence": 106},
+    {"validation_case_id": "VAL-007", "scenario": "AF_ANTICOAGULATION", "inject_error": true, "error_category": "dose_mismatch", "sequence": 107},
+    {"validation_case_id": "VAL-008", "scenario": "AF_ANTICOAGULATION", "inject_error": true, "error_category": "frequency_mismatch", "sequence": 108},
+    {"validation_case_id": "VAL-009", "scenario": "AF_ANTICOAGULATION", "inject_error": true, "error_category": "incorrect_continuation", "sequence": 109},
+    {"validation_case_id": "VAL-010", "scenario": "AF_ANTICOAGULATION", "inject_error": false, "error_category": null, "sequence": 110},
+    {"validation_case_id": "VAL-011", "scenario": "HTN_INPATIENT", "inject_error": true, "error_category": "omission", "sequence": 111},
+    {"validation_case_id": "VAL-012", "scenario": "HTN_INPATIENT", "inject_error": true, "error_category": "dose_mismatch", "sequence": 112},
+    {"validation_case_id": "VAL-013", "scenario": "HTN_INPATIENT", "inject_error": true, "error_category": "frequency_mismatch", "sequence": 113},
+    {"validation_case_id": "VAL-014", "scenario": "HTN_INPATIENT", "inject_error": true, "error_category": "incorrect_continuation", "sequence": 114},
+    {"validation_case_id": "VAL-015", "scenario": "HTN_INPATIENT", "inject_error": false, "error_category": null, "sequence": 115},
+    {"validation_case_id": "VAL-016", "scenario": "T2DM_INPATIENT", "inject_error": true, "error_category": "omission", "sequence": 116},
+    {"validation_case_id": "VAL-017", "scenario": "T2DM_INPATIENT", "inject_error": true, "error_category": "dose_mismatch", "sequence": 117},
+    {"validation_case_id": "VAL-018", "scenario": "T2DM_INPATIENT", "inject_error": true, "error_category": "frequency_mismatch", "sequence": 118},
+    {"validation_case_id": "VAL-019", "scenario": "T2DM_INPATIENT", "inject_error": true, "error_category": "omission", "sequence": 119},
+    {"validation_case_id": "VAL-020", "scenario": "T2DM_INPATIENT", "inject_error": false, "error_category": null, "sequence": 120},
+    {"validation_case_id": "VAL-021", "scenario": "CAP_INPATIENT", "inject_error": true, "error_category": "omission", "sequence": 121},
+    {"validation_case_id": "VAL-022", "scenario": "CAP_INPATIENT", "inject_error": true, "error_category": "dose_mismatch", "sequence": 122},
+    {"validation_case_id": "VAL-023", "scenario": "CAP_INPATIENT", "inject_error": true, "error_category": "frequency_mismatch", "sequence": 123},
+    {"validation_case_id": "VAL-024", "scenario": "CAP_INPATIENT", "inject_error": false, "error_category": null, "sequence": 124}
+  ]
+}

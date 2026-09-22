@@ -11,7 +11,12 @@ import app.schemas as schemas
 import pytest
 from app.database import Base
 from app.schemas.reference import DataSourceRegistry
-from app.utils.identifiers import format_case_id_code, format_child_business_id
+from app.utils.identifiers import (
+    format_case_id_code,
+    format_child_business_id,
+    format_validation_case_id,
+    format_validation_child_id,
+)
 from app.utils.jsonio import dumps_json, loads_json
 from app.utils.provenance import build_provenance
 from app.utils.units import normalize_unit_text
@@ -21,10 +26,14 @@ def test_case_and_child_id_formats() -> None:
     assert format_case_id_code(1) == "SYN-000001"
     assert format_child_business_id("DX", "SYN-000001", 1) == "DX-SYN000001-001"
     assert format_child_business_id("SYM", "SYN-000001", 12) == "SYM-SYN000001-012"
+    assert format_validation_case_id(1) == "VAL-001"
+    assert format_validation_child_id("DX", "VAL-001", 1) == "DX-VAL001-001"
     with pytest.raises(ValueError):
         format_case_id_code(0)
     with pytest.raises(ValueError):
         format_child_business_id("DX", "CASE-1", 1)
+    with pytest.raises(ValueError):
+        format_validation_child_id("DX", "SYN-000001", 1)
 
 
 def test_provenance_requires_timezone() -> None:
