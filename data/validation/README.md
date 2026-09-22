@@ -2,6 +2,8 @@
 
 This directory is the study copy of batch **`RESIDENT_VALIDATION_V1`**: 24 machine-validated synthetic resident-review cases pending clinician validation.
 
+A **separate** freeze, **`CLINIPROOF_TAXONOMY_V1`** (`VAL-201`–`VAL-224`), lives in [`cliniproof_v1/`](cliniproof_v1/). Do not export that batch into this directory; it would overwrite V1 resident JSON. V1 stored names (`omission`, `dose_mismatch`, `frequency_mismatch`, `incorrect_continuation`) are **not rewritten** to canonical CliniProof IDs.
+
 Software checks terminology, structure, and the three implemented source-backed rules. These records are **not clinically validated** until residents complete review. Do not describe this freeze as a clinically validated dataset.
 
 The committed JSON and Markdown files in this folder are the **study source of truth**. Regenerating against live terminology APIs can change RxNorm or LOINC ranking even with the same seeds. Use the files here to score, reprint, or reload the frozen batch; do not treat a new live freeze as bit-identical unless the exports match.
