@@ -1,16 +1,20 @@
 # Clinical Case Generator / CliniProof
 
-CliniProof creates **synthetic inpatient medication-reconciliation cases** for resident and clinician review. Each case is meant to be read like a hospital chart: who the patient is, why they were admitted, what they take at home, what they received in the hospital, what they leave with, and what follow-up is arranged.
+CliniProof creates synthetic inpatient medication-reconciliation cases for resident and clinician review. Each case is meant to be read like a hospital chart: who the patient is, why they were admitted, what they take at home, what they received in the hospital, what they leave with, and what follow-up is arranged.
 
-The software loads official terminology, applies a small set of source-backed clinical rules, builds a structured clean case, and may then introduce **exactly one** pre-specified reconciliation problem. Some cases are left unchanged as clean controls. **Automated checks do not equal clinical validity.**
+The software loads official terminology, applies a small set of source-backed clinical rules, builds a structured clean case, and may then introduce exactly one pre-specified reconciliation problem. Four of the twenty-four frozen cases are clean controls. These cases do not contain an intentionally introduced medication-reconciliation problem and are included so that residents cannot assume that every case necessarily contains an error. This README does not list which public identifiers are controls in the resident-facing sections below.
 
-It does **not** invent RxNorm, LOINC, SNOMED CT, ICD-10-CM, UCUM, or device identifiers. It does **not** send raw MIMIC patient rows, notes, identifiers, or events to OpenAI. Generated cases remain **machine-validated synthetic resident-review cases pending clinician validation**.
+The software performs automated checks of structure, terminology provenance, implemented clinical constraints, and the intended assessment manipulation. These checks are useful for detecting technical inconsistencies, but they do not establish that a case is clinically realistic, educationally appropriate, or representative of actual practice. Those judgments require review by clinicians.
 
-**Current study set:** **`CLINIPROOF_TAXONOMY_V1`** (`VAL-201` through `VAL-224`) in [`data/validation/`](data/validation/). 24 cases. Canonical CliniProof identifiers only. `f2_coprescription_omitted` remains specified conceptually but is `not_yet_implementable` and is not in this freeze.
+The generator does not invent RxNorm, LOINC, SNOMED CT, ICD-10-CM, UCUM, or device identifiers. It does not send raw MIMIC patient rows, notes, identifiers, or events to OpenAI. Until clinicians finish review, treat every generated record as a machine-validated synthetic resident-review case pending clinician validation.
 
-This repository has **no resident review UI**. Residents should receive blinded charts, not investigator catalogs.
+The current study dataset uses the canonical CliniProof taxonomy under the batch code `CLINIPROOF_TAXONOMY_V1`. It contains twenty-four cases labeled VAL-201 through VAL-224, stored in [`data/validation/`](data/validation/). Each assessment category has a standardized identifier, such as `f1_omission` for a medication that is unintentionally absent at discharge or `f2_monitoring_not_arranged` for a medication that is continued without the required follow-up monitoring. The taxonomy also defines required companion medication omitted (`f2_coprescription_omitted`). That category is not included in the current validation set because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
+
+This repository has no resident review user interface. Residents should receive blinded charts, not investigator catalogs.
 
 ## Where should I start?
+
+Different readers need different files. The table below routes you to a starting point. Residents and independent plausibility reviewers should stay on the resident-safe documents. Only investigators and expert validators should open the concealed-target packet.
 
 | If you are... | Start here |
 | --- | --- |
@@ -26,41 +30,41 @@ Do not give investigators’ answer keys or `clinician_validation_packet.md` to 
 
 ## What CliniProof is
 
-A generator of synthetic inpatient charts used to assess **medication reconciliation**: comparing home, hospital, and discharge therapy, then ensuring holds, stops, continuations, monitoring, supply, and follow-up are explicit.
+CliniProof is a generator of synthetic inpatient charts used to assess medication reconciliation. Medication reconciliation means comparing home, hospital, and discharge therapy, then ensuring that holds, stops, continuations, monitoring, supply, and follow-up are explicit.
 
-Worked educational examples (not the blinded study set) are in [For Clinicians: How a Synthetic Case Is Built](#for-clinicians-how-a-synthetic-case-is-built). Canonical identifiers are in [CliniProof error taxonomy](#cliniproof-error-taxonomy).
+Worked educational examples, which are not members of the blinded study set, appear in [For Clinicians: How a Synthetic Case Is Built](#for-clinicians-how-a-synthetic-case-is-built). Standardized identifiers are defined in [CliniProof error taxonomy](#cliniproof-error-taxonomy).
 
 ## Why medication reconciliation is being assessed
 
-Discharge is a high-risk transition. A drug can be omitted, continued when it should stop, given at the wrong dose or frequency, or continued without the monitoring or restart plan that makes it safe. CliniProof cases let reviewers practice finding **one known problem** (or confirming that a control chart has none) from documents alone.
+Discharge is a high-risk transition. A drug can be omitted, continued when it should stop, given at the wrong dose or frequency, or continued without the monitoring or restart plan that makes it safe. CliniProof cases let reviewers practice finding one known problem, or confirming that a control chart has none, from documents alone.
 
 ## What a case contains
 
-A readable case is organized as a chart review: patient overview, reason for hospitalization, history, hospital course, vitals and labs, home / inpatient / discharge medications, follow-up, and instructions. Medication, diagnosis, and laboratory *concepts* are terminology-backed. Ages, vital signs, and laboratory *values* are synthetic.
+A readable case is organized as a chart review: patient overview, reason for hospitalization, history, hospital course, vitals and labs, home medications, medications during hospitalization, discharge medications, follow-up, and instructions. Medication, diagnosis, and laboratory concepts are retrieved from official terminologies. Ages, vital signs, and laboratory values are synthetic.
 
 ## How cases are built
 
-Clinical scenario → terminology resolution → clean synthetic patient → rule checks → clean validation → assessment-target eligibility → controlled error introduction (or skip for a control) → post-error validation → blinded resident export → clinician validation.
+Construction proceeds in a fixed order: a clinical scenario is selected; terminology is resolved; a clean synthetic patient is assembled; rule checks and clean validation run; eligibility for the planned assessment target is confirmed; a controlled error is introduced or skipped for a control; post-error validation runs; a blinded resident export is written; and clinicians review the result.
 
-Narrative wording is template text, or optionally an LLM restating already chosen facts. The frozen study set did **not** use OpenAI. Details: [`data/validation/readable/how_cliniproof_works.md`](data/validation/readable/how_cliniproof_works.md).
+Narrative wording is template text, or optionally a language model restating already chosen facts. OpenAI is optional in the CliniProof pipeline and is used only to help word narrative text from clinical facts that have already been selected by the structured generator. It does not choose diagnoses, medications, terminology codes, error categories, clinical rules, or answer-key content. The frozen study set did not use OpenAI. Details are in [`data/validation/readable/how_cliniproof_works.md`](data/validation/readable/how_cliniproof_works.md).
 
 ## Family 1 and Family 2
 
-**Family 1** (`family_1`) — the medication *list* is wrong: omission (`f1_omission`), commission (`f1_commission`), dose (`f1_dose_mismatch`), route (`f1_route_mismatch`), frequency (`f1_frequency_mismatch`), or therapeutic substitution (`f1_therapeutic_substitution`).
+Family 1 (`family_1`) means the medication list is wrong at the transition to discharge. The implemented categories are a medication omitted at discharge (`f1_omission`), a medication inappropriately added or continued (`f1_commission`), an unexplained dose discrepancy (`f1_dose_mismatch`), an unexplained route discrepancy (`f1_route_mismatch`), an unexplained frequency discrepancy (`f1_frequency_mismatch`), and an unexplained therapeutic substitution (`f1_therapeutic_substitution`).
 
-**Family 2** (`family_2`) — a transition *action* is missing even if the drug list looks intact: monitoring (`f2_monitoring_not_arranged`), restart plan (`f2_held_med_no_restart_plan`), supply (`f2_insufficient_supply`), hospital-only continuation (`f2_hospital_only_continued`), inpatient substitution not reverted (`f2_inpatient_substitution_not_reverted`), or missing follow-up for a pending decision (`f2_pending_decision_followup_missing`). Do not identify Family 2 solely by comparing lists.
+Family 2 (`family_2`) means a transition action is missing even if the drug list looks intact. The implemented categories are required outpatient monitoring not arranged (`f2_monitoring_not_arranged`), held medication without a restart plan (`f2_held_med_no_restart_plan`), insufficient medication supply (`f2_insufficient_supply`), hospital-only medication continued after discharge (`f2_hospital_only_continued`), temporary inpatient substitution not addressed at discharge (`f2_inpatient_substitution_not_reverted`), and follow-up missing for an unresolved treatment decision (`f2_pending_decision_followup_missing`). Do not identify Family 2 solely by comparing lists.
 
 ## Machine validation versus clinician validation
 
-Software checks structure, that codes exist in local terminology tables, implemented rules, that the planned target was eligible and injected correctly, and that the resident file does not leak answers. It cannot certify that a case is realistic, complete, or appropriate for teaching. Humans apply C1–C5 in [`data/validation/readable/validation_rubric.md`](data/validation/readable/validation_rubric.md).
+The software performs automated checks of structure, terminology provenance, implemented clinical constraints, and the intended assessment manipulation. These checks are useful for detecting technical inconsistencies, but they do not establish that a case is clinically realistic, educationally appropriate, or representative of actual practice. Those judgments require review by clinicians. Humans apply criteria C1 through C5 in [`data/validation/readable/validation_rubric.md`](data/validation/readable/validation_rubric.md).
 
 ## Current study set
 
-Frozen `CLINIPROOF_TAXONOMY_V1`: `VAL-201` through `VAL-224`. Readable views live in [`data/validation/readable/`](data/validation/readable/). Frozen JSON in [`data/validation/`](data/validation/) is the study source of truth and must not be regenerated to “improve” clinical content.
+The frozen study set is `CLINIPROOF_TAXONOMY_V1`, containing cases VAL-201 through VAL-224. Readable views live in [`data/validation/readable/`](data/validation/readable/). Frozen JSON in [`data/validation/`](data/validation/) is the study source of truth and must not be regenerated to improve clinical content.
 
 ## Human-readable review materials
 
-See [Human-readable clinician validation packets](#human-readable-clinician-validation-packets) and the table above. Individual case pages: [`data/validation/readable/cases/VAL-201.md`](data/validation/readable/cases/VAL-201.md) through [`VAL-224.md`](data/validation/readable/cases/VAL-224.md).
+See [Human-readable clinician validation packets](#human-readable-clinician-validation-packets) and the starting-point table above. Individual case pages are [`data/validation/readable/cases/VAL-201.md`](data/validation/readable/cases/VAL-201.md) through [`VAL-224.md`](data/validation/readable/cases/VAL-224.md).
 
 ---
 
@@ -118,7 +122,7 @@ The application:
 6. Optionally plants **exactly one** pre-specified CliniProof error after the target category is selected. An LLM never chooses the error.
 7. Freezes a resident-review batch as immutable `VAL-*` IDs and exports a **blinded** resident JSON plus an **investigator** answer key.
 
-CLI entry point (from `pyproject.toml`): `clinical-case-generator = "app.cli:main"`.
+The command-line entry point declared in `pyproject.toml` is `clinical-case-generator = "app.cli:main"`. After installation, operators invoke the tool as `clinical-case-generator`.
 
 ### Problem it solves
 
@@ -134,7 +138,7 @@ Medication-reconciliation review studies need realistic-looking cases with known
 
 ### What OpenAI is and is not used for
 
-OpenAI is **optional** and is used only to **word** admission narrative text (chief complaint, HPI, note) from **already selected** structured facts (age, sex, diagnosis name, symptom names, medication names, and a template chief-complaint seed). See [OpenAI usage](#14-openai-usage).
+OpenAI is optional in the CliniProof pipeline and is used only to help word admission narrative text (chief complaint, history of present illness, and note) from structured facts that have already been selected by the generator, including age, sex, diagnosis name, symptom names, medication names, and a template chief-complaint seed. See [OpenAI usage](#14-openai-usage).
 
 OpenAI is **not** used to choose or invent diagnoses, RXCUIs, LOINC codes, ICD-10-CM codes, UCUM codes, clinical rules, error categories, error families, or answer-key contents. Raw MIMIC and other patient-source rows are never sent. Structured cases are **not** wholly LLM-generated.
 
@@ -142,7 +146,7 @@ OpenAI is **not** used to choose or invent diagnoses, RXCUIs, LOINC codes, ICD-1
 
 ### Clinical validation
 
-Machine validation ≠ clinical validation. Cases remain **machine-validated synthetic resident-review cases pending clinician validation** until humans complete review.
+The software performs automated checks of structure, terminology provenance, implemented clinical constraints, and the intended assessment manipulation. These checks are useful for detecting technical inconsistencies, but they do not establish that a case is clinically realistic, educationally appropriate, or representative of actual practice. Those judgments require review by clinicians. Until that review is complete, treat every record as a machine-validated synthetic resident-review case pending clinician validation.
 
 ---
 
@@ -152,17 +156,15 @@ This section is for physicians and clinical reviewers. It explains how a synthet
 
 **Worked examples below are educational demonstrations**, not members of the blinded resident-validation study. They were generated with the same code path as the study freeze (`app/services/generation.py`), with template admission wording (no OpenAI call), sequences **901–904**, and seed **20260926**. Snapshots: [`data/docs/clinician_examples/`](data/docs/clinician_examples/). Study cases for residents are `VAL-201`–`VAL-224` in [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json). This walkthrough does **not** say which `VAL-*` cases are controls or which discrepancy was planted.
 
-Status of every generated record until a clinician finishes review: **machine-validated synthetic resident-review cases pending clinician validation**.
+Status of every generated record until a clinician finishes review: treat it as a machine-validated synthetic resident-review case pending clinician validation. The software has checked structure and implemented rules; it has not certified clinical realism.
 
-The implemented pipeline is **not** “ask an LLM to make a clinical case and then find an error.” Order of operations:
-
-assessment/batch specification → scenario selected → canonical terminology resolved from local authoritative `ref_*` tables → deterministic structured clean case generated → source-backed clinical rules applied → clean case machine validated → requested canonical error category eligibility checked → exact requested error injected deterministically (or skipped for a clean control) → hidden assessment/answer-key state recorded → post-injection category-aware validation → freeze under an immutable VAL ID → blinded resident export + investigator export.
+The implemented pipeline is not “ask a language model to make a clinical case and then find an error.” The order of operations is: an assessment or batch specification is written; a scenario is selected; canonical terminology is resolved from local authoritative reference tables; a deterministic structured clean case is generated; source-backed clinical rules are applied; the clean case is machine-validated; eligibility for the requested standardized error category is checked; the exact requested error is injected deterministically, or skipped for a clean control; hidden assessment and answer-key state is recorded; post-injection category-aware validation runs; the case is frozen under an immutable VAL identifier; and blinded resident and investigator exports are written.
 
 The requested error category is selected **prospectively**. Ineligible categories **abort**. They do **not** silently substitute another category. Planned category, injected category, and answer-key category must agree. Every error-bearing `CLINIPROOF_TAXONOMY_V1` case has exactly one intended injected assessment target. Clean controls have zero. The clean expected state and injected state are retained in the concealed assessment data.
 
-A language model is **optional** and, when used, only rewords admission narrative from already-chosen facts. The committed study freeze does **not** call a language model (`freeze-validation-batch` sets `use_openai=False` in `app/cli/__init__.py`). These demonstration cases also used template wording (`OPENAI_API_KEY` empty → `narrative_source: template` in `app/openai/narrative.py`).
+A language model is optional and, when used, only rewords admission narrative from already-chosen facts. OpenAI does not choose diagnoses, medications, terminology codes, error categories, clinical rules, or answer-key content. The committed study freeze does not call a language model (`freeze-validation-batch` sets `use_openai=False` in `app/cli/__init__.py`). These demonstration cases also used template wording because `OPENAI_API_KEY` was empty, so `narrative_source` is `template` in `app/openai/narrative.py`.
 
-### Six kinds of content on a case
+The following table distinguishes six kinds of content that can appear on a case. Official terminology rows are not the same thing as real patient measurements. Synthetic numbers are not MIMIC rows. Assessment discrepancies are hidden from residents.
 
 | Kind | What it is | Clinical implication |
 | --- | --- | --- |
@@ -359,13 +361,13 @@ Canonical identifiers follow the CliniProof manuscript (Family 1 reconciliation 
 
 ## CliniProof error taxonomy
 
-The assessment target is selected **before** the final case is produced:
-
-assessment blueprint → target family/category → clinically suitable clean case → preconditions verified → clean case machine-validated → exactly **one** target discrepancy injected → post-injection validation → error-isolation audit → hidden answer key → blinded resident export.
+The assessment target is selected before the final case is produced. An assessment blueprint names the target family and category. A clinically suitable clean case is then constructed, preconditions are verified, and the clean case is machine-validated. Exactly one target discrepancy is injected. Post-injection validation, an error-isolation audit, a hidden answer key, and a blinded resident export follow.
 
 An LLM is never used to decide which error is planted. The injector is deterministic. If the category requested in `batch_plan.json` is not eligible for that scenario, freeze **rejects** the assignment instead of substituting another category.
 
 ### What the resident must notice
+
+The table below lists each implemented or specified assessment category. The first columns name the family and the clinical problem; the identifier column is the software token; the last column says what a resident should be able to notice from the chart.
 
 | Family | Error | Identifier | What the resident must notice |
 | --- | --- | --- | --- |
@@ -382,17 +384,17 @@ An LLM is never used to decide which error is planted. The injector is determini
 | F2 | Pending decision, no follow-up | `f2_pending_decision_followup_missing` | Ongoing treatment lacks planned reassessment |
 | Control | None | `none` | No planted discrepancy |
 
-`f2_coprescription_omitted` is **`not_yet_implementable`**: this repository has no source-backed companion-prescription rule. Manuscript examples (steroid/PPI, opioid/bowel regimen) are **not** hard-coded.
+The taxonomy also defines required companion medication omitted (`f2_coprescription_omitted`), which represents a situation in which a clinically required companion medication is missing. This category is not included in the current validation set because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category. Manuscript examples such as a steroid without a proton-pump inhibitor, or an opioid without a bowel regimen, are not hard-coded.
 
 Do **not** treat every error-bearing case as “exactly one medication-list discrepancy.” That statement is true of Family 1 list-transition errors. It is **not** true of Family 2.
 
-**Family 1** errors are medication-reconciliation / list-transition discrepancies: omission, commission, dose mismatch, route mismatch, frequency mismatch, therapeutic substitution.
+**Family 1** errors are medication-reconciliation and list-transition discrepancies: a medication omitted at discharge, a medication inappropriately added or continued, or an unexplained change in dose, route, frequency, or product.
 
-**Family 2** errors are transition-of-care gaps that may leave the medication list itself unchanged. Implemented categories include monitoring not arranged, held medication with no restart plan, insufficient supply, hospital-only medication continued, inpatient substitution not reverted, and missing follow-up for a pending therapeutic decision.
+**Family 2** errors are transition-of-care gaps that may leave the medication list itself unchanged. Implemented categories include required outpatient monitoring not arranged, held medication without a restart plan, insufficient supply, hospital-only medication continued, inpatient substitution not reverted, and missing follow-up for a pending therapeutic decision.
 
 Validation is **category-aware**. For Family 2 the freeze checks that the trigger/precondition is present, the expected companion action exists in the clean state, the specified action is absent or incorrect after injection, resident-visible evidence needed for detection remains present, and no unintended second assessment target was introduced.
 
-The current batch specifies canonical `error_family` and `error_category` in [`data/validation/batch_plan.json`](data/validation/batch_plan.json) **before** generation. Default freeze/export write to `data/validation/`. `CLINIPROOF_TAXONOMY_V1` covers all currently implemented CliniProof error categories; `f2_coprescription_omitted` is intentionally absent (`not_yet_implementable`). Unknown or obsolete category names fail rather than being translated.
+The freeze plan specifies the standardized family and category in [`data/validation/batch_plan.json`](data/validation/batch_plan.json) before generation. Default freeze and export commands write to `data/validation/`. The current dataset uses the canonical CliniProof taxonomy and covers every category the software can currently implement. Required companion medication omitted (`f2_coprescription_omitted`) is intentionally absent because it is `not_yet_implementable`. Unknown or obsolete category names fail rather than being translated.
 
 ### Example A — Family 1 dose mismatch (demonstration)
 
@@ -439,9 +441,9 @@ Hidden investigator answer key records the trigger medication, required monitori
 
 A difference between home and discharge does **not** automatically mean an error. Residents still review the case; investigators score it as a control. The hidden key states `NO INTENTIONAL ERROR`.
 
-### Machine validation vs clinician review
+### Machine validation versus clinician review
 
-Machine validation establishes only what the code actually checks: schema/structure, terminology/reference integrity, deterministic rule constraints, category eligibility, expected deterministic state transition, answer-key consistency, implemented error-isolation checks, and resident-export leak checks.
+The software performs automated checks of schema and structure, terminology and reference integrity, deterministic rule constraints, category eligibility, the expected state transition, answer-key consistency, implemented error-isolation checks, and resident-export leak checks. These checks are useful for detecting technical inconsistencies, but they do not establish that a case is clinically realistic, educationally appropriate, or representative of actual practice. Those judgments require review by clinicians.
 
 It does **not** establish overall clinical realism, guideline completeness, optimal therapy, educational appropriateness, clinical validity, or calibrated learner difficulty. Those remain part of clinician/resident validation. Code alone does not prove clinical validity.
 
@@ -488,7 +490,7 @@ Family `HF_INPATIENT` in [`data/bootstrap/scenarios.json`](data/bootstrap/scenar
 - Hospital-only query: pantoprazole (constructed only when the target is `f2_hospital_only_continued`)
 - Anticoagulant mutex (exactly one): warfarin or apixaban
 - Lab queries: potassium, creatinine, inr, natriuretic peptide
-- Allowed error categories if injection is on: canonical `f1_*` / `f2_*` IDs in `scenarios.json`. `f2_coprescription_omitted` is not listed (`not_yet_implementable`).
+- Allowed error categories if injection is on are the standardized `f1_*` and `f2_*` identifiers in `scenarios.json`. Required companion medication omitted (`f2_coprescription_omitted`) is not listed because it is `not_yet_implementable`.
 
 This demonstration used `--no-inject-error`, so the discharge list matches the clean plan.
 
@@ -709,7 +711,7 @@ Demonstration `SYN-000901`, `SYN-000902`, and `SYN-000903` were left in this sta
 
 ### Error-injected case
 
-After a clean pass, `inject_reconciliation_error` plants **one** controlled assessment error (Family 1: a discharge-list change; Family 2: a missing companion action such as monitoring, restart plan, supply, or follow-up), writes `CaseAnswerKey`, sets `clean_case = false` and `case_status = error_injected`. Revalidation **expects** that single specified category. Family 2 may pass without a discharge-list mutation.
+After a clean pass, `inject_reconciliation_error` plants one controlled assessment error. For Family 1 that error is a discharge-list change. For Family 2 it is a missing companion action such as monitoring, a restart plan, supply, or follow-up. The injector writes `CaseAnswerKey`, sets `clean_case = false` and `case_status = error_injected`. Revalidation expects that single specified category. Family 2 may pass without a discharge-list mutation.
 
 ### Control case (study freeze)
 
@@ -769,7 +771,7 @@ From `SYN-000904` (fields defined in `app/models/cases.py` / written by `_write_
 
 Study investigator exports add control/error status, SYN id, seed, rule snapshots, and source versions (`app/services/validation_batch.py` `_investigator_payload`). Those files for `VAL-*` cases live next to the study JSON and **must stay off the resident packet**.
 
-The implemented CliniProof injector set is in [CliniProof error taxonomy](#cliniproof-error-taxonomy). This educational snapshot uses canonical `error_family` / `error_category` identifiers. `f2_coprescription_omitted` remains `not_yet_implementable` until a source-backed companion-prescription rule exists.
+The implemented CliniProof injector set is in [CliniProof error taxonomy](#cliniproof-error-taxonomy). This educational snapshot uses the standardized family and category identifiers. Required companion medication omitted (`f2_coprescription_omitted`) remains `not_yet_implementable` until a source-backed companion-prescription rule exists.
 
 ---
 
@@ -1742,14 +1744,16 @@ Frozen validation case VAL-00N cannot be overwritten: existing frozen assignment
 
 If any assignment fails generation, eligibility, or audit, freeze **raises** and the transaction is not committed. The injector never substitutes a different error category.
 
-### Current batch `CLINIPROOF_TAXONOMY_V1`
+### Current frozen set `CLINIPROOF_TAXONOMY_V1`
 
-`CLINIPROOF_TAXONOMY_V1` (`VAL-201`–`VAL-224`, sequences 801–824) covers all currently implemented CliniProof error categories. That is **not** complete coverage of the full conceptual taxonomy. Plan and exports live in [`data/validation/`](data/validation/). Default freeze/export commands write there.
+The frozen set `CLINIPROOF_TAXONOMY_V1` contains twenty-four cases labeled VAL-201 through VAL-224 (internal sequences 801 through 824). It covers every CliniProof error category that the software can currently implement. That is not complete coverage of the full conceptual taxonomy. Plan and export files live in [`data/validation/`](data/validation/). Default freeze and export commands write there.
 
 ```bash
 clinical-case-generator freeze-validation-batch
 clinical-case-generator export-validation-batch
 ```
+
+The table below is a compact summary. The paragraphs after it restate the mix in clinical language.
 
 | Item | `CLINIPROOF_TAXONOMY_V1` |
 | --- | --- |
@@ -1761,7 +1765,9 @@ clinical-case-generator export-validation-batch
 | Scenario mix | `HF_INPATIENT` 13/24, `HTN_INPATIENT` 4/24, `AF_ANTICOAGULATION` 3/24, `T2DM_INPATIENT` 3/24, `CAP_INPATIENT` 1/24 — not prevalence-weighted |
 | Dataset status | `machine-validated synthetic resident-review cases pending clinician validation` |
 
-**How controls vs planted errors work (do not tell residents which is which):**
+Four of the twenty-four cases are clean controls. These cases do not contain an intentionally introduced medication-reconciliation problem and are included so that residents cannot assume that every case necessarily contains an error. Of the twenty cases containing an intended assessment problem, eleven represent Family 1 medication-reconciliation discrepancies, in which the medication regimen itself differs across the transition to discharge. The remaining nine represent Family 2 transition-of-care gaps, in which the medication order may be correct but an important action such as monitoring, medication supply, restart instructions, or follow-up is missing. Required companion medication omitted (`f2_coprescription_omitted`) has count zero because it is `not_yet_implementable`. The scenario mix is not prevalence-weighted; heart-failure cases predominate, and community-acquired pneumonia appears once.
+
+**How controls versus planted errors work (do not tell residents which is which):**
 
 - **Clean control** (`inject_error: false`, `error_family` / `error_category` `none`): the clean intended plan remains. A held “stop” medication (when the scenario has one) stays off the discharge list. Companion actions that belong on a clean case (for example warfarin INR monitoring) remain present.
 - **Error-bearing `CLINIPROOF_TAXONOMY_V1`:** one canonical `f1_*` or `f2_*` category specified in that batch plan **before** generation. Family 2 cases may look like a complete discharge list while a required monitoring row, restart instruction, supply duration, hospital-only stop, substitution revert, or follow-up is missing. This README does not list which `VAL-201`–`VAL-224` ids received which category.
@@ -1815,41 +1821,13 @@ Resident vs investigator split is enforced in export code (`LEAK_MARKERS` in `ap
 
 ## Human-readable clinician validation packets
 
-Frozen JSON remains the study source of truth. The files under [`data/validation/readable/`](data/validation/readable/) are **derived Markdown views** generated by `scripts/build_readable_validation_packets.py`. They do not regenerate `VAL-201`–`VAL-224`.
+The files under [`data/validation/readable/`](data/validation/readable/) are derived Markdown views generated by `scripts/build_readable_validation_packets.py`. Frozen JSON remains the study source of truth. Generating the Markdown does not regenerate VAL-201 through VAL-224.
 
-For readable case review:
+Residents and clinicians who want to read every case without parsing JSON should start with [`data/validation/readable/all_cases.md`](data/validation/readable/all_cases.md). Independent reviewers of clinical plausibility should use [`data/validation/readable/plausibility_only_packet.md`](data/validation/readable/plausibility_only_packet.md). Primary expert validators who need the concealed assessment target should use [`data/validation/readable/clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md). The rubric is [`data/validation/readable/validation_rubric.md`](data/validation/readable/validation_rubric.md). Individual case pages are [`data/validation/readable/cases/VAL-201.md`](data/validation/readable/cases/VAL-201.md) through [`VAL-224.md`](data/validation/readable/cases/VAL-224.md). A clinical-to-technical overview, with no per-case answers, is [`data/validation/readable/how_cliniproof_works.md`](data/validation/readable/how_cliniproof_works.md). Informatics and engineering notes, also without per-case answers, are [`data/validation/readable/developer_notes.md`](data/validation/readable/developer_notes.md).
 
-[`data/validation/readable/all_cases.md`](data/validation/readable/all_cases.md)
+The resident-safe files do not expose the concealed assessment target. The full clinician-validation packet is marked investigator and validator only and must not be distributed to resident participants.
 
-For the independent clinical-plausibility reviewer:
-
-[`data/validation/readable/plausibility_only_packet.md`](data/validation/readable/plausibility_only_packet.md)
-
-For primary expert validators with the concealed assessment target:
-
-[`data/validation/readable/clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md)
-
-Rubric:
-
-[`data/validation/readable/validation_rubric.md`](data/validation/readable/validation_rubric.md)
-
-Individual cases:
-
-[`data/validation/readable/cases/VAL-201.md`](data/validation/readable/cases/VAL-201.md) through [`VAL-224.md`](data/validation/readable/cases/VAL-224.md)
-
-How the system works (no per-case answers):
-
-[`data/validation/readable/how_cliniproof_works.md`](data/validation/readable/how_cliniproof_works.md)
-
-Clinical informatics / AI engineering notes (generic mechanisms only):
-
-[`data/validation/readable/developer_notes.md`](data/validation/readable/developer_notes.md)
-
-**Safe for residents and plausibility-only review** (no per-case planted-error family, category, trigger, control status, or answer key): `all_cases.md`, `plausibility_only_packet.md`, individual `cases/VAL-*.md` pages, `how_cliniproof_works.md`, and `developer_notes.md`. The rubric has no per-case answers.
-
-**Investigator / validator only — do not distribute to resident participants:** `clinician_validation_packet.md`.
-
-Regenerate the views after pulling (does not modify frozen JSON):
+To regenerate the views after pulling, without modifying frozen JSON, run:
 
 ```bash
 python scripts/build_readable_validation_packets.py
@@ -1866,7 +1844,7 @@ This repository **does not contain a resident review UI**, dashboard importer, o
 3. **Capture responses** in [`resident_review_worksheet.csv`](data/validation/resident_review_worksheet.csv) (or an equivalent form that uses [`resident_review_schema.json`](data/validation/resident_review_schema.json)). Do not pre-fill ratings.
 4. **Worksheet ↔ cases:** `validation_case_id` on each CSV row matches `case_id_code` in the resident JSON.
 5. **“Clinically validated” in this project** means a clinician/resident review concluded the case is acceptable for the study protocol. Until that happens, use the dataset-status sentence: machine-validated synthetic resident-review cases pending clinician validation.
-6. **Machine validation is not clinical validity.** Passing `validate-cases` / freeze audit does not certify realism of formulations, units, or narratives.
+6. **The software’s checks are not clinical validity.** Passing `validate-cases` or the freeze audit does not certify realism of formulations, units, or narratives. Those judgments require review by clinicians.
 
 Do not tell residents which cases are clean controls.
 
@@ -2164,7 +2142,7 @@ mypy
 ### `case validation failed: ...`
 
 **Cause.** A validation layer failed; CLI prints the first error and exits 2.  
-**Fix.** Read the `layer:` prefix. Clean cases must have zero mechanically detectable findings; error-bearing cases must match the requested CliniProof category (Family 1: one discharge/plan mutation; Family 2: the specified missing companion action). Hard dual-anticoagulant or missing INR (when warfarin is selected) fails `clinical`.
+**Fix.** Read the `layer:` prefix. Clean cases must have zero mechanically detectable findings. Error-bearing cases must match the requested CliniProof category: Family 1 requires one discharge or plan mutation, and Family 2 requires the specified missing companion action. A hard dual-anticoagulant conflict, or missing INR when warfarin is selected, fails the clinical layer.
 
 ### `Frozen validation case VAL-00N cannot be overwritten`
 
@@ -2689,15 +2667,11 @@ After `db-init` and before bootstrap, every clinical table except `data_source_r
 
 ## 26. Current limitations
 
+The lists below are an inventory of what the software does and does not do. They are not a clinical evaluation of the frozen cases.
+
 **Implemented**
 
-- PostgreSQL schema and Alembic through `d4e8b17c6a91`
-- RxNorm, LOINC (credentialed), UCUM, ICD-10-CM, DailyMed, RxClass, NLM conditions, NLM HPO clients
-- Bounded bootstrap, three curated rules, five inpatient scenarios
-- Deterministic generation with CliniProof Family 1 / Family 2 injectors (see taxonomy section)
-- Freeze/export of blinded `VAL-*` batch `CLINIPROOF_TAXONOMY_V1`
-- Local reference search API + `/health`
-- Optional OpenAI narrative wording (not used on the committed study freeze)
+The repository currently includes a PostgreSQL schema and Alembic migrations through `d4e8b17c6a91`; clients for RxNorm, credentialed LOINC, UCUM, ICD-10-CM, DailyMed, RxClass, NLM conditions, and NLM HPO; bounded bootstrap; three curated rules; five inpatient scenarios; deterministic generation with Family 1 and Family 2 injectors (see the taxonomy section); freeze and export of the blinded VAL batch `CLINIPROOF_TAXONOMY_V1`; a local reference search API and `/health`; and optional OpenAI narrative wording that was not used on the committed study freeze.
 
 **Partially implemented**
 
@@ -2705,8 +2679,8 @@ After `db-init` and before bootstrap, every clinical table except `data_source_r
 - AccessGUDID: enabled registry metadata; **no client**
 - `ref_clinical_distributions`: table and MIMIC_IV_RAW guard; **no calculator**
 - LOINC labs: bootstrap works only with credentials; otherwise skipped
-- `f2_coprescription_omitted`: taxonomy ID exists; **not_yet_implementable** until a source-backed companion-prescription rule exists
-- Narrative: template always available; OpenAI optional with silent fallback
+- `f2_coprescription_omitted` is specified in the taxonomy, but the software does not yet have a sufficiently source-backed deterministic companion-prescription rule (`not_yet_implementable`), so freeze rejects that category rather than guessing
+- Narrative wording always has a template path. OpenAI is optional and, if the call fails, wording falls back silently to the template.
 
 **Not implemented**
 
@@ -2722,7 +2696,7 @@ After `db-init` and before bootstrap, every clinical table except `data_source_r
 
 - **Clinical distribution.** The batch is not evenly distributed by scenario (`HF_INPATIENT` 13/24, `HTN_INPATIENT` 4/24, `AF_ANTICOAGULATION` 3/24, `T2DM_INPATIENT` 3/24, `CAP_INPATIENT` 1/24). It is not a prevalence-weighted or representative sample of inpatient medicine. CAP is represented by one case.
 - **Error-category distribution.** Several categories occur only once. This batch alone does **not** support stable category-specific psychometric estimates. It is primarily intended for clinician assessment of clinical plausibility, assessment-object integrity, error fidelity, detectability, and isolation.
-- **Missing category.** `f2_coprescription_omitted` is intentionally absent (`not_yet_implementable`).
+- **Missing category.** Required companion medication omitted (`f2_coprescription_omitted`) is intentionally absent because the software does not yet have a sufficiently source-backed deterministic rule for that situation (`not_yet_implementable`).
 - **Terminology ranking.** Official source ranking can produce technically source-valid but clinically atypical formulations or units (RxNorm solutions/gels, SI laboratory units). Clinical plausibility requires physician review.
 
 ---
