@@ -7,7 +7,7 @@ clinician validation.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -26,6 +26,7 @@ from app.models.cases import (
     CaseInstruction,
     CaseIntakeOutput,
     CaseMedicationReconciliation,
+    CaseMicrobiology,
     CaseMonitoring,
     CaseNote,
     CasePresentation,
@@ -85,13 +86,14 @@ from app.services.seed_archetypes import (
     GENERATION_STRATEGY_SEED,
     GENERATION_STRATEGY_TEMPLATE,
     SEED_LEAK_MARKERS,
-    SEEDCASES_BATCH_CODE,
     load_seed_archetypes,
 )
 from app.services.validation import validate_case
 from app.services.validation_registry import (
     ARCHIVED_BATCH_CODE,
+    get_batch,
     missing_plan_message,
+    public_generation_strategy,
     resolve_export_dir,
     uses_seed_archetypes,
 )
@@ -280,6 +282,7 @@ def freeze_validation_batch(
                 Rejection(assignment.validation_case_id, assignment.scenario, "unknown scenario")
             )
             continue
+        scenario = replace(scenario, generation_strategy=assignment.generation_strategy)
         try:
             profile = resolve_profile(scenario, assignment.clinical_profile)
             _assert_assignment_matches_plan(assignment, scenario, profile=profile)
@@ -881,7 +884,11 @@ def _resident_payload(
             "difficulty": case.difficulty,
             "specialty": case.specialty,
             "allergies": [],
-            "medical_history": [],
+            "medical_history": [
+                item.diagnosis
+                for item in list_diagnoses_for_case(session, case.id)
+                if item.diagnosis_type == "past_history" and item.diagnosis
+            ],
             "source_type": "authored_scenario",
             "source_file": None,
             "presentation": {
@@ -997,6 +1004,8 @@ def _resident_payload(
                 "consult_id": _child_id("CON", val_id, index),
                 "case_id": val_id,
                 "service": item.service,
+                "timepoint": item.timepoint,
+                "assessment": item.assessment,
                 "recommendation": item.recommendation,
                 "source_reference": None,
             }
@@ -1018,7 +1027,7 @@ def _resident_payload(
                 "status": item.status,
                 "held_reason": item.held_reason,
                 "verification_status": "verified",
-                "verification_source": "prior_records",
+                "verification_source": item.verification_source or "patient_and_prior_records",
                 "target_or_goal": item.target_or_goal,
                 "monitoring": item.monitoring,
                 "quantity_or_days": item.quantity_or_days,
@@ -1145,7 +1154,7 @@ def _resident_payload(
             {
                 "medrec_id": _child_id("MR", val_id, index),
                 "case_id": val_id,
-                "bpmh_source": "prior_records",
+                "bpmh_source": item.bpmh_source or "patient_and_prior_records",
                 "bpmh_interviewer": None,
                 "bpmh_date": item.bpmh_date,
                 "medrec_status": "complete",
@@ -1164,6 +1173,7 @@ def _resident_payload(
                 "discrepancy_types": [],
                 "pharmacist_review": item.pharmacist_review,
                 "high_alert_meds_identified": [],
+                "notes": item.notes,
                 "source_reference": None,
             }
             for index, item in enumerate(
@@ -1204,7 +1214,7 @@ def _resident_payload(
                 _list(session, CaseIntakeOutput, case.id, CaseIntakeOutput.io_id), start=1
             )
         ],
-        "CaseDevice": [
+            "CaseDevice": [
             {
                 "device_id": _child_id("DEV", val_id, index),
                 "case_id": val_id,
@@ -1219,6 +1229,23 @@ def _resident_payload(
             }
             for index, item in enumerate(
                 _list(session, CaseDevice, case.id, CaseDevice.device_id), start=1
+            )
+        ],
+        "CaseMicrobiology": [
+            {
+                "micro_id": _child_id("MICRO", val_id, index),
+                "case_id": val_id,
+                "timepoint": item.timepoint,
+                "specimen": item.specimen,
+                "test": item.test,
+                "organism": item.organism,
+                "result": item.result,
+                "status": item.status,
+                "notes": item.notes,
+                "source_reference": None,
+            }
+            for index, item in enumerate(
+                _list(session, CaseMicrobiology, case.id, CaseMicrobiology.micro_id), start=1
             )
         ],
     }
@@ -1273,7 +1300,9 @@ def _investigator_payload(
             "internal_case_id_code": case.case_id_code,
             "scenario": frozen.scenario_code,
             "clinical_profile": _clinical_profile_of(frozen),
-            "generation_strategy": _generation_strategy_of(frozen),
+            "generation_strategy": public_generation_strategy(
+                frozen.batch_code, _generation_strategy_of(frozen)
+            ),
             "seed_archetype_id": _diversity_field(frozen, "seed_archetype_id"),
             "seed_archetype_name": _diversity_field(frozen, "seed_archetype_name"),
             "seed_source_type": _diversity_field(frozen, "seed_source_type"),
@@ -1518,7 +1547,11 @@ def _scenarios_for_export(
         seed_rows = any(
             _generation_strategy_of(row) == GENERATION_STRATEGY_SEED for row in rows
         )
-    if batch_code == SEEDCASES_BATCH_CODE or seed_rows:
+    try:
+        strategy = get_batch(batch_code).generation_strategy
+    except KeyError:
+        strategy = GENERATION_STRATEGY_SEED if seed_rows else GENERATION_STRATEGY_TEMPLATE
+    if uses_seed_archetypes(strategy) or seed_rows:
         return load_seed_archetypes()
     return load_scenarios()
 

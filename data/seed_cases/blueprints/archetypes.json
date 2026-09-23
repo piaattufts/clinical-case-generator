@@ -19,23 +19,50 @@
         "f2_insufficient_supply",
         "f2_pending_decision_followup_missing"
       ],
-      "diagnosis_queries": ["delirium"],
-      "symptom_queries": ["confusion", "fatigue"],
-      "medication_queries": ["lisinopril", "metformin", "atorvastatin"],
+      "diagnosis_queries": [
+        "delirium"
+      ],
+      "symptom_queries": [
+        "confusion",
+        "fatigue"
+      ],
+      "medication_queries": [
+        "lisinopril",
+        "metformin",
+        "atorvastatin"
+      ],
       "anticoagulant_mutex_queries": [],
-      "lab_queries": ["creatinine", "potassium", "glucose"],
-      "stop_medication_queries": ["ibuprofen"],
+      "lab_queries": [
+        "creatinine",
+        "potassium",
+        "glucose"
+      ],
+      "stop_medication_queries": [
+        "ibuprofen"
+      ],
       "hospital_only_medication_queries": [],
       "clinical_profiles": [
         {
           "code": "MEDREC_COLLATERAL_VERIFIED",
-          "symptom_queries": ["confusion", "fatigue"],
+          "symptom_queries": [
+            "confusion",
+            "fatigue"
+          ],
           "symptom_duration": "several days",
           "symptom_course": "improving after treatment",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["lisinopril", "metformin", "atorvastatin"],
-          "stop_medication_queries": ["ibuprofen"],
-          "lab_queries": ["creatinine", "glucose"],
+          "medication_required_queries": [
+            "lisinopril",
+            "metformin",
+            "atorvastatin"
+          ],
+          "stop_medication_queries": [
+            "ibuprofen"
+          ],
+          "lab_queries": [
+            "creatinine",
+            "glucose"
+          ],
           "hospital_course_pattern": "collateral_medrec_complete",
           "io_timepoint": "hospital_day_3",
           "vital_pattern": "standard",
@@ -44,33 +71,80 @@
           "followup_item": "Primary care follow-up after collateral medication verification",
           "followup_service": "primary care",
           "followup_timing": "7 days",
-          "context_note": "The patient could not supply a reliable medication history at admission. A collateral home-medication list arrived later and was verified. Unknown names are not treated as discharge orders. Ibuprofen is documented as intentionally discontinued, not as an unknown item."
+          "context_note": "The patient could not supply a reliable medication history at admission. A collateral home-medication list arrived later and was verified. Unknown names are not treated as discharge orders. Ibuprofen is documented as intentionally discontinued, not as an unknown item.",
+          "comorbidity_queries": [
+            "hypertension",
+            "type 2 diabetes mellitus",
+            "hyperlipidemia"
+          ],
+          "bpmh_source": "caregiver_and_pharmacy",
+          "patient_able_to_participate": false,
+          "medrec_notes": "At admission the patient could not provide a reliable medication history because of delirium. After cognition improved, a collateral list from family and pharmacy fill history was verified. Unknown names were not converted into discharge orders.",
+          "admission_reason": "Admitted for delirium with an initially incomplete medication history.",
+          "consults": [
+            {
+              "service": "geriatrics",
+              "timepoint": "inpatient",
+              "assessment": "Delirium improved toward baseline.",
+              "recommendation": "Use the verified collateral medication list at discharge."
+            }
+          ]
         },
         {
           "code": "MEDREC_VERIFIED_STATIN_CONTINUED",
-          "symptom_queries": ["confusion"],
+          "symptom_queries": [
+            "confusion"
+          ],
           "symptom_duration": "two days",
           "symptom_course": "improving after treatment",
           "symptom_severity": "mild",
-          "medication_required_queries": ["lisinopril", "atorvastatin"],
-          "lab_queries": ["creatinine"],
+          "medication_required_queries": [
+            "lisinopril",
+            "atorvastatin"
+          ],
+          "lab_queries": [
+            "creatinine"
+          ],
           "hospital_course_pattern": "collateral_medrec_complete",
           "io_timepoint": "hospital_day_2",
           "vital_pattern": "standard",
           "followup_item": "Primary care medication-list follow-up",
           "followup_service": "primary care",
           "followup_timing": "5 days",
-          "allowed_error_categories": ["f1_omission"],
-          "context_note": "A later collateral list confirmed a continued statin. Incomplete information at admission is not itself the planted error."
+          "allowed_error_categories": [
+            "f1_omission"
+          ],
+          "context_note": "A later collateral list confirmed a continued statin.",
+          "comorbidity_queries": [
+            "hypertension",
+            "hyperlipidemia"
+          ],
+          "bpmh_source": "pharmacy_fill_history",
+          "patient_able_to_participate": false,
+          "medrec_notes": "A later pharmacy fill history confirmed a continued statin. Incomplete information at admission is recorded as such.",
+          "target_medication_query": "atorvastatin",
+          "admission_reason": "Admitted for delirium; a verified statin was confirmed from collateral sources."
         },
         {
           "code": "MEDREC_HOME_SERVICES_SUPPLY",
-          "symptom_queries": ["fatigue", "confusion"],
+          "symptom_queries": [
+            "fatigue",
+            "confusion"
+          ],
           "symptom_duration": "one week",
           "symptom_course": "persistent",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["lisinopril", "metformin", "atorvastatin", "hydrochlorothiazide"],
-          "lab_queries": ["creatinine", "potassium", "glucose"],
+          "medication_required_queries": [
+            "lisinopril",
+            "metformin",
+            "atorvastatin",
+            "hydrochlorothiazide"
+          ],
+          "lab_queries": [
+            "creatinine",
+            "potassium",
+            "glucose"
+          ],
           "hospital_course_pattern": "home_services_transition",
           "io_timepoint": "hospital_day_4",
           "vital_pattern": "standard",
@@ -78,25 +152,54 @@
           "followup_item": "Home-health and primary care medication-supply follow-up",
           "followup_service": "primary care",
           "followup_timing": "14 days",
-          "allowed_error_categories": ["f2_insufficient_supply"],
-          "context_note": "Discharge planning includes home services. The clean list is the verified collateral regimen, including a diuretic identified after admission."
+          "allowed_error_categories": [
+            "f2_insufficient_supply"
+          ],
+          "context_note": "Discharge planning includes home services. The verified list is the collateral regimen, including a diuretic identified after admission.",
+          "comorbidity_queries": [
+            "hypertension",
+            "type 2 diabetes mellitus",
+            "hyperlipidemia"
+          ],
+          "bpmh_source": "caregiver_and_pharmacy",
+          "patient_able_to_participate": false,
+          "medrec_notes": "After delirium improved, home services were arranged around the verified medication list.",
+          "target_medication_query": "lisinopril",
+          "admission_reason": "Admitted for delirium with a later-verified home regimen and home-health needs."
         },
         {
           "code": "MEDREC_PENDING_COGNITIVE_THERAPY",
-          "symptom_queries": ["confusion"],
+          "symptom_queries": [
+            "confusion"
+          ],
           "symptom_duration": "one day",
           "symptom_course": "improving after treatment",
           "symptom_severity": "mild",
-          "medication_required_queries": ["metformin", "atorvastatin"],
-          "lab_queries": ["glucose"],
+          "medication_required_queries": [
+            "metformin",
+            "atorvastatin"
+          ],
+          "lab_queries": [
+            "glucose"
+          ],
           "hospital_course_pattern": "pending_outpatient_therapy_decision",
           "io_timepoint": "hospital_day_3",
           "vital_pattern": "standard",
           "followup_item": "Memory-clinic follow-up to reassess pending therapeutic decision",
           "followup_service": "neurology",
           "followup_timing": "14 days",
-          "allowed_error_categories": ["f2_pending_decision_followup_missing"],
-          "context_note": "A cognitive-enhancer start is deferred to outpatient confirmation. That pending decision is documented on the clean case and is distinct from an unknown home medication."
+          "allowed_error_categories": [
+            "f2_pending_decision_followup_missing"
+          ],
+          "context_note": "A cognitive-enhancer start is deferred to outpatient confirmation. That pending decision is documented separately from unknown home medications.",
+          "comorbidity_queries": [
+            "type 2 diabetes mellitus",
+            "hyperlipidemia"
+          ],
+          "bpmh_source": "family_collateral",
+          "patient_able_to_participate": false,
+          "pending_decision_text": "Start of a cognitive-enhancer remains a pending therapeutic decision for memory-clinic confirmation and is not an unknown home medication.",
+          "admission_reason": "Admitted for resolving delirium; a pending outpatient cognitive-therapy decision was recorded."
         }
       ]
     },
@@ -114,80 +217,243 @@
         "f1_therapeutic_substitution",
         "f2_held_med_no_restart_plan"
       ],
-      "diagnosis_queries": ["heart failure"],
-      "symptom_queries": ["dyspnea", "edema", "orthopnea"],
-      "medication_queries": ["furosemide", "metoprolol", "lisinopril", "atorvastatin"],
+      "diagnosis_queries": [
+        "heart failure"
+      ],
+      "symptom_queries": [
+        "dyspnea",
+        "edema",
+        "orthopnea"
+      ],
+      "medication_queries": [
+        "furosemide",
+        "metoprolol",
+        "lisinopril",
+        "atorvastatin"
+      ],
       "anticoagulant_mutex_queries": [],
-      "lab_queries": ["potassium", "creatinine", "natriuretic peptide"],
+      "lab_queries": [
+        "potassium",
+        "creatinine",
+        "natriuretic peptide"
+      ],
       "stop_medication_queries": [],
       "hospital_only_medication_queries": [],
       "clinical_profiles": [
         {
           "code": "HF_DECOMP_UNCOMPLICATED_DIURESIS",
-          "symptom_queries": ["dyspnea", "edema", "orthopnea"],
+          "symptom_queries": [
+            "dyspnea",
+            "edema",
+            "orthopnea"
+          ],
           "symptom_duration": "one week",
           "symptom_course": "improving after treatment",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["furosemide", "metoprolol", "atorvastatin"],
-          "lab_queries": ["potassium", "creatinine", "natriuretic peptide"],
+          "medication_required_queries": [
+            "furosemide",
+            "metoprolol",
+            "atorvastatin"
+          ],
+          "lab_queries": [
+            "potassium",
+            "creatinine",
+            "natriuretic peptide"
+          ],
           "hospital_course_pattern": "multi_day_diuresis_weights",
           "io_timepoint": "hospital_day_3",
           "vital_pattern": "decompensated_hf",
           "followup_item": "Heart-failure clinic after diuresis",
           "followup_service": "cardiology",
           "followup_timing": "7 days",
-          "context_note": "Congestion improved with inpatient diuresis. Daily weights and intake/output were used to judge euvolemia before discharge."
+          "context_note": "Congestion improved with inpatient diuresis. Daily weights and intake/output were used to judge euvolemia before discharge.",
+          "io_enabled": true,
+          "io_net_direction": "negative",
+          "comorbidity_queries": [
+            "hypertension",
+            "hyperlipidemia"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "Pulmonary edema without pneumonia."
+            }
+          ],
+          "consults": [
+            {
+              "service": "cardiology",
+              "timepoint": "inpatient",
+              "assessment": "Inpatient cardiology recommendations were recorded.",
+              "recommendation": "Continue the intended heart-failure and diuretic plan."
+            }
+          ],
+          "admission_reason": "Admitted for acute heart-failure decompensation with congestion."
         },
         {
           "code": "HF_DECOMP_AKI_HOLDS",
-          "symptom_queries": ["dyspnea", "edema"],
+          "symptom_queries": [
+            "dyspnea",
+            "edema"
+          ],
           "symptom_duration": "several days",
           "symptom_course": "progressive",
           "symptom_severity": "severe",
-          "medication_required_queries": ["lisinopril", "furosemide", "metoprolol", "atorvastatin"],
-          "lab_queries": ["creatinine", "potassium"],
+          "medication_required_queries": [
+            "lisinopril",
+            "furosemide",
+            "metoprolol",
+            "atorvastatin"
+          ],
+          "lab_queries": [
+            "creatinine",
+            "potassium"
+          ],
           "hospital_course_pattern": "aki_hold_reassessment",
           "io_timepoint": "hospital_day_4",
           "vital_pattern": "decompensated_hf",
           "followup_item": "Cardiology follow-up to reassess held therapy",
           "followup_service": "cardiology",
           "followup_timing": "3 days",
-          "allowed_error_categories": ["f2_held_med_no_restart_plan"],
-          "context_note": "Creatinine rose with congestion. Selected disease-modifying therapy was held with an explicit plan to reassess restart, separate from any planted error."
+          "allowed_error_categories": [
+            "f2_held_med_no_restart_plan"
+          ],
+          "context_note": "Creatinine rose with congestion. Lisinopril was held during decongestion because of worsening renal function.",
+          "io_enabled": true,
+          "io_net_direction": "negative",
+          "comorbidity_queries": [
+            "hypertension",
+            "hyperlipidemia"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "Congestion with small pleural effusions."
+            }
+          ],
+          "consults": [
+            {
+              "service": "cardiology",
+              "timepoint": "inpatient",
+              "assessment": "Inpatient cardiology recommendations were recorded.",
+              "recommendation": "Continue the intended heart-failure and diuretic plan."
+            }
+          ],
+          "hold_medication_query": "lisinopril",
+          "hold_reason": "Held for rising creatinine during decongestion; intended to restart after renal recovery.",
+          "restart_plan": "Resume lisinopril when creatinine is falling toward the prior baseline.",
+          "target_medication_query": "lisinopril",
+          "admission_reason": "Admitted for decompensated heart failure with worsening renal function."
         },
         {
           "code": "HF_DECOMP_POTASSIUM_REPLACEMENT",
-          "symptom_queries": ["dyspnea", "orthopnea"],
+          "symptom_queries": [
+            "dyspnea",
+            "orthopnea"
+          ],
           "symptom_duration": "two days",
           "symptom_course": "acutely worsening",
           "symptom_severity": "severe",
-          "medication_required_queries": ["furosemide", "metoprolol", "atorvastatin"],
-          "lab_queries": ["potassium", "creatinine", "natriuretic peptide"],
+          "medication_required_queries": [
+            "furosemide",
+            "metoprolol",
+            "atorvastatin"
+          ],
+          "lab_queries": [
+            "potassium",
+            "creatinine",
+            "natriuretic peptide"
+          ],
           "hospital_course_pattern": "potassium_repletion_diuresis",
           "io_timepoint": "hospital_day_3",
           "vital_pattern": "decompensated_hf",
           "followup_item": "Electrolyte and heart-failure follow-up",
           "followup_service": "primary care",
           "followup_timing": "5 days",
-          "allowed_error_categories": ["f1_dose_mismatch"],
-          "context_note": "Diuresis was complicated by hypokalemia requiring repletion. The clean discharge diuretic dose is the intended outpatient dose."
+          "allowed_error_categories": [
+            "f1_dose_mismatch"
+          ],
+          "context_note": "Diuresis was accompanied by potassium repletion. The intended outpatient diuretic dose is recorded.",
+          "io_enabled": true,
+          "io_net_direction": "negative",
+          "comorbidity_queries": [
+            "hypertension",
+            "hyperlipidemia"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "Improving pulmonary edema."
+            }
+          ],
+          "consults": [
+            {
+              "service": "cardiology",
+              "timepoint": "inpatient",
+              "assessment": "Inpatient cardiology recommendations were recorded.",
+              "recommendation": "Continue the intended heart-failure and diuretic plan."
+            }
+          ],
+          "target_medication_query": "furosemide",
+          "admission_reason": "Admitted for decompensated heart failure with hypokalemia during diuresis."
         },
         {
           "code": "HF_DECOMP_DIURETIC_ADJUSTMENT",
-          "symptom_queries": ["edema", "orthopnea"],
+          "symptom_queries": [
+            "edema",
+            "orthopnea"
+          ],
           "symptom_duration": "one week",
           "symptom_course": "worsening",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["furosemide", "lisinopril", "spironolactone", "metoprolol"],
-          "lab_queries": ["potassium", "creatinine"],
+          "medication_required_queries": [
+            "furosemide",
+            "lisinopril",
+            "spironolactone",
+            "metoprolol"
+          ],
+          "lab_queries": [
+            "potassium",
+            "creatinine"
+          ],
           "hospital_course_pattern": "diuretic_dose_adjustment",
           "io_timepoint": "hospital_day_4",
           "vital_pattern": "standard",
           "followup_item": "Primary care volume follow-up after diuretic adjustment",
           "followup_service": "primary care",
           "followup_timing": "7 days",
-          "allowed_error_categories": ["f1_therapeutic_substitution"],
-          "context_note": "The outpatient diuretic plan was reviewed during the stay. The clean list is the intended home regimen after that adjustment."
+          "allowed_error_categories": [
+            "f1_therapeutic_substitution"
+          ],
+          "context_note": "The outpatient diuretic plan was reviewed during the stay. The discharge list is the intended home regimen after that adjustment.",
+          "io_enabled": true,
+          "io_net_direction": "negative",
+          "comorbidity_queries": [
+            "hypertension"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "Residual mild congestion."
+            }
+          ],
+          "consults": [
+            {
+              "service": "cardiology",
+              "timepoint": "inpatient",
+              "assessment": "Inpatient cardiology recommendations were recorded.",
+              "recommendation": "Continue the intended heart-failure and diuretic plan."
+            }
+          ],
+          "target_medication_query": "furosemide",
+          "admission_reason": "Admitted for decompensated heart failure requiring diuretic adjustment."
         }
       ]
     },
@@ -205,80 +471,326 @@
         "f2_insufficient_supply",
         "f2_pending_decision_followup_missing"
       ],
-      "diagnosis_queries": ["endocarditis"],
-      "symptom_queries": ["fatigue", "nausea"],
-      "medication_queries": ["ceftriaxone", "lisinopril", "atorvastatin", "metformin"],
+      "diagnosis_queries": [
+        "infective endocarditis"
+      ],
+      "symptom_queries": [
+        "fatigue",
+        "nausea"
+      ],
+      "medication_queries": [
+        "ceftriaxone",
+        "lisinopril",
+        "atorvastatin",
+        "metformin"
+      ],
       "anticoagulant_mutex_queries": [],
-      "lab_queries": ["creatinine", "hemoglobin", "glucose"],
+      "lab_queries": [
+        "creatinine",
+        "hemoglobin",
+        "glucose"
+      ],
       "stop_medication_queries": [],
       "hospital_only_medication_queries": [],
       "clinical_profiles": [
         {
           "code": "OPAT_STABLE_COMPLETION_PLAN",
-          "symptom_queries": ["fatigue"],
+          "symptom_queries": [
+            "fatigue"
+          ],
           "symptom_duration": "one week",
           "symptom_course": "improving after treatment",
           "symptom_severity": "mild",
-          "medication_required_queries": ["ceftriaxone", "lisinopril", "atorvastatin"],
-          "lab_queries": ["creatinine", "hemoglobin"],
+          "medication_required_queries": [
+            "ceftriaxone",
+            "lisinopril",
+            "atorvastatin"
+          ],
+          "lab_queries": [
+            "creatinine",
+            "hemoglobin"
+          ],
           "hospital_course_pattern": "opat_parenteral_course",
           "io_timepoint": "hospital_day_4",
           "vital_pattern": "standard",
           "followup_item": "Infectious-disease follow-up with parenteral-therapy laboratory monitoring",
           "followup_service": "infectious disease",
           "followup_timing": "14 days",
-          "context_note": "The patient is leaving with a planned parenteral antibiotic course, line precautions, and scheduled laboratory monitoring. Those transition tasks are part of the clean case."
+          "context_note": "The patient is leaving with a planned parenteral antibiotic course, line precautions, and scheduled laboratory monitoring. A seven-day supply was arranged to cover therapy until infectious-disease follow-up.",
+          "comorbidity_queries": [
+            "hypertension",
+            "hyperlipidemia"
+          ],
+          "imaging": [
+            {
+              "timepoint": "inpatient",
+              "study_type": "Transthoracic echocardiogram",
+              "body_site": "heart",
+              "finding": "Vegetation treatment course in progress; ventricular function preserved."
+            }
+          ],
+          "consults": [
+            {
+              "service": "infectious disease",
+              "timepoint": "inpatient",
+              "assessment": "Infectious-disease recommendations were recorded.",
+              "recommendation": "Complete the planned parenteral course with laboratory follow-up."
+            }
+          ],
+          "devices": [
+            {
+              "device_type": "PICC",
+              "site": "right upper arm",
+              "placement_timepoint": "inpatient",
+              "status": "in_place",
+              "tip_location_or_confirmation": "Tip position confirmed on chest radiograph",
+              "care_instructions": "Line precautions and weekly dressing changes",
+              "removal_plan": "Remove after the planned parenteral course"
+            }
+          ],
+          "microbiology": [
+            {
+              "timepoint": "admission",
+              "specimen": "blood",
+              "test": "blood culture",
+              "organism": null,
+              "result": "no growth after 48 hours",
+              "status": "final"
+            }
+          ],
+          "monitoring_parameter": "weekly complete blood count and creatinine during parenteral therapy",
+          "monitoring_frequency": "weekly",
+          "monitoring_service": "infectious disease",
+          "target_medication_query": "ceftriaxone",
+          "admission_reason": "Admitted for endocarditis and discharged on planned outpatient parenteral antimicrobial therapy."
         },
         {
           "code": "OPAT_OMITTED_PARENTERAL_THERAPY",
-          "symptom_queries": ["nausea", "fatigue"],
+          "symptom_queries": [
+            "nausea",
+            "fatigue"
+          ],
           "symptom_duration": "several days",
           "symptom_course": "improving after treatment",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["ceftriaxone", "metformin", "atorvastatin"],
-          "lab_queries": ["creatinine", "glucose"],
+          "medication_required_queries": [
+            "ceftriaxone",
+            "metformin",
+            "atorvastatin"
+          ],
+          "lab_queries": [
+            "creatinine",
+            "glucose"
+          ],
           "hospital_course_pattern": "opat_culture_clearance",
           "io_timepoint": "hospital_day_3",
           "vital_pattern": "febrile_pneumonia",
           "followup_item": "Infectious-disease clinic follow-up",
           "followup_service": "infectious disease",
           "followup_timing": "7 days",
-          "allowed_error_categories": ["f1_omission"],
-          "context_note": "Parenteral ceftriaxone is intended to continue after discharge until the planned end date."
+          "allowed_error_categories": [
+            "f1_omission"
+          ],
+          "context_note": "Parenteral ceftriaxone is intended to continue after discharge until the planned end date.",
+          "comorbidity_queries": [
+            "type 2 diabetes mellitus",
+            "hyperlipidemia"
+          ],
+          "imaging": [
+            {
+              "timepoint": "inpatient",
+              "study_type": "Transthoracic echocardiogram",
+              "body_site": "heart",
+              "finding": "Treated endocarditis with improving clinical stability."
+            }
+          ],
+          "consults": [
+            {
+              "service": "infectious disease",
+              "timepoint": "inpatient",
+              "assessment": "Infectious-disease recommendations were recorded.",
+              "recommendation": "Complete the planned parenteral course with laboratory follow-up."
+            }
+          ],
+          "devices": [
+            {
+              "device_type": "PICC",
+              "site": "right upper arm",
+              "placement_timepoint": "inpatient",
+              "status": "in_place",
+              "tip_location_or_confirmation": "Tip position confirmed on chest radiograph",
+              "care_instructions": "Line precautions and weekly dressing changes",
+              "removal_plan": "Remove after the planned parenteral course"
+            }
+          ],
+          "microbiology": [
+            {
+              "timepoint": "admission",
+              "specimen": "blood",
+              "test": "blood culture",
+              "organism": null,
+              "result": "no growth after 48 hours",
+              "status": "final"
+            }
+          ],
+          "monitoring_parameter": "weekly complete blood count and creatinine during parenteral therapy",
+          "monitoring_frequency": "weekly",
+          "monitoring_service": "infectious disease",
+          "target_medication_query": "ceftriaxone",
+          "admission_reason": "Admitted for endocarditis; remaining parenteral ceftriaxone is intended after discharge."
         },
         {
           "code": "OPAT_SHORT_ANTIBIOTIC_SUPPLY",
-          "symptom_queries": ["nausea"],
+          "symptom_queries": [
+            "nausea"
+          ],
           "symptom_duration": "two days",
           "symptom_course": "persistent",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["ceftriaxone", "lisinopril", "metformin", "aspirin"],
-          "lab_queries": ["creatinine", "hemoglobin", "glucose"],
+          "medication_required_queries": [
+            "ceftriaxone",
+            "lisinopril",
+            "metformin",
+            "aspirin"
+          ],
+          "lab_queries": [
+            "creatinine",
+            "hemoglobin",
+            "glucose"
+          ],
           "hospital_course_pattern": "opat_parenteral_course",
           "io_timepoint": "hospital_day_5",
           "vital_pattern": "standard",
           "followup_item": "Infectious-disease follow-up for remaining antibiotic duration",
           "followup_service": "infectious disease",
           "followup_timing": "14 days",
-          "allowed_error_categories": ["f2_insufficient_supply"],
-          "context_note": "The clean case documents enough supply to cover the remaining parenteral course until infectious-disease follow-up."
+          "allowed_error_categories": [
+            "f2_insufficient_supply"
+          ],
+          "context_note": "Parenteral ceftriaxone is intended to continue after discharge until the planned end date. Infectious-disease follow-up is scheduled.",
+          "comorbidity_queries": [
+            "hypertension",
+            "type 2 diabetes mellitus",
+            "atherosclerotic heart disease"
+          ],
+          "imaging": [
+            {
+              "timepoint": "inpatient",
+              "study_type": "Transthoracic echocardiogram",
+              "body_site": "heart",
+              "finding": "Endocarditis under treatment; patient clinically stable."
+            }
+          ],
+          "consults": [
+            {
+              "service": "infectious disease",
+              "timepoint": "inpatient",
+              "assessment": "Infectious-disease recommendations were recorded.",
+              "recommendation": "Complete the planned parenteral course with laboratory follow-up."
+            }
+          ],
+          "devices": [
+            {
+              "device_type": "PICC",
+              "site": "right upper arm",
+              "placement_timepoint": "inpatient",
+              "status": "in_place",
+              "tip_location_or_confirmation": "Tip position confirmed on chest radiograph",
+              "care_instructions": "Line precautions and weekly dressing changes",
+              "removal_plan": "Remove after the planned parenteral course"
+            }
+          ],
+          "microbiology": [
+            {
+              "timepoint": "admission",
+              "specimen": "blood",
+              "test": "blood culture",
+              "organism": null,
+              "result": "no growth after 48 hours",
+              "status": "final"
+            }
+          ],
+          "monitoring_parameter": "weekly complete blood count and creatinine during parenteral therapy",
+          "monitoring_frequency": "weekly",
+          "monitoring_service": "infectious disease",
+          "target_medication_query": "ceftriaxone",
+          "admission_reason": "Admitted for endocarditis with a remaining outpatient parenteral course."
         },
         {
           "code": "OPAT_MISSING_ID_FOLLOWUP",
-          "symptom_queries": ["fatigue", "nausea"],
+          "symptom_queries": [
+            "fatigue",
+            "nausea"
+          ],
           "symptom_duration": "one week",
           "symptom_course": "improving after treatment",
           "symptom_severity": "mild",
-          "medication_required_queries": ["ceftriaxone", "atorvastatin", "aspirin"],
-          "lab_queries": ["hemoglobin"],
-          "hospital_course_pattern": "opat_culture_clearance",
+          "medication_required_queries": [
+            "ceftriaxone",
+            "atorvastatin",
+            "aspirin"
+          ],
+          "lab_queries": [
+            "hemoglobin"
+          ],
+          "hospital_course_pattern": "opat_pending_duration",
           "io_timepoint": "hospital_day_2",
           "vital_pattern": "standard",
           "followup_item": "Reassess pending therapeutic decision",
           "followup_service": "infectious disease",
           "followup_timing": "14 days",
-          "allowed_error_categories": ["f2_pending_decision_followup_missing"],
-          "context_note": "Duration of remaining parenteral therapy is to be confirmed at infectious-disease follow-up. The clean case records that pending decision."
+          "allowed_error_categories": [
+            "f2_pending_decision_followup_missing"
+          ],
+          "context_note": "Duration of remaining parenteral ceftriaxone is to be confirmed at infectious-disease follow-up.",
+          "comorbidity_queries": [
+            "hyperlipidemia",
+            "atherosclerotic heart disease"
+          ],
+          "imaging": [
+            {
+              "timepoint": "inpatient",
+              "study_type": "Transthoracic echocardiogram",
+              "body_site": "heart",
+              "finding": "Treated endocarditis awaiting confirmation of remaining duration."
+            }
+          ],
+          "consults": [
+            {
+              "service": "infectious disease",
+              "timepoint": "inpatient",
+              "assessment": "Infectious-disease recommendations were recorded.",
+              "recommendation": "Complete the planned parenteral course with laboratory follow-up."
+            }
+          ],
+          "devices": [
+            {
+              "device_type": "PICC",
+              "site": "right upper arm",
+              "placement_timepoint": "inpatient",
+              "status": "in_place",
+              "tip_location_or_confirmation": "Tip position confirmed on chest radiograph",
+              "care_instructions": "Line precautions and weekly dressing changes",
+              "removal_plan": "Remove after the planned parenteral course"
+            }
+          ],
+          "microbiology": [
+            {
+              "timepoint": "admission",
+              "specimen": "blood",
+              "test": "blood culture",
+              "organism": null,
+              "result": "no growth after 48 hours",
+              "status": "final"
+            }
+          ],
+          "monitoring_parameter": "weekly complete blood count and creatinine during parenteral therapy",
+          "monitoring_frequency": "weekly",
+          "monitoring_service": "infectious disease",
+          "pending_decision_medication_query": "ceftriaxone",
+          "pending_decision_text": "Remaining duration of parenteral ceftriaxone is to be confirmed at infectious-disease follow-up.",
+          "target_medication_query": "ceftriaxone",
+          "admission_reason": "Admitted for endocarditis; remaining parenteral duration is a pending outpatient decision."
         }
       ]
     },
@@ -296,80 +808,230 @@
         "f2_held_med_no_restart_plan",
         "f2_pending_decision_followup_missing"
       ],
-      "diagnosis_queries": ["cytomegaloviral disease"],
-      "symptom_queries": ["diarrhea", "nausea"],
-      "medication_queries": ["tacrolimus", "mycophenolate mofetil", "amlodipine", "atorvastatin"],
+      "diagnosis_queries": [
+        "cytomegaloviral disease"
+      ],
+      "symptom_queries": [
+        "diarrhea",
+        "nausea"
+      ],
+      "medication_queries": [
+        "tacrolimus",
+        "mycophenolate mofetil",
+        "amlodipine",
+        "atorvastatin"
+      ],
       "anticoagulant_mutex_queries": [],
-      "lab_queries": ["creatinine", "potassium"],
+      "lab_queries": [
+        "creatinine",
+        "potassium"
+      ],
       "stop_medication_queries": [],
       "hospital_only_medication_queries": [],
       "clinical_profiles": [
         {
           "code": "TRANSPLANT_CMV_IMPROVING",
-          "symptom_queries": ["diarrhea"],
+          "symptom_queries": [
+            "diarrhea"
+          ],
           "symptom_duration": "several days",
           "symptom_course": "improving after treatment",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["tacrolimus", "amlodipine", "atorvastatin", "valganciclovir"],
-          "lab_queries": ["creatinine", "potassium"],
+          "medication_required_queries": [
+            "tacrolimus",
+            "amlodipine",
+            "atorvastatin",
+            "valganciclovir"
+          ],
+          "lab_queries": [
+            "creatinine",
+            "potassium"
+          ],
           "hospital_course_pattern": "transplant_antiviral_conversion",
           "io_timepoint": "hospital_day_5",
           "vital_pattern": "standard",
           "followup_item": "Transplant clinic follow-up after antiviral conversion",
           "followup_service": "transplant",
           "followup_timing": "7 days",
-          "context_note": "Gastrointestinal symptoms improved on antiviral therapy. Outpatient valganciclovir is the intended continuation. No unsupported transplant dosing rule is encoded."
+          "context_note": "Gastrointestinal symptoms improved on antiviral therapy. Outpatient valganciclovir is the intended continuation. Kidney-transplant immunosuppression continues separately from CMV treatment.",
+          "comorbidity_queries": [
+            "kidney transplant",
+            "hypertension",
+            "hyperlipidemia"
+          ],
+          "consults": [
+            {
+              "service": "transplant",
+              "timepoint": "inpatient",
+              "assessment": "Transplant-service recommendations were recorded.",
+              "recommendation": "Continue immunosuppression with infection-related adjustments as documented."
+            },
+            {
+              "service": "infectious disease",
+              "timepoint": "inpatient",
+              "assessment": "Infectious-disease recommendations were recorded.",
+              "recommendation": "Continue antiviral therapy and infection-related monitoring as documented."
+            }
+          ],
+          "io_enabled": true,
+          "io_net_direction": "neutral",
+          "admission_reason": "Admitted for cytomegalovirus disease after kidney transplantation.",
+          "target_medication_query": "valganciclovir"
         },
         {
           "code": "TRANSPLANT_MMF_HOLD_RESTART",
-          "symptom_queries": ["diarrhea", "nausea"],
+          "symptom_queries": [
+            "diarrhea",
+            "nausea"
+          ],
           "symptom_duration": "one week",
           "symptom_course": "progressive",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["mycophenolate mofetil", "tacrolimus", "amlodipine"],
-          "lab_queries": ["creatinine"],
+          "medication_required_queries": [
+            "mycophenolate mofetil",
+            "tacrolimus",
+            "amlodipine",
+            "valganciclovir"
+          ],
+          "lab_queries": [
+            "creatinine"
+          ],
           "hospital_course_pattern": "transplant_aki_holds",
           "io_timepoint": "hospital_day_4",
           "vital_pattern": "standard",
           "followup_item": "Transplant follow-up to reassess held immunosuppression",
           "followup_service": "transplant",
           "followup_timing": "5 days",
-          "allowed_error_categories": ["f2_held_med_no_restart_plan"],
-          "context_note": "Mycophenolate was held during infection with a documented plan to reassess restart. That hold is a clinical decision on the clean case."
+          "allowed_error_categories": [
+            "f2_held_med_no_restart_plan"
+          ],
+          "context_note": "Mycophenolate was held during infection as an immunosuppression adjustment. Tacrolimus continues for transplant immunosuppression.",
+          "comorbidity_queries": [
+            "kidney transplant",
+            "hypertension"
+          ],
+          "consults": [
+            {
+              "service": "transplant",
+              "timepoint": "inpatient",
+              "assessment": "Transplant-service recommendations were recorded.",
+              "recommendation": "Continue immunosuppression with infection-related adjustments as documented."
+            },
+            {
+              "service": "infectious disease",
+              "timepoint": "inpatient",
+              "assessment": "Infectious-disease recommendations were recorded.",
+              "recommendation": "Continue antiviral therapy and infection-related monitoring as documented."
+            }
+          ],
+          "io_enabled": true,
+          "hold_medication_query": "mycophenolate mofetil",
+          "hold_reason": "Held during active infection as an immunosuppression adjustment; intended to restart.",
+          "restart_plan": "Resume mycophenolate when diarrhea has resolved and the transplant team confirms restart.",
+          "target_medication_query": "mycophenolate mofetil",
+          "admission_reason": "Admitted for cytomegalovirus disease after kidney transplantation with an infection-related mycophenolate hold."
         },
         {
           "code": "TRANSPLANT_TACROLIMUS_ADJUSTMENT",
-          "symptom_queries": ["nausea"],
+          "symptom_queries": [
+            "nausea"
+          ],
           "symptom_duration": "two days",
           "symptom_course": "intermittent",
           "symptom_severity": "mild",
-          "medication_required_queries": ["tacrolimus", "amlodipine", "atorvastatin", "lisinopril"],
-          "lab_queries": ["creatinine", "potassium"],
+          "medication_required_queries": [
+            "tacrolimus",
+            "amlodipine",
+            "atorvastatin",
+            "lisinopril",
+            "valganciclovir"
+          ],
+          "lab_queries": [
+            "creatinine",
+            "potassium"
+          ],
           "hospital_course_pattern": "medication_adjustment",
           "io_timepoint": "hospital_day_3",
           "vital_pattern": "standard",
           "followup_item": "Transplant medication-dose follow-up",
           "followup_service": "transplant",
           "followup_timing": "7 days",
-          "allowed_error_categories": ["f1_dose_mismatch"],
-          "context_note": "Tacrolimus was continued at the intended adjusted outpatient dose. Numeric target ranges from the seed document are not encoded as software rules."
+          "allowed_error_categories": [
+            "f1_dose_mismatch"
+          ],
+          "context_note": "Tacrolimus was continued at the intended adjusted outpatient dose for transplant immunosuppression, not as treatment for CMV.",
+          "comorbidity_queries": [
+            "kidney transplant",
+            "hypertension",
+            "hyperlipidemia"
+          ],
+          "consults": [
+            {
+              "service": "transplant",
+              "timepoint": "inpatient",
+              "assessment": "Transplant-service recommendations were recorded.",
+              "recommendation": "Continue immunosuppression with infection-related adjustments as documented."
+            },
+            {
+              "service": "infectious disease",
+              "timepoint": "inpatient",
+              "assessment": "Infectious-disease recommendations were recorded.",
+              "recommendation": "Continue antiviral therapy and infection-related monitoring as documented."
+            }
+          ],
+          "io_enabled": true,
+          "target_medication_query": "tacrolimus",
+          "admission_reason": "Admitted for cytomegalovirus disease after kidney transplantation with a tacrolimus dose adjustment."
         },
         {
           "code": "TRANSPLANT_PENDING_ANTIVIRAL_DURATION",
-          "symptom_queries": ["diarrhea", "fatigue"],
+          "symptom_queries": [
+            "diarrhea",
+            "fatigue"
+          ],
           "symptom_duration": "one day",
           "symptom_course": "improving after treatment",
           "symptom_severity": "mild",
-          "medication_required_queries": ["tacrolimus", "atorvastatin", "valganciclovir"],
-          "lab_queries": ["creatinine"],
+          "medication_required_queries": [
+            "tacrolimus",
+            "atorvastatin",
+            "valganciclovir"
+          ],
+          "lab_queries": [
+            "creatinine"
+          ],
           "hospital_course_pattern": "transplant_antiviral_conversion",
           "io_timepoint": "hospital_day_2",
           "vital_pattern": "standard",
           "followup_item": "Infectious-disease follow-up to reassess pending antiviral duration",
           "followup_service": "infectious disease",
           "followup_timing": "14 days",
-          "allowed_error_categories": ["f2_pending_decision_followup_missing"],
-          "context_note": "Antiviral duration after conversion remains a pending outpatient decision documented on the clean case."
+          "allowed_error_categories": [
+            "f2_pending_decision_followup_missing"
+          ],
+          "context_note": "Antiviral duration after conversion remains a pending outpatient decision. Tacrolimus continues for immunosuppression.",
+          "comorbidity_queries": [
+            "kidney transplant",
+            "hyperlipidemia"
+          ],
+          "consults": [
+            {
+              "service": "transplant",
+              "timepoint": "inpatient",
+              "assessment": "Transplant-service recommendations were recorded.",
+              "recommendation": "Continue immunosuppression with infection-related adjustments as documented."
+            },
+            {
+              "service": "infectious disease",
+              "timepoint": "inpatient",
+              "assessment": "Infectious-disease recommendations were recorded.",
+              "recommendation": "Confirm remaining antiviral duration as an outpatient decision."
+            }
+          ],
+          "pending_decision_medication_query": "valganciclovir",
+          "pending_decision_text": "Remaining duration of valganciclovir is to be confirmed at infectious-disease follow-up.",
+          "target_medication_query": "valganciclovir",
+          "admission_reason": "Admitted for cytomegalovirus disease after kidney transplantation; antiviral duration remains pending."
         }
       ]
     },
@@ -388,59 +1050,156 @@
         "f2_insufficient_supply",
         "f2_hospital_only_continued"
       ],
-      "diagnosis_queries": ["neck of right femur"],
-      "symptom_queries": ["fatigue"],
-      "medication_queries": ["warfarin", "lisinopril", "metformin"],
-      "anticoagulant_mutex_queries": ["warfarin"],
-      "lab_queries": ["inr", "hemoglobin", "creatinine", "glucose"],
+      "diagnosis_queries": [
+        "neck of right femur"
+      ],
+      "symptom_queries": [
+        "fatigue"
+      ],
+      "medication_queries": [
+        "warfarin",
+        "lisinopril",
+        "metformin"
+      ],
+      "anticoagulant_mutex_queries": [
+        "warfarin"
+      ],
+      "lab_queries": [
+        "inr",
+        "hemoglobin",
+        "creatinine",
+        "glucose"
+      ],
       "stop_medication_queries": [],
-      "hospital_only_medication_queries": ["enoxaparin"],
+      "hospital_only_medication_queries": [
+        "enoxaparin"
+      ],
       "clinical_profiles": [
         {
           "code": "POSTOP_WARFARIN_MONITORING",
-          "symptom_queries": ["fatigue"],
+          "symptom_queries": [
+            "fatigue"
+          ],
           "symptom_duration": "several days",
           "symptom_course": "improving after treatment",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["warfarin", "lisinopril", "metformin"],
+          "medication_required_queries": [
+            "warfarin",
+            "lisinopril",
+            "metformin"
+          ],
           "anticoagulant": "warfarin",
-          "lab_queries": ["inr", "hemoglobin", "glucose"],
+          "lab_queries": [
+            "inr",
+            "hemoglobin",
+            "glucose"
+          ],
           "hospital_course_pattern": "postop_anticoag_resume",
           "io_timepoint": "hospital_day_3",
           "vital_pattern": "standard",
           "followup_item": "Anticoagulation clinic INR follow-up after warfarin resumption",
           "followup_service": "anticoagulation clinic",
           "followup_timing": "7 days",
-          "allowed_error_categories": ["f2_monitoring_not_arranged"],
-          "context_note": "Warfarin was interrupted for surgery and then resumed. The clean case arranges INR monitoring. Bridging injection is not continued at discharge in this profile."
+          "allowed_error_categories": [
+            "f2_monitoring_not_arranged"
+          ],
+          "context_note": "Warfarin was interrupted for surgery and then resumed. Bridging injection is not continued at discharge in this profile.",
+          "comorbidity_queries": [
+            "atrial fibrillation",
+            "hypertension",
+            "type 2 diabetes mellitus"
+          ],
+          "procedures": [
+            {
+              "procedure_name": "Open reduction and internal fixation of femoral neck fracture",
+              "procedure_type": "operative",
+              "timepoint": "inpatient",
+              "findings": "Fracture reduced and internally fixed."
+            }
+          ],
+          "consults": [
+            {
+              "service": "orthopedics",
+              "timepoint": "inpatient",
+              "assessment": "Orthopedic postoperative recommendations were recorded.",
+              "recommendation": "Protective weight bearing and rehabilitation as documented."
+            }
+          ],
+          "target_medication_query": "warfarin",
+          "admission_reason": "Admitted after operative repair of a femoral-neck fracture with planned warfarin resumption.",
+          "disposition": "rehab"
         },
         {
           "code": "POSTOP_OMITTED_ANTICOAGULATION",
-          "symptom_queries": ["nausea", "fatigue"],
+          "symptom_queries": [
+            "nausea",
+            "fatigue"
+          ],
           "symptom_duration": "one day",
           "symptom_course": "improving after treatment",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["warfarin", "lisinopril", "metformin"],
+          "medication_required_queries": [
+            "warfarin",
+            "lisinopril",
+            "metformin"
+          ],
           "anticoagulant": "warfarin",
-          "lab_queries": ["inr", "hemoglobin"],
+          "lab_queries": [
+            "inr",
+            "hemoglobin"
+          ],
           "hospital_course_pattern": "postop_hemoglobin_observed",
           "io_timepoint": "hospital_day_4",
           "vital_pattern": "standard",
           "followup_item": "Orthopedic and anticoagulation follow-up",
           "followup_service": "orthopedics",
           "followup_timing": "14 days",
-          "allowed_error_categories": ["f1_omission"],
-          "context_note": "Postoperative hemoglobin was observed. Warfarin is intended to continue at discharge."
+          "allowed_error_categories": [
+            "f1_omission"
+          ],
+          "context_note": "Postoperative hemoglobin was observed. Warfarin is intended to continue at discharge.",
+          "comorbidity_queries": [
+            "atrial fibrillation",
+            "hypertension",
+            "type 2 diabetes mellitus"
+          ],
+          "procedures": [
+            {
+              "procedure_name": "Open reduction and internal fixation of femoral neck fracture",
+              "procedure_type": "operative",
+              "timepoint": "inpatient",
+              "findings": "Fracture reduced and internally fixed."
+            }
+          ],
+          "consults": [
+            {
+              "service": "orthopedics",
+              "timepoint": "inpatient",
+              "assessment": "Orthopedic postoperative recommendations were recorded.",
+              "recommendation": "Protective weight bearing and rehabilitation as documented."
+            }
+          ],
+          "target_medication_query": "warfarin",
+          "admission_reason": "Admitted after hip-fracture surgery; anticoagulation is intended at discharge.",
+          "disposition": "rehab"
         },
         {
           "code": "POSTOP_ANTICOAG_SUPPLY",
-          "symptom_queries": ["nausea"],
+          "symptom_queries": [
+            "nausea"
+          ],
           "symptom_duration": "two days",
           "symptom_course": "persistent",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["warfarin", "lisinopril"],
+          "medication_required_queries": [
+            "warfarin",
+            "lisinopril"
+          ],
           "anticoagulant": "warfarin",
-          "lab_queries": ["inr", "creatinine"],
+          "lab_queries": [
+            "inr",
+            "creatinine"
+          ],
           "hospital_course_pattern": "postop_anticoag_resume",
           "io_timepoint": "hospital_day_2",
           "vital_pattern": "standard",
@@ -448,27 +1207,91 @@
           "followup_item": "Anticoagulation supply and INR follow-up",
           "followup_service": "anticoagulation clinic",
           "followup_timing": "14 days",
-          "allowed_error_categories": ["f2_insufficient_supply"],
-          "context_note": "Discharge includes enough warfarin supply to reach the scheduled INR visit. Home therapy support is arranged."
+          "allowed_error_categories": [
+            "f2_insufficient_supply"
+          ],
+          "context_note": "Warfarin was resumed. An anticoagulation-clinic INR visit is scheduled. Home therapy support is arranged.",
+          "comorbidity_queries": [
+            "atrial fibrillation",
+            "hypertension"
+          ],
+          "procedures": [
+            {
+              "procedure_name": "Open reduction and internal fixation of femoral neck fracture",
+              "procedure_type": "operative",
+              "timepoint": "inpatient",
+              "findings": "Fracture reduced and internally fixed."
+            }
+          ],
+          "consults": [
+            {
+              "service": "orthopedics",
+              "timepoint": "inpatient",
+              "assessment": "Orthopedic postoperative recommendations were recorded.",
+              "recommendation": "Protective weight bearing and rehabilitation as documented."
+            }
+          ],
+          "target_medication_query": "warfarin",
+          "admission_reason": "Admitted after hip-fracture surgery with planned anticoagulation follow-up.",
+          "disposition": "rehab"
         },
         {
           "code": "POSTOP_BRIDGE_HOSPITAL_ONLY",
-          "symptom_queries": ["fatigue", "nausea"],
+          "symptom_queries": [
+            "fatigue",
+            "nausea"
+          ],
           "symptom_duration": "one week",
           "symptom_course": "improving after treatment",
           "symptom_severity": "mild",
-          "medication_required_queries": ["warfarin", "lisinopril", "metformin"],
+          "medication_required_queries": [
+            "warfarin",
+            "lisinopril",
+            "metformin"
+          ],
           "anticoagulant": "warfarin",
-          "hospital_only_medication_queries": ["enoxaparin"],
-          "lab_queries": ["inr", "hemoglobin", "glucose"],
+          "hospital_only_medication_queries": [
+            "enoxaparin"
+          ],
+          "lab_queries": [
+            "inr",
+            "hemoglobin",
+            "glucose"
+          ],
           "hospital_course_pattern": "postop_hemoglobin_observed",
           "io_timepoint": "hospital_day_3",
           "vital_pattern": "standard",
           "followup_item": "Orthopedic rehabilitation follow-up",
           "followup_service": "orthopedics",
           "followup_timing": "10 days",
-          "allowed_error_categories": ["f2_hospital_only_continued"],
-          "context_note": "Enoxaparin was used as inpatient bridging and is not intended to continue once warfarin is resumed. The clean case stops that hospital-only anticoagulant."
+          "allowed_error_categories": [
+            "f2_hospital_only_continued"
+          ],
+          "context_note": "Enoxaparin was used as inpatient bridging and is not intended to continue once warfarin is resumed.",
+          "comorbidity_queries": [
+            "atrial fibrillation",
+            "hypertension",
+            "type 2 diabetes mellitus"
+          ],
+          "procedures": [
+            {
+              "procedure_name": "Open reduction and internal fixation of femoral neck fracture",
+              "procedure_type": "operative",
+              "timepoint": "inpatient",
+              "findings": "Fracture reduced and internally fixed."
+            }
+          ],
+          "consults": [
+            {
+              "service": "orthopedics",
+              "timepoint": "inpatient",
+              "assessment": "Orthopedic postoperative recommendations were recorded.",
+              "recommendation": "Protective weight bearing and rehabilitation as documented."
+            }
+          ],
+          "target_medication_query": "enoxaparin",
+          "admission_reason": "Admitted after hip-fracture surgery with inpatient bridging anticoagulation only.",
+          "disposition": "rehab"
         }
       ]
     },
@@ -488,83 +1311,220 @@
         "f2_hospital_only_continued",
         "f2_pending_decision_followup_missing"
       ],
-      "diagnosis_queries": ["gastrointestinal hemorrhage"],
-      "symptom_queries": ["fatigue"],
-      "medication_queries": ["apixaban", "atorvastatin", "lisinopril", "metformin"],
+      "diagnosis_queries": [
+        "gastrointestinal hemorrhage"
+      ],
+      "symptom_queries": [
+        "fatigue"
+      ],
+      "medication_queries": [
+        "apixaban",
+        "atorvastatin",
+        "lisinopril",
+        "metformin"
+      ],
       "anticoagulant_mutex_queries": [],
-      "lab_queries": ["hemoglobin", "creatinine", "glucose"],
-      "stop_medication_queries": ["aspirin"],
-      "hospital_only_medication_queries": ["pantoprazole"],
+      "lab_queries": [
+        "hemoglobin",
+        "creatinine",
+        "glucose"
+      ],
+      "stop_medication_queries": [
+        "aspirin"
+      ],
+      "hospital_only_medication_queries": [
+        "pantoprazole"
+      ],
       "clinical_profiles": [
         {
           "code": "GI_BLEED_AC_HELD_RESTART",
-          "symptom_queries": ["fatigue"],
+          "symptom_queries": [
+            "fatigue"
+          ],
           "symptom_duration": "two days",
           "symptom_course": "improving after treatment",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["apixaban", "atorvastatin", "lisinopril"],
-          "lab_queries": ["hemoglobin", "creatinine"],
+          "medication_required_queries": [
+            "apixaban",
+            "atorvastatin",
+            "lisinopril"
+          ],
+          "lab_queries": [
+            "hemoglobin",
+            "creatinine"
+          ],
           "hospital_course_pattern": "gi_bleed_held_ac_stable",
           "io_timepoint": "hospital_day_3",
           "vital_pattern": "standard",
           "followup_item": "Gastroenterology follow-up after held anticoagulation",
           "followup_service": "gastroenterology",
           "followup_timing": "7 days",
-          "allowed_error_categories": ["f2_held_med_no_restart_plan"],
-          "context_note": "Bleeding settled and hemoglobin was stable. Apixaban was held with a documented restart plan. The patient is discharge-ready."
+          "allowed_error_categories": [
+            "f2_held_med_no_restart_plan"
+          ],
+          "context_note": "Bleeding settled and hemoglobin was stable. Apixaban was held. The patient is discharge-ready.",
+          "comorbidity_queries": [
+            "atrial fibrillation",
+            "hyperlipidemia",
+            "hypertension"
+          ],
+          "consults": [
+            {
+              "service": "gastroenterology",
+              "timepoint": "inpatient",
+              "assessment": "Gastroenterology recommendations were recorded.",
+              "recommendation": "Hold anticoagulation while hemoglobin remains stable, then reassess."
+            }
+          ],
+          "hold_medication_query": "apixaban",
+          "hold_reason": "Held for gastrointestinal bleeding; intended to restart after hemoglobin stability.",
+          "restart_plan": "Resume apixaban if hemoglobin remains stable for 48 hours and bleeding has not recurred.",
+          "target_medication_query": "apixaban",
+          "admission_reason": "Admitted for gastrointestinal bleeding with held anticoagulation."
         },
         {
           "code": "GI_BLEED_PPI_HOSPITAL_ONLY",
-          "symptom_queries": ["fatigue", "nausea"],
+          "symptom_queries": [
+            "fatigue",
+            "nausea"
+          ],
           "symptom_duration": "one day",
           "symptom_course": "improving after treatment",
           "symptom_severity": "mild",
-          "medication_required_queries": ["atorvastatin", "lisinopril", "metformin"],
-          "hospital_only_medication_queries": ["pantoprazole"],
-          "lab_queries": ["hemoglobin", "glucose"],
-          "hospital_course_pattern": "observed_stabilization",
+          "medication_required_queries": [
+            "atorvastatin",
+            "lisinopril",
+            "metformin"
+          ],
+          "hospital_only_medication_queries": [
+            "pantoprazole"
+          ],
+          "lab_queries": [
+            "hemoglobin",
+            "glucose"
+          ],
+          "hospital_course_pattern": "gi_bleed_observed_stabilization",
           "io_timepoint": "hospital_day_2",
           "vital_pattern": "standard",
           "followup_item": "Primary care follow-up after gastrointestinal bleed",
           "followup_service": "primary care",
           "followup_timing": "5 days",
-          "allowed_error_categories": ["f2_hospital_only_continued"],
-          "context_note": "Inpatient acid suppression was used for the bleed. The clean case does not continue that hospital-only proton-pump inhibitor unless a clinician later decides it is needed."
+          "allowed_error_categories": [
+            "f2_hospital_only_continued"
+          ],
+          "context_note": "Inpatient acid suppression was used for the bleed and is not intended to continue at discharge unless later prescribed.",
+          "comorbidity_queries": [
+            "hyperlipidemia",
+            "hypertension",
+            "type 2 diabetes mellitus"
+          ],
+          "consults": [
+            {
+              "service": "gastroenterology",
+              "timepoint": "inpatient",
+              "assessment": "Gastroenterology recommendations were recorded.",
+              "recommendation": "Continue inpatient acid suppression and observe serial hemoglobin until stability."
+            }
+          ],
+          "target_medication_query": "pantoprazole",
+          "admission_reason": "Admitted for gastrointestinal bleeding treated with inpatient acid suppression."
         },
         {
           "code": "GI_BLEED_PENDING_AC_DECISION",
-          "symptom_queries": ["fatigue"],
+          "symptom_queries": [
+            "fatigue"
+          ],
           "symptom_duration": "several days",
           "symptom_course": "persistent",
           "symptom_severity": "mild",
-          "medication_required_queries": ["apixaban", "atorvastatin", "metformin"],
-          "lab_queries": ["hemoglobin", "creatinine", "glucose"],
+          "medication_required_queries": [
+            "apixaban",
+            "atorvastatin",
+            "metformin"
+          ],
+          "lab_queries": [
+            "hemoglobin",
+            "creatinine",
+            "glucose"
+          ],
           "hospital_course_pattern": "pending_endoscopy_decision",
           "io_timepoint": "hospital_day_3",
           "vital_pattern": "standard",
           "followup_item": "Reassess pending therapeutic decision",
           "followup_service": "cardiology",
           "followup_timing": "7 days",
-          "allowed_error_categories": ["f2_pending_decision_followup_missing"],
-          "context_note": "Restart versus continued hold of anticoagulation is a pending outpatient decision. The clean case records that follow-up. The patient is discharge-ready, not in shock."
+          "allowed_error_categories": [
+            "f2_pending_decision_followup_missing"
+          ],
+          "context_note": "Restart versus continued hold of anticoagulation is a pending outpatient decision. The patient is discharge-ready, not in shock.",
+          "comorbidity_queries": [
+            "atrial fibrillation",
+            "hyperlipidemia",
+            "type 2 diabetes mellitus"
+          ],
+          "procedures": [
+            {
+              "procedure_name": "Upper endoscopy",
+              "procedure_type": "endoscopic",
+              "timepoint": "inpatient",
+              "findings": "Bleeding source evaluated; no ongoing active bleeding at discharge planning."
+            }
+          ],
+          "consults": [
+            {
+              "service": "gastroenterology",
+              "timepoint": "inpatient",
+              "assessment": "Gastroenterology recommendations were recorded.",
+              "recommendation": "Hold anticoagulation while hemoglobin remains stable, then reassess."
+            }
+          ],
+          "pending_decision_medication_query": "apixaban",
+          "pending_decision_text": "Restart versus continued hold of apixaban remains a pending outpatient decision after the bleed.",
+          "target_medication_query": "apixaban",
+          "admission_reason": "Admitted for gastrointestinal bleeding with a pending anticoagulation decision."
         },
         {
           "code": "GI_BLEED_ASPIRIN_NOT_RESTARTED",
-          "symptom_queries": ["fatigue", "nausea"],
+          "symptom_queries": [
+            "fatigue",
+            "nausea"
+          ],
           "symptom_duration": "one week",
           "symptom_course": "improving after treatment",
           "symptom_severity": "mild",
-          "medication_required_queries": ["atorvastatin", "lisinopril", "metformin"],
-          "stop_medication_queries": ["aspirin"],
-          "lab_queries": ["hemoglobin"],
-          "hospital_course_pattern": "gi_bleed_held_ac_stable",
-          "io_timepoint": "hospital_day_4",
-          "vital_pattern": "standard",
-          "followup_item": "Primary care follow-up after intentional aspirin discontinuation",
+          "medication_required_queries": [
+            "atorvastatin",
+            "lisinopril",
+            "metformin"
+          ],
+          "stop_medication_queries": [
+            "aspirin"
+          ],
+          "lab_queries": [
+            "hemoglobin"
+          ],
+          "hospital_course_pattern": "gi_bleed_aspirin_stopped",
           "followup_service": "primary care",
           "followup_timing": "10 days",
-          "allowed_error_categories": ["f1_commission"],
-          "context_note": "Aspirin used for primary prevention was intentionally stopped after the bleed. That discontinuation is not an unknown medication and is not the same as a planted list error."
+          "allowed_error_categories": [
+            "f1_commission"
+          ],
+          "context_note": "Aspirin used for primary prevention was intentionally stopped after the bleed. That discontinuation is documented and is distinct from an omitted intended medication.",
+          "comorbidity_queries": [
+            "hyperlipidemia",
+            "hypertension",
+            "type 2 diabetes mellitus"
+          ],
+          "consults": [
+            {
+              "service": "gastroenterology",
+              "timepoint": "inpatient",
+              "assessment": "Gastroenterology recommendations were recorded.",
+              "recommendation": "Hold anticoagulation while hemoglobin remains stable, then reassess."
+            }
+          ],
+          "target_medication_query": "aspirin",
+          "admission_reason": "Admitted for gastrointestinal bleeding with intentional aspirin discontinuation."
         }
       ]
     }

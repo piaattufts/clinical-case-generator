@@ -29,7 +29,7 @@ Generation strategy for this path is `resident_seed_guided`. Frozen template bat
 
 ## GI-bleed seed handling
 
-`GI_BLEED_ACUTE_CHANGE` is retained as an archetype because the seed is a useful example of changing clinical status. It is included in `CLINIPROOF_SEEDCASES_V1` only as **discharge-ready** variants (held anticoagulation, pending restart, hospital-only PPI, or an isolated list error). The febrile hypotensive overlay is documented here and omitted from generated charts.
+`GI_BLEED_ACUTE_CHANGE` is retained as an archetype because the seed is a useful example of changing clinical status. It is included in `CLINIPROOF_SEEDCASES_V2` only as **discharge-ready** variants (held anticoagulation, pending restart, hospital-only PPI, or an isolated list error). The febrile hypotensive overlay is documented here and omitted from generated charts. The preclinical-QC freeze `CLINIPROOF_SEEDCASES_V1` remains archived.
 
 ## What blinded residents do not see
 

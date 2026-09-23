@@ -85,11 +85,11 @@ On hospital day 1, intake was 1927 mL and output was 1119 mL (net 808 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -101,7 +101,7 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
@@ -109,6 +109,18 @@ The following table lists laboratory tests stored on the case. The test identity
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 1.8 | {INR} |
 | Natriuretic peptide B [Mass/volume] in Serum or Plasma (admission) | 872.0 | pg/mL |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.1 | mmol/L |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -187,10 +199,6 @@ Serial weights:
 
 - admission: 104.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -250,11 +258,11 @@ On hospital day 1, intake was 1751 mL and output was 1598 mL (net 153 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -266,7 +274,7 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
@@ -274,6 +282,18 @@ The following table lists laboratory tests stored on the case. The test identity
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 3.1 | {INR} |
 | Natriuretic peptide B [Mass/volume] in Serum or Plasma (admission) | 889.0 | pg/mL |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 3.8 | mmol/L |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -354,10 +374,6 @@ Serial weights:
 
 - admission: 81.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -417,11 +433,11 @@ On hospital day 1, intake was 1577 mL and output was 1621 mL (net -44 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -433,7 +449,7 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
@@ -441,6 +457,18 @@ The following table lists laboratory tests stored on the case. The test identity
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 2.3 | {INR} |
 | Natriuretic peptide B [Mass/volume] in Serum or Plasma (admission) | 654.0 | pg/mL |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 3.7 | mmol/L |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -520,10 +548,6 @@ Serial weights:
 
 - admission: 92.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -583,11 +607,11 @@ On hospital day 1, intake was 1609 mL and output was 1491 mL (net 118 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -599,7 +623,7 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
@@ -607,6 +631,18 @@ The following table lists laboratory tests stored on the case. The test identity
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 2.8 | {INR} |
 | Natriuretic peptide B [Mass/volume] in Serum or Plasma (admission) | 399.0 | pg/mL |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.0 | mmol/L |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -686,10 +722,6 @@ Serial weights:
 
 - admission: 109.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -749,11 +781,11 @@ On hospital day 1, intake was 2032 mL and output was 1169 mL (net 863 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -765,7 +797,7 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
@@ -773,6 +805,18 @@ The following table lists laboratory tests stored on the case. The test identity
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 2.9 | {INR} |
 | Natriuretic peptide B [Mass/volume] in Serum or Plasma (admission) | 336.0 | pg/mL |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.6 | mmol/L |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -852,10 +896,6 @@ Serial weights:
 
 - admission: 71.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -915,11 +955,11 @@ On hospital day 1, intake was 1578 mL and output was 959 mL (net 619 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -931,7 +971,7 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
@@ -939,6 +979,18 @@ The following table lists laboratory tests stored on the case. The test identity
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 2.0 | {INR} |
 | Natriuretic peptide B [Mass/volume] in Serum or Plasma (admission) | 539.0 | pg/mL |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.1 | mmol/L |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -1018,10 +1070,6 @@ Serial weights:
 
 - admission: 98.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -1081,11 +1129,11 @@ On hospital day 1, intake was 2080 mL and output was 1294 mL (net 786 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -1097,7 +1145,7 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
@@ -1105,6 +1153,18 @@ The following table lists laboratory tests stored on the case. The test identity
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 2.8 | {INR} |
 | Natriuretic peptide B [Mass/volume] in Serum or Plasma (admission) | 690.0 | pg/mL |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 3.9 | mmol/L |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -1184,10 +1244,6 @@ Serial weights:
 
 - admission: 97.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -1247,11 +1303,11 @@ On hospital day 1, intake was 1510 mL and output was 1049 mL (net 461 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -1263,7 +1319,7 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
@@ -1271,6 +1327,18 @@ The following table lists laboratory tests stored on the case. The test identity
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 3.1 | {INR} |
 | Natriuretic peptide B [Mass/volume] in Serum or Plasma (admission) | 712.0 | pg/mL |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.5 | mmol/L |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -1350,10 +1418,6 @@ Serial weights:
 
 - admission: 92.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -1413,11 +1477,11 @@ On hospital day 1, intake was 1547 mL and output was 1368 mL (net 179 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -1429,7 +1493,7 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
@@ -1437,6 +1501,18 @@ The following table lists laboratory tests stored on the case. The test identity
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 3.0 | {INR} |
 | Natriuretic peptide B [Mass/volume] in Serum or Plasma (admission) | 413.0 | pg/mL |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.3 | mmol/L |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -1516,10 +1592,6 @@ Serial weights:
 
 - admission: 63.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -1579,11 +1651,11 @@ On hospital day 1, intake was 1487 mL and output was 1482 mL (net 5 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -1595,7 +1667,7 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
@@ -1603,6 +1675,18 @@ The following table lists laboratory tests stored on the case. The test identity
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 3.0 | {INR} |
 | Natriuretic peptide B [Mass/volume] in Serum or Plasma (admission) | 236.0 | pg/mL |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.2 | mmol/L |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -1684,10 +1768,6 @@ Serial weights:
 
 - admission: 74.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -1747,11 +1827,11 @@ On hospital day 1, intake was 1532 mL and output was 973 mL (net 559 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -1763,7 +1843,7 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
@@ -1771,6 +1851,18 @@ The following table lists laboratory tests stored on the case. The test identity
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 2.1 | {INR} |
 | Natriuretic peptide B [Mass/volume] in Serum or Plasma (admission) | 629.0 | pg/mL |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 3.8 | mmol/L |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -1850,10 +1942,6 @@ Serial weights:
 
 - admission: 60.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -1913,11 +2001,11 @@ On hospital day 1, intake was 2115 mL and output was 1763 mL (net 352 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -1929,7 +2017,7 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
@@ -1937,6 +2025,18 @@ The following table lists laboratory tests stored on the case. The test identity
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 2.0 | {INR} |
 | Natriuretic peptide B [Mass/volume] in Serum or Plasma (admission) | 427.0 | pg/mL |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 3.5 | mmol/L |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -2017,10 +2117,6 @@ Serial weights:
 
 - admission: 79.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -2080,11 +2176,11 @@ On hospital day 1, intake was 1743 mL and output was 1291 mL (net 452 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -2096,7 +2192,7 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
@@ -2104,6 +2200,18 @@ The following table lists laboratory tests stored on the case. The test identity
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 2.7 | {INR} |
 | Natriuretic peptide B [Mass/volume] in Serum or Plasma (admission) | 530.0 | pg/mL |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.4 | mmol/L |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -2183,10 +2291,6 @@ Serial weights:
 
 - admission: 63.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -2246,11 +2350,11 @@ On hospital day 1, intake was 2139 mL and output was 1397 mL (net 742 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -2262,12 +2366,24 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 0.9 | umol/L |
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 2.0 | {INR} |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -2337,10 +2453,6 @@ Serial weights:
 
 - admission: 89.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -2400,11 +2512,11 @@ On hospital day 1, intake was 2197 mL and output was 1316 mL (net 881 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -2416,12 +2528,24 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.1 | umol/L |
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 3.0 | {INR} |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -2492,10 +2616,6 @@ Serial weights:
 
 - admission: 72.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -2555,11 +2675,11 @@ On hospital day 1, intake was 1213 mL and output was 1459 mL (net -246 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -2571,12 +2691,24 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 0.9 | umol/L |
 | INR in Platelet poor plasma or blood by Coagulation assay (admission) | 2.6 | {INR} |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -2647,10 +2779,6 @@ Serial weights:
 
 - admission: 110.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -2710,11 +2838,11 @@ On hospital day 1, intake was 1969 mL and output was 849 mL (net 1120 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -2726,13 +2854,25 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.5 | umol/L |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.2 | mmol/L |
 | Sodium [Moles/volume] in Serum or Plasma (admission) | 134.0 | mmol/L |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -2806,10 +2946,6 @@ Serial weights:
 
 - admission: 72.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -2869,11 +3005,11 @@ On hospital day 1, intake was 1977 mL and output was 942 mL (net 1035 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -2885,13 +3021,25 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.4 | umol/L |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 3.6 | mmol/L |
 | Sodium [Moles/volume] in Serum or Plasma (admission) | 136.0 | mmol/L |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -2966,10 +3114,6 @@ Serial weights:
 
 - admission: 109.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -3029,11 +3173,11 @@ On hospital day 1, intake was 1877 mL and output was 884 mL (net 993 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -3045,13 +3189,25 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.5 | umol/L |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.1 | mmol/L |
 | Sodium [Moles/volume] in Serum or Plasma (admission) | 138.0 | mmol/L |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -3125,10 +3281,6 @@ Serial weights:
 
 - admission: 106.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -3188,11 +3340,11 @@ On hospital day 1, intake was 1688 mL and output was 811 mL (net 877 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -3204,13 +3356,25 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 0.9 | umol/L |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 3.8 | mmol/L |
 | Sodium [Moles/volume] in Serum or Plasma (admission) | 142.0 | mmol/L |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -3284,10 +3448,6 @@ Serial weights:
 
 - admission: 83.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -3347,11 +3507,11 @@ On hospital day 1, intake was 1814 mL and output was 1179 mL (net 635 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -3363,13 +3523,25 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.0 | umol/L |
 | Glucose [Moles/volume] in Serum or Plasma (admission) | 138.0 | mmol/L |
 | Hemoglobin [Mass/volume] in Blood by Oximetry (admission) | 12.9 | g/dL |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -3436,10 +3608,6 @@ Serial weights:
 
 - admission: 95.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -3499,11 +3667,11 @@ On hospital day 1, intake was 1644 mL and output was 940 mL (net 704 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -3515,13 +3683,25 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.5 | umol/L |
 | Glucose [Moles/volume] in Serum or Plasma (admission) | 174.0 | mmol/L |
 | Hemoglobin [Mass/volume] in Blood by Oximetry (admission) | 11.3 | g/dL |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -3589,10 +3769,6 @@ Serial weights:
 
 - admission: 85.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -3652,11 +3828,11 @@ On hospital day 1, intake was 1452 mL and output was 1089 mL (net 363 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -3668,13 +3844,25 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.6 | umol/L |
 | Glucose [Moles/volume] in Serum or Plasma (admission) | 146.0 | mmol/L |
 | Hemoglobin [Mass/volume] in Blood by Oximetry (admission) | 12.8 | g/dL |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -3742,10 +3930,6 @@ Serial weights:
 
 - admission: 82.000 kg
 
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
-
 ## About the case data
 
 This is a synthetic case created for medication-reconciliation assessment. It is not an extract from an individual patient’s medical record.
@@ -3805,11 +3989,11 @@ On hospital day 1, intake was 2029 mL and output was 888 mL (net 1141 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
-## Clinical status at discharge
+## Admission status
 
 ### Vital signs
 
-The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
+The following table lists admission vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.
 
 | Measure | Value | Unit |
 | --- | ---: | ---: |
@@ -3821,13 +4005,25 @@ The following table lists vital signs stored on the case. These numbers are synt
 
 ### Laboratory results
 
-The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
+The following table lists admission laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Moles/volume] in Serum or Plasma (admission) | 1.2 | umol/L |
 | Hemoglobin [Mass/volume] in Blood by Oximetry (admission) | 13.0 | g/dL |
 | Sodium [Moles/volume] in Serum or Plasma (admission) | 138.0 | mmol/L |
+
+## Discharge / most recent status
+
+The following table lists discharge or most-recent vital signs stored on the case.
+
+No vital signs were specified in this case.
+
+The following table lists discharge or most-recent laboratory tests stored on the case.
+
+No laboratory results were specified in this case.
+
+Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
 ## Home medications
 
@@ -3894,10 +4090,6 @@ Social context:
 Serial weights:
 
 - admission: 101.000 kg
-
-No imaging studies were specified in this case.
-
-No consultations were specified in this case.
 
 ## About the case data
 

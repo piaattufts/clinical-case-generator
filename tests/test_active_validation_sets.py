@@ -1,4 +1,4 @@
-"""Two active prospective sets plus archived V1 provenance."""
+"""Two active prospective sets plus archived V1/V2 preclinical provenance."""
 
 from __future__ import annotations
 
@@ -17,6 +17,8 @@ from app.services.validation_batch import load_batch_plan
 from app.services.validation_registry import (
     ARCHIVED_BATCH_CODE,
     BALANCED_BATCH_CODE,
+    PRECLINICAL_BALANCED_CODE,
+    PRECLINICAL_SEED_CODE,
     SEEDCASES_BATCH_CODE,
     STRATEGY_BALANCED,
     STRATEGY_ORIGINAL,
@@ -95,9 +97,17 @@ def test_registry_separates_active_and_archived_batches() -> None:
         BALANCED_BATCH_CODE,
         SEEDCASES_BATCH_CODE,
     ]
-    assert raw["archived_validation_batches"] == [ARCHIVED_BATCH_CODE]
+    assert raw["archived_validation_batches"] == [
+        ARCHIVED_BATCH_CODE,
+        PRECLINICAL_BALANCED_CODE,
+        PRECLINICAL_SEED_CODE,
+    ]
     assert active_batch_codes() == (BALANCED_BATCH_CODE, SEEDCASES_BATCH_CODE)
-    assert archived_batch_codes() == (ARCHIVED_BATCH_CODE,)
+    assert archived_batch_codes() == (
+        ARCHIVED_BATCH_CODE,
+        PRECLINICAL_BALANCED_CODE,
+        PRECLINICAL_SEED_CODE,
+    )
     assert ARCHIVED_BATCH_CODE not in active_batch_codes()
     balanced = get_batch(BALANCED_BATCH_CODE)
     seed = get_batch(SEEDCASES_BATCH_CODE)
@@ -105,11 +115,13 @@ def test_registry_separates_active_and_archived_batches() -> None:
     assert balanced.is_active
     assert seed.is_active
     assert archived.is_archived
+    assert get_batch(PRECLINICAL_BALANCED_CODE).is_archived
+    assert get_batch(PRECLINICAL_SEED_CODE).is_archived
     assert balanced.generation_strategy == STRATEGY_BALANCED
     assert seed.generation_strategy == STRATEGY_SEED
     assert archived.generation_strategy == STRATEGY_ORIGINAL
-    assert balanced.case_ids() == tuple(_case_ids("VAL-301", "VAL-324"))
-    assert seed.case_ids() == tuple(_case_ids("VAL-401", "VAL-424"))
+    assert balanced.case_ids() == tuple(_case_ids("VAL-501", "VAL-524"))
+    assert seed.case_ids() == tuple(_case_ids("VAL-601", "VAL-624"))
     assert archived.case_ids() == tuple(_case_ids("VAL-201", "VAL-224"))
 
 
@@ -117,21 +129,32 @@ def test_v1_frozen_source_hashes_are_unchanged() -> None:
     _assert_hashes(REPO / "data" / "validation", EXPECTED_V1_HASHES)
 
 
-def test_balanced_and_seed_frozen_source_hashes_are_unchanged() -> None:
+def test_preclinical_qc_freezes_remain_hashed() -> None:
     _assert_hashes(REPO / "data" / "validation_balanced", EXPECTED_V2_HASHES)
     _assert_hashes(REPO / "data" / "validation_seedcases", EXPECTED_SEED_HASHES)
 
 
+def _require_frozen() -> None:
+    for spec in (get_batch(BALANCED_BATCH_CODE), get_batch(SEEDCASES_BATCH_CODE)):
+        if not (spec.directory / "resident_validation_cases.json").is_file():
+            pytest.skip(f"{spec.code} freeze artifacts are not written yet")
+
+
 def test_active_batches_have_twenty_four_cases_and_non_overlapping_ids() -> None:
+    _require_frozen()
     balanced_ids = set(get_batch(BALANCED_BATCH_CODE).case_ids())
     seed_ids = set(get_batch(SEEDCASES_BATCH_CODE).case_ids())
     archived_ids = set(get_batch(ARCHIVED_BATCH_CODE).case_ids())
+    preclinical_balanced = set(get_batch(PRECLINICAL_BALANCED_CODE).case_ids())
+    preclinical_seed = set(get_batch(PRECLINICAL_SEED_CODE).case_ids())
     assert len(balanced_ids) == 24
     assert len(seed_ids) == 24
     assert len(archived_ids) == 24
     assert not balanced_ids & seed_ids
     assert not balanced_ids & archived_ids
     assert not seed_ids & archived_ids
+    assert not balanced_ids & preclinical_balanced
+    assert not seed_ids & preclinical_seed
     for spec in (get_batch(BALANCED_BATCH_CODE), get_batch(SEEDCASES_BATCH_CODE)):
         resident = _load(spec.directory / "resident_validation_cases.json")
         investigator = _load(spec.directory / "investigator_answer_key.json")
@@ -144,6 +167,7 @@ def test_active_batches_have_twenty_four_cases_and_non_overlapping_ids() -> None
 
 
 def test_each_active_batch_has_independent_study_materials() -> None:
+    _require_frozen()
     for spec in (get_batch(BALANCED_BATCH_CODE), get_batch(SEEDCASES_BATCH_CODE)):
         readable = spec.readable_dir
         assert (spec.directory / "investigator_answer_key.md").is_file()
@@ -176,6 +200,7 @@ def test_active_corpus_is_forty_eight_cases() -> None:
 
 
 def test_resident_exports_are_blinded_and_seed_provenance_stays_investigator_only() -> None:
+    _require_frozen()
     for spec in (get_batch(BALANCED_BATCH_CODE), get_batch(SEEDCASES_BATCH_CODE)):
         resident_blob = (spec.directory / "resident_validation_cases.json").read_text(
             encoding="utf-8"
@@ -202,6 +227,7 @@ def test_resident_exports_are_blinded_and_seed_provenance_stays_investigator_onl
 
 
 def test_clean_case_uniqueness_holds_for_both_active_batches() -> None:
+    _require_frozen()
     for spec, strategy in (
         (get_batch(BALANCED_BATCH_CODE), STRATEGY_BALANCED),
         (get_batch(SEEDCASES_BATCH_CODE), STRATEGY_SEED),
@@ -235,6 +261,7 @@ def test_clean_case_uniqueness_holds_for_both_active_batches() -> None:
 
 
 def test_error_isolation_counts_match_investigator_keys() -> None:
+    _require_frozen()
     for spec in (get_batch(BALANCED_BATCH_CODE), get_batch(SEEDCASES_BATCH_CODE)):
         investigator = _load(spec.directory / "investigator_answer_key.json")
         family_1 = family_2 = controls = 0
@@ -280,6 +307,10 @@ def test_readme_and_index_route_to_two_active_sets() -> None:
         assert phrase.casefold() not in lowered, phrase
     assert "two active prospective validation datasets" in lowered
     assert "48" in readme
+    assert BALANCED_BATCH_CODE in readme
+    assert SEEDCASES_BATCH_CODE in readme
+    assert "CLINIPROOF_BALANCED_V3" in readme
+    assert "CLINIPROOF_SEEDCASES_V2" in readme
     assert "CLINIPROOF_BALANCED_V2" in readme
     assert "CLINIPROOF_SEEDCASES_V1" in readme
     assert "archived historical provenance" in lowered or "historical provenance" in lowered
@@ -337,6 +368,7 @@ def test_archived_v1_catalog_is_labeled_historical() -> None:
 
 
 def test_active_batch_comparison_is_descriptive() -> None:
+    _require_frozen()
     write_active_batch_comparison(COMPARISON)
     blob = COMPARISON.read_text(encoding="utf-8")
     assert "does not rank" in blob

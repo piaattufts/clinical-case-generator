@@ -7,6 +7,7 @@ gaps. External APIs are not called on ordinary case reads.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -20,6 +21,7 @@ from app.repositories.cases import (
     list_diagnoses_for_case,
     list_labs_for_case,
     list_medications_for_case,
+    list_monitoring_for_case,
     list_plans_for_case,
 )
 from app.repositories.reference import (
@@ -28,7 +30,16 @@ from app.repositories.reference import (
     get_medication_by_rxcui,
     get_unit_by_ucum,
 )
+from app.services.clinical_coherence import (
+    dose_compatible_with_form,
+    implausible_lab_errors,
+    indication_matches_problems,
+    resident_leak_hits,
+    route_compatible_with_form,
+)
 from app.services.error_taxonomy import (
+    F1_DOSE,
+    F1_ROUTE,
     NONE,
     canonicalize_category,
     detect_findings,
@@ -79,6 +90,12 @@ def validate_case(
     structural = _structural(session, case)
     terminology = _terminology(session, case)
     clinical = _clinical(session, snapshot)
+    coherence = _clinical_coherence(
+        session,
+        case,
+        expected_category=expected_category,
+        expect_injected_error=expect_injected_error,
+    )
     plan_layer = _assessment_consistency(
         session,
         case,
@@ -87,7 +104,7 @@ def validate_case(
     )
     report = ValidationReport(
         case_id_code=case.case_id_code,
-        layers=[structural, terminology, clinical, plan_layer],
+        layers=[structural, terminology, clinical, coherence, plan_layer],
         rules=evaluate_rules(session, snapshot),
     )
     return report
@@ -205,6 +222,99 @@ def _terminology(session: Session, case: ClinicalCase) -> LayerResult:
             if unit_row is not None and unit_row.source_system is None:
                 errors.append(f"UCUM {lab.unit} has no source provenance")
     return LayerResult("terminology", passed=not errors, errors=errors)
+
+
+def _clinical_coherence(
+    session: Session,
+    case: ClinicalCase,
+    *,
+    expected_category: str | None,
+    expect_injected_error: bool,
+) -> LayerResult:
+    errors: list[str] = []
+    problems = [
+        item.diagnosis
+        for item in list_diagnoses_for_case(session, case.id)
+        if item.diagnosis
+    ]
+    planted_category = canonicalize_category(expected_category) if expected_category else NONE
+    keys = list_answer_keys_for_case(session, case.id)
+    if keys:
+        planted_category = canonicalize_category(keys[0].error_category)
+    for lab in list_labs_for_case(session, case.id):
+        errors.extend(implausible_lab_errors(lab.test_name, lab.value, lab.unit))
+    for medication in list_medications_for_case(session, case.id):
+        med_row = (
+            session.get(RefMedication, medication.ref_medication_id)
+            if medication.ref_medication_id is not None
+            else None
+        )
+        skip_route = (
+            expect_injected_error
+            and planted_category == F1_ROUTE
+            and medication.context == "discharge"
+        )
+        skip_dose = (
+            expect_injected_error
+            and planted_category in {F1_DOSE, F1_ROUTE}
+            and medication.context == "discharge"
+        )
+        if med_row is not None and not skip_route:
+            if not route_compatible_with_form(medication.route, med_row):
+                errors.append(
+                    f"route {medication.route!r} is incompatible with "
+                    f"{med_row.dose_form or med_row.concept_name}"
+                )
+            if not skip_dose and not dose_compatible_with_form(medication.dose, med_row):
+                errors.append(
+                    f"dose {medication.dose!r} is incompatible with "
+                    f"{med_row.dose_form or med_row.concept_name}"
+                )
+        if medication.indication and problems:
+            if not indication_matches_problems(medication.indication, problems):
+                if "formulary substitution" not in (medication.indication or "").casefold():
+                    if "inpatient-only" not in (medication.indication or "").casefold():
+                        if "not a treatment for the admission diagnosis" not in (
+                            medication.indication or ""
+                        ).casefold():
+                            errors.append(
+                                f"indication {medication.indication!r} is not represented "
+                                "on the case problem list"
+                            )
+    leak_fields = [
+        case.chief_complaint,
+        case.one_liner,
+        case.admission_dx,
+    ]
+    from sqlalchemy import select
+
+    from app.models.cases import CaseInstruction, CaseNote, CasePresentation
+
+    presentation = session.scalars(
+        select(CasePresentation).where(CasePresentation.case_id == case.id)
+    ).first()
+    if presentation is not None:
+        leak_fields.extend([presentation.chief_complaint, presentation.hpi])
+    for note in session.scalars(select(CaseNote).where(CaseNote.case_id == case.id)):
+        leak_fields.append(note.note_text)
+    for instruction in session.scalars(
+        select(CaseInstruction).where(CaseInstruction.case_id == case.id)
+    ):
+        leak_fields.append(instruction.instruction_text)
+    blob = "\n".join(part for part in leak_fields if part)
+    for hit in resident_leak_hits(blob):
+        errors.append(f"resident-facing text leaked {hit!r}")
+    has_monitoring = bool(list_monitoring_for_case(session, case.id))
+    if re.search(
+        r"\b(?:scheduled laboratory monitoring|monitoring was arranged|"
+        r"inr monitoring was arranged)\b",
+        blob,
+        flags=re.IGNORECASE,
+    ) and not has_monitoring:
+        errors.append(
+            "narrative claims monitoring was arranged but no monitoring row is stored"
+        )
+    return LayerResult("clinical_coherence", passed=not errors, errors=errors)
 
 
 def _clinical(session: Session, snapshot: CaseSnapshot) -> LayerResult:

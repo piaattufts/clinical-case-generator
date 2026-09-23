@@ -316,6 +316,15 @@ def _medication_table(rows: Sequence[Mapping[str, Any]], context: str) -> str:
     )
 
 
+def _filter_timepoint(rows: Sequence[Mapping[str, Any]], timepoint: str) -> list[Mapping[str, Any]]:
+    selected = []
+    for row in rows:
+        actual = str(row.get("timepoint") or "").casefold()
+        if actual == timepoint.casefold():
+            selected.append(row)
+    return selected
+
+
 def _vitals_table(rows: Sequence[Mapping[str, Any]]) -> str:
     ordered = _sort_maps(rows, ("timepoint", "vital_id"))
     measures: list[list[object]] = []
@@ -417,6 +426,11 @@ def _named_rows(
 
 def _hospital_course(clinical: Mapping[str, Any], case: Mapping[str, Any]) -> str:
     paragraphs: list[str] = []
+    for row in _sort_maps(_as_list(case.get("CaseNote")), ("note_type", "note_id")):
+        if str(row.get("note_type") or "") != "hospital_course":
+            continue
+        if not _is_missing(row.get("note_text")):
+            paragraphs.append(display(row.get("note_text")))
     io_rows = _sort_maps(_as_list(case.get("CaseIntakeOutput")), ("timepoint", "io_id"))
     for row in io_rows:
         timepoint = _labelize(row.get("timepoint"))
@@ -424,8 +438,9 @@ def _hospital_course(clinical: Mapping[str, Any], case: Mapping[str, Any]) -> st
             f"On {timepoint}, intake was {display(row.get('intake_ml'))} mL and output was "
             f"{display(row.get('output_ml'))} mL (net {display(row.get('net_ml'))} mL)."
         )
-        if not _is_missing(row.get("notes")):
-            sentence += f" Note: {display(row.get('notes'))}"
+        notes = row.get("notes")
+        if not _is_missing(notes) and str(notes) != "synthetic_model_generated":
+            sentence += f" Note: {display(notes)}"
         paragraphs.append(sentence)
     planning = _as_dict(clinical.get("discharge_planning"))
     plan_bits = []
@@ -519,23 +534,46 @@ def _other_visible(case: Mapping[str, Any], clinical: Mapping[str, Any]) -> str:
             )
         sections.append("Serial weights:\n\n" + "\n".join(weight_lines))
     imaging = _as_list(case.get("CaseImaging"))
-    consults = _as_list(case.get("CaseConsult"))
     if imaging:
-        sections.append("Imaging:\n\n" + display(imaging))
-    else:
-        sections.append("No imaging studies were specified in this case.")
+        sections.append(
+            "Imaging:\n\n"
+            + _named_rows(imaging, "study_type", ("timepoint", "body_site", "finding"))
+        )
+    consults = _as_list(case.get("CaseConsult"))
     if consults:
-        sections.append("Consultations:\n\n" + display(consults))
-    else:
-        sections.append("No consultations were specified in this case.")
-    for label, key in (
-        ("Procedures", "CaseProcedure"),
-        ("Devices", "CaseDevice"),
-        ("Therapy restrictions", "CaseTherapyRestriction"),
+        sections.append(
+            "Consultations:\n\n"
+            + _named_rows(consults, "service", ("timepoint", "assessment", "recommendation"))
+        )
+    for label, key, name_key, extra in (
+        (
+            "Procedures",
+            "CaseProcedure",
+            "procedure_name",
+            ("time", "procedure_type", "findings"),
+        ),
+        (
+            "Devices",
+            "CaseDevice",
+            "device_type",
+            ("site", "status", "care_instructions", "removal_plan"),
+        ),
+        (
+            "Microbiology",
+            "CaseMicrobiology",
+            "test",
+            ("timepoint", "specimen", "organism", "result", "status"),
+        ),
+        (
+            "Therapy restrictions",
+            "CaseTherapyRestriction",
+            "item",
+            ("category", "status"),
+        ),
     ):
         rows = _as_list(case.get(key))
         if rows:
-            sections.append(f"{label}:\n\n" + display(rows))
+            sections.append(f"{label}:\n\n" + _named_rows(rows, name_key, extra))
     return "\n\n".join(sections) if sections else "No additional clinical information was specified."
 
 
@@ -550,13 +588,21 @@ def render_resident_case(case: Mapping[str, Any]) -> str:
         for row in _sort_maps(notes, ("note_type", "note_id"))
         if not _is_missing(row.get("note_text"))
     )
+    diagnoses = _diagnoses_table(_as_list(case.get("CaseDiagnosis")))
+    problems = _problems_table(_as_list(case.get("CaseProblemList")))
     history_bits = []
     if not _is_missing(clinical.get("medical_history")):
         history_bits.append("**Past medical history:** " + display(clinical.get("medical_history")))
     if not _is_missing(clinical.get("allergies")):
         history_bits.append("**Allergies:** " + display(clinical.get("allergies")))
-    diagnoses = _diagnoses_table(_as_list(case.get("CaseDiagnosis")))
-    problems = _problems_table(_as_list(case.get("CaseProblemList")))
+    if not history_bits:
+        pmh = [
+            row.get("diagnosis")
+            for row in _as_list(case.get("CaseDiagnosis"))
+            if str(row.get("diagnosis_type") or "") == "past_history" and row.get("diagnosis")
+        ]
+        if pmh:
+            history_bits.append("**Past medical history:** " + display(pmh))
     history_body = (
         "\n\n".join(history_bits)
         if history_bits
@@ -624,19 +670,39 @@ def render_resident_case(case: Mapping[str, Any]) -> str:
         "",
         _hospital_course(clinical, case),
         "",
-        "## Clinical status at discharge",
+        "## Admission status",
         "",
         "### Vital signs",
         "",
-        "The following table lists vital signs stored on the case. These numbers are synthetic patient-specific values, not measurements from a real record.",
+        "The following table lists admission vital signs stored on the case. "
+        "These numbers are synthetic patient-specific values, not measurements from a real record.",
         "",
-        _vitals_table(_as_list(case.get("CaseVital"))),
+        _vitals_table(
+            _filter_timepoint(_as_list(case.get("CaseVital")), "admission")
+            or _as_list(case.get("CaseVital"))
+        ),
         "",
         "### Laboratory results",
         "",
-        "The following table lists laboratory tests stored on the case. The test identity comes from LOINC. The numeric result is synthetic.",
+        "The following table lists admission laboratory tests stored on the case. "
+        "The test identity comes from LOINC. The numeric result is synthetic.",
         "",
-        _labs_table(_as_list(case.get("CaseLab"))),
+        _labs_table(
+            _filter_timepoint(_as_list(case.get("CaseLab")), "admission")
+            or _as_list(case.get("CaseLab"))
+        ),
+        "",
+        "## Discharge / most recent status",
+        "",
+        "The following table lists discharge or most-recent vital signs stored on the case.",
+        "",
+        _vitals_table(_filter_timepoint(_as_list(case.get("CaseVital")), "discharge")),
+        "",
+        "The following table lists discharge or most-recent laboratory tests stored on the case.",
+        "",
+        _labs_table(_filter_timepoint(_as_list(case.get("CaseLab")), "discharge")),
+        "",
+        "Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.",
         "",
         "## Home medications",
         "",
@@ -938,7 +1004,7 @@ def render_clinician_packet(
             "## Reviewer task"
             + reviewer_task
         )
-        if batch_code == "CLINIPROOF_SEEDCASES_V1":
+        if batch_code in {"CLINIPROOF_SEEDCASES_V1", "CLINIPROOF_SEEDCASES_V2"}:
             header += (
                 "\nThese charts were generated from expert/resident-authored clinical "
                 "archetypes and remain synthetic. The specific source archetype is not "
@@ -1036,7 +1102,7 @@ def build_readable_packets(
             "synthetic resident-review case pending clinician validation. Passing the "
             "clean-case diversity audit does not mean the cases are clinically validated.\n"
         )
-        if batch_code == "CLINIPROOF_SEEDCASES_V1":
+        if batch_code in {"CLINIPROOF_SEEDCASES_V1", "CLINIPROOF_SEEDCASES_V2"}:
             readme_text += (
                 "\nThese synthetic cases were derived from expert/resident-authored "
                 "clinical archetypes. They are not copies of the source patients. "
@@ -1119,3 +1185,7 @@ def main(argv: list[str] | None = None) -> int:
         batch_code=args.batch_code,
     )
     return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

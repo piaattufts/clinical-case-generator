@@ -1,14 +1,38 @@
 {
   "active_validation_batches": [
+    "CLINIPROOF_BALANCED_V3",
+    "CLINIPROOF_SEEDCASES_V2"
+  ],
+  "archived_validation_batches": [
+    "CLINIPROOF_TAXONOMY_V1",
     "CLINIPROOF_BALANCED_V2",
     "CLINIPROOF_SEEDCASES_V1"
   ],
-  "archived_validation_batches": [
-    "CLINIPROOF_TAXONOMY_V1"
-  ],
   "batches": {
-    "CLINIPROOF_BALANCED_V2": {
+    "CLINIPROOF_BALANCED_V3": {
       "status": "active",
+      "generation_strategy": "balanced_structured",
+      "directory": "data/validation_balanced_v3",
+      "plan": "data/validation_balanced_v3/batch_plan.json",
+      "readable": "data/validation_balanced_v3/readable",
+      "public_id_first": "VAL-501",
+      "public_id_last": "VAL-524",
+      "case_count": 24,
+      "description": "Corrected balanced structured scenario generation after clinical QC."
+    },
+    "CLINIPROOF_SEEDCASES_V2": {
+      "status": "active",
+      "generation_strategy": "resident_seed_guided",
+      "directory": "data/validation_seedcases_v2",
+      "plan": "data/validation_seedcases_v2/batch_plan.json",
+      "readable": "data/validation_seedcases_v2/readable",
+      "public_id_first": "VAL-601",
+      "public_id_last": "VAL-624",
+      "case_count": 24,
+      "description": "Corrected resident-seed-guided generation after clinical QC."
+    },
+    "CLINIPROOF_BALANCED_V2": {
+      "status": "archived",
       "generation_strategy": "balanced_structured",
       "directory": "data/validation_balanced",
       "plan": "data/validation_balanced/batch_plan.json",
@@ -16,10 +40,10 @@
       "public_id_first": "VAL-301",
       "public_id_last": "VAL-324",
       "case_count": 24,
-      "description": "Balanced structured scenario generation with named clinical profiles."
+      "description": "Preclinical-QC version of balanced structured generation. Superseded by CLINIPROOF_BALANCED_V3. Not an active prospective set."
     },
     "CLINIPROOF_SEEDCASES_V1": {
-      "status": "active",
+      "status": "archived",
       "generation_strategy": "resident_seed_guided",
       "directory": "data/validation_seedcases",
       "plan": "data/validation_seedcases/batch_plan.json",
@@ -27,7 +51,7 @@
       "public_id_first": "VAL-401",
       "public_id_last": "VAL-424",
       "case_count": 24,
-      "description": "Resident-seed-guided generation from abstracted clinical archetypes."
+      "description": "Preclinical-QC version of resident-seed-guided generation. Superseded by CLINIPROOF_SEEDCASES_V2. Not an active prospective set."
     },
     "CLINIPROOF_TAXONOMY_V1": {
       "status": "archived",

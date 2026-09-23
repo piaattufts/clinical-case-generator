@@ -1,8 +1,8 @@
 """Load resident-seed-guided archetypes without mixing them into template scenarios.
 
-Template families stay in data/bootstrap/scenarios.json and keep
-generation_strategy=randomized_template. Seed archetypes are a separate file so
-CLINIPROOF_TAXONOMY_V1 and CLINIPROOF_BALANCED_V2 are not relabeled.
+Template families stay in data/bootstrap/scenarios.json. Balanced freeze plans
+label those families generation_strategy=balanced_structured at freeze time.
+Seed archetypes are a separate file so archived batches are not relabeled.
 """
 
 from __future__ import annotations
@@ -23,7 +23,7 @@ SEED_SOURCE_DIR = (
 GENERATION_STRATEGY_TEMPLATE = "randomized_template"
 GENERATION_STRATEGY_SEED = "resident_seed_guided"
 SEED_SOURCE_TYPE = "resident_authored"
-SEEDCASES_BATCH_CODE = "CLINIPROOF_SEEDCASES_V1"
+SEEDCASES_BATCH_CODE = "CLINIPROOF_SEEDCASES_V2"
 
 SEED_LEAK_MARKERS = (
     "generation_strategy",
@@ -39,6 +39,17 @@ SEED_LEAK_MARKERS = (
     "post-op_case",
     "sepsis_ama",
     "blueprint_version",
+    "clean case",
+    "clean discharge plan",
+    "planted error",
+    "seed document",
+    "software rule",
+    "unsupported dosing",
+    "answer key",
+    "error category",
+    "target medication",
+    "profile id",
+    "generator",
 )
 
 

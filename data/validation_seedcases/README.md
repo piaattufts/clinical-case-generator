@@ -1,13 +1,13 @@
 # Prospective seed-guided CliniProof set (`CLINIPROOF_SEEDCASES_V1`)
 
-**Status: active prospective validation set.**
+**Status: archived preclinical-QC version.** This freeze is **not** an active prospective study set. The corrected active seed-guided set is [`CLINIPROOF_SEEDCASES_V2`](../validation_seedcases_v2/).
 
-This directory holds one of the two active CliniProof batches. Public identifiers are VAL-401 through VAL-424. `generation_strategy = resident_seed_guided`.
+This directory preserves the preclinical-QC freeze `CLINIPROOF_SEEDCASES_V1`. Public identifiers are VAL-401 through VAL-424. `generation_strategy = resident_seed_guided`.
 
 It does **not** replace or regenerate:
 
 - archived `CLINIPROOF_TAXONOMY_V1` in [`data/validation/`](../validation/)
-- active `CLINIPROOF_BALANCED_V2` in [`data/validation_balanced/`](../validation_balanced/)
+- preclinical-QC `CLINIPROOF_BALANCED_V2` in [`data/validation_balanced/`](../validation_balanced/)
 
 Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. Passing the diversity audit does not mean the cases are clinically validated.
 

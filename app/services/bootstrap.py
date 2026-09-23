@@ -37,6 +37,12 @@ from app.repositories.reference import (
     upsert_symptom,
     upsert_unit,
 )
+from app.services.clinical_coherence import (
+    formulation_preference_rank,
+    formulation_preference_rank_blob,
+    is_symptom_level_concept,
+    lab_unit_rank,
+)
 from app.services.reference_sync import (
     DEFAULT_SYNC_LIMIT,
     sync_icd10cm,
@@ -99,6 +105,15 @@ _LOINC_DEPRIORITIZE = (
     "blood product",
     "free hemoglobin",
 )
+_DIAGNOSIS_DEPRIORITIZE = (
+    "neonatal",
+    "newborn",
+    "perinatal",
+    "fetal",
+    "in diseases classified elsewhere",
+    "unspecified complications",
+)
+_PEDIATRIC_CHAPTER_PREFIXES = ("P", "O")
 _LOINC_PREFERRED_SPECIMEN = (
     "serum or plasma",
     "platelet poor plasma",
@@ -238,11 +253,7 @@ def match_diagnosis(session: Session, query: str) -> RefDiagnosis | None:
     rows, _ = search_diagnoses(session, query, limit=50, offset=0)
     ranked = sorted(
         rows,
-        key=lambda row: (
-            0 if _contains(row.preferred_name, query) else 1,
-            0 if _contains(row.icd10cm_code, query) else 1,
-            (row.icd10cm_code or ""),
-        ),
+        key=lambda row: _diagnosis_rank_key(row.preferred_name, row.icd10cm_code, query),
     )
     return ranked[0] if ranked else None
 
@@ -349,15 +360,19 @@ def _bootstrap_symptoms(
     for name in names:
         try:
             hits = sorted(client.search(name, count=DEFAULT_SYNC_LIMIT), key=lambda item: item.name)
-            chosen = next(
+            ranked = sorted(
                 (
                     item
                     for item in hits
-                    if token_match(item.name, name)
-                    or any(token_match(synonym, name) for synonym in item.synonyms)
+                    if is_symptom_level_concept(item.name, name)
+                    or any(is_symptom_level_concept(synonym, name) for synonym in item.synonyms)
                 ),
-                None,
+                key=lambda item: (
+                    0 if (item.name or "").casefold() == name.casefold() else 1,
+                    item.name or "",
+                ),
             )
+            chosen = ranked[0] if ranked else None
             if chosen is not None:
                 provenance = build_provenance("NLM_CONDITIONS")
                 row = upsert_symptom(
@@ -397,8 +412,8 @@ def _bootstrap_hpo_symptom(session: Session, client: HpoClient, name: str) -> Re
         (
             item
             for item in hits
-            if token_match(item.name, name)
-            or any(token_match(synonym, name) for synonym in item.synonyms)
+            if is_symptom_level_concept(item.name, name)
+            or any(is_symptom_level_concept(synonym, name) for synonym in item.synonyms)
         ),
         None,
     )
@@ -595,10 +610,12 @@ def _prefer_rxnorm_concept(
     ranked = sorted(
         filtered or [],
         key=lambda item: (
-            0 if _contains(item.name, query) else 1,
-            _formulation_rank_text(
-                " ".join(part for part in (item.name, item.synonym) if part)
+            formulation_preference_rank_blob(
+                " ".join(part for part in (item.name, item.synonym) if part),
+                query,
             ),
+            _ugly_product_rank(item.name),
+            0 if _contains(item.name, query) else 1,
             TTY_PRIORITY.get(item.tty or "", 9),
             item.rxcui,
         ),
@@ -640,7 +657,7 @@ def _loinc_search_queries(name: str) -> list[str]:
 
 def _loinc_rank_key(
     item: LoincConcept, query: str
-) -> tuple[int, int, int, int, int, int, int, int, str]:
+) -> tuple[int, int, int, int, int, int, int, int, int, str]:
     return (
         0 if _loinc_text_matches(item, query) else 1,
         _loinc_analyte_rank(item, query),
@@ -648,6 +665,7 @@ def _loinc_rank_key(
         1 if _loinc_deprioritized(item) else 0,
         _loinc_specimen_rank(item),
         1 if _loinc_deprioritized_specimen(item) else 0,
+        lab_unit_rank(item, query),
         0 if item.example_ucum_units else 1,
         0 if item.long_common_name and "[" in item.long_common_name else 1,
         item.loinc_code,
@@ -726,13 +744,42 @@ def _concept_from_lab_row(row: RefLabTest) -> LoincConcept:
 def _prefer_icd_concept(concepts: Any, query: str) -> Any | None:
     ranked = sorted(
         list(concepts),
-        key=lambda item: (
-            0 if _contains(item.description, query) else 1,
-            len(item.icd10cm_code),
-            item.icd10cm_code,
-        ),
+        key=lambda item: _diagnosis_rank_key(item.description, item.icd10cm_code, query),
     )
     return ranked[0] if ranked else None
+
+
+def _diagnosis_rank_key(
+    name: str | None, code: str | None, query: str
+) -> tuple[int, int, int, int, str]:
+    lowered = (name or "").casefold()
+    code_text = code or ""
+    query_cf = query.casefold()
+    pediatric_query = any(
+        token in query_cf for token in ("neonatal", "newborn", "perinatal", "fetal")
+    )
+    deprioritize = 0
+    if not pediatric_query:
+        if any(token in lowered for token in _DIAGNOSIS_DEPRIORITIZE):
+            deprioritize = 2
+        if "candidal" in lowered or "candida" in lowered:
+            deprioritize = max(deprioritize, 2)
+        if code_text[:1].upper() in _PEDIATRIC_CHAPTER_PREFIXES:
+            deprioritize = max(deprioritize, 2)
+    unspecified = (
+        2
+        if "unspecified complications" in lowered
+        else 1
+        if "unspecified" in lowered
+        else 0
+    )
+    return (
+        0 if _contains(name, query) or _contains(code, query) else 1,
+        deprioritize,
+        unspecified,
+        len(code_text),
+        code_text,
+    )
 
 
 def _prefer_medication_row(rows: list[RefMedication], query: str) -> RefMedication | None:
@@ -751,6 +798,8 @@ def _prefer_medication_row(rows: list[RefMedication], query: str) -> RefMedicati
             or _contains(row.generic_name, query)
             or _contains(row.concept_name, query)
             else 1,
+            formulation_preference_rank(row, query),
+            _ugly_product_rank(row.concept_name),
             _formulation_rank(row),
             TTY_PRIORITY.get(row.term_type or "", 9),
             row.rxcui,
@@ -842,6 +891,13 @@ def token_match(value: str | None, query: str) -> bool:
         return False
     pattern = r"(?<![a-z0-9])" + re.escape(needle.casefold()) + r"(?![a-z0-9])"
     return re.search(pattern, value.casefold()) is not None
+
+
+def _ugly_product_rank(name: str | None) -> int:
+    lowered = (name or "").casefold()
+    if lowered.startswith("nda") or " nda" in lowered:
+        return 1
+    return 0
 
 
 def _contains(value: str | None, query: str) -> bool:
