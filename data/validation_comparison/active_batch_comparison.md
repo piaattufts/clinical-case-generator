@@ -8,12 +8,12 @@ modify either frozen batch. Uniqueness is judged on clean-case structure
 reconstructed from resident-facing fields plus investigator labels.
 Age, sex, exact vitals, and exact laboratory numbers are excluded.
 
-Left: `CLINIPROOF_BALANCED_V3` (`balanced_structured`).
-Right: `CLINIPROOF_SEEDCASES_V2` (`resident_seed_guided`).
+Left: `CLINIPROOF_BALANCED_V4` (`balanced_structured`).
+Right: `CLINIPROOF_SEEDCASES_V3` (`resident_seed_guided`).
 
 The archived original freeze `CLINIPROOF_TAXONOMY_V1` is excluded.
 
-| Measure | CLINIPROOF_BALANCED_V3 | CLINIPROOF_SEEDCASES_V2 |
+| Measure | CLINIPROOF_BALANCED_V4 | CLINIPROOF_SEEDCASES_V3 |
 | --- | ---: | ---: |
 | Cases | 24 | 24 |
 | Generation strategy | balanced_structured | resident_seed_guided |
@@ -22,14 +22,14 @@ The archived original freeze `CLINIPROOF_TAXONOMY_V1` is excluded.
 | Unique diagnoses | 5 | 6 |
 | Unique specialties | 3 | 5 |
 | Unique symptom sets | 14 | 12 |
-| Unique home-medication sets | 21 | 21 |
+| Unique home-medication sets | 21 | 19 |
 | Unique hospital-course profiles | 24 | 24 |
 | Unique follow-up profiles | 24 | 21 |
-| Unique imaging sets | 2 | 3 |
+| Unique imaging sets | 3 | 4 |
 | Unique consult sets | 3 | 7 |
 | Exact duplicate fingerprints | 0 | 0 |
 | Near-duplicate warnings | 2 | 7 |
-| Closest-pair similarity | 0.7567 | 0.79 |
+| Closest-pair similarity | 0.7775 | 0.79 |
 | Family 1 count | 11 | 7 |
 | Family 2 count | 9 | 13 |
 | Clean-control count | 4 | 4 |
@@ -90,8 +90,8 @@ The archived original freeze `CLINIPROOF_TAXONOMY_V1` is excluded.
 
 ## Closest pairs
 
-- Left closest pair: VAL-517 vs VAL-520 (0.7567)
-- Right closest pair: VAL-605 vs VAL-607 (0.79)
+- Left closest pair: VAL-717 vs VAL-720 (0.7775)
+- Right closest pair: VAL-805 vs VAL-807 (0.79)
 
 ## Method note
 

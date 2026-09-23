@@ -1,6 +1,6 @@
 # Resident-authored seed cases
 
-Resident-authored documents in [`resident_authored/`](resident_authored/) are **clinical design references**. They are not study cases. They are not copied, paraphrased patient-by-patient, or frozen as VAL records.
+Resident-authored documents in [`resident_authored/`](resident_authored/) are **clinical design references**. They are not study cases. They are not copied, paraphrased patient-by-patient, or frozen as VAL records. The six source files are preserved unchanged. They are abstracted into blueprints. Synthetic study cases are new patients. The six examples do not establish prevalence, and exact original patient details are not reused as study records. Source-backed terminology is resolved separately from resident expertise.
 
 Until clinicians finish review, generated records remain machine-validated synthetic resident-review cases pending clinician validation. Passing a diversity audit is not clinical validation.
 
@@ -16,11 +16,20 @@ Until clinicians finish review, generated records remain machine-validated synth
 
 Generation strategy for this path is `resident_seed_guided`. Frozen template batches keep `randomized_template`.
 
+## Six archetype families
+
+1. `MEDREC_UNCERTAIN_HISTORY` — medication history uncertainty
+2. `HF_DECOMPENSATION` — acute heart-failure decompensation
+3. `OPAT_ENDOCARDITIS` — outpatient parenteral therapy for endocarditis
+4. `TRANSPLANT_CMV` — transplant immunosuppression and CMV treatment
+5. `POSTOP_ANTICOAGULATION` — postoperative anticoagulation after hip fracture
+6. `GI_BLEED_ACUTE_CHANGE` — gastrointestinal bleeding with an acute medication change
+
 ## Mapping
 
 | Resident source | Archetype | Key preserved concepts | Details intentionally varied |
 | --------------- | --------- | ---------------------- | ---------------------------- |
-| `Bad_Med_Rec_Case.docx` | `MEDREC_UNCERTAIN_HISTORY` | Incomplete history, later collateral list, deprescribing vs unknown vs planted error, home services, PCP follow-up | Exact age/sex/language/neighborhood, specific family members, copied medication nicknames, source laboratory sequence |
+| `Bad_Med_Rec_Case.docx` | `MEDREC_UNCERTAIN_HISTORY` | Incomplete history, later collateral list, deprescribing versus an uncertain list, home services, PCP follow-up | Exact age/sex/language/neighborhood, specific family members, copied medication nicknames, source laboratory sequence |
 | `Heart_Failure_Case.docx` | `HF_DECOMPENSATION` | Congestion, diuresis trajectory, weights/I&O, electrolyte and creatinine course, holds that need reassessment | Source weight series, copied GDMT brand combination, URI/dietary story, exact laboratory numbers |
 | `OPAT_Case.docx` | `OPAT_ENDOCARDITIS` | Prolonged parenteral therapy, specified duration, recurring labs, infectious-disease follow-up, line precautions | Organism name, valve surgery year, colonoscopy finding, copied home-medication milligrams |
 | `Post_transplant_case.docx` | `TRANSPLANT_CMV` | Transplant history, immunosuppression, infectious complication, temporary holds, antiviral conversion, specialty follow-up | Source tacrolimus goals as a hard rule, copied viral-load series, identifiable transplant chronology |
@@ -29,7 +38,7 @@ Generation strategy for this path is `resident_seed_guided`. Frozen template bat
 
 ## GI-bleed seed handling
 
-`GI_BLEED_ACUTE_CHANGE` is retained as an archetype because the seed is a useful example of changing clinical status. It is included in `CLINIPROOF_SEEDCASES_V2` only as **discharge-ready** variants (held anticoagulation, pending restart, hospital-only PPI, or an isolated list error). The febrile hypotensive overlay is documented here and omitted from generated charts. The preclinical-QC freeze `CLINIPROOF_SEEDCASES_V1` remains archived.
+`GI_BLEED_ACUTE_CHANGE` is retained as an archetype because the seed is a useful example of changing clinical status. The active set `CLINIPROOF_SEEDCASES_V3` includes it only as **discharge-ready** variants (held anticoagulation, pending restart, hospital-only PPI, or an isolated list error). The febrile hypotensive overlay is documented here and omitted from generated charts. `CLINIPROOF_SEEDCASES_V1` and `CLINIPROOF_SEEDCASES_V2` remain archived.
 
 ## What blinded residents do not see
 

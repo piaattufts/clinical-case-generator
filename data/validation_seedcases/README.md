@@ -1,6 +1,9 @@
 # Prospective seed-guided CliniProof set (`CLINIPROOF_SEEDCASES_V1`)
 
-**Status: archived preclinical-QC version.** This freeze is **not** an active prospective study set. The corrected active seed-guided set is [`CLINIPROOF_SEEDCASES_V2`](../validation_seedcases_v2/).
+> Historical document. This describes a superseded preclinical freeze.
+> Current prospective sets: [`CLINIPROOF_BALANCED_V4`](../validation_balanced_v4/README.md) and [`CLINIPROOF_SEEDCASES_V3`](../validation_seedcases_v3/README.md).
+
+**Status: archived preclinical-QC version.** This freeze is **not** an active prospective study set. Later revisions are `CLINIPROOF_SEEDCASES_V2` and the current set [`CLINIPROOF_SEEDCASES_V3`](../validation_seedcases_v3/README.md).
 
 This directory preserves the preclinical-QC freeze `CLINIPROOF_SEEDCASES_V1`. Public identifiers are VAL-401 through VAL-424. `generation_strategy = resident_seed_guided`.
 

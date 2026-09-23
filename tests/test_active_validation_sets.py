@@ -101,12 +101,16 @@ def test_registry_separates_active_and_archived_batches() -> None:
         ARCHIVED_BATCH_CODE,
         PRECLINICAL_BALANCED_CODE,
         PRECLINICAL_SEED_CODE,
+        "CLINIPROOF_BALANCED_V3",
+        "CLINIPROOF_SEEDCASES_V2",
     ]
     assert active_batch_codes() == (BALANCED_BATCH_CODE, SEEDCASES_BATCH_CODE)
     assert archived_batch_codes() == (
         ARCHIVED_BATCH_CODE,
         PRECLINICAL_BALANCED_CODE,
         PRECLINICAL_SEED_CODE,
+        "CLINIPROOF_BALANCED_V3",
+        "CLINIPROOF_SEEDCASES_V2",
     )
     assert ARCHIVED_BATCH_CODE not in active_batch_codes()
     balanced = get_batch(BALANCED_BATCH_CODE)
@@ -120,8 +124,8 @@ def test_registry_separates_active_and_archived_batches() -> None:
     assert balanced.generation_strategy == STRATEGY_BALANCED
     assert seed.generation_strategy == STRATEGY_SEED
     assert archived.generation_strategy == STRATEGY_ORIGINAL
-    assert balanced.case_ids() == tuple(_case_ids("VAL-501", "VAL-524"))
-    assert seed.case_ids() == tuple(_case_ids("VAL-601", "VAL-624"))
+    assert balanced.case_ids() == tuple(_case_ids("VAL-701", "VAL-724"))
+    assert seed.case_ids() == tuple(_case_ids("VAL-801", "VAL-824"))
     assert archived.case_ids() == tuple(_case_ids("VAL-201", "VAL-224"))
 
 
