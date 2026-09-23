@@ -1,18 +1,25 @@
-# Investigator / Clinical Validator Copy
+# CliniProof clinician validation packet
 
-This document contains the intended assessment target for each case. Reviewers should complete and submit the blinded C1 plausibility review before using this packet.
+## Purpose
 
-**INVESTIGATOR / VALIDATOR ONLY — DO NOT DISTRIBUTE TO RESIDENT PARTICIPANTS**
+The cases are synthetically generated clinical cases produced by CliniProof and are being reviewed for clinical validity. Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1 through C5 in one pass.
 
-This is Stage 2 of independent dual expert review with structured consensus resolution. After both reviewers have submitted and locked their C1 ratings, they receive this packet and independently evaluate C2 through C5, then record Accept, Revise, or Exclude. Original independent C1 ratings remain unchanged.
+The frozen set is `CLINIPROOF_TAXONOMY_V1`, containing twenty-four cases labeled VAL-201 through VAL-224. Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. That sentence means the software has already checked structure, terminology, and a limited set of implemented rules, but a clinician has not yet accepted the case for educational use.
 
-Each case appears in two parts after the reminder above. First is the resident-visible clinical chart, which is the same content residents see. Second is the intended assessment issue, written with a clinical label and the standardized CliniProof identifier, followed by the C2 through C5 forms and the independent recommendation.
+## Reviewer task
 
-Do not record consensus on this independent form. After both reviewers have submitted, compare ratings and, when needed, complete structured consensus review on [`consensus_worksheet.csv`](consensus_worksheet.csv). Consensus does not overwrite the original independent ratings.
+For each case:
 
-The rating criteria are defined in [`validation_rubric.md`](validation_rubric.md). The two-reviewer workflow is in [`reviewer_protocol.md`](reviewer_protocol.md).
+1. Read the complete case.
+2. Assess C1 through C5 using the forms that follow the case.
+3. Record ratings in [`clinical_validation_worksheet.csv`](clinical_validation_worksheet.csv).
+4. Add comments where a problem is identified.
 
-Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation.
+Do not split these ratings across separate review stages. Complete all five criteria during this one review.
+
+C1 asks whether the chart could reasonably represent a patient in the stated inpatient setting. C2 asks whether the intended medication-reconciliation or transition-of-care problem is actually present. C3 asks whether an internal medicine resident could detect and resolve that problem from the case documents. C4 asks whether another unintended clinically meaningful problem is also present. C5 is an expert estimate of expected learner difficulty.
+
+This packet includes the intended assessment issue for each case so that C2 through C5 can be completed in the same pass as C1. Full criterion definitions are in [`validation_rubric.md`](validation_rubric.md).
 
 ---
 
@@ -220,6 +227,31 @@ Restore the omitted continued discharge medication.
 - **Detectability location:** Discharge medications
 - **Evidence required:** Home/inpatient continuation of this medication with no stop rationale.
 - **Rationale:** A medication indicated at discharge was omitted from the discharge medication list.
+
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
 
 ### C2 Intended assessment problem
 
@@ -490,6 +522,31 @@ Remove the unindicated medication from the discharge list.
 - **Evidence required:** Home medication was discontinued and should not appear at discharge.
 - **Rationale:** A medication was prescribed at discharge without a clinical indication or intended discharge role.
 
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
+
 ### C2 Intended assessment problem
 
 Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
@@ -757,6 +814,31 @@ Restore the correct continued discharge dose.
 - **Detectability location:** Discharge medications
 - **Evidence required:** Intended dose on the home/inpatient medication plan.
 - **Rationale:** The discharge dose differs from the intended medication plan without a documented clinical rationale.
+
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
 
 ### C2 Intended assessment problem
 
@@ -1026,6 +1108,31 @@ Restore the correct continued discharge route.
 - **Evidence required:** Intended route on the home/inpatient medication plan.
 - **Rationale:** The discharge route differs from the intended medication plan without a documented clinical rationale.
 
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
+
 ### C2 Intended assessment problem
 
 Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
@@ -1293,6 +1400,31 @@ Restore the correct continued discharge frequency.
 - **Detectability location:** Discharge medications
 - **Evidence required:** Intended frequency on the home/inpatient medication plan.
 - **Rationale:** The discharge frequency differs from the intended medication plan without a documented clinical rationale.
+
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
 
 ### C2 Intended assessment problem
 
@@ -1563,6 +1695,31 @@ Restore the original continued medication; do not leave an unexplained same-clas
 - **Evidence required:** RxClass CV100 (BETA BLOCKERS/RELATED) relates the source and substitute.
 - **Rationale:** A different medication in the same therapeutic class was substituted at discharge without a documented clinical or formulary explanation.
 
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
+
 ### C2 Intended assessment problem
 
 Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
@@ -1830,6 +1987,31 @@ Arrange the required outpatient monitoring for the trigger medication.
 - **Detectability location:** Scheduled monitoring, discharge medications.monitoring
 - **Evidence required:** Trigger medication remains; source-backed rule WARFARIN_INR_MONITORING requires 38875-1.
 - **Rationale:** A medication requiring outpatient laboratory or physiological monitoring was discharged without that monitoring being arranged.
+
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
 
 ### C2 Intended assessment problem
 
@@ -2099,6 +2281,31 @@ Document when and under what criteria the held medication should be restarted.
 - **Evidence required:** The medication was held for a documented reason and needs a restart plan.
 - **Rationale:** A home medication legitimately held during hospitalization has no documented resumption criterion or timing at discharge.
 
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
+
 ### C2 Intended assessment problem
 
 Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
@@ -2366,6 +2573,31 @@ Increase days' supply so treatment continues through the planned follow-up.
 - **Detectability location:** discharge medications.quantity or days
 - **Evidence required:** Days' supply must cover the scheduled follow-up or treatment endpoint.
 - **Rationale:** The prescribed quantity or days' supply is insufficient to cover the patient until the planned follow-up.
+
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
 
 ### C2 Intended assessment problem
 
@@ -2637,6 +2869,31 @@ Stop the hospital-only medication at discharge.
 - **Evidence required:** Medication was started in hospital for an inpatient-only indication and should stop.
 - **Rationale:** A medication started for an inpatient-only indication was erroneously continued at discharge despite no ongoing outpatient indication.
 
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
+
 ### C2 Intended assessment problem
 
 Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
@@ -2905,6 +3162,31 @@ Revert to the home therapy or document an intentional decision to continue the i
 - **Detectability location:** Discharge medications
 - **Evidence required:** Home therapy was temporarily replaced inpatient and should be reverted or explicitly re-decided.
 - **Rationale:** A home therapy temporarily replaced during hospitalization for formulary or protocol reasons was neither reverted nor explicitly re-decided at discharge.
+
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
 
 ### C2 Intended assessment problem
 
@@ -3175,6 +3457,31 @@ Arrange follow-up to resolve the pending therapeutic decision.
 - **Evidence required:** A pending therapeutic decision remains unresolved and requires scheduled follow-up.
 - **Rationale:** Treatment continues after discharge while a pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
 
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
+
 ### C2 Intended assessment problem
 
 Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
@@ -3432,6 +3739,31 @@ Review the full chart; there is no concealed target.
 
 NO INTENTIONAL ERROR
 
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
+
 ### C2 Intended assessment problem
 
 Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
@@ -3687,6 +4019,31 @@ Restore the omitted continued discharge medication.
 - **Detectability location:** Discharge medications
 - **Evidence required:** Home/inpatient continuation of this medication with no stop rationale.
 - **Rationale:** A medication indicated at discharge was omitted from the discharge medication list.
+
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
 
 ### C2 Intended assessment problem
 
@@ -3945,6 +4302,31 @@ Arrange the required outpatient monitoring for the trigger medication.
 - **Evidence required:** Trigger medication remains; source-backed rule WARFARIN_INR_MONITORING requires 38875-1.
 - **Rationale:** A medication requiring outpatient laboratory or physiological monitoring was discharged without that monitoring being arranged.
 
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
+
 ### C2 Intended assessment problem
 
 Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
@@ -4190,6 +4572,31 @@ Review the full chart; there is no concealed target.
 **Expected clinical action:**
 
 NO INTENTIONAL ERROR
+
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
 
 ### C2 Intended assessment problem
 
@@ -4451,6 +4858,31 @@ Restore the correct continued discharge dose.
 - **Detectability location:** Discharge medications
 - **Evidence required:** Intended dose on the home/inpatient medication plan.
 - **Rationale:** The discharge dose differs from the intended medication plan without a documented clinical rationale.
+
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
 
 ### C2 Intended assessment problem
 
@@ -4714,6 +5146,31 @@ Remove the unindicated medication from the discharge list.
 - **Evidence required:** Home medication was discontinued and should not appear at discharge.
 - **Rationale:** A medication was prescribed at discharge without a clinical indication or intended discharge role.
 
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
+
 ### C2 Intended assessment problem
 
 Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
@@ -4975,6 +5432,31 @@ Document when and under what criteria the held medication should be restarted.
 - **Evidence required:** The medication was held for a documented reason and needs a restart plan.
 - **Rationale:** A home medication legitimately held during hospitalization has no documented resumption criterion or timing at discharge.
 
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
+
 ### C2 Intended assessment problem
 
 Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
@@ -5224,6 +5706,31 @@ Review the full chart; there is no concealed target.
 **Expected clinical action:**
 
 NO INTENTIONAL ERROR
+
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
 
 ### C2 Intended assessment problem
 
@@ -5478,6 +5985,31 @@ Restore the omitted continued discharge medication.
 - **Detectability location:** Discharge medications
 - **Evidence required:** Home/inpatient continuation of this medication with no stop rationale.
 - **Rationale:** A medication indicated at discharge was omitted from the discharge medication list.
+
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
 
 ### C2 Intended assessment problem
 
@@ -5734,6 +6266,31 @@ Increase days' supply so treatment continues through the planned follow-up.
 - **Evidence required:** Days' supply must cover the scheduled follow-up or treatment endpoint.
 - **Rationale:** The prescribed quantity or days' supply is insufficient to cover the patient until the planned follow-up.
 
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
+
 ### C2 Intended assessment problem
 
 Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
@@ -5977,6 +6534,31 @@ Review the full chart; there is no concealed target.
 **Expected clinical action:**
 
 NO INTENTIONAL ERROR
+
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
 
 ### C2 Intended assessment problem
 
@@ -6232,6 +6814,31 @@ Restore the correct continued discharge frequency.
 - **Detectability location:** Discharge medications
 - **Evidence required:** Intended frequency on the home/inpatient medication plan.
 - **Rationale:** The discharge frequency differs from the intended medication plan without a documented clinical rationale.
+
+### C1 Clinical plausibility
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
+
+| Domain | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- |
+| Presentation and demographics | ☐ | ☐ | ☐ | ☐ |
+| Fit between presentation and diagnosis | ☐ | ☐ | ☐ | ☐ |
+| Vital signs | ☐ | ☐ | ☐ | ☐ |
+| Laboratory findings | ☐ | ☐ | ☐ | ☐ |
+| Medication regimen | ☐ | ☐ | ☐ | ☐ |
+| Hospital course | ☐ | ☐ | ☐ | ☐ |
+| Consistency across the chart | ☐ | ☐ | ☐ | ☐ |
+| Discharge plan and follow-up | ☐ | ☐ | ☐ | ☐ |
+
+Could this reasonably represent a patient encountered in the stated inpatient clinical setting?
+
+☐ Yes
+
+☐ No
+
+Written explanation for any domain rated 1 or 2:
+
+____________________________________
 
 ### C2 Intended assessment problem
 

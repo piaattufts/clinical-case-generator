@@ -29,15 +29,18 @@ FROZEN_FILES = (
 )
 BLINDED_RELATIVE_PATHS = (
     "all_cases.md",
-    "plausibility_only_packet.md",
     *[f"cases/{case_id}.md" for case_id in CASE_IDS],
 )
 GENERIC_SAFE_RELATIVE_PATHS = (
     "how_cliniproof_works.md",
     "developer_notes.md",
     "validation_rubric.md",
-    "reviewer_protocol.md",
     "README.md",
+)
+OBSOLETE_READABLE_FILES = (
+    "plausibility_only_packet.md",
+    "reviewer_protocol.md",
+    "consensus_worksheet.csv",
 )
 EXPECTED_FROZEN_HASHES = {
     "batch_plan.json": (
@@ -128,7 +131,6 @@ def test_committed_readable_packets_cover_all_current_cases() -> None:
     names = sorted(path.name for path in cases_dir.glob("VAL-*.md"))
     assert names == [f"{case_id}.md" for case_id in CASE_IDS]
     all_cases = (DEFAULT_OUTPUT_DIR / "all_cases.md").read_text(encoding="utf-8")
-    plausibility = (DEFAULT_OUTPUT_DIR / "plausibility_only_packet.md").read_text(encoding="utf-8")
     investigator = (DEFAULT_OUTPUT_DIR / "clinician_validation_packet.md").read_text(
         encoding="utf-8"
     )
@@ -138,25 +140,19 @@ def test_committed_readable_packets_cover_all_current_cases() -> None:
     for case_id in CASE_IDS:
         heading = f"# {case_id}"
         assert all_cases.count(heading) == 1
-        assert plausibility.count(heading) == 1
         assert investigator.count(heading) == 1
         assert (cases_dir / f"{case_id}.md").read_text(encoding="utf-8").startswith(heading)
-    protocol = (DEFAULT_OUTPUT_DIR / "reviewer_protocol.md").read_text(encoding="utf-8")
-    assert plausibility.count("### C1 Clinical plausibility") == 24
-    assert investigator.count("### C1 Clinical plausibility") == 0
+    assert investigator.count("### C1 Clinical plausibility") == 24
     assert investigator.count("### C2 Intended assessment problem") == 24
     assert investigator.count("### C3 Detectability") == 24
     assert investigator.count("### C4 Absence of unintended problems") == 24
     assert investigator.count("### C5 Expected learner difficulty") == 24
-    assert "Investigator / Clinical Validator Copy" in investigator
-    assert "INVESTIGATOR / VALIDATOR ONLY" in investigator
+    assert "single review stage" in investigator
     assert "f2_coprescription_omitted" in rubric
     assert "not_yet_implementable" in rubric
     assert "How CliniProof Builds and Validates a Case" in how
     assert "CliniProof Implementation Notes" in developer
     assert all_cases.startswith("# CliniProof Clinical Case Set")
-    assert protocol.startswith("# Clinical Validation Protocol")
-    assert "Two clinical experts independently review all 24 cases." in protocol
 
 
 def test_plausibility_files_do_not_contain_answer_key_fields() -> None:
@@ -268,9 +264,10 @@ def test_generator_is_deterministic_and_does_not_mutate_frozen_sources(
     assert first_files == second_files
     assert "how_cliniproof_works.md" in first_files
     assert "developer_notes.md" in first_files
-    assert "reviewer_protocol.md" in first_files
+    assert "clinician_validation_packet.md" in first_files
     assert "clinical_validation_worksheet.csv" in first_files
-    assert "consensus_worksheet.csv" in first_files
+    for obsolete in OBSOLETE_READABLE_FILES:
+        assert obsolete not in first_files
     for relative in first_files:
         assert (first / relative).read_bytes() == (second / relative).read_bytes()
         committed = DEFAULT_OUTPUT_DIR / relative
@@ -299,85 +296,47 @@ def _nonempty_lines(text: str) -> list[str]:
     return [line for line in text.splitlines() if line.strip()]
 
 
-def test_reviewer_worksheets_are_empty_templates() -> None:
-    independent = (DEFAULT_OUTPUT_DIR / "clinical_validation_worksheet.csv").read_text(
+def test_clinical_validation_worksheet_has_one_empty_row_per_case() -> None:
+    worksheet = (DEFAULT_OUTPUT_DIR / "clinical_validation_worksheet.csv").read_text(
         encoding="utf-8"
     )
-    consensus = (DEFAULT_OUTPUT_DIR / "consensus_worksheet.csv").read_text(encoding="utf-8")
-    independent_lines = _nonempty_lines(independent)
-    consensus_lines = _nonempty_lines(consensus)
-    assert len(independent_lines) == 1
-    assert len(consensus_lines) == 1
-    assert independent_lines[0].startswith("validation_case_id,reviewer_id,review_round,")
-    assert "initial_recommendation" in independent_lines[0]
-    assert "consensus_outcome" not in independent_lines[0]
-    assert consensus_lines[0].startswith("validation_case_id,reviewer_a_recommendation,")
-    assert "consensus_outcome" in consensus_lines[0]
-    for case_id in CASE_IDS:
-        assert case_id not in independent
-        assert case_id not in consensus
+    lines = _nonempty_lines(worksheet)
+    assert lines[0] == (
+        "validation_case_id,reviewer_id,c1,c2,c3,c4,c5,"
+        "c4_additional_problem,recommendation,comments"
+    )
+    assert "review_round" not in lines[0]
+    assert "consensus" not in lines[0]
+    data_ids = [line.split(",", 1)[0] for line in lines[1:]]
+    assert data_ids == list(CASE_IDS)
+    for line in lines[1:]:
+        fields = line.split(",")
+        assert fields[0] in CASE_IDS
+        assert all(field == "" for field in fields[1:])
 
 
-def test_reviewer_protocol_describes_two_independent_reviewers() -> None:
-    protocol = (DEFAULT_OUTPUT_DIR / "reviewer_protocol.md").read_text(encoding="utf-8")
-    rubric = (DEFAULT_OUTPUT_DIR / "validation_rubric.md").read_text(encoding="utf-8")
+def test_one_stage_packet_includes_c1_through_c5() -> None:
     investigator = (DEFAULT_OUTPUT_DIR / "clinician_validation_packet.md").read_text(
         encoding="utf-8"
     )
-    plausibility = (DEFAULT_OUTPUT_DIR / "plausibility_only_packet.md").read_text(
-        encoding="utf-8"
-    )
-    assert "Two clinical experts independently review all 24 cases." in protocol
-    assert "independent dual expert review with structured consensus resolution" in protocol
-    assert "is not a Delphi process" in protocol
-    assert "is not a modified Delphi process" in protocol
-    for match in re.finditer(r".{0,48}Delphi.{0,48}", protocol):
-        snippet = match.group(0).lower()
-        assert "not" in snippet, snippet
-    assert "complete C1 before seeing the answer key" in protocol
-    assert "independently complete C2 through C5" in protocol
-    assert "Original ratings remain unchanged" in protocol
-    assert "A separate consensus outcome is recorded" in protocol
-    assert (
-        "If consensus cannot be achieved, the case is not considered clinically validated."
-        in protocol
-    )
+    rubric = (DEFAULT_OUTPUT_DIR / "validation_rubric.md").read_text(encoding="utf-8")
+    index = (DEFAULT_OUTPUT_DIR / "README.md").read_text(encoding="utf-8")
+    assert "Clinical validation uses a single review stage." in investigator
+    assert "Do not split these ratings across separate review stages." in investigator
     assert "☐ Accept" in investigator
     assert "☐ Revise" in investigator
     assert "☐ Exclude" in investigator
-    assert "☐ Adjudicate" not in investigator
-    assert "Adjudication required" not in investigator
-    assert "Revise and re-rate" not in investigator
-    assert "Regenerate / retire" not in investigator
-    assert "☐ Accept" not in plausibility
-    assert "☐ Exclude" not in plausibility
-    assert (
-        "Both clinical reviewers complete this section independently before seeing "
-        "the intended assessment target."
-    ) in plausibility
-    assert (
-        "Reviewers should complete and submit the blinded C1 plausibility review "
-        "before using this packet."
-    ) in investigator
-    assert "☐ Accepted" in rubric
-    assert "☐ Unresolved" in rubric
-    assert "Do not overwrite original reviewer ratings with the consensus result." in rubric
-    assert "Recommended revision" in rubric
+    assert "Stage 1" not in investigator
+    assert "Stage 2" not in investigator
+    assert "Stage 1" not in rubric
+    assert "Stage 2" not in rubric
+    assert "consensus_worksheet" not in rubric
+    assert "plausibility_only_packet.md" not in index
+    assert "reviewer_protocol.md" not in index
+    assert "consensus_worksheet.csv" not in index
 
 
-def test_consensus_is_stored_separately_from_independent_ratings() -> None:
-    protocol = (DEFAULT_OUTPUT_DIR / "reviewer_protocol.md").read_text(encoding="utf-8")
-    independent = (DEFAULT_OUTPUT_DIR / "clinical_validation_worksheet.csv").read_text(
-        encoding="utf-8"
-    )
-    consensus = (DEFAULT_OUTPUT_DIR / "consensus_worksheet.csv").read_text(encoding="utf-8")
-    investigator = (DEFAULT_OUTPUT_DIR / "clinician_validation_packet.md").read_text(
-        encoding="utf-8"
-    )
-    assert "not on the independent reviewer row" in protocol
-    assert "consensus_outcome" in consensus
-    assert "consensus_outcome" not in independent
-    assert "Do not record consensus on this independent form." in investigator
-    assert "Original independent ratings are preserved" in investigator or (
-        "Original independent C1 ratings remain unchanged." in investigator
-    )
+def test_obsolete_multi_stage_artifacts_are_not_generated() -> None:
+    for name in OBSOLETE_READABLE_FILES:
+        assert not (DEFAULT_OUTPUT_DIR / name).exists(), name
+
