@@ -1035,7 +1035,7 @@ def _resident_payload(
                 "source_type": "authored_scenario",
                 "source_file": None,
                 "source_reference": None,
-                "notes": None,
+                "notes": item.notes,
             }
             for index, item in enumerate(list_medications_for_case(session, case.id), start=1)
         ],

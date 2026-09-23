@@ -43,6 +43,7 @@ from app.services.clinical_coherence import (
     is_symptom_level_concept,
     lab_unit_rank,
 )
+from app.services.medication_regimens import concept_preference_key
 from app.services.reference_sync import (
     DEFAULT_SYNC_LIMIT,
     sync_icd10cm,
@@ -610,6 +611,7 @@ def _prefer_rxnorm_concept(
     ranked = sorted(
         filtered or [],
         key=lambda item: (
+            concept_preference_key(item.name),
             formulation_preference_rank_blob(
                 " ".join(part for part in (item.name, item.synonym) if part),
                 query,
@@ -793,6 +795,7 @@ def _prefer_medication_row(rows: list[RefMedication], query: str) -> RefMedicati
     ranked = sorted(
         filtered,
         key=lambda row: (
+            concept_preference_key(row.concept_name),
             0
             if _contains(row.ingredient, query)
             or _contains(row.generic_name, query)

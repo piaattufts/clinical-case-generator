@@ -13,7 +13,14 @@ from typing import Any
 
 from sqlalchemy.orm import Session
 
-from app.models.cases import CaseMedication, ClinicalCase
+from app.models.cases import (
+    CaseDischargePlanning,
+    CaseImaging,
+    CaseMedication,
+    CaseMicrobiology,
+    CaseSocialSupport,
+    ClinicalCase,
+)
 from app.models.generation import CaseMedicationPlan
 from app.models.reference import RefDiagnosis, RefLabTest, RefMedication
 from app.repositories.cases import (
@@ -38,12 +45,24 @@ from app.services.clinical_coherence import (
     route_compatible_with_form,
 )
 from app.services.error_taxonomy import (
+    F1_COMMISSION,
     F1_DOSE,
+    F1_FREQUENCY,
     F1_ROUTE,
+    F2_HOSPITAL_ONLY,
+    F2_INPATIENT_SUB,
     NONE,
     canonicalize_category,
     detect_findings,
     isolation_errors,
+)
+from app.services.medication_regimens import (
+    beta_blocker_frequency_conflicts,
+    echo_course_statement,
+    endocarditis_microbiology_conflicts,
+    imaging_timepoint_conflict,
+    living_disposition_conflict,
+    regimen_field_conflicts,
 )
 from app.services.rules import CaseSnapshot, RuleViolation, evaluate_rules, hard_violations
 from app.sources.exceptions import CaseValidationError
@@ -286,6 +305,9 @@ def _clinical_coherence(
         case.one_liner,
         case.admission_dx,
     ]
+    leak_fields.extend(
+        item.notes for item in list_medications_for_case(session, case.id) if item.notes
+    )
     from sqlalchemy import select
 
     from app.models.cases import CaseInstruction, CaseNote, CasePresentation
@@ -304,6 +326,50 @@ def _clinical_coherence(
     blob = "\n".join(part for part in leak_fields if part)
     for hit in resident_leak_hits(blob):
         errors.append(f"resident-facing text leaked {hit!r}")
+    inpatient_by_ref = {
+        item.ref_medication_id: item
+        for item in list_medications_for_case(session, case.id)
+        if item.context == "inpatient" and item.ref_medication_id is not None
+    }
+    for medication in list_medications_for_case(session, case.id):
+        ref_id = medication.ref_medication_id
+        if ref_id is None:
+            continue
+        med_row = session.get(RefMedication, ref_id)
+        if med_row is None:
+            continue
+        inpatient = inpatient_by_ref.get(ref_id)
+        skip_dose = _planted_field_changed(
+            medication, inpatient, planted_category, F1_DOSE, "dose"
+        )
+        skip_route = _planted_field_changed(
+            medication, inpatient, planted_category, F1_ROUTE, "route"
+        )
+        skip_frequency = _planted_field_changed(
+            medication, inpatient, planted_category, F1_FREQUENCY, "frequency"
+        )
+        for message in regimen_field_conflicts(
+            med_row,
+            dose=None if skip_dose else medication.dose,
+            route=None if skip_route else medication.route,
+            frequency=None if skip_frequency else medication.frequency,
+        ):
+            if skip_dose and message.startswith("dose "):
+                continue
+            if skip_route and message.startswith("route "):
+                continue
+            if skip_frequency and message.startswith("frequency "):
+                continue
+            errors.append(message)
+        if not skip_frequency:
+            conflicts = beta_blocker_frequency_conflicts(
+                med_row.concept_name,
+                medication.frequency,
+            )
+            for message in conflicts:
+                errors.append(message)
+    errors.extend(_temporal_role_errors(session, case, planted_category))
+    errors.extend(_diagnostic_context_errors(session, case, problems))
     has_monitoring = bool(list_monitoring_for_case(session, case.id))
     if re.search(
         r"\b(?:scheduled laboratory monitoring|monitoring was arranged|"
@@ -381,6 +447,217 @@ def _assessment_consistency(
         if case.clean_case is False:
             errors.append("clean case flag is false before injection")
     return LayerResult("assessment", passed=not errors, errors=errors, warnings=warnings)
+
+
+def _planted_field_changed(
+    medication: CaseMedication,
+    inpatient: CaseMedication | None,
+    planted_category: str,
+    category: str,
+    field_name: str,
+) -> bool:
+    if medication.context != "discharge" or planted_category != category or inpatient is None:
+        return False
+    return (getattr(inpatient, field_name) or "") != (getattr(medication, field_name) or "")
+
+
+_STARTED_HPI_RE = re.compile(
+    r"Started during this admission:\s*([^.]+)\.",
+    re.IGNORECASE,
+)
+_HOSPITAL_ONLY_HPI_RE = re.compile(
+    r"Used only in the hospital and stopped at discharge:\s*([^.]+)\.",
+    re.IGNORECASE,
+)
+_DISCONTINUED_HPI_RE = re.compile(
+    r"([^.]+?) was discontinued and is not intended at discharge\.",
+    re.IGNORECASE,
+)
+
+
+def _split_chart_names(blob: str) -> list[str]:
+    return [part.strip() for part in blob.split(",") if part.strip()]
+
+
+def _same_drug_name(left: str | None, right: str | None) -> bool:
+    return bool(left and right and left.casefold().strip() == right.casefold().strip())
+
+
+def _answer_rxcuis_for_role(session: Session, case: ClinicalCase, role: str | None) -> set[str]:
+    found: set[str] = set()
+    for key in list_answer_keys_for_case(session, case.id):
+        triggers = key.trigger_meds if isinstance(key.trigger_meds, list) else []
+        for item in triggers:
+            if not isinstance(item, dict) or not item.get("rxcui"):
+                continue
+            if role is None or item.get("role") == role:
+                found.add(str(item["rxcui"]))
+        changes = key.intentional_changes if isinstance(key.intentional_changes, list) else []
+        for item in changes:
+            if role is not None:
+                continue
+            if isinstance(item, dict) and item.get("rxcui"):
+                found.add(str(item["rxcui"]))
+    return found
+
+
+def _temporal_role_errors(
+    session: Session, case: ClinicalCase, planted_category: str
+) -> list[str]:
+    errors: list[str] = []
+    medications = list_medications_for_case(session, case.id)
+    substitute_rxcuis = (
+        _answer_rxcuis_for_role(session, case, "inpatient_substitute")
+        if planted_category == F2_INPATIENT_SUB
+        else set()
+    )
+    planted_rxcuis = _answer_rxcuis_for_role(session, case, None)
+    for plan in list_plans_for_case(session, case.id):
+        rows = [
+            item
+            for item in medications
+            if item.ref_medication_id == plan.ref_medication_id
+        ]
+        home_rows = [item for item in rows if item.context == "home"]
+        active_discharge = [
+            item
+            for item in rows
+            if item.context == "discharge" and item.status != "held"
+        ]
+        if plan.home_state == "absent" and home_rows:
+            errors.append(
+                f"{plan.drug or 'medication'} is described as absent from home "
+                "but a home medication row is present"
+            )
+        stopped_on_discharge = plan.correct_discharge_state == "stop" and bool(active_discharge)
+        planted_explains = planted_category in {F2_HOSPITAL_ONLY, F1_COMMISSION}
+        if stopped_on_discharge and planted_category == F2_INPATIENT_SUB:
+            plan_rxcui = _rxcui_for_medication(session, active_discharge[0])
+            planted_explains = bool(plan_rxcui and plan_rxcui in substitute_rxcuis)
+        if stopped_on_discharge and not planted_explains:
+            errors.append(
+                f"{plan.drug or 'medication'} remains active at discharge after a stop plan"
+            )
+        for row in rows:
+            note = (row.notes or "").casefold()
+            if "started during this admission" in note and row.context == "home":
+                errors.append(
+                    f"{plan.drug or row.drug or 'medication'} was started during the admission "
+                    "but is listed as a home medication"
+                )
+    errors.extend(
+        _narrative_temporal_errors(
+            session,
+            case,
+            medications,
+            planted_category=planted_category,
+            planted_rxcuis=planted_rxcuis,
+        )
+    )
+    return errors
+
+
+def _narrative_temporal_errors(
+    session: Session,
+    case: ClinicalCase,
+    medications: list[CaseMedication],
+    *,
+    planted_category: str,
+    planted_rxcuis: set[str],
+) -> list[str]:
+    from sqlalchemy import select
+
+    from app.models.cases import CasePresentation
+
+    presentation = session.scalars(
+        select(CasePresentation).where(CasePresentation.case_id == case.id)
+    ).first()
+    hpi = presentation.hpi if presentation is not None else ""
+    if not hpi:
+        return []
+    errors: list[str] = []
+    home_rows = [item for item in medications if item.context == "home"]
+    discharge_rows = [
+        item
+        for item in medications
+        if item.context == "discharge" and item.status != "held"
+    ]
+    started_match = _STARTED_HPI_RE.search(hpi)
+    if started_match:
+        for name in _split_chart_names(started_match.group(1)):
+            if any(_same_drug_name(name, item.drug) for item in home_rows):
+                errors.append(
+                    f"{name} was started during the admission but is listed as a home medication"
+                )
+    hospital_match = _HOSPITAL_ONLY_HPI_RE.search(hpi)
+    if hospital_match:
+        for name in _split_chart_names(hospital_match.group(1)):
+            for item in discharge_rows:
+                if not _same_drug_name(name, item.drug):
+                    continue
+                rxcui = _rxcui_for_medication(session, item)
+                if planted_category == F2_HOSPITAL_ONLY and rxcui in planted_rxcuis:
+                    continue
+                errors.append(
+                    f"{name} is described as hospital-only but remains on the discharge list"
+                )
+    stopped_match = _DISCONTINUED_HPI_RE.search(hpi)
+    if stopped_match:
+        for name in _split_chart_names(stopped_match.group(1)):
+            for item in discharge_rows:
+                if not _same_drug_name(name, item.drug):
+                    continue
+                rxcui = _rxcui_for_medication(session, item)
+                if planted_category == F1_COMMISSION and rxcui in planted_rxcuis:
+                    continue
+                errors.append(
+                    f"{name} was discontinued but remains an active discharge therapy"
+                )
+    return errors
+
+
+def _diagnostic_context_errors(
+    session: Session, case: ClinicalCase, problems: list[str]
+) -> list[str]:
+    from sqlalchemy import select
+
+    errors: list[str] = []
+    for image in session.scalars(select(CaseImaging).where(CaseImaging.case_id == case.id)):
+        conflict = imaging_timepoint_conflict(image.timepoint, image.finding)
+        if conflict:
+            errors.append(conflict)
+        study = (image.study_type or "").casefold()
+        if "echo" in study and echo_course_statement(image.finding):
+            errors.append(
+                "echocardiogram finding states a treatment course instead of an imaging finding: "
+                f"{image.finding}"
+            )
+    problem_blob = " ".join(problems).casefold()
+    if "endocarditis" in problem_blob:
+        micro_rows = [
+            {
+                "timepoint": item.timepoint or "",
+                "result": item.result or "",
+                "organism": item.organism or "",
+                "status": item.status or "",
+                "notes": item.notes or "",
+            }
+            for item in session.scalars(
+                select(CaseMicrobiology).where(CaseMicrobiology.case_id == case.id)
+            )
+        ]
+        errors.extend(endocarditis_microbiology_conflicts(micro_rows))
+    social = session.scalars(
+        select(CaseSocialSupport).where(CaseSocialSupport.case_id == case.id)
+    ).first()
+    planning = session.scalars(
+        select(CaseDischargePlanning).where(CaseDischargePlanning.case_id == case.id)
+    ).first()
+    if social is not None and planning is not None:
+        conflict = living_disposition_conflict(social.living_situation, planning.disposition)
+        if conflict:
+            errors.append(conflict)
+    return errors
 
 
 def _rxcui_for_medication(session: Session, medication: CaseMedication) -> str | None:

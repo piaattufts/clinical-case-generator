@@ -26,7 +26,17 @@
     "tacrolimus",
     "mycophenolate mofetil",
     "valganciclovir",
-    "enoxaparin"
+    "enoxaparin",
+    "insulin lispro",
+    "metoprolol succinate",
+    "apixaban 5 MG",
+    "spironolactone 25 MG",
+    "ceftriaxone 2000 MG",
+    "warfarin sodium 5 MG",
+    "lisinopril 10 MG",
+    "furosemide 40 MG",
+    "carvedilol 6.25 MG",
+    "enalapril 5 MG"
   ],
   "diagnoses": [
     "systolic (congestive) heart failure",

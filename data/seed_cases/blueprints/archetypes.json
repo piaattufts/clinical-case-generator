@@ -388,7 +388,13 @@
               "timepoint": "admission",
               "study_type": "Chest radiograph",
               "body_site": "chest",
-              "finding": "Improving pulmonary edema."
+              "finding": "Pulmonary vascular congestion and interstitial edema."
+            },
+            {
+              "timepoint": "discharge",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "Improved pulmonary edema compared with admission."
             }
           ],
           "consults": [
@@ -526,7 +532,7 @@
               "timepoint": "inpatient",
               "study_type": "Transthoracic echocardiogram",
               "body_site": "heart",
-              "finding": "Vegetation treatment course in progress; ventricular function preserved."
+              "finding": "Mobile echodensity consistent with a vegetation; ventricular function preserved."
             }
           ],
           "consults": [
@@ -553,9 +559,18 @@
               "timepoint": "admission",
               "specimen": "blood",
               "test": "blood culture",
-              "organism": null,
-              "result": "no growth after 48 hours",
-              "status": "final"
+              "organism": "gram-positive cocci",
+              "result": "growth",
+              "status": "final",
+              "notes": "Initial diagnostic culture."
+            },
+            {
+              "timepoint": "inpatient",
+              "specimen": "blood",
+              "test": "blood culture",
+              "result": "no growth",
+              "status": "final",
+              "notes": "Subsequent cultures cleared after treatment."
             }
           ],
           "monitoring_parameter": "weekly complete blood count and creatinine during parenteral therapy",
@@ -601,7 +616,7 @@
               "timepoint": "inpatient",
               "study_type": "Transthoracic echocardiogram",
               "body_site": "heart",
-              "finding": "Treated endocarditis with improving clinical stability."
+              "finding": "Mobile echodensity consistent with a vegetation; ventricular function preserved."
             }
           ],
           "consults": [
@@ -628,9 +643,18 @@
               "timepoint": "admission",
               "specimen": "blood",
               "test": "blood culture",
-              "organism": null,
-              "result": "no growth after 48 hours",
-              "status": "final"
+              "organism": "gram-positive cocci",
+              "result": "growth",
+              "status": "final",
+              "notes": "Initial diagnostic culture."
+            },
+            {
+              "timepoint": "inpatient",
+              "specimen": "blood",
+              "test": "blood culture",
+              "result": "no growth",
+              "status": "final",
+              "notes": "Subsequent cultures cleared after treatment."
             }
           ],
           "monitoring_parameter": "weekly complete blood count and creatinine during parenteral therapy",
@@ -678,7 +702,7 @@
               "timepoint": "inpatient",
               "study_type": "Transthoracic echocardiogram",
               "body_site": "heart",
-              "finding": "Endocarditis under treatment; patient clinically stable."
+              "finding": "Mobile echodensity consistent with a vegetation; ventricular function preserved."
             }
           ],
           "consults": [
@@ -705,9 +729,18 @@
               "timepoint": "admission",
               "specimen": "blood",
               "test": "blood culture",
-              "organism": null,
-              "result": "no growth after 48 hours",
-              "status": "final"
+              "organism": "gram-positive cocci",
+              "result": "growth",
+              "status": "final",
+              "notes": "Initial diagnostic culture."
+            },
+            {
+              "timepoint": "inpatient",
+              "specimen": "blood",
+              "test": "blood culture",
+              "result": "no growth",
+              "status": "final",
+              "notes": "Subsequent cultures cleared after treatment."
             }
           ],
           "monitoring_parameter": "weekly complete blood count and creatinine during parenteral therapy",
@@ -752,7 +785,7 @@
               "timepoint": "inpatient",
               "study_type": "Transthoracic echocardiogram",
               "body_site": "heart",
-              "finding": "Treated endocarditis awaiting confirmation of remaining duration."
+              "finding": "Mobile echodensity consistent with a vegetation; ventricular function preserved."
             }
           ],
           "consults": [
@@ -779,9 +812,18 @@
               "timepoint": "admission",
               "specimen": "blood",
               "test": "blood culture",
-              "organism": null,
-              "result": "no growth after 48 hours",
-              "status": "final"
+              "organism": "gram-positive cocci",
+              "result": "growth",
+              "status": "final",
+              "notes": "Initial diagnostic culture."
+            },
+            {
+              "timepoint": "inpatient",
+              "specimen": "blood",
+              "test": "blood culture",
+              "result": "no growth",
+              "status": "final",
+              "notes": "Subsequent cultures cleared after treatment."
             }
           ],
           "monitoring_parameter": "weekly complete blood count and creatinine during parenteral therapy",
@@ -876,7 +918,24 @@
           "io_enabled": true,
           "io_net_direction": "neutral",
           "admission_reason": "Admitted for cytomegalovirus disease after kidney transplantation.",
-          "target_medication_query": "valganciclovir"
+          "target_medication_query": "valganciclovir",
+          "procedures": [
+            {
+              "procedure_name": "CMV viral-load review",
+              "procedure_type": "diagnostic",
+              "timepoint": "admission",
+              "findings": "CMV viral burden was detected and supported antiviral treatment."
+            },
+            {
+              "procedure_name": "CMV viral-load review",
+              "procedure_type": "diagnostic",
+              "timepoint": "inpatient",
+              "findings": "CMV viral burden was lower than the admission result."
+            }
+          ],
+          "monitoring_parameter": "tacrolimus trough and serum creatinine",
+          "monitoring_frequency": "as directed by the transplant service",
+          "monitoring_service": "transplant"
         },
         {
           "code": "TRANSPLANT_MMF_HOLD_RESTART",
@@ -929,7 +988,24 @@
           "hold_reason": "Held during active infection as an immunosuppression adjustment; intended to restart.",
           "restart_plan": "Resume mycophenolate when diarrhea has resolved and the transplant team confirms restart.",
           "target_medication_query": "mycophenolate mofetil",
-          "admission_reason": "Admitted for cytomegalovirus disease after kidney transplantation with an infection-related mycophenolate hold."
+          "admission_reason": "Admitted for cytomegalovirus disease after kidney transplantation with an infection-related mycophenolate hold.",
+          "procedures": [
+            {
+              "procedure_name": "CMV viral-load review",
+              "procedure_type": "diagnostic",
+              "timepoint": "admission",
+              "findings": "CMV viral burden was detected and supported antiviral treatment."
+            },
+            {
+              "procedure_name": "CMV viral-load review",
+              "procedure_type": "diagnostic",
+              "timepoint": "inpatient",
+              "findings": "CMV viral burden was lower than the admission result."
+            }
+          ],
+          "monitoring_parameter": "tacrolimus trough and serum creatinine",
+          "monitoring_frequency": "as directed by the transplant service",
+          "monitoring_service": "transplant"
         },
         {
           "code": "TRANSPLANT_TACROLIMUS_ADJUSTMENT",
@@ -981,7 +1057,24 @@
           ],
           "io_enabled": true,
           "target_medication_query": "tacrolimus",
-          "admission_reason": "Admitted for cytomegalovirus disease after kidney transplantation with a tacrolimus dose adjustment."
+          "admission_reason": "Admitted for cytomegalovirus disease after kidney transplantation with a tacrolimus dose adjustment.",
+          "procedures": [
+            {
+              "procedure_name": "CMV viral-load review",
+              "procedure_type": "diagnostic",
+              "timepoint": "admission",
+              "findings": "CMV viral burden was detected and supported antiviral treatment."
+            },
+            {
+              "procedure_name": "CMV viral-load review",
+              "procedure_type": "diagnostic",
+              "timepoint": "inpatient",
+              "findings": "CMV viral burden was lower than the admission result."
+            }
+          ],
+          "monitoring_parameter": "tacrolimus trough and serum creatinine",
+          "monitoring_frequency": "as directed by the transplant service",
+          "monitoring_service": "transplant"
         },
         {
           "code": "TRANSPLANT_PENDING_ANTIVIRAL_DURATION",
@@ -1031,7 +1124,24 @@
           "pending_decision_medication_query": "valganciclovir",
           "pending_decision_text": "Remaining duration of valganciclovir is to be confirmed at infectious-disease follow-up.",
           "target_medication_query": "valganciclovir",
-          "admission_reason": "Admitted for cytomegalovirus disease after kidney transplantation; antiviral duration remains pending."
+          "admission_reason": "Admitted for cytomegalovirus disease after kidney transplantation; antiviral duration remains pending.",
+          "procedures": [
+            {
+              "procedure_name": "CMV viral-load review",
+              "procedure_type": "diagnostic",
+              "timepoint": "admission",
+              "findings": "CMV viral burden was detected and supported antiviral treatment."
+            },
+            {
+              "procedure_name": "CMV viral-load review",
+              "procedure_type": "diagnostic",
+              "timepoint": "inpatient",
+              "findings": "CMV viral burden was lower than the admission result."
+            }
+          ],
+          "monitoring_parameter": "tacrolimus trough and serum creatinine",
+          "monitoring_frequency": "as directed by the transplant service",
+          "monitoring_service": "transplant"
         }
       ]
     },
@@ -1103,7 +1213,7 @@
           "allowed_error_categories": [
             "f2_monitoring_not_arranged"
           ],
-          "context_note": "Warfarin was interrupted for surgery and then resumed. Bridging injection is not continued at discharge in this profile.",
+          "context_note": "Warfarin was interrupted for surgery and then resumed. The inpatient enoxaparin injection stops at discharge in this profile.",
           "comorbidity_queries": [
             "atrial fibrillation",
             "hypertension",
