@@ -1,0 +1,53 @@
+{
+  "teaching_id": "TEACH-002",
+  "derived_from_teaching_id": "TEACH-001",
+  "generator_case_id": "SYN-009901",
+  "injected_drug": "furosemide 40 MG Oral Tablet",
+  "injected_category": "f1_omission",
+  "injected_family": "family_1",
+  "injected_rxcui": "313988",
+  "answer_keys": [
+    {
+      "error_family": "family_1",
+      "error_category": "f1_omission",
+      "error_description": "A medication indicated at discharge was omitted from the discharge medication list.",
+      "trigger_meds": [
+        {
+          "drug": "furosemide 40 MG Oral Tablet",
+          "rxcui": "313988"
+        }
+      ],
+      "detectability_location": "discharge_medications",
+      "correct_action": "Restore the omitted continued discharge medication.",
+      "intentional_changes": [
+        {
+          "drug": "furosemide 40 MG Oral Tablet",
+          "kind": "f1_omission",
+          "seed": "20260923:9901:HF_INPATIENT:HF_VOLUME_OVERLOAD:omission",
+          "rxcui": "313988",
+          "context": "discharge",
+          "error_family": "family_1",
+          "changed_field": "presence",
+          "error_category": "f1_omission",
+          "injected_state": "absent",
+          "evidence_location": "home_medications,inpatient_medications,discharge_medications",
+          "evidence_required": "Home/inpatient continuation of this medication with no stop rationale.",
+          "clean_expected_state": "present",
+          "original_clean_state": {
+            "dose": "40 MG",
+            "drug": "furosemide 40 MG Oral Tablet",
+            "route": "oral",
+            "rxcui": "313988",
+            "status": "discharge",
+            "frequency": "once daily",
+            "monitoring": null,
+            "quantity_or_days": null
+          },
+          "post_injection_state": null,
+          "source_backed_rationale": "A medication indicated at discharge was omitted from the discharge medication list."
+        }
+      ]
+    }
+  ],
+  "note": "Investigator record only. Not part of the resident-facing chart."
+}

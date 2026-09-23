@@ -10,7 +10,7 @@ data/seed_cases/             resident source documents and derived archetypes
 data/bootstrap/              terminology manifest, scenarios, and curated regimens
 data/archive/validation_sets/ earlier frozen batches, kept for provenance
 docs/                        methods, validation, provenance, and this map
-docs/clinician_walkthrough/  teaching snapshots, separate from the study cases
+docs/clinician_walkthrough/  readable teaching charts, separate from the study cases
 tests/                       automated tests
 scripts/                     documentation checks
 ```

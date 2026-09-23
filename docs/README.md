@@ -4,7 +4,7 @@ The project overview for every audience is the root [README](../README.md). Case
 
 | Document | What it covers |
 | --- | --- |
-| [clinician_walkthrough/README.md](clinician_walkthrough/README.md) | How a chart is built, using teaching snapshots that are not study cases. |
+| [clinician_walkthrough/README.md](clinician_walkthrough/README.md) | How a chart is built, using a readable teaching case that is not a study case. |
 | [methods.md](methods.md) | How both generation strategies build a clean case, curate regimens, inject one discrepancy, and stop before clinician review. |
 | [clinical_validation.md](clinical_validation.md) | The one-stage C1–C5 clinician review and how it differs from later resident study responses. |
 | [error_taxonomy.md](error_taxonomy.md) | Family 1 and Family 2 categories. |

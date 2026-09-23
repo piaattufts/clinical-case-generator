@@ -122,6 +122,8 @@ def test_clinician_markdown_links_resolve() -> None:
         ROOT / "docs" / "repository_structure.md",
         ROOT / "docs" / "provenance.md",
         ROOT / "docs" / "clinician_walkthrough" / "examples" / "README.md",
+        ROOT / "docs" / "clinician_walkthrough" / "source_json" / "README.md",
+        ROOT / "docs" / "clinician_walkthrough" / "source_json" / "historical" / "README.md",
         ROOT / "data" / "archive" / "validation_sets" / "README.md",
     ]
     missing: list[str] = []
