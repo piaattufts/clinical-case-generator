@@ -88,7 +88,7 @@ EXPECTED_SEED_HASHES = {
     ),
     "diversity_report.md": "5519d1824476488e5dae1f5d8f84951e90e2da0f991629a2f7dbf7a50309c6b8",
     "randomized_vs_seedcase_comparison.md": (
-        "5d7501a0e42e512976fe9a42dcf7ac66f58ad866dc8c76ec92635dbc88e97ac6"
+        "c7313a4a267f81b664668eb8586ef4a42db25e32a07a07b8f07ad944ee37c166"
     ),
 }
 SEED_DOCUMENTS = (

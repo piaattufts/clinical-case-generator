@@ -466,11 +466,15 @@ _STARTED_HPI_RE = re.compile(
     re.IGNORECASE,
 )
 _HOSPITAL_ONLY_HPI_RE = re.compile(
-    r"Used only in the hospital and stopped at discharge:\s*([^.]+)\.",
+    r"(?:Used only in the hospital and stopped at discharge|"
+    r"Started during the hospitalization):\s*([^.]+)\.",
     re.IGNORECASE,
 )
 _DISCONTINUED_HPI_RE = re.compile(
-    r"([^.]+?) was discontinued and is not intended at discharge\.",
+    r"([^.]+?) was (?:"
+    r"discontinued and is not intended at discharge|"
+    r"stopped during this admission"
+    r")\.",
     re.IGNORECASE,
 )
 

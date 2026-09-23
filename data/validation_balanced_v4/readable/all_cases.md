@@ -305,7 +305,7 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Acute systolic (congestive) heart failure; note: Immediate-release carvedilol taken twice daily. |
+| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Acute systolic (congestive) heart failure |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 
@@ -315,7 +315,7 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Acute systolic (congestive) heart failure; note: Immediate-release carvedilol taken twice daily. |
+| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Acute systolic (congestive) heart failure |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 
@@ -325,7 +325,7 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure; note: Extended-release succinate taken once daily. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 
@@ -494,9 +494,9 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure; note: Extended-release succinate taken once daily. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Medications during hospitalization
 
@@ -504,9 +504,9 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure; note: Extended-release succinate taken once daily. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Discharge medications
 
@@ -514,9 +514,9 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure; note: Extended-release succinate taken once daily. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Medication reconciliation
 
@@ -599,13 +599,13 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Edema, Orthopnea
 - **Symptom duration:** one day
 - **Symptom course:** progressive
-- **History of present illness:** A 64-year-old Male is admitted with Acute systolic (congestive) heart failure. Presenting symptoms include Edema, Orthopnea, present for one day and progressive. Home medications include spironolactone 25 MG Oral Tablet, furosemide 40 MG Oral Tablet, enalapril maleate 5 MG, 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet. Admitted for decompensated heart failure requiring diuretic adjustment. Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
+- **History of present illness:** A 64-year-old Male is admitted with Acute systolic (congestive) heart failure. Presenting symptoms include Edema, Orthopnea, present for one day and progressive. Home medications include spironolactone 25 MG Oral Tablet, furosemide 40 MG Oral Tablet, enalapril maleate 5 MG, 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet. Admitted for decompensated heart failure requiring diuretic adjustment. Home therapy was reviewed during the stay after the inpatient response was observed.
 
 ### Admission note
 
-Admission note for a 64-year-old Male with Acute systolic (congestive) heart failure. Symptoms: Edema, Orthopnea for one day (progressive). Medications continued from home: spironolactone 25 MG Oral Tablet, furosemide 40 MG Oral Tablet, enalapril maleate 5 MG, 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet. Admitted for decompensated heart failure requiring diuretic adjustment. Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
+Admission note for a 64-year-old Male with Acute systolic (congestive) heart failure. Symptoms: Edema, Orthopnea for one day (progressive). Medications continued from home: spironolactone 25 MG Oral Tablet, furosemide 40 MG Oral Tablet, enalapril maleate 5 MG, 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet. Admitted for decompensated heart failure requiring diuretic adjustment. Home therapy was reviewed during the stay after the inpatient response was observed.
 
-Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
+Home therapy was reviewed during the stay after the inpatient response was observed.
 
 ## Relevant medical history
 
@@ -629,7 +629,7 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
-Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
+Home therapy was reviewed during the stay after the inpatient response was observed.
 
 On hospital day 3, intake was 1537 mL and output was 2022 mL (net -485 mL).
 
@@ -687,7 +687,7 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure; note: Extended-release succinate taken once daily. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | enalapril maleate 5 MG | 5 MG | oral | twice daily | indication: Essential (primary) hypertension |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | spironolactone 25 MG Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
@@ -698,7 +698,7 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Capsule | 25 MG | oral | once daily | indication: Formulary substitution for 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet during admission (RxClass C07AB Beta blocking agents, selective).; note: Extended-release succinate taken once daily. |
+| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Formulary substitution for 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet during admission (RxClass CV100 BETA BLOCKERS/RELATED). |
 | enalapril maleate 5 MG | 5 MG | oral | twice daily | indication: Essential (primary) hypertension |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | spironolactone 25 MG Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
@@ -709,7 +709,7 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Capsule | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure; note: Extended-release succinate taken once daily. |
+| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Acute systolic (congestive) heart failure |
 | enalapril maleate 5 MG | 5 MG | oral | twice daily | indication: Essential (primary) hypertension |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | spironolactone 25 MG Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
@@ -876,9 +876,9 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation; note: Standard labeled dose for nonvalvular atrial fibrillation. |
+| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Acute systolic (congestive) heart failure; note: Immediate-release carvedilol taken twice daily. |
+| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Acute systolic (congestive) heart failure |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 
 ## Medications during hospitalization
@@ -887,9 +887,9 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation; note: Standard labeled dose for nonvalvular atrial fibrillation. |
+| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Acute systolic (congestive) heart failure; note: Immediate-release carvedilol taken twice daily. |
+| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Acute systolic (congestive) heart failure |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 
 ## Discharge medications
@@ -898,9 +898,9 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation; note: Standard labeled dose for nonvalvular atrial fibrillation. |
+| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Acute systolic (congestive) heart failure; note: Immediate-release carvedilol taken twice daily. |
+| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Acute systolic (congestive) heart failure |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 
 ## Medication reconciliation
@@ -1062,8 +1062,8 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Extended-release succinate taken once daily. |
-| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation; note: Standard labeled dose for nonvalvular atrial fibrillation. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
+| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation |
 
 ## Medications during hospitalization
 
@@ -1071,8 +1071,8 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Extended-release succinate taken once daily. |
-| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation; note: Standard labeled dose for nonvalvular atrial fibrillation. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
+| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation |
 
 ## Discharge medications
 
@@ -1080,7 +1080,7 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Extended-release succinate taken once daily. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Medication reconciliation
 
@@ -1239,8 +1239,8 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Extended-release succinate taken once daily. |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Medications during hospitalization
 
@@ -1248,8 +1248,8 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Extended-release succinate taken once daily. |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Discharge medications
 
@@ -1257,8 +1257,8 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Extended-release succinate taken once daily. |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Medication reconciliation
 
@@ -1422,8 +1422,8 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Extended-release succinate taken once daily. |
-| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation; note: Standard labeled dose for nonvalvular atrial fibrillation. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
+| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 
 ## Medications during hospitalization
@@ -1432,8 +1432,8 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Extended-release succinate taken once daily. |
-| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation; note: Standard labeled dose for nonvalvular atrial fibrillation. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
+| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 
 ## Discharge medications
@@ -1442,8 +1442,8 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Extended-release succinate taken once daily. |
-| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation; note: Standard labeled dose for nonvalvular atrial fibrillation. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
+| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation |
 | atorvastatin 40 MG Oral Tablet | 20 MG | oral | once daily | indication: Mixed hyperlipidemia |
 
 ## Medication reconciliation
@@ -1521,13 +1521,13 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Dyspnea, Chest pain, Fatigue
 - **Symptom duration:** one week
 - **Symptom course:** progressive
-- **History of present illness:** A 79-year-old Male is admitted with Paroxysmal atrial fibrillation. Presenting symptoms include Dyspnea, Chest pain, Fatigue, present for one week and progressive. Home medications include apixaban 5 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. carvedilol 6.25 MG Oral Tablet was held during the admission (Held inpatient for documented hypotension during rate control; intended to restart.). ibuprofen 400 MG Oral Tablet was discontinued and is not intended at discharge. Admitted for symptomatic atrial fibrillation with chest discomfort. Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
+- **History of present illness:** A 79-year-old Male is admitted with Paroxysmal atrial fibrillation. Presenting symptoms include Dyspnea, Chest pain, Fatigue, present for one week and progressive. Home medications include apixaban 5 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. carvedilol 6.25 MG Oral Tablet was held during the admission (Held inpatient for documented hypotension during rate control; intended to restart.). ibuprofen 400 MG Oral Tablet was stopped during this admission. Admitted for symptomatic atrial fibrillation with chest discomfort. Home therapy was reviewed during the stay after the inpatient response was observed.
 
 ### Admission note
 
-Admission note for a 79-year-old Male with Paroxysmal atrial fibrillation. Symptoms: Dyspnea, Chest pain, Fatigue for one week (progressive). Medications continued from home: apixaban 5 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. carvedilol 6.25 MG Oral Tablet was held during the admission (Held inpatient for documented hypotension during rate control; intended to restart.). ibuprofen 400 MG Oral Tablet was discontinued and is not intended at discharge. Admitted for symptomatic atrial fibrillation with chest discomfort. Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
+Admission note for a 79-year-old Male with Paroxysmal atrial fibrillation. Symptoms: Dyspnea, Chest pain, Fatigue for one week (progressive). Medications continued from home: apixaban 5 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. carvedilol 6.25 MG Oral Tablet was held during the admission (Held inpatient for documented hypotension during rate control; intended to restart.). ibuprofen 400 MG Oral Tablet was stopped during this admission. Admitted for symptomatic atrial fibrillation with chest discomfort. Home therapy was reviewed during the stay after the inpatient response was observed.
 
-Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
+Home therapy was reviewed during the stay after the inpatient response was observed.
 
 ## Relevant medical history
 
@@ -1551,7 +1551,7 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
-Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
+Home therapy was reviewed during the stay after the inpatient response was observed.
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
@@ -1603,10 +1603,10 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation; note: Standard labeled dose for nonvalvular atrial fibrillation. |
+| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation |
-| ibuprofen 400 MG Oral Tablet | 400 MG | oral | every 8 hours as needed | held; held reason: Held on admission; not continued at discharge.; indication: symptomatic analgesia; not a treatment for the admission diagnosis |
+| ibuprofen 400 MG Oral Tablet | 400 MG | oral | every 8 hours as needed | held; held reason: Stopped during this admission.; indication: symptomatic analgesia; not a treatment for the admission diagnosis |
 
 ## Medications during hospitalization
 
@@ -1614,10 +1614,10 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation; note: Standard labeled dose for nonvalvular atrial fibrillation. |
+| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | held; held reason: Held inpatient for documented hypotension during rate control; intended to restart.; indication: Paroxysmal atrial fibrillation |
-| ibuprofen 400 MG Oral Tablet | 400 MG | oral | every 8 hours as needed | held; held reason: Held on admission; not continued at discharge.; indication: symptomatic analgesia; not a treatment for the admission diagnosis |
+| ibuprofen 400 MG Oral Tablet | 400 MG | oral | every 8 hours as needed | held; held reason: Stopped during this admission.; indication: symptomatic analgesia; not a treatment for the admission diagnosis |
 
 ## Discharge medications
 
@@ -1625,7 +1625,7 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation; note: Standard labeled dose for nonvalvular atrial fibrillation. |
+| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | held; held reason: Held inpatient for documented hypotension during rate control; intended to restart.; indication: Paroxysmal atrial fibrillation |
 
@@ -1648,8 +1648,8 @@ The following items are follow-up appointments stored on the case.
 
 ## Discharge instructions
 
-- Do not restart at discharge: ibuprofen 400 MG Oral Tablet was discontinued and has no outpatient role. (category: medications)
 - Take discharge medications exactly as listed. (category: medications)
+- ibuprofen 400 MG Oral Tablet was stopped during this admission. (category: medications)
 
 ## Other relevant clinical information
 
@@ -1795,8 +1795,8 @@ The following table lists medications recorded as the home regimen.
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation; note: Immediate-release carvedilol taken twice daily. |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Medications during hospitalization
 
@@ -1805,8 +1805,8 @@ The following table lists medications recorded as active during the hospital sta
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation; note: Immediate-release carvedilol taken twice daily. |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Discharge medications
 
@@ -1815,8 +1815,8 @@ The following table lists medications recorded on the discharge list.
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation; note: Immediate-release carvedilol taken twice daily. |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; monitoring: INR laboratory monitoring is separate from the clinic appointment.; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; monitoring: INR check |
 
 ## Medication reconciliation
 
@@ -1893,13 +1893,13 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Fatigue, Chest pain
 - **Symptom duration:** one day
 - **Symptom course:** persistent
-- **History of present illness:** A 79-year-old Male is admitted with Essential (primary) hypertension. Presenting symptoms include Fatigue, Chest pain, present for one day and persistent. Home medications include amlodipine 5 MG Oral Tablet, lisinopril 10 MG Oral Tablet. ibuprofen 400 MG Oral Tablet was discontinued and is not intended at discharge. Admitted for symptomatic hypertensive urgency with chest pain, observed for end-organ symptoms. Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+- **History of present illness:** A 79-year-old Male is admitted with Essential (primary) hypertension. Presenting symptoms include Fatigue, Chest pain, present for one day and persistent. Home medications include amlodipine 5 MG Oral Tablet, lisinopril 10 MG Oral Tablet. ibuprofen 400 MG Oral Tablet was stopped during this admission. Admitted for symptomatic hypertensive urgency with chest pain, observed for end-organ symptoms. Blood pressure was treated and observed in hospital until symptoms settled.
 
 ### Admission note
 
-Admission note for a 79-year-old Male with Essential (primary) hypertension. Symptoms: Fatigue, Chest pain for one day (persistent). Medications continued from home: amlodipine 5 MG Oral Tablet, lisinopril 10 MG Oral Tablet. ibuprofen 400 MG Oral Tablet was discontinued and is not intended at discharge. Admitted for symptomatic hypertensive urgency with chest pain, observed for end-organ symptoms. Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+Admission note for a 79-year-old Male with Essential (primary) hypertension. Symptoms: Fatigue, Chest pain for one day (persistent). Medications continued from home: amlodipine 5 MG Oral Tablet, lisinopril 10 MG Oral Tablet. ibuprofen 400 MG Oral Tablet was stopped during this admission. Admitted for symptomatic hypertensive urgency with chest pain, observed for end-organ symptoms. Blood pressure was treated and observed in hospital until symptoms settled.
 
-Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+Blood pressure was treated and observed in hospital until symptoms settled.
 
 ## Relevant medical history
 
@@ -1921,7 +1921,7 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
-Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+Blood pressure was treated and observed in hospital until symptoms settled.
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
@@ -1976,7 +1976,7 @@ The following table lists medications recorded as the home regimen.
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | amlodipine 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Essential (primary) hypertension |
-| ibuprofen 400 MG Oral Tablet | 400 MG | oral | every 8 hours as needed | held; held reason: Held on admission; not continued at discharge.; indication: symptomatic analgesia; not a treatment for the admission diagnosis |
+| ibuprofen 400 MG Oral Tablet | 400 MG | oral | every 8 hours as needed | held; held reason: Stopped during this admission.; indication: symptomatic analgesia; not a treatment for the admission diagnosis |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 
 ## Medications during hospitalization
@@ -1986,7 +1986,7 @@ The following table lists medications recorded as active during the hospital sta
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | amlodipine 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Essential (primary) hypertension |
-| ibuprofen 400 MG Oral Tablet | 400 MG | oral | every 8 hours as needed | held; held reason: Held on admission; not continued at discharge.; indication: symptomatic analgesia; not a treatment for the admission diagnosis |
+| ibuprofen 400 MG Oral Tablet | 400 MG | oral | every 8 hours as needed | held; held reason: Stopped during this admission.; indication: symptomatic analgesia; not a treatment for the admission diagnosis |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 
 ## Discharge medications
@@ -2018,8 +2018,8 @@ The following items are follow-up appointments stored on the case.
 
 ## Discharge instructions
 
-- Do not restart at discharge: ibuprofen 400 MG Oral Tablet was discontinued and has no outpatient role. (category: medications)
 - Take discharge medications exactly as listed. (category: medications)
+- ibuprofen 400 MG Oral Tablet was stopped during this admission. (category: medications)
 
 ## Other relevant clinical information
 
@@ -2080,13 +2080,13 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Fatigue
 - **Symptom duration:** several days
 - **Symptom course:** intermittent
-- **History of present illness:** A 72-year-old Male is admitted with Essential (primary) hypertension. Presenting symptoms include Fatigue, present for several days and intermittent. Home medications include hydrochlorothiazide 25 MG Oral Tablet, lisinopril 10 MG Oral Tablet. Admitted for symptomatic hypertensive urgency with marked blood-pressure elevation. Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+- **History of present illness:** A 72-year-old Male is admitted with Essential (primary) hypertension. Presenting symptoms include Fatigue, present for several days and intermittent. Home medications include hydrochlorothiazide 25 MG Oral Tablet, lisinopril 10 MG Oral Tablet. Admitted for symptomatic hypertensive urgency with marked blood-pressure elevation. Blood pressure was treated and observed in hospital until symptoms settled.
 
 ### Admission note
 
-Admission note for a 72-year-old Male with Essential (primary) hypertension. Symptoms: Fatigue for several days (intermittent). Medications continued from home: hydrochlorothiazide 25 MG Oral Tablet, lisinopril 10 MG Oral Tablet. Admitted for symptomatic hypertensive urgency with marked blood-pressure elevation. Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+Admission note for a 72-year-old Male with Essential (primary) hypertension. Symptoms: Fatigue for several days (intermittent). Medications continued from home: hydrochlorothiazide 25 MG Oral Tablet, lisinopril 10 MG Oral Tablet. Admitted for symptomatic hypertensive urgency with marked blood-pressure elevation. Blood pressure was treated and observed in hospital until symptoms settled.
 
-Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+Blood pressure was treated and observed in hospital until symptoms settled.
 
 ## Relevant medical history
 
@@ -2108,7 +2108,7 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
-Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+Blood pressure was treated and observed in hospital until symptoms settled.
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
@@ -2428,13 +2428,13 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Fatigue, Chest pain
 - **Symptom duration:** one week
 - **Symptom course:** worsening
-- **History of present illness:** A 80-year-old Female is admitted with Essential (primary) hypertension. Presenting symptoms include Fatigue, Chest pain, present for one week and worsening. Home medications include amlodipine 5 MG Oral Tablet, hydrochlorothiazide 25 MG Oral Tablet, lisinopril 10 MG Oral Tablet. Used only in the hospital and stopped at discharge: pantoprazole 40 MG Delayed Release Oral Tablet. Admitted for symptomatic hypertensive urgency on triple oral therapy, observed for end-organ symptoms. Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+- **History of present illness:** A 80-year-old Female is admitted with Essential (primary) hypertension. Presenting symptoms include Fatigue, Chest pain, present for one week and worsening. Home medications include amlodipine 5 MG Oral Tablet, hydrochlorothiazide 25 MG Oral Tablet, lisinopril 10 MG Oral Tablet. Started during the hospitalization: pantoprazole 40 MG Delayed Release Oral Tablet. Admitted for symptomatic hypertensive urgency on triple oral therapy, observed for end-organ symptoms. Blood pressure was treated and observed in hospital until symptoms settled.
 
 ### Admission note
 
-Admission note for a 80-year-old Female with Essential (primary) hypertension. Symptoms: Fatigue, Chest pain for one week (worsening). Medications continued from home: amlodipine 5 MG Oral Tablet, hydrochlorothiazide 25 MG Oral Tablet, lisinopril 10 MG Oral Tablet. Used only in the hospital and stopped at discharge: pantoprazole 40 MG Delayed Release Oral Tablet. Admitted for symptomatic hypertensive urgency on triple oral therapy, observed for end-organ symptoms. Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+Admission note for a 80-year-old Female with Essential (primary) hypertension. Symptoms: Fatigue, Chest pain for one week (worsening). Medications continued from home: amlodipine 5 MG Oral Tablet, hydrochlorothiazide 25 MG Oral Tablet, lisinopril 10 MG Oral Tablet. Started during the hospitalization: pantoprazole 40 MG Delayed Release Oral Tablet. Admitted for symptomatic hypertensive urgency on triple oral therapy, observed for end-organ symptoms. Blood pressure was treated and observed in hospital until symptoms settled.
 
-Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+Blood pressure was treated and observed in hospital until symptoms settled.
 
 ## Relevant medical history
 
@@ -2456,7 +2456,7 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
-Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+Blood pressure was treated and observed in hospital until symptoms settled.
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
@@ -2525,7 +2525,7 @@ The following table lists medications recorded as active during the hospital sta
 | amlodipine 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Essential (primary) hypertension |
 | hydrochlorothiazide 25 MG Oral Tablet | 25 MG | oral | once daily | indication: Essential (primary) hypertension |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
-| pantoprazole 40 MG Delayed Release Oral Tablet | 40 MG | oral | once daily | indication: Started in hospital for an inpatient-only indication; stop at discharge. No outpatient continuation of pantoprazole 40 MG Delayed Release Oral Tablet. |
+| pantoprazole 40 MG Delayed Release Oral Tablet | 40 MG | oral | once daily | indication: Essential (primary) hypertension; note: Pantoprazole was initiated during the hospitalization for acute gastrointestinal management. |
 
 ## Discharge medications
 
@@ -2536,7 +2536,7 @@ The following table lists medications recorded on the discharge list.
 | amlodipine 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Essential (primary) hypertension |
 | hydrochlorothiazide 25 MG Oral Tablet | 25 MG | oral | once daily | indication: Essential (primary) hypertension |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
-| pantoprazole 40 MG Delayed Release Oral Tablet | 40 MG | oral | once daily | indication: Started in hospital for an inpatient-only indication; stop at discharge. No outpatient continuation of pantoprazole 40 MG Delayed Release Oral Tablet. |
+| pantoprazole 40 MG Delayed Release Oral Tablet | 40 MG | oral | once daily | indication: Essential (primary) hypertension; note: Pantoprazole was initiated during the hospitalization for acute gastrointestinal management. |
 
 ## Medication reconciliation
 
@@ -2618,13 +2618,13 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Fatigue
 - **Symptom duration:** two days
 - **Symptom course:** progressive
-- **History of present illness:** A 72-year-old Female is admitted with Essential (primary) hypertension. Presenting symptoms include Fatigue, present for two days and progressive. Home medications include atorvastatin 40 MG Oral Tablet. Started during this admission: enalapril maleate 5 MG. Admitted for a first presentation of severe symptomatic hypertension requiring observed treatment. Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+- **History of present illness:** A 72-year-old Female is admitted with Essential (primary) hypertension. Presenting symptoms include Fatigue, present for two days and progressive. Home medications include atorvastatin 40 MG Oral Tablet. Started during this admission: enalapril maleate 5 MG. Admitted for a first presentation of severe symptomatic hypertension requiring observed treatment. Blood pressure was treated and observed in hospital until symptoms settled.
 
 ### Admission note
 
-Admission note for a 72-year-old Female with Essential (primary) hypertension. Symptoms: Fatigue for two days (progressive). Medications continued from home: atorvastatin 40 MG Oral Tablet. Started during this admission: enalapril maleate 5 MG. Admitted for a first presentation of severe symptomatic hypertension requiring observed treatment. Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+Admission note for a 72-year-old Female with Essential (primary) hypertension. Symptoms: Fatigue for two days (progressive). Medications continued from home: atorvastatin 40 MG Oral Tablet. Started during this admission: enalapril maleate 5 MG. Admitted for a first presentation of severe symptomatic hypertension requiring observed treatment. Blood pressure was treated and observed in hospital until symptoms settled.
 
-Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+Blood pressure was treated and observed in hospital until symptoms settled.
 
 ## Relevant medical history
 
@@ -2646,7 +2646,7 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
-Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+Blood pressure was treated and observed in hospital until symptoms settled.
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
@@ -2791,13 +2791,13 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Polyuria, Fatigue
 - **Symptom duration:** one week
 - **Symptom course:** progressive
-- **History of present illness:** A 64-year-old Male is admitted with Type 2 diabetes mellitus with hyperglycemia. Presenting symptoms include Polyuria, Fatigue, present for one week and progressive. Home medications include lisinopril 10 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Used only in the hospital and stopped at discharge: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia with polyuria requiring supervised glucose and fluid management. Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+- **History of present illness:** A 64-year-old Male is admitted with Type 2 diabetes mellitus with hyperglycemia. Presenting symptoms include Polyuria, Fatigue, present for one week and progressive. Home medications include lisinopril 10 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia with polyuria requiring supervised glucose and fluid management. Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
 ### Admission note
 
-Admission note for a 64-year-old Male with Type 2 diabetes mellitus with hyperglycemia. Symptoms: Polyuria, Fatigue for one week (progressive). Medications continued from home: lisinopril 10 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Used only in the hospital and stopped at discharge: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia with polyuria requiring supervised glucose and fluid management. Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+Admission note for a 64-year-old Male with Type 2 diabetes mellitus with hyperglycemia. Symptoms: Polyuria, Fatigue for one week (progressive). Medications continued from home: lisinopril 10 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia with polyuria requiring supervised glucose and fluid management. Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
-Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
 ## Relevant medical history
 
@@ -2821,7 +2821,7 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
-Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
@@ -2884,7 +2884,7 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 3 ML insulin lispro 100 UNT/ML Pen Injector | individualized | subcutaneous | with glucose checks | indication: Started in hospital for an inpatient-only indication; stop at discharge. No outpatient continuation of 3 ML insulin lispro 100 UNT/ML Pen Injector.; note: Hospital-only correctional insulin for symptomatic hyperglycemia. Stopped at discharge. Units are individualized and are not a home dose. |
+| 3 ML insulin lispro 100 UNT/ML Pen Injector | individualized | subcutaneous | with glucose checks | indication: Type 2 diabetes mellitus with hyperglycemia; note: Correctional insulin was used during inpatient glucose management. |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus with hyperglycemia |
 
@@ -2963,13 +2963,13 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Fatigue
 - **Symptom duration:** several days
 - **Symptom course:** persistent
-- **History of present illness:** A 66-year-old Male is admitted with Type 2 diabetes mellitus with hyperglycemia. Presenting symptoms include Fatigue, present for several days and persistent. Home medications include atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Used only in the hospital and stopped at discharge: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia requiring inpatient glucose stabilization. Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+- **History of present illness:** A 66-year-old Male is admitted with Type 2 diabetes mellitus with hyperglycemia. Presenting symptoms include Fatigue, present for several days and persistent. Home medications include atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia requiring inpatient glucose stabilization. Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
 ### Admission note
 
-Admission note for a 66-year-old Male with Type 2 diabetes mellitus with hyperglycemia. Symptoms: Fatigue for several days (persistent). Medications continued from home: atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Used only in the hospital and stopped at discharge: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia requiring inpatient glucose stabilization. Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+Admission note for a 66-year-old Male with Type 2 diabetes mellitus with hyperglycemia. Symptoms: Fatigue for several days (persistent). Medications continued from home: atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia requiring inpatient glucose stabilization. Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
-Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
 ## Relevant medical history
 
@@ -2991,7 +2991,7 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
-Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
@@ -3054,7 +3054,7 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 3 ML insulin lispro 100 UNT/ML Pen Injector | individualized | subcutaneous | with glucose checks | indication: Started in hospital for an inpatient-only indication; stop at discharge. No outpatient continuation of 3 ML insulin lispro 100 UNT/ML Pen Injector.; note: Hospital-only correctional insulin for symptomatic hyperglycemia. Stopped at discharge. Units are individualized and are not a home dose. |
+| 3 ML insulin lispro 100 UNT/ML Pen Injector | individualized | subcutaneous | with glucose checks | indication: Type 2 diabetes mellitus with hyperglycemia; note: Correctional insulin was used during inpatient glucose management. |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus with hyperglycemia |
 
@@ -3134,13 +3134,13 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Polyuria
 - **Symptom duration:** two days
 - **Symptom course:** acutely worsening
-- **History of present illness:** A 54-year-old Male is admitted with Type 2 diabetes mellitus with hyperglycemia. Presenting symptoms include Polyuria, present for two days and acutely worsening. Home medications include lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Used only in the hospital and stopped at discharge: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia with volume depletion requiring supervised treatment. Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+- **History of present illness:** A 54-year-old Male is admitted with Type 2 diabetes mellitus with hyperglycemia. Presenting symptoms include Polyuria, present for two days and acutely worsening. Home medications include lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia with volume depletion requiring supervised treatment. Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
 ### Admission note
 
-Admission note for a 54-year-old Male with Type 2 diabetes mellitus with hyperglycemia. Symptoms: Polyuria for two days (acutely worsening). Medications continued from home: lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Used only in the hospital and stopped at discharge: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia with volume depletion requiring supervised treatment. Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+Admission note for a 54-year-old Male with Type 2 diabetes mellitus with hyperglycemia. Symptoms: Polyuria for two days (acutely worsening). Medications continued from home: lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia with volume depletion requiring supervised treatment. Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
-Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
 ## Relevant medical history
 
@@ -3164,7 +3164,7 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
-Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
@@ -3230,7 +3230,7 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 3 ML insulin lispro 100 UNT/ML Pen Injector | individualized | subcutaneous | with glucose checks | indication: Started in hospital for an inpatient-only indication; stop at discharge. No outpatient continuation of 3 ML insulin lispro 100 UNT/ML Pen Injector.; note: Hospital-only correctional insulin for symptomatic hyperglycemia. Stopped at discharge. Units are individualized and are not a home dose. |
+| 3 ML insulin lispro 100 UNT/ML Pen Injector | individualized | subcutaneous | with glucose checks | indication: Type 2 diabetes mellitus with hyperglycemia; note: Correctional insulin was used during inpatient glucose management. |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus with hyperglycemia |
@@ -3312,13 +3312,13 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Polyuria, Fatigue
 - **Symptom duration:** one day
 - **Symptom course:** intermittent
-- **History of present illness:** A 69-year-old Female is admitted with Type 2 diabetes mellitus with hyperglycemia. Presenting symptoms include Polyuria, Fatigue, present for one day and intermittent. Home medications include atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Used only in the hospital and stopped at discharge: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia; a pending outpatient diabetes-therapy decision was recorded. Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+- **History of present illness:** A 69-year-old Female is admitted with Type 2 diabetes mellitus with hyperglycemia. Presenting symptoms include Polyuria, Fatigue, present for one day and intermittent. Home medications include atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia; a pending outpatient diabetes-therapy decision was recorded. Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
 ### Admission note
 
-Admission note for a 69-year-old Female with Type 2 diabetes mellitus with hyperglycemia. Symptoms: Polyuria, Fatigue for one day (intermittent). Medications continued from home: atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Used only in the hospital and stopped at discharge: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia; a pending outpatient diabetes-therapy decision was recorded. Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+Admission note for a 69-year-old Female with Type 2 diabetes mellitus with hyperglycemia. Symptoms: Polyuria, Fatigue for one day (intermittent). Medications continued from home: atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia; a pending outpatient diabetes-therapy decision was recorded. Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
-Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
 ## Relevant medical history
 
@@ -3340,7 +3340,7 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
-Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
@@ -3401,7 +3401,7 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 3 ML insulin lispro 100 UNT/ML Pen Injector | individualized | subcutaneous | with glucose checks | indication: Started in hospital for an inpatient-only indication; stop at discharge. No outpatient continuation of 3 ML insulin lispro 100 UNT/ML Pen Injector.; note: Hospital-only correctional insulin for symptomatic hyperglycemia. Stopped at discharge. Units are individualized and are not a home dose. |
+| 3 ML insulin lispro 100 UNT/ML Pen Injector | individualized | subcutaneous | with glucose checks | indication: Type 2 diabetes mellitus with hyperglycemia; note: Correctional insulin was used during inpatient glucose management. |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus with hyperglycemia |
 
@@ -3482,13 +3482,13 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Fatigue
 - **Symptom duration:** several days
 - **Symptom course:** improving after treatment
-- **History of present illness:** A 63-year-old Male is admitted with Type 2 diabetes mellitus with hyperglycemia. Presenting symptoms include Fatigue, present for several days and improving after treatment. Home medications include lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Used only in the hospital and stopped at discharge: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia that improved with supervised inpatient management. Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+- **History of present illness:** A 63-year-old Male is admitted with Type 2 diabetes mellitus with hyperglycemia. Presenting symptoms include Fatigue, present for several days and improving after treatment. Home medications include lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia that improved with supervised inpatient management. Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
 ### Admission note
 
-Admission note for a 63-year-old Male with Type 2 diabetes mellitus with hyperglycemia. Symptoms: Fatigue for several days (improving after treatment). Medications continued from home: lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Used only in the hospital and stopped at discharge: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia that improved with supervised inpatient management. Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+Admission note for a 63-year-old Male with Type 2 diabetes mellitus with hyperglycemia. Symptoms: Fatigue for several days (improving after treatment). Medications continued from home: lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia that improved with supervised inpatient management. Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
-Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
 ## Relevant medical history
 
@@ -3512,7 +3512,7 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
-Capillary glucose was monitored. Correctional subcutaneous insulin was given while inpatient and stopped at discharge. Home metformin was continued.
+Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
@@ -3576,7 +3576,7 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 3 ML insulin lispro 100 UNT/ML Pen Injector | individualized | subcutaneous | with glucose checks | indication: Started in hospital for an inpatient-only indication; stop at discharge. No outpatient continuation of 3 ML insulin lispro 100 UNT/ML Pen Injector.; note: Hospital-only correctional insulin for symptomatic hyperglycemia. Stopped at discharge. Units are individualized and are not a home dose. |
+| 3 ML insulin lispro 100 UNT/ML Pen Injector | individualized | subcutaneous | with glucose checks | indication: Type 2 diabetes mellitus with hyperglycemia; note: Correctional insulin was used during inpatient glucose management. |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus with hyperglycemia |
@@ -3749,7 +3749,7 @@ The following table lists medications recorded as active during the hospital sta
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | albuterol 0.1 MG Inhalation Powder | 2 inhalations | inhaled | every 6 hours as needed | indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
-| azithromycin 250 MG Oral Tablet | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism; note: Started during this admission for pneumonia. Discharge continues the remaining oral course at 250 MG once daily. |
+| azithromycin 250 MG Oral Tablet | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism; note: Started during this admission. |
 
 ## Discharge medications
 
@@ -3924,7 +3924,7 @@ The following table lists medications recorded as active during the hospital sta
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | albuterol 0.1 MG Inhalation Powder | 2 inhalations | inhaled | every 6 hours as needed | indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
-| azithromycin 250 MG Oral Tablet | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism; note: Started during this admission for pneumonia. Discharge continues the remaining oral course at 250 MG once daily. |
+| azithromycin 250 MG Oral Tablet | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism; note: Started during this admission. |
 
 ## Discharge medications
 
@@ -4102,7 +4102,7 @@ The following table lists medications recorded as active during the hospital sta
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | albuterol 0.1 MG Inhalation Powder | 2 inhalations | inhaled | every 6 hours as needed | held; held reason: Scheduled inhaler doses were held overnight for documented tachycardia; intended to restart.; indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
-| azithromycin 250 MG Oral Tablet | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism; note: Started during this admission for pneumonia. Discharge continues the remaining oral course at 250 MG once daily. |
+| azithromycin 250 MG Oral Tablet | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism; note: Started during this admission. |
 | pantoprazole 40 MG Delayed Release Oral Tablet | 40 MG | oral | once daily | indication: Gastro-esophageal reflux disease without esophagitis |
 
 ## Discharge medications
@@ -4112,7 +4112,7 @@ The following table lists medications recorded on the discharge list.
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | albuterol 0.1 MG Inhalation Powder | 2 inhalations | inhaled | every 6 hours as needed | held; held reason: Scheduled inhaler doses were held overnight for documented tachycardia; intended to restart.; indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
-| azithromycin 250 MG Oral Tablet | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism; note: Started during this admission for pneumonia. Discharge continues the remaining oral course at 250 MG once daily. |
+| azithromycin 250 MG Oral Tablet | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism; note: Started during this admission. |
 | pantoprazole 40 MG Delayed Release Oral Tablet | 40 MG | oral | once daily | indication: Gastro-esophageal reflux disease without esophagitis |
 
 ## Medication reconciliation
@@ -4277,7 +4277,7 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| azithromycin 250 MG Oral Tablet | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism; note: Started during this admission for pneumonia. Discharge continues the remaining oral course at 250 MG once daily. |
+| azithromycin 250 MG Oral Tablet | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism; note: Started during this admission. |
 | pantoprazole 40 MG Delayed Release Oral Tablet | 40 MG | oral | once daily | indication: Gastro-esophageal reflux disease without esophagitis |
 
 ## Discharge medications
@@ -4286,7 +4286,7 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| azithromycin 250 MG Oral Tablet | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism; supply: 7 days; note: Started during this admission for pneumonia. Discharge continues the remaining oral course at 250 MG once daily. |
+| azithromycin 250 MG Oral Tablet | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism; supply: 7 days; note: Started during this admission. |
 | pantoprazole 40 MG Delayed Release Oral Tablet | 40 MG | oral | once daily | indication: Gastro-esophageal reflux disease without esophagitis; supply: 30 days |
 
 ## Medication reconciliation

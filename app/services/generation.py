@@ -186,6 +186,7 @@ class ClinicalProfile:
     restart_plan: str | None = None
     pending_decision_medication_query: str | None = None
     pending_decision_text: str | None = None
+    pending_discharge_state: str | None = None
     monitoring_parameter: str | None = None
     monitoring_frequency: str | None = None
     monitoring_service: str | None = None
@@ -217,15 +218,13 @@ HOSPITAL_COURSE_TEXT = {
     ),
     "glycemic_stabilization": (
         "Capillary glucose was monitored. Correctional subcutaneous insulin was "
-        "given while inpatient and stopped at discharge. Home metformin was continued."
+        "used during inpatient glucose management."
     ),
     "hypertensive_treatment": (
-        "Blood pressure was treated and observed in hospital. The discharge plan "
-        "continues the selected antihypertensive regimen."
+        "Blood pressure was treated and observed in hospital until symptoms settled."
     ),
     "medication_adjustment": (
-        "Home therapy was reviewed and adjusted during the stay. The discharge "
-        "list reflects the intended outpatient regimen."
+        "Home therapy was reviewed during the stay after the inpatient response was observed."
     ),
     "observed_stabilization": (
         "The patient was observed until vital signs and symptoms stabilized "
@@ -233,8 +232,8 @@ HOSPITAL_COURSE_TEXT = {
     ),
     "collateral_medrec_complete": (
         "A collateral medication list was obtained after admission and verified. "
-        "Unknown names were not converted into discharge orders. Intentionally "
-        "discontinued therapy was documented separately from incomplete information."
+        "Medications that had been stopped were recorded separately from names "
+        "that remained uncertain."
     ),
     "home_services_transition": (
         "The patient returned to cognitive baseline. Home services were arranged "
@@ -271,8 +270,7 @@ HOSPITAL_COURSE_TEXT = {
         "and infectious-disease follow-up were arranged before discharge."
     ),
     "transplant_antiviral_conversion": (
-        "Infectious symptoms improved. Inpatient antiviral therapy was converted "
-        "to the intended outpatient agent."
+        "Infectious symptoms improved. Antiviral therapy was reviewed during the stay."
     ),
     "transplant_aki_holds": (
         "Volume-related kidney injury led to temporary holds of selected immunosuppression."
@@ -389,6 +387,7 @@ def _load_profiles(item: dict[str, Any]) -> list[ClinicalProfile]:
                     row.get("pending_decision_medication_query")
                 ),
                 pending_decision_text=_optional_str(row.get("pending_decision_text")),
+                pending_discharge_state=_optional_str(row.get("pending_discharge_state")),
                 monitoring_parameter=_optional_str(row.get("monitoring_parameter")),
                 monitoring_frequency=_optional_str(row.get("monitoring_frequency")),
                 monitoring_service=_optional_str(row.get("monitoring_service")),
@@ -1030,6 +1029,15 @@ def generate_one_case(
         continued_for_sub = [
             item for item in medications if item.rxcui != substitution_pair[0].rxcui
         ]
+    pending_hold = None
+    if profile.pending_discharge_state == "held" and profile.pending_decision_medication_query:
+        pending_hold = _pick_medication(
+            continued_for_sub, profile.pending_decision_medication_query
+        )
+        if pending_hold is not None:
+            continued_for_sub = [
+                item for item in continued_for_sub if item.rxcui != pending_hold.rxcui
+            ]
     for medication in continued_for_sub:
         _add_continued_medication(
             session,
@@ -1041,6 +1049,16 @@ def generate_one_case(
             quantity_or_days=None if supply_days is None else f"{supply_days} days",
             verification_source=profile.bpmh_source,
             temporal_overrides=profile.medication_temporal_roles,
+        )
+    if pending_hold is not None:
+        _add_pending_hold_medication(
+            session,
+            case=case,
+            ids=ids,
+            medication=pending_hold,
+            indication=_indication_for(session, pending_hold, problems),
+            frequency=scenario.default_frequency,
+            verification_source=profile.bpmh_source,
         )
     if hold_restart is not None:
         _add_held_restart_medication(
@@ -1434,7 +1452,7 @@ def _add_stopped_medication(
     dose = admin.dose
     route = admin.route
     frequency = admin.frequency
-    held_reason = "Held on admission; not continued at discharge."
+    held_reason = "Stopped during this admission."
     for context, status in (("home", "held"), ("inpatient", "held")):
         session.add(
             _medication_row(
@@ -1471,9 +1489,7 @@ def _add_stopped_medication(
             case_id=case.id,
             instruction_id=ids.next_id("instruction"),
             category="medications",
-            instruction_text=(
-                f"Do not restart at discharge: {label} was discontinued and has no outpatient role."
-            ),
+            instruction_text=f"{label} was stopped during this admission.",
             source_type="synthetic",
         )
     )
@@ -1561,6 +1577,91 @@ def _add_held_restart_medication(
     )
 
 
+def _add_pending_hold_medication(
+    session: Session,
+    *,
+    case: ClinicalCase,
+    ids: _IdCounter,
+    medication: RefMedication,
+    indication: str,
+    frequency: str,
+    verification_source: str = "patient_and_prior_records",
+) -> None:
+    """Home therapy held through discharge while a restart decision stays unresolved."""
+    label = _med_label(medication)
+    admin = administration_for(medication, fallback_frequency=frequency)
+    reason = "Held after the acute event while restart timing remains unresolved."
+    session.add(
+        _medication_row(
+            case=case,
+            ids=ids,
+            medication=medication,
+            label=label,
+            context="home",
+            status="home",
+            dose=admin.dose,
+            route=admin.route,
+            frequency=admin.frequency,
+            indication=indication,
+            held_reason=None,
+            verification_source=verification_source,
+            notes=admin.chart_note,
+        )
+    )
+    for context, status in (("inpatient", "held"), ("discharge", "held")):
+        session.add(
+            _medication_row(
+                case=case,
+                ids=ids,
+                medication=medication,
+                label=label,
+                context=context,
+                status=status,
+                dose=admin.dose,
+                route=admin.route,
+                frequency=admin.frequency,
+                indication=indication,
+                held_reason=reason,
+                verification_source=verification_source,
+                notes=admin.chart_note,
+            )
+        )
+    session.add(
+        CaseMedicationPlan(
+            plan_id=ids.next_id("plan"),
+            case_id=case.id,
+            ref_medication_id=medication.id,
+            drug=label,
+            home_state="continue",
+            inpatient_state="held",
+            correct_discharge_state="hold",
+            decision="hold",
+            decision_reason=(
+                "Held at discharge while restart versus continued hold remains unresolved."
+            ),
+            is_error_target=False,
+        )
+    )
+
+
+def _clinical_hospital_note(medication: RefMedication) -> str | None:
+    blob = " ".join(
+        part
+        for part in (medication.ingredient, medication.generic_name, medication.concept_name)
+        if part
+    ).casefold()
+    if "pantoprazole" in blob:
+        return (
+            "Pantoprazole was initiated during the hospitalization "
+            "for acute gastrointestinal management."
+        )
+    if "insulin" in blob:
+        return "Correctional insulin was used during inpatient glucose management."
+    if "enoxaparin" in blob:
+        return "Enoxaparin was used for inpatient venous-thromboembolism prophylaxis."
+    return None
+
+
 def _add_hospital_only_medication(
     session: Session,
     *,
@@ -1575,10 +1676,7 @@ def _add_hospital_only_medication(
     dose = admin.dose
     route = admin.route
     frequency = admin.frequency
-    reason = (
-        f"Started in hospital for an inpatient-only indication; stop at discharge. "
-        f"No outpatient continuation of {label}."
-    )
+    reason = "Started in hospital for an inpatient-only indication."
     session.add(
         _medication_row(
             case=case,
@@ -1590,9 +1688,9 @@ def _add_hospital_only_medication(
             dose=dose,
             route=route,
             frequency=frequency,
-            indication=reason,
+            indication=indication,
             held_reason=None,
-            notes=admin.chart_note,
+            notes=_clinical_hospital_note(medication) or admin.chart_note,
         )
     )
     session.add(
@@ -1719,8 +1817,8 @@ def _add_inpatient_substitution(
             instruction_id=ids.next_id("instruction"),
             category="medications",
             instruction_text=(
-                f"Resume home therapy {home_label}. Inpatient {sub_label} was a "
-                f"formulary substitution for {home_label} only."
+                f"Resume home therapy {home_label}. Inpatient {sub_label} was used "
+                f"in place of {home_label} during the admission."
             ),
             source_type="synthetic",
         )
@@ -1891,6 +1989,7 @@ def _case_state_snapshot(session: Session, case: ClinicalCase) -> dict[str, Any]
             "drug": plan.drug,
             "decision": plan.decision,
             "correct_discharge_state": plan.correct_discharge_state,
+            "decision_reason": plan.decision_reason,
             "is_error_target": plan.is_error_target,
         }
         for plan in list_plans_for_case(session, case.id)
@@ -2247,7 +2346,7 @@ def _maybe_add_warfarin_monitoring(
     for row in list_medications_for_case(session, case.id):
         if row.ref_medication_id != warfarin_ref.id or row.context != "discharge":
             continue
-        row.monitoring = "INR laboratory monitoring is separate from the clinic appointment."
+        row.monitoring = "INR check"
 
 
 def _maybe_openai_narrative(
@@ -2320,7 +2419,7 @@ def _template_narrative(
         med_text = "no chronic home medications were recorded"
     held_text = ", ".join(held) if held else ""
     held_sentence = (
-        f" {held_text} was discontinued and is not intended at discharge." if held_text else ""
+        f" {held_text} was stopped during this admission." if held_text else ""
     )
     hold_sentence = ""
     if hold_name:
@@ -2332,9 +2431,7 @@ def _template_narrative(
     )
     hospital_text = ", ".join(hospital_only_names or [])
     hospital_sentence = (
-        f" Used only in the hospital and stopped at discharge: {hospital_text}."
-        if hospital_text
-        else ""
+        f" Started during the hospitalization: {hospital_text}." if hospital_text else ""
     )
     course_sentence = f" {hospital_course}" if hospital_course else ""
     context_sentence = f" {context_note}" if context_note.strip() else ""

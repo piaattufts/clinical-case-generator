@@ -34,8 +34,8 @@ TOTAL CASES: 24
 
 ## TERMINOLOGY COVERAGE
 
-- unique medications: 18
-- unique RXCUIs: 18
+- unique medications: 17
+- unique RXCUIs: 17
 - unique diagnoses: 7
 - unique ICD codes: 7
 - unique labs: 7

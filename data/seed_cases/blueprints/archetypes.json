@@ -71,7 +71,7 @@
           "followup_item": "Primary care follow-up after collateral medication verification",
           "followup_service": "primary care",
           "followup_timing": "7 days",
-          "context_note": "The patient could not supply a reliable medication history at admission. A collateral home-medication list arrived later and was verified. Unknown names are not treated as discharge orders. Ibuprofen is documented as intentionally discontinued, not as an unknown item.",
+          "context_note": "The patient could not supply a reliable medication history at admission. A collateral home-medication list arrived later and was verified. Ibuprofen had already been stopped and was recorded separately from names that were still uncertain.",
           "comorbidity_queries": [
             "hypertension",
             "type 2 diabetes mellitus",
@@ -1377,7 +1377,7 @@
           "allowed_error_categories": [
             "f2_hospital_only_continued"
           ],
-          "context_note": "Enoxaparin was used as inpatient bridging and is not intended to continue once warfarin is resumed.",
+          "context_note": "Enoxaparin was used for inpatient venous-thromboembolism prophylaxis.",
           "comorbidity_queries": [
             "atrial fibrillation",
             "hypertension",
@@ -1522,7 +1522,7 @@
           "allowed_error_categories": [
             "f2_hospital_only_continued"
           ],
-          "context_note": "Inpatient acid suppression was used for the bleed and is not intended to continue at discharge unless later prescribed.",
+          "context_note": "Pantoprazole was initiated during the hospitalization for acute gastrointestinal management.",
           "comorbidity_queries": [
             "hyperlipidemia",
             "hypertension",
@@ -1590,6 +1590,7 @@
           ],
           "pending_decision_medication_query": "apixaban",
           "pending_decision_text": "Restart versus continued hold of apixaban remains a pending outpatient decision after the bleed.",
+          "pending_discharge_state": "held",
           "target_medication_query": "apixaban",
           "admission_reason": "Admitted for gastrointestinal bleeding with a pending anticoagulation decision."
         },
@@ -1619,7 +1620,7 @@
           "allowed_error_categories": [
             "f1_commission"
           ],
-          "context_note": "Aspirin used for primary prevention was intentionally stopped after the bleed. That discontinuation is documented and is distinct from an omitted intended medication.",
+          "context_note": "Aspirin used for primary prevention was stopped after the bleed.",
           "comorbidity_queries": [
             "hyperlipidemia",
             "hypertension",

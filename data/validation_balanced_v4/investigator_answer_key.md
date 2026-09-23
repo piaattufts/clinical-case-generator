@@ -204,7 +204,7 @@ Batch: `CLINIPROOF_BALANCED_V4`
 - Status: error_bearing
 - Error family: `family_2`
 - Error category: `f2_pending_decision_followup_missing`
-- Rationale: Treatment continues after discharge while a pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
+- Rationale: A pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
 - Seed: `20260925:1419:T2DM_INPATIENT:T2DM_PENDING_DURATION`
 
 ## VAL-720

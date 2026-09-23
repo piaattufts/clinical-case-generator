@@ -45,13 +45,13 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Confusion, Fatigue
 - **Symptom duration:** several days
 - **Symptom course:** improving after treatment
-- **History of present illness:** A 75-year-old Male is admitted with Delirium due to known physiological condition. Presenting symptoms include Confusion, Fatigue, present for several days and improving after treatment. Home medications include lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. ibuprofen 400 MG Oral Tablet was discontinued and is not intended at discharge. Admitted for delirium with an initially incomplete medication history. The patient could not supply a reliable medication history at admission. A collateral home-medication list arrived later and was verified. Unknown names are not treated as discharge orders. Ibuprofen is documented as intentionally discontinued, not as an unknown item. A collateral medication list was obtained after admission and verified. Unknown names were not converted into discharge orders. Intentionally discontinued therapy was documented separately from incomplete information.
+- **History of present illness:** A 75-year-old Male is admitted with Delirium due to known physiological condition. Presenting symptoms include Confusion, Fatigue, present for several days and improving after treatment. Home medications include lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. ibuprofen 400 MG Oral Tablet was stopped during this admission. Admitted for delirium with an initially incomplete medication history. The patient could not supply a reliable medication history at admission. A collateral home-medication list arrived later and was verified. Ibuprofen had already been stopped and was recorded separately from names that were still uncertain. A collateral medication list was obtained after admission and verified. Medications that had been stopped were recorded separately from names that remained uncertain.
 
 ### Admission note
 
-Admission note for a 75-year-old Male with Delirium due to known physiological condition. Symptoms: Confusion, Fatigue for several days (improving after treatment). Medications continued from home: lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. ibuprofen 400 MG Oral Tablet was discontinued and is not intended at discharge. Admitted for delirium with an initially incomplete medication history. The patient could not supply a reliable medication history at admission. A collateral home-medication list arrived later and was verified. Unknown names are not treated as discharge orders. Ibuprofen is documented as intentionally discontinued, not as an unknown item. A collateral medication list was obtained after admission and verified. Unknown names were not converted into discharge orders. Intentionally discontinued therapy was documented separately from incomplete information.
+Admission note for a 75-year-old Male with Delirium due to known physiological condition. Symptoms: Confusion, Fatigue for several days (improving after treatment). Medications continued from home: lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. ibuprofen 400 MG Oral Tablet was stopped during this admission. Admitted for delirium with an initially incomplete medication history. The patient could not supply a reliable medication history at admission. A collateral home-medication list arrived later and was verified. Ibuprofen had already been stopped and was recorded separately from names that were still uncertain. A collateral medication list was obtained after admission and verified. Medications that had been stopped were recorded separately from names that remained uncertain.
 
-A collateral medication list was obtained after admission and verified. Unknown names were not converted into discharge orders. Intentionally discontinued therapy was documented separately from incomplete information.
+A collateral medication list was obtained after admission and verified. Medications that had been stopped were recorded separately from names that remained uncertain.
 
 ## Relevant medical history
 
@@ -77,7 +77,7 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
-A collateral medication list was obtained after admission and verified. Unknown names were not converted into discharge orders. Intentionally discontinued therapy was documented separately from incomplete information.
+A collateral medication list was obtained after admission and verified. Medications that had been stopped were recorded separately from names that remained uncertain.
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health ordered: Yes.
 
@@ -132,7 +132,7 @@ The following table lists medications recorded as the home regimen.
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| ibuprofen 400 MG Oral Tablet | 400 MG | oral | every 8 hours as needed | held; held reason: Held on admission; not continued at discharge.; indication: symptomatic analgesia; not a treatment for the admission diagnosis |
+| ibuprofen 400 MG Oral Tablet | 400 MG | oral | every 8 hours as needed | held; held reason: Stopped during this admission.; indication: symptomatic analgesia; not a treatment for the admission diagnosis |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
 
@@ -143,7 +143,7 @@ The following table lists medications recorded as active during the hospital sta
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| ibuprofen 400 MG Oral Tablet | 400 MG | oral | every 8 hours as needed | held; held reason: Held on admission; not continued at discharge.; indication: symptomatic analgesia; not a treatment for the admission diagnosis |
+| ibuprofen 400 MG Oral Tablet | 400 MG | oral | every 8 hours as needed | held; held reason: Stopped during this admission.; indication: symptomatic analgesia; not a treatment for the admission diagnosis |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
 
@@ -176,8 +176,8 @@ The following items are follow-up appointments stored on the case.
 
 ## Discharge instructions
 
-- Do not restart at discharge: ibuprofen 400 MG Oral Tablet was discontinued and has no outpatient role. (category: medications)
 - Take discharge medications exactly as listed. (category: medications)
+- ibuprofen 400 MG Oral Tablet was stopped during this admission. (category: medications)
 
 ## Other relevant clinical information
 
@@ -345,13 +345,13 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Confusion
 - **Symptom duration:** two days
 - **Symptom course:** improving after treatment
-- **History of present illness:** A 81-year-old Female is admitted with Delirium due to known physiological condition. Presenting symptoms include Confusion, present for two days and improving after treatment. Home medications include lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for delirium; a verified statin was confirmed from collateral sources. A later collateral list confirmed a continued statin. A collateral medication list was obtained after admission and verified. Unknown names were not converted into discharge orders. Intentionally discontinued therapy was documented separately from incomplete information.
+- **History of present illness:** A 81-year-old Female is admitted with Delirium due to known physiological condition. Presenting symptoms include Confusion, present for two days and improving after treatment. Home medications include lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for delirium; a verified statin was confirmed from collateral sources. A later collateral list confirmed a continued statin. A collateral medication list was obtained after admission and verified. Medications that had been stopped were recorded separately from names that remained uncertain.
 
 ### Admission note
 
-Admission note for a 81-year-old Female with Delirium due to known physiological condition. Symptoms: Confusion for two days (improving after treatment). Medications continued from home: lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for delirium; a verified statin was confirmed from collateral sources. A later collateral list confirmed a continued statin. A collateral medication list was obtained after admission and verified. Unknown names were not converted into discharge orders. Intentionally discontinued therapy was documented separately from incomplete information.
+Admission note for a 81-year-old Female with Delirium due to known physiological condition. Symptoms: Confusion for two days (improving after treatment). Medications continued from home: lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for delirium; a verified statin was confirmed from collateral sources. A later collateral list confirmed a continued statin. A collateral medication list was obtained after admission and verified. Medications that had been stopped were recorded separately from names that remained uncertain.
 
-A collateral medication list was obtained after admission and verified. Unknown names were not converted into discharge orders. Intentionally discontinued therapy was documented separately from incomplete information.
+A collateral medication list was obtained after admission and verified. Medications that had been stopped were recorded separately from names that remained uncertain.
 
 ## Relevant medical history
 
@@ -375,7 +375,7 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
-A collateral medication list was obtained after admission and verified. Unknown names were not converted into discharge orders. Intentionally discontinued therapy was documented separately from incomplete information.
+A collateral medication list was obtained after admission and verified. Medications that had been stopped were recorded separately from names that remained uncertain.
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
@@ -1116,7 +1116,7 @@ Follow-up missing for an unresolved treatment decision
 
 **What should have occurred clinically:**
 
-Treatment continues after discharge while a pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
+A pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
 
 Clean expected state: item: Reassess pending therapeutic decision; timing: 14 days; with service: neurology
 
@@ -1137,7 +1137,7 @@ Arrange follow-up to resolve the pending therapeutic decision.
 - **Changed field:** followup
 - **Detectability location:** Follow-up appointments
 - **Evidence required:** A pending therapeutic decision remains unresolved and requires scheduled follow-up.
-- **Rationale:** Treatment continues after discharge while a pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
+- **Rationale:** A pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
 
 ### C1 Clinical plausibility
 
@@ -1336,7 +1336,7 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure; note: Extended-release succinate taken once daily. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 
@@ -1346,7 +1346,7 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure; note: Extended-release succinate taken once daily. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 
@@ -1356,7 +1356,7 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure; note: Extended-release succinate taken once daily. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 
@@ -1638,7 +1638,7 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure; note: Extended-release succinate taken once daily. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
@@ -1649,7 +1649,7 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure; note: Extended-release succinate taken once daily. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | held; held reason: Held for rising creatinine during decongestion; intended to restart after renal recovery.; indication: Essential (primary) hypertension |
@@ -1660,7 +1660,7 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure; note: Extended-release succinate taken once daily. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | held; held reason: Held for rising creatinine during decongestion; intended to restart after renal recovery.; indication: Essential (primary) hypertension |
@@ -1956,7 +1956,7 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure; note: Extended-release succinate taken once daily. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 
@@ -1966,7 +1966,7 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure; note: Extended-release succinate taken once daily. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 
@@ -1976,7 +1976,7 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure; note: Extended-release succinate taken once daily. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | furosemide 40 MG Oral Tablet | 20 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 
@@ -2268,7 +2268,7 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure; note: Extended-release succinate taken once daily. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | spironolactone 25 MG Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
@@ -2279,7 +2279,7 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure; note: Extended-release succinate taken once daily. |
+| 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | spironolactone 25 MG Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
@@ -2290,7 +2290,7 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Acute systolic (congestive) heart failure; note: Immediate-release carvedilol taken twice daily. |
+| carvedilol 6.25 MG Oral Tablet | 6.25 MG | oral | twice daily | indication: Acute systolic (congestive) heart failure |
 | furosemide 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | spironolactone 25 MG Oral Tablet | 25 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
@@ -2593,7 +2593,7 @@ The following table lists medications recorded as active during the hospital sta
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| ceftriaxone 2000 MG Injection | 2000 MG | intravenous | once daily | indication: Acute and subacute infective endocarditis; note: Started during this admission for infective endocarditis and continued as intravenous outpatient therapy. |
+| ceftriaxone 2000 MG Injection | 2000 MG | intravenous | once daily | indication: Acute and subacute infective endocarditis; note: Started during this admission. |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 
 ## Discharge medications
@@ -2603,7 +2603,7 @@ The following table lists medications recorded on the discharge list.
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| ceftriaxone 2000 MG Injection | 2000 MG | intravenous | once daily | indication: Acute and subacute infective endocarditis; note: Started during this admission for infective endocarditis and continued as intravenous outpatient therapy. |
+| ceftriaxone 2000 MG Injection | 2000 MG | intravenous | once daily | indication: Acute and subacute infective endocarditis; note: Started during this admission. |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 
 ## Medication reconciliation
@@ -2900,7 +2900,7 @@ The following table lists medications recorded as active during the hospital sta
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| ceftriaxone 2000 MG Injection | 2000 MG | intravenous | once daily | indication: Acute and subacute infective endocarditis; note: Started during this admission for infective endocarditis and continued as intravenous outpatient therapy. |
+| ceftriaxone 2000 MG Injection | 2000 MG | intravenous | once daily | indication: Acute and subacute infective endocarditis; note: Started during this admission. |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
 
 ## Discharge medications
@@ -3222,7 +3222,7 @@ The following table lists medications recorded as active during the hospital sta
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | aspirin 81 MG Chewable Tablet | 81 MG | oral | once daily | indication: Atherosclerotic heart disease of native coronary artery without angina pectoris |
-| ceftriaxone 2000 MG Injection | 2000 MG | intravenous | once daily | indication: Acute and subacute infective endocarditis; note: Started during this admission for infective endocarditis and continued as intravenous outpatient therapy. |
+| ceftriaxone 2000 MG Injection | 2000 MG | intravenous | once daily | indication: Acute and subacute infective endocarditis; note: Started during this admission. |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
 
@@ -3233,7 +3233,7 @@ The following table lists medications recorded on the discharge list.
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | aspirin 81 MG Chewable Tablet | 81 MG | oral | once daily | indication: Atherosclerotic heart disease of native coronary artery without angina pectoris; supply: 30 days |
-| ceftriaxone 2000 MG Injection | 2000 MG | intravenous | once daily | indication: Acute and subacute infective endocarditis; supply: 7 days; note: Started during this admission for infective endocarditis and continued as intravenous outpatient therapy. |
+| ceftriaxone 2000 MG Injection | 2000 MG | intravenous | once daily | indication: Acute and subacute infective endocarditis; supply: 7 days; note: Started during this admission. |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension; supply: 30 days |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications; supply: 30 days |
 
@@ -3541,7 +3541,7 @@ The following table lists medications recorded as active during the hospital sta
 | --- | --- | --- | --- | --- |
 | aspirin 81 MG Chewable Tablet | 81 MG | oral | once daily | indication: Atherosclerotic heart disease of native coronary artery without angina pectoris |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| ceftriaxone 2000 MG Injection | 2000 MG | intravenous | once daily | indication: Acute and subacute infective endocarditis; note: Started during this admission for infective endocarditis and continued as intravenous outpatient therapy. |
+| ceftriaxone 2000 MG Injection | 2000 MG | intravenous | once daily | indication: Acute and subacute infective endocarditis; note: Started during this admission. |
 
 ## Discharge medications
 
@@ -3551,7 +3551,7 @@ The following table lists medications recorded on the discharge list.
 | --- | --- | --- | --- | --- |
 | aspirin 81 MG Chewable Tablet | 81 MG | oral | once daily | indication: Atherosclerotic heart disease of native coronary artery without angina pectoris |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| ceftriaxone 2000 MG Injection | 2000 MG | intravenous | once daily | indication: Acute and subacute infective endocarditis; note: Started during this admission for infective endocarditis and continued as intravenous outpatient therapy. |
+| ceftriaxone 2000 MG Injection | 2000 MG | intravenous | once daily | indication: Acute and subacute infective endocarditis; note: Started during this admission. |
 
 ## Medication reconciliation
 
@@ -3633,7 +3633,7 @@ Follow-up missing for an unresolved treatment decision
 
 **What should have occurred clinically:**
 
-Treatment continues after discharge while a pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
+A pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
 
 Clean expected state: item: Reassess pending therapeutic decision; timing: 14 days; with service: infectious disease
 
@@ -3654,7 +3654,7 @@ Arrange follow-up to resolve the pending therapeutic decision.
 - **Changed field:** followup
 - **Detectability location:** Follow-up appointments
 - **Evidence required:** A pending therapeutic decision remains unresolved and requires scheduled follow-up.
-- **Rationale:** Treatment continues after discharge while a pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
+- **Rationale:** A pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
 
 ### C1 Clinical plausibility
 
@@ -3765,13 +3765,13 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Diarrhea
 - **Symptom duration:** several days
 - **Symptom course:** improving after treatment
-- **History of present illness:** A 64-year-old Female is admitted with Other cytomegaloviral diseases. Presenting symptoms include Diarrhea, present for several days and improving after treatment. Home medications include amlodipine 5 MG Oral Tablet, BX Rating tacrolimus 1 MG Oral Capsule, valganciclovir 450 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for cytomegalovirus disease after kidney transplantation. Gastrointestinal symptoms improved on antiviral therapy. Outpatient valganciclovir is the intended continuation. Kidney-transplant immunosuppression continues separately from CMV treatment. Infectious symptoms improved. Inpatient antiviral therapy was converted to the intended outpatient agent.
+- **History of present illness:** A 64-year-old Female is admitted with Other cytomegaloviral diseases. Presenting symptoms include Diarrhea, present for several days and improving after treatment. Home medications include amlodipine 5 MG Oral Tablet, BX Rating tacrolimus 1 MG Oral Capsule, valganciclovir 450 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for cytomegalovirus disease after kidney transplantation. Gastrointestinal symptoms improved on antiviral therapy. Outpatient valganciclovir is the intended continuation. Kidney-transplant immunosuppression continues separately from CMV treatment. Infectious symptoms improved. Antiviral therapy was reviewed during the stay.
 
 ### Admission note
 
-Admission note for a 64-year-old Female with Other cytomegaloviral diseases. Symptoms: Diarrhea for several days (improving after treatment). Medications continued from home: amlodipine 5 MG Oral Tablet, BX Rating tacrolimus 1 MG Oral Capsule, valganciclovir 450 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for cytomegalovirus disease after kidney transplantation. Gastrointestinal symptoms improved on antiviral therapy. Outpatient valganciclovir is the intended continuation. Kidney-transplant immunosuppression continues separately from CMV treatment. Infectious symptoms improved. Inpatient antiviral therapy was converted to the intended outpatient agent.
+Admission note for a 64-year-old Female with Other cytomegaloviral diseases. Symptoms: Diarrhea for several days (improving after treatment). Medications continued from home: amlodipine 5 MG Oral Tablet, BX Rating tacrolimus 1 MG Oral Capsule, valganciclovir 450 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for cytomegalovirus disease after kidney transplantation. Gastrointestinal symptoms improved on antiviral therapy. Outpatient valganciclovir is the intended continuation. Kidney-transplant immunosuppression continues separately from CMV treatment. Infectious symptoms improved. Antiviral therapy was reviewed during the stay.
 
-Infectious symptoms improved. Inpatient antiviral therapy was converted to the intended outpatient agent.
+Infectious symptoms improved. Antiviral therapy was reviewed during the stay.
 
 ## Relevant medical history
 
@@ -3797,7 +3797,7 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
-Infectious symptoms improved. Inpatient antiviral therapy was converted to the intended outpatient agent.
+Infectious symptoms improved. Antiviral therapy was reviewed during the stay.
 
 On hospital day 5, intake was 1655 mL and output was 1812 mL (net -157 mL).
 
@@ -3853,10 +3853,10 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status; note: Charted maintenance for an adult already taking therapy. The dose is individualized to the trough and is not the labeled weight-based starting dose. |
+| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status |
 | amlodipine 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Essential (primary) hypertension |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: CMV treatment dose of 900 MG twice daily with preserved renal function, given as 450 MG tablets. This is not prophylaxis. |
+| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: Given as 450 MG tablets. |
 
 ## Medications during hospitalization
 
@@ -3864,10 +3864,10 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status; note: Charted maintenance for an adult already taking therapy. The dose is individualized to the trough and is not the labeled weight-based starting dose. |
+| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status |
 | amlodipine 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Essential (primary) hypertension |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: CMV treatment dose of 900 MG twice daily with preserved renal function, given as 450 MG tablets. This is not prophylaxis. |
+| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: Given as 450 MG tablets. |
 
 ## Discharge medications
 
@@ -3875,10 +3875,10 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status; note: Charted maintenance for an adult already taking therapy. The dose is individualized to the trough and is not the labeled weight-based starting dose. |
+| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status |
 | amlodipine 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Essential (primary) hypertension |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: CMV treatment dose of 900 MG twice daily with preserved renal function, given as 450 MG tablets. This is not prophylaxis. |
+| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: Given as 450 MG tablets. |
 
 ## Medication reconciliation
 
@@ -4158,10 +4158,10 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status; note: Charted maintenance for an adult already taking therapy. The dose is individualized to the trough and is not the labeled weight-based starting dose. |
+| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status |
 | amlodipine 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Essential (primary) hypertension |
 | mycophenolate mofetil 500 MG Oral Tablet | 1000 MG | oral | twice daily | indication: Kidney transplant status |
-| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: CMV treatment dose of 900 MG twice daily with preserved renal function, given as 450 MG tablets. This is not prophylaxis. |
+| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: Given as 450 MG tablets. |
 
 ## Medications during hospitalization
 
@@ -4169,10 +4169,10 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status; note: Charted maintenance for an adult already taking therapy. The dose is individualized to the trough and is not the labeled weight-based starting dose. |
+| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status |
 | amlodipine 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Essential (primary) hypertension |
 | mycophenolate mofetil 500 MG Oral Tablet | 1000 MG | oral | twice daily | held; held reason: Held during active infection as an immunosuppression adjustment; intended to restart.; indication: Kidney transplant status |
-| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: CMV treatment dose of 900 MG twice daily with preserved renal function, given as 450 MG tablets. This is not prophylaxis. |
+| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: Given as 450 MG tablets. |
 
 ## Discharge medications
 
@@ -4180,10 +4180,10 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status; note: Charted maintenance for an adult already taking therapy. The dose is individualized to the trough and is not the labeled weight-based starting dose. |
+| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status |
 | amlodipine 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Essential (primary) hypertension |
 | mycophenolate mofetil 500 MG Oral Tablet | 1000 MG | oral | twice daily | held; held reason: Held during active infection as an immunosuppression adjustment; intended to restart.; indication: Kidney transplant status |
-| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: CMV treatment dose of 900 MG twice daily with preserved renal function, given as 450 MG tablets. This is not prophylaxis. |
+| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: Given as 450 MG tablets. |
 
 ## Medication reconciliation
 
@@ -4390,13 +4390,13 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Nausea
 - **Symptom duration:** two days
 - **Symptom course:** intermittent
-- **History of present illness:** A 68-year-old Female is admitted with Other cytomegaloviral diseases. Presenting symptoms include Nausea, present for two days and intermittent. Home medications include amlodipine 5 MG Oral Tablet, BX Rating tacrolimus 1 MG Oral Capsule, valganciclovir 450 MG Oral Tablet, lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for cytomegalovirus disease after kidney transplantation with a tacrolimus dose adjustment. Tacrolimus was continued at the intended adjusted outpatient dose for transplant immunosuppression, not as treatment for CMV. Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
+- **History of present illness:** A 68-year-old Female is admitted with Other cytomegaloviral diseases. Presenting symptoms include Nausea, present for two days and intermittent. Home medications include amlodipine 5 MG Oral Tablet, BX Rating tacrolimus 1 MG Oral Capsule, valganciclovir 450 MG Oral Tablet, lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for cytomegalovirus disease after kidney transplantation with a tacrolimus dose adjustment. Tacrolimus was continued at the intended adjusted outpatient dose for transplant immunosuppression, not as treatment for CMV. Home therapy was reviewed during the stay after the inpatient response was observed.
 
 ### Admission note
 
-Admission note for a 68-year-old Female with Other cytomegaloviral diseases. Symptoms: Nausea for two days (intermittent). Medications continued from home: amlodipine 5 MG Oral Tablet, BX Rating tacrolimus 1 MG Oral Capsule, valganciclovir 450 MG Oral Tablet, lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for cytomegalovirus disease after kidney transplantation with a tacrolimus dose adjustment. Tacrolimus was continued at the intended adjusted outpatient dose for transplant immunosuppression, not as treatment for CMV. Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
+Admission note for a 68-year-old Female with Other cytomegaloviral diseases. Symptoms: Nausea for two days (intermittent). Medications continued from home: amlodipine 5 MG Oral Tablet, BX Rating tacrolimus 1 MG Oral Capsule, valganciclovir 450 MG Oral Tablet, lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for cytomegalovirus disease after kidney transplantation with a tacrolimus dose adjustment. Tacrolimus was continued at the intended adjusted outpatient dose for transplant immunosuppression, not as treatment for CMV. Home therapy was reviewed during the stay after the inpatient response was observed.
 
-Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
+Home therapy was reviewed during the stay after the inpatient response was observed.
 
 ## Relevant medical history
 
@@ -4422,7 +4422,7 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
-Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
+Home therapy was reviewed during the stay after the inpatient response was observed.
 
 On hospital day 3, intake was 1623 mL and output was 1966 mL (net -343 mL).
 
@@ -4478,11 +4478,11 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status; note: Charted maintenance for an adult already taking therapy. The dose is individualized to the trough and is not the labeled weight-based starting dose. |
+| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status |
 | amlodipine 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Essential (primary) hypertension |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
-| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: CMV treatment dose of 900 MG twice daily with preserved renal function, given as 450 MG tablets. This is not prophylaxis. |
+| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: Given as 450 MG tablets. |
 
 ## Medications during hospitalization
 
@@ -4490,11 +4490,11 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status; note: Charted maintenance for an adult already taking therapy. The dose is individualized to the trough and is not the labeled weight-based starting dose. |
+| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status |
 | amlodipine 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Essential (primary) hypertension |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
-| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: CMV treatment dose of 900 MG twice daily with preserved renal function, given as 450 MG tablets. This is not prophylaxis. |
+| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: Given as 450 MG tablets. |
 
 ## Discharge medications
 
@@ -4506,7 +4506,7 @@ The following table lists medications recorded on the discharge list.
 | amlodipine 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Essential (primary) hypertension |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
-| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: CMV treatment dose of 900 MG twice daily with preserved renal function, given as 450 MG tablets. This is not prophylaxis. |
+| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: Given as 450 MG tablets. |
 
 ## Medication reconciliation
 
@@ -4713,13 +4713,13 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Diarrhea, Fatigue
 - **Symptom duration:** one day
 - **Symptom course:** improving after treatment
-- **History of present illness:** A 57-year-old Male is admitted with Other cytomegaloviral diseases. Presenting symptoms include Diarrhea, Fatigue, present for one day and improving after treatment. Home medications include BX Rating tacrolimus 1 MG Oral Capsule, valganciclovir 450 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for cytomegalovirus disease after kidney transplantation; antiviral duration remains pending. Antiviral duration after conversion remains a pending outpatient decision. Tacrolimus continues for immunosuppression. Infectious symptoms improved. Inpatient antiviral therapy was converted to the intended outpatient agent.
+- **History of present illness:** A 57-year-old Male is admitted with Other cytomegaloviral diseases. Presenting symptoms include Diarrhea, Fatigue, present for one day and improving after treatment. Home medications include BX Rating tacrolimus 1 MG Oral Capsule, valganciclovir 450 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for cytomegalovirus disease after kidney transplantation; antiviral duration remains pending. Antiviral duration after conversion remains a pending outpatient decision. Tacrolimus continues for immunosuppression. Infectious symptoms improved. Antiviral therapy was reviewed during the stay.
 
 ### Admission note
 
-Admission note for a 57-year-old Male with Other cytomegaloviral diseases. Symptoms: Diarrhea, Fatigue for one day (improving after treatment). Medications continued from home: BX Rating tacrolimus 1 MG Oral Capsule, valganciclovir 450 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for cytomegalovirus disease after kidney transplantation; antiviral duration remains pending. Antiviral duration after conversion remains a pending outpatient decision. Tacrolimus continues for immunosuppression. Infectious symptoms improved. Inpatient antiviral therapy was converted to the intended outpatient agent.
+Admission note for a 57-year-old Male with Other cytomegaloviral diseases. Symptoms: Diarrhea, Fatigue for one day (improving after treatment). Medications continued from home: BX Rating tacrolimus 1 MG Oral Capsule, valganciclovir 450 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for cytomegalovirus disease after kidney transplantation; antiviral duration remains pending. Antiviral duration after conversion remains a pending outpatient decision. Tacrolimus continues for immunosuppression. Infectious symptoms improved. Antiviral therapy was reviewed during the stay.
 
-Infectious symptoms improved. Inpatient antiviral therapy was converted to the intended outpatient agent.
+Infectious symptoms improved. Antiviral therapy was reviewed during the stay.
 
 ## Relevant medical history
 
@@ -4743,7 +4743,7 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
-Infectious symptoms improved. Inpatient antiviral therapy was converted to the intended outpatient agent.
+Infectious symptoms improved. Antiviral therapy was reviewed during the stay.
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
@@ -4795,9 +4795,9 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status; note: Charted maintenance for an adult already taking therapy. The dose is individualized to the trough and is not the labeled weight-based starting dose. |
+| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: CMV treatment dose of 900 MG twice daily with preserved renal function, given as 450 MG tablets. This is not prophylaxis. |
+| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: Given as 450 MG tablets. |
 
 ## Medications during hospitalization
 
@@ -4805,9 +4805,9 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status; note: Charted maintenance for an adult already taking therapy. The dose is individualized to the trough and is not the labeled weight-based starting dose. |
+| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: CMV treatment dose of 900 MG twice daily with preserved renal function, given as 450 MG tablets. This is not prophylaxis. |
+| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: Given as 450 MG tablets. |
 
 ## Discharge medications
 
@@ -4815,9 +4815,9 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status; note: Charted maintenance for an adult already taking therapy. The dose is individualized to the trough and is not the labeled weight-based starting dose. |
+| BX Rating tacrolimus 1 MG Oral Capsule | 1 MG | oral | every 12 hours | indication: Kidney transplant status |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
-| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: CMV treatment dose of 900 MG twice daily with preserved renal function, given as 450 MG tablets. This is not prophylaxis. |
+| valganciclovir 450 MG Oral Tablet | 900 MG | oral | twice daily | indication: Other cytomegaloviral diseases; note: Given as 450 MG tablets. |
 
 ## Medication reconciliation
 
@@ -4892,7 +4892,7 @@ Follow-up missing for an unresolved treatment decision
 
 **What should have occurred clinically:**
 
-Treatment continues after discharge while a pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
+A pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
 
 Clean expected state: item: Reassess pending therapeutic decision; timing: 14 days; with service: infectious disease
 
@@ -4913,7 +4913,7 @@ Arrange follow-up to resolve the pending therapeutic decision.
 - **Changed field:** followup
 - **Detectability location:** Follow-up appointments
 - **Evidence required:** A pending therapeutic decision remains unresolved and requires scheduled follow-up.
-- **Rationale:** Treatment continues after discharge while a pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
+- **Rationale:** A pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
 
 ### C1 Clinical plausibility
 
@@ -5114,7 +5114,7 @@ The following table lists medications recorded as the home regimen.
 | --- | --- | --- | --- | --- |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Medications during hospitalization
 
@@ -5124,7 +5124,7 @@ The following table lists medications recorded as active during the hospital sta
 | --- | --- | --- | --- | --- |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Discharge medications
 
@@ -5134,7 +5134,7 @@ The following table lists medications recorded on the discharge list.
 | --- | --- | --- | --- | --- |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Medication reconciliation
 
@@ -5208,7 +5208,7 @@ Required outpatient monitoring not arranged
 
 A medication requiring outpatient laboratory or physiological monitoring was discharged without that monitoring being arranged.
 
-Clean expected state: case monitoring ids: present; medication monitoring: INR laboratory monitoring is separate from the clinic appointment.
+Clean expected state: case monitoring ids: present; medication monitoring: INR check
 
 **What appears in the case:**
 
@@ -5426,7 +5426,7 @@ The following table lists medications recorded as the home regimen.
 | --- | --- | --- | --- | --- |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Medications during hospitalization
 
@@ -5436,7 +5436,7 @@ The following table lists medications recorded as active during the hospital sta
 | --- | --- | --- | --- | --- |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Discharge medications
 
@@ -5734,7 +5734,7 @@ The following table lists medications recorded as the home regimen.
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Medications during hospitalization
 
@@ -5743,7 +5743,7 @@ The following table lists medications recorded as active during the hospital sta
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Discharge medications
 
@@ -5752,7 +5752,7 @@ The following table lists medications recorded on the discharge list.
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension; supply: 30 days |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; monitoring: INR laboratory monitoring is separate from the clinic appointment.; supply: 7 days; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; monitoring: INR check; supply: 7 days |
 
 ## Medication reconciliation
 
@@ -5956,11 +5956,11 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Fatigue, Nausea
 - **Symptom duration:** one week
 - **Symptom course:** improving after treatment
-- **History of present illness:** A 82-year-old Female is admitted with Fracture of unspecified part of neck of right femur, initial encounter for closed fracture. Presenting symptoms include Fatigue, Nausea, present for one week and improving after treatment. Home medications include lisinopril 10 MG Oral Tablet, warfarin sodium 5 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Used only in the hospital and stopped at discharge: 0.4 ML enoxaparin sodium 100 MG/ML Prefilled Syringe. Admitted after hip-fracture surgery with inpatient bridging anticoagulation only. Enoxaparin was used as inpatient bridging and is not intended to continue once warfarin is resumed. Postoperative hemoglobin was observed without transfusion. Rehabilitation and anticoagulation follow-up were planned.
+- **History of present illness:** A 82-year-old Female is admitted with Fracture of unspecified part of neck of right femur, initial encounter for closed fracture. Presenting symptoms include Fatigue, Nausea, present for one week and improving after treatment. Home medications include lisinopril 10 MG Oral Tablet, warfarin sodium 5 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: 0.4 ML enoxaparin sodium 100 MG/ML Prefilled Syringe. Admitted after hip-fracture surgery with inpatient bridging anticoagulation only. Enoxaparin was used for inpatient venous-thromboembolism prophylaxis. Postoperative hemoglobin was observed without transfusion. Rehabilitation and anticoagulation follow-up were planned.
 
 ### Admission note
 
-Admission note for a 82-year-old Female with Fracture of unspecified part of neck of right femur, initial encounter for closed fracture. Symptoms: Fatigue, Nausea for one week (improving after treatment). Medications continued from home: lisinopril 10 MG Oral Tablet, warfarin sodium 5 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Used only in the hospital and stopped at discharge: 0.4 ML enoxaparin sodium 100 MG/ML Prefilled Syringe. Admitted after hip-fracture surgery with inpatient bridging anticoagulation only. Enoxaparin was used as inpatient bridging and is not intended to continue once warfarin is resumed. Postoperative hemoglobin was observed without transfusion. Rehabilitation and anticoagulation follow-up were planned.
+Admission note for a 82-year-old Female with Fracture of unspecified part of neck of right femur, initial encounter for closed fracture. Symptoms: Fatigue, Nausea for one week (improving after treatment). Medications continued from home: lisinopril 10 MG Oral Tablet, warfarin sodium 5 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: 0.4 ML enoxaparin sodium 100 MG/ML Prefilled Syringe. Admitted after hip-fracture surgery with inpatient bridging anticoagulation only. Enoxaparin was used for inpatient venous-thromboembolism prophylaxis. Postoperative hemoglobin was observed without transfusion. Rehabilitation and anticoagulation follow-up were planned.
 
 Postoperative hemoglobin was observed without transfusion. Rehabilitation and anticoagulation follow-up were planned.
 
@@ -6046,7 +6046,7 @@ The following table lists medications recorded as the home regimen.
 | --- | --- | --- | --- | --- |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Medications during hospitalization
 
@@ -6054,10 +6054,10 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 0.4 ML enoxaparin sodium 100 MG/ML Prefilled Syringe | 40 MG | subcutaneous | once daily | indication: Started in hospital for an inpatient-only indication; stop at discharge. No outpatient continuation of 0.4 ML enoxaparin sodium 100 MG/ML Prefilled Syringe.; note: Hospital-only prophylaxis: 40 MG from the 0.4 mL syringe (100 MG/mL), subcutaneous once daily, stopped at discharge. |
+| 0.4 ML enoxaparin sodium 100 MG/ML Prefilled Syringe | 40 MG | subcutaneous | once daily | indication: Paroxysmal atrial fibrillation; note: Enoxaparin was used for inpatient venous-thromboembolism prophylaxis. |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Discharge medications
 
@@ -6065,10 +6065,10 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| 0.4 ML enoxaparin sodium 100 MG/ML Prefilled Syringe | 40 MG | subcutaneous | once daily | indication: Started in hospital for an inpatient-only indication; stop at discharge. No outpatient continuation of 0.4 ML enoxaparin sodium 100 MG/ML Prefilled Syringe.; note: Hospital-only prophylaxis: 40 MG from the 0.4 mL syringe (100 MG/mL), subcutaneous once daily, stopped at discharge. |
+| 0.4 ML enoxaparin sodium 100 MG/ML Prefilled Syringe | 40 MG | subcutaneous | once daily | indication: Paroxysmal atrial fibrillation; note: Enoxaparin was used for inpatient venous-thromboembolism prophylaxis. |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
-| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; monitoring: INR laboratory monitoring is separate from the clinic appointment.; note: Charted maintenance dose for this course. The dose is adjusted to the INR and is not a universal dose. |
+| warfarin sodium 5 MG Oral Tablet | 5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation; monitoring: INR check |
 
 ## Medication reconciliation
 
@@ -6580,11 +6580,11 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Fatigue, Nausea
 - **Symptom duration:** one day
 - **Symptom course:** improving after treatment
-- **History of present illness:** A 79-year-old Female is admitted with Gastrointestinal hemorrhage, unspecified. Presenting symptoms include Fatigue, Nausea, present for one day and improving after treatment. Home medications include lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Used only in the hospital and stopped at discharge: pantoprazole 40 MG Delayed Release Oral Tablet. Admitted for gastrointestinal bleeding treated with inpatient acid suppression. Inpatient acid suppression was used for the bleed and is not intended to continue at discharge unless later prescribed. Gastrointestinal bleeding was observed with serial hemoglobin checks. Inpatient acid suppression was used while the patient stabilized for discharge.
+- **History of present illness:** A 79-year-old Female is admitted with Gastrointestinal hemorrhage, unspecified. Presenting symptoms include Fatigue, Nausea, present for one day and improving after treatment. Home medications include lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: pantoprazole 40 MG Delayed Release Oral Tablet. Admitted for gastrointestinal bleeding treated with inpatient acid suppression. Pantoprazole was initiated during the hospitalization for acute gastrointestinal management. Gastrointestinal bleeding was observed with serial hemoglobin checks. Inpatient acid suppression was used while the patient stabilized for discharge.
 
 ### Admission note
 
-Admission note for a 79-year-old Female with Gastrointestinal hemorrhage, unspecified. Symptoms: Fatigue, Nausea for one day (improving after treatment). Medications continued from home: lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Used only in the hospital and stopped at discharge: pantoprazole 40 MG Delayed Release Oral Tablet. Admitted for gastrointestinal bleeding treated with inpatient acid suppression. Inpatient acid suppression was used for the bleed and is not intended to continue at discharge unless later prescribed. Gastrointestinal bleeding was observed with serial hemoglobin checks. Inpatient acid suppression was used while the patient stabilized for discharge.
+Admission note for a 79-year-old Female with Gastrointestinal hemorrhage, unspecified. Symptoms: Fatigue, Nausea for one day (improving after treatment). Medications continued from home: lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: pantoprazole 40 MG Delayed Release Oral Tablet. Admitted for gastrointestinal bleeding treated with inpatient acid suppression. Pantoprazole was initiated during the hospitalization for acute gastrointestinal management. Gastrointestinal bleeding was observed with serial hemoglobin checks. Inpatient acid suppression was used while the patient stabilized for discharge.
 
 Gastrointestinal bleeding was observed with serial hemoglobin checks. Inpatient acid suppression was used while the patient stabilized for discharge.
 
@@ -6679,7 +6679,7 @@ The following table lists medications recorded as active during the hospital sta
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
-| pantoprazole 40 MG Delayed Release Oral Tablet | 40 MG | oral | once daily | indication: Started in hospital for an inpatient-only indication; stop at discharge. No outpatient continuation of pantoprazole 40 MG Delayed Release Oral Tablet. |
+| pantoprazole 40 MG Delayed Release Oral Tablet | 40 MG | oral | once daily | indication: Gastrointestinal hemorrhage, unspecified; note: Pantoprazole was initiated during the hospitalization for acute gastrointestinal management. |
 
 ## Discharge medications
 
@@ -6690,7 +6690,7 @@ The following table lists medications recorded on the discharge list.
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
-| pantoprazole 40 MG Delayed Release Oral Tablet | 40 MG | oral | once daily | indication: Started in hospital for an inpatient-only indication; stop at discharge. No outpatient continuation of pantoprazole 40 MG Delayed Release Oral Tablet. |
+| pantoprazole 40 MG Delayed Release Oral Tablet | 40 MG | oral | once daily | indication: Gastrointestinal hemorrhage, unspecified; note: Pantoprazole was initiated during the hospitalization for acute gastrointestinal management. |
 
 ## Medication reconciliation
 
@@ -6978,7 +6978,7 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation; note: Standard labeled dose for nonvalvular atrial fibrillation. |
+| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
 
@@ -6988,7 +6988,7 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation; note: Standard labeled dose for nonvalvular atrial fibrillation. |
+| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | held; held reason: Held after the acute event while restart timing remains unresolved.; indication: Paroxysmal atrial fibrillation |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
 
@@ -6998,7 +6998,7 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | indication: Paroxysmal atrial fibrillation; note: Standard labeled dose for nonvalvular atrial fibrillation. |
+| apixaban 5 MG Oral Tablet | 5 MG | oral | twice daily | held; held reason: Held after the acute event while restart timing remains unresolved.; indication: Paroxysmal atrial fibrillation |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
 
@@ -7073,7 +7073,7 @@ Follow-up missing for an unresolved treatment decision
 
 **What should have occurred clinically:**
 
-Treatment continues after discharge while a pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
+A pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
 
 Clean expected state: item: Reassess pending therapeutic decision; timing: 7 days; with service: cardiology
 
@@ -7094,7 +7094,7 @@ Arrange follow-up to resolve the pending therapeutic decision.
 - **Changed field:** followup
 - **Detectability location:** Follow-up appointments
 - **Evidence required:** A pending therapeutic decision remains unresolved and requires scheduled follow-up.
-- **Rationale:** Treatment continues after discharge while a pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
+- **Rationale:** A pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
 
 ### C1 Clinical plausibility
 
@@ -7205,11 +7205,11 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Fatigue, Nausea
 - **Symptom duration:** one week
 - **Symptom course:** improving after treatment
-- **History of present illness:** A 77-year-old Female is admitted with Gastrointestinal hemorrhage, unspecified. Presenting symptoms include Fatigue, Nausea, present for one week and improving after treatment. Home medications include lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. aspirin 81 MG Chewable Tablet was discontinued and is not intended at discharge. Admitted for gastrointestinal bleeding with intentional aspirin discontinuation. Aspirin used for primary prevention was intentionally stopped after the bleed. That discontinuation is documented and is distinct from an omitted intended medication. Gastrointestinal bleeding settled and hemoglobin was stable. Aspirin used for primary prevention was stopped.
+- **History of present illness:** A 77-year-old Female is admitted with Gastrointestinal hemorrhage, unspecified. Presenting symptoms include Fatigue, Nausea, present for one week and improving after treatment. Home medications include lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. aspirin 81 MG Chewable Tablet was stopped during this admission. Admitted for gastrointestinal bleeding with intentional aspirin discontinuation. Aspirin used for primary prevention was stopped after the bleed. Gastrointestinal bleeding settled and hemoglobin was stable. Aspirin used for primary prevention was stopped.
 
 ### Admission note
 
-Admission note for a 77-year-old Female with Gastrointestinal hemorrhage, unspecified. Symptoms: Fatigue, Nausea for one week (improving after treatment). Medications continued from home: lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. aspirin 81 MG Chewable Tablet was discontinued and is not intended at discharge. Admitted for gastrointestinal bleeding with intentional aspirin discontinuation. Aspirin used for primary prevention was intentionally stopped after the bleed. That discontinuation is documented and is distinct from an omitted intended medication. Gastrointestinal bleeding settled and hemoglobin was stable. Aspirin used for primary prevention was stopped.
+Admission note for a 77-year-old Female with Gastrointestinal hemorrhage, unspecified. Symptoms: Fatigue, Nausea for one week (improving after treatment). Medications continued from home: lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. aspirin 81 MG Chewable Tablet was stopped during this admission. Admitted for gastrointestinal bleeding with intentional aspirin discontinuation. Aspirin used for primary prevention was stopped after the bleed. Gastrointestinal bleeding settled and hemoglobin was stable. Aspirin used for primary prevention was stopped.
 
 Gastrointestinal bleeding settled and hemoglobin was stable. Aspirin used for primary prevention was stopped.
 
@@ -7289,7 +7289,7 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| aspirin 81 MG Chewable Tablet | 81 MG | oral | once daily | held; held reason: Held on admission; not continued at discharge.; indication: antiplatelet therapy; not a treatment for the admission diagnosis |
+| aspirin 81 MG Chewable Tablet | 81 MG | oral | once daily | held; held reason: Stopped during this admission.; indication: antiplatelet therapy; not a treatment for the admission diagnosis |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
@@ -7300,7 +7300,7 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| aspirin 81 MG Chewable Tablet | 81 MG | oral | once daily | held; held reason: Held on admission; not continued at discharge.; indication: antiplatelet therapy; not a treatment for the admission diagnosis |
+| aspirin 81 MG Chewable Tablet | 81 MG | oral | once daily | held; held reason: Stopped during this admission.; indication: antiplatelet therapy; not a treatment for the admission diagnosis |
 | atorvastatin 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Mixed hyperlipidemia |
 | lisinopril 10 MG Oral Tablet | 10 MG | oral | once daily | indication: Essential (primary) hypertension |
 | metformin hydrochloride 500 MG Oral Tablet | 500 MG | oral | twice daily | indication: Type 2 diabetes mellitus without complications |
@@ -7335,8 +7335,8 @@ The following items are follow-up appointments stored on the case.
 
 ## Discharge instructions
 
-- Do not restart at discharge: aspirin 81 MG Chewable Tablet was discontinued and has no outpatient role. (category: medications)
 - Take discharge medications exactly as listed. (category: medications)
+- aspirin 81 MG Chewable Tablet was stopped during this admission. (category: medications)
 
 ## Other relevant clinical information
 
