@@ -19,6 +19,8 @@ ALL_CASES_HEADER = """# CliniProof Clinical Case Set
 
 ## CLINIPROOF_TAXONOMY_V1
 
+This freeze is **archived historical provenance**. It is not an active prospective study set. New reviewers should start at [`../../active_validation_sets.md`](../../active_validation_sets.md).
+
 This document is intended for residents, clinicians, medical educators, pharmacists, and clinical informatics collaborators who want to review the clinical cases without reading the underlying JSON representation.
 
 The set contains twenty-four cases, labeled VAL-201 through VAL-224. Each case is a synthetic inpatient encounter assembled for medication-reconciliation review. The software has already checked structure, terminology provenance, and a limited set of implemented clinical rules. Those automated checks do not establish clinical validity. Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation.
@@ -55,7 +57,7 @@ CLINICIAN_PACKET_HEADER = """# CliniProof clinician validation packet
 
 The cases are synthetically generated clinical cases produced by CliniProof and are being reviewed for clinical validity. Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1–C5 in one pass.
 
-The frozen set is `CLINIPROOF_TAXONOMY_V1`, containing twenty-four cases labeled VAL-201 through VAL-224. Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. That sentence means the software has already checked structure, terminology, and a limited set of implemented rules, but a clinician has not yet accepted the case for educational use.
+The frozen set is `CLINIPROOF_TAXONOMY_V1`, containing twenty-four cases labeled VAL-201 through VAL-224. That freeze is archived historical provenance and is not an active prospective study set. New reviewers should start at [`../../active_validation_sets.md`](../../active_validation_sets.md). Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. That sentence means the software has already checked structure, terminology, and a limited set of implemented rules, but a clinician has not yet accepted the case for educational use.
 
 ## Reviewer task
 
@@ -75,7 +77,7 @@ This packet includes the intended assessment issue for each case so that C2 thro
 
 READABLE_INDEX_MD = """# Readable CliniProof review materials
 
-This directory contains the human-readable review materials for the frozen CliniProof validation set whose batch code is `CLINIPROOF_TAXONOMY_V1`. Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1–C5 in one pass.
+This directory contains the human-readable review materials for the CliniProof freeze whose batch code is `CLINIPROOF_TAXONOMY_V1`. That freeze is **archived historical provenance** and is not an active prospective study set. New reviewers should start at [`../../active_validation_sets.md`](../../active_validation_sets.md). Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1–C5 in one pass.
 
 The set contains twenty-four synthetic inpatient cases labeled VAL-201 through VAL-224. They were developed for assessment of medication-reconciliation reasoning. Twenty of the cases contain one pre-specified medication-reconciliation or transition-of-care assessment problem. Four of the cases are clean controls in which no problem was intentionally introduced. This page does not identify the controls.
 
@@ -86,7 +88,7 @@ Until clinicians finish review, treat every record as a machine-validated synthe
 To regenerate the Markdown from the repository root without modifying frozen JSON, run:
 
 ```bash
-python scripts/build_readable_validation_packets.py
+python scripts/build_readable_validation_packets.py --batch-code CLINIPROOF_TAXONOMY_V1 --resident data/validation/resident_validation_cases.json
 ```
 
 This command regenerates the readable Markdown views only. It does not alter the frozen study cases.
@@ -120,11 +122,11 @@ VALIDATION_RUBRIC_MD = """# CliniProof Clinical Case Validation Rubric
 
 A clinician or resident evaluates each synthetic inpatient case in a single review before it is accepted for use. Clinical validation uses a single review stage. Each reviewer reads the complete case and assesses C1–C5 in one pass.
 
-Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. The frozen set is `CLINIPROOF_TAXONOMY_V1`, containing cases VAL-201 through VAL-224.
+Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. The frozen set is identified by its batch code in this directory. Active prospective sets are `CLINIPROOF_BALANCED_V2` and `CLINIPROOF_SEEDCASES_V1`.
 
 The five criteria serve different purposes and should not be collapsed into a single pass or fail judgment. C2 through C4 are required: if any of them fails, the case cannot be used against its intended answer key until it is revised or excluded. C5 is advisory and must not by itself cause a case to fail validation.
 
-The taxonomy also defines required companion medication omitted (`f2_coprescription_omitted`), which represents a situation in which a clinically required companion medication is missing. This category is not included in the current validation set because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
+The taxonomy also defines required companion medication omitted (`f2_coprescription_omitted`), which represents a situation in which a clinically required companion medication is missing. This category is not included in the current validation sets because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
 
 ## C1 — Clinical plausibility
 
@@ -301,7 +303,7 @@ A treatment decision was left pending, but no follow-up is arranged to resolve i
 
 #### Required companion medication omitted (`f2_coprescription_omitted`)
 
-The taxonomy also defines this category for a situation in which a clinically required companion medication is missing. This category is not included in the current validation set because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
+The taxonomy also defines this category for a situation in which a clinically required companion medication is missing. This category is not included in the current validation sets because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
 
 ## Reviewer recommendation
 
@@ -327,14 +329,14 @@ ____________________________________
 
 Recommended revisions are required whenever Revise is selected. Examples may include changing an implausible formulation, clarifying the hospital course, correcting an unrealistic laboratory unit, adding information needed to detect the intended problem, or removing an unintended second discrepancy.
 
-Do not automatically modify a case based on reviewer comments. Human review comments are recommendations that must be considered by the study team. Do not overwrite the frozen CLINIPROOF_TAXONOMY_V1 case files during human review. Reviewer comments and revision requests should be stored separately.
+Do not automatically modify a case based on reviewer comments. Human review comments are recommendations that must be considered by the study team. Do not overwrite frozen case files during human review. Reviewer comments and revision requests should be stored separately.
 """
 
 HOW_CLINIPROOF_WORKS_MD = """# How CliniProof Builds and Validates a Case
 
 This overview is for residents who are curious about the technology, physicians, medical educators, pharmacists, informatics staff, and AI engineers. It explains the system in clinical language first, then names the software pieces. It is not required reading before completing C1–C5.
 
-It discusses how cases are made. It does not reveal which frozen case labeled VAL-201 through VAL-224 contains which assessment target.
+It discusses how cases are made. It does not reveal which frozen case contains which assessment target.
 
 Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation.
 
@@ -410,7 +412,7 @@ A pending therapeutic decision has no arranged follow-up. The medication list ma
 
 ##### Required companion medication omitted (`f2_coprescription_omitted`)
 
-The taxonomy also defines this category for a situation in which a clinically required companion medication is missing. This category is not included in the current validation set because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
+The taxonomy also defines this category for a situation in which a clinically required companion medication is missing. This category is not included in the current validation sets because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
 
 ## B. Source-backed versus synthetic information
 
@@ -451,7 +453,7 @@ Cases are built in a fixed order. Each stage completes before the next stage beg
 
 OpenAI is optional in the CliniProof pipeline and is used only to help word narrative text from clinical facts that have already been selected by the structured generator. It does not choose diagnoses, medications, terminology codes, error categories, clinical rules, or answer-key content.
 
-The current frozen validation set uses template narrative rather than OpenAI. The freeze command sets the OpenAI flag to false.
+The committed prospective validation sets use template narrative rather than OpenAI. The freeze command sets the OpenAI flag to false.
 
 Raw patient-source rows are never sent to a language model.
 
@@ -479,14 +481,14 @@ Physicians can stop here. The table below is for engineers and informatics staff
 
 Standardized families are Family 1 (`family_1`), Family 2 (`family_2`), and no planted target (`none`) for a clean control. Standardized categories are the `f1_*` and `f2_*` identifiers listed above. Unknown names fail rather than being aliased.
 
-Readable packets are regenerated with `python scripts/build_readable_validation_packets.py` and do not rewrite frozen JSON.
+Readable packets are regenerated with an explicit `--batch-code` and `--resident` path, for example `python scripts/build_readable_validation_packets.py --batch-code CLINIPROOF_BALANCED_V2 --resident data/validation_balanced/resident_validation_cases.json`, and do not rewrite frozen JSON.
 """
 
 DEVELOPER_NOTES_MD = """# CliniProof Implementation Notes for Clinical Informatics and AI Engineering
 
 This note assumes you understand software engineering and may not have a clinical training background. It translates the medical objective into the modules that implement it.
 
-It explains mechanisms. It does not map any frozen identifier in the range VAL-201 through VAL-224 to a hidden assessment target. That mapping exists only in investigator-only files.
+It explains mechanisms. It does not map any frozen identifier to a hidden assessment target. That mapping exists only in investigator-only files.
 
 Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation.
 
@@ -553,13 +555,13 @@ Held medication without a restart plan means the original medication is intentio
 
 Required outpatient monitoring not arranged means, for example, warfarin continues at discharge but outpatient INR monitoring was not scheduled. That maps to `f2_monitoring_not_arranged`. The medication row stays; the monitoring record is what changes.
 
-The taxonomy also defines required companion medication omitted (`f2_coprescription_omitted`). This category is not included in the current validation set because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing, freeze currently rejects this category.
+The taxonomy also defines required companion medication omitted (`f2_coprescription_omitted`). This category is not included in the current validation sets because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing, freeze currently rejects this category.
 
 Do not implement Family 2 detection as a simple difference of the three medication lists.
 
 ## Eligibility, injection, and no fallback
 
-The freeze plan names the error family and error category before generation, in `data/validation/batch_plan.json`.
+The freeze plan names the error family and error category before generation in that batch’s `batch_plan.json`.
 
 The taxonomy module in `app/services/error_taxonomy.py` decides whether the clean case is eligible for that category. For example, there must be a continued discharge drug to omit, or a monitoring-dependency rule must match.
 
@@ -591,7 +593,7 @@ Case generation and automated checks remain unchanged. Software checks structure
 
 ## Freeze immutability and provenance
 
-Frozen files for batch `CLINIPROOF_TAXONOMY_V1` under `data/validation/` are the study source of truth. Regenerating live terminology from APIs is not expected to reproduce bit-identical JSON. Readable Markdown is allowed to be regenerated from those frozen files; the frozen files themselves must not be rewritten to improve clinical content.
+Frozen files for batch `CLINIPROOF_TAXONOMY_V1` under `data/validation/` are archived historical provenance. Regenerating live terminology from APIs is not expected to reproduce bit-identical JSON. Readable Markdown is allowed to be regenerated from those frozen files; the frozen files themselves must not be rewritten to improve clinical content.
 
 Each frozen assignment records scenario, seed, family, category, source-version snapshots, and validation statuses in the investigator key and manifest.
 
@@ -601,13 +603,13 @@ The module `app/openai/narrative.py` may reword admission prose from already cho
 
 ## Reproducing the pipeline
 
-Operators who already have a database and terminology bootstrap can run the following commands. Do not re-freeze expecting to replace VAL-201 through VAL-224. To refresh clinician-facing Markdown only, run the readable-packet script.
+Operators who already have a database and terminology bootstrap can run the following commands. Pass an explicit `--plan` and `--batch-code`. Do not re-freeze expecting to replace archived VAL-201 through VAL-224. To refresh clinician-facing Markdown only, run the readable-packet script with `--batch-code`.
 
 ```bash
 clinical-case-generator db-init
 clinical-case-generator bootstrap-reference-data
-clinical-case-generator freeze-validation-batch
-clinical-case-generator export-validation-batch
-python scripts/build_readable_validation_packets.py
+clinical-case-generator freeze-validation-batch --plan data/validation_balanced/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_BALANCED_V2
+python scripts/build_readable_validation_packets.py --batch-code CLINIPROOF_BALANCED_V2 --resident data/validation_balanced/resident_validation_cases.json
 ```
 """

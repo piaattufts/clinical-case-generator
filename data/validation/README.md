@@ -1,8 +1,16 @@
+# Archived CliniProof freeze (`CLINIPROOF_TAXONOMY_V1`)
+
+**Status: historical / archived.** This directory is preserved for provenance. It is **not** an active prospective study set. New reviewers should start at [`../active_validation_sets.md`](../active_validation_sets.md).
+
+The public identifiers remain VAL-201 through VAL-224. Do not regenerate, overwrite, or renumber these files. The two active datasets are `CLINIPROOF_BALANCED_V2` and `CLINIPROOF_SEEDCASES_V1`.
+
+This archive is not labeled clinically invalid. It was superseded as the active prospective set because the study design now evaluates two newer generation strategies.
+
 # Frozen CliniProof validation set (`CLINIPROOF_TAXONOMY_V1`)
 
-This directory holds the current frozen CliniProof clinician-validation set. The batch code `CLINIPROOF_TAXONOMY_V1` identifies that freeze. It was generated using the standardized CliniProof taxonomy, in which each assessment category has both a clinical meaning and a software identifier such as `f1_omission` for a medication that is unintentionally absent at discharge.
+This directory holds the archived CliniProof clinician-validation freeze. The batch code `CLINIPROOF_TAXONOMY_V1` identifies that freeze. It was generated using the standardized CliniProof taxonomy, in which each assessment category has both a clinical meaning and a software identifier such as `f1_omission` for a medication that is unintentionally absent at discharge.
 
-The freeze covers every CliniProof error category that the software can currently implement. That is not the same as complete coverage of the full conceptual taxonomy. The taxonomy also defines required companion medication omitted (`f2_coprescription_omitted`), which represents a situation in which a clinically required companion medication is missing. This category is not included in the current validation set because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
+The freeze covers every CliniProof error category that the software can currently implement. That is not the same as complete coverage of the full conceptual taxonomy. The taxonomy also defines required companion medication omitted (`f2_coprescription_omitted`), which represents a situation in which a clinically required companion medication is missing. This category is not included in this archived freeze, or in the two active prospective sets, because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
 
 The intended family and category for each assignment are specified in [`batch_plan.json`](batch_plan.json) before generation. The injector never asks a language model which error to plant. If the requested category is unknown, ineligible, or marked `not_yet_implementable`, freeze rejects the assignment and aborts the batch instead of substituting another category.
 
@@ -78,16 +86,14 @@ This freeze was not produced by asking a language model to invent a clinical cas
 
 The requested error category is selected prospectively. Unknown, ineligible, and `not_yet_implementable` categories abort. They do not silently substitute another category. For every error-bearing case, the planned standardized category, the injected kind, and the investigator answer-key category agree. Every error-bearing case has exactly one intended injected assessment target. Clean controls have zero injected targets. Freeze-time audit also recorded that eligibility passed, clean validation passed, post-injection assessment validation passed, and no silent fallback occurred.
 
-Default operator commands, with this directory as the default plan and export location, are:
+These files are archived historical provenance, not the current study source of truth. Do not re-run freeze expecting bit-identical output from live terminology APIs. Freeze and export no longer default here. To reprint this archive explicitly:
 
 ```bash
 clinical-case-generator db-init
 clinical-case-generator bootstrap-reference-data
-clinical-case-generator freeze-validation-batch
-clinical-case-generator export-validation-batch
+clinical-case-generator freeze-validation-batch --plan data/validation/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_TAXONOMY_V1
 ```
-
-The committed JSON and Markdown files are the study source of truth. Do not re-run freeze expecting bit-identical output from live terminology APIs.
 
 ## Family 1 versus Family 2
 

@@ -2,6 +2,8 @@
 
 ## CLINIPROOF_TAXONOMY_V1
 
+This freeze is **archived historical provenance**. It is not an active prospective study set. New reviewers should start at [`../../active_validation_sets.md`](../../active_validation_sets.md).
+
 This document is intended for residents, clinicians, medical educators, pharmacists, and clinical informatics collaborators who want to review the clinical cases without reading the underlying JSON representation.
 
 The set contains twenty-four cases, labeled VAL-201 through VAL-224. Each case is a synthetic inpatient encounter assembled for medication-reconciliation review. The software has already checked structure, terminology provenance, and a limited set of implemented clinical rules. Those automated checks do not establish clinical validity. Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation.
