@@ -2,27 +2,65 @@
 
 CliniProof creates synthetic inpatient medication-reconciliation cases for resident and clinician review. Each case is meant to be read like a hospital chart: who the patient is, why they were admitted, what they take at home, what they received in the hospital, what they leave with, and what follow-up is arranged.
 
-The software loads official terminology, applies a small set of source-backed clinical rules, builds a structured clean case, and may then introduce exactly one pre-specified reconciliation problem. Four of the twenty-four frozen cases are clean controls. These cases do not contain an intentionally introduced medication-reconciliation problem and are included so that residents cannot assume that every case necessarily contains an error. This README does not list which public identifiers are controls in the resident-facing sections below.
+The software loads official terminology, applies a small set of source-backed clinical rules, builds a structured clean case, and may then introduce exactly one pre-specified reconciliation problem. Each active prospective set includes four clean controls so reviewers cannot assume that every case contains an error. This README does not list which public identifiers are controls in the resident-facing sections below.
 
 The software performs automated checks of structure, terminology provenance, implemented clinical constraints, and the intended assessment manipulation. These checks are useful for detecting technical inconsistencies, but they do not establish that a case is clinically realistic, educationally appropriate, or representative of actual practice. Those judgments require review by clinicians.
 
 The generator does not invent RxNorm, LOINC, SNOMED CT, ICD-10-CM, UCUM, or device identifiers. It does not send raw MIMIC patient rows, notes, identifiers, or events to OpenAI. Until clinicians finish review, treat every generated record as a machine-validated synthetic resident-review case pending clinician validation.
 
-The current study dataset uses the canonical CliniProof taxonomy under the batch code `CLINIPROOF_TAXONOMY_V1`. It contains twenty-four cases labeled VAL-201 through VAL-224, stored in [`data/validation/`](data/validation/). Each assessment category has a standardized identifier, such as `f1_omission` for a medication that is unintentionally absent at discharge or `f2_monitoring_not_arranged` for a medication that is continued without the required follow-up monitoring. The taxonomy also defines required companion medication omitted (`f2_coprescription_omitted`). That category is not included in the current validation set because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
+There are **two active prospective validation datasets**, totaling **48** cases. The original freeze `CLINIPROOF_TAXONOMY_V1` (VAL-201–VAL-224) is preserved as historical provenance and is **not** the current study set. The study design now evaluates two newer generation strategies. Each assessment category has a standardized identifier, such as `f1_omission` for a medication that is unintentionally absent at discharge or `f2_monitoring_not_arranged` for a medication that is continued without the required follow-up monitoring. The taxonomy also defines required companion medication omitted (`f2_coprescription_omitted`). That category is not included in the current validation sets because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
 
 This repository has no resident review user interface. Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1–C5 in one pass.
 
+Navigation for reviewers: [`data/active_validation_sets.md`](data/active_validation_sets.md). Registry: [`data/validation_registry.json`](data/validation_registry.json).
+
+# Current prospective validation datasets
+
+## 1. CLINIPROOF_BALANCED_V2
+
+- 24 cases, VAL-301–VAL-324
+- `generation_strategy = balanced_structured`
+- balanced structured scenario generation with 24 distinct clinical profiles
+- controlled error injection after clean-case generation
+- pending clinician validation
+
+Links: [all cases](data/validation_balanced/readable/all_cases.md) · [clinician packet](data/validation_balanced/readable/clinician_validation_packet.md) · [worksheet](data/validation_balanced/readable/clinical_validation_worksheet.csv) · [diversity report](data/validation_balanced/diversity_report.md) · [investigator key](data/validation_balanced/investigator_answer_key.md)
+
+## 2. CLINIPROOF_SEEDCASES_V1
+
+- 24 cases, VAL-401–VAL-424
+- `generation_strategy = resident_seed_guided`
+- derived from expert-authored clinical archetypes
+- synthetic, not copies of resident cases
+- controlled error injection after clean-case generation
+- pending clinician validation
+
+Links: [all cases](data/validation_seedcases/readable/all_cases.md) · [clinician packet](data/validation_seedcases/readable/clinician_validation_packet.md) · [worksheet](data/validation_seedcases/readable/clinical_validation_worksheet.csv) · [diversity report](data/validation_seedcases/diversity_report.md) · [investigator key](data/validation_seedcases/investigator_answer_key.md)
+
+# Historical dataset
+
+## CLINIPROOF_TAXONOMY_V1
+
+- VAL-201–VAL-224
+- original template/randomized set (`generation_strategy = original_template_randomized`)
+- preserved for provenance under [`data/validation/`](data/validation/)
+- superseded for prospective validation by the two active datasets
+- **not** the current study set
+
+This archive is not labeled clinically invalid. It was superseded as the active prospective set because the study design now evaluates two newer generation strategies.
+
 ## Where should I start?
 
-Different readers need different files. The table below routes you to a starting point.
+The table below routes new reviewers to the two **active** datasets. Do not start with archived VAL-201–VAL-224.
 
-| Who is using it | File |
-| --- | --- |
-| Resident or clinician reviewing and rating cases | [`data/validation/readable/clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md) |
-| Resident or clinician recording ratings | [`data/validation/readable/clinical_validation_worksheet.csv`](data/validation/readable/clinical_validation_worksheet.csv) |
-| Medical educator reviewing the validation criteria | [`data/validation/readable/validation_rubric.md`](data/validation/readable/validation_rubric.md) |
-| Clinician or resident wanting to understand how CliniProof generates cases | [`data/validation/readable/how_cliniproof_works.md`](data/validation/readable/how_cliniproof_works.md) |
-| Developer maintaining the pipeline | [`data/validation/readable/developer_notes.md`](data/validation/readable/developer_notes.md) |
+| Audience | Balanced set `CLINIPROOF_BALANCED_V2` | Seed-derived set `CLINIPROOF_SEEDCASES_V1` |
+| --- | --- | --- |
+| Resident / blinded reviewer | [balanced readable cases](data/validation_balanced/readable/all_cases.md) | [seed readable cases](data/validation_seedcases/readable/all_cases.md) |
+| Clinician validator | [balanced clinician packet](data/validation_balanced/readable/clinician_validation_packet.md) | [seed clinician packet](data/validation_seedcases/readable/clinician_validation_packet.md) |
+| Clinician entering ratings | [balanced worksheet](data/validation_balanced/readable/clinical_validation_worksheet.csv) | [seed worksheet](data/validation_seedcases/readable/clinical_validation_worksheet.csv) |
+| Investigator | [balanced answer key](data/validation_balanced/investigator_answer_key.md) | [seed answer key](data/validation_seedcases/investigator_answer_key.md) |
+| Diversity audit | [balanced diversity report](data/validation_balanced/diversity_report.md) | [seed diversity report](data/validation_seedcases/diversity_report.md) |
+| Rubric | [balanced rubric](data/validation_balanced/readable/validation_rubric.md) | [seed rubric](data/validation_seedcases/readable/validation_rubric.md) |
 
 ## What CliniProof is
 
@@ -42,7 +80,7 @@ A readable case is organized as a chart review: patient overview, reason for hos
 
 Construction proceeds in a fixed order: a clinical scenario family is selected; a named clinical profile/variant is selected; terminology is resolved; a clean synthetic patient is assembled; rule checks and clean validation run; eligibility for the planned assessment target is confirmed; a controlled error is introduced or skipped for a control; post-error validation runs; a blinded resident export is written; and clinicians review the result.
 
-Narrative wording is template text, or optionally a language model restating already chosen facts. OpenAI is optional in the CliniProof pipeline and is used only to help word narrative text from clinical facts that have already been selected by the structured generator. It does not choose diagnoses, medications, terminology codes, error categories, clinical rules, or answer-key content. The frozen study set did not use OpenAI. Details are in [`data/validation/readable/how_cliniproof_works.md`](data/validation/readable/how_cliniproof_works.md).
+Narrative wording is template text, or optionally a language model restating already chosen facts. OpenAI is optional in the CliniProof pipeline and is used only to help word narrative text from clinical facts that have already been selected by the structured generator. It does not choose diagnoses, medications, terminology codes, error categories, clinical rules, or answer-key content. The committed active prospective sets, and the archived V1 freeze, used template narrative rather than OpenAI. Details are in [`data/validation_balanced/readable/how_cliniproof_works.md`](data/validation_balanced/readable/how_cliniproof_works.md).
 
 ## Clean-case uniqueness
 
@@ -52,7 +90,7 @@ A validation case must represent a distinct underlying clinical scenario before 
 
 The generator now names a clinical profile inside each scenario family (for example several heart-failure or atrial-fibrillation variants). Each profile specifies a permitted symptom set, duration and course, medication subset, laboratory subset, hospital-course pattern, and follow-up structure using only source-backed concepts. After the clean case is validated, the software computes a fingerprint that excludes VAL/SYN identifiers, seed, exact age, sex, weight, vital numbers, laboratory numbers, and the intended error. Exact fingerprint matches raise `DuplicateClinicalCaseError` and the batch is not frozen. Weighted similarity of 0.85 or higher is also rejected. Scores between 0.70 and 0.85 are reported as investigator warnings.
 
-The frozen study set `CLINIPROOF_TAXONOMY_V1` (VAL-201–VAL-224) is unchanged. The prospective balanced template set is `CLINIPROOF_BALANCED_V2` (VAL-301–VAL-324) in [`data/validation_balanced/`](data/validation_balanced/). The prospective seed-guided set is `CLINIPROOF_SEEDCASES_V1` (VAL-401–VAL-424) in [`data/validation_seedcases/`](data/validation_seedcases/). Passing the diversity audit does not mean the cases are clinically validated. Human clinician review is still required. This repository does not declare which prospective batch is the study dataset.
+The archived freeze `CLINIPROOF_TAXONOMY_V1` (VAL-201–VAL-224) remains unchanged as historical provenance. The two **active** prospective sets are `CLINIPROOF_BALANCED_V2` and `CLINIPROOF_SEEDCASES_V1`. Passing the diversity audit does not mean the cases are clinically validated. Human clinician review is still required.
 
 ## Family 1 and Family 2
 
@@ -64,19 +102,15 @@ Family 2 (`family_2`) means a transition action is missing even if the drug list
 
 The software performs automated checks of structure, terminology provenance, implemented clinical constraints, and the intended assessment manipulation. These checks are useful for detecting technical inconsistencies, but they do not establish that a case is clinically realistic, educationally appropriate, or representative of actual practice. Those judgments require review by clinicians.
 
-Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1–C5 in one pass.
+Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1–C5 in one pass. Use the packets for the two active sets in [Where should I start?](#where-should-i-start).
 
-- [`data/validation/readable/clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md)
-- [`data/validation/readable/clinical_validation_worksheet.csv`](data/validation/readable/clinical_validation_worksheet.csv)
-- [`data/validation/readable/validation_rubric.md`](data/validation/readable/validation_rubric.md)
+## Active prospective sets
 
-## Current study set
-
-The frozen study set is `CLINIPROOF_TAXONOMY_V1`, containing cases VAL-201 through VAL-224. Readable views live in [`data/validation/readable/`](data/validation/readable/). Frozen JSON in [`data/validation/`](data/validation/) is the study source of truth and must not be regenerated to improve clinical content.
+See [Current prospective validation datasets](#current-prospective-validation-datasets). Frozen JSON for each active batch is that batch’s source of truth and must not be regenerated to improve clinical content. Archived `CLINIPROOF_TAXONOMY_V1` files must not be rewritten either.
 
 ## Human-readable review materials
 
-See [Human-readable clinician validation packets](#human-readable-clinician-validation-packets) and the starting-point table above. Individual case pages are [`data/validation/readable/cases/VAL-201.md`](data/validation/readable/cases/VAL-201.md) through [`VAL-224.md`](data/validation/readable/cases/VAL-224.md).
+See [Human-readable clinician validation packets](#human-readable-clinician-validation-packets) and the starting-point table above. Active case pages are VAL-301–VAL-324 and VAL-401–VAL-424. Archived VAL-201–VAL-224 remain available for provenance.
 
 ---
 
@@ -154,7 +188,7 @@ OpenAI is optional in the CliniProof pipeline and is used only to help word admi
 
 OpenAI is **not** used to choose or invent diagnoses, RXCUIs, LOINC codes, ICD-10-CM codes, UCUM codes, clinical rules, error categories, error families, or answer-key contents. Raw MIMIC and other patient-source rows are never sent. Structured cases are **not** wholly LLM-generated.
 
-`freeze-validation-batch` hardcodes `use_openai=False`, so the committed `CLINIPROOF_TAXONOMY_V1` freeze used template narrative only.
+`freeze-validation-batch` hardcodes `use_openai=False`, so the committed `CLINIPROOF_BALANCED_V2` and `CLINIPROOF_SEEDCASES_V1` freezes, and the archived `CLINIPROOF_TAXONOMY_V1` freeze, used template narrative only.
 
 ### Clinical validation
 
@@ -166,15 +200,15 @@ The software performs automated checks of structure, terminology provenance, imp
 
 This section is for physicians and clinical reviewers. It explains how a synthetic inpatient case is assembled, using language from ordinary clinical work (presentation, admission diagnosis, home / inpatient / discharge medications, medication reconciliation) rather than software architecture.
 
-**Worked examples below are educational demonstrations**, not members of the blinded resident-validation study. They were generated with the same code path as the study freeze (`app/services/generation.py`), with template admission wording (no OpenAI call), sequences **901–904**, and seed **20260926**. Snapshots: [`data/docs/clinician_examples/`](data/docs/clinician_examples/). Study cases for residents are `VAL-201`–`VAL-224` in [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json). This walkthrough does **not** say which `VAL-*` cases are controls or which discrepancy was planted.
+**Worked examples below are educational demonstrations**, not members of the blinded resident-validation study. They were generated with the same code path as the study freeze (`app/services/generation.py`), with template admission wording (no OpenAI call), sequences **901–904**, and seed **20260926**. Snapshots: [`data/docs/clinician_examples/`](data/docs/clinician_examples/). Active study cases for residents are VAL-301–VAL-324 and VAL-401–VAL-424. This walkthrough does **not** say which `VAL-*` cases are controls or which discrepancy was planted.
 
 Until a clinician finishes review, treat every generated record as a machine-validated synthetic resident-review case pending clinician validation. The software has checked structure and implemented rules; it has not certified clinical realism.
 
 The implemented pipeline is not “ask a language model to make a clinical case and then find an error.” The order of operations is: an assessment or batch specification is written; a scenario is selected; canonical terminology is resolved from local authoritative reference tables; a deterministic structured clean case is generated; source-backed clinical rules are applied; the clean case is machine-validated; eligibility for the requested standardized error category is checked; the exact requested error is injected deterministically, or skipped for a clean control; hidden assessment and answer-key state is recorded; post-injection category-aware validation runs; the case is frozen under an immutable VAL identifier; and blinded resident and investigator exports are written.
 
-The requested error category is selected **prospectively**. Ineligible categories **abort**. They do **not** silently substitute another category. Planned category, injected category, and answer-key category must agree. Every error-bearing `CLINIPROOF_TAXONOMY_V1` case has exactly one intended injected assessment target. Clean controls have zero. The clean expected state and injected state are retained in the concealed assessment data.
+The requested error category is selected **prospectively**. Ineligible categories **abort**. They do **not** silently substitute another category. Planned category, injected category, and answer-key category must agree. Every error-bearing case in an active freeze has exactly one intended injected assessment target. Clean controls have zero. The clean expected state and injected state are retained in the concealed assessment data.
 
-A language model is optional and, when used, only rewords admission narrative from already-chosen facts. OpenAI does not choose diagnoses, medications, terminology codes, error categories, clinical rules, or answer-key content. The committed study freeze does not call a language model (`freeze-validation-batch` sets `use_openai=False` in `app/cli/__init__.py`). These demonstration cases also used template wording because `OPENAI_API_KEY` was empty, so `narrative_source` is `template` in `app/openai/narrative.py`.
+A language model is optional and, when used, only rewords admission narrative from already-chosen facts. OpenAI does not choose diagnoses, medications, terminology codes, error categories, clinical rules, or answer-key content. The committed prospective freezes do not call a language model (`freeze-validation-batch` sets `use_openai=False` in `app/cli/__init__.py`). These demonstration cases also used template wording because `OPENAI_API_KEY` was empty, so `narrative_source` is `template` in `app/openai/narrative.py`.
 
 The following table distinguishes six kinds of content that can appear on a case. Official terminology rows are not the same thing as real patient measurements. Synthetic numbers are not MIMIC rows. Assessment discrepancies are hidden from residents.
 
@@ -289,17 +323,17 @@ A planted assessment error is allowed to remain; it is not “fixed” by the va
 
 `freeze-validation-batch` generates as above with `use_openai=False`, audits that there are no `TEST_` identifiers and that the plan matches control versus error, and writes an immutable `VAL-###` row in `validation_batch_cases`. A second freeze reuses matching VAL identifiers and will not overwrite them.
 
-The study batch `CLINIPROOF_TAXONOMY_V1` assigns VAL-201 through VAL-224 to sequences 801 through 824. Demonstration `SYN-000901` was not frozen into a VAL identifier. Freeze is an operational lock, not clinical sign-off.
+The archived freeze `CLINIPROOF_TAXONOMY_V1` assigned VAL-201 through VAL-224 to sequences 801 through 824. The active freeze `CLINIPROOF_BALANCED_V2` assigns VAL-301 through VAL-324 to sequences 1001 through 1024. The active freeze `CLINIPROOF_SEEDCASES_V1` assigns VAL-401 through VAL-424 to sequences 1101 through 1124. Demonstration `SYN-000901` was not frozen into a VAL identifier. Freeze is an operational lock, not clinical sign-off.
 
 ### 12. Export resident-facing and investigator-facing versions
 
-`export-validation-batch` writes a blinded resident JSON, with VAL identifiers, no answer key, RXCUI `source_reference` cleared, and titles rewritten, plus investigator files including the answer key, manifest, and coverage. The default `--batch-code` is `CLINIPROOF_TAXONOMY_V1`, and the default `--output-dir` is `data/validation/`. A leak audit fails export if resident JSON contains markers such as `syn-000`, `answer_key`, or `is_clean_control`.
+`export-validation-batch` writes a blinded resident JSON, with VAL identifiers, no answer key, RXCUI `source_reference` cleared, and titles rewritten, plus investigator files including the answer key, manifest, and coverage. `--batch-code` is required. There is no default study batch. A leak audit fails export if resident JSON contains markers such as `syn-000`, `answer_key`, or `is_clean_control`.
 
 ### 13. Obtain clinician validation
 
-Clinical validation uses a single review stage. A clinician or resident reviews the complete frozen case once and completes C1–C5 in the same review. Ratings are recorded on [`data/validation/readable/clinical_validation_worksheet.csv`](data/validation/readable/clinical_validation_worksheet.csv). Software does not fill those ratings. The review file is [`data/validation/readable/clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md).
+Clinical validation uses a single review stage. A clinician or resident reviews the complete frozen case once and completes C1–C5 in the same review. Ratings are recorded on the batch-specific worksheet (see [Where should I start?](#where-should-i-start)). Software does not fill those ratings. The review files are the clinician validation packets for `CLINIPROOF_BALANCED_V2` and `CLINIPROOF_SEEDCASES_V1`.
 
-Separately, when the frozen cases are later administered as an assessment, residents who must find the planted problem themselves use the blinded JSON in [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json) and the worksheet schema in [`data/validation/resident_review_schema.json`](data/validation/resident_review_schema.json). That resident performance worksheet is not the clinician-validation form.
+Separately, when the frozen cases are later administered as an assessment, residents who must find the planted problem themselves use the blinded JSON for the chosen active set — [`data/validation_balanced/resident_validation_cases.json`](data/validation_balanced/resident_validation_cases.json) or [`data/validation_seedcases/resident_validation_cases.json`](data/validation_seedcases/resident_validation_cases.json) — and the matching worksheet schema. That resident performance worksheet is not the clinician-validation form.
 
 ---
 
@@ -338,7 +372,7 @@ Do **not** treat every error-bearing case as “exactly one medication-list disc
 
 Validation is **category-aware**. For Family 2 the freeze checks that the trigger/precondition is present, the expected companion action exists in the clean state, the specified action is absent or incorrect after injection, resident-visible evidence needed for detection remains present, and no unintended second assessment target was introduced.
 
-The freeze plan specifies the standardized family and category in [`data/validation/batch_plan.json`](data/validation/batch_plan.json) before generation. Default freeze and export commands write to `data/validation/`. The current dataset uses the canonical CliniProof taxonomy and covers every category the software can currently implement. Required companion medication omitted (`f2_coprescription_omitted`) is intentionally absent because it is `not_yet_implementable`. Unknown or obsolete category names fail rather than being translated.
+The freeze plan specifies the standardized family and category in each batch’s `batch_plan.json` before generation. Freeze and export require an explicit plan or batch code. The two active datasets use the canonical CliniProof taxonomy and cover implemented categories. Required companion medication omitted (`f2_coprescription_omitted`) is intentionally absent because it is `not_yet_implementable`. Unknown or obsolete category names fail rather than being translated.
 
 ### Example A — Family 1 dose mismatch (demonstration)
 
@@ -689,11 +723,11 @@ The implemented CliniProof injector set is in [CliniProof error taxonomy](#clini
 
 ## What the Resident Actually Sees
 
-Study residents receive [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json) plus [`resident_review_worksheet.csv`](data/validation/resident_review_worksheet.csv) (`CLINIPROOF_TAXONOMY_V1`). They do **not** receive the investigator key, freeze plan, manifest, coverage files, or [`data/validation/README.md`](data/validation/README.md).
+Study residents receive the blinded JSON and review worksheet for the **chosen active set**: [`data/validation_balanced/resident_validation_cases.json`](data/validation_balanced/resident_validation_cases.json) (`CLINIPROOF_BALANCED_V2`) or [`data/validation_seedcases/resident_validation_cases.json`](data/validation_seedcases/resident_validation_cases.json) (`CLINIPROOF_SEEDCASES_V1`). They do **not** receive the investigator key, freeze plan, manifest, coverage files, or batch README catalogs. Do not send archived [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json) (`CLINIPROOF_TAXONOMY_V1`) as the current study packet.
 
 The audited resident export contains no `CaseAnswerKey`, no `SYN-*` identifiers, no `TEST_*` identifiers, no `LEAK_MARKERS`, no planted-error category, no error-family field, no target-medication metadata, no `clean_expected_state`, no `injected_state`, and no correct-action answer. The resident worksheet retains empty rating and response fields. Do not pre-populate resident judgments.
 
-Export (`_resident_payload`) rewrites ids to `VAL-*`, sets `case_status` to `review`, clears `source_reference` (so RXCUI is not on the resident med rows), omits `CaseAnswerKey`, and strips leak markers. Patient display names become `VAL Patient 201`, not `SYN Patient 801`.
+Export (`_resident_payload`) rewrites ids to `VAL-*`, sets `case_status` to `review`, clears `source_reference` (so RXCUI is not on the resident med rows), omits `CaseAnswerKey`, and strips leak markers. Patient display names become `VAL Patient 301` or `VAL Patient 401` on the active sets. Archived V1 used `VAL Patient 201`.
 
 Educational analogue using **clean** demonstration `SYN-000901` (if this were exported as a resident case, RXCUIs would be omitted). Layout:
 
@@ -713,7 +747,7 @@ Discharge medications are the same six continue medications. This educational ca
 
 Follow-up is primary care in 7 days. The instruction is to take discharge medications exactly as listed. When warfarin is continued, a clean case also includes outpatient INR monitoring. Family 2 study cases may omit a companion action such as that monitoring row or a follow-up; residents are not told which.
 
-The worksheet asks residents to record the following fields, defined in [`data/validation/resident_review_schema.json`](data/validation/resident_review_schema.json):
+The worksheet asks residents to record the following fields, defined in [`data/validation_balanced/resident_review_schema.json`](data/validation_balanced/resident_review_schema.json) (the seed-guided set has the same schema under [`data/validation_seedcases/resident_review_schema.json`](data/validation_seedcases/resident_review_schema.json)):
 
 - Clinical realism rating (`clinical_realism_rating`), on a 1 through 5 scale
 - Medication-reconciliation correctness rating (`medication_reconciliation_correctness_rating`), on a 1 through 5 scale
@@ -731,7 +765,7 @@ The software does not pre-fill those answers and does not tell the resident whet
 
 ## What the Investigator Sees
 
-In addition to the resident JSON, freeze export writes the following investigator files in [`data/validation/`](data/validation/) for the study batch. The table says what extra information each file contains. Residents should not receive these files.
+In addition to the resident JSON, freeze export writes the following investigator files **in that batch’s directory**. Active sets live in [`data/validation_balanced/`](data/validation_balanced/) and [`data/validation_seedcases/`](data/validation_seedcases/). Archived V1 files remain in [`data/validation/`](data/validation/) for provenance only. The table says what extra information each file contains. Residents should not receive these files.
 
 | Artifact | Extra information |
 | --- | --- |
@@ -739,7 +773,7 @@ In addition to the resident JSON, freeze export writes the following investigato
 | `validation_manifest.json` | Batch code, generator version, per-VAL freeze metadata, official source versions and sync times |
 | `batch_plan.json` | Planned VAL id, scenario, inject flag, `error_family`, `error_category`, sequence |
 | `coverage_report.md` / `scenario_coverage_matrix.md` | Mix counts and resolved concepts per family |
-| `data/validation/README.md` | Investigator catalog of planted errors for the study freeze |
+| `data/validation/README.md` | Investigator catalog of planted errors for the **archived** V1 freeze |
 
 This split exists so residents cannot score from the key. Do not “fix” blinding by pasting RXCUIs or control flags into the resident JSON.
 
@@ -836,9 +870,13 @@ The following table maps each clinical or operational claim in this walkthrough 
 | Error injectors and answer key | `app/services/error_injection.py` |
 | Freeze, export, leak audit | `app/services/validation_batch.py` |
 | Optional narrative LLM | `app/openai/narrative.py` |
-| Study resident JSON | `data/validation/resident_validation_cases.json` (`CLINIPROOF_TAXONOMY_V1`) |
-| Study investigator key | `data/validation/investigator_answer_key.json` (investigator-only) |
-| Readable clinician packets | `data/validation/readable/` |
+| Active resident JSON (balanced) | `data/validation_balanced/resident_validation_cases.json` (`CLINIPROOF_BALANCED_V2`) |
+| Active resident JSON (seed) | `data/validation_seedcases/resident_validation_cases.json` (`CLINIPROOF_SEEDCASES_V1`) |
+| Archived resident JSON | `data/validation/resident_validation_cases.json` (`CLINIPROOF_TAXONOMY_V1`, historical) |
+| Active investigator keys | `data/validation_balanced/investigator_answer_key.json` and `data/validation_seedcases/investigator_answer_key.json` (investigator-only) |
+| Active readable clinician packets | `data/validation_balanced/readable/` and `data/validation_seedcases/readable/` |
+| Archived investigator key | `data/validation/investigator_answer_key.json` (historical; not the current study key) |
+| Archived readable packets | `data/validation/readable/` |
 | These worked examples | `data/docs/clinician_examples/` |
 
 ---
@@ -881,13 +919,13 @@ clinical-case-generator generate-synthetic-cases --count 3 --seed 42
 clinical-case-generator validate-cases --case-id SYN-000001
 ```
 
-To **use the committed resident-review files** without regenerating: give reviewers [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json) and the empty worksheet. Do not send the investigator key. Details: [How to give cases to residents](#18-how-to-give-cases-to-residents).
+To **use the committed resident-review files** without regenerating: give reviewers the active JSON under `data/validation_balanced/` or `data/validation_seedcases/` and the matching empty worksheet. Do not send investigator keys. Details: [How to give cases to residents](#18-how-to-give-cases-to-residents).
 
-To **rebuild the frozen batch in a local database** (after bootstrap):
+To **rebuild an active frozen batch in a local database** (after bootstrap), pass an explicit plan and batch code:
 
 ```bash
-clinical-case-generator freeze-validation-batch
-clinical-case-generator export-validation-batch
+clinical-case-generator freeze-validation-batch --plan data/validation_balanced/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_BALANCED_V2
 ```
 
 `freeze-validation-batch` generates, validates, and freezes internally. A prior `validate-cases` run is not a prerequisite. See [Resident-validation workflow](#16-resident-validation-workflow).
@@ -940,14 +978,18 @@ This matches `app/cli/__init__.py` and `app/services/validation_batch.py`. There
 | `app/config.py` | Settings from `.env` |
 | `app/database.py` | Engine, sessions, `ProvenanceMixin`, `CaseChildMixin` |
 | `data/bootstrap` | `manifest.json`, `rule_templates.json`, `scenarios.json` |
-| `data/validation` | Frozen `CLINIPROOF_TAXONOMY_V1` randomized/template batch ([catalog](data/validation/README.md)) |
-| `data/validation/readable` | Derived Markdown clinician-validation packets for V1 |
-| `data/validation_balanced` | Prospective `CLINIPROOF_BALANCED_V2` template batch (VAL-301–VAL-324) |
+| `data/validation` | Archived `CLINIPROOF_TAXONOMY_V1` freeze ([catalog](data/validation/README.md)) |
+| `data/validation/readable` | Archived Markdown packets for VAL-201–VAL-224 |
+| `data/validation_balanced` | Active `CLINIPROOF_BALANCED_V2` (VAL-301–VAL-324) |
+| `data/validation_balanced/readable` | Active balanced clinician packets |
 | `data/seed_cases` | Resident-authored DOCX design references and derived archetypes |
 | `data/seed_cases/resident_authored` | Immutable source DOCX files (not study cases) |
 | `data/seed_cases/blueprints` | Machine-readable seed archetypes (`archetypes.json`) |
-| `data/validation_seedcases` | Prospective `CLINIPROOF_SEEDCASES_V1` seed-guided batch (VAL-401–VAL-424) |
-| `data/validation_seedcases/readable` | Derived Markdown clinician-validation packets for the seed-guided batch |
+| `data/validation_seedcases` | Active `CLINIPROOF_SEEDCASES_V1` (VAL-401–VAL-424) |
+| `data/validation_seedcases/readable` | Active seed-guided clinician packets |
+| `data/validation_registry.json` | Active versus archived batch registry |
+| `data/active_validation_sets.md` | Reviewer navigation for the two active sets |
+| `data/validation_comparison` | Investigator comparison of the two active sets |
 | `data/exports` | Gitignored local export directory (placeholder `.gitkeep` only) |
 | `data/imports`, `data/aggregates`, `data/mimic` | Gitignored placeholders; this pipeline does not read them |
 | `alembic/versions` | Migrations |
@@ -1538,7 +1580,7 @@ On any exception, including a missing SDK or HTTP failure, the function returns 
 
 After a successful parse, generation rejects the narrative and falls back to the template if none of the allowed names appear in the text (`_narrative_rejected`).
 
-Freeze calls `freeze_validation_batch(..., use_openai=False)`, so OpenAI is not called for `CLINIPROOF_TAXONOMY_V1` even if a key is set.
+Freeze calls `freeze_validation_batch(..., use_openai=False)`, so OpenAI is not called for the committed freezes even if a key is set.
 
 OpenAI cannot invent or choose diagnoses, RxNorm identifiers, LOINC codes, ICD-10-CM codes, UCUM codes, clinical rules, error categories, error families, or answer-key contents. Raw MIMIC rows are not in the payload. CliniProof structured cases are not wholly generated by a language model.
 
@@ -1594,9 +1636,13 @@ Recommended operator order:
 
 ```bash
 clinical-case-generator bootstrap-reference-data
-clinical-case-generator freeze-validation-batch
-clinical-case-generator export-validation-batch
+clinical-case-generator freeze-validation-batch --plan data/validation_balanced/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_BALANCED_V2
+clinical-case-generator freeze-validation-batch --plan data/validation_seedcases/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_SEEDCASES_V1
 ```
+
+Freeze and export require an explicit plan or batch code. They do **not** default to archived `CLINIPROOF_TAXONOMY_V1`.
 
 Optional inspection of persisted `SYN-*` rows (including freeze sequences 801–824):
 
@@ -1607,15 +1653,21 @@ clinical-case-generator validate-cases --case-id SYN-000801
 
 ### `batch_plan.json`
 
-Default plan: `data/validation/batch_plan.json` (`--plan` overrides).
+There is no default plan. Pass `--plan` for an active batch:
+
+- [`data/validation_balanced/batch_plan.json`](data/validation_balanced/batch_plan.json) (`CLINIPROOF_BALANCED_V2`, VAL-301–VAL-324, sequences 1001–1024, `balanced_structured`)
+- [`data/validation_seedcases/batch_plan.json`](data/validation_seedcases/batch_plan.json) (`CLINIPROOF_SEEDCASES_V1`, VAL-401–VAL-424, sequences 1101–1124, `resident_seed_guided`)
+
+The archived plan [`data/validation/batch_plan.json`](data/validation/batch_plan.json) remains for provenance (`CLINIPROOF_TAXONOMY_V1`, VAL-201–VAL-224, sequences 801–824) and is not used as a CLI default.
 
 Controls:
 
-- `batch_code` (committed value `CLINIPROOF_TAXONOMY_V1`)
-- `master_seed` (`20260922`)
-- `cases[]`: `validation_case_id` (`VAL-###`), `scenario`, `inject_error`, `error_family`, `error_category`, `sequence`
+- `batch_code`
+- `master_seed`
+- `generation_strategy` (seed-guided plans set `resident_seed_guided`)
+- `cases[]`: `validation_case_id` (`VAL-###`), `scenario`, `clinical_profile`, `inject_error`, `error_family`, `error_category`, `sequence`
 
-Case seed: `{master_seed}:{sequence}:{scenario}`. Sequences **801–824** are `CLINIPROOF_TAXONOMY_V1` (`VAL-201`–`VAL-224`).
+Case seed for named-profile batches: `{master_seed}:{sequence}:{scenario}:{clinical_profile}`.
 
 ### Immutable `VAL-*` IDs
 
@@ -1627,13 +1679,13 @@ Frozen validation case VAL-00N cannot be overwritten: existing frozen assignment
 
 If any assignment fails generation, eligibility, or audit, freeze **raises** and the transaction is not committed. The injector never substitutes a different error category.
 
-### Current frozen set `CLINIPROOF_TAXONOMY_V1`
+### Archived historical set `CLINIPROOF_TAXONOMY_V1`
 
-Plan and export files live in [`data/validation/`](data/validation/). Default freeze and export commands write there.
+Files remain in [`data/validation/`](data/validation/). Do not regenerate them. Freeze and export do not write here unless you pass this plan or batch code explicitly.
 
 ### Prospective balanced set `CLINIPROOF_BALANCED_V2`
 
-`CLINIPROOF_TAXONOMY_V1` remains immutable. A prospective balanced template set is `CLINIPROOF_BALANCED_V2` (VAL-301–VAL-324, sequences 1001–1024) in [`data/validation_balanced/`](data/validation_balanced/). Each assignment names a distinct clinical profile so clean-case diversity is specified before error injection. This repository does not declare which prospective batch is the study dataset. Freeze with:
+`CLINIPROOF_TAXONOMY_V1` remains immutable and archived. An **active** balanced structured set is `CLINIPROOF_BALANCED_V2` (VAL-301–VAL-324, sequences 1001–1024) in [`data/validation_balanced/`](data/validation_balanced/). Each assignment names a distinct clinical profile so clean-case diversity is specified before error injection. Freeze with:
 
 ```bash
 clinical-case-generator freeze-validation-batch --plan data/validation_balanced/batch_plan.json
@@ -1642,9 +1694,9 @@ clinical-case-generator export-validation-batch --batch-code CLINIPROOF_BALANCED
 
 Do not point those commands at `data/validation/`. The V1 hashes must remain unchanged.
 
-### Prospective seed-guided set `CLINIPROOF_SEEDCASES_V1`
+### Active seed-guided set `CLINIPROOF_SEEDCASES_V1`
 
-`CLINIPROOF_TAXONOMY_V1` and `CLINIPROOF_BALANCED_V2` remain independent. `CLINIPROOF_SEEDCASES_V1` (VAL-401–VAL-424, sequences 1101–1124) is generated with `generation_strategy=resident_seed_guided` from abstracted archetypes in [`data/seed_cases/`](data/seed_cases/). Resident-authored DOCX files are immutable design references; they are not copied into study charts. Freeze with:
+`CLINIPROOF_TAXONOMY_V1` is archived. `CLINIPROOF_BALANCED_V2` and `CLINIPROOF_SEEDCASES_V1` are the two active prospective sets. `CLINIPROOF_SEEDCASES_V1` (VAL-401–VAL-424, sequences 1101–1124) is generated with `generation_strategy=resident_seed_guided` from abstracted archetypes in [`data/seed_cases/`](data/seed_cases/). Resident-authored DOCX files are immutable design references; they are not copied into study charts. Freeze with:
 
 ```bash
 clinical-case-generator freeze-validation-batch --plan data/validation_seedcases/batch_plan.json
@@ -1653,14 +1705,11 @@ clinical-case-generator export-validation-batch --batch-code CLINIPROOF_SEEDCASE
 
 Do not point those commands at `data/validation/` or `data/validation_balanced/`.
 
-The frozen set `CLINIPROOF_TAXONOMY_V1` contains twenty-four cases labeled VAL-201 through VAL-224 (internal sequences 801 through 824). It covers every CliniProof error category that the software can currently implement. That is not complete coverage of the full conceptual taxonomy. Plan and export files live in [`data/validation/`](data/validation/). Default freeze and export commands write there.
+### Archived mix summary (`CLINIPROOF_TAXONOMY_V1`)
 
-```bash
-clinical-case-generator freeze-validation-batch
-clinical-case-generator export-validation-batch
-```
+The archived freeze contains twenty-four cases labeled VAL-201 through VAL-224 (internal sequences 801 through 824). It covered every CliniProof error category that the software could implement at the time. That is not complete coverage of the full conceptual taxonomy. Files remain in [`data/validation/`](data/validation/). Do not run freeze or export without `--plan` / `--batch-code`; those commands no longer default here.
 
-The table below is a compact summary. The paragraphs after it restate the mix in clinical language.
+The table below is a compact historical summary.
 
 | Item | `CLINIPROOF_TAXONOMY_V1` |
 | --- | --- |
@@ -1690,10 +1739,11 @@ Residents should review every case as if the assessment might be wrong (discharg
 ### Export CLI
 
 ```bash
-clinical-case-generator export-validation-batch
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_BALANCED_V2
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_SEEDCASES_V1
 ```
 
-`--output-dir` defaults to `data/validation/`. `--batch-code` defaults to `CLINIPROOF_TAXONOMY_V1`. Requires frozen rows **in the local database**. If none: `no frozen cases for batch CLINIPROOF_TAXONOMY_V1` (exit 2).
+`--batch-code` is **required**. There is no default study batch. Export does not silently write archived `CLINIPROOF_TAXONOMY_V1`. `--output-dir` defaults to the registry directory for that batch code. Requires frozen rows **in the local database**. If none: `no frozen cases for batch <code>` (exit 2). If `--batch-code` is omitted, the CLI prints the active-batch list and exits 2.
 
 Export regenerates blinded payloads, writes files listed in [§17](#17-resident-validation-output-files), and runs a leak audit (fails `audit_passed` if resident JSON contains markers such as `syn-000`, `answer_key`, `is_clean_control`, `rxcui:`, or `TEST_` identifier values).
 
@@ -1703,24 +1753,29 @@ Printed paths: `resident_path`, `investigator_path`, `manifest_path`, `coverage_
 
 ## 17. Resident-validation output files
 
-Directory `data/validation/` holds tracked study artifacts for `CLINIPROOF_TAXONOMY_V1`. Generated files under `data/exports/` are gitignored. The table below tells you which file a resident may receive and which files are investigator-only.
+Each **active** batch writes the same family of files into its own directory:
+
+- Balanced structured: [`data/validation_balanced/`](data/validation_balanced/) (`CLINIPROOF_BALANCED_V2`, VAL-301–VAL-324)
+- Resident-seed-guided: [`data/validation_seedcases/`](data/validation_seedcases/) (`CLINIPROOF_SEEDCASES_V1`, VAL-401–VAL-424)
+
+Archived historical files remain in [`data/validation/`](data/validation/) (`CLINIPROOF_TAXONOMY_V1`, VAL-201–VAL-224) and are **not** the current study packet. Generated files under `data/exports/` are gitignored. The table below uses the balanced directory as the path example. The seed-guided batch has the same filenames under `data/validation_seedcases/`. The table tells you which file a resident may receive and which files are investigator-only.
 
 | File | Purpose | Who should see it | Blinded? | Contains answer key? | Give to residents? |
 | --- | --- | --- | --- | --- | --- |
-| [`resident_validation_cases.json`](data/validation/resident_validation_cases.json) | Dashboard-shaped cases (`VAL-*` ids, nested `ClinicalCase`, child arrays). Omits `CaseAnswerKey`. Titles use `VAL-*`. | Residents | Yes | No | **Yes — this is the case file** |
-| [`resident_review_worksheet.csv`](data/validation/resident_review_worksheet.csv) | Empty capture rows, one per VAL ID | Residents / study staff | Yes (no answers) | No | **Yes** |
-| [`resident_review_schema.json`](data/validation/resident_review_schema.json) | Worksheet field definitions (ratings 1–5, identified error type, comments, …) | Study staff; optional for residents | Yes | No | Optional |
-| [`investigator_answer_key.json`](data/validation/investigator_answer_key.json) | Seeds, `SYN-*`, error category, affected RXCUI, clean expected state, snapshots | Investigators | No | **Yes** | **No** |
-| [`investigator_answer_key.md`](data/validation/investigator_answer_key.md) | Human-readable key | Investigators | No | **Yes** | **No** |
-| [`validation_manifest.json`](data/validation/validation_manifest.json) | Freeze metadata, source versions, control status | Investigators | No | Control/error status | **No** |
-| [`batch_plan.json`](data/validation/batch_plan.json) | Planned VAL IDs, scenarios, inject flags, `error_family`, `error_category` | Operators / investigators | No | Planned errors | **No** |
-| [`coverage_report.md`](data/validation/coverage_report.md) | Counts by scenario/error/terminology | Investigators | No | Mix summary | **No** |
-| [`scenario_coverage_matrix.md`](data/validation/scenario_coverage_matrix.md) | Resolved meds/labs/diagnoses per family | Investigators | No | Not per-case answers | **No** |
-| [`README.md`](data/validation/README.md) | Full pipeline + **per-case planted-error catalog** | Investigators | No | **Yes (catalog)** | **No** |
-| [`readable/all_cases.md`](data/validation/readable/all_cases.md) | Human-readable charts without intended-assessment issues | Optional supporting view | Yes | No | Not a required review stage |
-| [`readable/clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md) | Readable cases + intended issues + C1–C5 | Clinician/resident validators | Packet | **Yes** | Primary one-stage review file |
-| [`readable/validation_rubric.md`](data/validation/readable/validation_rubric.md) | C1–C5 rubric | Medical educators / validators | Rubric only | No | Rubric may be shared; it has no per-case answers |
-| [`readable/clinical_validation_worksheet.csv`](data/validation/readable/clinical_validation_worksheet.csv) | One empty rating row per case | Clinical reviewers / study staff | Identifiers only | No | Record C1–C5 here |
+| [`resident_validation_cases.json`](data/validation_balanced/resident_validation_cases.json) | Dashboard-shaped cases (`VAL-*` ids, nested `ClinicalCase`, child arrays). Omits `CaseAnswerKey`. Titles use `VAL-*`. | Residents | Yes | No | **Yes — this is the case file** |
+| [`resident_review_worksheet.csv`](data/validation_balanced/resident_review_worksheet.csv) | Empty capture rows, one per VAL ID | Residents / study staff | Yes (no answers) | No | **Yes** |
+| [`resident_review_schema.json`](data/validation_balanced/resident_review_schema.json) | Worksheet field definitions (ratings 1–5, identified error type, comments, …) | Study staff; optional for residents | Yes | No | Optional |
+| [`investigator_answer_key.json`](data/validation_balanced/investigator_answer_key.json) | Seeds, `SYN-*`, error category, affected RXCUI, clean expected state, snapshots | Investigators | No | **Yes** | **No** |
+| [`investigator_answer_key.md`](data/validation_balanced/investigator_answer_key.md) | Human-readable key | Investigators | No | **Yes** | **No** |
+| [`validation_manifest.json`](data/validation_balanced/validation_manifest.json) | Freeze metadata, source versions, control status | Investigators | No | Control/error status | **No** |
+| [`batch_plan.json`](data/validation_balanced/batch_plan.json) | Planned VAL IDs, scenarios, inject flags, `error_family`, `error_category` | Operators / investigators | No | Planned errors | **No** |
+| [`coverage_report.md`](data/validation_balanced/coverage_report.md) | Counts by scenario/error/terminology | Investigators | No | Mix summary | **No** |
+| [`scenario_coverage_matrix.md`](data/validation_balanced/scenario_coverage_matrix.md) | Resolved meds/labs/diagnoses per family | Investigators | No | Not per-case answers | **No** |
+| [`README.md`](data/validation_balanced/README.md) | Batch catalog | Investigators | No | Mix / provenance | **No** |
+| [`readable/all_cases.md`](data/validation_balanced/readable/all_cases.md) | Human-readable charts without intended-assessment issues | Optional supporting view | Yes | No | Not a required review stage |
+| [`readable/clinician_validation_packet.md`](data/validation_balanced/readable/clinician_validation_packet.md) | Readable cases + intended issues + C1–C5 | Clinician/resident validators | Packet | **Yes** | Primary one-stage review file |
+| [`readable/validation_rubric.md`](data/validation_balanced/readable/validation_rubric.md) | C1–C5 rubric | Medical educators / validators | Rubric only | No | Rubric may be shared; it has no per-case answers |
+| [`readable/clinical_validation_worksheet.csv`](data/validation_balanced/readable/clinical_validation_worksheet.csv) | One empty rating row per case | Clinical reviewers / study staff | Identifiers only | No | Record C1–C5 here |
 
 Resident vs investigator split is enforced in export code (`LEAK_MARKERS` in `app/services/validation_batch.py`). Do not “fix” blinding by editing resident JSON to add codes or keys.
 
@@ -1728,15 +1783,24 @@ Resident vs investigator split is enforced in export code (`LEAK_MARKERS` in `ap
 
 ## Human-readable clinician validation packets
 
-The files under [`data/validation/readable/`](data/validation/readable/) are derived Markdown views generated by `scripts/build_readable_validation_packets.py`. Frozen JSON remains the study source of truth. Generating the Markdown does not regenerate VAL-201 through VAL-224.
+Derived Markdown views live next to each batch:
 
-Clinical validation uses a single review stage. Each clinician or resident reviews the complete case in [`data/validation/readable/clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md) and assesses C1–C5 in one pass. Ratings are recorded on [`data/validation/readable/clinical_validation_worksheet.csv`](data/validation/readable/clinical_validation_worksheet.csv). The rubric is [`data/validation/readable/validation_rubric.md`](data/validation/readable/validation_rubric.md). A clinical-to-technical overview, with no per-case answers, is [`data/validation/readable/how_cliniproof_works.md`](data/validation/readable/how_cliniproof_works.md). Informatics and engineering notes are [`data/validation/readable/developer_notes.md`](data/validation/readable/developer_notes.md). Individual case pages and [`all_cases.md`](data/validation/readable/all_cases.md) remain supporting chart views; they are not a separate review stage.
+- Active balanced: [`data/validation_balanced/readable/`](data/validation_balanced/readable/)
+- Active seed-guided: [`data/validation_seedcases/readable/`](data/validation_seedcases/readable/)
+- Archived V1: [`data/validation/readable/`](data/validation/readable/)
 
-To regenerate the views after pulling, without modifying frozen JSON, run:
+Frozen JSON in each batch directory is that batch’s source of truth. Generating Markdown does not regenerate VAL identifiers.
+
+Clinical validation uses a single review stage. Use the clinician packet and worksheet for the batch under review. Start at [`data/active_validation_sets.md`](data/active_validation_sets.md).
+
+To regenerate readable views after pulling, without modifying frozen JSON:
 
 ```bash
-python scripts/build_readable_validation_packets.py
+python scripts/build_readable_validation_packets.py --batch-code CLINIPROOF_BALANCED_V2 --resident data/validation_balanced/resident_validation_cases.json
+python scripts/build_readable_validation_packets.py --batch-code CLINIPROOF_SEEDCASES_V1 --resident data/validation_seedcases/resident_validation_cases.json
 ```
+
+The script requires `--batch-code` and `--resident`. It does not default to archived V1.
 
 ---
 
@@ -1744,40 +1808,45 @@ python scripts/build_readable_validation_packets.py
 
 This repository **does not contain a resident review UI**, dashboard importer, or scoring app. The HTTP API only searches local reference rows and serves `/health`. Delivery is a file handoff into whatever review process the study already uses.
 
-1. **Send / import for review:** [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json) (`VAL-201`–`VAL-224`). Each element has `case_id_code` and dashboard-style arrays (`CaseMedication`, `CaseLab`, `CaseDiagnosis`, `CaseMonitoring`, …). Clinicians validating whether the cases themselves are suitable should use [`data/validation/readable/clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md) and complete C1–C5 in one pass. That packet includes the intended assessment issue. Residents who must find the planted problem themselves should receive the blinded JSON, not the clinician validation packet.
-2. **Keep investigator-only:** answer keys, `batch_plan.json`, `validation_manifest.json`, coverage files, [`data/validation/README.md`](data/validation/README.md), [`data/docs/clinician_examples/syn-000904.json`](data/docs/clinician_examples/syn-000904.json), and the README subsection [Investigator-only generation example](#investigator-only-generation-example). The rest of [For Clinicians: How a Synthetic Case Is Built](#for-clinicians-how-a-synthetic-case-is-built) uses clean educational cases (`SYN-000901`–`SYN-000903`) and may be shown to clinicians who are not scoring the blinded `VAL-*` packet.
-3. **Capture responses** in [`resident_review_worksheet.csv`](data/validation/resident_review_worksheet.csv) (or an equivalent form that uses [`resident_review_schema.json`](data/validation/resident_review_schema.json)). Do not pre-fill ratings.
+1. **Send / import for review:** the active blinded JSON for the chosen set — [`data/validation_balanced/resident_validation_cases.json`](data/validation_balanced/resident_validation_cases.json) (`VAL-301`–`VAL-324`) or [`data/validation_seedcases/resident_validation_cases.json`](data/validation_seedcases/resident_validation_cases.json) (`VAL-401`–`VAL-424`). Clinicians validating whether the cases themselves are suitable should use the matching clinician validation packet and complete C1–C5 in one pass. Residents who must find the planted problem themselves should receive the blinded JSON, not the clinician validation packet.
+2. **Keep investigator-only:** answer keys, `batch_plan.json`, `validation_manifest.json`, coverage files, batch README catalogs, [`data/docs/clinician_examples/syn-000904.json`](data/docs/clinician_examples/syn-000904.json), and the README subsection [Investigator-only generation example](#investigator-only-generation-example).
+3. **Capture responses** in the matching `resident_review_worksheet.csv` or the clinician `clinical_validation_worksheet.csv`. Do not pre-fill ratings.
 4. **Worksheet ↔ cases:** `validation_case_id` on each CSV row matches `case_id_code` in the resident JSON.
 5. **“Clinically validated” in this project** means a clinician or resident completed C1–C5 in one pass and judged the case acceptable for the study protocol. Until that happens, use the dataset-status sentence: machine-validated synthetic resident-review cases pending clinician validation.
 6. **The software’s checks are not clinical validity.** Passing `validate-cases` or the freeze audit does not certify realism of formulations, units, or narratives. Those judgments require review by clinicians.
 
-Do not tell residents which cases are clean controls.
+Do not tell residents which cases are clean controls. Do not send archived VAL-201–VAL-224 as the current study packet.
 
 ---
 
 ## 19. Reproducing the frozen validation batch
 
-The committed JSON and Markdown under `data/validation/` are the study source of truth, not a later live API run.
+The committed JSON and Markdown under `data/validation_balanced/` and `data/validation_seedcases/` are the active sources of truth. Archived files under `data/validation/` remain historical provenance.
 
 Live bootstrap can differ because RxNav and LOINC ranking can change. The same string (`lisinopril`, `hemoglobin`, `edema`) may resolve to a different official concept. Seeds do not freeze upstream search order.
 
-To reprint without mutating VAL identifiers, when the database already has this freeze, run:
+To reprint without mutating VAL identifiers, when the database already has an active freeze, run the matching explicit plan and batch code:
 
 ```bash
-clinical-case-generator freeze-validation-batch
-# reused should list VAL-201 … VAL-224; rejected should be []
-clinical-case-generator export-validation-batch
+clinical-case-generator freeze-validation-batch --plan data/validation_balanced/batch_plan.json
+# reused should list VAL-301 … VAL-324; rejected should be []
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_BALANCED_V2
+clinical-case-generator freeze-validation-batch --plan data/validation_seedcases/batch_plan.json
+# reused should list VAL-401 … VAL-424; rejected should be []
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_SEEDCASES_V1
 ```
 
-Compare export files to git. If they match, the study dataset is unchanged.
+Compare export files to git. If they match, that study dataset is unchanged. Do not omit `--plan` or `--batch-code`; those commands no longer default to archived V1.
 
 **Empty database rebuild** (may **not** bit-match if APIs drifted):
 
 ```bash
 clinical-case-generator db-init
 clinical-case-generator bootstrap-reference-data
-clinical-case-generator freeze-validation-batch
-clinical-case-generator export-validation-batch
+clinical-case-generator freeze-validation-batch --plan data/validation_balanced/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_BALANCED_V2
+clinical-case-generator freeze-validation-batch --plan data/validation_seedcases/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_SEEDCASES_V1
 ```
 
 If ranking differs, keep the committed files as the dataset. Start a new `batch_code` and new VAL IDs for any replacement study set. Do not hand-edit frozen JSON to substitute a “more typical” tablet RXCUI or conventional US lab unit the source did not return.
@@ -1967,14 +2036,16 @@ clinical-case-generator generate-synthetic-cases --count 3 --seed 42 --no-inject
 clinical-case-generator validate-cases --case-id SYN-000001
 ```
 
-### F. Rebuild / export resident validation batch
+### F. Rebuild / export an active resident validation batch
 
 ```bash
-clinical-case-generator freeze-validation-batch
-clinical-case-generator export-validation-batch
+clinical-case-generator freeze-validation-batch --plan data/validation_balanced/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_BALANCED_V2
+clinical-case-generator freeze-validation-batch --plan data/validation_seedcases/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_SEEDCASES_V1
 ```
 
-**Warnings:** VAL IDs are immutable; freeze reuses existing matching rows. Export overwrites files in `data/validation/` (or `--output-dir`). Live APIs may change ranking. `pytest` can wipe the same database. Sequences 801–824 are `CLINIPROOF_TAXONOMY_V1`. Do not generate ad-hoc cases onto those ids if they are frozen.
+**Warnings:** VAL IDs are immutable; freeze reuses existing matching rows. Export overwrites files in the registry directory for that batch code. Live APIs may change ranking. `pytest` can wipe the same database. Do not freeze onto archived VAL-201–VAL-224.
 
 ### G. Run the API
 
@@ -2042,9 +2113,9 @@ A validation layer failed. The CLI prints the first error and exits 2. Read the 
 
 The freeze row is immutable, the seed or scenario does not match, or `generate-synthetic-cases` targeted a frozen `SYN-000101`–`SYN-000124` or `SYN-000801`–`SYN-000824` identifier. Do not overwrite. Use a new batch and VAL identifiers, or reuse via freeze when the plan matches.
 
-### `no frozen cases for batch CLINIPROOF_TAXONOMY_V1`
+### `no frozen cases for batch <code>`
 
-Export ran before freeze, pytest or a downgrade wiped rows, or the command used the wrong database. Run `freeze-validation-batch` on this `DATABASE_URL`, or use the committed JSON without exporting.
+Export ran before freeze, pytest or a downgrade wiped rows, the command used the wrong database, or `--batch-code` named a batch that is not frozen locally. Run `freeze-validation-batch --plan ...` on this `DATABASE_URL`, or use the committed JSON without exporting. `--batch-code` is required; omitting it lists the two active prospective sets and the archived V1 code.
 
 ### Port 5432 or 8765 already in use
 
@@ -2574,13 +2645,13 @@ After `db-init` and before bootstrap, every clinical table except `data_source_r
 
 The paragraphs below inventory what the software does and does not do. They are not a clinical evaluation of the frozen cases.
 
-The repository currently includes a PostgreSQL schema and Alembic migrations through `d4e8b17c6a91`; clients for RxNorm, credentialed LOINC, UCUM, ICD-10-CM, DailyMed, RxClass, NLM conditions, and NLM HPO; bounded bootstrap; three curated rules; five inpatient scenarios; deterministic generation with Family 1 and Family 2 injectors (see the taxonomy section); freeze and export of the blinded VAL batch `CLINIPROOF_TAXONOMY_V1`; a local reference search API and `/health`; and optional OpenAI narrative wording that was not used on the committed study freeze.
+The repository currently includes a PostgreSQL schema and Alembic migrations through `d4e8b17c6a91`; clients for RxNorm, credentialed LOINC, UCUM, ICD-10-CM, DailyMed, RxClass, NLM conditions, and NLM HPO; bounded bootstrap; three curated rules; five inpatient scenarios plus seed archetypes; deterministic generation with Family 1 and Family 2 injectors (see the taxonomy section); freeze and export of two active blinded VAL batches (`CLINIPROOF_BALANCED_V2` and `CLINIPROOF_SEEDCASES_V1`) with archived `CLINIPROOF_TAXONOMY_V1` retained for provenance; a local reference search API and `/health`; and optional OpenAI narrative wording that was not used on the committed freezes.
 
 Several pieces are only partially implemented. SNOMED CT columns and a disabled registry row exist, but there is no ingestion client. AccessGUDID has enabled registry metadata but no client. `ref_clinical_distributions` has a table and a MIMIC_IV_RAW guard, but no calculator. LOINC laboratory bootstrap works only with credentials; otherwise those laboratories are skipped. The taxonomy specifies required companion medication omitted (`f2_coprescription_omitted`), but the software does not yet have a sufficiently source-backed deterministic companion-prescription rule (`not_yet_implementable`), so freeze rejects that category rather than guessing. Narrative wording always has a template path. OpenAI is optional in the CliniProof pipeline and is used only to help word narrative text from clinical facts that have already been selected by the structured generator. If the call fails, wording falls back silently to the template.
 
 The following capabilities are not implemented: AccessGUDID or SNOMED CT ingestion; MIMIC ingestion or aggregate calculation; a resident review user interface or dashboard application; a full vocabulary import (`sync-all` does not exist); companion co-prescription errors such as a steroid without a proton-pump inhibitor or an opioid without a bowel regimen, unless a stored rule exists; a complete clinical-realism guarantee, because human review is required; and using OpenAI as clinical truth, error chooser, or answer-key writer.
 
-The frozen study set `CLINIPROOF_TAXONOMY_V1` has additional study-design limits. The batch is not evenly distributed by scenario: thirteen of twenty-four cases use the heart-failure inpatient skeleton, four use hypertension, three use atrial fibrillation with anticoagulation, three use type 2 diabetes, and one uses community-acquired pneumonia. It is not a prevalence-weighted or representative sample of inpatient medicine. Several error categories occur only once, so this batch alone does not support stable category-specific psychometric estimates. It is primarily intended for clinician assessment of clinical plausibility, assessment-object integrity, error fidelity, detectability, and isolation. The prospective batch `CLINIPROOF_BALANCED_V2` rebalances those families and requires distinct clean-case fingerprints, but it is still not a prevalence-weighted sample and still requires clinician review. A second prospective batch, `CLINIPROOF_SEEDCASES_V1`, uses resident-authored seed archetypes rather than the five template families; it is also not declared to be the study dataset and still requires clinician review. Required companion medication omitted (`f2_coprescription_omitted`) is intentionally absent because the software does not yet have a sufficiently source-backed deterministic rule for that situation (`not_yet_implementable`). Official source ranking can produce technically source-valid but clinically atypical formulations or units, such as RxNorm solutions or gels, or SI laboratory units. Clinical plausibility therefore requires physician review.
+The archived freeze `CLINIPROOF_TAXONOMY_V1` has additional study-design limits that motivated the two active sets. That historical batch is not evenly distributed by scenario: thirteen of twenty-four cases use the heart-failure inpatient skeleton, four use hypertension, three use atrial fibrillation with anticoagulation, three use type 2 diabetes, and one uses community-acquired pneumonia. It is not a prevalence-weighted or representative sample of inpatient medicine. Several error categories occur only once, so that batch alone does not support stable category-specific psychometric estimates. The active batch `CLINIPROOF_BALANCED_V2` rebalances those families and requires distinct clean-case fingerprints, but it is still not a prevalence-weighted sample and still requires clinician review. The active batch `CLINIPROOF_SEEDCASES_V1` uses resident-authored seed archetypes rather than the five template families and also requires clinician review. Required companion medication omitted (`f2_coprescription_omitted`) is intentionally absent because the software does not yet have a sufficiently source-backed deterministic rule for that situation (`not_yet_implementable`). Official source ranking can produce technically source-valid but clinically atypical formulations or units, such as RxNorm solutions or gels, or SI laboratory units. Clinical plausibility therefore requires physician review.
 
 ---
 

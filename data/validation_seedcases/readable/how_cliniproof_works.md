@@ -2,7 +2,7 @@
 
 This overview is for residents who are curious about the technology, physicians, medical educators, pharmacists, informatics staff, and AI engineers. It explains the system in clinical language first, then names the software pieces. It is not required reading before completing C1–C5.
 
-It discusses how cases are made. It does not reveal which frozen case labeled VAL-201 through VAL-224 contains which assessment target.
+It discusses how cases are made. It does not reveal which frozen case contains which assessment target.
 
 Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation.
 
@@ -78,7 +78,7 @@ A pending therapeutic decision has no arranged follow-up. The medication list ma
 
 ##### Required companion medication omitted (`f2_coprescription_omitted`)
 
-The taxonomy also defines this category for a situation in which a clinically required companion medication is missing. This category is not included in the current validation set because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
+The taxonomy also defines this category for a situation in which a clinically required companion medication is missing. This category is not included in the current validation sets because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
 
 ## B. Source-backed versus synthetic information
 
@@ -119,7 +119,7 @@ Cases are built in a fixed order. Each stage completes before the next stage beg
 
 OpenAI is optional in the CliniProof pipeline and is used only to help word narrative text from clinical facts that have already been selected by the structured generator. It does not choose diagnoses, medications, terminology codes, error categories, clinical rules, or answer-key content.
 
-The current frozen validation set uses template narrative rather than OpenAI. The freeze command sets the OpenAI flag to false.
+The committed prospective validation sets use template narrative rather than OpenAI. The freeze command sets the OpenAI flag to false.
 
 Raw patient-source rows are never sent to a language model.
 
@@ -147,4 +147,4 @@ Physicians can stop here. The table below is for engineers and informatics staff
 
 Standardized families are Family 1 (`family_1`), Family 2 (`family_2`), and no planted target (`none`) for a clean control. Standardized categories are the `f1_*` and `f2_*` identifiers listed above. Unknown names fail rather than being aliased.
 
-Readable packets are regenerated with `python scripts/build_readable_validation_packets.py` and do not rewrite frozen JSON.
+Readable packets are regenerated with an explicit `--batch-code` and `--resident` path, for example `python scripts/build_readable_validation_packets.py --batch-code CLINIPROOF_BALANCED_V2 --resident data/validation_balanced/resident_validation_cases.json`, and do not rewrite frozen JSON.

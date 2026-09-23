@@ -27,10 +27,10 @@ from app.services.reference_search import (
 )
 from app.services.reference_sync import sync_icd10cm, sync_loinc, sync_rxnorm, sync_ucum
 from app.services.validation_batch import (
-    DEFAULT_BATCH_CODE,
     export_validation_batch,
     freeze_validation_batch,
 )
+from app.services.validation_registry import missing_batch_code_message
 from app.sources.exceptions import (
     CaseValidationError,
     FrozenValidationCaseError,
@@ -295,7 +295,10 @@ def validate_cases_cmd(
 def freeze_validation_batch_cmd(
     plan: Annotated[
         Path | None,
-        typer.Option("--plan", help="JSON plan assigning VAL-* IDs, scenarios, and error types."),
+        typer.Option(
+            "--plan",
+            help="JSON plan assigning VAL-* IDs, scenarios, and error types. Required.",
+        ),
     ] = None,
 ) -> None:
     """Generate, validate, and freeze a resident-validation batch. Does not overwrite VAL IDs."""
@@ -318,14 +321,24 @@ def freeze_validation_batch_cmd(
 @cli.command("export-validation-batch")
 def export_validation_batch_cmd(
     batch_code: Annotated[
-        str, typer.Option("--batch-code", help="Frozen batch code to export.")
-    ] = DEFAULT_BATCH_CODE,
+        str | None,
+        typer.Option(
+            "--batch-code",
+            help="Frozen batch code to export. Required; there is no default study batch.",
+        ),
+    ] = None,
     output_dir: Annotated[
         Path | None,
-        typer.Option("--output-dir", help="Directory for blinded and investigator exports."),
+        typer.Option(
+            "--output-dir",
+            help="Directory for blinded and investigator exports. Defaults to the registry path.",
+        ),
     ] = None,
 ) -> None:
     """Write resident-facing, investigator, and manifest exports for a frozen batch."""
+    if not batch_code:
+        typer.secho(missing_batch_code_message(), err=True)
+        raise typer.Exit(code=2)
     try:
         with session_scope() as session:
             result = export_validation_batch(session, batch_code=batch_code, output_dir=output_dir)

@@ -1,4 +1,4 @@
-"""Deterministic human-readable views of frozen CLINIPROOF_TAXONOMY_V1 cases.
+"""Deterministic human-readable views of frozen validation batches.
 
 Reads resident-visible JSON for clinical content and the investigator answer key
 only for the investigator validation packet. Does not modify frozen source files.
@@ -21,6 +21,7 @@ from app.services.readable_docs import (
     READABLE_INDEX_MD,
     VALIDATION_RUBRIC_MD,
 )
+from app.services.validation_registry import get_batch, missing_batch_code_message
 
 MISSING = "Not specified"
 CASE_IDS = tuple(f"VAL-{index:03d}" for index in range(201, 225))
@@ -920,8 +921,22 @@ def render_clinician_packet(
     if batch_code != "CLINIPROOF_TAXONOMY_V1" or ids != CASE_IDS:
         first = ids[0] if ids else "VAL-001"
         last = ids[-1] if ids else "VAL-001"
-        header = CLINICIAN_PACKET_HEADER.replace("CLINIPROOF_TAXONOMY_V1", batch_code).replace(
-            "VAL-201 through VAL-224", f"{first} through {last}"
+        reviewer_task = CLINICIAN_PACKET_HEADER.split("## Reviewer task", 1)[1]
+        header = (
+            "# CliniProof clinician validation packet\n\n"
+            "## Purpose\n\n"
+            "The cases are synthetically generated clinical cases produced by CliniProof "
+            "and are being reviewed for clinical validity. Clinical validation uses a "
+            "single review stage. Each clinician or resident reviews the complete case "
+            "and assesses C1–C5 in one pass.\n\n"
+            f"The frozen set is `{batch_code}`, containing {len(ids)} cases labeled "
+            f"{first} through {last}. Until clinicians finish review, treat every record "
+            "as a machine-validated synthetic resident-review case pending clinician "
+            "validation. That sentence means the software has already checked structure, "
+            "terminology, and a limited set of implemented rules, but a clinician has "
+            "not yet accepted the case for educational use.\n\n"
+            "## Reviewer task"
+            + reviewer_task
         )
         if batch_code == "CLINIPROOF_SEEDCASES_V1":
             header += (
@@ -1067,19 +1082,39 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Build human-readable CliniProof validation packets from frozen JSON."
     )
-    parser.add_argument("--resident", type=Path, default=DEFAULT_RESIDENT_PATH)
-    parser.add_argument("--investigator", type=Path, default=DEFAULT_INVESTIGATOR_PATH)
-    parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
-    parser.add_argument("--batch-code", default="CLINIPROOF_TAXONOMY_V1")
+    parser.add_argument("--resident", type=Path, default=None)
+    parser.add_argument("--investigator", type=Path, default=None)
+    parser.add_argument("--output-dir", type=Path, default=None)
+    parser.add_argument("--batch-code", default=None)
     args = parser.parse_args(argv)
-    resident_doc = _load_json_object(args.resident)
+    if args.batch_code is None or args.resident is None:
+        raise SystemExit(missing_batch_code_message())
+
+    spec = None
+    try:
+        spec = get_batch(args.batch_code)
+    except KeyError:
+        spec = None
+    resident_path = args.resident
+    investigator_path = args.investigator
+    output_dir = args.output_dir
+    if spec is not None:
+        if investigator_path is None:
+            investigator_path = spec.directory / "investigator_answer_key.json"
+        if output_dir is None:
+            output_dir = spec.readable_dir
+    if investigator_path is None or output_dir is None:
+        raise SystemExit(
+            "Pass --investigator and --output-dir, or a registry --batch-code."
+        )
+    resident_doc = _load_json_object(resident_path)
     case_ids = None
-    if args.batch_code != "CLINIPROOF_TAXONOMY_V1" or args.resident != DEFAULT_RESIDENT_PATH:
+    if args.batch_code != "CLINIPROOF_TAXONOMY_V1" or resident_path != DEFAULT_RESIDENT_PATH:
         case_ids = discover_case_ids(resident_doc, "case_id_code")
     build_readable_packets(
-        resident_path=args.resident,
-        investigator_path=args.investigator,
-        output_dir=args.output_dir,
+        resident_path=resident_path,
+        investigator_path=investigator_path,
+        output_dir=output_dir,
         case_ids=case_ids,
         batch_code=args.batch_code,
     )

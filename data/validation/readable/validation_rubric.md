@@ -4,11 +4,11 @@
 
 A clinician or resident evaluates each synthetic inpatient case in a single review before it is accepted for use. Clinical validation uses a single review stage. Each reviewer reads the complete case and assesses C1–C5 in one pass.
 
-Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. The frozen set is `CLINIPROOF_TAXONOMY_V1`, containing cases VAL-201 through VAL-224.
+Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. The frozen set is identified by its batch code in this directory. Active prospective sets are `CLINIPROOF_BALANCED_V2` and `CLINIPROOF_SEEDCASES_V1`.
 
 The five criteria serve different purposes and should not be collapsed into a single pass or fail judgment. C2 through C4 are required: if any of them fails, the case cannot be used against its intended answer key until it is revised or excluded. C5 is advisory and must not by itself cause a case to fail validation.
 
-The taxonomy also defines required companion medication omitted (`f2_coprescription_omitted`), which represents a situation in which a clinically required companion medication is missing. This category is not included in the current validation set because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
+The taxonomy also defines required companion medication omitted (`f2_coprescription_omitted`), which represents a situation in which a clinically required companion medication is missing. This category is not included in the current validation sets because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
 
 ## C1 — Clinical plausibility
 
@@ -185,7 +185,7 @@ A treatment decision was left pending, but no follow-up is arranged to resolve i
 
 #### Required companion medication omitted (`f2_coprescription_omitted`)
 
-The taxonomy also defines this category for a situation in which a clinically required companion medication is missing. This category is not included in the current validation set because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
+The taxonomy also defines this category for a situation in which a clinically required companion medication is missing. This category is not included in the current validation sets because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
 
 ## Reviewer recommendation
 
@@ -211,4 +211,4 @@ ____________________________________
 
 Recommended revisions are required whenever Revise is selected. Examples may include changing an implausible formulation, clarifying the hospital course, correcting an unrealistic laboratory unit, adding information needed to detect the intended problem, or removing an unintended second discrepancy.
 
-Do not automatically modify a case based on reviewer comments. Human review comments are recommendations that must be considered by the study team. Do not overwrite the frozen CLINIPROOF_TAXONOMY_V1 case files during human review. Reviewer comments and revision requests should be stored separately.
+Do not automatically modify a case based on reviewer comments. Human review comments are recommendations that must be considered by the study team. Do not overwrite frozen case files during human review. Reviewer comments and revision requests should be stored separately.

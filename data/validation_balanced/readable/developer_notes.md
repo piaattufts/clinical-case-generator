@@ -2,7 +2,7 @@
 
 This note assumes you understand software engineering and may not have a clinical training background. It translates the medical objective into the modules that implement it.
 
-It explains mechanisms. It does not map any frozen identifier in the range VAL-201 through VAL-224 to a hidden assessment target. That mapping exists only in investigator-only files.
+It explains mechanisms. It does not map any frozen identifier to a hidden assessment target. That mapping exists only in investigator-only files.
 
 Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation.
 
@@ -69,13 +69,13 @@ Held medication without a restart plan means the original medication is intentio
 
 Required outpatient monitoring not arranged means, for example, warfarin continues at discharge but outpatient INR monitoring was not scheduled. That maps to `f2_monitoring_not_arranged`. The medication row stays; the monitoring record is what changes.
 
-The taxonomy also defines required companion medication omitted (`f2_coprescription_omitted`). This category is not included in the current validation set because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing, freeze currently rejects this category.
+The taxonomy also defines required companion medication omitted (`f2_coprescription_omitted`). This category is not included in the current validation sets because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing, freeze currently rejects this category.
 
 Do not implement Family 2 detection as a simple difference of the three medication lists.
 
 ## Eligibility, injection, and no fallback
 
-The freeze plan names the error family and error category before generation, in `data/validation/batch_plan.json`.
+The freeze plan names the error family and error category before generation in that batch’s `batch_plan.json`.
 
 The taxonomy module in `app/services/error_taxonomy.py` decides whether the clean case is eligible for that category. For example, there must be a continued discharge drug to omit, or a monitoring-dependency rule must match.
 
@@ -107,7 +107,7 @@ Case generation and automated checks remain unchanged. Software checks structure
 
 ## Freeze immutability and provenance
 
-Frozen files for batch `CLINIPROOF_TAXONOMY_V1` under `data/validation/` are the study source of truth. Regenerating live terminology from APIs is not expected to reproduce bit-identical JSON. Readable Markdown is allowed to be regenerated from those frozen files; the frozen files themselves must not be rewritten to improve clinical content.
+Frozen files for batch `CLINIPROOF_TAXONOMY_V1` under `data/validation/` are archived historical provenance. Regenerating live terminology from APIs is not expected to reproduce bit-identical JSON. Readable Markdown is allowed to be regenerated from those frozen files; the frozen files themselves must not be rewritten to improve clinical content.
 
 Each frozen assignment records scenario, seed, family, category, source-version snapshots, and validation statuses in the investigator key and manifest.
 
@@ -117,12 +117,12 @@ The module `app/openai/narrative.py` may reword admission prose from already cho
 
 ## Reproducing the pipeline
 
-Operators who already have a database and terminology bootstrap can run the following commands. Do not re-freeze expecting to replace VAL-201 through VAL-224. To refresh clinician-facing Markdown only, run the readable-packet script.
+Operators who already have a database and terminology bootstrap can run the following commands. Pass an explicit `--plan` and `--batch-code`. Do not re-freeze expecting to replace archived VAL-201 through VAL-224. To refresh clinician-facing Markdown only, run the readable-packet script with `--batch-code`.
 
 ```bash
 clinical-case-generator db-init
 clinical-case-generator bootstrap-reference-data
-clinical-case-generator freeze-validation-batch
-clinical-case-generator export-validation-batch
-python scripts/build_readable_validation_packets.py
+clinical-case-generator freeze-validation-batch --plan data/validation_balanced/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_BALANCED_V2
+python scripts/build_readable_validation_packets.py --batch-code CLINIPROOF_BALANCED_V2 --resident data/validation_balanced/resident_validation_cases.json
 ```

@@ -573,7 +573,7 @@ def test_coprescription_never_appears_in_eligible_errors(db_session: Session) ->
     assert NONE in allowed
 
 
-def test_current_validation_plan_is_cliniproof_taxonomy_v1() -> None:
+def test_archived_validation_plan_is_cliniproof_taxonomy_v1() -> None:
     plan = json.loads(Path("data/validation/batch_plan.json").read_text(encoding="utf-8"))
     assert plan["batch_code"] == "CLINIPROOF_TAXONOMY_V1"
     assert plan["cases"][0]["validation_case_id"] == "VAL-201"
@@ -816,15 +816,25 @@ def test_clearing_dose_makes_dose_mismatch_ineligible(db_session: Session) -> No
         )
 
 
-def test_default_batch_code_and_plan_are_cliniproof_taxonomy_v1() -> None:
+def test_cli_does_not_default_to_archived_taxonomy_v1() -> None:
     from app.cli import export_validation_batch_cmd, freeze_validation_batch_cmd
     from app.services.validation_batch import DEFAULT_BATCH_PLAN_PATH
+    from app.services.validation_registry import (
+        ARCHIVED_BATCH_CODE,
+        active_batch_codes,
+        archived_batch_codes,
+    )
 
+    assert DEFAULT_BATCH_CODE == ARCHIVED_BATCH_CODE
     assert DEFAULT_BATCH_CODE == "CLINIPROOF_TAXONOMY_V1"
     assert DEFAULT_BATCH_PLAN_PATH == Path("data/validation/batch_plan.json").resolve()
     plan = json.loads(DEFAULT_BATCH_PLAN_PATH.read_text(encoding="utf-8"))
     assert plan["batch_code"] == DEFAULT_BATCH_CODE
     export_default = inspect.signature(export_validation_batch_cmd).parameters["batch_code"].default
-    assert export_default == DEFAULT_BATCH_CODE
+    assert export_default is None
     freeze_default = inspect.signature(freeze_validation_batch_cmd).parameters["plan"].default
     assert freeze_default is None
+    assert "CLINIPROOF_TAXONOMY_V1" not in active_batch_codes()
+    assert "CLINIPROOF_TAXONOMY_V1" in archived_batch_codes()
+    assert "CLINIPROOF_BALANCED_V2" in active_batch_codes()
+    assert "CLINIPROOF_SEEDCASES_V1" in active_batch_codes()

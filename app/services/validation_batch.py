@@ -89,6 +89,15 @@ from app.services.seed_archetypes import (
     load_seed_archetypes,
 )
 from app.services.validation import validate_case
+from app.services.validation_registry import (
+    ARCHIVED_BATCH_CODE,
+    missing_plan_message,
+    resolve_export_dir,
+    uses_seed_archetypes,
+)
+from app.services.validation_registry import (
+    BALANCED_BATCH_CODE as REGISTRY_BALANCED_BATCH_CODE,
+)
 from app.sources.exceptions import CaseValidationError, FrozenValidationCaseError
 from app.utils.identifiers import VALIDATION_CASE_RE, format_validation_child_id
 from app.utils.jsonio import dumps_json, loads_json
@@ -98,8 +107,8 @@ BALANCED_VALIDATION_DIR = Path(__file__).resolve().parents[2] / "data" / "valida
 SEEDCASES_VALIDATION_DIR = Path(__file__).resolve().parents[2] / "data" / "validation_seedcases"
 DEFAULT_BATCH_PLAN_PATH = VALIDATION_DIR / "batch_plan.json"
 DEFAULT_EXPORT_DIR = VALIDATION_DIR
-DEFAULT_BATCH_CODE = "CLINIPROOF_TAXONOMY_V1"
-BALANCED_BATCH_CODE = "CLINIPROOF_BALANCED_V2"
+DEFAULT_BATCH_CODE = ARCHIVED_BATCH_CODE
+BALANCED_BATCH_CODE = REGISTRY_BALANCED_BATCH_CODE
 DATASET_STATUS = "machine-validated synthetic resident-review cases pending clinician validation"
 LEAK_MARKERS = (
     "intentional error",
@@ -172,7 +181,9 @@ class ExportResult:
 
 
 def load_batch_plan(path: Path | None = None) -> dict[str, Any]:
-    return load_json_object(path or DEFAULT_BATCH_PLAN_PATH)
+    if path is None:
+        raise ValueError(missing_plan_message())
+    return load_json_object(path)
 
 
 def parse_assignments(plan: dict[str, Any]) -> list[Assignment]:
@@ -232,11 +243,15 @@ def freeze_validation_batch(
     use_openai: bool = False,
     allow_test_identifiers: bool = False,
 ) -> FreezeResult:
+    if plan_path is None:
+        raise ValueError(missing_plan_message())
     plan = load_batch_plan(plan_path)
-    batch_code = str(plan.get("batch_code") or DEFAULT_BATCH_CODE)
+    batch_code = str(plan.get("batch_code") or "")
+    if not batch_code:
+        raise ValueError("batch plan must include batch_code")
     master_seed = int(plan.get("master_seed") or 0)
     strategy = str(plan.get("generation_strategy") or GENERATION_STRATEGY_TEMPLATE)
-    if strategy == GENERATION_STRATEGY_SEED:
+    if uses_seed_archetypes(strategy):
         scenarios = {item.code: item for item in load_seed_archetypes()}
     else:
         scenarios = {item.code: item for item in load_scenarios()}
@@ -408,7 +423,7 @@ def export_validation_batch(
     output_dir: Path | None = None,
     allow_test_identifiers: bool = False,
 ) -> ExportResult:
-    output = output_dir or DEFAULT_EXPORT_DIR
+    output = resolve_export_dir(batch_code, output_dir)
     output.mkdir(parents=True, exist_ok=True)
     rows = list_frozen_batch(session, batch_code)
     if not rows:

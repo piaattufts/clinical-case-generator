@@ -1,6 +1,6 @@
 # Readable CliniProof review materials
 
-This directory contains the human-readable review materials for the frozen CliniProof validation set whose batch code is `CLINIPROOF_TAXONOMY_V1`. Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1–C5 in one pass.
+This directory contains the human-readable review materials for the CliniProof freeze whose batch code is `CLINIPROOF_TAXONOMY_V1`. That freeze is **archived historical provenance** and is not an active prospective study set. New reviewers should start at [`../../active_validation_sets.md`](../../active_validation_sets.md). Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1–C5 in one pass.
 
 The set contains twenty-four synthetic inpatient cases labeled VAL-201 through VAL-224. They were developed for assessment of medication-reconciliation reasoning. Twenty of the cases contain one pre-specified medication-reconciliation or transition-of-care assessment problem. Four of the cases are clean controls in which no problem was intentionally introduced. This page does not identify the controls.
 
@@ -11,7 +11,7 @@ Until clinicians finish review, treat every record as a machine-validated synthe
 To regenerate the Markdown from the repository root without modifying frozen JSON, run:
 
 ```bash
-python scripts/build_readable_validation_packets.py
+python scripts/build_readable_validation_packets.py --batch-code CLINIPROOF_TAXONOMY_V1 --resident data/validation/resident_validation_cases.json
 ```
 
 This command regenerates the readable Markdown views only. It does not alter the frozen study cases.

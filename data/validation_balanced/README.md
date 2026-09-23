@@ -1,6 +1,10 @@
 # Prospective balanced CliniProof set (`CLINIPROOF_BALANCED_V2`)
 
-This directory holds the prospective balanced validation batch. It does **not** replace or regenerate `CLINIPROOF_TAXONOMY_V1` in [`data/validation/`](../validation/). The public identifiers are VAL-301 through VAL-324.
+**Status: active prospective validation set.**
+
+This directory holds one of the two active CliniProof batches. Public identifiers are VAL-301 through VAL-324. `generation_strategy = balanced_structured`.
+
+It does **not** replace or regenerate archived `CLINIPROOF_TAXONOMY_V1` in [`data/validation/`](../validation/). The other active set is [`CLINIPROOF_SEEDCASES_V1`](../validation_seedcases/).
 
 Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. Passing the clean-case diversity audit does not mean the cases are clinically validated.
 

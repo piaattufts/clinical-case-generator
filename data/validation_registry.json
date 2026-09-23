@@ -1,0 +1,44 @@
+{
+  "active_validation_batches": [
+    "CLINIPROOF_BALANCED_V2",
+    "CLINIPROOF_SEEDCASES_V1"
+  ],
+  "archived_validation_batches": [
+    "CLINIPROOF_TAXONOMY_V1"
+  ],
+  "batches": {
+    "CLINIPROOF_BALANCED_V2": {
+      "status": "active",
+      "generation_strategy": "balanced_structured",
+      "directory": "data/validation_balanced",
+      "plan": "data/validation_balanced/batch_plan.json",
+      "readable": "data/validation_balanced/readable",
+      "public_id_first": "VAL-301",
+      "public_id_last": "VAL-324",
+      "case_count": 24,
+      "description": "Balanced structured scenario generation with named clinical profiles."
+    },
+    "CLINIPROOF_SEEDCASES_V1": {
+      "status": "active",
+      "generation_strategy": "resident_seed_guided",
+      "directory": "data/validation_seedcases",
+      "plan": "data/validation_seedcases/batch_plan.json",
+      "readable": "data/validation_seedcases/readable",
+      "public_id_first": "VAL-401",
+      "public_id_last": "VAL-424",
+      "case_count": 24,
+      "description": "Resident-seed-guided generation from abstracted clinical archetypes."
+    },
+    "CLINIPROOF_TAXONOMY_V1": {
+      "status": "archived",
+      "generation_strategy": "original_template_randomized",
+      "directory": "data/validation",
+      "plan": "data/validation/batch_plan.json",
+      "readable": "data/validation/readable",
+      "public_id_first": "VAL-201",
+      "public_id_last": "VAL-224",
+      "case_count": 24,
+      "description": "Original template/randomized freeze preserved for provenance. Not an active prospective set."
+    }
+  }
+}

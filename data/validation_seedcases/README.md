@@ -1,13 +1,15 @@
 # Prospective seed-guided CliniProof set (`CLINIPROOF_SEEDCASES_V1`)
 
-This directory holds the prospective **resident-seed-guided** validation batch. It does **not** replace or regenerate:
+**Status: active prospective validation set.**
 
-- `CLINIPROOF_TAXONOMY_V1` in [`data/validation/`](../validation/)
-- `CLINIPROOF_BALANCED_V2` in [`data/validation_balanced/`](../validation_balanced/)
+This directory holds one of the two active CliniProof batches. Public identifiers are VAL-401 through VAL-424. `generation_strategy = resident_seed_guided`.
 
-Public identifiers are VAL-401 through VAL-424. Generation strategy is `resident_seed_guided`.
+It does **not** replace or regenerate:
 
-Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. Passing the diversity audit does not mean the cases are clinically validated. This batch is not declared to be the study dataset.
+- archived `CLINIPROOF_TAXONOMY_V1` in [`data/validation/`](../validation/)
+- active `CLINIPROOF_BALANCED_V2` in [`data/validation_balanced/`](../validation_balanced/)
+
+Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. Passing the diversity audit does not mean the cases are clinically validated.
 
 ## Origin
 

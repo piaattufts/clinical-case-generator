@@ -13,6 +13,11 @@ from app.services.case_diversity import (
     fingerprint_from_mapping,
 )
 from app.services.seed_archetypes import GENERATION_STRATEGY_SEED, GENERATION_STRATEGY_TEMPLATE
+from app.services.validation_registry import (
+    STRATEGY_BALANCED,
+    STRATEGY_SEED,
+    get_batch,
+)
 
 DATASET_STATUS = "machine-validated synthetic resident-review cases pending clinician validation"
 
@@ -116,6 +121,7 @@ def summarize_batch(
     }
     labeled: list[tuple[str, CleanCaseFingerprint]] = []
     diagnoses: Counter[str] = Counter()
+    specialties: Counter[str] = Counter()
     strategies: Counter[str] = Counter()
     families: Counter[str] = Counter()
     profiles: set[str] = set()
@@ -133,6 +139,7 @@ def summarize_batch(
         labeled.append((case_id, fingerprint))
         clinical = case.get("ClinicalCase") or {}
         diagnoses[str(clinical.get("admission_dx") or "unknown")] += 1
+        specialties[str(clinical.get("specialty") or fingerprint.specialty or "unknown")] += 1
         strategies[strategy] += 1
         families[scenario] += 1
         if profile:
@@ -151,6 +158,7 @@ def summarize_batch(
         "generation_strategy": dict(strategies),
         "families": dict(sorted(families.items())),
         "diagnoses": dict(sorted(diagnoses.items())),
+        "specialties": dict(sorted(specialties.items())),
         "unique_profiles": len(profiles),
         "unique_symptom_sets": len(symptom_sets),
         "unique_home_medication_sets": len(med_sets),
@@ -284,3 +292,134 @@ def write_randomized_vs_seedcase_comparison(
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(comparison_markdown(left, right), encoding="utf-8")
     return output
+
+
+def write_active_batch_comparison(output: Path | None = None) -> Path:
+    left_spec = get_batch("CLINIPROOF_BALANCED_V2")
+    right_spec = get_batch("CLINIPROOF_SEEDCASES_V1")
+    left = summarize_batch(
+        resident_path=left_spec.directory / "resident_validation_cases.json",
+        investigator_path=left_spec.directory / "investigator_answer_key.json",
+        default_strategy=STRATEGY_BALANCED,
+    )
+    right = summarize_batch(
+        resident_path=right_spec.directory / "resident_validation_cases.json",
+        investigator_path=right_spec.directory / "investigator_answer_key.json",
+        default_strategy=STRATEGY_SEED,
+    )
+    target = output or (
+        Path(__file__).resolve().parents[2]
+        / "data"
+        / "validation_comparison"
+        / "active_batch_comparison.md"
+    )
+    target.parent.mkdir(parents=True, exist_ok=True)
+
+    def row(label: str, left_value: object, right_value: object) -> str:
+        return f"| {label} | {left_value} | {right_value} |"
+
+    lines = [
+        "# Active prospective validation batches",
+        "",
+        DATASET_STATUS,
+        "",
+        "This investigator-facing comparison is descriptive. It does not rank one",
+        "generation strategy as better than the other. It does not regenerate or",
+        "modify either frozen batch. Uniqueness is judged on clean-case structure",
+        "reconstructed from resident-facing fields plus investigator labels.",
+        "Age, sex, exact vitals, and exact laboratory numbers are excluded.",
+        "",
+        f"Left: `{left_spec.code}` (`{STRATEGY_BALANCED}`).",
+        f"Right: `{right_spec.code}` (`{STRATEGY_SEED}`).",
+        "",
+        "The archived original freeze `CLINIPROOF_TAXONOMY_V1` is excluded.",
+        "",
+        f"| Measure | {left_spec.code} | {right_spec.code} |",
+        "| --- | ---: | ---: |",
+        row("Cases", left["case_count"], right["case_count"]),
+        row("Generation strategy", STRATEGY_BALANCED, STRATEGY_SEED),
+        row("Scenario / archetype families", len(left["families"]), len(right["families"])),
+        row("Unique clinical profiles", left["unique_profiles"], right["unique_profiles"]),
+        row("Unique diagnoses", len(left["diagnoses"]), len(right["diagnoses"])),
+        row("Unique specialties", len(left["specialties"]), len(right["specialties"])),
+        row("Unique symptom sets", left["unique_symptom_sets"], right["unique_symptom_sets"]),
+        row(
+            "Unique home-medication sets",
+            left["unique_home_medication_sets"],
+            right["unique_home_medication_sets"],
+        ),
+        row(
+            "Unique hospital-course profiles",
+            left["unique_hospital_course_profiles"],
+            right["unique_hospital_course_profiles"],
+        ),
+        row(
+            "Unique follow-up profiles",
+            left["unique_followup_profiles"],
+            right["unique_followup_profiles"],
+        ),
+        row("Exact duplicate fingerprints", left["exact_duplicates"], right["exact_duplicates"]),
+        row(
+            "Near-duplicate warnings",
+            left["near_duplicate_warnings"],
+            right["near_duplicate_warnings"],
+        ),
+        row("Closest-pair similarity", left["closest_score"], right["closest_score"]),
+        row(
+            "Family 1 count",
+            left["error_families"].get("family_1", 0),
+            right["error_families"].get("family_1", 0),
+        ),
+        row(
+            "Family 2 count",
+            left["error_families"].get("family_2", 0),
+            right["error_families"].get("family_2", 0),
+        ),
+        row(
+            "Clean-control count",
+            left["error_families"].get("none", 0),
+            right["error_families"].get("none", 0),
+        ),
+        "",
+        "## Scenario / archetype distribution",
+        "",
+        "### Left",
+        "",
+    ]
+    for name, count in left["families"].items():
+        lines.append(f"- `{name}`: {count}")
+    lines.extend(["", "### Right", ""])
+    for name, count in right["families"].items():
+        lines.append(f"- `{name}`: {count}")
+    lines.extend(["", "## Diagnosis distribution", "", "### Left", ""])
+    for name, count in left["diagnoses"].items():
+        lines.append(f"- {name}: {count}")
+    lines.extend(["", "### Right", ""])
+    for name, count in right["diagnoses"].items():
+        lines.append(f"- {name}: {count}")
+    lines.extend(["", "## Specialty distribution", "", "### Left", ""])
+    for name, count in left["specialties"].items():
+        lines.append(f"- {name}: {count}")
+    lines.extend(["", "### Right", ""])
+    for name, count in right["specialties"].items():
+        lines.append(f"- {name}: {count}")
+    lines.extend(
+        [
+            "",
+            "## Closest pairs",
+            "",
+            f"- Left closest pair: {left['closest_pair']} ({left['closest_score']})",
+            f"- Right closest pair: {right['closest_pair']} ({right['closest_score']})",
+            "",
+            "## Method note",
+            "",
+            "`CLINIPROOF_BALANCED_V2` uses named clinical profiles inside the five",
+            "template inpatient families. `CLINIPROOF_SEEDCASES_V1` uses resident-authored",
+            "seed archetypes plus named profiles. Both are active prospective sets.",
+            "`CLINIPROOF_TAXONOMY_V1` remains archived historical provenance.",
+            "Human clinician review is still required.",
+            "",
+        ]
+    )
+    target.write_text("\n".join(lines), encoding="utf-8")
+    return target
