@@ -923,6 +923,12 @@ def render_clinician_packet(
         header = CLINICIAN_PACKET_HEADER.replace("CLINIPROOF_TAXONOMY_V1", batch_code).replace(
             "VAL-201 through VAL-224", f"{first} through {last}"
         )
+        if batch_code == "CLINIPROOF_SEEDCASES_V1":
+            header += (
+                "\nThese charts were generated from expert/resident-authored clinical "
+                "archetypes and remain synthetic. The specific source archetype is not "
+                "shown to blinded resident participants.\n"
+            )
     blocks = [header.rstrip()]
     for case_id, page in case_pages:
         spec = render_investigator_spec(investigator_rows[case_id])
@@ -1015,6 +1021,13 @@ def build_readable_packets(
             "synthetic resident-review case pending clinician validation. Passing the "
             "clean-case diversity audit does not mean the cases are clinically validated.\n"
         )
+        if batch_code == "CLINIPROOF_SEEDCASES_V1":
+            readme_text += (
+                "\nThese synthetic cases were derived from expert/resident-authored "
+                "clinical archetypes. They are not copies of the source patients. "
+                "Blinded resident materials do not name the source archetype or the "
+                "original document.\n"
+            )
     files["readme"].write_text(_with_trailing_newline(readme_text), encoding="utf-8", newline="\n")
     files["all_cases"].write_text(
         render_all_cases(pages, batch_code=batch_code, case_ids=ids),
