@@ -7,7 +7,7 @@ Generation strategy: `balanced_structured`.
 
 Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1–C5 in one pass. Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. Passing automated checks does not mean the cases are clinically validated.
 
-These Markdown files are readable views. They do not replace the frozen JSON. Current prospective sets are listed in [`../../active_validation_sets.md`](../../active_validation_sets.md). `CLINIPROOF_TAXONOMY_V1` is archived historical provenance and is not the current study set.
+These Markdown files are readable views. They do not replace the frozen JSON. The case-set overview is [`../README.md`](../README.md).
 
 ## Where should I start?
 

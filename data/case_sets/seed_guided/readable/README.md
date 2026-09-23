@@ -9,7 +9,7 @@ Clinical validation uses a single review stage. Each clinician or resident revie
 
 These synthetic cases were guided by resident-authored clinical examples. They are not copies of the source patients, and the six source examples are not an epidemiologic sample. Blinded resident materials do not name the source document.
 
-These Markdown files are readable views. They do not replace the frozen JSON. Current prospective sets are listed in [`../../active_validation_sets.md`](../../active_validation_sets.md). `CLINIPROOF_TAXONOMY_V1` is archived historical provenance and is not the current study set.
+These Markdown files are readable views. They do not replace the frozen JSON. The case-set overview is [`../README.md`](../README.md).
 
 ## Where should I start?
 

@@ -20,8 +20,8 @@ from scripts.check_docs import main as check_docs_main
 
 ROOT = Path(__file__).resolve().parents[1]
 BATCHES = (
-    ROOT / "data" / "validation_balanced_v4",
-    ROOT / "data" / "validation_seedcases_v3",
+    ROOT / "data" / "case_sets" / "balanced",
+    ROOT / "data" / "case_sets" / "seed_guided",
 )
 LEAK = re.compile(
     r"clean case|planted error|seed document|temporal_role|profile id|answer key",
@@ -430,17 +430,18 @@ def test_root_readme_explains_both_methods_and_validation() -> None:
     assert "Passing automated validation does not establish clinical validity." in readme
     assert "`f1_omission`" in readme and "`f2_monitoring_not_arranged`" in readme
     assert "f2_coprescription_omitted" in readme
-    assert "data/validation_balanced_v4/readable/all_cases.md" in readme
-    assert "data/validation_seedcases_v3/readable/all_cases.md" in readme
+    assert "data/case_sets/balanced/readable/all_cases.md" in readme
+    assert "data/case_sets/seed_guided/readable/all_cases.md" in readme
     assert "does not treat product strength as the administered dose" in readme
-    for batch, first, last, family_1, family_2 in (
-        (ROOT / "data" / "validation_balanced_v4" / "README.md", "VAL-701", "VAL-724", "11", "9"),
-        (ROOT / "data" / "validation_seedcases_v3" / "README.md", "VAL-801", "VAL-824", "7", "13"),
+    for batch, first, last in (
+        (ROOT / "data" / "case_sets" / "balanced" / "README.md", "VAL-701", "VAL-724"),
+        (ROOT / "data" / "case_sets" / "seed_guided" / "README.md", "VAL-801", "VAL-824"),
     ):
         text = batch.read_text(encoding="utf-8")
         manifest = json.loads((batch.parent / "validation_manifest.json").read_text())
         assert manifest["batch_code"] in text
         assert first in text and last in text
         assert "24" in text
-        assert family_1 in text and family_2 in text
+        assert "At a glance" in text
+        assert "How each case is structured" in text
         assert len(manifest["cases"]) == 24

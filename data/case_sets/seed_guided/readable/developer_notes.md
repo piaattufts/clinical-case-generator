@@ -107,7 +107,7 @@ Case generation and automated checks remain unchanged. Software checks structure
 
 ## Freeze immutability and provenance
 
-Frozen files for batch `CLINIPROOF_TAXONOMY_V1` under `data/validation/` are archived historical provenance. Regenerating live terminology from APIs is not expected to reproduce bit-identical JSON. Readable Markdown is allowed to be regenerated from those frozen files; the frozen files themselves must not be rewritten to improve clinical content.
+Frozen study files are not rewritten in place to change clinical content. Regenerating live terminology from APIs is not expected to reproduce bit-identical JSON. Readable Markdown is allowed to be regenerated from those frozen files; the frozen files themselves must not be rewritten to improve clinical content.
 
 Each frozen assignment records scenario, seed, family, category, source-version snapshots, and validation statuses in the investigator key and manifest.
 
@@ -122,9 +122,9 @@ Operators who already have a database and terminology bootstrap can run the foll
 ```bash
 clinical-case-generator db-init
 clinical-case-generator bootstrap-reference-data
-clinical-case-generator freeze-validation-batch --plan data/validation_balanced_v3/batch_plan.json
+clinical-case-generator freeze-validation-batch --plan data/case_sets/balanced/batch_plan.json
 clinical-case-generator export-validation-batch --batch-code CLINIPROOF_BALANCED_V4
-python -m app.services.readable_packets --batch-code CLINIPROOF_BALANCED_V4 --resident data/validation_balanced_v4/resident_validation_cases.json
+python -m app.services.readable_packets --batch-code CLINIPROOF_BALANCED_V4 --resident data/case_sets/balanced/resident_validation_cases.json
 clinical-case-generator export-validation-batch --batch-code CLINIPROOF_SEEDCASES_V3
-python -m app.services.readable_packets --batch-code CLINIPROOF_SEEDCASES_V3 --resident data/validation_seedcases_v3/resident_validation_cases.json
+python -m app.services.readable_packets --batch-code CLINIPROOF_SEEDCASES_V3 --resident data/case_sets/seed_guided/resident_validation_cases.json
 ```

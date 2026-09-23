@@ -4,7 +4,7 @@
 
 A clinician or resident evaluates each synthetic inpatient case in a single review before it is accepted for use. Clinical validation uses a single review stage. Each reviewer reads the complete case and assesses C1–C5 in one pass.
 
-Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. The frozen set is identified by its batch code in this directory. Active prospective sets are `CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`. `CLINIPROOF_TAXONOMY_V1` is archived historical provenance.
+Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. The frozen set is identified by its batch code in this directory.
 
 The five criteria serve different purposes and should not be collapsed into a single pass or fail judgment. C2 through C4 are required: if any of them fails, the case cannot be used against its intended answer key until it is revised or excluded. C5 is advisory and must not by itself cause a case to fail validation.
 

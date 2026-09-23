@@ -36,7 +36,9 @@ from tests.test_seed_batch import EXPECTED_SEED_HASHES, EXPECTED_V2_HASHES
 REPO = Path(__file__).resolve().parents[1]
 README = REPO / "README.md"
 INDEX = REPO / "data" / "active_validation_sets.md"
-COMPARISON = REPO / "data" / "validation_comparison" / "active_batch_comparison.md"
+COMPARISON = (
+    REPO / "data" / "case_sets" / "investigator" / "comparison" / "active_batch_comparison.md"
+)
 REGISTRY = REPO / "data" / "validation_registry.json"
 SEED_LEAK_NEEDLES = (
     "seed_archetype_id",
@@ -130,12 +132,16 @@ def test_registry_separates_active_and_archived_batches() -> None:
 
 
 def test_v1_frozen_source_hashes_are_unchanged() -> None:
-    _assert_hashes(REPO / "data" / "validation", EXPECTED_V1_HASHES)
+    _assert_hashes(
+        REPO / "data" / "archive" / "validation_sets" / "CLINIPROOF_TAXONOMY_V1",
+        EXPECTED_V1_HASHES,
+    )
 
 
 def test_preclinical_qc_freezes_remain_hashed() -> None:
-    _assert_hashes(REPO / "data" / "validation_balanced", EXPECTED_V2_HASHES)
-    _assert_hashes(REPO / "data" / "validation_seedcases", EXPECTED_SEED_HASHES)
+    archive = REPO / "data" / "archive" / "validation_sets"
+    _assert_hashes(archive / "CLINIPROOF_BALANCED_V2", EXPECTED_V2_HASHES)
+    _assert_hashes(archive / "CLINIPROOF_SEEDCASES_V1", EXPECTED_SEED_HASHES)
 
 
 def _require_frozen() -> None:
@@ -313,18 +319,26 @@ def test_readme_and_index_route_to_two_active_sets() -> None:
     assert "48" in readme
     assert BALANCED_BATCH_CODE in readme
     assert SEEDCASES_BATCH_CODE in readme
-    assert "CLINIPROOF_BALANCED_V3" in readme
-    assert "CLINIPROOF_SEEDCASES_V2" in readme
-    assert "CLINIPROOF_BALANCED_V2" in readme
-    assert "CLINIPROOF_SEEDCASES_V1" in readme
-    assert "archived historical provenance" in lowered or "historical provenance" in lowered
-    assert "not** the current study set" in lowered or "not the current study set" in lowered
-    assert "data/active_validation_sets.md" in readme
+    historical = readme.split("## Historical datasets and provenance", 1)
+    assert len(historical) == 2
+    before, after = historical
+    for code in (
+        "CLINIPROOF_TAXONOMY_V1",
+        "CLINIPROOF_BALANCED_V3",
+        "CLINIPROOF_SEEDCASES_V2",
+        "CLINIPROOF_BALANCED_V2",
+        "CLINIPROOF_SEEDCASES_V1",
+    ):
+        assert code not in before
+        assert code in after
+    assert readme.count("## Historical datasets and provenance") == 1
+    assert "not the current study set" in after.casefold()
+    assert "data/case_sets/balanced/README.md" in readme
+    assert "data/case_sets/seed_guided/README.md" in readme
     assert BALANCED_BATCH_CODE in index
     assert SEEDCASES_BATCH_CODE in index
-    assert "not** an active prospective study set" in index.casefold() or (
-        "not an active prospective study set" in index.casefold()
-    )
+    assert "case_sets/balanced/README.md" in index
+    assert "case_sets/seed_guided/README.md" in index
 
 
 def test_markdown_navigation_links_resolve() -> None:
@@ -356,17 +370,16 @@ def test_markdown_navigation_links_resolve() -> None:
 
 
 def test_archived_v1_catalog_is_labeled_historical() -> None:
-    catalog = (REPO / "data" / "validation" / "README.md").read_text(encoding="utf-8")
-    readable = (REPO / "data" / "validation" / "readable" / "README.md").read_text(
-        encoding="utf-8"
-    )
+    archived = REPO / "data" / "archive" / "validation_sets" / "CLINIPROOF_TAXONOMY_V1"
+    catalog = (archived / "README.md").read_text(encoding="utf-8")
+    readable = (archived / "readable" / "README.md").read_text(encoding="utf-8")
     lowered_catalog = catalog.casefold()
     assert "historical / archived" in lowered_catalog or "archived historical" in lowered_catalog
     assert "not** an active prospective study set" in lowered_catalog or (
         "not an active prospective study set" in lowered_catalog
     )
     assert "archived historical provenance" in readable.casefold()
-    packet_path = REPO / "data" / "validation" / "readable" / "clinician_validation_packet.md"
+    packet_path = archived / "readable" / "clinician_validation_packet.md"
     packet = packet_path.read_text(encoding="utf-8")
     assert "archived historical provenance" in packet.casefold()
 
