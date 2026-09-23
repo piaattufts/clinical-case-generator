@@ -32,10 +32,11 @@ from tests.test_case_diversity import EXPECTED_V1_HASHES, _fp
 from tests.test_generation_pipeline import _seed_generation_refs, _test_scenario
 
 REPO = Path(__file__).resolve().parents[1]
-SEED_PLAN = REPO / "data" / "validation_seedcases" / "batch_plan.json"
-SEED_DIR = REPO / "data" / "validation_seedcases"
-V1_DIR = REPO / "data" / "validation"
-V2_DIR = REPO / "data" / "validation_balanced"
+_ARCHIVE = REPO / "data" / "archive" / "validation_sets"
+SEED_PLAN = _ARCHIVE / "CLINIPROOF_SEEDCASES_V1" / "batch_plan.json"
+SEED_DIR = _ARCHIVE / "CLINIPROOF_SEEDCASES_V1"
+V1_DIR = _ARCHIVE / "CLINIPROOF_TAXONOMY_V1"
+V2_DIR = _ARCHIVE / "CLINIPROOF_BALANCED_V2"
 EXPECTED_V2_HASHES = {
     "batch_plan.json": "7be72c20186284321e86e5a6246544d16094b51ccb688ab7c7fa9f754c8b19a7",
     "resident_validation_cases.json": (
@@ -322,8 +323,8 @@ def test_resident_payload_does_not_leak_seed_metadata(
 
 
 def test_exported_seed_resident_json_does_not_leak_source_metadata() -> None:
-    path = REPO / "data" / "validation_seedcases" / "resident_validation_cases.json"
-    investigator = REPO / "data" / "validation_seedcases" / "investigator_answer_key.json"
+    path = SEED_DIR / "resident_validation_cases.json"
+    investigator = SEED_DIR / "investigator_answer_key.json"
     resident = json.loads(path.read_text(encoding="utf-8"))
     blob = json.dumps(resident).casefold()
     for marker in (

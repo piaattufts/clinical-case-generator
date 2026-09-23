@@ -32,7 +32,9 @@ from sqlalchemy.orm import Session
 from tests.test_generation_pipeline import _seed_generation_refs, _test_scenario
 
 REPO = Path(__file__).resolve().parents[1]
-V2_PLAN = REPO / "data" / "validation_balanced" / "batch_plan.json"
+V2_PLAN = (
+    REPO / "data" / "archive" / "validation_sets" / "CLINIPROOF_BALANCED_V2" / "batch_plan.json"
+)
 EXPECTED_V1_HASHES = {
     "batch_plan.json": "2a34f26326655c9c786263d32bcf87cbb99b9a90a9171fbd34758a62281f955d",
     "resident_validation_cases.json": (
@@ -346,7 +348,7 @@ def test_concentrated_plan_is_rejected(tmp_path: Path) -> None:
 
 
 def test_frozen_v1_files_were_not_altered() -> None:
-    root = REPO / "data" / "validation"
+    root = REPO / "data" / "archive" / "validation_sets" / "CLINIPROOF_TAXONOMY_V1"
     for name, expected in EXPECTED_V1_HASHES.items():
         digest = hashlib.sha256((root / name).read_bytes()).hexdigest()
         assert digest == expected, name

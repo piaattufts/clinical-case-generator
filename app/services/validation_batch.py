@@ -104,9 +104,12 @@ from app.sources.exceptions import CaseValidationError, FrozenValidationCaseErro
 from app.utils.identifiers import VALIDATION_CASE_RE, format_validation_child_id
 from app.utils.jsonio import dumps_json, loads_json
 
-VALIDATION_DIR = Path(__file__).resolve().parents[2] / "data" / "validation"
-BALANCED_VALIDATION_DIR = Path(__file__).resolve().parents[2] / "data" / "validation_balanced"
-SEEDCASES_VALIDATION_DIR = Path(__file__).resolve().parents[2] / "data" / "validation_seedcases"
+_ARCHIVE = (
+    Path(__file__).resolve().parents[2] / "data" / "archive" / "validation_sets"
+)
+VALIDATION_DIR = _ARCHIVE / "CLINIPROOF_TAXONOMY_V1"
+BALANCED_VALIDATION_DIR = _ARCHIVE / "CLINIPROOF_BALANCED_V2"
+SEEDCASES_VALIDATION_DIR = _ARCHIVE / "CLINIPROOF_SEEDCASES_V1"
 DEFAULT_BATCH_PLAN_PATH = VALIDATION_DIR / "batch_plan.json"
 DEFAULT_EXPORT_DIR = VALIDATION_DIR
 DEFAULT_BATCH_CODE = ARCHIVED_BATCH_CODE

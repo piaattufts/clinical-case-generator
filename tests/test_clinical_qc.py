@@ -513,8 +513,16 @@ def test_historical_taxonomy_v1_and_source_seeds_remain_on_disk() -> None:
     from pathlib import Path
 
     root = Path(__file__).resolve().parents[1]
-    assert (root / "data" / "validation" / "resident_validation_cases.json").is_file()
-    v1 = json.loads((root / "data" / "validation" / "resident_validation_cases.json").read_text())
+    archived = (
+        root
+        / "data"
+        / "archive"
+        / "validation_sets"
+        / "CLINIPROOF_TAXONOMY_V1"
+        / "resident_validation_cases.json"
+    )
+    assert archived.is_file()
+    v1 = json.loads(archived.read_text())
     assert v1["batch_code"] == "CLINIPROOF_TAXONOMY_V1"
     assert len(v1["cases"]) == 24
     seeds = root / "data" / "seed_cases" / "resident_authored"
@@ -576,7 +584,9 @@ def test_balanced_v3_plan_declares_balanced_structured() -> None:
         (
             Path(__file__).resolve().parents[1]
             / "data"
-            / "validation_balanced_v3"
+            / "archive"
+            / "validation_sets"
+            / "CLINIPROOF_BALANCED_V3"
             / "batch_plan.json"
         ).read_text(encoding="utf-8")
     )
@@ -586,7 +596,8 @@ def test_balanced_v3_plan_declares_balanced_structured() -> None:
         (
             Path(__file__).resolve().parents[1]
             / "data"
-            / "validation_balanced_v4"
+            / "case_sets"
+            / "balanced"
             / "batch_plan.json"
         ).read_text(encoding="utf-8")
     )

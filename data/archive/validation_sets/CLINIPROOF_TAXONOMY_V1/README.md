@@ -1,8 +1,8 @@
 # Archived CliniProof freeze (`CLINIPROOF_TAXONOMY_V1`)
 
-**Status: historical / archived.** This directory is preserved for provenance. It is **not** an active prospective study set. New reviewers should start at [`../active_validation_sets.md`](../active_validation_sets.md).
+**Status: historical / archived.** This directory is preserved for provenance. It is **not** an active prospective study set. New reviewers should start at [`../active_validation_sets.md`](../../../active_validation_sets.md).
 
-The public identifiers remain VAL-201 through VAL-224. Do not regenerate, overwrite, or renumber these files. Current prospective sets are `CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`. See [`../active_validation_sets.md`](../active_validation_sets.md).
+The public identifiers remain VAL-201 through VAL-224. Do not regenerate, overwrite, or renumber these files. Current prospective sets are `CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`. See [`../active_validation_sets.md`](../../../active_validation_sets.md).
 
 This archive is not labeled clinically invalid. It was superseded as the active prospective set because the study design now evaluates two newer generation strategies.
 
@@ -188,7 +188,7 @@ The primary clinician-validation packet is:
 
 - [`readable/clinician_validation_packet.md`](readable/clinician_validation_packet.md)
 
-The packet index is [`readable/README.md`](readable/README.md). Regenerate the Markdown with `python scripts/build_readable_validation_packets.py`. Shared pipeline, official sources, and limitations are in [`../../README.md`](../../README.md).
+The packet index is [`readable/README.md`](readable/README.md). Regenerate the Markdown with `python scripts/build_readable_validation_packets.py`. Shared pipeline, official sources, and limitations are in [`../../README.md`](../../../../README.md).
 
 ## Assignment index (investigator only)
 

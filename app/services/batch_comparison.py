@@ -334,7 +334,9 @@ def write_active_batch_comparison(output: Path | None = None) -> Path:
     target = output or (
         Path(__file__).resolve().parents[2]
         / "data"
-        / "validation_comparison"
+        / "case_sets"
+        / "investigator"
+        / "comparison"
         / "active_batch_comparison.md"
     )
     target.parent.mkdir(parents=True, exist_ok=True)
