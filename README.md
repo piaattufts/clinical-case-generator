@@ -305,7 +305,7 @@ These are the regimen choices used so the charts do not contain a second, accide
 - Insulin lispro, when used for inpatient glucose stabilization, is hospital-only. The dose is recorded as individualized.
 - Tacrolimus maintenance is 1 MG orally every 12 hours. Mycophenolate mofetil for the kidney-transplant profiles is 1000 MG orally twice daily. Valganciclovir for cytomegalovirus treatment with preserved renal function is 900 MG orally twice daily.
 
-Older teaching snapshots `SYN-000901` through `SYN-000904` predate this regimen layer. They are described in the [clinician walkthrough](docs/clinician_walkthrough/README.md). They are not study cases. Do not read an older apixaban 2.5 MG once-daily demonstration as the current method.
+The [clinician walkthrough](docs/clinician_walkthrough/README.md) uses a heart-failure teaching chart built with this regimen. That chart is not a study case.
 
 ## Artifacts
 
@@ -353,7 +353,7 @@ The case-set overview pages are rendered from the manifest, the profiles, and th
 
 ## Worked teaching examples
 
-[docs/clinician_walkthrough/README.md](docs/clinician_walkthrough/README.md) walks through one clean chart, how facts and terminology are chosen, how a medication transition is built, how a clean chart differs from an error-bearing chart, what the automated checks do, and why a person still has to review the case. The four JSON snapshots under [docs/clinician_walkthrough/examples/](docs/clinician_walkthrough/examples/) are historical teaching files. One of them contains an answer key and is investigator-only. None of them is a VAL study case.
+[docs/clinician_walkthrough/README.md](docs/clinician_walkthrough/README.md) walks through one readable heart-failure chart, how the chart is assembled, how a medication transition is represented, how a clean chart differs from a chart with one assessment problem, what the software checks, and what the clinician still reviews. The teaching charts are not study cases.
 
 ## Limitations
 
@@ -420,6 +420,8 @@ Further command detail is in [docs/developer_guide.md](docs/developer_guide.md).
 ## Historical datasets and provenance
 
 Earlier frozen batches are retained under [data/archive/validation_sets/](data/archive/validation_sets/README.md) for reproducibility and provenance. They are not the current study set. The archive README is the place to see what each historical directory contains. The clinical narrative above does not depend on them.
+
+Earlier generator snapshots, from before the current teaching charts, are stored under [docs/clinician_walkthrough/source_json/historical/](docs/clinician_walkthrough/source_json/historical/README.md). They are reproducibility records. The clinician walkthrough uses the readable teaching charts instead.
 
 | Historical batch | Archive directory | Historical identifiers |
 | --- | --- | --- |

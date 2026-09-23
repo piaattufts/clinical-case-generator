@@ -1,0 +1,576 @@
+{
+  "case_id_code": "TEACH-001",
+  "ClinicalCase": {
+    "title": "cardiology inpatient case TEACH-001",
+    "case_id_code": "TEACH-001",
+    "case_status": "review",
+    "generation_source": "synthetic",
+    "one_liner": "77-year-old Male with Acute systolic (congestive) heart failure",
+    "admission_dx": "Acute systolic (congestive) heart failure",
+    "disposition_status": "home",
+    "chief_complaint": "Dyspnea, Edema, Orthopnea in the setting of Acute systolic (congestive) heart failure",
+    "patient_name": "VAL Patient 990",
+    "patient_age": 77,
+    "patient_gender": "Male",
+    "ethnicity": null,
+    "weight_kg": "92.000",
+    "social_context": "Baseline living situation: lives at home",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "cardiology",
+    "allergies": [],
+    "medical_history": [
+      "Essential (primary) hypertension",
+      "Mixed hyperlipidemia"
+    ],
+    "source_type": "authored_scenario",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Dyspnea, Edema, Orthopnea in the setting of Acute systolic (congestive) heart failure",
+      "hpi": "A 77-year-old Male is admitted with Acute systolic (congestive) heart failure. Presenting symptoms include Dyspnea, Edema, Orthopnea, present for several days and worsening. Home medications include spironolactone 25 MG Oral Tablet, furosemide 40 MG Oral Tablet, lisinopril 10 MG Oral Tablet. Admitted for decompensated heart failure with volume overload. The hospital course focused on diuresis over several inpatient days. Intake and output were recorded, and congestion improved enough for discharge.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "Dyspnea",
+        "Edema",
+        "Orthopnea"
+      ],
+      "symptom_duration": "several days",
+      "symptom_course": "worsening"
+    },
+    "social_support": {
+      "living_situation": "Baseline living situation: lives at home",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": false,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-TEACH001-001",
+      "case_id": "TEACH-001",
+      "diagnosis": "Acute systolic (congestive) heart failure",
+      "diagnosis_type": "admission",
+      "status": "active",
+      "context": "inpatient",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-TEACH001-002",
+      "case_id": "TEACH-001",
+      "diagnosis": "Essential (primary) hypertension",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-TEACH001-003",
+      "case_id": "TEACH-001",
+      "diagnosis": "Mixed hyperlipidemia",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-TEACH001-001",
+      "case_id": "TEACH-001",
+      "note_type": "admission",
+      "note_text": "Admission note for a 77-year-old Male with Acute systolic (congestive) heart failure. Symptoms: Dyspnea, Edema, Orthopnea for several days (worsening). Medications continued from home: spironolactone 25 MG Oral Tablet, furosemide 40 MG Oral Tablet, lisinopril 10 MG Oral Tablet. Admitted for decompensated heart failure with volume overload. The hospital course focused on diuresis over several inpatient days. Intake and output were recorded, and congestion improved enough for discharge.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "note_id": "NOTE-TEACH001-002",
+      "case_id": "TEACH-001",
+      "note_type": "hospital_course",
+      "note_text": "The hospital course focused on diuresis over several inpatient days. Intake and output were recorded, and congestion improved enough for discharge.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-TEACH001-001",
+      "case_id": "TEACH-001",
+      "timepoint": "admission",
+      "temp_c": "36.80",
+      "bp_systolic": 129,
+      "bp_diastolic": 71,
+      "heart_rate": 96,
+      "resp_rate": 21,
+      "spo2_percent": "94.00",
+      "oxygen_support": null,
+      "source_reference": null
+    },
+    {
+      "vital_id": "VIT-TEACH001-002",
+      "case_id": "TEACH-001",
+      "timepoint": "discharge",
+      "temp_c": "36.80",
+      "bp_systolic": 141,
+      "bp_diastolic": 74,
+      "heart_rate": 79,
+      "resp_rate": 17,
+      "spo2_percent": "98.00",
+      "oxygen_support": null,
+      "source_reference": null
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-TEACH001-001",
+      "case_id": "TEACH-001",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.1,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-TEACH001-002",
+      "case_id": "TEACH-001",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 0.9,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-TEACH001-003",
+      "case_id": "TEACH-001",
+      "timepoint": "admission",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 4.6,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-TEACH001-004",
+      "case_id": "TEACH-001",
+      "timepoint": "discharge",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 3.6,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-TEACH001-005",
+      "case_id": "TEACH-001",
+      "timepoint": "admission",
+      "test_name": "Natriuretic peptide B [Mass/volume] in Serum or Plasma",
+      "value": 963.0,
+      "value_text": null,
+      "unit": "pg/mL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-TEACH001-006",
+      "case_id": "TEACH-001",
+      "timepoint": "discharge",
+      "test_name": "Natriuretic peptide B [Mass/volume] in Serum or Plasma",
+      "value": 241.0,
+      "value_text": null,
+      "unit": "pg/mL",
+      "status": "final",
+      "source_reference": null
+    }
+  ],
+  "CaseImaging": [
+    {
+      "study_id": "STUDY-TEACH001-001",
+      "case_id": "TEACH-001",
+      "timepoint": "admission",
+      "study_type": "Chest radiograph",
+      "body_site": "chest",
+      "finding": "Pulmonary edema without focal consolidation.",
+      "source_reference": null
+    }
+  ],
+  "CaseConsult": [
+    {
+      "consult_id": "CON-TEACH001-001",
+      "case_id": "TEACH-001",
+      "service": "cardiology",
+      "timepoint": "inpatient",
+      "assessment": "Inpatient cardiology recommendations were recorded.",
+      "recommendation": "Continue the intended heart-failure and diuretic plan.",
+      "source_reference": null
+    }
+  ],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-TEACH001-001",
+      "case_id": "TEACH-001",
+      "context": "discharge",
+      "drug": "furosemide 40 MG Oral Tablet",
+      "reported_name": "furosemide 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "discharge",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-TEACH001-002",
+      "case_id": "TEACH-001",
+      "context": "discharge",
+      "drug": "lisinopril 10 MG Oral Tablet",
+      "reported_name": "lisinopril 10 MG Oral Tablet",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Essential (primary) hypertension",
+      "status": "discharge",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-TEACH001-003",
+      "case_id": "TEACH-001",
+      "context": "discharge",
+      "drug": "spironolactone 25 MG Oral Tablet",
+      "reported_name": "spironolactone 25 MG Oral Tablet",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "discharge",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-TEACH001-004",
+      "case_id": "TEACH-001",
+      "context": "home",
+      "drug": "furosemide 40 MG Oral Tablet",
+      "reported_name": "furosemide 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-TEACH001-005",
+      "case_id": "TEACH-001",
+      "context": "home",
+      "drug": "lisinopril 10 MG Oral Tablet",
+      "reported_name": "lisinopril 10 MG Oral Tablet",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Essential (primary) hypertension",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-TEACH001-006",
+      "case_id": "TEACH-001",
+      "context": "home",
+      "drug": "spironolactone 25 MG Oral Tablet",
+      "reported_name": "spironolactone 25 MG Oral Tablet",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-TEACH001-007",
+      "case_id": "TEACH-001",
+      "context": "inpatient",
+      "drug": "furosemide 40 MG Oral Tablet",
+      "reported_name": "furosemide 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-TEACH001-008",
+      "case_id": "TEACH-001",
+      "context": "inpatient",
+      "drug": "lisinopril 10 MG Oral Tablet",
+      "reported_name": "lisinopril 10 MG Oral Tablet",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Essential (primary) hypertension",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-TEACH001-009",
+      "case_id": "TEACH-001",
+      "context": "inpatient",
+      "drug": "spironolactone 25 MG Oral Tablet",
+      "reported_name": "spironolactone 25 MG Oral Tablet",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-TEACH001-001",
+      "case_id": "TEACH-001",
+      "item": "Heart-failure clinic follow-up",
+      "timing": "7 days",
+      "with_service": "cardiology",
+      "source_reference": null
+    }
+  ],
+  "CaseInstruction": [
+    {
+      "instruction_id": "INS-TEACH001-001",
+      "case_id": "TEACH-001",
+      "category": "medications",
+      "instruction_text": "Take discharge medications exactly as listed.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseMonitoring": [],
+  "CaseProblemList": [
+    {
+      "problem_id": "PROB-TEACH001-001",
+      "case_id": "TEACH-001",
+      "problem": "Essential (primary) hypertension",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-TEACH001-002",
+      "case_id": "TEACH-001",
+      "problem": "Mixed hyperlipidemia",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-TEACH001-003",
+      "case_id": "TEACH-001",
+      "problem": "Acute systolic (congestive) heart failure",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "high",
+      "status": "active",
+      "source_reference": null
+    }
+  ],
+  "CaseProcedure": [],
+  "CaseTherapyRestriction": [],
+  "CaseReturnPrecaution": [
+    {
+      "precaution_id": "RP-TEACH001-001",
+      "case_id": "TEACH-001",
+      "symptom": "Dyspnea",
+      "reason": "Worsening of the presenting symptom",
+      "action": "Seek urgent evaluation",
+      "severity": "urgent",
+      "patient_instruction": null,
+      "source_reference": null
+    }
+  ],
+  "CaseMedicationReconciliation": [
+    {
+      "medrec_id": "MR-TEACH001-001",
+      "case_id": "TEACH-001",
+      "bpmh_source": "patient_and_prior_records",
+      "bpmh_interviewer": null,
+      "bpmh_date": null,
+      "medrec_status": "complete",
+      "patient_able_to_participate": true,
+      "unverified_medications_present": null,
+      "reconciliation_admission": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "reconciliation_discharge": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "discrepancy_types": [],
+      "pharmacist_review": true,
+      "high_alert_meds_identified": [],
+      "notes": null,
+      "source_reference": null
+    }
+  ],
+  "CaseWeight": [
+    {
+      "weight_id": "WT-TEACH001-001",
+      "case_id": "TEACH-001",
+      "timepoint": "admission",
+      "weight_kg": "92.000",
+      "dry_weight_kg": null,
+      "source_reference": null
+    },
+    {
+      "weight_id": "WT-TEACH001-002",
+      "case_id": "TEACH-001",
+      "timepoint": "discharge",
+      "weight_kg": "87.000",
+      "dry_weight_kg": "85.000",
+      "source_reference": null
+    }
+  ],
+  "CaseIntakeOutput": [
+    {
+      "io_id": "IO-TEACH001-001",
+      "case_id": "TEACH-001",
+      "timepoint": "hospital_day_3",
+      "intake_ml": 1566,
+      "output_ml": 2109,
+      "net_ml": -543,
+      "notes": null,
+      "source_reference": null
+    }
+  ],
+  "CaseDevice": [],
+  "CaseMicrobiology": [],
+  "teaching": {
+    "teaching_id": "TEACH-001",
+    "role": "clean",
+    "generator_case_id": "SYN-009901",
+    "batch_seed": 20260923,
+    "case_seed": "20260923:9901:HF_INPATIENT:HF_VOLUME_OVERLOAD",
+    "scenario": "HF_INPATIENT",
+    "clinical_profile": "HF_VOLUME_OVERLOAD",
+    "narrative_source": "template",
+    "pipeline": "generate_one_case use_openai=false curated regimen"
+  }
+}
