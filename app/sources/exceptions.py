@@ -78,6 +78,21 @@ class CaseValidationError(Exception):
         super().__init__(f"{layer} validation failed: {message}")
 
 
+class DuplicateClinicalCaseError(CaseValidationError):
+    """Raised when two clean cases share a clinical fingerprint before error injection."""
+
+    def __init__(self, left_id: str, right_id: str, shared: Sequence[str]) -> None:
+        self.left_id = left_id
+        self.right_id = right_id
+        self.shared = list(shared)
+        detail = ", ".join(self.shared) if self.shared else "identical clean-case fingerprint"
+        super().__init__(
+            "clean_case_uniqueness",
+            f"{left_id} and {right_id} are the same clean clinical case ({detail})",
+            [left_id, right_id, *self.shared],
+        )
+
+
 class FrozenValidationCaseError(Exception):
     """Raised when a frozen VAL-* assignment would be silently overwritten."""
 

@@ -59,6 +59,13 @@ from app.repositories.reference import (
     list_rules,
 )
 from app.services.bootstrap import load_json_object, match_diagnosis, match_lab, match_medication
+from app.services.case_diversity import (
+    CleanCaseFingerprint,
+    audit_fingerprints,
+    diversity_report_markdown,
+    fingerprint_from_clean_state,
+    require_unique_clean_cases,
+)
 from app.services.error_taxonomy import (
     FAMILY_NONE,
     NONE,
@@ -71,6 +78,7 @@ from app.services.generation import (
     GeneratedCaseResult,
     generate_one_case,
     load_scenarios,
+    resolve_profile,
 )
 from app.services.validation import validate_case
 from app.sources.exceptions import CaseValidationError, FrozenValidationCaseError
@@ -78,9 +86,11 @@ from app.utils.identifiers import VALIDATION_CASE_RE, format_validation_child_id
 from app.utils.jsonio import dumps_json, loads_json
 
 VALIDATION_DIR = Path(__file__).resolve().parents[2] / "data" / "validation"
+BALANCED_VALIDATION_DIR = Path(__file__).resolve().parents[2] / "data" / "validation_balanced"
 DEFAULT_BATCH_PLAN_PATH = VALIDATION_DIR / "batch_plan.json"
 DEFAULT_EXPORT_DIR = VALIDATION_DIR
 DEFAULT_BATCH_CODE = "CLINIPROOF_TAXONOMY_V1"
+BALANCED_BATCH_CODE = "CLINIPROOF_BALANCED_V2"
 DATASET_STATUS = "machine-validated synthetic resident-review cases pending clinician validation"
 LEAK_MARKERS = (
     "intentional error",
@@ -118,6 +128,7 @@ class Assignment:
     error_category: str | None
     sequence: int
     error_family: str | None = None
+    clinical_profile: str | None = None
 
 
 @dataclass
@@ -146,6 +157,7 @@ class ExportResult:
     worksheet_path: Path
     schema_path: Path
     audit: dict[str, Any]
+    diversity_path: Path | None = None
 
 
 def load_batch_plan(path: Path | None = None) -> dict[str, Any]:
@@ -179,9 +191,23 @@ def parse_assignments(plan: dict[str, Any]) -> list[Assignment]:
                     else str(item.get("error_category"))
                 ),
                 sequence=int(item["sequence"]),
+                clinical_profile=(
+                    None
+                    if item.get("clinical_profile") in (None, "")
+                    else str(item.get("clinical_profile"))
+                ),
             )
         )
     return assignments
+
+
+def assignment_case_seed(master_seed: int, assignment: Assignment) -> str:
+    if assignment.clinical_profile:
+        return (
+            f"{master_seed}:{assignment.sequence}:{assignment.scenario}:"
+            f"{assignment.clinical_profile}"
+        )
+    return f"{master_seed}:{assignment.sequence}:{assignment.scenario}"
 
 
 def freeze_validation_batch(
@@ -196,13 +222,19 @@ def freeze_validation_batch(
     master_seed = int(plan.get("master_seed") or 0)
     scenarios = {item.code: item for item in load_scenarios()}
     result = FreezeResult(batch_code=batch_code, master_seed=master_seed)
-    for assignment in parse_assignments(plan):
-        case_seed = f"{master_seed}:{assignment.sequence}:{assignment.scenario}"
+    assignments = parse_assignments(plan)
+    _assert_scenario_balance(plan, assignments)
+    fingerprints: list[tuple[str, CleanCaseFingerprint]] = []
+    for assignment in assignments:
+        case_seed = assignment_case_seed(master_seed, assignment)
         existing = get_frozen_case_by_validation_id(session, assignment.validation_case_id)
         if existing is not None and existing.immutable:
             if existing.case_seed == case_seed and existing.scenario_code == assignment.scenario:
                 result.frozen.append(existing)
                 result.reused.append(assignment.validation_case_id)
+                fingerprint = fingerprint_from_clean_state(existing.clean_state or {})
+                if fingerprint is not None:
+                    fingerprints.append((assignment.validation_case_id, fingerprint))
                 continue
             raise FrozenValidationCaseError(
                 assignment.validation_case_id,
@@ -215,7 +247,8 @@ def freeze_validation_batch(
             )
             continue
         try:
-            _assert_assignment_matches_plan(assignment, scenario)
+            profile = resolve_profile(scenario, assignment.clinical_profile)
+            _assert_assignment_matches_plan(assignment, scenario, profile=profile)
             generated = generate_one_case(
                 session,
                 sequence=assignment.sequence,
@@ -224,6 +257,7 @@ def freeze_validation_batch(
                 inject_error=assignment.inject_error,
                 use_openai=use_openai,
                 error_category=assignment.error_category,
+                profile_code=assignment.clinical_profile,
             )
         except Exception as exc:
             result.rejected.append(
@@ -262,6 +296,8 @@ def freeze_validation_batch(
             case_seed=case_seed,
         )
         result.frozen.append(frozen)
+        if generated.fingerprint is not None:
+            fingerprints.append((assignment.validation_case_id, generated.fingerprint))
     session.flush()
     if result.rejected:
         details = "; ".join(f"{item.validation_case_id}: {item.reason}" for item in result.rejected)
@@ -270,10 +306,14 @@ def freeze_validation_batch(
             f"one or more assignments were rejected; no substitute category was used; {details}",
             [item.reason for item in result.rejected],
         )
+    if len(fingerprints) >= 2:
+        require_unique_clean_cases(fingerprints)
     return result
 
 
-def _assert_assignment_matches_plan(assignment: Assignment, scenario: Any) -> None:
+def _assert_assignment_matches_plan(
+    assignment: Assignment, scenario: Any, *, profile: Any = None
+) -> None:
     """Fail closed: the plan's family/category is the assessment target, not a hint."""
     if assignment.inject_error:
         if assignment.error_category in (None, ""):
@@ -285,7 +325,7 @@ def _assert_assignment_matches_plan(assignment: Assignment, scenario: Any) -> No
         if requested == NONE:
             raise ValueError("error-bearing assignment cannot use error_category none")
         canonicalize_family(assignment.error_family, category=requested)
-        if not _category_permitted(scenario, requested):
+        if not _category_permitted(scenario, requested, profile=profile):
             raise ValueError(
                 f"requested category {requested} is not allowed for scenario "
                 f"{scenario.code}; no substitute category will be used"
@@ -297,8 +337,11 @@ def _assert_assignment_matches_plan(assignment: Assignment, scenario: Any) -> No
         canonicalize_family(assignment.error_family, category=NONE)
 
 
-def _category_permitted(scenario: Any, category: str) -> bool:
-    allowed = getattr(scenario, "allowed_error_categories", None) or []
+def _category_permitted(scenario: Any, category: str, *, profile: Any = None) -> bool:
+    allowed = list(getattr(scenario, "allowed_error_categories", None) or [])
+    profile_allowed = list(getattr(profile, "allowed_error_categories", None) or [])
+    if profile_allowed:
+        allowed = profile_allowed
     if not allowed:
         return True
     wanted = canonicalize_category(category)
@@ -309,6 +352,34 @@ def _category_permitted(scenario: Any, category: str) -> bool:
         except CaseValidationError:
             continue
     return False
+
+
+def _assert_scenario_balance(plan: dict[str, Any], assignments: list[Assignment]) -> None:
+    if not plan.get("require_balanced_scenarios"):
+        return
+    if plan.get("allow_scenario_concentration"):
+        return
+    counts: dict[str, int] = {}
+    profiles: list[str] = []
+    for assignment in assignments:
+        counts[assignment.scenario] = counts.get(assignment.scenario, 0) + 1
+        if assignment.clinical_profile:
+            profiles.append(assignment.clinical_profile)
+    total = len(assignments) or 1
+    for scenario, count in counts.items():
+        if count / total > 0.40:
+            raise CaseValidationError(
+                "batch_balance",
+                f"scenario {scenario} is {count}/{total} of the batch; "
+                "set allow_scenario_concentration if eligibility requires this mix",
+            )
+    if plan.get("require_unique_clinical_profiles") and profiles:
+        duplicates = sorted({item for item in profiles if profiles.count(item) > 1})
+        if duplicates:
+            raise CaseValidationError(
+                "batch_balance",
+                "clinical profiles are reused in this plan: " + ", ".join(duplicates),
+            )
 
 
 def export_validation_batch(
@@ -391,6 +462,7 @@ def export_validation_batch(
         _scenario_matrix_markdown(session),
         encoding="utf-8",
     )
+    diversity_path = _write_diversity_report(output, batch_code, rows)
     return ExportResult(
         resident_path=resident_path,
         investigator_path=investigator_path,
@@ -400,6 +472,7 @@ def export_validation_batch(
         worksheet_path=worksheet_path,
         schema_path=schema_path,
         audit=audit,
+        diversity_path=diversity_path,
     )
 
 
@@ -1165,6 +1238,7 @@ def _investigator_payload(
             "validation_case_id": frozen.validation_case_id,
             "internal_case_id_code": case.case_id_code,
             "scenario": frozen.scenario_code,
+            "clinical_profile": _clinical_profile_of(frozen),
             "control_error_status": status,
             "error": error_block,
             "supporting_clinical_rules": frozen.rule_snapshot,
@@ -1297,6 +1371,8 @@ def _investigator_markdown(doc: dict[str, Any]) -> str:
         lines.append(f"## {item['validation_case_id']}")
         lines.append("")
         lines.append(f"- Scenario: `{item['scenario']}`")
+        if item.get("clinical_profile"):
+            lines.append(f"- Clinical profile: `{item['clinical_profile']}`")
         lines.append(f"- Status: {item['control_error_status']}")
         error = item.get("error") or {}
         if item["control_error_status"] == "NO INTENTIONAL ERROR":
@@ -1476,3 +1552,41 @@ def _review_schema() -> dict[str, Any]:
             {"name": "revision_recommendation", "type": "string"},
         ],
     }
+
+
+def _clinical_profile_of(frozen: ValidationBatchCase) -> str | None:
+    diversity = (frozen.clean_state or {}).get("diversity")
+    if isinstance(diversity, dict):
+        profile = diversity.get("clinical_profile")
+        if profile:
+            return str(profile)
+    return None
+
+
+def _write_diversity_report(
+    output: Path, batch_code: str, rows: list[ValidationBatchCase]
+) -> Path | None:
+    labeled: list[tuple[str, CleanCaseFingerprint, dict[str, Any]]] = []
+    for frozen in rows:
+        fingerprint = fingerprint_from_clean_state(frozen.clean_state or {})
+        if fingerprint is None:
+            continue
+        labeled.append(
+            (
+                frozen.validation_case_id,
+                fingerprint,
+                {
+                    "error_family": frozen.error_family or "none",
+                    "error_category": frozen.error_category or "none",
+                },
+            )
+        )
+    if len(labeled) < 2:
+        return None
+    audit = audit_fingerprints([(case_id, fingerprint) for case_id, fingerprint, _ in labeled])
+    path = output / "diversity_report.md"
+    path.write_text(
+        diversity_report_markdown(batch_code=batch_code, labeled=labeled, audit=audit),
+        encoding="utf-8",
+    )
+    return path

@@ -336,6 +336,9 @@ def export_validation_batch_cmd(
                 "coverage_path": str(result.coverage_path),
                 "worksheet_path": str(result.worksheet_path),
                 "schema_path": str(result.schema_path),
+                "diversity_path": (
+                    None if result.diversity_path is None else str(result.diversity_path)
+                ),
                 "audit_passed": result.audit.get("passed"),
                 "audit_errors": result.audit.get("errors"),
             }
