@@ -111,7 +111,7 @@ The software performs automated checks of structure, terminology provenance, imp
 
 ## How clinical review will be conducted
 
-Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1 through C5 in one pass.
+Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1–C5 in one pass.
 
 The packet is [`readable/clinician_validation_packet.md`](readable/clinician_validation_packet.md). Ratings are recorded on [`readable/clinical_validation_worksheet.csv`](readable/clinical_validation_worksheet.csv). Criterion definitions are in [`readable/validation_rubric.md`](readable/validation_rubric.md). Reviewer comments do not overwrite frozen case files.
 
@@ -162,13 +162,13 @@ These files are generated from the frozen JSON. They do not replace it, and they
 
 Use the following table to choose a starting file. Clinical validation uses a single review stage.
 
-| If you are... | Start here |
+| Who is using it | File |
 | --- | --- |
 | Resident or clinician reviewing and rating cases | [`readable/clinician_validation_packet.md`](readable/clinician_validation_packet.md) |
 | Resident or clinician recording ratings | [`readable/clinical_validation_worksheet.csv`](readable/clinical_validation_worksheet.csv) |
 | Medical educator reviewing the validation criteria | [`readable/validation_rubric.md`](readable/validation_rubric.md) |
 | Clinician or resident wanting to understand how CliniProof generates cases | [`readable/how_cliniproof_works.md`](readable/how_cliniproof_works.md) |
-| Clinical informatics / AI engineer | [`readable/developer_notes.md`](readable/developer_notes.md) |
+| Developer maintaining the pipeline | [`readable/developer_notes.md`](readable/developer_notes.md) |
 
 The following files are supporting readable views. They are not a separate review stage:
 

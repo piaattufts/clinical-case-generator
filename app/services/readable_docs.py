@@ -53,7 +53,7 @@ CLINICIAN_PACKET_HEADER = """# CliniProof clinician validation packet
 
 ## Purpose
 
-The cases are synthetically generated clinical cases produced by CliniProof and are being reviewed for clinical validity. Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1 through C5 in one pass.
+The cases are synthetically generated clinical cases produced by CliniProof and are being reviewed for clinical validity. Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1–C5 in one pass.
 
 The frozen set is `CLINIPROOF_TAXONOMY_V1`, containing twenty-four cases labeled VAL-201 through VAL-224. Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. That sentence means the software has already checked structure, terminology, and a limited set of implemented rules, but a clinician has not yet accepted the case for educational use.
 
@@ -62,7 +62,7 @@ The frozen set is `CLINIPROOF_TAXONOMY_V1`, containing twenty-four cases labeled
 For each case:
 
 1. Read the complete case.
-2. Assess C1 through C5 using the forms that follow the case.
+2. Assess C1–C5 using the forms that follow the case.
 3. Record ratings in [`clinical_validation_worksheet.csv`](clinical_validation_worksheet.csv).
 4. Add comments where a problem is identified.
 
@@ -75,11 +75,11 @@ This packet includes the intended assessment issue for each case so that C2 thro
 
 READABLE_INDEX_MD = """# Readable CliniProof review materials
 
-This directory contains the human-readable review materials for the frozen CliniProof validation set whose batch code is `CLINIPROOF_TAXONOMY_V1`. Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1 through C5 in one pass.
+This directory contains the human-readable review materials for the frozen CliniProof validation set whose batch code is `CLINIPROOF_TAXONOMY_V1`. Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1–C5 in one pass.
 
 The set contains twenty-four synthetic inpatient cases labeled VAL-201 through VAL-224. They were developed for assessment of medication-reconciliation reasoning. Twenty of the cases contain one pre-specified medication-reconciliation or transition-of-care assessment problem. Four of the cases are clean controls in which no problem was intentionally introduced. This page does not identify the controls.
 
-These Markdown files are readable views of the frozen cases. They do not replace the frozen JSON, and they do not regenerate the underlying cases. Clinician-visible patient information comes from [`../resident_validation_cases.json`](../resident_validation_cases.json). The clinician validation packet also reads [`../investigator_answer_key.json`](../investigator_answer_key.json) so that C1 through C5 can be completed together.
+These Markdown files are readable views of the frozen cases. They do not replace the frozen JSON, and they do not regenerate the underlying cases. Clinician-visible patient information comes from [`../resident_validation_cases.json`](../resident_validation_cases.json). The clinician validation packet also reads [`../investigator_answer_key.json`](../investigator_answer_key.json) so that C1–C5 can be completed together.
 
 Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation.
 
@@ -105,20 +105,20 @@ A clinician or resident validating cases needs the packet and the worksheet. The
 
 ## Clinician review files
 
-[`clinician_validation_packet.md`](clinician_validation_packet.md) is the primary clinician-facing validation artifact. For each case it contains the readable chart, the intended assessment issue, and the C1 through C5 forms. Record ratings on [`clinical_validation_worksheet.csv`](clinical_validation_worksheet.csv), which has one empty row per case.
+[`clinician_validation_packet.md`](clinician_validation_packet.md) is the primary clinician-facing validation artifact. For each case it contains the readable chart, the intended assessment issue, and the C1–C5 forms. Record ratings on [`clinical_validation_worksheet.csv`](clinical_validation_worksheet.csv), which has one empty row per case.
 
 Individual case pages under [`cases/`](cases/) and the sequential chart dump [`all_cases.md`](all_cases.md) are supporting readable views of the same frozen cases. They do not include the intended assessment issue or rating forms, and they are not a separate review stage.
 
 ## Machine validation is not clinical validation
 
-The software performs automated checks of structure, terminology provenance, implemented clinical constraints, and the intended assessment manipulation. Those checks do not establish that a case is clinically realistic or educationally appropriate. Human reviewers make that determination by completing C1 through C5 in one pass.
+The software performs automated checks of structure, terminology provenance, implemented clinical constraints, and the intended assessment manipulation. Those checks do not establish that a case is clinically realistic or educationally appropriate. Human reviewers make that determination by completing C1–C5 in one pass.
 """
 
 VALIDATION_RUBRIC_MD = """# CliniProof Clinical Case Validation Rubric
 
 ## Purpose
 
-A clinician or resident evaluates each synthetic inpatient case in a single review before it is accepted for use. Clinical validation uses a single review stage. Each reviewer reads the complete case and assesses C1 through C5 in one pass.
+A clinician or resident evaluates each synthetic inpatient case in a single review before it is accepted for use. Clinical validation uses a single review stage. Each reviewer reads the complete case and assesses C1–C5 in one pass.
 
 Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. The frozen set is `CLINIPROOF_TAXONOMY_V1`, containing cases VAL-201 through VAL-224.
 
@@ -305,7 +305,7 @@ The taxonomy also defines this category for a situation in which a clinically re
 
 ## Reviewer recommendation
 
-After completing C1 through C5 in the same review, record one recommendation.
+After completing C1–C5 in the same review, record one recommendation.
 
 ☐ Accept
 
@@ -332,7 +332,7 @@ Do not automatically modify a case based on reviewer comments. Human review comm
 
 HOW_CLINIPROOF_WORKS_MD = """# How CliniProof Builds and Validates a Case
 
-This overview is for residents who are curious about the technology, physicians, medical educators, pharmacists, informatics staff, and AI engineers. It explains the system in clinical language first, then names the software pieces. It is not required reading before completing C1 through C5.
+This overview is for residents who are curious about the technology, physicians, medical educators, pharmacists, informatics staff, and AI engineers. It explains the system in clinical language first, then names the software pieces. It is not required reading before completing C1–C5.
 
 It discusses how cases are made. It does not reveal which frozen case labeled VAL-201 through VAL-224 contains which assessment target.
 
@@ -445,7 +445,7 @@ Cases are built in a fixed order. Each stage completes before the next stage beg
 7. Controlled error introduction applies exactly one planned change for assessment cases. Clean controls skip this step.
 8. Post-error validation checks that the intended target is now present, that required evidence remains visible, and that a second assessment target was not introduced.
 9. Blinded resident export gives residents the chart without family, category, trigger metadata, or answer keys.
-10. Clinician validation is the human step. A clinician or resident reviews the complete case and assesses C1 through C5 in one pass. Ratings are recorded on the clinical validation worksheet. Automated checks cannot certify realism or educational appropriateness.
+10. Clinician validation is the human step. A clinician or resident reviews the complete case and assesses C1–C5 in one pass. Ratings are recorded on the clinical validation worksheet. Automated checks cannot certify realism or educational appropriateness.
 
 ## D. What OpenAI does
 
@@ -585,7 +585,7 @@ The resident JSON omits answer-key objects, internal generation identifiers, fam
 
 ## Human clinician validation
 
-Human validation of the frozen set uses a single review stage. A clinician or resident reads the complete case in `clinician_validation_packet.md` and assesses C1 through C5 in one pass. Ratings are stored on `clinical_validation_worksheet.csv`. Reviewer comments do not rewrite frozen JSON.
+Human validation of the frozen set uses a single review stage. A clinician or resident reads the complete case in `clinician_validation_packet.md` and assesses C1–C5 in one pass. Ratings are stored on `clinical_validation_worksheet.csv`. Reviewer comments do not rewrite frozen JSON.
 
 Case generation and automated checks remain unchanged. Software checks structure, terminology, implemented rules, and the intended assessment manipulation. Those checks do not replace this human review.
 

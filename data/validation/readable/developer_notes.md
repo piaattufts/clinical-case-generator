@@ -101,7 +101,7 @@ The resident JSON omits answer-key objects, internal generation identifiers, fam
 
 ## Human clinician validation
 
-Human validation of the frozen set uses a single review stage. A clinician or resident reads the complete case in `clinician_validation_packet.md` and assesses C1 through C5 in one pass. Ratings are stored on `clinical_validation_worksheet.csv`. Reviewer comments do not rewrite frozen JSON.
+Human validation of the frozen set uses a single review stage. A clinician or resident reads the complete case in `clinician_validation_packet.md` and assesses C1–C5 in one pass. Ratings are stored on `clinical_validation_worksheet.csv`. Reviewer comments do not rewrite frozen JSON.
 
 Case generation and automated checks remain unchanged. Software checks structure, terminology, implemented rules, and the intended assessment manipulation. Those checks do not replace this human review.
 
