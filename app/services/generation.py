@@ -292,6 +292,10 @@ HOSPITAL_COURSE_TEXT = {
         "Restart versus continued hold of anticoagulation remains a pending "
         "outpatient decision. The patient is otherwise ready for discharge."
     ),
+    "gi_bleed_observed_stabilization": (
+        "Gastrointestinal bleeding was observed with serial hemoglobin checks. "
+        "Inpatient acid suppression was used while the patient stabilized for discharge."
+    ),
 }
 
 
@@ -1712,9 +1716,20 @@ def _medication_row(
 def _lab_pattern_for(profile: ClinicalProfile) -> str:
     course = profile.hospital_course_pattern.casefold()
     vital = profile.vital_pattern.casefold()
+    code = (profile.code or "").casefold()
+    reason = (profile.admission_reason or "").casefold()
     if "aki" in course:
         return "aki"
-    if "gi_bleed" in course or "postop_hemoglobin" in course:
+    if (
+        "gi_bleed" in course
+        or "gi_bleed" in code
+        or "postop_hemoglobin" in course
+        or "postop_anticoag" in course
+        or "endoscopy" in course
+        or "hemorrhage" in reason
+        or "bleeding" in reason
+        or "bleed" in reason
+    ):
         return "bleed"
     if "glycemic" in course or vital == "glycemic":
         return "glycemic"

@@ -34,8 +34,8 @@ TOTAL CASES: 24
 
 - unique medications: 19
 - unique RXCUIs: 19
-- unique diagnoses: 11
-- unique ICD codes: 11
+- unique diagnoses: 12
+- unique ICD codes: 12
 - unique labs: 6
 - unique LOINC codes: 6
 - unique UCUM units: 5

@@ -762,6 +762,8 @@ def _diagnosis_rank_key(
     if not pediatric_query:
         if any(token in lowered for token in _DIAGNOSIS_DEPRIORITIZE):
             deprioritize = 2
+        if "candidal" in lowered or "candida" in lowered:
+            deprioritize = max(deprioritize, 2)
         if code_text[:1].upper() in _PEDIATRIC_CHAPTER_PREFIXES:
             deprioritize = max(deprioritize, 2)
     unspecified = (

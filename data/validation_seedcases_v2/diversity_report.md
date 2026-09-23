@@ -45,9 +45,9 @@ Until clinicians finish review, treat every record as a machine-validated synthe
 
 **Diagnosis**
 
+- Acute and subacute infective endocarditis|Atherosclerotic heart disease of native coronary artery without angina pectoris|Essential (primary) hypertension|Type 2 diabetes mellitus without complications: 1 (4.2%)
+- Acute and subacute infective endocarditis|Atherosclerotic heart disease of native coronary artery without angina pectoris|Mixed hyperlipidemia: 1 (4.2%)
 - Acute and subacute infective endocarditis|Essential (primary) hypertension|Mixed hyperlipidemia: 1 (4.2%)
-- Acute and subacute infective endocarditis|Essential (primary) hypertension|Type 2 diabetes mellitus without complications: 1 (4.2%)
-- Acute and subacute infective endocarditis|Mixed hyperlipidemia: 1 (4.2%)
 - Acute and subacute infective endocarditis|Mixed hyperlipidemia|Type 2 diabetes mellitus without complications: 1 (4.2%)
 - Acute systolic (congestive) heart failure|Essential (primary) hypertension: 1 (4.2%)
 - Acute systolic (congestive) heart failure|Essential (primary) hypertension|Mixed hyperlipidemia: 3 (12.5%)

@@ -349,10 +349,31 @@ def medication_form_blob(medication: RefMedication) -> str:
     ).casefold()
 
 
+STRENGTH_IN_NAME = re.compile(
+    r"(\d+(?:\.\d+)?\s*(?:MG/ML|MCG|MG|ML|G)\b)",
+    re.IGNORECASE,
+)
+
+
+def parsed_strength(medication: RefMedication) -> str | None:
+    strength = (medication.strength or "").strip()
+    if strength:
+        return strength
+    blob = " ".join(
+        part for part in (medication.concept_name, medication.generic_name) if part
+    )
+    match = STRENGTH_IN_NAME.search(blob)
+    if match is None:
+        return None
+    return re.sub(r"\s+", " ", match.group(1)).strip()
+
+
 def inferred_route(medication: RefMedication, query: str | None = None) -> str:
     stored = (medication.route or "").strip()
     blob = medication_form_blob(medication)
     needle = (query or medication.ingredient or medication.generic_name or "").casefold()
+    if "enoxaparin" in blob or "enoxaparin" in needle:
+        return "subcutaneous"
     if any(marker in blob for marker in INJECTION_FORM_MARKERS):
         if "intramuscular" in blob or "im " in blob:
             return "intramuscular"
@@ -409,7 +430,7 @@ def formulation_preference_rank(medication: RefMedication, query: str) -> int:
 
 
 def synthetic_dose_for(medication: RefMedication) -> str:
-    strength = (medication.strength or "").strip()
+    strength = parsed_strength(medication)
     blob = medication_form_blob(medication)
     if strength:
         return strength
@@ -417,6 +438,8 @@ def synthetic_dose_for(medication: RefMedication) -> str:
         return "as labeled"
     if any(marker in blob for marker in INHALATION_FORM_MARKERS):
         return "1 inhalation"
+    if "capsule" in blob and "tablet" not in blob:
+        return "1 capsule"
     if any(marker in blob for marker in ("solution", "suspension")):
         return "as labeled"
     return "1 tablet"
@@ -428,6 +451,8 @@ def dose_compatible_with_form(dose: str | None, medication: RefMedication) -> bo
     if "tablet" in text and any(marker in blob for marker in INJECTION_FORM_MARKERS):
         return False
     if "tablet" in text and any(marker in blob for marker in INHALATION_FORM_MARKERS):
+        return False
+    if "tablet" in text and "capsule" in blob and "tablet" not in blob:
         return False
     if (
         "tablet" in text

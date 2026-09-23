@@ -8,7 +8,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `HF_INPATIENT`
 - Clinical profile: `HF_VOLUME_OVERLOAD`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_1`
 - Error category: `f1_omission`
@@ -19,7 +19,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `HF_INPATIENT`
 - Clinical profile: `HF_POST_DIURESIS`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_1`
 - Error category: `f1_therapeutic_substitution`
@@ -30,7 +30,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `HF_INPATIENT`
 - Clinical profile: `HF_WITH_WARFARIN`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_2`
 - Error category: `f2_monitoring_not_arranged`
@@ -41,7 +41,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `HF_INPATIENT`
 - Clinical profile: `HF_MEDICATION_ADJUSTMENT`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_2`
 - Error category: `f2_inpatient_substitution_not_reverted`
@@ -52,7 +52,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `HF_INPATIENT`
 - Clinical profile: `HF_DISCHARGE_MONITORING`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: NO INTENTIONAL ERROR
 - NO INTENTIONAL ERROR
 - Seed: `20260923:1205:HF_INPATIENT:HF_DISCHARGE_MONITORING`
@@ -61,7 +61,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `AF_ANTICOAGULATION`
 - Clinical profile: `AF_RATE_CONTROL_APIXABAN`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_1`
 - Error category: `f1_omission`
@@ -72,7 +72,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `AF_ANTICOAGULATION`
 - Clinical profile: `AF_WARFARIN_INR`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_2`
 - Error category: `f2_monitoring_not_arranged`
@@ -83,7 +83,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `AF_ANTICOAGULATION`
 - Clinical profile: `AF_WITH_STATIN`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_1`
 - Error category: `f1_dose_mismatch`
@@ -94,7 +94,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `AF_ANTICOAGULATION`
 - Clinical profile: `AF_HELD_NSAID`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_2`
 - Error category: `f2_held_med_no_restart_plan`
@@ -105,7 +105,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `AF_ANTICOAGULATION`
 - Clinical profile: `AF_POST_RATE_CONTROL`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: NO INTENTIONAL ERROR
 - NO INTENTIONAL ERROR
 - Seed: `20260923:1210:AF_ANTICOAGULATION:AF_POST_RATE_CONTROL`
@@ -114,7 +114,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `HTN_INPATIENT`
 - Clinical profile: `HTN_ACE_CCB`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_1`
 - Error category: `f1_commission`
@@ -125,7 +125,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `HTN_INPATIENT`
 - Clinical profile: `HTN_ACE_THIAZIDE`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_1`
 - Error category: `f1_dose_mismatch`
@@ -136,7 +136,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `HTN_INPATIENT`
 - Clinical profile: `HTN_CCB_STATIN`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_1`
 - Error category: `f1_route_mismatch`
@@ -147,7 +147,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `HTN_INPATIENT`
 - Clinical profile: `HTN_TRIPLE_THERAPY`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_2`
 - Error category: `f2_hospital_only_continued`
@@ -158,7 +158,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `HTN_INPATIENT`
 - Clinical profile: `HTN_NEW_DIAGNOSIS`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: NO INTENTIONAL ERROR
 - NO INTENTIONAL ERROR
 - Seed: `20260923:1215:HTN_INPATIENT:HTN_NEW_DIAGNOSIS`
@@ -167,7 +167,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `T2DM_INPATIENT`
 - Clinical profile: `T2DM_METFORMIN_ACE`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_1`
 - Error category: `f1_omission`
@@ -178,7 +178,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `T2DM_INPATIENT`
 - Clinical profile: `T2DM_METFORMIN_STATIN`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_1`
 - Error category: `f1_frequency_mismatch`
@@ -189,7 +189,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `T2DM_INPATIENT`
 - Clinical profile: `T2DM_GLYCEMIC_STABILIZATION`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_2`
 - Error category: `f2_insufficient_supply`
@@ -200,7 +200,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `T2DM_INPATIENT`
 - Clinical profile: `T2DM_PENDING_DURATION`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_2`
 - Error category: `f2_pending_decision_followup_missing`
@@ -211,7 +211,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `T2DM_INPATIENT`
 - Clinical profile: `T2DM_CONTROL`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: NO INTENTIONAL ERROR
 - NO INTENTIONAL ERROR
 - Seed: `20260923:1220:T2DM_INPATIENT:T2DM_CONTROL`
@@ -220,7 +220,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `CAP_INPATIENT`
 - Clinical profile: `CAP_TYPICAL_COUGH`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_1`
 - Error category: `f1_frequency_mismatch`
@@ -231,7 +231,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `CAP_INPATIENT`
 - Clinical profile: `CAP_DYSPNEA_WHEEZE`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_1`
 - Error category: `f1_dose_mismatch`
@@ -242,7 +242,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `CAP_INPATIENT`
 - Clinical profile: `CAP_INPATIENT_ANTIBIOTIC`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_2`
 - Error category: `f2_held_med_no_restart_plan`
@@ -253,7 +253,7 @@ Batch: `CLINIPROOF_BALANCED_V3`
 
 - Scenario: `CAP_INPATIENT`
 - Clinical profile: `CAP_HOME_TRANSITION`
-- Generation strategy: `randomized_template`
+- Generation strategy: `balanced_structured`
 - Status: error_bearing
 - Error family: `family_2`
 - Error category: `f2_insufficient_supply`

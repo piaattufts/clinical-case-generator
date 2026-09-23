@@ -175,6 +175,61 @@ def test_dosage_form_and_dose_representation_agree() -> None:
     assert not dose_compatible_with_form("1 tablet", inhaler)
 
 
+def test_oral_capsule_does_not_use_tablet_dose() -> None:
+    capsule = RefMedication(
+        rxcui="TEST_AZITH",
+        concept_name="azithromycin 250 MG Oral Capsule",
+        generic_name="azithromycin",
+        dose_form="Oral Capsule",
+        **build_provenance("RXNORM", "TEST_RXNORM_VERSION"),
+    )
+    dose = synthetic_dose_for(capsule)
+    assert "tablet" not in dose.casefold()
+    assert dose == "250 MG"
+    assert not dose_compatible_with_form("1 tablet", capsule)
+
+
+def test_enoxaparin_prefilled_syringe_is_subcutaneous() -> None:
+    med = RefMedication(
+        rxcui="TEST_ENOX",
+        concept_name="0.3 ML enoxaparin sodium 100 MG/ML Prefilled Syringe",
+        generic_name="enoxaparin",
+        ingredient="enoxaparin",
+        dose_form="Prefilled Syringe",
+        **build_provenance("RXNORM", "TEST_RXNORM_VERSION"),
+    )
+    assert inferred_route(med, "enoxaparin") == "subcutaneous"
+    assert route_compatible_with_form("subcutaneous", med)
+    assert not route_compatible_with_form("oral", med)
+
+
+def test_transplant_cmv_profiles_include_valganciclovir() -> None:
+    archetypes = {item.code: item for item in load_seed_archetypes()}
+    for profile in archetypes["TRANSPLANT_CMV"].profiles:
+        queries = " ".join(profile.medication_required_queries).casefold()
+        assert "valganciclovir" in queries, profile.code
+        blob = json.dumps(profile.consults).casefold()
+        if "antiviral" in blob:
+            assert "valganciclovir" in queries
+
+
+def test_gi_bleed_lab_pattern_covers_all_bleed_profiles() -> None:
+    from app.services.generation import ClinicalProfile, _lab_pattern_for
+
+    for code, course in (
+        ("GI_BLEED_PPI_HOSPITAL_ONLY", "gi_bleed_observed_stabilization"),
+        ("GI_BLEED_PENDING_AC_DECISION", "pending_endoscopy_decision"),
+        ("GI_BLEED_AC_HELD_RESTART", "gi_bleed_held_ac_stable"),
+        ("POSTOP_WARFARIN_MONITORING", "postop_anticoag_resume"),
+    ):
+        profile = ClinicalProfile(
+            code=code,
+            hospital_course_pattern=course,
+            admission_reason="Admitted for gastrointestinal bleeding.",
+        )
+        assert _lab_pattern_for(profile) == "bleed", code
+
+
 def test_resident_leak_phrases_are_detected() -> None:
     blob = "The clean case documents a planted error from the seed document."
     hits = resident_leak_hits(blob)
@@ -334,6 +389,24 @@ def test_opat_monitoring_is_specified_on_clean_profiles() -> None:
     assert opat.devices
 
 
+def test_held_restart_narratives_do_not_claim_a_completed_plan() -> None:
+    archetypes = {item.code: item for item in load_seed_archetypes()}
+    for code in ("HF_DECOMPENSATION", "TRANSPLANT_CMV", "GI_BLEED_ACUTE_CHANGE"):
+        for profile in archetypes[code].profiles:
+            if "f2_held_med_no_restart_plan" not in profile.allowed_error_categories:
+                continue
+            blob = " ".join(
+                [
+                    profile.context_note,
+                    profile.admission_reason,
+                    profile.hold_reason or "",
+                ]
+            ).casefold()
+            assert "documented restart plan" not in blob, profile.code
+            assert "documented plan to reassess restart" not in blob, profile.code
+            assert "explicit plan to reassess restart" not in blob, profile.code
+
+
 def test_hold_reason_is_profile_specific() -> None:
     archetypes = {item.code: item for item in load_seed_archetypes()}
     hf = next(
@@ -478,6 +551,11 @@ def test_lab_pattern_is_profile_specific() -> None:
     assert _lab_pattern_for(aki) == "aki"
     bleed = ClinicalProfile(code="bleed", hospital_course_pattern="gi_bleed_held_ac_stable")
     assert _lab_pattern_for(bleed) == "bleed"
+    ppi = ClinicalProfile(
+        code="GI_BLEED_PPI_HOSPITAL_ONLY",
+        hospital_course_pattern="gi_bleed_observed_stabilization",
+    )
+    assert _lab_pattern_for(ppi) == "bleed"
     glycemic = ClinicalProfile(
         code="dm", hospital_course_pattern="glycemic_stabilization", vital_pattern="glycemic"
     )

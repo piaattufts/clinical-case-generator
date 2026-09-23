@@ -31,7 +31,7 @@ The following overview lists the demographic and admission facts stored for this
 
 - **Age:** 76
 - **Sex/gender:** Female
-- **Weight:** 84.000 kg
+- **Weight:** 70.000 kg
 - **Clinical setting/specialty:** cardiology
 - **Admission diagnosis:** Acute systolic (congestive) heart failure
 - **Disposition:** home
@@ -75,7 +75,9 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
-On hospital day 3, intake was 1581 mL and output was 2034 mL (net -453 mL).
+The hospital course focused on diuresis over several inpatient days. Intake and output were recorded, and congestion improved enough for discharge.
+
+On hospital day 3, intake was 1466 mL and output was 1964 mL (net -498 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
@@ -99,8 +101,8 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.6 | mg/dL |
-| Natriuretic peptide B [Mass/volume] in Serum or Plasma (admission) | 1321.0 | pg/mL |
+| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.3 | mg/dL |
+| Natriuretic peptide B [Mass/volume] in Serum or Plasma (admission) | 1128.0 | pg/mL |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.2 | mmol/L |
 
 ## Discharge / most recent status
@@ -110,18 +112,18 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 127/85 | mmHg |
-| discharge: Heart rate | 102 | beats/min |
-| discharge: Respiratory rate | 23 | breaths/min |
-| discharge: SpO2 | 97.00 | % |
+| discharge: Blood pressure | 119/81 | mmHg |
+| discharge: Heart rate | 77 | beats/min |
+| discharge: Respiratory rate | 17 | breaths/min |
+| discharge: SpO2 | 98.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (discharge) | 1.2 | mg/dL |
-| Natriuretic peptide B [Mass/volume] in Serum or Plasma (discharge) | 352.0 | pg/mL |
-| Potassium [Moles/volume] in Serum or Plasma (discharge) | 4.1 | mmol/L |
+| Creatinine [Mass/volume] in Serum or Plasma (discharge) | 0.9 | mg/dL |
+| Natriuretic peptide B [Mass/volume] in Serum or Plasma (discharge) | 356.0 | pg/mL |
+| Potassium [Moles/volume] in Serum or Plasma (discharge) | 4.2 | mmol/L |
 
 Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
@@ -151,7 +153,7 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| lisinopril 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Essential (primary) hypertension |
+| furosemide 80 MG Oral Tablet | 80 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 | spironolactone 100 MG Oral Tablet | 100 MG | oral | once daily | indication: Acute systolic (congestive) heart failure |
 
 ## Medication reconciliation
@@ -188,16 +190,16 @@ Social context:
 
 Serial weights:
 
-- admission: 84.000 kg
-- discharge: 81.000 kg (dry weight 79.000 kg)
+- admission: 70.000 kg
+- discharge: 67.000 kg (dry weight 65.000 kg)
 
 Imaging:
 
-{'study_id': 'STUDY-VAL501-001', 'case_id': 'VAL-501', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'Pulmonary edema without focal consolidation.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: Pulmonary edema without focal consolidation.)
 
 Consultations:
 
-{'consult_id': 'CON-VAL501-001', 'case_id': 'VAL-501', 'service': 'cardiology', 'timepoint': 'inpatient', 'assessment': 'Inpatient cardiology recommendations were recorded.', 'recommendation': 'Continue the intended heart-failure and diuretic plan.', 'source_reference': None}
+- cardiology (timepoint: inpatient; assessment: Inpatient cardiology recommendations were recorded.; recommendation: Continue the intended heart-failure and diuretic plan.)
 
 ## About the case data
 
@@ -221,7 +223,7 @@ Medication omitted at discharge
 
 **Medication(s) involved:**
 
-- furosemide 80 MG Oral Tablet (rxcui=197732)
+- lisinopril 40 MG Oral Tablet (rxcui=197884)
 
 **What should have occurred clinically:**
 
@@ -387,6 +389,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+Symptoms improved after inpatient treatment. The patient was observed until discharge readiness was documented.
+
 On hospital day 4, intake was 1556 mL and output was 2791 mL (net -1235 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
@@ -400,10 +404,10 @@ The following table lists admission vital signs stored on the case. These number
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | admission: Temperature | 36.80 | °C |
-| admission: Blood pressure | 156/80 | mmHg |
-| admission: Heart rate | 89 | beats/min |
-| admission: Respiratory rate | 20 | breaths/min |
-| admission: SpO2 | 95.00 | % |
+| admission: Blood pressure | 137/80 | mmHg |
+| admission: Heart rate | 76 | beats/min |
+| admission: Respiratory rate | 19 | breaths/min |
+| admission: SpO2 | 96.00 | % |
 
 ### Laboratory results
 
@@ -411,7 +415,7 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (admission) | 2.0 | mg/dL |
+| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.1 | mg/dL |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.5 | mmol/L |
 
 ## Discharge / most recent status
@@ -421,10 +425,10 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 132/85 | mmHg |
-| discharge: Heart rate | 89 | beats/min |
-| discharge: Respiratory rate | 23 | breaths/min |
-| discharge: SpO2 | 97.00 | % |
+| discharge: Blood pressure | 127/71 | mmHg |
+| discharge: Heart rate | 79 | beats/min |
+| discharge: Respiratory rate | 16 | breaths/min |
+| discharge: SpO2 | 98.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
@@ -504,11 +508,11 @@ Serial weights:
 
 Imaging:
 
-{'study_id': 'STUDY-VAL502-001', 'case_id': 'VAL-502', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'Improving pulmonary edema compared with admission.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: Improving pulmonary edema compared with admission.)
 
 Consultations:
 
-{'consult_id': 'CON-VAL502-001', 'case_id': 'VAL-502', 'service': 'cardiology', 'timepoint': 'inpatient', 'assessment': 'Inpatient cardiology recommendations were recorded.', 'recommendation': 'Continue the intended heart-failure and diuretic plan.', 'source_reference': None}
+- cardiology (timepoint: inpatient; assessment: Inpatient cardiology recommendations were recorded.; recommendation: Continue the intended heart-failure and diuretic plan.)
 
 ## About the case data
 
@@ -655,7 +659,7 @@ The following overview lists the demographic and admission facts stored for this
 
 - **Age:** 72
 - **Sex/gender:** Female
-- **Weight:** 79.000 kg
+- **Weight:** 106.000 kg
 - **Clinical setting/specialty:** cardiology
 - **Admission diagnosis:** Acute systolic (congestive) heart failure
 - **Disposition:** home
@@ -699,7 +703,9 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
-On hospital day 2, intake was 1557 mL and output was 2378 mL (net -821 mL).
+Heart rate was observed and treated during the stay. The patient was discharged once rate control was clinically acceptable.
+
+On hospital day 2, intake was 1286 mL and output was 2625 mL (net -1339 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
@@ -723,9 +729,9 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.8 | mg/dL |
-| INR in Platelet poor plasma or blood by Coagulation assay (admission) | 3.1 | {INR} |
-| Potassium [Moles/volume] in Serum or Plasma (admission) | 3.2 | mmol/L |
+| Creatinine [Mass/volume] in Serum or Plasma (admission) | 0.9 | mg/dL |
+| INR in Platelet poor plasma or blood by Coagulation assay (admission) | 2.3 | {INR} |
+| Potassium [Moles/volume] in Serum or Plasma (admission) | 4.0 | mmol/L |
 
 ## Discharge / most recent status
 
@@ -734,18 +740,18 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 123/77 | mmHg |
-| discharge: Heart rate | 72 | beats/min |
-| discharge: Respiratory rate | 21 | breaths/min |
-| discharge: SpO2 | 94.00 | % |
+| discharge: Blood pressure | 115/73 | mmHg |
+| discharge: Heart rate | 84 | beats/min |
+| discharge: Respiratory rate | 14 | breaths/min |
+| discharge: SpO2 | 97.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (discharge) | 1.0 | mg/dL |
-| INR in Platelet poor plasma or blood by Coagulation assay (discharge) | 2.5 | {INR} |
-| Potassium [Moles/volume] in Serum or Plasma (discharge) | 4.1 | mmol/L |
+| Creatinine [Mass/volume] in Serum or Plasma (discharge) | 1.1 | mg/dL |
+| INR in Platelet poor plasma or blood by Coagulation assay (discharge) | 2.0 | {INR} |
+| Potassium [Moles/volume] in Serum or Plasma (discharge) | 3.7 | mmol/L |
 
 Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
@@ -813,16 +819,16 @@ Social context:
 
 Serial weights:
 
-- admission: 79.000 kg
-- discharge: 76.000 kg (dry weight 71.000 kg)
+- admission: 106.000 kg
+- discharge: 102.000 kg (dry weight 100.000 kg)
 
 Imaging:
 
-{'study_id': 'STUDY-VAL503-001', 'case_id': 'VAL-503', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'Cardiomegaly without focal pneumonia.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: Cardiomegaly without focal pneumonia.)
 
 Consultations:
 
-{'consult_id': 'CON-VAL503-001', 'case_id': 'VAL-503', 'service': 'cardiology', 'timepoint': 'inpatient', 'assessment': 'Inpatient cardiology recommendations were recorded.', 'recommendation': 'Continue the intended heart-failure and diuretic plan.', 'source_reference': None}
+- cardiology (timepoint: inpatient; assessment: Inpatient cardiology recommendations were recorded.; recommendation: Continue the intended heart-failure and diuretic plan.)
 
 ## About the case data
 
@@ -1012,6 +1018,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
+
 On hospital day 3, intake was 1427 mL and output was 2651 mL (net -1224 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
@@ -1025,9 +1033,9 @@ The following table lists admission vital signs stored on the case. These number
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | admission: Temperature | 36.80 | °C |
-| admission: Blood pressure | 134/77 | mmHg |
-| admission: Heart rate | 108 | beats/min |
-| admission: Respiratory rate | 23 | breaths/min |
+| admission: Blood pressure | 126/77 | mmHg |
+| admission: Heart rate | 86 | beats/min |
+| admission: Respiratory rate | 17 | breaths/min |
 | admission: SpO2 | 96.00 | % |
 
 ### Laboratory results
@@ -1036,9 +1044,9 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.0 | mg/dL |
-| Natriuretic peptide B [Mass/volume] in Serum or Plasma (admission) | 426.0 | pg/mL |
-| Potassium [Moles/volume] in Serum or Plasma (admission) | 3.3 | mmol/L |
+| Creatinine [Mass/volume] in Serum or Plasma (admission) | 0.9 | mg/dL |
+| Natriuretic peptide B [Mass/volume] in Serum or Plasma (admission) | 1001.0 | pg/mL |
+| Potassium [Moles/volume] in Serum or Plasma (admission) | 4.6 | mmol/L |
 
 ## Discharge / most recent status
 
@@ -1047,16 +1055,16 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 146/96 | mmHg |
-| discharge: Heart rate | 76 | beats/min |
-| discharge: Respiratory rate | 22 | breaths/min |
-| discharge: SpO2 | 96.00 | % |
+| discharge: Blood pressure | 138/66 | mmHg |
+| discharge: Heart rate | 74 | beats/min |
+| discharge: Respiratory rate | 20 | breaths/min |
+| discharge: SpO2 | 97.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (discharge) | 1.2 | mg/dL |
+| Creatinine [Mass/volume] in Serum or Plasma (discharge) | 0.8 | mg/dL |
 | Natriuretic peptide B [Mass/volume] in Serum or Plasma (discharge) | 300.0 | pg/mL |
 | Potassium [Moles/volume] in Serum or Plasma (discharge) | 4.6 | mmol/L |
 
@@ -1134,11 +1142,11 @@ Serial weights:
 
 Imaging:
 
-{'study_id': 'STUDY-VAL504-001', 'case_id': 'VAL-504', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'Mild pulmonary congestion.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: Mild pulmonary congestion.)
 
 Consultations:
 
-{'consult_id': 'CON-VAL504-001', 'case_id': 'VAL-504', 'service': 'cardiology', 'timepoint': 'inpatient', 'assessment': 'Inpatient cardiology recommendations were recorded.', 'recommendation': 'Continue the intended heart-failure and diuretic plan.', 'source_reference': None}
+- cardiology (timepoint: inpatient; assessment: Inpatient cardiology recommendations were recorded.; recommendation: Continue the intended heart-failure and diuretic plan.)
 
 ## About the case data
 
@@ -1329,6 +1337,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+The inpatient stay was brief. Symptoms and vital signs were observed, and the patient was judged ready for discharge home.
+
 On hospital day 1, intake was 1584 mL and output was 2747 mL (net -1163 mL).
 
 The planned disposition is home. Discharge readiness is recorded as ready. Home health ordered: Yes.
@@ -1342,10 +1352,10 @@ The following table lists admission vital signs stored on the case. These number
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | admission: Temperature | 36.80 | °C |
-| admission: Blood pressure | 142/92 | mmHg |
-| admission: Heart rate | 102 | beats/min |
-| admission: Respiratory rate | 19 | breaths/min |
-| admission: SpO2 | 96.00 | % |
+| admission: Blood pressure | 147/80 | mmHg |
+| admission: Heart rate | 92 | beats/min |
+| admission: Respiratory rate | 17 | breaths/min |
+| admission: SpO2 | 95.00 | % |
 
 ### Laboratory results
 
@@ -1353,7 +1363,7 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (admission) | 2.1 | mg/dL |
+| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.3 | mg/dL |
 | Natriuretic peptide B [Mass/volume] in Serum or Plasma (admission) | 1019.0 | pg/mL |
 
 ## Discharge / most recent status
@@ -1363,10 +1373,10 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 129/69 | mmHg |
-| discharge: Heart rate | 106 | beats/min |
-| discharge: Respiratory rate | 16 | breaths/min |
-| discharge: SpO2 | 93.00 | % |
+| discharge: Blood pressure | 132/69 | mmHg |
+| discharge: Heart rate | 63 | beats/min |
+| discharge: Respiratory rate | 18 | breaths/min |
+| discharge: SpO2 | 95.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
@@ -1449,11 +1459,11 @@ Serial weights:
 
 Imaging:
 
-{'study_id': 'STUDY-VAL505-001', 'case_id': 'VAL-505', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'Improving congestion.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: Improving congestion.)
 
 Consultations:
 
-{'consult_id': 'CON-VAL505-001', 'case_id': 'VAL-505', 'service': 'cardiology', 'timepoint': 'inpatient', 'assessment': 'Inpatient cardiology recommendations were recorded.', 'recommendation': 'Continue the intended heart-failure and diuretic plan.', 'source_reference': None}
+- cardiology (timepoint: inpatient; assessment: Inpatient cardiology recommendations were recorded.; recommendation: Continue the intended heart-failure and diuretic plan.)
 
 ## About the case data
 
@@ -1588,7 +1598,7 @@ The following overview lists the demographic and admission facts stored for this
 
 - **Age:** 77
 - **Sex/gender:** Male
-- **Weight:** 90.000 kg
+- **Weight:** 88.000 kg
 - **Clinical setting/specialty:** cardiology
 - **Admission diagnosis:** Paroxysmal atrial fibrillation
 - **Disposition:** home
@@ -1632,6 +1642,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+Heart rate was observed and treated during the stay. The patient was discharged once rate control was clinically acceptable.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Admission status
@@ -1654,7 +1666,7 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.7 | mg/dL |
+| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.2 | mg/dL |
 
 ## Discharge / most recent status
 
@@ -1663,16 +1675,16 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 146/73 | mmHg |
-| discharge: Heart rate | 104 | beats/min |
-| discharge: Respiratory rate | 19 | breaths/min |
-| discharge: SpO2 | 92.00 | % |
+| discharge: Blood pressure | 138/69 | mmHg |
+| discharge: Heart rate | 78 | beats/min |
+| discharge: Respiratory rate | 15 | breaths/min |
+| discharge: SpO2 | 95.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (discharge) | 0.9 | mg/dL |
+| Creatinine [Mass/volume] in Serum or Plasma (discharge) | 1.1 | mg/dL |
 
 Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
@@ -1700,7 +1712,7 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| apixaban 2.5 MG Oral Tablet | 2.5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
+| metoprolol tartrate 37.5 MG Oral Tablet | 37.5 MG | oral | once daily | indication: Paroxysmal atrial fibrillation |
 
 ## Medication reconciliation
 
@@ -1736,15 +1748,15 @@ Social context:
 
 Serial weights:
 
-- admission: 90.000 kg
+- admission: 88.000 kg
 
 Imaging:
 
-{'study_id': 'STUDY-VAL506-001', 'case_id': 'VAL-506', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'No acute pulmonary edema.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: No acute pulmonary edema.)
 
 Consultations:
 
-{'consult_id': 'CON-VAL506-001', 'case_id': 'VAL-506', 'service': 'cardiology', 'timepoint': 'inpatient', 'assessment': 'Inpatient cardiology recommendations were recorded.', 'recommendation': 'Continue rate control and the planned anticoagulation.', 'source_reference': None}
+- cardiology (timepoint: inpatient; assessment: Inpatient cardiology recommendations were recorded.; recommendation: Continue rate control and the planned anticoagulation.)
 
 ## About the case data
 
@@ -1768,7 +1780,7 @@ Medication omitted at discharge
 
 **Medication(s) involved:**
 
-- metoprolol tartrate 37.5 MG Oral Tablet (rxcui=1606347)
+- apixaban 2.5 MG Oral Tablet (rxcui=1364435)
 
 **What should have occurred clinically:**
 
@@ -1932,6 +1944,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+The patient was observed until vital signs and symptoms stabilized enough for discharge.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Admission status
@@ -1964,10 +1978,10 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 121/76 | mmHg |
-| discharge: Heart rate | 108 | beats/min |
+| discharge: Blood pressure | 113/72 | mmHg |
+| discharge: Heart rate | 82 | beats/min |
 | discharge: Respiratory rate | 18 | breaths/min |
-| discharge: SpO2 | 94.00 | % |
+| discharge: SpO2 | 96.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
@@ -2043,11 +2057,11 @@ Serial weights:
 
 Imaging:
 
-{'study_id': 'STUDY-VAL507-001', 'case_id': 'VAL-507', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'No acute infiltrate.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: No acute infiltrate.)
 
 Consultations:
 
-{'consult_id': 'CON-VAL507-001', 'case_id': 'VAL-507', 'service': 'cardiology', 'timepoint': 'inpatient', 'assessment': 'Inpatient cardiology recommendations were recorded.', 'recommendation': 'Continue rate control and the planned anticoagulation.', 'source_reference': None}
+- cardiology (timepoint: inpatient; assessment: Inpatient cardiology recommendations were recorded.; recommendation: Continue rate control and the planned anticoagulation.)
 
 ## About the case data
 
@@ -2193,7 +2207,7 @@ The following overview lists the demographic and admission facts stored for this
 
 - **Age:** 88
 - **Sex/gender:** Male
-- **Weight:** 79.000 kg
+- **Weight:** 103.000 kg
 - **Clinical setting/specialty:** cardiology
 - **Admission diagnosis:** Paroxysmal atrial fibrillation
 - **Disposition:** home
@@ -2237,6 +2251,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+Symptoms improved after inpatient treatment. The patient was observed until discharge readiness was documented.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Admission status
@@ -2248,10 +2264,10 @@ The following table lists admission vital signs stored on the case. These number
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | admission: Temperature | 36.80 | °C |
-| admission: Blood pressure | 141/68 | mmHg |
+| admission: Blood pressure | 129/68 | mmHg |
 | admission: Heart rate | 91 | beats/min |
-| admission: Respiratory rate | 23 | breaths/min |
-| admission: SpO2 | 94.00 | % |
+| admission: Respiratory rate | 16 | breaths/min |
+| admission: SpO2 | 97.00 | % |
 
 ### Laboratory results
 
@@ -2259,7 +2275,7 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.8 | mg/dL |
+| Creatinine [Mass/volume] in Serum or Plasma (admission) | 0.9 | mg/dL |
 
 ## Discharge / most recent status
 
@@ -2268,10 +2284,10 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 122/82 | mmHg |
-| discharge: Heart rate | 105 | beats/min |
-| discharge: Respiratory rate | 19 | breaths/min |
-| discharge: SpO2 | 91.00 | % |
+| discharge: Blood pressure | 124/66 | mmHg |
+| discharge: Heart rate | 76 | beats/min |
+| discharge: Respiratory rate | 20 | breaths/min |
+| discharge: SpO2 | 99.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
@@ -2345,15 +2361,15 @@ Social context:
 
 Serial weights:
 
-- admission: 79.000 kg
+- admission: 103.000 kg
 
 Imaging:
 
-{'study_id': 'STUDY-VAL508-001', 'case_id': 'VAL-508', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'No acute cardiopulmonary process.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: No acute cardiopulmonary process.)
 
 Consultations:
 
-{'consult_id': 'CON-VAL508-001', 'case_id': 'VAL-508', 'service': 'cardiology', 'timepoint': 'inpatient', 'assessment': 'Inpatient cardiology recommendations were recorded.', 'recommendation': 'Continue rate control and the planned anticoagulation.', 'source_reference': None}
+- cardiology (timepoint: inpatient; assessment: Inpatient cardiology recommendations were recorded.; recommendation: Continue rate control and the planned anticoagulation.)
 
 ## About the case data
 
@@ -2499,7 +2515,7 @@ The following overview lists the demographic and admission facts stored for this
 
 - **Age:** 66
 - **Sex/gender:** Female
-- **Weight:** 67.000 kg
+- **Weight:** 84.000 kg
 - **Clinical setting/specialty:** cardiology
 - **Admission diagnosis:** Paroxysmal atrial fibrillation
 - **Disposition:** home
@@ -2513,11 +2529,11 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Dyspnea, Chest pain, Fatigue
 - **Symptom duration:** one week
 - **Symptom course:** progressive
-- **History of present illness:** A 66-year-old Female is admitted with Paroxysmal atrial fibrillation. Presenting symptoms include Dyspnea, Chest pain, Fatigue, present for one week and progressive. Home medications include apixaban 2.5 MG Oral Tablet, atorvastatin 80 MG Oral Tablet. carvedilol 6.25 MG Oral Tablet, ibuprofen 300 MG Oral Tablet was held on admission and is not intended for discharge continuation. Admitted for symptomatic atrial fibrillation with chest discomfort. Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
+- **History of present illness:** A 66-year-old Female is admitted with Paroxysmal atrial fibrillation. Presenting symptoms include Dyspnea, Chest pain, Fatigue, present for one week and progressive. Home medications include apixaban 2.5 MG Oral Tablet, atorvastatin 80 MG Oral Tablet. carvedilol 6.25 MG Oral Tablet was held during the admission (Held inpatient for documented hypotension during rate control; intended to restart.). ibuprofen 300 MG Oral Tablet was discontinued and is not intended at discharge. Admitted for symptomatic atrial fibrillation with chest discomfort. Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
 
 ### Admission note
 
-Admission note for a 66-year-old Female with Paroxysmal atrial fibrillation. Symptoms: Dyspnea, Chest pain, Fatigue for one week (progressive). Medications continued from home: apixaban 2.5 MG Oral Tablet, atorvastatin 80 MG Oral Tablet. carvedilol 6.25 MG Oral Tablet, ibuprofen 300 MG Oral Tablet was held on admission and is not intended for discharge continuation. Admitted for symptomatic atrial fibrillation with chest discomfort. Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
+Admission note for a 66-year-old Female with Paroxysmal atrial fibrillation. Symptoms: Dyspnea, Chest pain, Fatigue for one week (progressive). Medications continued from home: apixaban 2.5 MG Oral Tablet, atorvastatin 80 MG Oral Tablet. carvedilol 6.25 MG Oral Tablet was held during the admission (Held inpatient for documented hypotension during rate control; intended to restart.). ibuprofen 300 MG Oral Tablet was discontinued and is not intended at discharge. Admitted for symptomatic atrial fibrillation with chest discomfort. Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
 
 Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
 
@@ -2543,6 +2559,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+Home therapy was reviewed and adjusted during the stay. The discharge list reflects the intended outpatient regimen.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Admission status
@@ -2565,7 +2583,7 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (admission) | 2.1 | mg/dL |
+| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.3 | mg/dL |
 
 ## Discharge / most recent status
 
@@ -2574,16 +2592,16 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 135/91 | mmHg |
-| discharge: Heart rate | 106 | beats/min |
-| discharge: Respiratory rate | 18 | breaths/min |
-| discharge: SpO2 | 93.00 | % |
+| discharge: Blood pressure | 127/81 | mmHg |
+| discharge: Heart rate | 67 | beats/min |
+| discharge: Respiratory rate | 15 | breaths/min |
+| discharge: SpO2 | 95.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (discharge) | 1.4 | mg/dL |
+| Creatinine [Mass/volume] in Serum or Plasma (discharge) | 1.2 | mg/dL |
 
 Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
@@ -2654,15 +2672,15 @@ Social context:
 
 Serial weights:
 
-- admission: 67.000 kg
+- admission: 84.000 kg
 
 Imaging:
 
-{'study_id': 'STUDY-VAL509-001', 'case_id': 'VAL-509', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'No acute pulmonary edema.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: No acute pulmonary edema.)
 
 Consultations:
 
-{'consult_id': 'CON-VAL509-001', 'case_id': 'VAL-509', 'service': 'cardiology', 'timepoint': 'inpatient', 'assessment': 'Inpatient cardiology recommendations were recorded.', 'recommendation': 'Continue rate control and the planned anticoagulation.', 'source_reference': None}
+- cardiology (timepoint: inpatient; assessment: Inpatient cardiology recommendations were recorded.; recommendation: Continue rate control and the planned anticoagulation.)
 
 ## About the case data
 
@@ -2808,7 +2826,7 @@ The following overview lists the demographic and admission facts stored for this
 
 - **Age:** 83
 - **Sex/gender:** Female
-- **Weight:** 67.000 kg
+- **Weight:** 93.000 kg
 - **Clinical setting/specialty:** cardiology
 - **Admission diagnosis:** Paroxysmal atrial fibrillation
 - **Disposition:** home
@@ -2852,6 +2870,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+The inpatient stay was brief. Symptoms and vital signs were observed, and the patient was judged ready for discharge home.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Admission status
@@ -2863,10 +2883,10 @@ The following table lists admission vital signs stored on the case. These number
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | admission: Temperature | 36.80 | °C |
-| admission: Blood pressure | 158/84 | mmHg |
-| admission: Heart rate | 110 | beats/min |
-| admission: Respiratory rate | 23 | breaths/min |
-| admission: SpO2 | 92.00 | % |
+| admission: Blood pressure | 138/84 | mmHg |
+| admission: Heart rate | 89 | beats/min |
+| admission: Respiratory rate | 18 | breaths/min |
+| admission: SpO2 | 98.00 | % |
 
 ### Laboratory results
 
@@ -2875,7 +2895,7 @@ The following table lists admission laboratory tests stored on the case. The tes
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.3 | mg/dL |
-| INR in Platelet poor plasma or blood by Coagulation assay (admission) | 2.1 | {INR} |
+| INR in Platelet poor plasma or blood by Coagulation assay (admission) | 2.9 | {INR} |
 
 ## Discharge / most recent status
 
@@ -2884,17 +2904,17 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 150/78 | mmHg |
-| discharge: Heart rate | 77 | beats/min |
-| discharge: Respiratory rate | 21 | breaths/min |
-| discharge: SpO2 | 92.00 | % |
+| discharge: Blood pressure | 138/81 | mmHg |
+| discharge: Heart rate | 64 | beats/min |
+| discharge: Respiratory rate | 18 | breaths/min |
+| discharge: SpO2 | 97.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (discharge) | 0.8 | mg/dL |
-| INR in Platelet poor plasma or blood by Coagulation assay (discharge) | 2.7 | {INR} |
+| Creatinine [Mass/volume] in Serum or Plasma (discharge) | 1.0 | mg/dL |
+| INR in Platelet poor plasma or blood by Coagulation assay (discharge) | 3.0 | {INR} |
 
 Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
@@ -2962,15 +2982,15 @@ Social context:
 
 Serial weights:
 
-- admission: 67.000 kg
+- admission: 93.000 kg
 
 Imaging:
 
-{'study_id': 'STUDY-VAL510-001', 'case_id': 'VAL-510', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'No acute infiltrate.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: No acute infiltrate.)
 
 Consultations:
 
-{'consult_id': 'CON-VAL510-001', 'case_id': 'VAL-510', 'service': 'cardiology', 'timepoint': 'inpatient', 'assessment': 'Inpatient cardiology recommendations were recorded.', 'recommendation': 'Continue rate control and the planned anticoagulation.', 'source_reference': None}
+- cardiology (timepoint: inpatient; assessment: Inpatient cardiology recommendations were recorded.; recommendation: Continue rate control and the planned anticoagulation.)
 
 ## About the case data
 
@@ -3105,7 +3125,7 @@ The following overview lists the demographic and admission facts stored for this
 
 - **Age:** 67
 - **Sex/gender:** Female
-- **Weight:** 64.000 kg
+- **Weight:** 75.000 kg
 - **Clinical setting/specialty:** general medicine
 - **Admission diagnosis:** Essential (primary) hypertension
 - **Disposition:** home
@@ -3119,11 +3139,11 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Fatigue, Chest pain
 - **Symptom duration:** one day
 - **Symptom course:** persistent
-- **History of present illness:** A 67-year-old Female is admitted with Essential (primary) hypertension. Presenting symptoms include Fatigue, Chest pain, present for one day and persistent. Home medications include amlodipine 5 MG Oral Tablet, lisinopril 40 MG Oral Tablet. ibuprofen 300 MG Oral Tablet was held on admission and is not intended for discharge continuation. Admitted for symptomatic hypertensive urgency with chest pain, observed for end-organ symptoms. Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+- **History of present illness:** A 67-year-old Female is admitted with Essential (primary) hypertension. Presenting symptoms include Fatigue, Chest pain, present for one day and persistent. Home medications include amlodipine 5 MG Oral Tablet, lisinopril 40 MG Oral Tablet. ibuprofen 300 MG Oral Tablet was discontinued and is not intended at discharge. Admitted for symptomatic hypertensive urgency with chest pain, observed for end-organ symptoms. Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
 
 ### Admission note
 
-Admission note for a 67-year-old Female with Essential (primary) hypertension. Symptoms: Fatigue, Chest pain for one day (persistent). Medications continued from home: amlodipine 5 MG Oral Tablet, lisinopril 40 MG Oral Tablet. ibuprofen 300 MG Oral Tablet was held on admission and is not intended for discharge continuation. Admitted for symptomatic hypertensive urgency with chest pain, observed for end-organ symptoms. Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+Admission note for a 67-year-old Female with Essential (primary) hypertension. Symptoms: Fatigue, Chest pain for one day (persistent). Medications continued from home: amlodipine 5 MG Oral Tablet, lisinopril 40 MG Oral Tablet. ibuprofen 300 MG Oral Tablet was discontinued and is not intended at discharge. Admitted for symptomatic hypertensive urgency with chest pain, observed for end-organ symptoms. Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
 
 Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
 
@@ -3147,6 +3167,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Admission status
@@ -3169,8 +3191,8 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.8 | mg/dL |
-| Potassium [Moles/volume] in Serum or Plasma (admission) | 3.7 | mmol/L |
+| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.0 | mg/dL |
+| Potassium [Moles/volume] in Serum or Plasma (admission) | 4.8 | mmol/L |
 
 ## Discharge / most recent status
 
@@ -3179,17 +3201,17 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 142/80 | mmHg |
-| discharge: Heart rate | 74 | beats/min |
-| discharge: Respiratory rate | 21 | breaths/min |
-| discharge: SpO2 | 91.00 | % |
+| discharge: Blood pressure | 134/76 | mmHg |
+| discharge: Heart rate | 82 | beats/min |
+| discharge: Respiratory rate | 20 | breaths/min |
+| discharge: SpO2 | 95.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Mass/volume] in Serum or Plasma (discharge) | 1.2 | mg/dL |
-| Potassium [Moles/volume] in Serum or Plasma (discharge) | 3.9 | mmol/L |
+| Potassium [Moles/volume] in Serum or Plasma (discharge) | 4.2 | mmol/L |
 
 Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
@@ -3258,15 +3280,15 @@ Social context:
 
 Serial weights:
 
-- admission: 64.000 kg
+- admission: 75.000 kg
 
 Imaging:
 
-{'study_id': 'STUDY-VAL511-001', 'case_id': 'VAL-511', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'No acute pulmonary edema or focal consolidation.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: No acute pulmonary edema or focal consolidation.)
 
 Consultations:
 
-{'consult_id': 'CON-VAL511-001', 'case_id': 'VAL-511', 'service': 'cardiology', 'timepoint': 'inpatient', 'assessment': 'No ST-elevation pattern was documented.', 'recommendation': 'Continue observed antihypertensive therapy after end-organ evaluation.', 'source_reference': None}
+- cardiology (timepoint: inpatient; assessment: No ST-elevation pattern was documented.; recommendation: Continue observed antihypertensive therapy after end-organ evaluation.)
 
 ## About the case data
 
@@ -3412,7 +3434,7 @@ The following overview lists the demographic and admission facts stored for this
 
 - **Age:** 70
 - **Sex/gender:** Male
-- **Weight:** 78.000 kg
+- **Weight:** 77.000 kg
 - **Clinical setting/specialty:** general medicine
 - **Admission diagnosis:** Essential (primary) hypertension
 - **Disposition:** home
@@ -3454,6 +3476,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Admission status
@@ -3476,8 +3500,8 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.1 | mg/dL |
-| Potassium [Moles/volume] in Serum or Plasma (admission) | 4.3 | mmol/L |
+| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.0 | mg/dL |
+| Potassium [Moles/volume] in Serum or Plasma (admission) | 3.8 | mmol/L |
 | Sodium [Moles/volume] in Serum or Plasma (admission) | 140.0 | mmol/L |
 
 ## Discharge / most recent status
@@ -3487,18 +3511,18 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 152/72 | mmHg |
-| discharge: Heart rate | 110 | beats/min |
-| discharge: Respiratory rate | 17 | breaths/min |
-| discharge: SpO2 | 91.00 | % |
+| discharge: Blood pressure | 118/83 | mmHg |
+| discharge: Heart rate | 64 | beats/min |
+| discharge: Respiratory rate | 14 | breaths/min |
+| discharge: SpO2 | 96.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Mass/volume] in Serum or Plasma (discharge) | 1.0 | mg/dL |
-| Potassium [Moles/volume] in Serum or Plasma (discharge) | 4.3 | mmol/L |
-| Sodium [Moles/volume] in Serum or Plasma (discharge) | 140.0 | mmol/L |
+| Potassium [Moles/volume] in Serum or Plasma (discharge) | 4.4 | mmol/L |
+| Sodium [Moles/volume] in Serum or Plasma (discharge) | 136.0 | mmol/L |
 
 Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
@@ -3563,11 +3587,11 @@ Social context:
 
 Serial weights:
 
-- admission: 78.000 kg
+- admission: 77.000 kg
 
 Imaging:
 
-{'study_id': 'STUDY-VAL512-001', 'case_id': 'VAL-512', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'No pulmonary edema.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: No pulmonary edema.)
 
 ## About the case data
 
@@ -3755,6 +3779,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+Symptoms improved after inpatient treatment. The patient was observed until discharge readiness was documented.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Admission status
@@ -3777,7 +3803,7 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (admission) | 2.1 | mg/dL |
+| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.0 | mg/dL |
 
 ## Discharge / most recent status
 
@@ -3786,10 +3812,10 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 142/90 | mmHg |
-| discharge: Heart rate | 105 | beats/min |
-| discharge: Respiratory rate | 23 | breaths/min |
-| discharge: SpO2 | 95.00 | % |
+| discharge: Blood pressure | 134/86 | mmHg |
+| discharge: Heart rate | 78 | beats/min |
+| discharge: Respiratory rate | 17 | breaths/min |
+| discharge: SpO2 | 99.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
@@ -3864,7 +3890,7 @@ Serial weights:
 
 Imaging:
 
-{'study_id': 'STUDY-VAL513-001', 'case_id': 'VAL-513', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'No acute cardiopulmonary process.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: No acute cardiopulmonary process.)
 
 ## About the case data
 
@@ -4010,7 +4036,7 @@ The following overview lists the demographic and admission facts stored for this
 
 - **Age:** 65
 - **Sex/gender:** Female
-- **Weight:** 82.000 kg
+- **Weight:** 91.000 kg
 - **Clinical setting/specialty:** general medicine
 - **Admission diagnosis:** Essential (primary) hypertension
 - **Disposition:** home
@@ -4052,6 +4078,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Admission status
@@ -4074,9 +4102,9 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.6 | mg/dL |
-| Potassium [Moles/volume] in Serum or Plasma (admission) | 3.8 | mmol/L |
-| Sodium [Moles/volume] in Serum or Plasma (admission) | 138.0 | mmol/L |
+| Creatinine [Mass/volume] in Serum or Plasma (admission) | 0.8 | mg/dL |
+| Potassium [Moles/volume] in Serum or Plasma (admission) | 3.9 | mmol/L |
+| Sodium [Moles/volume] in Serum or Plasma (admission) | 132.0 | mmol/L |
 
 ## Discharge / most recent status
 
@@ -4085,18 +4113,18 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 137/89 | mmHg |
-| discharge: Heart rate | 109 | beats/min |
-| discharge: Respiratory rate | 16 | breaths/min |
-| discharge: SpO2 | 95.00 | % |
+| discharge: Blood pressure | 129/85 | mmHg |
+| discharge: Heart rate | 80 | beats/min |
+| discharge: Respiratory rate | 20 | breaths/min |
+| discharge: SpO2 | 99.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (discharge) | 0.9 | mg/dL |
-| Potassium [Moles/volume] in Serum or Plasma (discharge) | 3.6 | mmol/L |
-| Sodium [Moles/volume] in Serum or Plasma (discharge) | 139.0 | mmol/L |
+| Creatinine [Mass/volume] in Serum or Plasma (discharge) | 1.2 | mg/dL |
+| Potassium [Moles/volume] in Serum or Plasma (discharge) | 4.2 | mmol/L |
+| Sodium [Moles/volume] in Serum or Plasma (discharge) | 138.0 | mmol/L |
 
 Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
@@ -4166,15 +4194,15 @@ Social context:
 
 Serial weights:
 
-- admission: 82.000 kg
+- admission: 91.000 kg
 
 Imaging:
 
-{'study_id': 'STUDY-VAL514-001', 'case_id': 'VAL-514', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'No pulmonary edema.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: No pulmonary edema.)
 
 Consultations:
 
-{'consult_id': 'CON-VAL514-001', 'case_id': 'VAL-514', 'service': 'cardiology', 'timepoint': 'inpatient', 'assessment': 'Inpatient cardiology recommendations were recorded.', 'recommendation': 'Continue observed antihypertensive therapy after end-organ evaluation.', 'source_reference': None}
+- cardiology (timepoint: inpatient; assessment: Inpatient cardiology recommendations were recorded.; recommendation: Continue observed antihypertensive therapy after end-organ evaluation.)
 
 ## About the case data
 
@@ -4362,6 +4390,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+Blood pressure was treated and observed in hospital. The discharge plan continues the selected antihypertensive regimen.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Admission status
@@ -4384,7 +4414,7 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (admission) | 2.0 | mg/dL |
+| Creatinine [Mass/volume] in Serum or Plasma (admission) | 0.8 | mg/dL |
 | Potassium [Moles/volume] in Serum or Plasma (admission) | 4.4 | mmol/L |
 
 ## Discharge / most recent status
@@ -4394,10 +4424,10 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 122/80 | mmHg |
-| discharge: Heart rate | 79 | beats/min |
-| discharge: Respiratory rate | 19 | breaths/min |
-| discharge: SpO2 | 91.00 | % |
+| discharge: Blood pressure | 114/76 | mmHg |
+| discharge: Heart rate | 86 | beats/min |
+| discharge: Respiratory rate | 14 | breaths/min |
+| discharge: SpO2 | 96.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
@@ -4473,7 +4503,7 @@ Serial weights:
 
 Imaging:
 
-{'study_id': 'STUDY-VAL515-001', 'case_id': 'VAL-515', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'No acute infiltrate.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: No acute infiltrate.)
 
 ## About the case data
 
@@ -4608,7 +4638,7 @@ The following overview lists the demographic and admission facts stored for this
 
 - **Age:** 53
 - **Sex/gender:** Female
-- **Weight:** 66.000 kg
+- **Weight:** 87.000 kg
 - **Clinical setting/specialty:** general medicine
 - **Admission diagnosis:** Type 2 diabetes mellitus with hyperglycemia
 - **Disposition:** home
@@ -4652,6 +4682,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+Glucose was monitored and diabetes therapy was continued while the inpatient team prepared a discharge plan.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Admission status
@@ -4674,7 +4706,7 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (admission) | 2.1 | mg/dL |
+| Creatinine [Mass/volume] in Serum or Plasma (admission) | 0.9 | mg/dL |
 | Fasting glucose [Mass/volume] in Serum or Plasma (admission) | 369.0 | mg/dL |
 
 ## Discharge / most recent status
@@ -4684,16 +4716,16 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 137/71 | mmHg |
-| discharge: Heart rate | 86 | beats/min |
-| discharge: Respiratory rate | 23 | breaths/min |
-| discharge: SpO2 | 95.00 | % |
+| discharge: Blood pressure | 129/67 | mmHg |
+| discharge: Heart rate | 69 | beats/min |
+| discharge: Respiratory rate | 17 | breaths/min |
+| discharge: SpO2 | 97.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (discharge) | 1.4 | mg/dL |
+| Creatinine [Mass/volume] in Serum or Plasma (discharge) | 1.1 | mg/dL |
 | Fasting glucose [Mass/volume] in Serum or Plasma (discharge) | 111.0 | mg/dL |
 
 Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
@@ -4722,7 +4754,7 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| Modified 24 HR metformin hydrochloride 1000 MG Extended Release Oral Tablet | 1000 MG | oral | once daily | indication: Type 2 diabetes mellitus with hyperglycemia |
+| lisinopril 40 MG Oral Tablet | 40 MG | oral | once daily | indication: Essential (primary) hypertension |
 
 ## Medication reconciliation
 
@@ -4758,7 +4790,7 @@ Social context:
 
 Serial weights:
 
-- admission: 66.000 kg
+- admission: 87.000 kg
 
 ## About the case data
 
@@ -4782,7 +4814,7 @@ Medication omitted at discharge
 
 **Medication(s) involved:**
 
-- lisinopril 40 MG Oral Tablet (rxcui=197884)
+- Modified 24 HR metformin hydrochloride 1000 MG Extended Release Oral Tablet (rxcui=1807888)
 
 **What should have occurred clinically:**
 
@@ -4904,7 +4936,7 @@ The following overview lists the demographic and admission facts stored for this
 
 - **Age:** 53
 - **Sex/gender:** Male
-- **Weight:** 100.000 kg
+- **Weight:** 108.000 kg
 - **Clinical setting/specialty:** general medicine
 - **Admission diagnosis:** Type 2 diabetes mellitus with hyperglycemia
 - **Disposition:** home
@@ -4946,6 +4978,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+Glucose was monitored and diabetes therapy was continued while the inpatient team prepared a discharge plan.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Admission status
@@ -4968,8 +5002,8 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Fasting glucose [Mass/volume] in Serum or Plasma (admission) | 362.0 | mg/dL |
-| Hemoglobin [Mass/volume] in Blood by Oximetry (admission) | 8.0 | g/dL |
+| Fasting glucose [Mass/volume] in Serum or Plasma (admission) | 322.0 | mg/dL |
+| Hemoglobin [Mass/volume] in Blood by Oximetry (admission) | 14.0 | g/dL |
 
 ## Discharge / most recent status
 
@@ -4978,17 +5012,17 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 142/95 | mmHg |
-| discharge: Heart rate | 85 | beats/min |
-| discharge: Respiratory rate | 24 | breaths/min |
-| discharge: SpO2 | 96.00 | % |
+| discharge: Blood pressure | 134/70 | mmHg |
+| discharge: Heart rate | 83 | beats/min |
+| discharge: Respiratory rate | 20 | breaths/min |
+| discharge: SpO2 | 99.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Fasting glucose [Mass/volume] in Serum or Plasma (discharge) | 160.0 | mg/dL |
-| Hemoglobin [Mass/volume] in Blood by Oximetry (discharge) | 12.3 | g/dL |
+| Fasting glucose [Mass/volume] in Serum or Plasma (discharge) | 140.0 | mg/dL |
+| Hemoglobin [Mass/volume] in Blood by Oximetry (discharge) | 14.3 | g/dL |
 
 Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
@@ -5053,7 +5087,7 @@ Social context:
 
 Serial weights:
 
-- admission: 100.000 kg
+- admission: 108.000 kg
 
 ## About the case data
 
@@ -5243,6 +5277,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+The patient was observed until vital signs and symptoms stabilized enough for discharge.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Admission status
@@ -5265,9 +5301,9 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.3 | mg/dL |
+| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.0 | mg/dL |
 | Fasting glucose [Mass/volume] in Serum or Plasma (admission) | 354.0 | mg/dL |
-| Hemoglobin [Mass/volume] in Blood by Oximetry (admission) | 8.8 | g/dL |
+| Hemoglobin [Mass/volume] in Blood by Oximetry (admission) | 12.3 | g/dL |
 
 ## Discharge / most recent status
 
@@ -5276,10 +5312,10 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 158/96 | mmHg |
-| discharge: Heart rate | 91 | beats/min |
-| discharge: Respiratory rate | 18 | breaths/min |
-| discharge: SpO2 | 91.00 | % |
+| discharge: Blood pressure | 129/69 | mmHg |
+| discharge: Heart rate | 78 | beats/min |
+| discharge: Respiratory rate | 14 | breaths/min |
+| discharge: SpO2 | 99.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
@@ -5287,7 +5323,7 @@ The following table lists discharge or most-recent laboratory tests stored on th
 | --- | ---: | ---: |
 | Creatinine [Mass/volume] in Serum or Plasma (discharge) | 1.0 | mg/dL |
 | Fasting glucose [Mass/volume] in Serum or Plasma (discharge) | 113.0 | mg/dL |
-| Hemoglobin [Mass/volume] in Blood by Oximetry (discharge) | 11.2 | g/dL |
+| Hemoglobin [Mass/volume] in Blood by Oximetry (discharge) | 12.9 | g/dL |
 
 Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
@@ -5501,7 +5537,7 @@ The following overview lists the demographic and admission facts stored for this
 
 - **Age:** 54
 - **Sex/gender:** Male
-- **Weight:** 100.000 kg
+- **Weight:** 80.000 kg
 - **Clinical setting/specialty:** general medicine
 - **Admission diagnosis:** Type 2 diabetes mellitus with hyperglycemia
 - **Disposition:** home
@@ -5543,6 +5579,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+Symptoms improved after inpatient treatment. The patient was observed until discharge readiness was documented.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Admission status
@@ -5565,7 +5603,7 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Fasting glucose [Mass/volume] in Serum or Plasma (admission) | 366.0 | mg/dL |
+| Fasting glucose [Mass/volume] in Serum or Plasma (admission) | 287.0 | mg/dL |
 
 ## Discharge / most recent status
 
@@ -5574,16 +5612,16 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 153/96 | mmHg |
-| discharge: Heart rate | 77 | beats/min |
-| discharge: Respiratory rate | 16 | breaths/min |
-| discharge: SpO2 | 91.00 | % |
+| discharge: Blood pressure | 115/65 | mmHg |
+| discharge: Heart rate | 62 | beats/min |
+| discharge: Respiratory rate | 17 | breaths/min |
+| discharge: SpO2 | 98.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Fasting glucose [Mass/volume] in Serum or Plasma (discharge) | 140.0 | mg/dL |
+| Fasting glucose [Mass/volume] in Serum or Plasma (discharge) | 147.0 | mg/dL |
 
 Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
@@ -5649,7 +5687,7 @@ Social context:
 
 Serial weights:
 
-- admission: 100.000 kg
+- admission: 80.000 kg
 
 ## About the case data
 
@@ -5795,7 +5833,7 @@ The following overview lists the demographic and admission facts stored for this
 
 - **Age:** 65
 - **Sex/gender:** Male
-- **Weight:** 96.000 kg
+- **Weight:** 106.000 kg
 - **Clinical setting/specialty:** general medicine
 - **Admission diagnosis:** Type 2 diabetes mellitus with hyperglycemia
 - **Disposition:** home
@@ -5839,6 +5877,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+Glucose was monitored and diabetes therapy was continued while the inpatient team prepared a discharge plan.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Admission status
@@ -5861,8 +5901,8 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Fasting glucose [Mass/volume] in Serum or Plasma (admission) | 251.0 | mg/dL |
-| Hemoglobin [Mass/volume] in Blood by Oximetry (admission) | 8.3 | g/dL |
+| Fasting glucose [Mass/volume] in Serum or Plasma (admission) | 286.0 | mg/dL |
+| Hemoglobin [Mass/volume] in Blood by Oximetry (admission) | 13.3 | g/dL |
 
 ## Discharge / most recent status
 
@@ -5871,17 +5911,17 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 158/76 | mmHg |
-| discharge: Heart rate | 83 | beats/min |
-| discharge: Respiratory rate | 19 | breaths/min |
-| discharge: SpO2 | 98.00 | % |
+| discharge: Blood pressure | 127/69 | mmHg |
+| discharge: Heart rate | 69 | beats/min |
+| discharge: Respiratory rate | 17 | breaths/min |
+| discharge: SpO2 | 95.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Fasting glucose [Mass/volume] in Serum or Plasma (discharge) | 158.0 | mg/dL |
-| Hemoglobin [Mass/volume] in Blood by Oximetry (discharge) | 11.0 | g/dL |
+| Fasting glucose [Mass/volume] in Serum or Plasma (discharge) | 130.0 | mg/dL |
+| Hemoglobin [Mass/volume] in Blood by Oximetry (discharge) | 12.7 | g/dL |
 
 Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
@@ -5949,7 +5989,7 @@ Social context:
 
 Serial weights:
 
-- admission: 96.000 kg
+- admission: 106.000 kg
 
 ## About the case data
 
@@ -6126,6 +6166,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+Inpatient antimicrobial therapy was administered and respiratory symptoms were monitored until the patient was ready for discharge.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Admission status
@@ -6148,7 +6190,7 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.7 | mg/dL |
+| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.0 | mg/dL |
 | Sodium [Moles/volume] in Serum or Plasma (admission) | 134.0 | mmol/L |
 
 ## Discharge / most recent status
@@ -6158,10 +6200,10 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 133/91 | mmHg |
-| discharge: Heart rate | 93 | beats/min |
-| discharge: Respiratory rate | 22 | breaths/min |
-| discharge: SpO2 | 95.00 | % |
+| discharge: Blood pressure | 125/86 | mmHg |
+| discharge: Heart rate | 72 | beats/min |
+| discharge: Respiratory rate | 17 | breaths/min |
+| discharge: SpO2 | 99.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
@@ -6178,8 +6220,8 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| albuterol 0.4 MG Inhalation Powder | 1 inhalation | inhaled | once daily | indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
-| azithromycin 250 MG Oral Capsule | 1 tablet | oral | once daily | indication: Lobar pneumonia, unspecified organism |
+| albuterol 0.4 MG Inhalation Powder | 0.4 MG | inhaled | once daily | indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
+| azithromycin 250 MG Oral Capsule | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism |
 
 ## Medications during hospitalization
 
@@ -6187,8 +6229,8 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| albuterol 0.4 MG Inhalation Powder | 1 inhalation | inhaled | once daily | indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
-| azithromycin 250 MG Oral Capsule | 1 tablet | oral | once daily | indication: Lobar pneumonia, unspecified organism |
+| albuterol 0.4 MG Inhalation Powder | 0.4 MG | inhaled | once daily | indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
+| azithromycin 250 MG Oral Capsule | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism |
 
 ## Discharge medications
 
@@ -6196,8 +6238,8 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| albuterol 0.4 MG Inhalation Powder | 1 inhalation | inhaled | once daily | indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
-| azithromycin 250 MG Oral Capsule | 1 tablet | oral | twice daily | indication: Lobar pneumonia, unspecified organism |
+| albuterol 0.4 MG Inhalation Powder | 0.4 MG | inhaled | once daily | indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
+| azithromycin 250 MG Oral Capsule | 250 MG | oral | twice daily | indication: Lobar pneumonia, unspecified organism |
 
 ## Medication reconciliation
 
@@ -6237,11 +6279,11 @@ Serial weights:
 
 Imaging:
 
-{'study_id': 'STUDY-VAL521-001', 'case_id': 'VAL-521', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'Right lower-lobe infiltrate consistent with pneumonia.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: Right lower-lobe infiltrate consistent with pneumonia.)
 
 Consultations:
 
-{'consult_id': 'CON-VAL521-001', 'case_id': 'VAL-521', 'service': 'pulmonology', 'timepoint': 'inpatient', 'assessment': 'Community-acquired pneumonia.', 'recommendation': 'Continue the intended antimicrobial and respiratory plan.', 'source_reference': None}
+- pulmonology (timepoint: inpatient; assessment: Community-acquired pneumonia.; recommendation: Continue the intended antimicrobial and respiratory plan.)
 
 ## About the case data
 
@@ -6387,7 +6429,7 @@ The following overview lists the demographic and admission facts stored for this
 
 - **Age:** 71
 - **Sex/gender:** Male
-- **Weight:** 78.000 kg
+- **Weight:** 81.000 kg
 - **Clinical setting/specialty:** pulmonology
 - **Admission diagnosis:** Lobar pneumonia, unspecified organism
 - **Disposition:** home
@@ -6427,6 +6469,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+Symptoms improved after inpatient treatment. The patient was observed until discharge readiness was documented.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Admission status
@@ -6449,8 +6493,8 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.8 | mg/dL |
-| Hemoglobin [Mass/volume] in Blood by Oximetry (admission) | 9.2 | g/dL |
+| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.3 | mg/dL |
+| Hemoglobin [Mass/volume] in Blood by Oximetry (admission) | 12.5 | g/dL |
 
 ## Discharge / most recent status
 
@@ -6459,17 +6503,17 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 118/96 | mmHg |
-| discharge: Heart rate | 101 | beats/min |
-| discharge: Respiratory rate | 17 | breaths/min |
-| discharge: SpO2 | 92.00 | % |
+| discharge: Blood pressure | 110/78 | mmHg |
+| discharge: Heart rate | 65 | beats/min |
+| discharge: Respiratory rate | 19 | breaths/min |
+| discharge: SpO2 | 95.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
 | Creatinine [Mass/volume] in Serum or Plasma (discharge) | 0.8 | mg/dL |
-| Hemoglobin [Mass/volume] in Blood by Oximetry (discharge) | 11.1 | g/dL |
+| Hemoglobin [Mass/volume] in Blood by Oximetry (discharge) | 13.8 | g/dL |
 
 Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
@@ -6479,8 +6523,8 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| albuterol 0.4 MG Inhalation Powder | 1 inhalation | inhaled | once daily | indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
-| azithromycin 250 MG Oral Capsule | 1 tablet | oral | once daily | indication: Lobar pneumonia, unspecified organism |
+| albuterol 0.4 MG Inhalation Powder | 0.4 MG | inhaled | once daily | indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
+| azithromycin 250 MG Oral Capsule | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism |
 
 ## Medications during hospitalization
 
@@ -6488,8 +6532,8 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| albuterol 0.4 MG Inhalation Powder | 1 inhalation | inhaled | once daily | indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
-| azithromycin 250 MG Oral Capsule | 1 tablet | oral | once daily | indication: Lobar pneumonia, unspecified organism |
+| albuterol 0.4 MG Inhalation Powder | 0.4 MG | inhaled | once daily | indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
+| azithromycin 250 MG Oral Capsule | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism |
 
 ## Discharge medications
 
@@ -6497,8 +6541,8 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| albuterol 0.4 MG Inhalation Powder | 1 inhalation | inhaled | once daily | indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
-| azithromycin 250 MG Oral Capsule | 2 tablet | oral | once daily | indication: Lobar pneumonia, unspecified organism |
+| albuterol 0.4 MG Inhalation Powder | 0.4 MG | inhaled | once daily | indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
+| azithromycin 250 MG Oral Capsule | 150 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism |
 
 ## Medication reconciliation
 
@@ -6534,15 +6578,15 @@ Social context:
 
 Serial weights:
 
-- admission: 78.000 kg
+- admission: 81.000 kg
 
 Imaging:
 
-{'study_id': 'STUDY-VAL522-001', 'case_id': 'VAL-522', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'Left lower-lobe infiltrate with no large effusion.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: Left lower-lobe infiltrate with no large effusion.)
 
 Consultations:
 
-{'consult_id': 'CON-VAL522-001', 'case_id': 'VAL-522', 'service': 'pulmonology', 'timepoint': 'inpatient', 'assessment': 'Pneumonia with bronchospasm.', 'recommendation': 'Continue the intended antimicrobial and respiratory plan.', 'source_reference': None}
+- pulmonology (timepoint: inpatient; assessment: Pneumonia with bronchospasm.; recommendation: Continue the intended antimicrobial and respiratory plan.)
 
 ## About the case data
 
@@ -6572,11 +6616,11 @@ Unexplained dose discrepancy
 
 The discharge dose differs from the intended medication plan without a documented clinical rationale.
 
-Clean expected state: 1 tablet
+Clean expected state: 250 MG
 
 **What appears in the case:**
 
-2 tablet
+150 MG
 
 **Where the relevant evidence appears:**
 
@@ -6688,7 +6732,7 @@ The following overview lists the demographic and admission facts stored for this
 
 - **Age:** 64
 - **Sex/gender:** Male
-- **Weight:** 88.000 kg
+- **Weight:** 68.000 kg
 - **Clinical setting/specialty:** pulmonology
 - **Admission diagnosis:** Lobar pneumonia, unspecified organism
 - **Disposition:** home
@@ -6702,11 +6746,11 @@ The following fields are the presenting complaint and history stored on the case
 - **Symptoms:** Cough, Dyspnea
 - **Symptom duration:** one day
 - **Symptom course:** progressive
-- **History of present illness:** A 64-year-old Male is admitted with Lobar pneumonia, unspecified organism. Presenting symptoms include Cough, Dyspnea, present for one day and progressive. Home medications include azithromycin 250 MG Oral Capsule, pantoprazole 20 MG Delayed Release Oral Tablet. albuterol 0.4 MG Inhalation Powder was held on admission and is not intended for discharge continuation. Admitted for community-acquired pneumonia requiring inpatient antibiotics. The patient was observed until vital signs and symptoms stabilized enough for discharge.
+- **History of present illness:** A 64-year-old Male is admitted with Lobar pneumonia, unspecified organism. Presenting symptoms include Cough, Dyspnea, present for one day and progressive. Home medications include azithromycin 250 MG Oral Capsule, pantoprazole 20 MG Delayed Release Oral Tablet. albuterol 0.4 MG Inhalation Powder was held during the admission (Scheduled inhaler doses were held overnight for documented tachycardia; intended to restart.). Admitted for community-acquired pneumonia requiring inpatient antibiotics. The patient was observed until vital signs and symptoms stabilized enough for discharge.
 
 ### Admission note
 
-Admission note for a 64-year-old Male with Lobar pneumonia, unspecified organism. Symptoms: Cough, Dyspnea for one day (progressive). Medications continued from home: azithromycin 250 MG Oral Capsule, pantoprazole 20 MG Delayed Release Oral Tablet. albuterol 0.4 MG Inhalation Powder was held on admission and is not intended for discharge continuation. Admitted for community-acquired pneumonia requiring inpatient antibiotics. The patient was observed until vital signs and symptoms stabilized enough for discharge.
+Admission note for a 64-year-old Male with Lobar pneumonia, unspecified organism. Symptoms: Cough, Dyspnea for one day (progressive). Medications continued from home: azithromycin 250 MG Oral Capsule, pantoprazole 20 MG Delayed Release Oral Tablet. albuterol 0.4 MG Inhalation Powder was held during the admission (Scheduled inhaler doses were held overnight for documented tachycardia; intended to restart.). Admitted for community-acquired pneumonia requiring inpatient antibiotics. The patient was observed until vital signs and symptoms stabilized enough for discharge.
 
 The patient was observed until vital signs and symptoms stabilized enough for discharge.
 
@@ -6730,6 +6774,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+The patient was observed until vital signs and symptoms stabilized enough for discharge.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health was not ordered.
 
 ## Admission status
@@ -6752,7 +6798,7 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Hemoglobin [Mass/volume] in Blood by Oximetry (admission) | 10.9 | g/dL |
+| Hemoglobin [Mass/volume] in Blood by Oximetry (admission) | 13.3 | g/dL |
 | Sodium [Moles/volume] in Serum or Plasma (admission) | 143.0 | mmol/L |
 
 ## Discharge / most recent status
@@ -6762,16 +6808,16 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 135/74 | mmHg |
-| discharge: Heart rate | 109 | beats/min |
-| discharge: Respiratory rate | 16 | breaths/min |
-| discharge: SpO2 | 97.00 | % |
+| discharge: Blood pressure | 127/70 | mmHg |
+| discharge: Heart rate | 80 | beats/min |
+| discharge: Respiratory rate | 14 | breaths/min |
+| discharge: SpO2 | 98.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Hemoglobin [Mass/volume] in Blood by Oximetry (discharge) | 9.8 | g/dL |
+| Hemoglobin [Mass/volume] in Blood by Oximetry (discharge) | 14.1 | g/dL |
 | Sodium [Moles/volume] in Serum or Plasma (discharge) | 139.0 | mmol/L |
 
 Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
@@ -6782,8 +6828,8 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| albuterol 0.4 MG Inhalation Powder | 1 inhalation | inhaled | once daily | indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
-| azithromycin 250 MG Oral Capsule | 1 tablet | oral | once daily | indication: Lobar pneumonia, unspecified organism |
+| albuterol 0.4 MG Inhalation Powder | 0.4 MG | inhaled | once daily | indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
+| azithromycin 250 MG Oral Capsule | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism |
 | pantoprazole 20 MG Delayed Release Oral Tablet | 20 MG | oral | once daily | indication: Gastro-esophageal reflux disease without esophagitis |
 
 ## Medications during hospitalization
@@ -6792,8 +6838,8 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| albuterol 0.4 MG Inhalation Powder | 1 inhalation | inhaled | once daily | held; held reason: Scheduled inhaler doses were held overnight for documented tachycardia; intended to restart.; indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
-| azithromycin 250 MG Oral Capsule | 1 tablet | oral | once daily | indication: Lobar pneumonia, unspecified organism |
+| albuterol 0.4 MG Inhalation Powder | 0.4 MG | inhaled | once daily | held; held reason: Scheduled inhaler doses were held overnight for documented tachycardia; intended to restart.; indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
+| azithromycin 250 MG Oral Capsule | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism |
 | pantoprazole 20 MG Delayed Release Oral Tablet | 20 MG | oral | once daily | indication: Gastro-esophageal reflux disease without esophagitis |
 
 ## Discharge medications
@@ -6802,8 +6848,8 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| albuterol 0.4 MG Inhalation Powder | 1 inhalation | inhaled | once daily | held; held reason: Scheduled inhaler doses were held overnight for documented tachycardia; intended to restart.; indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
-| azithromycin 250 MG Oral Capsule | 1 tablet | oral | once daily | indication: Lobar pneumonia, unspecified organism |
+| albuterol 0.4 MG Inhalation Powder | 0.4 MG | inhaled | once daily | held; held reason: Scheduled inhaler doses were held overnight for documented tachycardia; intended to restart.; indication: symptomatic bronchospasm; not a treatment for the admission diagnosis |
+| azithromycin 250 MG Oral Capsule | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism |
 | pantoprazole 20 MG Delayed Release Oral Tablet | 20 MG | oral | once daily | indication: Gastro-esophageal reflux disease without esophagitis |
 
 ## Medication reconciliation
@@ -6840,11 +6886,11 @@ Social context:
 
 Serial weights:
 
-- admission: 88.000 kg
+- admission: 68.000 kg
 
 Imaging:
 
-{'study_id': 'STUDY-VAL523-001', 'case_id': 'VAL-523', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'Lobar infiltrate improving compared with admission.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: Lobar infiltrate improving compared with admission.)
 
 ## About the case data
 
@@ -6990,7 +7036,7 @@ The following overview lists the demographic and admission facts stored for this
 
 - **Age:** 74
 - **Sex/gender:** Male
-- **Weight:** 97.000 kg
+- **Weight:** 104.000 kg
 - **Clinical setting/specialty:** pulmonology
 - **Admission diagnosis:** Lobar pneumonia, unspecified organism
 - **Disposition:** home
@@ -7032,6 +7078,8 @@ The following table lists problem-list entries stored on the case.
 
 ## Hospital course
 
+Inpatient antimicrobial therapy was administered and respiratory symptoms were monitored until the patient was ready for discharge.
+
 The planned disposition is home. Discharge readiness is recorded as ready. Home health ordered: Yes.
 
 ## Admission status
@@ -7054,8 +7102,8 @@ The following table lists admission laboratory tests stored on the case. The tes
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.7 | mg/dL |
-| Sodium [Moles/volume] in Serum or Plasma (admission) | 140.0 | mmol/L |
+| Creatinine [Mass/volume] in Serum or Plasma (admission) | 1.2 | mg/dL |
+| Sodium [Moles/volume] in Serum or Plasma (admission) | 141.0 | mmol/L |
 
 ## Discharge / most recent status
 
@@ -7064,17 +7112,17 @@ The following table lists discharge or most-recent vital signs stored on the cas
 | Measure | Value | Unit |
 | --- | ---: | ---: |
 | discharge: Temperature | 36.80 | °C |
-| discharge: Blood pressure | 123/81 | mmHg |
-| discharge: Heart rate | 110 | beats/min |
-| discharge: Respiratory rate | 16 | breaths/min |
-| discharge: SpO2 | 95.00 | % |
+| discharge: Blood pressure | 115/77 | mmHg |
+| discharge: Heart rate | 81 | beats/min |
+| discharge: Respiratory rate | 14 | breaths/min |
+| discharge: SpO2 | 97.00 | % |
 
 The following table lists discharge or most-recent laboratory tests stored on the case.
 
 | Test | Result | Unit |
 | --- | ---: | ---: |
-| Creatinine [Mass/volume] in Serum or Plasma (discharge) | 1.4 | mg/dL |
-| Sodium [Moles/volume] in Serum or Plasma (discharge) | 133.0 | mmol/L |
+| Creatinine [Mass/volume] in Serum or Plasma (discharge) | 0.8 | mg/dL |
+| Sodium [Moles/volume] in Serum or Plasma (discharge) | 134.0 | mmol/L |
 
 Discharge disposition and follow-up below should be read with the discharge-timepoint vitals and laboratories above.
 
@@ -7084,7 +7132,7 @@ The following table lists medications recorded as the home regimen.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| azithromycin 250 MG Oral Capsule | 1 tablet | oral | once daily | indication: Lobar pneumonia, unspecified organism |
+| azithromycin 250 MG Oral Capsule | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism |
 | pantoprazole 20 MG Delayed Release Oral Tablet | 20 MG | oral | once daily | indication: Gastro-esophageal reflux disease without esophagitis |
 
 ## Medications during hospitalization
@@ -7093,7 +7141,7 @@ The following table lists medications recorded as active during the hospital sta
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| azithromycin 250 MG Oral Capsule | 1 tablet | oral | once daily | indication: Lobar pneumonia, unspecified organism |
+| azithromycin 250 MG Oral Capsule | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism |
 | pantoprazole 20 MG Delayed Release Oral Tablet | 20 MG | oral | once daily | indication: Gastro-esophageal reflux disease without esophagitis |
 
 ## Discharge medications
@@ -7102,7 +7150,7 @@ The following table lists medications recorded on the discharge list.
 
 | Medication | Dose | Route | Frequency | Relevant note |
 | --- | --- | --- | --- | --- |
-| azithromycin 250 MG Oral Capsule | 1 tablet | oral | once daily | indication: Lobar pneumonia, unspecified organism; supply: 7 days |
+| azithromycin 250 MG Oral Capsule | 250 MG | oral | once daily | indication: Lobar pneumonia, unspecified organism; supply: 7 days |
 | pantoprazole 20 MG Delayed Release Oral Tablet | 20 MG | oral | once daily | indication: Gastro-esophageal reflux disease without esophagitis; supply: 30 days |
 
 ## Medication reconciliation
@@ -7139,11 +7187,11 @@ Social context:
 
 Serial weights:
 
-- admission: 97.000 kg
+- admission: 104.000 kg
 
 Imaging:
 
-{'study_id': 'STUDY-VAL524-001', 'case_id': 'VAL-524', 'timepoint': 'admission', 'study_type': 'Chest radiograph', 'body_site': 'chest', 'finding': 'Improving infiltrate.', 'source_reference': None}
+- Chest radiograph (timepoint: admission; body site: chest; finding: Improving infiltrate.)
 
 ## About the case data
 

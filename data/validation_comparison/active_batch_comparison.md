@@ -26,7 +26,7 @@ The archived original freeze `CLINIPROOF_TAXONOMY_V1` is excluded.
 | Unique hospital-course profiles | 24 | 24 |
 | Unique follow-up profiles | 24 | 21 |
 | Unique imaging sets | 2 | 3 |
-| Unique consult sets | 3 | 8 |
+| Unique consult sets | 3 | 7 |
 | Exact duplicate fingerprints | 0 | 0 |
 | Near-duplicate warnings | 2 | 7 |
 | Closest-pair similarity | 0.7567 | 0.79 |

@@ -319,7 +319,7 @@
           "allowed_error_categories": [
             "f2_held_med_no_restart_plan"
           ],
-          "context_note": "Creatinine rose with congestion. Lisinopril was held with an explicit plan to reassess restart after renal recovery.",
+          "context_note": "Creatinine rose with congestion. Lisinopril was held during decongestion because of worsening renal function.",
           "io_enabled": true,
           "io_net_direction": "negative",
           "comorbidity_queries": [
@@ -890,7 +890,8 @@
           "medication_required_queries": [
             "mycophenolate mofetil",
             "tacrolimus",
-            "amlodipine"
+            "amlodipine",
+            "valganciclovir"
           ],
           "lab_queries": [
             "creatinine"
@@ -904,7 +905,7 @@
           "allowed_error_categories": [
             "f2_held_med_no_restart_plan"
           ],
-          "context_note": "Mycophenolate was held during infection with a documented plan to reassess restart. Tacrolimus continues for transplant immunosuppression.",
+          "context_note": "Mycophenolate was held during infection as an immunosuppression adjustment. Tacrolimus continues for transplant immunosuppression.",
           "comorbidity_queries": [
             "kidney transplant",
             "hypertension"
@@ -942,7 +943,8 @@
             "tacrolimus",
             "amlodipine",
             "atorvastatin",
-            "lisinopril"
+            "lisinopril",
+            "valganciclovir"
           ],
           "lab_queries": [
             "creatinine",
@@ -969,6 +971,12 @@
               "timepoint": "inpatient",
               "assessment": "Transplant-service recommendations were recorded.",
               "recommendation": "Continue immunosuppression with infection-related adjustments as documented."
+            },
+            {
+              "service": "infectious disease",
+              "timepoint": "inpatient",
+              "assessment": "Infectious-disease recommendations were recorded.",
+              "recommendation": "Continue antiviral therapy and infection-related monitoring as documented."
             }
           ],
           "io_enabled": true,
@@ -1354,7 +1362,7 @@
           "allowed_error_categories": [
             "f2_held_med_no_restart_plan"
           ],
-          "context_note": "Bleeding settled and hemoglobin was stable. Apixaban was held with a documented restart plan. The patient is discharge-ready.",
+          "context_note": "Bleeding settled and hemoglobin was stable. Apixaban was held. The patient is discharge-ready.",
           "comorbidity_queries": [
             "atrial fibrillation",
             "hyperlipidemia",
@@ -1372,7 +1380,7 @@
           "hold_reason": "Held for gastrointestinal bleeding; intended to restart after hemoglobin stability.",
           "restart_plan": "Resume apixaban if hemoglobin remains stable for 48 hours and bleeding has not recurred.",
           "target_medication_query": "apixaban",
-          "admission_reason": "Admitted for gastrointestinal bleeding with held anticoagulation and a documented restart plan."
+          "admission_reason": "Admitted for gastrointestinal bleeding with held anticoagulation."
         },
         {
           "code": "GI_BLEED_PPI_HOSPITAL_ONLY",
@@ -1395,7 +1403,7 @@
             "hemoglobin",
             "glucose"
           ],
-          "hospital_course_pattern": "observed_stabilization",
+          "hospital_course_pattern": "gi_bleed_observed_stabilization",
           "io_timepoint": "hospital_day_2",
           "vital_pattern": "standard",
           "followup_item": "Primary care follow-up after gastrointestinal bleed",
@@ -1415,7 +1423,7 @@
               "service": "gastroenterology",
               "timepoint": "inpatient",
               "assessment": "Gastroenterology recommendations were recorded.",
-              "recommendation": "Hold anticoagulation while hemoglobin remains stable, then reassess."
+              "recommendation": "Continue inpatient acid suppression and observe serial hemoglobin until stability."
             }
           ],
           "target_medication_query": "pantoprazole",
@@ -1453,6 +1461,14 @@
             "atrial fibrillation",
             "hyperlipidemia",
             "type 2 diabetes mellitus"
+          ],
+          "procedures": [
+            {
+              "procedure_name": "Upper endoscopy",
+              "procedure_type": "endoscopic",
+              "timepoint": "inpatient",
+              "findings": "Bleeding source evaluated; no ongoing active bleeding at discharge planning."
+            }
           ],
           "consults": [
             {
