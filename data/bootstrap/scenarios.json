@@ -57,74 +57,222 @@
       "clinical_profiles": [
         {
           "code": "HF_VOLUME_OVERLOAD",
-          "symptom_queries": ["dyspnea", "edema", "orthopnea"],
+          "symptom_queries": [
+            "dyspnea",
+            "edema",
+            "orthopnea"
+          ],
           "symptom_duration": "several days",
           "symptom_course": "worsening",
           "symptom_severity": "severe",
-          "medication_required_queries": ["furosemide", "lisinopril", "spironolactone"],
-          "lab_queries": ["potassium", "creatinine", "natriuretic peptide"],
+          "medication_required_queries": [
+            "furosemide",
+            "lisinopril",
+            "spironolactone"
+          ],
+          "lab_queries": [
+            "potassium",
+            "creatinine",
+            "natriuretic peptide"
+          ],
           "hospital_course_pattern": "multi_day_diuresis",
           "io_timepoint": "hospital_day_3",
           "vital_pattern": "decompensated_hf",
           "followup_item": "Heart-failure clinic follow-up",
           "followup_service": "cardiology",
-          "followup_timing": "7 days"
+          "followup_timing": "7 days",
+          "io_enabled": true,
+          "io_net_direction": "negative",
+          "comorbidity_queries": [
+            "hypertension",
+            "hyperlipidemia"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "Pulmonary edema without focal consolidation."
+            }
+          ],
+          "consults": [
+            {
+              "service": "cardiology",
+              "timepoint": "inpatient",
+              "assessment": "Inpatient cardiology recommendations were recorded.",
+              "recommendation": "Continue the intended heart-failure and diuretic plan."
+            }
+          ],
+          "admission_reason": "Admitted for decompensated heart failure with volume overload."
         },
         {
           "code": "HF_POST_DIURESIS",
-          "symptom_queries": ["dyspnea", "fatigue"],
+          "symptom_queries": [
+            "dyspnea",
+            "fatigue"
+          ],
           "symptom_duration": "one week",
           "symptom_course": "improving after treatment",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["furosemide", "carvedilol", "lisinopril"],
-          "lab_queries": ["potassium", "creatinine"],
+          "medication_required_queries": [
+            "furosemide",
+            "carvedilol",
+            "lisinopril"
+          ],
+          "lab_queries": [
+            "potassium",
+            "creatinine"
+          ],
           "hospital_course_pattern": "improving_after_treatment",
           "io_timepoint": "hospital_day_4",
           "vital_pattern": "standard",
           "followup_item": "Heart-failure follow-up after diuresis",
           "followup_service": "cardiology",
-          "followup_timing": "14 days"
+          "followup_timing": "14 days",
+          "io_enabled": true,
+          "io_net_direction": "negative",
+          "comorbidity_queries": [
+            "hypertension",
+            "hyperlipidemia"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "Improving pulmonary edema compared with admission."
+            }
+          ],
+          "consults": [
+            {
+              "service": "cardiology",
+              "timepoint": "inpatient",
+              "assessment": "Inpatient cardiology recommendations were recorded.",
+              "recommendation": "Continue the intended heart-failure and diuretic plan."
+            }
+          ],
+          "admission_reason": "Admitted for decompensated heart failure; congestion improved with diuresis."
         },
         {
           "code": "HF_WITH_WARFARIN",
-          "symptom_queries": ["dyspnea", "chest pain"],
+          "symptom_queries": [
+            "dyspnea",
+            "chest pain"
+          ],
           "symptom_duration": "two days",
           "symptom_course": "acutely worsening",
           "symptom_severity": "severe",
-          "medication_required_queries": ["metoprolol", "lisinopril"],
+          "medication_required_queries": [
+            "metoprolol",
+            "lisinopril"
+          ],
           "anticoagulant": "warfarin",
-          "lab_queries": ["inr", "potassium", "creatinine"],
+          "lab_queries": [
+            "inr",
+            "potassium",
+            "creatinine"
+          ],
           "hospital_course_pattern": "rate_control_observed",
           "io_timepoint": "hospital_day_2",
           "vital_pattern": "decompensated_hf",
           "followup_item": "Outpatient INR follow-up",
           "followup_service": "anticoagulation clinic",
-          "followup_timing": "7 days"
+          "followup_timing": "7 days",
+          "io_enabled": true,
+          "io_net_direction": "negative",
+          "comorbidity_queries": [
+            "atrial fibrillation",
+            "hypertension"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "Cardiomegaly without focal pneumonia."
+            }
+          ],
+          "consults": [
+            {
+              "service": "cardiology",
+              "timepoint": "inpatient",
+              "assessment": "Inpatient cardiology recommendations were recorded.",
+              "recommendation": "Continue the intended heart-failure and diuretic plan."
+            }
+          ],
+          "admission_reason": "Admitted for decompensated heart failure with atrial fibrillation."
         },
         {
           "code": "HF_MEDICATION_ADJUSTMENT",
-          "symptom_queries": ["edema", "orthopnea"],
+          "symptom_queries": [
+            "edema",
+            "orthopnea"
+          ],
           "symptom_duration": "one day",
           "symptom_course": "progressive",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["furosemide", "enalapril", "spironolactone", "metoprolol"],
-          "lab_queries": ["potassium", "creatinine", "natriuretic peptide"],
+          "medication_required_queries": [
+            "furosemide",
+            "enalapril",
+            "spironolactone",
+            "metoprolol"
+          ],
+          "lab_queries": [
+            "potassium",
+            "creatinine",
+            "natriuretic peptide"
+          ],
           "hospital_course_pattern": "medication_adjustment",
           "io_timepoint": "hospital_day_3",
           "vital_pattern": "standard",
           "followup_item": "Volume and blood-pressure follow-up",
           "followup_service": "primary care",
-          "followup_timing": "3 days"
+          "followup_timing": "3 days",
+          "io_enabled": true,
+          "io_net_direction": "negative",
+          "comorbidity_queries": [
+            "hypertension",
+            "hyperlipidemia"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "Mild pulmonary congestion."
+            }
+          ],
+          "consults": [
+            {
+              "service": "cardiology",
+              "timepoint": "inpatient",
+              "assessment": "Inpatient cardiology recommendations were recorded.",
+              "recommendation": "Continue the intended heart-failure and diuretic plan."
+            }
+          ],
+          "target_medication_query": "furosemide",
+          "admission_reason": "Admitted for decompensated heart failure requiring diuretic adjustment."
         },
         {
           "code": "HF_DISCHARGE_MONITORING",
-          "symptom_queries": ["dyspnea", "orthopnea", "fatigue"],
+          "symptom_queries": [
+            "dyspnea",
+            "orthopnea",
+            "fatigue"
+          ],
           "symptom_duration": "one week",
           "symptom_course": "persistent",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["carvedilol", "furosemide", "atorvastatin"],
+          "medication_required_queries": [
+            "carvedilol",
+            "furosemide",
+            "atorvastatin"
+          ],
           "anticoagulant": "apixaban",
-          "lab_queries": ["creatinine", "natriuretic peptide"],
+          "lab_queries": [
+            "creatinine",
+            "natriuretic peptide"
+          ],
           "hospital_course_pattern": "day1_io_ready_home",
           "io_timepoint": "hospital_day_1",
           "vital_pattern": "standard",
@@ -132,7 +280,30 @@
           "home_health_ordered": true,
           "followup_item": "Heart-failure clinic with home-health support",
           "followup_service": "cardiology",
-          "followup_timing": "10 days"
+          "followup_timing": "10 days",
+          "io_enabled": true,
+          "io_net_direction": "negative",
+          "comorbidity_queries": [
+            "atrial fibrillation",
+            "hyperlipidemia"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "Improving congestion."
+            }
+          ],
+          "consults": [
+            {
+              "service": "cardiology",
+              "timepoint": "inpatient",
+              "assessment": "Inpatient cardiology recommendations were recorded.",
+              "recommendation": "Continue the intended heart-failure and diuretic plan."
+            }
+          ],
+          "admission_reason": "Admitted for decompensated heart failure with a planned home-health transition."
         }
       ]
     },
@@ -185,84 +356,233 @@
       "clinical_profiles": [
         {
           "code": "AF_RATE_CONTROL_APIXABAN",
-          "symptom_queries": ["dyspnea", "fatigue"],
+          "symptom_queries": [
+            "dyspnea",
+            "fatigue"
+          ],
           "symptom_duration": "two days",
           "symptom_course": "intermittent",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["metoprolol"],
+          "medication_required_queries": [
+            "metoprolol"
+          ],
           "anticoagulant": "apixaban",
-          "lab_queries": ["creatinine"],
+          "lab_queries": [
+            "creatinine"
+          ],
           "hospital_course_pattern": "rate_control_observed",
           "io_timepoint": "hospital_day_2",
           "vital_pattern": "tachycardic_af",
           "followup_item": "Rate-control follow-up",
           "followup_service": "cardiology",
-          "followup_timing": "7 days"
+          "followup_timing": "7 days",
+          "comorbidity_queries": [
+            "hyperlipidemia",
+            "hypertension"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "No acute pulmonary edema."
+            }
+          ],
+          "consults": [
+            {
+              "service": "cardiology",
+              "timepoint": "inpatient",
+              "assessment": "Inpatient cardiology recommendations were recorded.",
+              "recommendation": "Continue rate control and the planned anticoagulation."
+            }
+          ],
+          "admission_reason": "Admitted for symptomatic atrial fibrillation with rapid ventricular response."
         },
         {
           "code": "AF_WARFARIN_INR",
-          "symptom_queries": ["fatigue", "chest pain"],
+          "symptom_queries": [
+            "fatigue",
+            "chest pain"
+          ],
           "symptom_duration": "one day",
           "symptom_course": "acutely worsening",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["metoprolol"],
+          "medication_required_queries": [
+            "metoprolol"
+          ],
           "anticoagulant": "warfarin",
-          "lab_queries": ["inr", "creatinine"],
+          "lab_queries": [
+            "inr",
+            "creatinine"
+          ],
           "hospital_course_pattern": "observed_stabilization",
           "io_timepoint": "hospital_day_1",
           "vital_pattern": "tachycardic_af",
           "followup_item": "INR monitoring follow-up",
           "followup_service": "anticoagulation clinic",
-          "followup_timing": "7 days"
+          "followup_timing": "7 days",
+          "comorbidity_queries": [
+            "hypertension"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "No acute infiltrate."
+            }
+          ],
+          "consults": [
+            {
+              "service": "cardiology",
+              "timepoint": "inpatient",
+              "assessment": "Inpatient cardiology recommendations were recorded.",
+              "recommendation": "Continue rate control and the planned anticoagulation."
+            }
+          ],
+          "admission_reason": "Admitted for symptomatic atrial fibrillation requiring rate control and INR assessment."
         },
         {
           "code": "AF_WITH_STATIN",
-          "symptom_queries": ["fatigue"],
+          "symptom_queries": [
+            "fatigue"
+          ],
           "symptom_duration": "several days",
           "symptom_course": "persistent",
           "symptom_severity": "mild",
-          "medication_required_queries": ["metoprolol", "atorvastatin"],
+          "medication_required_queries": [
+            "metoprolol",
+            "atorvastatin"
+          ],
           "anticoagulant": "apixaban",
-          "lab_queries": ["creatinine"],
+          "lab_queries": [
+            "creatinine"
+          ],
           "hospital_course_pattern": "improving_after_treatment",
           "io_timepoint": "hospital_day_2",
           "vital_pattern": "standard",
           "followup_item": "Lipid and anticoagulation follow-up",
           "followup_service": "primary care",
-          "followup_timing": "14 days"
+          "followup_timing": "14 days",
+          "comorbidity_queries": [
+            "hyperlipidemia",
+            "hypertension"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "No acute cardiopulmonary process."
+            }
+          ],
+          "consults": [
+            {
+              "service": "cardiology",
+              "timepoint": "inpatient",
+              "assessment": "Inpatient cardiology recommendations were recorded.",
+              "recommendation": "Continue rate control and the planned anticoagulation."
+            }
+          ],
+          "target_medication_query": "atorvastatin",
+          "admission_reason": "Admitted for symptomatic atrial fibrillation; rate control was restored."
         },
         {
           "code": "AF_HELD_NSAID",
-          "symptom_queries": ["dyspnea", "chest pain", "fatigue"],
+          "symptom_queries": [
+            "dyspnea",
+            "chest pain",
+            "fatigue"
+          ],
           "symptom_duration": "one week",
           "symptom_course": "progressive",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["carvedilol", "atorvastatin"],
+          "medication_required_queries": [
+            "carvedilol",
+            "atorvastatin"
+          ],
           "anticoagulant": "apixaban",
-          "stop_medication_queries": ["ibuprofen"],
-          "lab_queries": ["creatinine"],
+          "stop_medication_queries": [
+            "ibuprofen"
+          ],
+          "lab_queries": [
+            "creatinine"
+          ],
           "hospital_course_pattern": "medication_adjustment",
           "io_timepoint": "hospital_day_3",
           "vital_pattern": "tachycardic_af",
           "followup_item": "Cardiology follow-up after rate control",
           "followup_service": "cardiology",
-          "followup_timing": "3 days"
+          "followup_timing": "3 days",
+          "comorbidity_queries": [
+            "hyperlipidemia",
+            "hypertension"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "No acute pulmonary edema."
+            }
+          ],
+          "consults": [
+            {
+              "service": "cardiology",
+              "timepoint": "inpatient",
+              "assessment": "Inpatient cardiology recommendations were recorded.",
+              "recommendation": "Continue rate control and the planned anticoagulation."
+            }
+          ],
+          "hold_medication_query": "carvedilol",
+          "hold_reason": "Held inpatient for documented hypotension during rate control; intended to restart.",
+          "restart_plan": "Resume when systolic blood pressure remains above 100 mmHg for 24 hours.",
+          "admission_reason": "Admitted for symptomatic atrial fibrillation with chest discomfort."
         },
         {
           "code": "AF_POST_RATE_CONTROL",
-          "symptom_queries": ["fatigue"],
+          "symptom_queries": [
+            "fatigue"
+          ],
           "symptom_duration": "two days",
           "symptom_course": "improving after treatment",
           "symptom_severity": "mild",
-          "medication_required_queries": ["carvedilol", "atorvastatin"],
+          "medication_required_queries": [
+            "carvedilol",
+            "atorvastatin"
+          ],
           "anticoagulant": "warfarin",
-          "lab_queries": ["inr", "creatinine"],
+          "lab_queries": [
+            "inr",
+            "creatinine"
+          ],
           "hospital_course_pattern": "day1_io_ready_home",
           "io_timepoint": "hospital_day_1",
           "vital_pattern": "standard",
           "followup_item": "Anticoagulation clinic follow-up",
           "followup_service": "anticoagulation clinic",
-          "followup_timing": "10 days"
+          "followup_timing": "10 days",
+          "comorbidity_queries": [
+            "hyperlipidemia",
+            "hypertension"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "No acute infiltrate."
+            }
+          ],
+          "consults": [
+            {
+              "service": "cardiology",
+              "timepoint": "inpatient",
+              "assessment": "Inpatient cardiology recommendations were recorded.",
+              "recommendation": "Continue rate control and the planned anticoagulation."
+            }
+          ],
+          "admission_reason": "Admitted for atrial fibrillation with rapid ventricular response, now rate-controlled."
         }
       ]
     },
@@ -313,80 +633,206 @@
       "clinical_profiles": [
         {
           "code": "HTN_ACE_CCB",
-          "symptom_queries": ["fatigue", "chest pain"],
+          "symptom_queries": [
+            "fatigue",
+            "chest pain"
+          ],
           "symptom_duration": "one day",
           "symptom_course": "persistent",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["lisinopril", "amlodipine"],
-          "stop_medication_queries": ["ibuprofen"],
-          "lab_queries": ["creatinine", "potassium"],
+          "medication_required_queries": [
+            "lisinopril",
+            "amlodipine"
+          ],
+          "stop_medication_queries": [
+            "ibuprofen"
+          ],
+          "lab_queries": [
+            "creatinine",
+            "potassium"
+          ],
           "hospital_course_pattern": "hypertensive_treatment",
           "io_timepoint": "hospital_day_1",
           "vital_pattern": "hypertensive",
           "followup_item": "Blood-pressure follow-up",
           "followup_service": "primary care",
-          "followup_timing": "7 days"
+          "followup_timing": "7 days",
+          "comorbidity_queries": [
+            "hyperlipidemia"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "No acute pulmonary edema or focal consolidation."
+            }
+          ],
+          "consults": [
+            {
+              "service": "cardiology",
+              "timepoint": "inpatient",
+              "assessment": "No ST-elevation pattern was documented.",
+              "recommendation": "Continue observed antihypertensive therapy after end-organ evaluation."
+            }
+          ],
+          "admission_reason": "Admitted for symptomatic hypertensive urgency with chest pain, observed for end-organ symptoms."
         },
         {
           "code": "HTN_ACE_THIAZIDE",
-          "symptom_queries": ["fatigue"],
+          "symptom_queries": [
+            "fatigue"
+          ],
           "symptom_duration": "several days",
           "symptom_course": "intermittent",
           "symptom_severity": "mild",
-          "medication_required_queries": ["lisinopril", "hydrochlorothiazide"],
-          "lab_queries": ["creatinine", "potassium", "sodium"],
-          "hospital_course_pattern": "day1_io_ready_home",
+          "medication_required_queries": [
+            "lisinopril",
+            "hydrochlorothiazide"
+          ],
+          "lab_queries": [
+            "creatinine",
+            "potassium",
+            "sodium"
+          ],
+          "hospital_course_pattern": "hypertensive_treatment",
           "io_timepoint": "hospital_day_1",
           "vital_pattern": "hypertensive",
           "followup_item": "Electrolyte and blood-pressure follow-up",
           "followup_service": "primary care",
-          "followup_timing": "14 days"
+          "followup_timing": "14 days",
+          "comorbidity_queries": [
+            "hyperlipidemia"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "No pulmonary edema."
+            }
+          ],
+          "admission_reason": "Admitted for symptomatic hypertensive urgency with marked blood-pressure elevation.",
+          "target_medication_query": "lisinopril"
         },
         {
           "code": "HTN_CCB_STATIN",
-          "symptom_queries": ["fatigue"],
+          "symptom_queries": [
+            "fatigue"
+          ],
           "symptom_duration": "one week",
           "symptom_course": "improving after treatment",
           "symptom_severity": "mild",
-          "medication_required_queries": ["amlodipine", "atorvastatin"],
-          "lab_queries": ["creatinine"],
+          "medication_required_queries": [
+            "amlodipine",
+            "atorvastatin"
+          ],
+          "lab_queries": [
+            "creatinine"
+          ],
           "hospital_course_pattern": "improving_after_treatment",
           "io_timepoint": "hospital_day_2",
-          "vital_pattern": "standard",
+          "vital_pattern": "hypertensive",
           "followup_item": "Primary care blood-pressure check",
           "followup_service": "primary care",
-          "followup_timing": "3 days"
+          "followup_timing": "3 days",
+          "comorbidity_queries": [
+            "hyperlipidemia"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "No acute cardiopulmonary process."
+            }
+          ],
+          "admission_reason": "Admitted for symptomatic hypertensive urgency after home readings remained severely elevated.",
+          "target_medication_query": "amlodipine"
         },
         {
           "code": "HTN_TRIPLE_THERAPY",
-          "symptom_queries": ["fatigue", "chest pain"],
+          "symptom_queries": [
+            "fatigue",
+            "chest pain"
+          ],
           "symptom_duration": "one week",
           "symptom_course": "worsening",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["lisinopril", "amlodipine", "hydrochlorothiazide"],
-          "hospital_only_medication_queries": ["pantoprazole"],
-          "lab_queries": ["creatinine", "potassium", "sodium"],
-          "hospital_course_pattern": "medication_adjustment",
+          "medication_required_queries": [
+            "lisinopril",
+            "amlodipine",
+            "hydrochlorothiazide"
+          ],
+          "hospital_only_medication_queries": [
+            "pantoprazole"
+          ],
+          "lab_queries": [
+            "creatinine",
+            "potassium",
+            "sodium"
+          ],
+          "hospital_course_pattern": "hypertensive_treatment",
           "io_timepoint": "hospital_day_3",
           "vital_pattern": "hypertensive",
           "followup_item": "Hypertension specialty follow-up",
           "followup_service": "cardiology",
-          "followup_timing": "7 days"
+          "followup_timing": "7 days",
+          "comorbidity_queries": [
+            "hyperlipidemia"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "No pulmonary edema."
+            }
+          ],
+          "consults": [
+            {
+              "service": "cardiology",
+              "timepoint": "inpatient",
+              "assessment": "Inpatient cardiology recommendations were recorded.",
+              "recommendation": "Continue observed antihypertensive therapy after end-organ evaluation."
+            }
+          ],
+          "admission_reason": "Admitted for symptomatic hypertensive urgency on triple oral therapy, observed for end-organ symptoms."
         },
         {
           "code": "HTN_NEW_DIAGNOSIS",
-          "symptom_queries": ["fatigue"],
+          "symptom_queries": [
+            "fatigue"
+          ],
           "symptom_duration": "two days",
           "symptom_course": "progressive",
           "symptom_severity": "mild",
-          "medication_required_queries": ["enalapril", "atorvastatin"],
-          "lab_queries": ["creatinine", "potassium"],
-          "hospital_course_pattern": "observed_stabilization",
+          "medication_required_queries": [
+            "enalapril",
+            "atorvastatin"
+          ],
+          "lab_queries": [
+            "creatinine",
+            "potassium"
+          ],
+          "hospital_course_pattern": "hypertensive_treatment",
           "io_timepoint": "hospital_day_2",
           "vital_pattern": "hypertensive",
           "followup_item": "New antihypertensive follow-up",
           "followup_service": "primary care",
-          "followup_timing": "10 days"
+          "followup_timing": "10 days",
+          "comorbidity_queries": [
+            "hyperlipidemia"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "No acute infiltrate."
+            }
+          ],
+          "admission_reason": "Admitted for a first presentation of severe symptomatic hypertension requiring observed treatment."
         }
       ]
     },
@@ -409,6 +855,7 @@
         "f2_pending_decision_followup_missing"
       ],
       "diagnosis_queries": [
+        "type 2 diabetes mellitus with hyperglycemia",
         "type 2 diabetes mellitus"
       ],
       "symptom_queries": [
@@ -433,78 +880,150 @@
       "clinical_profiles": [
         {
           "code": "T2DM_METFORMIN_ACE",
-          "symptom_queries": ["polyuria", "fatigue"],
+          "symptom_queries": [
+            "polyuria",
+            "fatigue"
+          ],
           "symptom_duration": "one week",
           "symptom_course": "progressive",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["metformin", "lisinopril"],
-          "lab_queries": ["glucose", "creatinine"],
+          "medication_required_queries": [
+            "metformin",
+            "lisinopril"
+          ],
+          "lab_queries": [
+            "glucose",
+            "creatinine"
+          ],
           "hospital_course_pattern": "glycemic_stabilization",
           "io_timepoint": "hospital_day_2",
           "vital_pattern": "glycemic",
           "followup_item": "Diabetes and kidney follow-up",
           "followup_service": "primary care",
-          "followup_timing": "7 days"
+          "followup_timing": "7 days",
+          "comorbidity_queries": [
+            "hypertension",
+            "hyperlipidemia"
+          ],
+          "admission_reason": "Admitted for symptomatic hyperglycemia with polyuria requiring supervised glucose and fluid management."
         },
         {
           "code": "T2DM_METFORMIN_STATIN",
-          "symptom_queries": ["fatigue"],
+          "symptom_queries": [
+            "fatigue"
+          ],
           "symptom_duration": "several days",
           "symptom_course": "persistent",
           "symptom_severity": "mild",
-          "medication_required_queries": ["metformin", "atorvastatin"],
-          "lab_queries": ["glucose", "hemoglobin"],
-          "hospital_course_pattern": "day1_io_ready_home",
+          "medication_required_queries": [
+            "metformin",
+            "atorvastatin"
+          ],
+          "lab_queries": [
+            "glucose",
+            "hemoglobin"
+          ],
+          "hospital_course_pattern": "glycemic_stabilization",
           "io_timepoint": "hospital_day_1",
           "vital_pattern": "glycemic",
           "followup_item": "Glycemic follow-up",
           "followup_service": "endocrinology",
-          "followup_timing": "14 days"
+          "followup_timing": "14 days",
+          "comorbidity_queries": [
+            "hyperlipidemia"
+          ],
+          "admission_reason": "Admitted for symptomatic hyperglycemia requiring inpatient glucose stabilization.",
+          "target_medication_query": "metformin"
         },
         {
           "code": "T2DM_GLYCEMIC_STABILIZATION",
-          "symptom_queries": ["polyuria"],
+          "symptom_queries": [
+            "polyuria"
+          ],
           "symptom_duration": "two days",
           "symptom_course": "acutely worsening",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["metformin", "lisinopril", "atorvastatin"],
-          "lab_queries": ["glucose", "creatinine", "hemoglobin"],
+          "medication_required_queries": [
+            "metformin",
+            "lisinopril",
+            "atorvastatin"
+          ],
+          "lab_queries": [
+            "glucose",
+            "creatinine",
+            "hemoglobin"
+          ],
           "hospital_course_pattern": "observed_stabilization",
           "io_timepoint": "hospital_day_3",
           "vital_pattern": "glycemic",
           "followup_item": "Diabetes medication-supply follow-up",
           "followup_service": "primary care",
-          "followup_timing": "14 days"
+          "followup_timing": "14 days",
+          "comorbidity_queries": [
+            "hypertension",
+            "hyperlipidemia"
+          ],
+          "admission_reason": "Admitted for symptomatic hyperglycemia with volume depletion requiring supervised treatment.",
+          "target_medication_query": "metformin"
         },
         {
           "code": "T2DM_PENDING_DURATION",
-          "symptom_queries": ["polyuria", "fatigue"],
+          "symptom_queries": [
+            "polyuria",
+            "fatigue"
+          ],
           "symptom_duration": "one day",
           "symptom_course": "intermittent",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["metformin", "atorvastatin"],
-          "lab_queries": ["glucose"],
+          "medication_required_queries": [
+            "metformin",
+            "atorvastatin"
+          ],
+          "lab_queries": [
+            "glucose"
+          ],
           "hospital_course_pattern": "improving_after_treatment",
           "io_timepoint": "hospital_day_2",
           "vital_pattern": "glycemic",
           "followup_item": "Reassess pending therapeutic decision",
           "followup_service": "endocrinology",
-          "followup_timing": "7 days"
+          "followup_timing": "7 days",
+          "comorbidity_queries": [
+            "hyperlipidemia"
+          ],
+          "pending_decision_medication_query": "metformin",
+          "pending_decision_text": "The outpatient metformin dose after this hyperglycemic admission remains to be confirmed at endocrinology follow-up.",
+          "target_medication_query": "metformin",
+          "admission_reason": "Admitted for symptomatic hyperglycemia; a pending outpatient diabetes-therapy decision was recorded."
         },
         {
           "code": "T2DM_CONTROL",
-          "symptom_queries": ["fatigue"],
+          "symptom_queries": [
+            "fatigue"
+          ],
           "symptom_duration": "several days",
           "symptom_course": "improving after treatment",
           "symptom_severity": "mild",
-          "medication_required_queries": ["metformin", "lisinopril", "atorvastatin"],
-          "lab_queries": ["glucose", "hemoglobin"],
+          "medication_required_queries": [
+            "metformin",
+            "lisinopril",
+            "atorvastatin"
+          ],
+          "lab_queries": [
+            "glucose",
+            "hemoglobin"
+          ],
           "hospital_course_pattern": "glycemic_stabilization",
           "io_timepoint": "hospital_day_1",
-          "vital_pattern": "standard",
+          "vital_pattern": "glycemic",
           "followup_item": "Routine diabetes follow-up",
           "followup_service": "endocrinology",
-          "followup_timing": "21 days"
+          "followup_timing": "21 days",
+          "comorbidity_queries": [
+            "hypertension",
+            "hyperlipidemia"
+          ],
+          "admission_reason": "Admitted for symptomatic hyperglycemia that improved with supervised inpatient management."
         }
       ]
     },
@@ -552,64 +1071,167 @@
       "clinical_profiles": [
         {
           "code": "CAP_TYPICAL_COUGH",
-          "symptom_queries": ["cough"],
+          "symptom_queries": [
+            "cough"
+          ],
           "symptom_duration": "several days",
           "symptom_course": "persistent",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["azithromycin", "albuterol"],
-          "lab_queries": ["sodium", "creatinine"],
+          "medication_required_queries": [
+            "azithromycin",
+            "albuterol"
+          ],
+          "lab_queries": [
+            "sodium",
+            "creatinine"
+          ],
           "hospital_course_pattern": "antibiotic_course_inpatient",
           "io_timepoint": "hospital_day_2",
           "vital_pattern": "febrile_pneumonia",
           "followup_item": "Pneumonia follow-up",
           "followup_service": "pulmonology",
-          "followup_timing": "7 days"
+          "followup_timing": "7 days",
+          "comorbidity_queries": [
+            "hypertension"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "Right lower-lobe infiltrate consistent with pneumonia."
+            }
+          ],
+          "consults": [
+            {
+              "service": "pulmonology",
+              "timepoint": "inpatient",
+              "assessment": "Community-acquired pneumonia.",
+              "recommendation": "Continue the intended antimicrobial and respiratory plan."
+            }
+          ],
+          "admission_reason": "Admitted for community-acquired pneumonia with hypoxia and a lobar infiltrate.",
+          "target_medication_query": "azithromycin"
         },
         {
           "code": "CAP_DYSPNEA_WHEEZE",
-          "symptom_queries": ["dyspnea", "wheezing"],
+          "symptom_queries": [
+            "dyspnea",
+            "wheezing"
+          ],
           "symptom_duration": "two days",
           "symptom_course": "acutely worsening",
           "symptom_severity": "severe",
-          "medication_required_queries": ["azithromycin", "albuterol"],
-          "lab_queries": ["hemoglobin", "creatinine"],
+          "medication_required_queries": [
+            "azithromycin",
+            "albuterol"
+          ],
+          "lab_queries": [
+            "hemoglobin",
+            "creatinine"
+          ],
           "hospital_course_pattern": "improving_after_treatment",
           "io_timepoint": "hospital_day_3",
           "vital_pattern": "febrile_pneumonia",
           "followup_item": "Respiratory follow-up",
           "followup_service": "primary care",
-          "followup_timing": "3 days"
+          "followup_timing": "3 days",
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "Left lower-lobe infiltrate with no large effusion."
+            }
+          ],
+          "consults": [
+            {
+              "service": "pulmonology",
+              "timepoint": "inpatient",
+              "assessment": "Pneumonia with bronchospasm.",
+              "recommendation": "Continue the intended antimicrobial and respiratory plan."
+            }
+          ],
+          "admission_reason": "Admitted for hypoxic pneumonia with wheezing.",
+          "target_medication_query": "azithromycin"
         },
         {
           "code": "CAP_INPATIENT_ANTIBIOTIC",
-          "symptom_queries": ["cough", "dyspnea"],
+          "symptom_queries": [
+            "cough",
+            "dyspnea"
+          ],
           "symptom_duration": "one day",
           "symptom_course": "progressive",
           "symptom_severity": "moderate",
-          "medication_required_queries": ["azithromycin", "albuterol", "pantoprazole"],
-          "lab_queries": ["sodium", "hemoglobin"],
+          "medication_required_queries": [
+            "azithromycin",
+            "albuterol",
+            "pantoprazole"
+          ],
+          "lab_queries": [
+            "sodium",
+            "hemoglobin"
+          ],
           "hospital_course_pattern": "observed_stabilization",
           "io_timepoint": "hospital_day_2",
           "vital_pattern": "febrile_pneumonia",
           "followup_item": "Pulmonary follow-up after antibiotic course",
           "followup_service": "pulmonology",
-          "followup_timing": "14 days"
+          "followup_timing": "14 days",
+          "comorbidity_queries": [
+            "gastro-esophageal reflux"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "Lobar infiltrate improving compared with admission."
+            }
+          ],
+          "hold_medication_query": "albuterol",
+          "hold_reason": "Scheduled inhaler doses were held overnight for documented tachycardia; intended to restart.",
+          "restart_plan": "Resume inhaled therapy when heart rate remains below 110 beats/min.",
+          "admission_reason": "Admitted for community-acquired pneumonia requiring inpatient antibiotics."
         },
         {
           "code": "CAP_HOME_TRANSITION",
-          "symptom_queries": ["cough", "wheezing"],
+          "symptom_queries": [
+            "cough",
+            "wheezing"
+          ],
           "symptom_duration": "one week",
           "symptom_course": "improving after treatment",
           "symptom_severity": "mild",
-          "medication_required_queries": ["azithromycin", "pantoprazole"],
-          "lab_queries": ["creatinine", "sodium"],
-          "hospital_course_pattern": "day1_io_ready_home",
+          "medication_required_queries": [
+            "azithromycin",
+            "pantoprazole"
+          ],
+          "lab_queries": [
+            "creatinine",
+            "sodium"
+          ],
+          "hospital_course_pattern": "antibiotic_course_inpatient",
           "io_timepoint": "hospital_day_1",
-          "vital_pattern": "standard",
+          "vital_pattern": "febrile_pneumonia",
           "home_health_ordered": true,
           "followup_item": "Antibiotic supply and pneumonia follow-up",
           "followup_service": "primary care",
-          "followup_timing": "14 days"
+          "followup_timing": "14 days",
+          "comorbidity_queries": [
+            "gastro-esophageal reflux"
+          ],
+          "imaging": [
+            {
+              "timepoint": "admission",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "Improving infiltrate."
+            }
+          ],
+          "admission_reason": "Admitted for pneumonia; a remaining oral antibiotic course was arranged at discharge.",
+          "target_medication_query": "azithromycin"
         }
       ]
     }

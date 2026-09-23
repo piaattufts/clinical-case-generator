@@ -19,18 +19,23 @@ from sqlalchemy.orm import Session
 
 from app import __version__
 from app.models.cases import (
+    CaseConsult,
+    CaseDevice,
     CaseDiagnosis,
     CaseDischargePlanning,
     CaseFollowup,
+    CaseImaging,
     CaseInstruction,
     CaseIntakeOutput,
     CaseLab,
     CaseMedication,
     CaseMedicationReconciliation,
+    CaseMicrobiology,
     CaseMonitoring,
     CaseNote,
     CasePresentation,
     CaseProblemList,
+    CaseProcedure,
     CaseReturnPrecaution,
     CaseSocialSupport,
     CaseSymptom,
@@ -57,7 +62,6 @@ from app.repositories.reference import (
     list_enabled_rules,
     list_medication_classes_for_rxcui,
     list_medications_sharing_class,
-    list_symptoms,
     search_symptoms,
 )
 from app.services.bootstrap import (
@@ -66,12 +70,20 @@ from app.services.bootstrap import (
     match_diagnosis,
     match_lab,
     match_medication,
-    token_match,
 )
 from app.services.case_diversity import (
     CleanCaseFingerprint,
     fingerprint_as_dict,
     fingerprint_from_case,
+)
+from app.services.clinical_coherence import (
+    INDICATION_BY_QUERY,
+    convert_conventional,
+    inferred_route,
+    is_symptom_level_concept,
+    preferred_lab_unit,
+    spec_for_lab,
+    synthetic_dose_for,
 )
 from app.services.error_injection import InjectionResult, inject_reconciliation_error
 from app.services.error_taxonomy import (
@@ -154,12 +166,34 @@ class ClinicalProfile:
     vital_pattern: str = "standard"
     io_timepoint: str = "hospital_day_1"
     context_note: str = ""
+    comorbidity_queries: list[str] = field(default_factory=list)
+    imaging: list[dict[str, str]] = field(default_factory=list)
+    consults: list[dict[str, str]] = field(default_factory=list)
+    procedures: list[dict[str, str]] = field(default_factory=list)
+    devices: list[dict[str, str]] = field(default_factory=list)
+    microbiology: list[dict[str, str]] = field(default_factory=list)
+    io_enabled: bool = False
+    io_net_direction: str = "neutral"
+    bpmh_source: str = "patient_and_prior_records"
+    patient_able_to_participate: bool = True
+    medrec_notes: str = ""
+    target_medication_query: str | None = None
+    hold_medication_query: str | None = None
+    hold_reason: str | None = None
+    restart_plan: str | None = None
+    pending_decision_medication_query: str | None = None
+    pending_decision_text: str | None = None
+    monitoring_parameter: str | None = None
+    monitoring_frequency: str | None = None
+    monitoring_service: str | None = None
+    include_discharge_status: bool = True
+    admission_reason: str = ""
 
 
 HOSPITAL_COURSE_TEXT = {
     "day1_io_ready_home": (
-        "The inpatient stay was brief. Intake and output were recorded, and the "
-        "patient was judged ready for discharge home."
+        "The inpatient stay was brief. Symptoms and vital signs were observed, "
+        "and the patient was judged ready for discharge home."
     ),
     "multi_day_diuresis": (
         "The hospital course focused on diuresis over several inpatient days. "
@@ -203,16 +237,18 @@ HOSPITAL_COURSE_TEXT = {
         "and the verified medication list was prepared for discharge."
     ),
     "pending_outpatient_therapy_decision": (
-        "A new disease-modifying start was deferred to outpatient confirmation. "
-        "That pending decision is recorded on the clean discharge plan."
+        "A new disease-modifying start was deferred to outpatient confirmation."
+    ),
+    "opat_pending_duration": (
+        "Cultures cleared on inpatient therapy. Remaining parenteral duration is "
+        "to be confirmed as an outpatient decision."
     ),
     "multi_day_diuresis_weights": (
         "Congestion was treated with inpatient diuresis. Serial weights and "
         "intake/output were used to judge readiness for discharge."
     ),
     "aki_hold_reassessment": (
-        "Creatinine rose with congestion. Selected therapy was held with a plan "
-        "to reassess restart after renal recovery."
+        "Creatinine rose with congestion. Selected therapy was held."
     ),
     "potassium_repletion_diuresis": (
         "Diuresis was accompanied by potassium repletion. Electrolytes were "
@@ -232,15 +268,13 @@ HOSPITAL_COURSE_TEXT = {
     ),
     "transplant_antiviral_conversion": (
         "Infectious symptoms improved. Inpatient antiviral therapy was converted "
-        "to the intended outpatient agent without encoding unsupported dosing rules."
+        "to the intended outpatient agent."
     ),
     "transplant_aki_holds": (
-        "Volume-related kidney injury led to temporary holds. Restart plans were "
-        "documented separately from any planted reconciliation error."
+        "Volume-related kidney injury led to temporary holds of selected immunosuppression."
     ),
     "postop_anticoag_resume": (
-        "Anticoagulation was interrupted for surgery and then resumed. INR "
-        "monitoring was arranged as part of the clean discharge plan."
+        "Anticoagulation was interrupted for surgery and then resumed."
     ),
     "postop_hemoglobin_observed": (
         "Postoperative hemoglobin was observed without transfusion. Rehabilitation "
@@ -248,7 +282,11 @@ HOSPITAL_COURSE_TEXT = {
     ),
     "gi_bleed_held_ac_stable": (
         "Gastrointestinal bleeding settled and hemoglobin was stable. "
-        "Anticoagulation was held with a documented restart plan in a discharge-ready patient."
+        "Anticoagulation was held."
+    ),
+    "gi_bleed_aspirin_stopped": (
+        "Gastrointestinal bleeding settled and hemoglobin was stable. "
+        "Aspirin used for primary prevention was stopped."
     ),
     "pending_endoscopy_decision": (
         "Restart versus continued hold of anticoagulation remains a pending "
@@ -320,6 +358,38 @@ def _load_profiles(item: dict[str, Any]) -> list[ClinicalProfile]:
                 vital_pattern=str(row.get("vital_pattern") or "standard"),
                 io_timepoint=str(row.get("io_timepoint") or "hospital_day_1"),
                 context_note=str(row.get("context_note") or ""),
+                comorbidity_queries=_str_list(row.get("comorbidity_queries")),
+                imaging=_dict_list(row.get("imaging")),
+                consults=_dict_list(row.get("consults")),
+                procedures=_dict_list(row.get("procedures")),
+                devices=_dict_list(row.get("devices")),
+                microbiology=_dict_list(row.get("microbiology")),
+                io_enabled=bool(row.get("io_enabled")),
+                io_net_direction=str(row.get("io_net_direction") or "neutral"),
+                bpmh_source=str(row.get("bpmh_source") or "patient_and_prior_records"),
+                patient_able_to_participate=(
+                    True
+                    if row.get("patient_able_to_participate") is None
+                    else bool(row.get("patient_able_to_participate"))
+                ),
+                medrec_notes=str(row.get("medrec_notes") or ""),
+                target_medication_query=_optional_str(row.get("target_medication_query")),
+                hold_medication_query=_optional_str(row.get("hold_medication_query")),
+                hold_reason=_optional_str(row.get("hold_reason")),
+                restart_plan=_optional_str(row.get("restart_plan")),
+                pending_decision_medication_query=_optional_str(
+                    row.get("pending_decision_medication_query")
+                ),
+                pending_decision_text=_optional_str(row.get("pending_decision_text")),
+                monitoring_parameter=_optional_str(row.get("monitoring_parameter")),
+                monitoring_frequency=_optional_str(row.get("monitoring_frequency")),
+                monitoring_service=_optional_str(row.get("monitoring_service")),
+                include_discharge_status=(
+                    True
+                    if row.get("include_discharge_status") is None
+                    else bool(row.get("include_discharge_status"))
+                ),
+                admission_reason=str(row.get("admission_reason") or ""),
             )
         )
     return profiles
@@ -529,7 +599,24 @@ def generate_one_case(
     labs = _select_labs(session, profile.lab_queries or scenario.lab_queries)
     if inject_error and preferred_error == F2_MONITORING:
         _require_warfarin_and_inr(medications, labs)
-    _assert_rules_allow(session, medications + stop_medications + hospital_only, diagnosis, labs)
+    comorbidities = _select_comorbidities(
+        session,
+        profile=profile,
+        medications=medications + stop_medications + hospital_only,
+        medication_queries=(
+            list(profile.medication_required_queries or scenario.medication_queries)
+            + list(stop_queries)
+            + list(hospital_only_queries)
+        ),
+        admission=diagnosis,
+    )
+    _assert_rules_allow(
+        session,
+        medications + stop_medications + hospital_only,
+        diagnosis,
+        labs,
+        comorbidities,
+    )
     hold_restart = None
     substitution_pair = None
     if inject_error and preferred_error == F2_HELD_RESTART:
@@ -539,8 +626,17 @@ def generate_one_case(
                 "f2_held_med_no_restart_plan requires a home medication "
                 "that can be held with a restart plan",
             )
-        hold_restart = medications[0]
-        medications = medications[1:]
+        hold_query = profile.hold_medication_query or profile.target_medication_query
+        if hold_query:
+            hold_restart = _pick_medication(medications, hold_query)
+            if hold_restart is None:
+                raise CaseValidationError(
+                    "error_eligibility",
+                    "f2_held_med_no_restart_plan requires the profile-defined hold medication",
+                )
+        else:
+            hold_restart = medications[0]
+        medications = [item for item in medications if item.rxcui != hold_restart.rxcui]
         if not medications:
             raise CaseValidationError(
                 "error_eligibility",
@@ -560,6 +656,31 @@ def generate_one_case(
     hospital_day = rng.randint(2, 6)
     patient_name = f"SYN Patient {sequence:03d}"
     now = datetime.now(UTC)
+    target_query = (
+        profile.pending_decision_medication_query
+        or profile.target_medication_query
+        or (
+            profile.hold_medication_query
+            if preferred_error in {F2_HELD_RESTART, F2_PENDING_FOLLOWUP}
+            else None
+        )
+    )
+    target_pool = [
+        item
+        for item in medications
+        + stop_medications
+        + hospital_only
+        + ([hold_restart] if hold_restart is not None else [])
+        if item
+    ]
+    target_medication = None
+    if target_query:
+        target_medication = _pick_medication(target_pool, target_query)
+        if target_medication is None:
+            raise CaseValidationError(
+                "error_eligibility",
+                f"profile target medication {target_query!r} was not present on the case",
+            )
     blueprint = CaseBlueprint(
         blueprint_id=ids.next_id("blueprint"),
         specialty=scenario.specialty,
@@ -570,7 +691,7 @@ def generate_one_case(
         hospital_day=hospital_day,
         difficulty="standard",
         target_home_med_count=len(medications) + len(stop_medications),
-        target_problem_count=1,
+        target_problem_count=1 + len(comorbidities),
         clean_case=True,
         target_error_category=None if preferred_error == NONE else preferred_error,
         target_error_medication_class=None,
@@ -591,6 +712,12 @@ def generate_one_case(
             "seed_source_type": scenario.seed_source_type,
             "seed_source_filename": scenario.seed_source_filename,
             "blueprint_version": scenario.blueprint_version,
+            "target_medication_query": target_query,
+            "target_medication_rxcui": (
+                None if target_medication is None else target_medication.rxcui
+            ),
+            "hold_medication_query": profile.hold_medication_query,
+            "hold_reason": profile.hold_reason,
         },
     )
     session.add(blueprint)
@@ -598,20 +725,24 @@ def generate_one_case(
     display_diagnosis = diagnosis.preferred_name or diagnosis.icd10cm_code or "source diagnosis"
     symptom_names = [item.preferred_name or "symptom" for item in symptoms]
     med_names = [_med_label(item) for item in medications]
-    held_names = [_med_label(item) for item in stop_medications]
-    if hold_restart is not None:
-        held_names = [_med_label(hold_restart), *held_names]
+    stopped_names = [_med_label(item) for item in stop_medications]
+    hold_name = _med_label(hold_restart) if hold_restart is not None else None
+    context_note = " ".join(
+        part for part in (profile.admission_reason, profile.context_note) if part and part.strip()
+    )
     template = _template_narrative(
         age,
         sex,
         display_diagnosis,
         symptom_names,
         med_names,
-        held_names,
+        stopped_names,
         duration=profile.symptom_duration,
         course=profile.symptom_course,
         hospital_course=_hospital_course_text(profile.hospital_course_pattern),
-        context_note=profile.context_note,
+        context_note=context_note,
+        hold_name=hold_name,
+        hold_reason=profile.hold_reason,
     )
     narrative, narrative_source = _maybe_openai_narrative(
         template,
@@ -619,9 +750,16 @@ def generate_one_case(
         sex=sex,
         diagnosis=display_diagnosis,
         symptoms=symptom_names,
-        medications=med_names + held_names,
+        medications=med_names + stopped_names + ([hold_name] if hold_name else []),
         use_openai=use_openai,
-        allowed_names=set(symptom_names + med_names + held_names + [display_diagnosis]),
+        allowed_names=set(
+            symptom_names
+            + med_names
+            + stopped_names
+            + ([hold_name] if hold_name else [])
+            + [display_diagnosis]
+            + [item.preferred_name or "" for item in comorbidities]
+        ),
         allowed_codes=_allowed_codes(diagnosis, medications + stop_medications, labs),
     )
     case = ClinicalCase(
@@ -698,6 +836,33 @@ def generate_one_case(
             source_reference=diagnosis.icd10cm_code,
         )
     )
+    for extra in comorbidities:
+        extra_name = extra.preferred_name or extra.icd10cm_code or "comorbid diagnosis"
+        session.add(
+            CaseDiagnosis(
+                case_id=case.id,
+                diagnosis_id=ids.next_id("diagnosis"),
+                ref_diagnosis_id=extra.id,
+                diagnosis=extra_name,
+                diagnosis_type="past_history",
+                status="active",
+                context="history",
+                source_type="reference",
+                source_reference=extra.icd10cm_code,
+            )
+        )
+        session.add(
+            CaseProblemList(
+                case_id=case.id,
+                problem_id=ids.next_id("problem"),
+                problem=extra_name,
+                problem_type="diagnosis",
+                priority="medium",
+                status="active",
+                assessment=extra_name,
+                plan="Accounted for in the medication plan.",
+            )
+        )
     session.add(
         CaseProblemList(
             case_id=case.id,
@@ -707,7 +872,7 @@ def generate_one_case(
             priority="high",
             status="active",
             assessment=display_diagnosis,
-            plan="Continue source-backed inpatient therapy selected from local reference data.",
+            plan="Continue inpatient management of the listed problem.",
         )
     )
     session.add(
@@ -728,6 +893,7 @@ def generate_one_case(
             source_type="template",
         )
     )
+    problems = [diagnosis, *comorbidities]
     vitals = _synthetic_vitals(rng, profile.vital_pattern)
     session.add(
         CaseVital(
@@ -744,11 +910,25 @@ def generate_one_case(
             oxygen_support=vitals["oxygen_support"],
         )
     )
+    if profile.include_discharge_status:
+        discharge_vitals = _synthetic_vitals(rng, _discharge_vital_pattern(profile.vital_pattern))
+        session.add(
+            CaseVital(
+                case_id=case.id,
+                vital_id=ids.next_id("vital"),
+                ref_vital_id=None,
+                timepoint="discharge",
+                temp_c=discharge_vitals["temp_c"],
+                bp_systolic=discharge_vitals["bp_systolic"],
+                bp_diastolic=discharge_vitals["bp_diastolic"],
+                heart_rate=discharge_vitals["heart_rate"],
+                resp_rate=discharge_vitals["resp_rate"],
+                spo2_percent=discharge_vitals["spo2_percent"],
+                oxygen_support=discharge_vitals["oxygen_support"],
+            )
+        )
     for lab in labs:
-        unit = None
-        examples = lab.example_ucum_units or []
-        if examples:
-            unit = str(examples[0])
+        unit = preferred_lab_unit(lab)
         session.add(
             CaseLab(
                 case_id=case.id,
@@ -756,34 +936,69 @@ def generate_one_case(
                 ref_lab_id=lab.id,
                 timepoint="admission",
                 test_name=lab.long_common_name or lab.loinc_code,
-                value=_synthetic_lab_value(rng, lab),
+                value=_synthetic_lab_value(
+                    rng,
+                    lab,
+                    timepoint="admission",
+                    lab_pattern=_lab_pattern_for(profile),
+                ),
                 value_text=None,
                 unit=unit,
                 status="final",
             )
         )
+        if profile.include_discharge_status:
+            session.add(
+                CaseLab(
+                    case_id=case.id,
+                    lab_id=ids.next_id("lab"),
+                    ref_lab_id=lab.id,
+                    timepoint="discharge",
+                    test_name=lab.long_common_name or lab.loinc_code,
+                    value=_synthetic_lab_value(
+                        rng,
+                        lab,
+                        timepoint="discharge",
+                        lab_pattern=_lab_pattern_for(profile),
+                    ),
+                    value_text=None,
+                    unit=unit,
+                    status="final",
+                )
+            )
+    admission_weight = rng.randint(60, 110)
     session.add(
         CaseWeight(
             case_id=case.id,
             weight_id=ids.next_id("weight"),
             timepoint="admission",
-            weight_kg=Decimal(str(rng.randint(60, 110))),
+            weight_kg=Decimal(str(admission_weight)),
             dry_weight_kg=None,
         )
     )
-    intake = rng.randint(1200, 2200)
-    output = rng.randint(800, 1800)
-    session.add(
-        CaseIntakeOutput(
-            case_id=case.id,
-            io_id=ids.next_id("io"),
-            timepoint=profile.io_timepoint,
-            intake_ml=intake,
-            output_ml=output,
-            net_ml=intake - output,
-            notes=NUMERIC_ORIGIN,
+    if profile.io_enabled or profile.hospital_course_pattern.startswith("multi_day_diuresis"):
+        session.add(
+            CaseWeight(
+                case_id=case.id,
+                weight_id=ids.next_id("weight"),
+                timepoint="discharge",
+                weight_kg=Decimal(str(max(50, admission_weight - rng.randint(2, 6)))),
+                dry_weight_kg=Decimal(str(max(48, admission_weight - rng.randint(4, 8)))),
+            )
         )
-    )
+        intake, output = _io_volumes(rng, profile.io_net_direction)
+        session.add(
+            CaseIntakeOutput(
+                case_id=case.id,
+                io_id=ids.next_id("io"),
+                timepoint=profile.io_timepoint,
+                intake_ml=intake,
+                output_ml=output,
+                net_ml=intake - output,
+                notes=None,
+            )
+        )
+    _add_investigations(session, case, ids, profile)
     supply_days = CLEAN_SUPPLY_DAYS if preferred_error == F2_SUPPLY else None
     followup_item, followup_service, followup_timing = _followup_fields(profile, preferred_error)
     continued_for_sub = medications
@@ -797,9 +1012,10 @@ def generate_one_case(
             case=case,
             ids=ids,
             medication=medication,
-            indication=display_diagnosis,
+            indication=_indication_for(session, medication, problems),
             frequency=scenario.default_frequency,
             quantity_or_days=None if supply_days is None else f"{supply_days} days",
+            verification_source=profile.bpmh_source,
         )
     if hold_restart is not None:
         _add_held_restart_medication(
@@ -807,8 +1023,11 @@ def generate_one_case(
             case=case,
             ids=ids,
             medication=hold_restart,
-            indication=display_diagnosis,
+            indication=_indication_for(session, hold_restart, problems),
             frequency=scenario.default_frequency,
+            held_reason=profile.hold_reason,
+            restart_plan=profile.restart_plan,
+            verification_source=profile.bpmh_source,
         )
     if substitution_pair is not None and preferred_error == F2_INPATIENT_SUB:
         _add_inpatient_substitution(
@@ -819,7 +1038,7 @@ def generate_one_case(
             substitute=substitution_pair[1],
             class_id=substitution_pair[2],
             class_name=substitution_pair[3],
-            indication=display_diagnosis,
+            indication=_indication_for(session, substitution_pair[0], problems),
             frequency=scenario.default_frequency,
         )
     for medication in stop_medications:
@@ -828,8 +1047,9 @@ def generate_one_case(
             case=case,
             ids=ids,
             medication=medication,
-            indication=display_diagnosis,
+            indication=_indication_for(session, medication, problems),
             frequency=scenario.default_frequency,
+            verification_source=profile.bpmh_source,
         )
     for medication in hospital_only:
         _add_hospital_only_medication(
@@ -837,7 +1057,7 @@ def generate_one_case(
             case=case,
             ids=ids,
             medication=medication,
-            indication=display_diagnosis,
+            indication=_indication_for(session, medication, problems),
             frequency=scenario.default_frequency,
         )
     session.add(
@@ -845,9 +1065,9 @@ def generate_one_case(
             case_id=case.id,
             medrec_id=ids.next_id("medrec"),
             reconciliation_context="discharge",
-            medrec_status="complete_clean",
-            patient_able_to_participate=True,
-            bpmh_source="synthetic_history",
+            medrec_status="complete",
+            patient_able_to_participate=profile.patient_able_to_participate,
+            bpmh_source=profile.bpmh_source,
             bpmh_interviewer=None,
             bpmh_date=None,
             discrepancies_found=False,
@@ -855,10 +1075,23 @@ def generate_one_case(
             discrepancy_types=[],
             pharmacist_review=True,
             high_alert_meds_identified=[],
-            notes="Clean case before intentional error injection.",
+            notes=profile.medrec_notes or None,
         )
     )
     _maybe_add_warfarin_monitoring(session, case, ids, medications, labs)
+    if profile.monitoring_parameter:
+        session.add(
+            CaseMonitoring(
+                case_id=case.id,
+                monitoring_id=ids.next_id("monitoring"),
+                parameter=profile.monitoring_parameter,
+                frequency=profile.monitoring_frequency or "weekly",
+                target=None,
+                trigger_for_action=None,
+                duration=None,
+                responsible_service=profile.monitoring_service or followup_service,
+            )
+        )
     session.add(
         CaseDischargePlanning(
             case_id=case.id,
@@ -892,16 +1125,23 @@ def generate_one_case(
         )
     )
     if preferred_error == F2_PENDING_FOLLOWUP:
-        pending_name = _med_label(medications[0]) if medications else display_diagnosis
+        pending_query = (
+            profile.pending_decision_medication_query or profile.target_medication_query
+        )
+        pending_med = _pick_medication(target_pool, pending_query) if pending_query else None
+        pending_name = _med_label(pending_med) if pending_med is not None else display_diagnosis
+        pending_text = profile.pending_decision_text or (
+            f"A pending therapeutic decision remains: duration of {pending_name} "
+            "will be confirmed at the scheduled follow-up."
+        )
+        if "pending therapeutic decision" not in pending_text.casefold():
+            pending_text = "A pending therapeutic decision remains. " + pending_text
         session.add(
             CaseInstruction(
                 case_id=case.id,
                 instruction_id=ids.next_id("instruction"),
                 category="followup",
-                instruction_text=(
-                    f"Pending therapeutic decision: duration of {pending_name} remains "
-                    "uncertain and will be determined at the scheduled follow-up."
-                ),
+                instruction_text=pending_text,
                 source_type="synthetic",
             )
         )
@@ -951,6 +1191,7 @@ def generate_one_case(
             rng=rng,
             seed=case_seed,
             preferred_category=preferred_error,
+            target_rxcui=None if target_medication is None else target_medication.rxcui,
         )
         if injected.category != preferred_error:
             raise CaseValidationError(
@@ -967,7 +1208,6 @@ def generate_one_case(
             rec.resolved = False
             rec.medrec_status = "error_injected"
             rec.discrepancy_types = [injected.category]
-            rec.notes = injected.explanation
         session.flush()
     final_report = validate_case(
         session,
@@ -1088,10 +1328,11 @@ def _add_continued_medication(
     indication: str,
     frequency: str,
     quantity_or_days: str | None = None,
+    verification_source: str = "patient_and_prior_records",
 ) -> None:
     label = _med_label(medication)
-    dose = _synthetic_dose(medication)
-    route = medication.route or "oral"
+    dose = synthetic_dose_for(medication)
+    route = inferred_route(medication)
     for context, status in (
         ("home", "home"),
         ("inpatient", "active"),
@@ -1111,6 +1352,7 @@ def _add_continued_medication(
                 indication=indication,
                 held_reason=None,
                 quantity_or_days=quantity_or_days if context == "discharge" else None,
+                verification_source=verification_source,
             )
         )
     session.add(
@@ -1137,10 +1379,11 @@ def _add_stopped_medication(
     medication: RefMedication,
     indication: str,
     frequency: str,
+    verification_source: str = "patient_and_prior_records",
 ) -> None:
     label = _med_label(medication)
-    dose = _synthetic_dose(medication)
-    route = medication.route or "oral"
+    dose = synthetic_dose_for(medication)
+    route = inferred_route(medication)
     held_reason = "Held on admission; not continued at discharge."
     for context, status in (("home", "held"), ("inpatient", "held")):
         session.add(
@@ -1156,6 +1399,7 @@ def _add_stopped_medication(
                 frequency=frequency,
                 indication=indication,
                 held_reason=held_reason,
+                verification_source=verification_source,
             )
         )
     session.add(
@@ -1193,12 +1437,19 @@ def _add_held_restart_medication(
     medication: RefMedication,
     indication: str,
     frequency: str,
+    held_reason: str | None = None,
+    restart_plan: str | None = None,
+    verification_source: str = "patient_and_prior_records",
 ) -> None:
     label = _med_label(medication)
-    dose = _synthetic_dose(medication)
-    route = medication.route or "oral"
-    held_reason = "Held inpatient for documented in-hospital hypotension; intended to restart."
-    restart = "Resume when systolic blood pressure remains above 100 mmHg for 24 hours."
+    dose = synthetic_dose_for(medication)
+    route = inferred_route(medication)
+    reason = held_reason or (
+        "Held inpatient for documented in-hospital hypotension; intended to restart."
+    )
+    restart = restart_plan or (
+        "Resume when systolic blood pressure remains above 100 mmHg for 24 hours."
+    )
     session.add(
         _medication_row(
             case=case,
@@ -1212,6 +1463,7 @@ def _add_held_restart_medication(
             frequency=frequency,
             indication=indication,
             held_reason=None,
+            verification_source=verification_source,
         )
     )
     for context, status in (("inpatient", "held"), ("discharge", "held")):
@@ -1227,8 +1479,9 @@ def _add_held_restart_medication(
                 route=route,
                 frequency=frequency,
                 indication=indication,
-                held_reason=held_reason,
+                held_reason=reason,
                 target_or_goal=restart,
+                verification_source=verification_source,
             )
         )
     session.add(
@@ -1266,8 +1519,8 @@ def _add_hospital_only_medication(
     frequency: str,
 ) -> None:
     label = _med_label(medication)
-    dose = _synthetic_dose(medication)
-    route = medication.route or "oral"
+    dose = synthetic_dose_for(medication)
+    route = inferred_route(medication)
     reason = (
         f"Started in hospital for an inpatient-only indication; stop at discharge. "
         f"No outpatient continuation of {label}."
@@ -1317,10 +1570,10 @@ def _add_inpatient_substitution(
 ) -> None:
     home_label = _med_label(home_medication)
     sub_label = _med_label(substitute)
-    home_dose = _synthetic_dose(home_medication)
-    sub_dose = _synthetic_dose(substitute)
-    home_route = home_medication.route or "oral"
-    sub_route = substitute.route or "oral"
+    home_dose = synthetic_dose_for(home_medication)
+    sub_dose = synthetic_dose_for(substitute)
+    home_route = inferred_route(home_medication)
+    sub_route = inferred_route(substitute)
     sub_indication = (
         f"Formulary substitution for {home_label} during admission "
         f"(RxClass {class_id} {class_name})."
@@ -1428,6 +1681,7 @@ def _medication_row(
     quantity_or_days: str | None = None,
     target_or_goal: str | None = None,
     monitoring: str | None = None,
+    verification_source: str = "patient_and_prior_records",
 ) -> CaseMedication:
     return CaseMedication(
         case_id=case.id,
@@ -1443,7 +1697,7 @@ def _medication_row(
         status=status,
         held_reason=held_reason,
         verification_status="verified",
-        verification_source="prior_records",
+        verification_source=verification_source,
         target_or_goal=target_or_goal,
         monitoring=monitoring,
         quantity_or_days=quantity_or_days,
@@ -1455,33 +1709,84 @@ def _medication_row(
     )
 
 
-def _synthetic_dose(medication: RefMedication) -> str:
-    if medication.strength and medication.strength.strip():
-        return medication.strength.strip()
-    return "1 tablet"
+def _lab_pattern_for(profile: ClinicalProfile) -> str:
+    course = profile.hospital_course_pattern.casefold()
+    vital = profile.vital_pattern.casefold()
+    if "aki" in course:
+        return "aki"
+    if "gi_bleed" in course or "postop_hemoglobin" in course:
+        return "bleed"
+    if "glycemic" in course or vital == "glycemic":
+        return "glycemic"
+    if "diuresis" in course:
+        return "hf"
+    return "standard"
 
 
-def _synthetic_lab_value(rng: random.Random, lab: RefLabTest) -> float:
-    blob = " ".join(
-        part
-        for part in (lab.long_common_name, lab.short_name, lab.component, lab.loinc_code)
-        if part
-    ).casefold()
-    if "inr" in blob or "international normalized" in blob:
-        return rng.randint(18, 32) / 10.0
-    if "potassium" in blob:
-        return rng.randint(35, 48) / 10.0
-    if "creatinine" in blob:
-        return rng.randint(8, 16) / 10.0
-    if "sodium" in blob:
-        return float(rng.randint(134, 144))
-    if "glucose" in blob:
-        return float(rng.randint(110, 180))
-    if "hemoglobin" in blob or "haemoglobin" in blob:
-        return rng.randint(105, 145) / 10.0
-    if "natriuretic" in blob or "bnp" in blob:
-        return float(rng.randint(180, 900))
-    return rng.randint(20, 80) / 10.0
+def _synthetic_lab_value(
+    rng: random.Random,
+    lab: RefLabTest,
+    *,
+    timepoint: str = "admission",
+    lab_pattern: str = "standard",
+) -> float:
+    spec = spec_for_lab(lab)
+    unit = preferred_lab_unit(lab)
+    if spec is None:
+        return rng.randint(20, 80) / 10.0
+    if spec.name == "inr":
+        conventional = rng.randint(18, 32) / 10.0
+        if timepoint == "discharge":
+            conventional = rng.randint(20, 30) / 10.0
+    elif spec.name == "potassium":
+        conventional = rng.randint(32, 48) / 10.0
+        if timepoint == "discharge":
+            conventional = rng.randint(36, 46) / 10.0
+    elif spec.name == "creatinine":
+        if lab_pattern == "aki":
+            conventional = rng.randint(18, 28) / 10.0
+            if timepoint == "discharge":
+                conventional = rng.randint(12, 18) / 10.0
+        elif lab_pattern == "hf":
+            conventional = rng.randint(11, 18) / 10.0
+            if timepoint == "discharge":
+                conventional = rng.randint(9, 14) / 10.0
+        else:
+            conventional = rng.randint(8, 13) / 10.0
+            if timepoint == "discharge":
+                conventional = rng.randint(8, 12) / 10.0
+    elif spec.name == "sodium":
+        conventional = float(rng.randint(132, 144))
+    elif spec.name == "glucose":
+        if lab_pattern == "glycemic":
+            conventional = float(
+                rng.randint(240, 380) if timepoint == "admission" else rng.randint(110, 160)
+            )
+        else:
+            conventional = float(
+                rng.randint(110, 180) if timepoint == "admission" else rng.randint(100, 140)
+            )
+    elif spec.name == "hemoglobin":
+        if lab_pattern == "bleed":
+            if timepoint == "admission":
+                conventional = rng.randint(72, 95) / 10.0
+            else:
+                conventional = rng.randint(88, 112) / 10.0
+        else:
+            if timepoint == "admission":
+                conventional = rng.randint(115, 140) / 10.0
+            else:
+                conventional = rng.randint(118, 145) / 10.0
+    elif spec.name == "natriuretic peptide":
+        if timepoint == "admission":
+            conventional = float(rng.randint(400, 1400))
+        else:
+            conventional = float(rng.randint(180, 700))
+    else:
+        low = int(spec.conventional_low * 10)
+        high = int(spec.conventional_high * 10)
+        conventional = rng.randint(low, high) / 10.0
+    return convert_conventional(spec, conventional, unit)
 
 
 def _case_state_snapshot(session: Session, case: ClinicalCase) -> dict[str, Any]:
@@ -1558,14 +1863,18 @@ def _require_diagnosis(session: Session, scenario: Scenario) -> RefDiagnosis:
 def _select_symptoms(session: Session, queries: list[str]) -> list[RefSymptom]:
     found: list[RefSymptom] = []
     seen: set[UUID] = set()
+    missing: list[str] = []
     for query in queries:
         rows, _ = search_symptoms(session, query, limit=20, offset=0)
         ranked = sorted(
             (
                 item
                 for item in rows
-                if token_match(item.preferred_name, query)
-                or any(token_match(str(synonym), query) for synonym in (item.synonyms or []))
+                if is_symptom_level_concept(item.preferred_name, query)
+                or any(
+                    is_symptom_level_concept(str(synonym), query)
+                    for synonym in (item.synonyms or [])
+                )
             ),
             key=lambda item: (
                 0 if (item.preferred_name or "").casefold() == query.casefold() else 1,
@@ -1578,10 +1887,21 @@ def _select_symptoms(session: Session, queries: list[str]) -> list[RefSymptom]:
             if pick.id not in seen:
                 seen.add(pick.id)
                 found.append(pick)
+        else:
+            missing.append(query)
+    if missing and not found:
+        raise ReferenceResolutionError(
+            "symptom",
+            ",".join(missing),
+            "no symptom-level concept matched the requested queries",
+        )
     if found:
         return found
-    fallback = list_symptoms(session)
-    return fallback[:3]
+    raise ReferenceResolutionError(
+        "symptom",
+        ",".join(queries),
+        "no symptom-level concept matched the requested queries",
+    )
 
 
 def _select_medications(
@@ -1762,12 +2082,17 @@ def _assert_rules_allow(
     medications: list[RefMedication],
     diagnosis: RefDiagnosis,
     labs: list[RefLabTest],
+    comorbidities: list[RefDiagnosis] | None = None,
 ) -> None:
+    codes = {diagnosis.icd10cm_code} if diagnosis.icd10cm_code else set()
+    for extra in comorbidities or []:
+        if extra.icd10cm_code:
+            codes.add(extra.icd10cm_code)
     snapshot = CaseSnapshot(
         age=None,
         sex=None,
         care_context="inpatient",
-        icd10cm_codes=frozenset({diagnosis.icd10cm_code} if diagnosis.icd10cm_code else set()),
+        icd10cm_codes=frozenset(code for code in codes if code),
         rxcuis=frozenset(item.rxcui for item in medications),
         loinc_codes=frozenset(item.loinc_code for item in labs),
     )
@@ -1895,28 +2220,33 @@ def _template_narrative(
     course: str = "worsening",
     hospital_course: str = "",
     context_note: str = "",
+    hold_name: str | None = None,
+    hold_reason: str | None = None,
 ) -> CaseNarrative:
     symptom_text = ", ".join(symptoms) if symptoms else "reported symptoms"
     med_text = ", ".join(medications) if medications else "the selected home medications"
     held_text = ", ".join(held) if held else ""
     held_sentence = (
-        f" {held_text} was held on admission and is not intended for discharge continuation."
-        if held_text
-        else ""
+        f" {held_text} was discontinued and is not intended at discharge." if held_text else ""
     )
+    hold_sentence = ""
+    if hold_name:
+        reason = hold_reason or "a documented inpatient safety concern"
+        hold_sentence = f" {hold_name} was held during the admission ({reason})."
     course_sentence = f" {hospital_course}" if hospital_course else ""
     context_sentence = f" {context_note}" if context_note.strip() else ""
     chief = f"{symptom_text} in the setting of {diagnosis}"
     hpi = (
         f"A {age}-year-old {sex} is admitted with {diagnosis}. "
         f"Presenting symptoms include {symptom_text}, present for {duration} and {course}. "
-        f"Home medications include {med_text}.{held_sentence}{context_sentence}{course_sentence}"
+        f"Home medications include {med_text}.{hold_sentence}{held_sentence}"
+        f"{context_sentence}{course_sentence}"
     )
     note = (
         f"Admission note for a {age}-year-old {sex} with {diagnosis}. "
         f"Symptoms: {symptom_text} for {duration} ({course}). "
         f"Medications continued from home: {med_text}."
-        f"{held_sentence}{context_sentence}{course_sentence}"
+        f"{hold_sentence}{held_sentence}{context_sentence}{course_sentence}"
     )
     return CaseNarrative(chief_complaint=chief, hpi=hpi, note_text=note)
 
@@ -1960,6 +2290,199 @@ def _str_list(value: Any) -> list[str]:
     return [str(item).strip() for item in value if str(item).strip()]
 
 
+def _optional_str(value: Any) -> str | None:
+    if value in (None, ""):
+        return None
+    return str(value)
+
+
+def _dict_list(value: Any) -> list[dict[str, str]]:
+    if not isinstance(value, list):
+        return []
+    rows: list[dict[str, str]] = []
+    for item in value:
+        if not isinstance(item, dict):
+            continue
+        rows.append({str(key): str(val) for key, val in item.items() if val not in (None, "")})
+    return rows
+
+
+def _pick_medication(
+    medications: list[RefMedication], query: str | None
+) -> RefMedication | None:
+    if not medications or not query:
+        return None
+    needle = query.casefold()
+    for item in medications:
+        blob = " ".join(
+            part
+            for part in (item.ingredient, item.generic_name, item.concept_name, item.rxcui)
+            if part
+        ).casefold()
+        if needle in blob:
+            return item
+    return None
+
+
+def _select_comorbidities(
+    session: Session,
+    *,
+    profile: ClinicalProfile,
+    medications: list[RefMedication],
+    medication_queries: list[str],
+    admission: RefDiagnosis,
+) -> list[RefDiagnosis]:
+    queries = list(profile.comorbidity_queries)
+    found: list[RefDiagnosis] = []
+    seen = {admission.icd10cm_code or str(admission.id)}
+    admission_name = (admission.preferred_name or "").casefold()
+    for query in queries:
+        if query.casefold() in admission_name:
+            continue
+        row = match_diagnosis(session, query)
+        if row is None:
+            continue
+        key = row.icd10cm_code or str(row.id)
+        if key in seen:
+            continue
+        seen.add(key)
+        found.append(row)
+    _ = medications
+    return found
+
+
+def _indication_for(
+    session: Session, medication: RefMedication, problems: list[RefDiagnosis]
+) -> str:
+    _ = session
+    names = [item.preferred_name or item.icd10cm_code or "" for item in problems]
+    blob = " ".join(
+        part
+        for part in (medication.ingredient, medication.generic_name, medication.concept_name)
+        if part
+    ).casefold()
+    if "ibuprofen" in blob:
+        return "symptomatic analgesia; not a treatment for the admission diagnosis"
+    if "aspirin" in blob:
+        for name in names:
+            lowered = name.casefold()
+            if any(
+                token in lowered
+                for token in ("ischemic", "atherosclerotic", "coronary", "infarct")
+            ):
+                return name
+        return "antiplatelet therapy; not a treatment for the admission diagnosis"
+    mapped_needles: list[str] = []
+    for query, mapped in INDICATION_BY_QUERY.items():
+        if query in blob:
+            mapped_needles.append(mapped)
+    for mapped in mapped_needles:
+        for name in names:
+            if mapped.casefold() in name.casefold() or name.casefold() in mapped.casefold():
+                return name
+    if "metoprolol" in blob or "carvedilol" in blob:
+        for name in names:
+            lowered = name.casefold()
+            if "atrial fibrillation" in lowered or "heart failure" in lowered:
+                return name
+    if "enoxaparin" in blob:
+        for name in names:
+            lowered = name.casefold()
+            if "fibrillation" in lowered or "fracture" in lowered or "thromb" in lowered:
+                return name
+    if "albuterol" in blob:
+        return "symptomatic bronchospasm; not a treatment for the admission diagnosis"
+    for name in names:
+        if name:
+            return name
+    return "documented indication"
+
+
+def _io_volumes(rng: random.Random, direction: str) -> tuple[int, int]:
+    if direction == "negative":
+        intake = rng.randint(1200, 1600)
+        output = rng.randint(1800, 2800)
+        return intake, output
+    if direction == "positive":
+        intake = rng.randint(2000, 2800)
+        output = rng.randint(900, 1400)
+        return intake, output
+    intake = rng.randint(1400, 2000)
+    output = rng.randint(1300, 2000)
+    return intake, output
+
+
+def _discharge_vital_pattern(pattern: str) -> str:
+    _ = pattern
+    return "discharge_ready"
+
+
+def _add_investigations(
+    session: Session, case: ClinicalCase, ids: _IdCounter, profile: ClinicalProfile
+) -> None:
+    for row in profile.imaging:
+        session.add(
+            CaseImaging(
+                case_id=case.id,
+                study_id=ids.next_id("imaging"),
+                timepoint=row.get("timepoint") or "admission",
+                study_type=row.get("study_type") or row.get("type"),
+                body_site=row.get("body_site"),
+                finding=row.get("finding"),
+            )
+        )
+    for row in profile.consults:
+        session.add(
+            CaseConsult(
+                case_id=case.id,
+                consult_id=ids.next_id("consult"),
+                service=row.get("service"),
+                timepoint=row.get("timepoint") or "inpatient",
+                assessment=row.get("assessment"),
+                recommendation=row.get("recommendation"),
+            )
+        )
+    for row in profile.procedures:
+        session.add(
+            CaseProcedure(
+                case_id=case.id,
+                procedure_id=ids.next_id("procedure"),
+                procedure_name=row.get("procedure_name") or row.get("name"),
+                procedure_type=row.get("procedure_type"),
+                timepoint=row.get("timepoint") or "inpatient",
+                findings=row.get("findings"),
+            )
+        )
+    for row in profile.devices:
+        session.add(
+            CaseDevice(
+                case_id=case.id,
+                device_id=ids.next_id("device"),
+                device_type=row.get("device_type") or row.get("type"),
+                site=row.get("site"),
+                placement_timepoint=row.get("placement_timepoint") or "inpatient",
+                status=row.get("status") or "in_place",
+                tip_location_or_confirmation=row.get("tip_location_or_confirmation"),
+                care_instructions=row.get("care_instructions"),
+                removal_plan=row.get("removal_plan"),
+            )
+        )
+    for row in profile.microbiology:
+        session.add(
+            CaseMicrobiology(
+                case_id=case.id,
+                micro_id=ids.next_id("micro"),
+                timepoint=row.get("timepoint") or "admission",
+                specimen=row.get("specimen"),
+                test=row.get("test"),
+                organism=row.get("organism"),
+                result=row.get("result"),
+                status=row.get("status") or "final",
+                notes=row.get("notes"),
+            )
+        )
+
+
 def _hospital_course_text(pattern: str) -> str:
     return HOSPITAL_COURSE_TEXT.get(pattern) or HOSPITAL_COURSE_TEXT["day1_io_ready_home"]
 
@@ -1989,8 +2512,8 @@ def _synthetic_vitals(rng: random.Random, pattern: str) -> dict[str, Any]:
     if pattern == "hypertensive":
         return {
             "temp_c": Decimal("36.7"),
-            "bp_systolic": rng.randint(150, 178),
-            "bp_diastolic": rng.randint(88, 108),
+            "bp_systolic": rng.randint(180, 210),
+            "bp_diastolic": rng.randint(100, 120),
             "heart_rate": rng.randint(72, 96),
             "resp_rate": rng.randint(14, 20),
             "spo2_percent": Decimal(str(rng.randint(95, 99))),
@@ -2026,12 +2549,22 @@ def _synthetic_vitals(rng: random.Random, pattern: str) -> dict[str, Any]:
             "spo2_percent": Decimal(str(rng.randint(95, 99))),
             "oxygen_support": None,
         }
+    if pattern == "discharge_ready":
+        return {
+            "temp_c": Decimal("36.8"),
+            "bp_systolic": rng.randint(110, 142),
+            "bp_diastolic": rng.randint(64, 86),
+            "heart_rate": rng.randint(62, 88),
+            "resp_rate": rng.randint(14, 20),
+            "spo2_percent": Decimal(str(rng.randint(95, 99))),
+            "oxygen_support": None,
+        }
     return {
         "temp_c": Decimal("36.8"),
-        "bp_systolic": rng.randint(118, 158),
-        "bp_diastolic": rng.randint(68, 96),
-        "heart_rate": rng.randint(72, 110),
-        "resp_rate": rng.randint(16, 24),
-        "spo2_percent": Decimal(str(rng.randint(91, 98))),
+        "bp_systolic": rng.randint(118, 148),
+        "bp_diastolic": rng.randint(68, 88),
+        "heart_rate": rng.randint(68, 92),
+        "resp_rate": rng.randint(14, 20),
+        "spo2_percent": Decimal(str(rng.randint(94, 98))),
         "oxygen_support": None,
     }

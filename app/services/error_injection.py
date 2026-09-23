@@ -18,6 +18,7 @@ from app.models.cases import CaseAnswerKey, CaseMedication, ClinicalCase
 from app.models.generation import CaseMedicationPlan
 from app.models.reference import RefMedication
 from app.repositories.cases import list_medications_for_case
+from app.services.clinical_coherence import inferred_route, synthetic_dose_for
 from app.services.error_taxonomy import (
     F1_COMMISSION,
     F1_DOSE,
@@ -92,6 +93,7 @@ def inject_reconciliation_error(
     rng: random.Random,
     seed: str,
     preferred_category: str = F1_OMISSION,
+    target_rxcui: str | None = None,
 ) -> InjectionResult:
     """Plant exactly the requested category after a validated clean case."""
     requested = canonicalize_category(preferred_category)
@@ -107,7 +109,7 @@ def inject_reconciliation_error(
         )
     require_eligible(session, case, requested)
     view = load_case_view(session, case)
-    result = _dispatch(session, case, view, rng, seed, requested)
+    result = _dispatch(session, case, view, rng, seed, requested, target_rxcui=target_rxcui)
     if canonicalize_category(result.category) != requested:
         raise CaseValidationError(
             "error_injection",
@@ -127,31 +129,43 @@ def _dispatch(
     rng: random.Random,
     seed: str,
     category: str,
+    *,
+    target_rxcui: str | None = None,
 ) -> InjectionResult:
     if category == F1_OMISSION:
-        return _inject_omission(session, case, view, rng, seed)
+        return _inject_omission(session, case, view, rng, seed, target_rxcui=target_rxcui)
     if category == F1_DOSE:
-        return _inject_field_mismatch(session, case, view, rng, seed, "dose")
+        return _inject_field_mismatch(
+            session, case, view, rng, seed, "dose", target_rxcui=target_rxcui
+        )
     if category == F1_ROUTE:
-        return _inject_field_mismatch(session, case, view, rng, seed, "route")
+        return _inject_field_mismatch(
+            session, case, view, rng, seed, "route", target_rxcui=target_rxcui
+        )
     if category == F1_FREQUENCY:
-        return _inject_field_mismatch(session, case, view, rng, seed, "frequency")
+        return _inject_field_mismatch(
+            session, case, view, rng, seed, "frequency", target_rxcui=target_rxcui
+        )
     if category == F1_COMMISSION:
-        return _inject_commission(session, case, view, rng, seed)
+        return _inject_commission(session, case, view, rng, seed, target_rxcui=target_rxcui)
     if category == F1_SUBSTITUTION:
-        return _inject_therapeutic_substitution(session, case, view, rng, seed)
+        return _inject_therapeutic_substitution(
+            session, case, view, rng, seed, target_rxcui=target_rxcui
+        )
     if category == F2_MONITORING:
-        return _inject_monitoring_gap(session, case, view, rng, seed)
+        return _inject_monitoring_gap(session, case, view, rng, seed, target_rxcui=target_rxcui)
     if category == F2_HELD_RESTART:
-        return _inject_held_restart_gap(session, case, view, rng, seed)
+        return _inject_held_restart_gap(session, case, view, rng, seed, target_rxcui=target_rxcui)
     if category == F2_SUPPLY:
-        return _inject_insufficient_supply(session, case, view, rng, seed)
+        return _inject_insufficient_supply(
+            session, case, view, rng, seed, target_rxcui=target_rxcui
+        )
     if category == F2_HOSPITAL_ONLY:
-        return _inject_hospital_only(session, case, view, rng, seed)
+        return _inject_hospital_only(session, case, view, rng, seed, target_rxcui=target_rxcui)
     if category == F2_INPATIENT_SUB:
         return _inject_inpatient_substitution(session, case, view, rng, seed)
     if category == F2_PENDING_FOLLOWUP:
-        return _inject_pending_followup(session, case, view, rng, seed)
+        return _inject_pending_followup(session, case, view, rng, seed, target_rxcui=target_rxcui)
     raise CaseValidationError("error_injection", f"no injector for {category}")
 
 
@@ -161,9 +175,11 @@ def _inject_omission(
     view: CaseView,
     rng: random.Random,
     seed: str,
+    *,
+    target_rxcui: str | None = None,
 ) -> InjectionResult:
     targets = continue_discharge_targets(session, view)
-    plan, medication = _choose(rng, targets)
+    plan, medication = _choose(rng, targets, target_rxcui=target_rxcui)
     rxcui = plan_rxcui(session, plan) or ""
     session.delete(medication)
     plan.is_error_target = True
@@ -205,11 +221,13 @@ def _inject_field_mismatch(
     rng: random.Random,
     seed: str,
     field_name: str,
+    *,
+    target_rxcui: str | None = None,
 ) -> InjectionResult:
     targets = [
         item for item in continue_discharge_targets(session, view) if getattr(item[1], field_name)
     ]
-    plan, medication = _choose(rng, targets)
+    plan, medication = _choose(rng, targets, target_rxcui=target_rxcui)
     original = str(getattr(medication, field_name) or "")
     planted = _altered_value(field_name, original)
     setattr(medication, field_name, planted)
@@ -252,9 +270,11 @@ def _inject_commission(
     view: CaseView,
     rng: random.Random,
     seed: str,
+    *,
+    target_rxcui: str | None = None,
 ) -> InjectionResult:
     targets = commission_targets(session, view)
-    plan, home = _choose(rng, targets)
+    plan, home = _choose(rng, targets, target_rxcui=target_rxcui)
     cloned = _clone_to_discharge(session, case, home)
     session.add(cloned)
     plan.is_error_target = True
@@ -295,8 +315,14 @@ def _inject_therapeutic_substitution(
     view: CaseView,
     rng: random.Random,
     seed: str,
+    *,
+    target_rxcui: str | None = None,
 ) -> InjectionResult:
     pairs = class_pairs_for_case(session, view)
+    if target_rxcui:
+        targeted = [item for item in pairs if item.source.rxcui == target_rxcui]
+        if targeted:
+            pairs = targeted
     pair = _choose(rng, pairs)
     targets = [
         item
@@ -363,9 +389,11 @@ def _inject_monitoring_gap(
     view: CaseView,
     rng: random.Random,
     seed: str,
+    *,
+    target_rxcui: str | None = None,
 ) -> InjectionResult:
     targets = monitoring_targets(session, view)
-    medication, rule_code, lab = _choose(rng, targets)
+    medication, rule_code, lab = _choose(rng, targets, target_rxcui=target_rxcui)
     rxcui = medication_rxcui(session, medication) or ""
     removed_ids = [item.monitoring_id for item in view.monitoring]
     for row in view.monitoring:
@@ -415,8 +443,18 @@ def _inject_held_restart_gap(
     view: CaseView,
     rng: random.Random,
     seed: str,
+    *,
+    target_rxcui: str | None = None,
 ) -> InjectionResult:
     plans = held_restart_targets(view)
+    if target_rxcui:
+        matched = [item for item in plans if plan_rxcui(session, item) == target_rxcui]
+        if not matched:
+            raise CaseValidationError(
+                "error_injection",
+                f"profile target RXCUI {target_rxcui} is not eligible to hold",
+            )
+        plans = matched
     plan = _choose(rng, plans)
     rxcui = plan_rxcui(session, plan) or ""
     removed: list[str | None] = []
@@ -473,6 +511,8 @@ def _inject_insufficient_supply(
     view: CaseView,
     rng: random.Random,
     seed: str,
+    *,
+    target_rxcui: str | None = None,
 ) -> InjectionResult:
     followup_days = max(
         (parse_days(item.timing) or 0 for item in view.followups),
@@ -486,7 +526,7 @@ def _inject_insufficient_supply(
         and item[1].frequency
         and (parse_days(item[1].quantity_or_days) or 0) >= followup_days
     ]
-    plan, medication = _choose(rng, targets)
+    plan, medication = _choose(rng, targets, target_rxcui=target_rxcui)
     original = medication.quantity_or_days
     medication.quantity_or_days = f"{INJECTED_SUPPLY_DAYS} days"
     plan.is_error_target = True
@@ -533,6 +573,8 @@ def _inject_hospital_only(
     view: CaseView,
     rng: random.Random,
     seed: str,
+    *,
+    target_rxcui: str | None = None,
 ) -> InjectionResult:
     inpatient = [
         item
@@ -551,7 +593,7 @@ def _inject_hospital_only(
         )
         if match is not None:
             candidates.append((plan, match))
-    plan, source = _choose(rng, candidates)
+    plan, source = _choose(rng, candidates, target_rxcui=target_rxcui)
     cloned = _clone_to_discharge(session, case, source)
     session.add(cloned)
     plan.is_error_target = True
@@ -683,6 +725,8 @@ def _inject_pending_followup(
     view: CaseView,
     rng: random.Random,
     seed: str,
+    *,
+    target_rxcui: str | None = None,
 ) -> InjectionResult:
     _ = rng
     removed = [
@@ -705,7 +749,17 @@ def _inject_pending_followup(
         "Treatment continues after discharge while a pending therapeutic decision remains "
         "unresolved and no follow-up visit is arranged to resolve it."
     )
-    plan = next((item for item in view.plans if item.correct_discharge_state == "continue"), None)
+    plans = list(view.plans)
+    plan = None
+    if target_rxcui:
+        matched = [item for item in plans if plan_rxcui(session, item) == target_rxcui]
+        if not matched:
+            raise CaseValidationError(
+                "error_injection",
+                f"profile target RXCUI {target_rxcui} is not eligible "
+                "for the pending-decision medication",
+            )
+        plan = matched[0]
     if plan is not None:
         plan.is_error_target = True
     rxcui = plan_rxcui(session, plan) if plan is not None else ""
@@ -877,6 +931,8 @@ def _replace_medication_identity(medication: CaseMedication, replacement: RefMed
     medication.drug = label
     medication.reported_name = label
     medication.source_reference = f"RXCUI:{replacement.rxcui}"
+    medication.dose = synthetic_dose_for(replacement)
+    medication.route = inferred_route(replacement)
 
 
 def _altered_value(field_name: str, original: str) -> str:
@@ -903,13 +959,52 @@ def _altered_dose(original: str) -> str:
     return f"2 tablets instead of {stripped}"
 
 
-def _choose[T](rng: random.Random, targets: list[T]) -> T:
-    if not targets:
+def _choose[T](rng: random.Random, targets: list[T], *, target_rxcui: str | None = None) -> T:
+    usable = targets
+    if target_rxcui:
+        matched = [item for item in targets if _tuple_rxcui(item) == target_rxcui]
+        if not matched:
+            raise CaseValidationError(
+                "error_injection",
+                f"profile target RXCUI {target_rxcui} is not eligible for the requested category",
+            )
+        usable = matched
+    if not usable:
         raise CaseValidationError(
             "error_injection",
-            "no eligible target for the requested category; no substitute category will be used",
+            "no eligible target remained for the requested category",
         )
-    return rng.choice(targets)
+    return usable[rng.randrange(len(usable))]
+
+
+def _tuple_rxcui(item: object) -> str | None:
+    if isinstance(item, tuple) and item:
+        for part in item:
+            parsed = _rxcui_from_source_reference(getattr(part, "source_reference", None))
+            if parsed:
+                return parsed
+            rxcui = getattr(part, "rxcui", None)
+            if isinstance(rxcui, str):
+                return rxcui
+    rxcui = getattr(item, "rxcui", None)
+    if isinstance(rxcui, str):
+        return rxcui
+    source = getattr(item, "source", None)
+    if source is not None:
+        value = getattr(source, "rxcui", None)
+        if isinstance(value, str):
+            return value
+    parsed = _rxcui_from_source_reference(getattr(item, "source_reference", None))
+    if parsed:
+        return parsed
+    return None
+
+
+def _rxcui_from_source_reference(value: object) -> str | None:
+    text = str(value or "")
+    if text.startswith("RXCUI:"):
+        return text.split(":", 1)[1]
+    return None
 
 
 def _mark_plan(view: CaseView, ref_id: Any) -> CaseMedicationPlan | None:

@@ -33,6 +33,10 @@ CHILD_ID_PREFIXES: dict[str, str] = {
     "precaution": "RP",
     "blueprint": "BP",
     "run": "RUN",
+    "imaging": "STUDY",
+    "consult": "CON",
+    "device": "DEV",
+    "micro": "MICRO",
 }
 
 

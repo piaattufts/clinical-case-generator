@@ -122,7 +122,7 @@ VALIDATION_RUBRIC_MD = """# CliniProof Clinical Case Validation Rubric
 
 A clinician or resident evaluates each synthetic inpatient case in a single review before it is accepted for use. Clinical validation uses a single review stage. Each reviewer reads the complete case and assesses C1–C5 in one pass.
 
-Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. The frozen set is identified by its batch code in this directory. Active prospective sets are `CLINIPROOF_BALANCED_V2` and `CLINIPROOF_SEEDCASES_V1`.
+Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. The frozen set is identified by its batch code in this directory. Active prospective sets are `CLINIPROOF_BALANCED_V3` and `CLINIPROOF_SEEDCASES_V2`.
 
 The five criteria serve different purposes and should not be collapsed into a single pass or fail judgment. C2 through C4 are required: if any of them fails, the case cannot be used against its intended answer key until it is revised or excluded. C5 is advisory and must not by itself cause a case to fail validation.
 
@@ -481,7 +481,7 @@ Physicians can stop here. The table below is for engineers and informatics staff
 
 Standardized families are Family 1 (`family_1`), Family 2 (`family_2`), and no planted target (`none`) for a clean control. Standardized categories are the `f1_*` and `f2_*` identifiers listed above. Unknown names fail rather than being aliased.
 
-Readable packets are regenerated with an explicit `--batch-code` and `--resident` path, for example `python scripts/build_readable_validation_packets.py --batch-code CLINIPROOF_BALANCED_V2 --resident data/validation_balanced/resident_validation_cases.json`, and do not rewrite frozen JSON.
+Readable packets are regenerated with an explicit `--batch-code` and `--resident` path, for example `python -m app.services.readable_packets --batch-code CLINIPROOF_BALANCED_V3 --resident data/validation_balanced_v3/resident_validation_cases.json`, and do not rewrite frozen JSON.
 """
 
 DEVELOPER_NOTES_MD = """# CliniProof Implementation Notes for Clinical Informatics and AI Engineering
@@ -608,8 +608,8 @@ Operators who already have a database and terminology bootstrap can run the foll
 ```bash
 clinical-case-generator db-init
 clinical-case-generator bootstrap-reference-data
-clinical-case-generator freeze-validation-batch --plan data/validation_balanced/batch_plan.json
-clinical-case-generator export-validation-batch --batch-code CLINIPROOF_BALANCED_V2
-python scripts/build_readable_validation_packets.py --batch-code CLINIPROOF_BALANCED_V2 --resident data/validation_balanced/resident_validation_cases.json
+clinical-case-generator freeze-validation-batch --plan data/validation_balanced_v3/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_BALANCED_V3
+python -m app.services.readable_packets --batch-code CLINIPROOF_BALANCED_V3 --resident data/validation_balanced_v3/resident_validation_cases.json
 ```
 """

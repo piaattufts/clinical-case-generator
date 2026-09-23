@@ -8,12 +8,12 @@ modify either frozen batch. Uniqueness is judged on clean-case structure
 reconstructed from resident-facing fields plus investigator labels.
 Age, sex, exact vitals, and exact laboratory numbers are excluded.
 
-Left: `CLINIPROOF_BALANCED_V2` (`balanced_structured`).
-Right: `CLINIPROOF_SEEDCASES_V1` (`resident_seed_guided`).
+Left: `CLINIPROOF_BALANCED_V3` (`balanced_structured`).
+Right: `CLINIPROOF_SEEDCASES_V2` (`resident_seed_guided`).
 
 The archived original freeze `CLINIPROOF_TAXONOMY_V1` is excluded.
 
-| Measure | CLINIPROOF_BALANCED_V2 | CLINIPROOF_SEEDCASES_V1 |
+| Measure | CLINIPROOF_BALANCED_V3 | CLINIPROOF_SEEDCASES_V2 |
 | --- | ---: | ---: |
 | Cases | 24 | 24 |
 | Generation strategy | balanced_structured | resident_seed_guided |
@@ -25,6 +25,8 @@ The archived original freeze `CLINIPROOF_TAXONOMY_V1` is excluded.
 | Unique home-medication sets | 21 | 21 |
 | Unique hospital-course profiles | 24 | 24 |
 | Unique follow-up profiles | 24 | 21 |
+| Unique imaging sets | 2 | 3 |
+| Unique consult sets | 3 | 8 |
 | Exact duplicate fingerprints | 0 | 0 |
 | Near-duplicate warnings | 2 | 7 |
 | Closest-pair similarity | 0.7567 | 0.79 |
@@ -55,20 +57,20 @@ The archived original freeze `CLINIPROOF_TAXONOMY_V1` is excluded.
 
 ### Left
 
+- Acute systolic (congestive) heart failure: 5
 - Essential (primary) hypertension: 5
 - Lobar pneumonia, unspecified organism: 4
 - Paroxysmal atrial fibrillation: 5
-- Type 2 diabetes mellitus with unspecified complications: 5
-- Unspecified systolic (congestive) heart failure: 5
+- Type 2 diabetes mellitus with hyperglycemia: 5
 
 ### Right
 
+- Acute and subacute infective endocarditis: 4
+- Acute systolic (congestive) heart failure: 4
 - Delirium due to known physiological condition: 4
-- Endocarditis, valve unspecified: 4
 - Fracture of unspecified part of neck of right femur, initial encounter for closed fracture: 4
 - Gastrointestinal hemorrhage, unspecified: 4
 - Other cytomegaloviral diseases: 4
-- Unspecified systolic (congestive) heart failure: 4
 
 ## Specialty distribution
 
@@ -88,13 +90,14 @@ The archived original freeze `CLINIPROOF_TAXONOMY_V1` is excluded.
 
 ## Closest pairs
 
-- Left closest pair: VAL-317 vs VAL-320 (0.7567)
-- Right closest pair: VAL-405 vs VAL-407 (0.79)
+- Left closest pair: VAL-517 vs VAL-520 (0.7567)
+- Right closest pair: VAL-605 vs VAL-607 (0.79)
 
 ## Method note
 
-`CLINIPROOF_BALANCED_V2` uses named clinical profiles inside the five
-template inpatient families. `CLINIPROOF_SEEDCASES_V1` uses resident-authored
-seed archetypes plus named profiles. Both are active prospective sets.
-`CLINIPROOF_TAXONOMY_V1` remains archived historical provenance.
-Human clinician review is still required.
+`CLINIPROOF_BALANCED_V3` uses named clinical profiles inside the five
+template inpatient families. `CLINIPROOF_SEEDCASES_V2` uses resident-authored
+seed archetypes plus named profiles. Both are active prospective sets after
+clinical-coherence QC. `CLINIPROOF_BALANCED_V2` and `CLINIPROOF_SEEDCASES_V1`
+remain preclinical-QC archives. `CLINIPROOF_TAXONOMY_V1` remains archived
+historical provenance. Human clinician review is still required.

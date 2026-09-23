@@ -16,7 +16,7 @@ from app.services.seed_archetypes import GENERATION_STRATEGY_SEED, GENERATION_ST
 from app.services.validation_registry import (
     STRATEGY_BALANCED,
     STRATEGY_SEED,
-    get_batch,
+    active_batches,
 )
 
 DATASET_STATUS = "machine-validated synthetic resident-review cases pending clinician validation"
@@ -127,6 +127,8 @@ def summarize_batch(
     profiles: set[str] = set()
     error_categories: Counter[str] = Counter()
     error_families: Counter[str] = Counter()
+    imaging_sets: set[tuple[str, ...]] = set()
+    consult_sets: set[tuple[str, ...]] = set()
     for case in resident.get("cases") or []:
         if not isinstance(case, dict):
             continue
@@ -147,6 +149,24 @@ def summarize_batch(
         error = inv.get("error") or {}
         error_categories[str(error.get("error_category") or "none")] += 1
         error_families[str(error.get("error_family") or "none")] += 1
+        imaging_sets.add(
+            tuple(
+                sorted(
+                    str(item.get("study_type") or "")
+                    for item in (case.get("CaseImaging") or [])
+                    if item.get("study_type")
+                )
+            )
+        )
+        consult_sets.add(
+            tuple(
+                sorted(
+                    str(item.get("service") or "")
+                    for item in (case.get("CaseConsult") or [])
+                    if item.get("service")
+                )
+            )
+        )
     audit = audit_fingerprints(labeled) if len(labeled) >= 2 else None
     symptom_sets = {item[1].symptoms for item in labeled}
     med_sets = {item[1].home_medications for item in labeled}
@@ -164,6 +184,8 @@ def summarize_batch(
         "unique_home_medication_sets": len(med_sets),
         "unique_hospital_course_profiles": len(courses),
         "unique_followup_profiles": len(followups),
+        "unique_imaging_sets": len(imaging_sets),
+        "unique_consult_sets": len(consult_sets),
         "error_families": dict(sorted(error_families.items())),
         "error_categories": dict(sorted(error_categories.items())),
         "exact_duplicates": 0 if audit is None else len(audit.duplicates),
@@ -295,8 +317,10 @@ def write_randomized_vs_seedcase_comparison(
 
 
 def write_active_batch_comparison(output: Path | None = None) -> Path:
-    left_spec = get_batch("CLINIPROOF_BALANCED_V2")
-    right_spec = get_batch("CLINIPROOF_SEEDCASES_V1")
+    specs = active_batches()
+    if len(specs) != 2:
+        raise ValueError("active comparison requires exactly two active batches")
+    left_spec, right_spec = specs[0], specs[1]
     left = summarize_batch(
         resident_path=left_spec.directory / "resident_validation_cases.json",
         investigator_path=left_spec.directory / "investigator_answer_key.json",
@@ -358,6 +382,8 @@ def write_active_batch_comparison(output: Path | None = None) -> Path:
             left["unique_followup_profiles"],
             right["unique_followup_profiles"],
         ),
+        row("Unique imaging sets", left["unique_imaging_sets"], right["unique_imaging_sets"]),
+        row("Unique consult sets", left["unique_consult_sets"], right["unique_consult_sets"]),
         row("Exact duplicate fingerprints", left["exact_duplicates"], right["exact_duplicates"]),
         row(
             "Near-duplicate warnings",
@@ -413,11 +439,12 @@ def write_active_batch_comparison(output: Path | None = None) -> Path:
             "",
             "## Method note",
             "",
-            "`CLINIPROOF_BALANCED_V2` uses named clinical profiles inside the five",
-            "template inpatient families. `CLINIPROOF_SEEDCASES_V1` uses resident-authored",
-            "seed archetypes plus named profiles. Both are active prospective sets.",
-            "`CLINIPROOF_TAXONOMY_V1` remains archived historical provenance.",
-            "Human clinician review is still required.",
+            "`CLINIPROOF_BALANCED_V3` uses named clinical profiles inside the five",
+            "template inpatient families. `CLINIPROOF_SEEDCASES_V2` uses resident-authored",
+            "seed archetypes plus named profiles. Both are active prospective sets after",
+            "clinical-coherence QC. `CLINIPROOF_BALANCED_V2` and `CLINIPROOF_SEEDCASES_V1`",
+            "remain preclinical-QC archives. `CLINIPROOF_TAXONOMY_V1` remains archived",
+            "historical provenance. Human clinician review is still required.",
             "",
         ]
     )
