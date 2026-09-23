@@ -122,7 +122,7 @@ Operators who already have a database and terminology bootstrap can run the foll
 ```bash
 clinical-case-generator db-init
 clinical-case-generator bootstrap-reference-data
-clinical-case-generator freeze-validation-batch --plan data/validation_balanced/batch_plan.json
-clinical-case-generator export-validation-batch --batch-code CLINIPROOF_BALANCED_V2
-python scripts/build_readable_validation_packets.py --batch-code CLINIPROOF_BALANCED_V2 --resident data/validation_balanced/resident_validation_cases.json
+clinical-case-generator freeze-validation-batch --plan data/validation_balanced_v3/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_BALANCED_V3
+python -m app.services.readable_packets --batch-code CLINIPROOF_BALANCED_V3 --resident data/validation_balanced_v3/resident_validation_cases.json
 ```

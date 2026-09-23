@@ -147,4 +147,4 @@ Physicians can stop here. The table below is for engineers and informatics staff
 
 Standardized families are Family 1 (`family_1`), Family 2 (`family_2`), and no planted target (`none`) for a clean control. Standardized categories are the `f1_*` and `f2_*` identifiers listed above. Unknown names fail rather than being aliased.
 
-Readable packets are regenerated with an explicit `--batch-code` and `--resident` path, for example `python scripts/build_readable_validation_packets.py --batch-code CLINIPROOF_BALANCED_V2 --resident data/validation_balanced/resident_validation_cases.json`, and do not rewrite frozen JSON.
+Readable packets are regenerated with an explicit `--batch-code` and `--resident` path, for example `python -m app.services.readable_packets --batch-code CLINIPROOF_BALANCED_V3 --resident data/validation_balanced_v3/resident_validation_cases.json`, and do not rewrite frozen JSON.
