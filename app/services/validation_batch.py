@@ -76,9 +76,17 @@ from app.services.error_taxonomy import (
 from app.services.generation import (
     GENERATOR_NAME,
     GeneratedCaseResult,
+    Scenario,
     generate_one_case,
     load_scenarios,
     resolve_profile,
+)
+from app.services.seed_archetypes import (
+    GENERATION_STRATEGY_SEED,
+    GENERATION_STRATEGY_TEMPLATE,
+    SEED_LEAK_MARKERS,
+    SEEDCASES_BATCH_CODE,
+    load_seed_archetypes,
 )
 from app.services.validation import validate_case
 from app.sources.exceptions import CaseValidationError, FrozenValidationCaseError
@@ -87,6 +95,7 @@ from app.utils.jsonio import dumps_json, loads_json
 
 VALIDATION_DIR = Path(__file__).resolve().parents[2] / "data" / "validation"
 BALANCED_VALIDATION_DIR = Path(__file__).resolve().parents[2] / "data" / "validation_balanced"
+SEEDCASES_VALIDATION_DIR = Path(__file__).resolve().parents[2] / "data" / "validation_seedcases"
 DEFAULT_BATCH_PLAN_PATH = VALIDATION_DIR / "batch_plan.json"
 DEFAULT_EXPORT_DIR = VALIDATION_DIR
 DEFAULT_BATCH_CODE = "CLINIPROOF_TAXONOMY_V1"
@@ -117,6 +126,7 @@ LEAK_MARKERS = (
     "intentional_changes",
     "trigger_meds",
     "is_primary_error",
+    *SEED_LEAK_MARKERS,
 )
 
 
@@ -129,6 +139,7 @@ class Assignment:
     sequence: int
     error_family: str | None = None
     clinical_profile: str | None = None
+    generation_strategy: str = GENERATION_STRATEGY_TEMPLATE
 
 
 @dataclass
@@ -168,6 +179,7 @@ def parse_assignments(plan: dict[str, Any]) -> list[Assignment]:
     rows = plan.get("cases")
     if not isinstance(rows, list) or not rows:
         raise ValueError("batch plan must contain a non-empty cases list")
+    default_strategy = str(plan.get("generation_strategy") or GENERATION_STRATEGY_TEMPLATE)
     assignments: list[Assignment] = []
     for item in rows:
         if not isinstance(item, dict):
@@ -196,6 +208,9 @@ def parse_assignments(plan: dict[str, Any]) -> list[Assignment]:
                     if item.get("clinical_profile") in (None, "")
                     else str(item.get("clinical_profile"))
                 ),
+                generation_strategy=str(
+                    item.get("generation_strategy") or default_strategy
+                ),
             )
         )
     return assignments
@@ -220,7 +235,11 @@ def freeze_validation_batch(
     plan = load_batch_plan(plan_path)
     batch_code = str(plan.get("batch_code") or DEFAULT_BATCH_CODE)
     master_seed = int(plan.get("master_seed") or 0)
-    scenarios = {item.code: item for item in load_scenarios()}
+    strategy = str(plan.get("generation_strategy") or GENERATION_STRATEGY_TEMPLATE)
+    if strategy == GENERATION_STRATEGY_SEED:
+        scenarios = {item.code: item for item in load_seed_archetypes()}
+    else:
+        scenarios = {item.code: item for item in load_scenarios()}
     result = FreezeResult(batch_code=batch_code, master_seed=master_seed)
     assignments = parse_assignments(plan)
     _assert_scenario_balance(plan, assignments)
@@ -459,7 +478,7 @@ def export_validation_batch(
     worksheet_path.write_text(_worksheet_csv(rows), encoding="utf-8")
     schema_path.write_text(dumps_json(_review_schema()), encoding="utf-8")
     (output / "scenario_coverage_matrix.md").write_text(
-        _scenario_matrix_markdown(session),
+        _scenario_matrix_markdown(session, batch_code=batch_code, rows=rows),
         encoding="utf-8",
     )
     diversity_path = _write_diversity_report(output, batch_code, rows)
@@ -1239,6 +1258,12 @@ def _investigator_payload(
             "internal_case_id_code": case.case_id_code,
             "scenario": frozen.scenario_code,
             "clinical_profile": _clinical_profile_of(frozen),
+            "generation_strategy": _generation_strategy_of(frozen),
+            "seed_archetype_id": _diversity_field(frozen, "seed_archetype_id"),
+            "seed_archetype_name": _diversity_field(frozen, "seed_archetype_name"),
+            "seed_source_type": _diversity_field(frozen, "seed_source_type"),
+            "seed_source_filename": _diversity_field(frozen, "seed_source_filename"),
+            "blueprint_version": _diversity_field(frozen, "blueprint_version"),
             "control_error_status": status,
             "error": error_block,
             "supporting_clinical_rules": frozen.rule_snapshot,
@@ -1373,6 +1398,12 @@ def _investigator_markdown(doc: dict[str, Any]) -> str:
         lines.append(f"- Scenario: `{item['scenario']}`")
         if item.get("clinical_profile"):
             lines.append(f"- Clinical profile: `{item['clinical_profile']}`")
+        if item.get("generation_strategy"):
+            lines.append(f"- Generation strategy: `{item['generation_strategy']}`")
+        if item.get("seed_archetype_id"):
+            lines.append(f"- Seed archetype: `{item['seed_archetype_id']}`")
+        if item.get("seed_source_filename"):
+            lines.append(f"- Seed source file: `{item['seed_source_filename']}`")
         lines.append(f"- Status: {item['control_error_status']}")
         error = item.get("error") or {}
         if item["control_error_status"] == "NO INTENTIONAL ERROR":
@@ -1463,14 +1494,33 @@ def _coverage_markdown(coverage: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def _scenario_matrix_markdown(session: Session) -> str:
+def _scenarios_for_export(
+    batch_code: str,
+    rows: list[ValidationBatchCase] | None = None,
+) -> list[Scenario]:
+    seed_rows = False
+    if rows:
+        seed_rows = any(
+            _generation_strategy_of(row) == GENERATION_STRATEGY_SEED for row in rows
+        )
+    if batch_code == SEEDCASES_BATCH_CODE or seed_rows:
+        return load_seed_archetypes()
+    return load_scenarios()
+
+
+def _scenario_matrix_markdown(
+    session: Session,
+    *,
+    batch_code: str = DEFAULT_BATCH_CODE,
+    rows: list[ValidationBatchCase] | None = None,
+) -> str:
     lines = [
         "# Internal scenario coverage matrix",
         "",
         "Resolved from local source-backed reference rows. Hidden answer data is not included.",
         "",
     ]
-    for scenario in load_scenarios():
+    for scenario in _scenarios_for_export(batch_code, rows):
         diagnoses = [
             _resolved_label(match_diagnosis(session, query), "preferred_name", "icd10cm_code")
             for query in scenario.diagnosis_queries
@@ -1485,11 +1535,17 @@ def _scenario_matrix_markdown(session: Session) -> str:
         ]
         enabled = [rule.rule_code for rule in list_enabled_rules(session)]
         error_types = scenario.allowed_error_categories or [scenario.target_error_category]
+        extra: list[str] = []
+        if scenario.generation_strategy == GENERATION_STRATEGY_SEED:
+            extra.append(f"- generation_strategy: {scenario.generation_strategy}")
+            if scenario.seed_source_filename:
+                extra.append(f"- seed_source_filename: `{scenario.seed_source_filename}`")
         lines.extend(
             [
                 f"## {scenario.code}",
                 "",
                 f"- context: {scenario.care_context} / {scenario.specialty}",
+                *extra,
                 f"- diagnoses: {', '.join(diagnoses) or '(unresolved)'}",
                 f"- medications: {', '.join(medications) or '(unresolved)'}",
                 f"- labs: {', '.join(labs) or '(none)'}",
@@ -1555,11 +1611,19 @@ def _review_schema() -> dict[str, Any]:
 
 
 def _clinical_profile_of(frozen: ValidationBatchCase) -> str | None:
+    return _diversity_field(frozen, "clinical_profile")
+
+
+def _generation_strategy_of(frozen: ValidationBatchCase) -> str:
+    return _diversity_field(frozen, "generation_strategy") or GENERATION_STRATEGY_TEMPLATE
+
+
+def _diversity_field(frozen: ValidationBatchCase, name: str) -> str | None:
     diversity = (frozen.clean_state or {}).get("diversity")
     if isinstance(diversity, dict):
-        profile = diversity.get("clinical_profile")
-        if profile:
-            return str(profile)
+        value = diversity.get(name)
+        if value:
+            return str(value)
     return None
 
 

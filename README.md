@@ -52,7 +52,7 @@ A validation case must represent a distinct underlying clinical scenario before 
 
 The generator now names a clinical profile inside each scenario family (for example several heart-failure or atrial-fibrillation variants). Each profile specifies a permitted symptom set, duration and course, medication subset, laboratory subset, hospital-course pattern, and follow-up structure using only source-backed concepts. After the clean case is validated, the software computes a fingerprint that excludes VAL/SYN identifiers, seed, exact age, sex, weight, vital numbers, laboratory numbers, and the intended error. Exact fingerprint matches raise `DuplicateClinicalCaseError` and the batch is not frozen. Weighted similarity of 0.85 or higher is also rejected. Scores between 0.70 and 0.85 are reported as investigator warnings.
 
-The frozen study set `CLINIPROOF_TAXONOMY_V1` (VAL-201–VAL-224) is unchanged. The prospective balanced set is `CLINIPROOF_BALANCED_V2` (VAL-301–VAL-324) in [`data/validation_balanced/`](data/validation_balanced/). Passing the diversity audit does not mean the cases are clinically validated. Human clinician review is still required.
+The frozen study set `CLINIPROOF_TAXONOMY_V1` (VAL-201–VAL-224) is unchanged. The prospective balanced template set is `CLINIPROOF_BALANCED_V2` (VAL-301–VAL-324) in [`data/validation_balanced/`](data/validation_balanced/). The prospective seed-guided set is `CLINIPROOF_SEEDCASES_V1` (VAL-401–VAL-424) in [`data/validation_seedcases/`](data/validation_seedcases/). Passing the diversity audit does not mean the cases are clinically validated. Human clinician review is still required. This repository does not declare which prospective batch is the study dataset.
 
 ## Family 1 and Family 2
 
@@ -940,8 +940,14 @@ This matches `app/cli/__init__.py` and `app/services/validation_batch.py`. There
 | `app/config.py` | Settings from `.env` |
 | `app/database.py` | Engine, sessions, `ProvenanceMixin`, `CaseChildMixin` |
 | `data/bootstrap` | `manifest.json`, `rule_templates.json`, `scenarios.json` |
-| `data/validation` | Frozen `CLINIPROOF_TAXONOMY_V1` batch ([catalog](data/validation/README.md)) |
-| `data/validation/readable` | Derived Markdown clinician-validation packets |
+| `data/validation` | Frozen `CLINIPROOF_TAXONOMY_V1` randomized/template batch ([catalog](data/validation/README.md)) |
+| `data/validation/readable` | Derived Markdown clinician-validation packets for V1 |
+| `data/validation_balanced` | Prospective `CLINIPROOF_BALANCED_V2` template batch (VAL-301–VAL-324) |
+| `data/seed_cases` | Resident-authored DOCX design references and derived archetypes |
+| `data/seed_cases/resident_authored` | Immutable source DOCX files (not study cases) |
+| `data/seed_cases/blueprints` | Machine-readable seed archetypes (`archetypes.json`) |
+| `data/validation_seedcases` | Prospective `CLINIPROOF_SEEDCASES_V1` seed-guided batch (VAL-401–VAL-424) |
+| `data/validation_seedcases/readable` | Derived Markdown clinician-validation packets for the seed-guided batch |
 | `data/exports` | Gitignored local export directory (placeholder `.gitkeep` only) |
 | `data/imports`, `data/aggregates`, `data/mimic` | Gitignored placeholders; this pipeline does not read them |
 | `alembic/versions` | Migrations |
@@ -1627,7 +1633,7 @@ Plan and export files live in [`data/validation/`](data/validation/). Default fr
 
 ### Prospective balanced set `CLINIPROOF_BALANCED_V2`
 
-`CLINIPROOF_TAXONOMY_V1` remains immutable. The next study batch is `CLINIPROOF_BALANCED_V2` (VAL-301–VAL-324, sequences 1001–1024) in [`data/validation_balanced/`](data/validation_balanced/). Each assignment names a distinct clinical profile so clean-case diversity is specified before error injection. Freeze with:
+`CLINIPROOF_TAXONOMY_V1` remains immutable. A prospective balanced template set is `CLINIPROOF_BALANCED_V2` (VAL-301–VAL-324, sequences 1001–1024) in [`data/validation_balanced/`](data/validation_balanced/). Each assignment names a distinct clinical profile so clean-case diversity is specified before error injection. This repository does not declare which prospective batch is the study dataset. Freeze with:
 
 ```bash
 clinical-case-generator freeze-validation-batch --plan data/validation_balanced/batch_plan.json
@@ -1635,6 +1641,17 @@ clinical-case-generator export-validation-batch --batch-code CLINIPROOF_BALANCED
 ```
 
 Do not point those commands at `data/validation/`. The V1 hashes must remain unchanged.
+
+### Prospective seed-guided set `CLINIPROOF_SEEDCASES_V1`
+
+`CLINIPROOF_TAXONOMY_V1` and `CLINIPROOF_BALANCED_V2` remain independent. `CLINIPROOF_SEEDCASES_V1` (VAL-401–VAL-424, sequences 1101–1124) is generated with `generation_strategy=resident_seed_guided` from abstracted archetypes in [`data/seed_cases/`](data/seed_cases/). Resident-authored DOCX files are immutable design references; they are not copied into study charts. Freeze with:
+
+```bash
+clinical-case-generator freeze-validation-batch --plan data/validation_seedcases/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_SEEDCASES_V1 --output-dir data/validation_seedcases
+```
+
+Do not point those commands at `data/validation/` or `data/validation_balanced/`.
 
 The frozen set `CLINIPROOF_TAXONOMY_V1` contains twenty-four cases labeled VAL-201 through VAL-224 (internal sequences 801 through 824). It covers every CliniProof error category that the software can currently implement. That is not complete coverage of the full conceptual taxonomy. Plan and export files live in [`data/validation/`](data/validation/). Default freeze and export commands write there.
 
@@ -2563,7 +2580,7 @@ Several pieces are only partially implemented. SNOMED CT columns and a disabled 
 
 The following capabilities are not implemented: AccessGUDID or SNOMED CT ingestion; MIMIC ingestion or aggregate calculation; a resident review user interface or dashboard application; a full vocabulary import (`sync-all` does not exist); companion co-prescription errors such as a steroid without a proton-pump inhibitor or an opioid without a bowel regimen, unless a stored rule exists; a complete clinical-realism guarantee, because human review is required; and using OpenAI as clinical truth, error chooser, or answer-key writer.
 
-The frozen study set `CLINIPROOF_TAXONOMY_V1` has additional study-design limits. The batch is not evenly distributed by scenario: thirteen of twenty-four cases use the heart-failure inpatient skeleton, four use hypertension, three use atrial fibrillation with anticoagulation, three use type 2 diabetes, and one uses community-acquired pneumonia. It is not a prevalence-weighted or representative sample of inpatient medicine. Several error categories occur only once, so this batch alone does not support stable category-specific psychometric estimates. It is primarily intended for clinician assessment of clinical plausibility, assessment-object integrity, error fidelity, detectability, and isolation. The prospective batch `CLINIPROOF_BALANCED_V2` rebalances those families and requires distinct clean-case fingerprints, but it is still not a prevalence-weighted sample and still requires clinician review. Required companion medication omitted (`f2_coprescription_omitted`) is intentionally absent because the software does not yet have a sufficiently source-backed deterministic rule for that situation (`not_yet_implementable`). Official source ranking can produce technically source-valid but clinically atypical formulations or units, such as RxNorm solutions or gels, or SI laboratory units. Clinical plausibility therefore requires physician review.
+The frozen study set `CLINIPROOF_TAXONOMY_V1` has additional study-design limits. The batch is not evenly distributed by scenario: thirteen of twenty-four cases use the heart-failure inpatient skeleton, four use hypertension, three use atrial fibrillation with anticoagulation, three use type 2 diabetes, and one uses community-acquired pneumonia. It is not a prevalence-weighted or representative sample of inpatient medicine. Several error categories occur only once, so this batch alone does not support stable category-specific psychometric estimates. It is primarily intended for clinician assessment of clinical plausibility, assessment-object integrity, error fidelity, detectability, and isolation. The prospective batch `CLINIPROOF_BALANCED_V2` rebalances those families and requires distinct clean-case fingerprints, but it is still not a prevalence-weighted sample and still requires clinician review. A second prospective batch, `CLINIPROOF_SEEDCASES_V1`, uses resident-authored seed archetypes rather than the five template families; it is also not declared to be the study dataset and still requires clinician review. Required companion medication omitted (`f2_coprescription_omitted`) is intentionally absent because the software does not yet have a sufficiently source-backed deterministic rule for that situation (`not_yet_implementable`). Official source ranking can produce technically source-valid but clinically atypical formulations or units, such as RxNorm solutions or gels, or SI laboratory units. Clinical plausibility therefore requires physician review.
 
 ---
 
