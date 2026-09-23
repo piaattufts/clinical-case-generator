@@ -10,11 +10,11 @@ Until C1–C5 review is finished, active cases are machine-checked synthetic cha
 
 | Criterion | Question |
 | --- | --- |
-| C1 Clinical plausibility | Could this hospitalization, history, regimen, and course occur together without a distracting accident? |
-| C2 Intended assessment problem | Is the predetermined discrepancy the problem the case was built to contain? Controls should contain none. |
-| C3 Detectability and resolvability | Can a resident see the problem from the chart and say what should change? |
-| C4 No other unintended clinically meaningful problem | Is there a second medication, monitoring, temporal, or diagnostic problem that is not the intended target? |
-| C5 Expected resident difficulty | How hard should this chart be for the intended learner? C5 is advisory. |
+| C1 Clinical plausibility | Could this hospitalization occur as charted? Consider presentation and demographics, diagnosis fit, vital signs, laboratory values and units, the medication regimen, the hospital course, chart consistency, and discharge and follow-up. |
+| C2 Intended assessment problem | Is the predetermined discrepancy actually present, and does it match the answer key? Controls should contain none. |
+| C3 Detectability and resolvability | Can an internal-medicine resident see the problem from resident-visible information and say what should change, without the chart announcing the answer? |
+| C4 No other unintended clinically meaningful problem | Is there a second medication, monitoring, temporal, or diagnostic problem that could be an alternative answer? |
+| C5 Expected resident difficulty | How hard should this chart be for the intended learner? C5 is advisory. Actual difficulty comes later from resident performance. |
 
 C2, C3, and C4 must be acceptable before a case is used against its answer key. C1 must also be acceptable. C5 does not by itself exclude a case.
 

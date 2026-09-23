@@ -747,8 +747,8 @@ def _inject_pending_followup(
         "detectability_location": "CaseFollowup",
     }
     explanation = (
-        "Treatment continues after discharge while a pending therapeutic decision remains "
-        "unresolved and no follow-up visit is arranged to resolve it."
+        "A pending therapeutic decision remains unresolved and no follow-up visit "
+        "is arranged to resolve it."
     )
     plans = list(view.plans)
     plan = None

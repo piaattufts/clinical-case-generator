@@ -51,7 +51,7 @@ Batch: `CLINIPROOF_SEEDCASES_V3`
 - Status: error_bearing
 - Error family: `family_2`
 - Error category: `f2_pending_decision_followup_missing`
-- Rationale: Treatment continues after discharge while a pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
+- Rationale: A pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
 - Seed: `20260926:1504:MEDREC_UNCERTAIN_HISTORY:MEDREC_PENDING_COGNITIVE_THERAPY`
 
 ## VAL-805
@@ -151,7 +151,7 @@ Batch: `CLINIPROOF_SEEDCASES_V3`
 - Status: error_bearing
 - Error family: `family_2`
 - Error category: `f2_pending_decision_followup_missing`
-- Rationale: Treatment continues after discharge while a pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
+- Rationale: A pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
 - Seed: `20260926:1512:OPAT_ENDOCARDITIS:OPAT_MISSING_ID_FOLLOWUP`
 
 ## VAL-813
@@ -201,7 +201,7 @@ Batch: `CLINIPROOF_SEEDCASES_V3`
 - Status: error_bearing
 - Error family: `family_2`
 - Error category: `f2_pending_decision_followup_missing`
-- Rationale: Treatment continues after discharge while a pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
+- Rationale: A pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
 - Seed: `20260926:1516:TRANSPLANT_CMV:TRANSPLANT_PENDING_ANTIVIRAL_DURATION`
 
 ## VAL-817
@@ -292,7 +292,7 @@ Batch: `CLINIPROOF_SEEDCASES_V3`
 - Status: error_bearing
 - Error family: `family_2`
 - Error category: `f2_pending_decision_followup_missing`
-- Rationale: Treatment continues after discharge while a pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
+- Rationale: A pending therapeutic decision remains unresolved and no follow-up visit is arranged to resolve it.
 - Seed: `20260926:1523:GI_BLEED_ACUTE_CHANGE:GI_BLEED_PENDING_AC_DECISION`
 
 ## VAL-824

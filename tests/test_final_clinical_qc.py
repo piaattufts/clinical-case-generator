@@ -243,3 +243,204 @@ def test_active_cases_keep_curated_regimens_and_temporal_roles() -> None:
 
 def test_documentation_checks_pass() -> None:
     assert check_docs_main() == 0
+
+
+_REVEALING = re.compile(
+    r"stop at discharge|no outpatient continuation|not intended for outpatient|"
+    r"should not be continued|standard labeled dose|not a universal dose|"
+    r"correct dose|appropriate dose|intended discharge state|"
+    r"hospital-only medication that must be stopped|inpatient-only indication|"
+    r"do not restart|resume home therapy",
+    re.IGNORECASE,
+)
+
+
+def _resident_text(case: dict[str, object]) -> str:
+    chunks: list[str] = []
+    clinical = case["ClinicalCase"]
+    assert isinstance(clinical, dict)
+    presentation = clinical.get("presentation") or {}
+    assert isinstance(presentation, dict)
+    chunks.append(str(presentation.get("hpi") or ""))
+    for key in ("CaseNote", "CaseInstruction", "CaseMedication", "CaseConsult"):
+        rows = case.get(key) or []
+        assert isinstance(rows, list)
+        for row in rows:
+            if isinstance(row, dict):
+                chunks.extend(str(value or "") for value in row.values())
+    return "\n".join(chunks)
+
+
+def test_resident_charts_do_not_reveal_the_answer() -> None:
+    for case_id, payload in _cases():
+        resident = payload["resident"]
+        assert isinstance(resident, dict)
+        assert _REVEALING.search(_resident_text(resident)) is None, case_id
+        assert "decision_reason" not in json.dumps(resident), case_id
+
+
+def test_hospital_only_reason_stays_on_the_investigator_plan() -> None:
+    found = 0
+    for case_id, payload in _cases():
+        key = payload["key"]
+        resident = payload["resident"]
+        assert isinstance(key, dict)
+        assert isinstance(resident, dict)
+        error = key["error"]
+        assert isinstance(error, dict)
+        if error.get("error_category") in (None, "none"):
+            state = error
+        else:
+            state = error.get("clean_expected_state") or {}
+        assert isinstance(state, dict)
+        plans = state.get("plans") or []
+        assert isinstance(plans, list)
+        meds = resident["CaseMedication"]
+        assert isinstance(meds, list)
+        for plan in plans:
+            assert isinstance(plan, dict)
+            reason = str(plan.get("decision_reason") or "")
+            if "inpatient-only indication" not in reason.casefold():
+                continue
+            found += 1
+            assert plan.get("correct_discharge_state") == "stop", case_id
+            drug = str(plan.get("drug") or "").casefold()
+            for medication in meds:
+                assert isinstance(medication, dict)
+                if drug and drug in str(medication.get("drug") or "").casefold():
+                    blob = " ".join(
+                        str(medication.get(field) or "")
+                        for field in ("notes", "indication", "held_reason")
+                    )
+                    assert "inpatient-only indication" not in blob.casefold(), case_id
+                    assert "hospital-only" not in blob.casefold(), case_id
+    assert found > 0
+
+
+def test_val_823_hold_matches_the_pending_decision() -> None:
+    _case_id, payload = next(item for item in _cases() if item[0] == "VAL-823")
+    resident = payload["resident"]
+    key = payload["key"]
+    assert isinstance(resident, dict)
+    assert isinstance(key, dict)
+    error = key["error"]
+    assert isinstance(error, dict)
+    assert error["error_category"] == "f2_pending_decision_followup_missing"
+    meds = resident["CaseMedication"]
+    assert isinstance(meds, list)
+    discharge = [
+        item
+        for item in meds
+        if isinstance(item, dict)
+        and "apixaban" in str(item.get("drug") or "").casefold()
+        and item.get("context") == "discharge"
+    ]
+    assert len(discharge) == 1
+    assert discharge[0]["status"] == "held"
+    assert resident["CaseFollowup"] == []
+    text = _resident_text(resident).casefold()
+    assert "pending" in text
+    assert "restart versus continued hold" in text
+    plans = error["clean_expected_state"]["plans"]
+    apixaban = next(plan for plan in plans if "apixaban" in plan["drug"].casefold())
+    assert apixaban["decision"] == "hold"
+    assert apixaban["correct_discharge_state"] == "hold"
+    followup = error["clean_expected_state"]["diversity"]["fingerprint"]["followup"]
+    assert followup
+    assert "cardiology" in followup[0]
+
+
+def test_warfarin_monitoring_matches_the_answer_key() -> None:
+    seen: set[str] = set()
+    for case_id, payload in _cases():
+        resident = payload["resident"]
+        key = payload["key"]
+        assert isinstance(resident, dict)
+        assert isinstance(key, dict)
+        meds = resident["CaseMedication"]
+        assert isinstance(meds, list)
+        if not any("warfarin" in str(item.get("drug") or "").casefold() for item in meds):
+            continue
+        seen.add(case_id)
+        category = str((key.get("error") or {}).get("error_category") or "none")
+        discharge = any(
+            "warfarin" in str(item.get("drug") or "").casefold()
+            and item.get("context") == "discharge"
+            and item.get("status") != "held"
+            for item in meds
+        )
+        monitoring = resident.get("CaseMonitoring") or []
+        followup = json.dumps(resident.get("CaseFollowup") or []).casefold()
+        if category == "f2_monitoring_not_arranged":
+            assert discharge, case_id
+            assert monitoring == [], case_id
+            assert "anticoagulation" in followup, case_id
+        elif category == "f1_omission":
+            assert not discharge, case_id
+            assert monitoring, case_id
+        else:
+            assert discharge, case_id
+            assert monitoring, case_id
+    assert seen == {"VAL-703", "VAL-707", "VAL-710", "VAL-817", "VAL-818", "VAL-819", "VAL-820"}
+
+
+def test_active_batches_keep_one_intended_discrepancy() -> None:
+    for case_id, payload in _cases():
+        key = payload["key"]
+        assert isinstance(key, dict)
+        final = key["post_injection_validation"]
+        assert isinstance(final, dict)
+        assert final["passed"] is True, case_id
+        assert final["errors"] == [], case_id
+        error = key["error"]
+        assert isinstance(error, dict)
+        category = error.get("error_category")
+        status = error.get("control_error_status")
+        if status == "clean_control":
+            assert category in (None, "none"), case_id
+        else:
+            assert status == "error_bearing", case_id
+            assert category not in (None, "none"), case_id
+
+
+def test_root_readme_explains_both_methods_and_validation() -> None:
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    lowered = readme.casefold()
+    assert "two active prospective validation datasets" in lowered
+    assert "balanced structured generation" in lowered
+    assert "resident-seed-guided generation" in lowered
+    assert "CLINIPROOF_BALANCED_V4" in readme
+    assert "CLINIPROOF_SEEDCASES_V3" in readme
+    assert "VAL-701" in readme and "VAL-724" in readme
+    assert "VAL-801" in readme and "VAL-824" in readme
+    assert "not** the current study set" in lowered or "not the current study set" in lowered
+    for heading in (
+        "### C1 — Clinical plausibility",
+        "### C2 — Intended assessment problem",
+        "### C3 — Detectability",
+        "### C4 — No unintended clinically meaningful problem",
+        "### C5 — Difficulty",
+    ):
+        assert heading in readme
+    assert "Accept." in readme and "Revise." in readme and "Exclude." in readme
+    assert (
+        "A source-backed terminology concept is not automatically a clinically appropriate choice"
+        in readme
+    )
+    assert "Passing automated validation does not establish clinical validity." in readme
+    assert "`f1_omission`" in readme and "`f2_monitoring_not_arranged`" in readme
+    assert "f2_coprescription_omitted" in readme
+    assert "data/validation_balanced_v4/readable/all_cases.md" in readme
+    assert "data/validation_seedcases_v3/readable/all_cases.md" in readme
+    assert "does not treat product strength as the administered dose" in readme
+    for batch, first, last, family_1, family_2 in (
+        (ROOT / "data" / "validation_balanced_v4" / "README.md", "VAL-701", "VAL-724", "11", "9"),
+        (ROOT / "data" / "validation_seedcases_v3" / "README.md", "VAL-801", "VAL-824", "7", "13"),
+    ):
+        text = batch.read_text(encoding="utf-8")
+        manifest = json.loads((batch.parent / "validation_manifest.json").read_text())
+        assert manifest["batch_code"] in text
+        assert first in text and last in text
+        assert "24" in text
+        assert family_1 in text and family_2 in text
+        assert len(manifest["cases"]) == 24
