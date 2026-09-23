@@ -10,26 +10,20 @@ The generator does not invent RxNorm, LOINC, SNOMED CT, ICD-10-CM, UCUM, or devi
 
 The current study dataset uses the canonical CliniProof taxonomy under the batch code `CLINIPROOF_TAXONOMY_V1`. It contains twenty-four cases labeled VAL-201 through VAL-224, stored in [`data/validation/`](data/validation/). Each assessment category has a standardized identifier, such as `f1_omission` for a medication that is unintentionally absent at discharge or `f2_monitoring_not_arranged` for a medication that is continued without the required follow-up monitoring. The taxonomy also defines required companion medication omitted (`f2_coprescription_omitted`). That category is not included in the current validation set because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
 
-This repository has no resident review user interface. Residents should receive blinded charts, not investigator catalogs.
+This repository has no resident review user interface. Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1 through C5 in one pass.
 
 ## Where should I start?
 
-Different readers need different files. The table below routes you to a starting point. Residents and independent plausibility reviewers should stay on the resident-safe documents. Only investigators and expert validators should open the concealed-target packet.
+Different readers need different files. The table below routes you to a starting point.
 
 | If you are... | Start here |
 | --- | --- |
-| Resident or clinician reviewing cases | [`data/validation/readable/all_cases.md`](data/validation/readable/all_cases.md) |
-| Clinical reviewer completing Stage 1 (blinded C1) | [`data/validation/readable/plausibility_only_packet.md`](data/validation/readable/plausibility_only_packet.md) |
-| Clinical reviewer completing Stage 2 (C2–C5) | [`data/validation/readable/clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md) |
-| Clinical reviewer reading the two-reviewer protocol | [`data/validation/readable/reviewer_protocol.md`](data/validation/readable/reviewer_protocol.md) |
-| Medical educator reviewing the framework | [`data/validation/readable/validation_rubric.md`](data/validation/readable/validation_rubric.md) |
-| Recording independent ratings (empty template) | [`data/validation/readable/clinical_validation_worksheet.csv`](data/validation/readable/clinical_validation_worksheet.csv) |
-| Recording consensus (empty template) | [`data/validation/readable/consensus_worksheet.csv`](data/validation/readable/consensus_worksheet.csv) |
-| Clinician or resident curious how CliniProof works | [`data/validation/readable/how_cliniproof_works.md`](data/validation/readable/how_cliniproof_works.md) |
+| Resident or clinician reviewing and rating cases | [`data/validation/readable/clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md) |
+| Resident or clinician recording ratings | [`data/validation/readable/clinical_validation_worksheet.csv`](data/validation/readable/clinical_validation_worksheet.csv) |
+| Medical educator reviewing the validation criteria | [`data/validation/readable/validation_rubric.md`](data/validation/readable/validation_rubric.md) |
+| Clinician or resident wanting to understand how CliniProof generates cases | [`data/validation/readable/how_cliniproof_works.md`](data/validation/readable/how_cliniproof_works.md) |
 | Clinical informatics / AI engineer | [`data/validation/readable/developer_notes.md`](data/validation/readable/developer_notes.md) |
 | Software developer implementing the pipeline | Continue through the technical README sections below |
-
-Do not give investigators’ answer keys or `clinician_validation_packet.md` to resident participants.
 
 ## What CliniProof is
 
@@ -61,16 +55,11 @@ Family 2 (`family_2`) means a transition action is missing even if the drug list
 
 The software performs automated checks of structure, terminology provenance, implemented clinical constraints, and the intended assessment manipulation. These checks are useful for detecting technical inconsistencies, but they do not establish that a case is clinically realistic, educationally appropriate, or representative of actual practice. Those judgments require review by clinicians.
 
-The 24-case validation set will undergo independent dual expert review. Two clinical reviewers first assess clinical plausibility while blinded to the intended assessment target. After submitting those ratings, they review the concealed target and independently evaluate error fidelity, detectability, absence of unintended problems, and expected learner difficulty. Cases with important disagreements undergo structured consensus review. Original independent ratings are preserved.
+Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1 through C5 in one pass.
 
-The two-stage protocol, rubric, packets, and empty rating worksheets are:
-
-- [`data/validation/readable/plausibility_only_packet.md`](data/validation/readable/plausibility_only_packet.md)
 - [`data/validation/readable/clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md)
-- [`data/validation/readable/validation_rubric.md`](data/validation/readable/validation_rubric.md)
-- [`data/validation/readable/reviewer_protocol.md`](data/validation/readable/reviewer_protocol.md)
 - [`data/validation/readable/clinical_validation_worksheet.csv`](data/validation/readable/clinical_validation_worksheet.csv)
-- [`data/validation/readable/consensus_worksheet.csv`](data/validation/readable/consensus_worksheet.csv)
+- [`data/validation/readable/validation_rubric.md`](data/validation/readable/validation_rubric.md)
 
 ## Current study set
 
@@ -299,9 +288,9 @@ The study batch `CLINIPROOF_TAXONOMY_V1` assigns VAL-201 through VAL-224 to sequ
 
 ### 13. Obtain clinician validation
 
-Two clinical reviewers independently review the frozen cases using independent dual expert review with structured consensus resolution. They first complete blinded clinical plausibility (C1), then independently complete C2 through C5 after those ratings are locked. The protocol is [`data/validation/readable/reviewer_protocol.md`](data/validation/readable/reviewer_protocol.md). Software does not fill those ratings.
+Clinical validation uses a single review stage. Each clinician or resident reviews the complete case in [`data/validation/readable/clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md) and assesses C1 through C5 in one pass. Ratings are recorded on [`data/validation/readable/clinical_validation_worksheet.csv`](data/validation/readable/clinical_validation_worksheet.csv). Software does not fill those ratings.
 
-Separately, resident participants use the worksheet schema in [`data/validation/resident_review_schema.json`](data/validation/resident_review_schema.json), which asks for ratings of clinical realism, medication-reconciliation correctness, clarity, and confidence, plus identified error type and medication, comments, overall acceptability, and a revision recommendation. That resident worksheet is not the two-reviewer clinician-validation form.
+Separately, when the frozen cases are later administered as an assessment, residents who must find the planted problem themselves use the blinded JSON in [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json) and the worksheet schema in [`data/validation/resident_review_schema.json`](data/validation/resident_review_schema.json). That resident performance worksheet is not the clinician-validation form.
 
 ---
 
@@ -1689,13 +1678,10 @@ Directory `data/validation/` holds tracked study artifacts for `CLINIPROOF_TAXON
 | [`coverage_report.md`](data/validation/coverage_report.md) | Counts by scenario/error/terminology | Investigators | No | Mix summary | **No** |
 | [`scenario_coverage_matrix.md`](data/validation/scenario_coverage_matrix.md) | Resolved meds/labs/diagnoses per family | Investigators | No | Not per-case answers | **No** |
 | [`README.md`](data/validation/README.md) | Full pipeline + **per-case planted-error catalog** | Investigators | No | **Yes (catalog)** | **No** |
-| [`readable/all_cases.md`](data/validation/readable/all_cases.md) | Human-readable resident-visible cases | Clinicians (plausibility) | Yes | No | Plausibility review only |
-| [`readable/plausibility_only_packet.md`](data/validation/readable/plausibility_only_packet.md) | Readable cases + Stage 1 C1 forms | Clinical reviewers (blinded C1) | Yes | No | Plausibility review only |
-| [`readable/clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md) | Readable cases + concealed targets + C2–C5 | Clinical reviewers after C1 is locked | No | **Yes** | **No** |
-| [`readable/validation_rubric.md`](data/validation/readable/validation_rubric.md) | C1–C5 rubric | Clinician validators | Rubric only | No | Rubric may be shared; it has no per-case answers |
-| [`readable/reviewer_protocol.md`](data/validation/readable/reviewer_protocol.md) | Two-reviewer independent dual expert review protocol | Clinical reviewers | Protocol only | No | Protocol may be shared; it has no per-case answers |
-| [`readable/clinical_validation_worksheet.csv`](data/validation/readable/clinical_validation_worksheet.csv) | Empty independent-rating template | Clinical reviewers / study staff | Header only | No | Empty template; no ratings are pre-filled |
-| [`readable/consensus_worksheet.csv`](data/validation/readable/consensus_worksheet.csv) | Empty consensus-outcome template | Study staff after independent review | Header only | No | Empty template; consensus is stored separately from independent ratings |
+| [`readable/all_cases.md`](data/validation/readable/all_cases.md) | Human-readable charts without intended-assessment issues | Optional supporting view | Yes | No | Not a required review stage |
+| [`readable/clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md) | Readable cases + intended issues + C1–C5 | Clinician/resident validators | Packet | **Yes** | Primary one-stage review file |
+| [`readable/validation_rubric.md`](data/validation/readable/validation_rubric.md) | C1–C5 rubric | Medical educators / validators | Rubric only | No | Rubric may be shared; it has no per-case answers |
+| [`readable/clinical_validation_worksheet.csv`](data/validation/readable/clinical_validation_worksheet.csv) | One empty rating row per case | Clinical reviewers / study staff | Identifiers only | No | Record C1–C5 here |
 
 Resident vs investigator split is enforced in export code (`LEAK_MARKERS` in `app/services/validation_batch.py`). Do not “fix” blinding by editing resident JSON to add codes or keys.
 
@@ -1705,9 +1691,7 @@ Resident vs investigator split is enforced in export code (`LEAK_MARKERS` in `ap
 
 The files under [`data/validation/readable/`](data/validation/readable/) are derived Markdown views generated by `scripts/build_readable_validation_packets.py`. Frozen JSON remains the study source of truth. Generating the Markdown does not regenerate VAL-201 through VAL-224.
 
-Residents and clinicians who want to read every case without parsing JSON should start with [`data/validation/readable/all_cases.md`](data/validation/readable/all_cases.md). Both clinical reviewers complete Stage 1 C1 with [`data/validation/readable/plausibility_only_packet.md`](data/validation/readable/plausibility_only_packet.md) before seeing the intended assessment target. After those ratings are locked, they use [`data/validation/readable/clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md) for C2 through C5. The two-reviewer protocol is [`data/validation/readable/reviewer_protocol.md`](data/validation/readable/reviewer_protocol.md). The rubric is [`data/validation/readable/validation_rubric.md`](data/validation/readable/validation_rubric.md). Independent ratings are recorded on the empty [`clinical_validation_worksheet.csv`](data/validation/readable/clinical_validation_worksheet.csv). Consensus outcomes are recorded separately on the empty [`consensus_worksheet.csv`](data/validation/readable/consensus_worksheet.csv). Individual case pages are [`data/validation/readable/cases/VAL-201.md`](data/validation/readable/cases/VAL-201.md) through [`VAL-224.md`](data/validation/readable/cases/VAL-224.md). A clinical-to-technical overview, with no per-case answers, is [`data/validation/readable/how_cliniproof_works.md`](data/validation/readable/how_cliniproof_works.md). Informatics and engineering notes, also without per-case answers, are [`data/validation/readable/developer_notes.md`](data/validation/readable/developer_notes.md).
-
-The resident-safe files do not expose the concealed assessment target. The full clinician-validation packet is marked investigator and validator only and must not be distributed to resident participants.
+Clinical validation uses a single review stage. Each clinician or resident reviews the complete case in [`data/validation/readable/clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md) and assesses C1 through C5 in one pass. Ratings are recorded on [`data/validation/readable/clinical_validation_worksheet.csv`](data/validation/readable/clinical_validation_worksheet.csv). The rubric is [`data/validation/readable/validation_rubric.md`](data/validation/readable/validation_rubric.md). A clinical-to-technical overview, with no per-case answers, is [`data/validation/readable/how_cliniproof_works.md`](data/validation/readable/how_cliniproof_works.md). Informatics and engineering notes are [`data/validation/readable/developer_notes.md`](data/validation/readable/developer_notes.md). Individual case pages and [`all_cases.md`](data/validation/readable/all_cases.md) remain supporting chart views; they are not a separate review stage.
 
 To regenerate the views after pulling, without modifying frozen JSON, run:
 
@@ -1721,11 +1705,11 @@ python scripts/build_readable_validation_packets.py
 
 This repository **does not contain a resident review UI**, dashboard importer, or scoring app. The HTTP API only searches local reference rows and serves `/health`. Delivery is a file handoff into whatever review process the study already uses.
 
-1. **Send / import for review:** [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json) (`VAL-201`–`VAL-224`). Each element has `case_id_code` and dashboard-style arrays (`CaseMedication`, `CaseLab`, `CaseDiagnosis`, `CaseMonitoring`, …). Clinicians who should read cases on GitHub without parsing JSON can use [`data/validation/readable/all_cases.md`](data/validation/readable/all_cases.md) or [`plausibility_only_packet.md`](data/validation/readable/plausibility_only_packet.md). Do **not** send [`clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md) to resident participants.
+1. **Send / import for review:** [`data/validation/resident_validation_cases.json`](data/validation/resident_validation_cases.json) (`VAL-201`–`VAL-224`). Each element has `case_id_code` and dashboard-style arrays (`CaseMedication`, `CaseLab`, `CaseDiagnosis`, `CaseMonitoring`, …). Clinicians validating whether the cases themselves are suitable should use [`data/validation/readable/clinician_validation_packet.md`](data/validation/readable/clinician_validation_packet.md) and complete C1 through C5 in one pass. That packet includes the intended assessment issue. Residents who must find the planted problem themselves should receive the blinded JSON, not the clinician validation packet.
 2. **Keep investigator-only:** answer keys, `batch_plan.json`, `validation_manifest.json`, coverage files, [`data/validation/README.md`](data/validation/README.md), [`data/docs/clinician_examples/syn-000904.json`](data/docs/clinician_examples/syn-000904.json), and the README subsection [Investigator-only generation example](#investigator-only-generation-example). The rest of [For Clinicians: How a Synthetic Case Is Built](#for-clinicians-how-a-synthetic-case-is-built) uses clean educational cases (`SYN-000901`–`SYN-000903`) and may be shown to clinicians who are not scoring the blinded `VAL-*` packet.
 3. **Capture responses** in [`resident_review_worksheet.csv`](data/validation/resident_review_worksheet.csv) (or an equivalent form that uses [`resident_review_schema.json`](data/validation/resident_review_schema.json)). Do not pre-fill ratings.
 4. **Worksheet ↔ cases:** `validation_case_id` on each CSV row matches `case_id_code` in the resident JSON.
-5. **“Clinically validated” in this project** means two clinical reviewers independently completed the protocol and the case reached an accepted consensus outcome, or both independently accepted it without a disagreement that required consensus review. An unresolved case is not considered clinically validated. Until that happens, use the dataset-status sentence: machine-validated synthetic resident-review cases pending clinician validation.
+5. **“Clinically validated” in this project** means a clinician or resident completed C1 through C5 in one pass and judged the case acceptable for the study protocol. Until that happens, use the dataset-status sentence: machine-validated synthetic resident-review cases pending clinician validation.
 6. **The software’s checks are not clinical validity.** Passing `validate-cases` or the freeze audit does not certify realism of formulations, units, or narratives. Those judgments require review by clinicians.
 
 Do not tell residents which cases are clean controls.
