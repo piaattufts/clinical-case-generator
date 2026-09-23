@@ -40,9 +40,19 @@ A readable case is organized as a chart review: patient overview, reason for hos
 
 ## How cases are built
 
-Construction proceeds in a fixed order: a clinical scenario is selected; terminology is resolved; a clean synthetic patient is assembled; rule checks and clean validation run; eligibility for the planned assessment target is confirmed; a controlled error is introduced or skipped for a control; post-error validation runs; a blinded resident export is written; and clinicians review the result.
+Construction proceeds in a fixed order: a clinical scenario family is selected; a named clinical profile/variant is selected; terminology is resolved; a clean synthetic patient is assembled; rule checks and clean validation run; eligibility for the planned assessment target is confirmed; a controlled error is introduced or skipped for a control; post-error validation runs; a blinded resident export is written; and clinicians review the result.
 
 Narrative wording is template text, or optionally a language model restating already chosen facts. OpenAI is optional in the CliniProof pipeline and is used only to help word narrative text from clinical facts that have already been selected by the structured generator. It does not choose diagnoses, medications, terminology codes, error categories, clinical rules, or answer-key content. The frozen study set did not use OpenAI. Details are in [`data/validation/readable/how_cliniproof_works.md`](data/validation/readable/how_cliniproof_works.md).
+
+## Clean-case uniqueness
+
+Case diversity is evaluated on the **clean clinical case before error injection**. Different seeds, demographics, numeric vital or laboratory values, or planted CliniProof error categories do not by themselves make two cases clinically unique.
+
+A validation case must represent a distinct underlying clinical scenario before experimental error injection. Two cases must not differ only by patient age or sex, a random seed, anticoagulant selection, or the injected Family 1 / Family 2 category.
+
+The generator now names a clinical profile inside each scenario family (for example several heart-failure or atrial-fibrillation variants). Each profile specifies a permitted symptom set, duration and course, medication subset, laboratory subset, hospital-course pattern, and follow-up structure using only source-backed concepts. After the clean case is validated, the software computes a fingerprint that excludes VAL/SYN identifiers, seed, exact age, sex, weight, vital numbers, laboratory numbers, and the intended error. Exact fingerprint matches raise `DuplicateClinicalCaseError` and the batch is not frozen. Weighted similarity of 0.85 or higher is also rejected. Scores between 0.70 and 0.85 are reported as investigator warnings.
+
+The frozen study set `CLINIPROOF_TAXONOMY_V1` (VAL-201–VAL-224) is unchanged. The prospective balanced set is `CLINIPROOF_BALANCED_V2` (VAL-301–VAL-324) in [`data/validation_balanced/`](data/validation_balanced/). Passing the diversity audit does not mean the cases are clinically validated. Human clinician review is still required.
 
 ## Family 1 and Family 2
 
@@ -1613,6 +1623,19 @@ If any assignment fails generation, eligibility, or audit, freeze **raises** and
 
 ### Current frozen set `CLINIPROOF_TAXONOMY_V1`
 
+Plan and export files live in [`data/validation/`](data/validation/). Default freeze and export commands write there.
+
+### Prospective balanced set `CLINIPROOF_BALANCED_V2`
+
+`CLINIPROOF_TAXONOMY_V1` remains immutable. The next study batch is `CLINIPROOF_BALANCED_V2` (VAL-301–VAL-324, sequences 1001–1024) in [`data/validation_balanced/`](data/validation_balanced/). Each assignment names a distinct clinical profile so clean-case diversity is specified before error injection. Freeze with:
+
+```bash
+clinical-case-generator freeze-validation-batch --plan data/validation_balanced/batch_plan.json
+clinical-case-generator export-validation-batch --batch-code CLINIPROOF_BALANCED_V2 --output-dir data/validation_balanced
+```
+
+Do not point those commands at `data/validation/`. The V1 hashes must remain unchanged.
+
 The frozen set `CLINIPROOF_TAXONOMY_V1` contains twenty-four cases labeled VAL-201 through VAL-224 (internal sequences 801 through 824). It covers every CliniProof error category that the software can currently implement. That is not complete coverage of the full conceptual taxonomy. Plan and export files live in [`data/validation/`](data/validation/). Default freeze and export commands write there.
 
 ```bash
@@ -2540,7 +2563,7 @@ Several pieces are only partially implemented. SNOMED CT columns and a disabled 
 
 The following capabilities are not implemented: AccessGUDID or SNOMED CT ingestion; MIMIC ingestion or aggregate calculation; a resident review user interface or dashboard application; a full vocabulary import (`sync-all` does not exist); companion co-prescription errors such as a steroid without a proton-pump inhibitor or an opioid without a bowel regimen, unless a stored rule exists; a complete clinical-realism guarantee, because human review is required; and using OpenAI as clinical truth, error chooser, or answer-key writer.
 
-The frozen study set `CLINIPROOF_TAXONOMY_V1` has additional study-design limits. The batch is not evenly distributed by scenario: thirteen of twenty-four cases use the heart-failure inpatient skeleton, four use hypertension, three use atrial fibrillation with anticoagulation, three use type 2 diabetes, and one uses community-acquired pneumonia. It is not a prevalence-weighted or representative sample of inpatient medicine. Several error categories occur only once, so this batch alone does not support stable category-specific psychometric estimates. It is primarily intended for clinician assessment of clinical plausibility, assessment-object integrity, error fidelity, detectability, and isolation. Required companion medication omitted (`f2_coprescription_omitted`) is intentionally absent because the software does not yet have a sufficiently source-backed deterministic rule for that situation (`not_yet_implementable`). Official source ranking can produce technically source-valid but clinically atypical formulations or units, such as RxNorm solutions or gels, or SI laboratory units. Clinical plausibility therefore requires physician review.
+The frozen study set `CLINIPROOF_TAXONOMY_V1` has additional study-design limits. The batch is not evenly distributed by scenario: thirteen of twenty-four cases use the heart-failure inpatient skeleton, four use hypertension, three use atrial fibrillation with anticoagulation, three use type 2 diabetes, and one uses community-acquired pneumonia. It is not a prevalence-weighted or representative sample of inpatient medicine. Several error categories occur only once, so this batch alone does not support stable category-specific psychometric estimates. It is primarily intended for clinician assessment of clinical plausibility, assessment-object integrity, error fidelity, detectability, and isolation. The prospective batch `CLINIPROOF_BALANCED_V2` rebalances those families and requires distinct clean-case fingerprints, but it is still not a prevalence-weighted sample and still requires clinician review. Required companion medication omitted (`f2_coprescription_omitted`) is intentionally absent because the software does not yet have a sufficiently source-backed deterministic rule for that situation (`not_yet_implementable`). Official source ranking can produce technically source-valid but clinically atypical formulations or units, such as RxNorm solutions or gels, or SI laboratory units. Clinical plausibility therefore requires physician review.
 
 ---
 

@@ -236,7 +236,12 @@ def _load_json_object(path: Path) -> dict[str, Any]:
     return payload
 
 
-def _index_cases(payload: dict[str, Any], id_field: str) -> dict[str, dict[str, Any]]:
+def _index_cases(
+    payload: dict[str, Any],
+    id_field: str,
+    *,
+    expected_ids: Sequence[str] | None = None,
+) -> dict[str, dict[str, Any]]:
     rows = payload.get("cases")
     if not isinstance(rows, list) or not rows:
         raise ValueError("source document must contain a non-empty cases list")
@@ -246,13 +251,28 @@ def _index_cases(payload: dict[str, Any], id_field: str) -> dict[str, dict[str, 
             continue
         key = str(item.get(id_field) or item.get("case_id_code") or "")
         indexed[key] = item
-    missing = [case_id for case_id in CASE_IDS if case_id not in indexed]
+    required = tuple(expected_ids) if expected_ids is not None else CASE_IDS
+    missing = [case_id for case_id in required if case_id not in indexed]
     if missing:
         raise ValueError(f"source document missing {missing}")
-    extras = sorted(set(indexed) - set(CASE_IDS))
+    extras = sorted(set(indexed) - set(required))
     if extras:
         raise ValueError(f"source document has unexpected ids {extras}")
     return indexed
+
+
+def discover_case_ids(payload: dict[str, Any], id_field: str) -> tuple[str, ...]:
+    rows = payload.get("cases")
+    if not isinstance(rows, list) or not rows:
+        raise ValueError("source document must contain a non-empty cases list")
+    ids: list[str] = []
+    for item in rows:
+        if not isinstance(item, dict):
+            continue
+        key = str(item.get(id_field) or item.get("case_id_code") or "")
+        if key:
+            ids.append(key)
+    return tuple(ids)
 
 
 def _medication_note(row: Mapping[str, Any]) -> str:
@@ -857,14 +877,53 @@ def _join_pages(pages: Sequence[str]) -> str:
     return "\n---\n\n".join(page.rstrip() for page in pages) + "\n"
 
 
-def render_all_cases(case_pages: Sequence[tuple[str, str]]) -> str:
-    return ALL_CASES_HEADER.rstrip() + "\n\n---\n\n" + _join_pages([page for _, page in case_pages])
+def render_all_cases(
+    case_pages: Sequence[tuple[str, str]],
+    *,
+    batch_code: str = "CLINIPROOF_TAXONOMY_V1",
+    case_ids: Sequence[str] | None = None,
+) -> str:
+    header = ALL_CASES_HEADER
+    ids = tuple(case_ids) if case_ids is not None else CASE_IDS
+    if batch_code != "CLINIPROOF_TAXONOMY_V1" or ids != CASE_IDS:
+        first = ids[0] if ids else "VAL-001"
+        last = ids[-1] if ids else "VAL-001"
+        header = (
+            "# CliniProof Clinical Case Set\n\n"
+            f"## {batch_code}\n\n"
+            "This document is intended for residents, clinicians, medical educators, "
+            "pharmacists, and clinical informatics collaborators who want to review the "
+            "clinical cases without reading the underlying JSON representation.\n\n"
+            f"The set contains {len(ids)} cases, labeled {first} through {last}. "
+            "Each case is a synthetic inpatient encounter assembled for "
+            "medication-reconciliation review. The software has already checked "
+            "structure, terminology provenance, and a limited set of implemented "
+            "clinical rules. Those automated checks do not establish clinical validity. "
+            "Until clinicians finish review, treat every record as a machine-validated "
+            "synthetic resident-review case pending clinician validation.\n\n"
+            "This file contains only the information a resident would see. It does not "
+            "identify which cases contain an intended assessment problem, if any, and it "
+            "does not include investigator answer keys.\n"
+        )
+    return header.rstrip() + "\n\n---\n\n" + _join_pages([page for _, page in case_pages])
 
 
 def render_clinician_packet(
-    case_pages: Sequence[tuple[str, str]], investigator_rows: Mapping[str, Mapping[str, Any]]
+    case_pages: Sequence[tuple[str, str]],
+    investigator_rows: Mapping[str, Mapping[str, Any]],
+    *,
+    batch_code: str = "CLINIPROOF_TAXONOMY_V1",
+    case_ids: Sequence[str] | None = None,
 ) -> str:
-    blocks = [CLINICIAN_PACKET_HEADER.rstrip()]
+    header = CLINICIAN_PACKET_HEADER
+    ids = tuple(case_ids) if case_ids is not None else CASE_IDS
+    if batch_code != "CLINIPROOF_TAXONOMY_V1" or ids != CASE_IDS:
+        first = ids[0] if ids else "VAL-001"
+        last = ids[-1] if ids else "VAL-001"
+        header = CLINICIAN_PACKET_HEADER.replace("CLINIPROOF_TAXONOMY_V1", batch_code).replace(
+            "VAL-201 through VAL-224", f"{first} through {last}"
+        )
+    blocks = [header.rstrip()]
     for case_id, page in case_pages:
         spec = render_investigator_spec(investigator_rows[case_id])
         blocks.append(
@@ -897,11 +956,11 @@ OBSOLETE_READABLE_FILES = (
 )
 
 
-def render_clinical_validation_worksheet() -> str:
+def render_clinical_validation_worksheet(case_ids: Sequence[str] | None = None) -> str:
     header = ",".join(WORKSHEET_COLUMNS)
     rows = [header]
     empty = "," * (len(WORKSHEET_COLUMNS) - 1)
-    for case_id in CASE_IDS:
+    for case_id in case_ids or CASE_IDS:
         rows.append(f"{case_id}{empty}")
     return "\n".join(rows) + "\n"
 
@@ -915,14 +974,19 @@ def build_readable_packets(
     resident_path: Path = DEFAULT_RESIDENT_PATH,
     investigator_path: Path = DEFAULT_INVESTIGATOR_PATH,
     output_dir: Path = DEFAULT_OUTPUT_DIR,
+    case_ids: Sequence[str] | None = None,
+    batch_code: str = "CLINIPROOF_TAXONOMY_V1",
 ) -> dict[str, Path]:
-    resident = _index_cases(_load_json_object(resident_path), "case_id_code")
-    investigator = _index_cases(_load_json_object(investigator_path), "validation_case_id")
+    resident_doc = _load_json_object(resident_path)
+    investigator_doc = _load_json_object(investigator_path)
+    ids = tuple(case_ids) if case_ids is not None else CASE_IDS
+    resident = _index_cases(resident_doc, "case_id_code", expected_ids=ids)
+    investigator = _index_cases(investigator_doc, "validation_case_id", expected_ids=ids)
     case_dir = output_dir / "cases"
     case_dir.mkdir(parents=True, exist_ok=True)
     pages: list[tuple[str, str]] = []
     written: dict[str, Path] = {}
-    for case_id in CASE_IDS:
+    for case_id in ids:
         page = render_resident_case(resident[case_id])
         pages.append((case_id, page))
         path = case_dir / f"{case_id}.md"
@@ -937,17 +1001,37 @@ def build_readable_packets(
         "developer_notes": output_dir / "developer_notes.md",
         "clinical_validation_worksheet": output_dir / "clinical_validation_worksheet.csv",
     }
-    files["readme"].write_text(
-        _with_trailing_newline(READABLE_INDEX_MD), encoding="utf-8", newline="\n"
+    readme_text = READABLE_INDEX_MD
+    if batch_code != "CLINIPROOF_TAXONOMY_V1" or ids != CASE_IDS:
+        first = ids[0] if ids else "VAL-001"
+        last = ids[-1] if ids else "VAL-001"
+        readme_text = (
+            "# Readable CliniProof review materials\n\n"
+            f"This directory contains the human-readable review materials for "
+            f"`{batch_code}`, cases {first} through {last}. Clinical validation uses "
+            "a single review stage. Each clinician or resident reviews the complete "
+            "case and assesses C1–C5 in one pass.\n\n"
+            "Until clinicians finish review, treat every record as a machine-validated "
+            "synthetic resident-review case pending clinician validation. Passing the "
+            "clean-case diversity audit does not mean the cases are clinically validated.\n"
+        )
+    files["readme"].write_text(_with_trailing_newline(readme_text), encoding="utf-8", newline="\n")
+    files["all_cases"].write_text(
+        render_all_cases(pages, batch_code=batch_code, case_ids=ids),
+        encoding="utf-8",
+        newline="\n",
     )
-    files["all_cases"].write_text(render_all_cases(pages), encoding="utf-8", newline="\n")
     files["validation_rubric"].write_text(
         _with_trailing_newline(VALIDATION_RUBRIC_MD),
         encoding="utf-8",
         newline="\n",
     )
     files["clinician_validation_packet"].write_text(
-        render_clinician_packet(pages, investigator), encoding="utf-8", newline="\n"
+        render_clinician_packet(
+            pages, investigator, batch_code=batch_code, case_ids=ids
+        ),
+        encoding="utf-8",
+        newline="\n",
     )
     files["how_cliniproof_works"].write_text(
         _with_trailing_newline(HOW_CLINIPROOF_WORKS_MD), encoding="utf-8", newline="\n"
@@ -956,7 +1040,7 @@ def build_readable_packets(
         _with_trailing_newline(DEVELOPER_NOTES_MD), encoding="utf-8", newline="\n"
     )
     files["clinical_validation_worksheet"].write_text(
-        render_clinical_validation_worksheet(), encoding="utf-8", newline="\n"
+        render_clinical_validation_worksheet(ids), encoding="utf-8", newline="\n"
     )
     for obsolete_name in OBSOLETE_READABLE_FILES:
         obsolete_path = output_dir / obsolete_name
@@ -973,10 +1057,17 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--resident", type=Path, default=DEFAULT_RESIDENT_PATH)
     parser.add_argument("--investigator", type=Path, default=DEFAULT_INVESTIGATOR_PATH)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
+    parser.add_argument("--batch-code", default="CLINIPROOF_TAXONOMY_V1")
     args = parser.parse_args(argv)
+    resident_doc = _load_json_object(args.resident)
+    case_ids = None
+    if args.batch_code != "CLINIPROOF_TAXONOMY_V1" or args.resident != DEFAULT_RESIDENT_PATH:
+        case_ids = discover_case_ids(resident_doc, "case_id_code")
     build_readable_packets(
         resident_path=args.resident,
         investigator_path=args.investigator,
         output_dir=args.output_dir,
+        case_ids=case_ids,
+        batch_code=args.batch_code,
     )
     return 0

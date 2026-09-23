@@ -68,6 +68,20 @@ TTY_PRIORITY = {
     "SBD": 4,
     "BN": 5,
 }
+_FORMULATION_PREFER = ("tablet", "capsule")
+_FORMULATION_DEPRIORITIZE = (
+    "solution",
+    "suspension",
+    "syrup",
+    "elixir",
+    "gel",
+    "cream",
+    "ointment",
+    "injectable",
+    "injection",
+    "intravenous",
+    "powder",
+)
 LOINC_RANK_LOOKUPS = 8
 _LOINC_DEPRIORITIZE = (
     "panel",
@@ -582,6 +596,9 @@ def _prefer_rxnorm_concept(
         filtered or [],
         key=lambda item: (
             0 if _contains(item.name, query) else 1,
+            _formulation_rank_text(
+                " ".join(part for part in (item.name, item.synonym) if part)
+            ),
             TTY_PRIORITY.get(item.tty or "", 9),
             item.rxcui,
         ),
@@ -734,11 +751,30 @@ def _prefer_medication_row(rows: list[RefMedication], query: str) -> RefMedicati
             or _contains(row.generic_name, query)
             or _contains(row.concept_name, query)
             else 1,
+            _formulation_rank(row),
             TTY_PRIORITY.get(row.term_type or "", 9),
             row.rxcui,
         ),
     )
     return ranked[0] if ranked else None
+
+
+def _formulation_rank(row: RefMedication) -> int:
+    blob = " ".join(
+        part
+        for part in (row.dose_form, row.concept_name, row.generic_name, row.route)
+        if part
+    )
+    return _formulation_rank_text(blob)
+
+
+def _formulation_rank_text(blob: str) -> int:
+    lowered = blob.casefold()
+    if any(token in lowered for token in _FORMULATION_PREFER):
+        return 0
+    if any(token in lowered for token in _FORMULATION_DEPRIORITIZE):
+        return 2
+    return 1
 
 
 def is_unintended_combination(
