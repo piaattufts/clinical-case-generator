@@ -123,6 +123,11 @@ class Scenario:
     allowed_error_categories: list[str] = field(default_factory=list)
     default_frequency: str = "once daily"
     profiles: list[ClinicalProfile] = field(default_factory=list)
+    generation_strategy: str = "randomized_template"
+    seed_archetype_name: str | None = None
+    seed_source_filename: str | None = None
+    seed_source_type: str | None = None
+    blueprint_version: str | None = None
 
 
 @dataclass
@@ -148,6 +153,7 @@ class ClinicalProfile:
     allowed_error_categories: list[str] = field(default_factory=list)
     vital_pattern: str = "standard"
     io_timepoint: str = "hospital_day_1"
+    context_note: str = ""
 
 
 HOSPITAL_COURSE_TEXT = {
@@ -186,6 +192,67 @@ HOSPITAL_COURSE_TEXT = {
     "observed_stabilization": (
         "The patient was observed until vital signs and symptoms stabilized "
         "enough for discharge."
+    ),
+    "collateral_medrec_complete": (
+        "A collateral medication list was obtained after admission and verified. "
+        "Unknown names were not converted into discharge orders. Intentionally "
+        "discontinued therapy was documented separately from incomplete information."
+    ),
+    "home_services_transition": (
+        "The patient returned to cognitive baseline. Home services were arranged "
+        "and the verified medication list was prepared for discharge."
+    ),
+    "pending_outpatient_therapy_decision": (
+        "A new disease-modifying start was deferred to outpatient confirmation. "
+        "That pending decision is recorded on the clean discharge plan."
+    ),
+    "multi_day_diuresis_weights": (
+        "Congestion was treated with inpatient diuresis. Serial weights and "
+        "intake/output were used to judge readiness for discharge."
+    ),
+    "aki_hold_reassessment": (
+        "Creatinine rose with congestion. Selected therapy was held with a plan "
+        "to reassess restart after renal recovery."
+    ),
+    "potassium_repletion_diuresis": (
+        "Diuresis was accompanied by potassium repletion. Electrolytes were "
+        "trending toward a range acceptable for discharge."
+    ),
+    "diuretic_dose_adjustment": (
+        "The outpatient diuretic plan was adjusted during the stay after the "
+        "inpatient response to therapy was observed."
+    ),
+    "opat_parenteral_course": (
+        "Parenteral antimicrobial therapy was continued with a specified remaining "
+        "duration, laboratory monitoring, and line precautions for discharge."
+    ),
+    "opat_culture_clearance": (
+        "Cultures cleared on inpatient therapy. The remaining parenteral course "
+        "and infectious-disease follow-up were arranged before discharge."
+    ),
+    "transplant_antiviral_conversion": (
+        "Infectious symptoms improved. Inpatient antiviral therapy was converted "
+        "to the intended outpatient agent without encoding unsupported dosing rules."
+    ),
+    "transplant_aki_holds": (
+        "Volume-related kidney injury led to temporary holds. Restart plans were "
+        "documented separately from any planted reconciliation error."
+    ),
+    "postop_anticoag_resume": (
+        "Anticoagulation was interrupted for surgery and then resumed. INR "
+        "monitoring was arranged as part of the clean discharge plan."
+    ),
+    "postop_hemoglobin_observed": (
+        "Postoperative hemoglobin was observed without transfusion. Rehabilitation "
+        "and anticoagulation follow-up were planned."
+    ),
+    "gi_bleed_held_ac_stable": (
+        "Gastrointestinal bleeding settled and hemoglobin was stable. "
+        "Anticoagulation was held with a documented restart plan in a discharge-ready patient."
+    ),
+    "pending_endoscopy_decision": (
+        "Restart versus continued hold of anticoagulation remains a pending "
+        "outpatient decision. The patient is otherwise ready for discharge."
     ),
 }
 
@@ -252,9 +319,54 @@ def _load_profiles(item: dict[str, Any]) -> list[ClinicalProfile]:
                 allowed_error_categories=_str_list(row.get("allowed_error_categories")),
                 vital_pattern=str(row.get("vital_pattern") or "standard"),
                 io_timepoint=str(row.get("io_timepoint") or "hospital_day_1"),
+                context_note=str(row.get("context_note") or ""),
             )
         )
     return profiles
+
+
+def _scenario_from_mapping(item: dict[str, Any]) -> Scenario:
+    return Scenario(
+        code=str(item.get("code") or "DEFAULT"),
+        specialty=str(item.get("specialty") or "unspecified"),
+        care_context=str(item.get("care_context") or "inpatient"),
+        age_min=int(item.get("age_min") or 55),
+        age_max=int(item.get("age_max") or 85),
+        target_error_category=str(item.get("target_error_category") or "f1_omission"),
+        diagnosis_queries=_str_list(item.get("diagnosis_queries")),
+        symptom_queries=_str_list(item.get("symptom_queries")),
+        medication_queries=_str_list(item.get("medication_queries")),
+        anticoagulant_mutex_queries=_str_list(item.get("anticoagulant_mutex_queries")),
+        lab_queries=_str_list(item.get("lab_queries")),
+        stop_medication_queries=_str_list(item.get("stop_medication_queries")),
+        hospital_only_medication_queries=_str_list(
+            item.get("hospital_only_medication_queries")
+        ),
+        allowed_error_categories=_str_list(item.get("allowed_error_categories")),
+        default_frequency=str(item.get("default_frequency") or "once daily"),
+        profiles=_load_profiles(item),
+        generation_strategy=str(item.get("generation_strategy") or "randomized_template"),
+        seed_archetype_name=(
+            None
+            if item.get("seed_archetype_name") in (None, "")
+            else str(item.get("seed_archetype_name"))
+        ),
+        seed_source_filename=(
+            None
+            if item.get("seed_source_filename") in (None, "")
+            else str(item.get("seed_source_filename"))
+        ),
+        seed_source_type=(
+            None
+            if item.get("seed_source_type") in (None, "")
+            else str(item.get("seed_source_type"))
+        ),
+        blueprint_version=(
+            None
+            if item.get("blueprint_version") in (None, "")
+            else str(item.get("blueprint_version"))
+        ),
+    )
 
 
 @dataclass
@@ -293,28 +405,7 @@ def load_scenarios(path: Path | None = None) -> list[Scenario]:
     for item in items:
         if not isinstance(item, dict):
             continue
-        scenarios.append(
-            Scenario(
-                code=str(item.get("code") or "DEFAULT"),
-                specialty=str(item.get("specialty") or "unspecified"),
-                care_context=str(item.get("care_context") or "inpatient"),
-                age_min=int(item.get("age_min") or 55),
-                age_max=int(item.get("age_max") or 85),
-                target_error_category=str(item.get("target_error_category") or "f1_omission"),
-                diagnosis_queries=_str_list(item.get("diagnosis_queries")),
-                symptom_queries=_str_list(item.get("symptom_queries")),
-                medication_queries=_str_list(item.get("medication_queries")),
-                anticoagulant_mutex_queries=_str_list(item.get("anticoagulant_mutex_queries")),
-                lab_queries=_str_list(item.get("lab_queries")),
-                stop_medication_queries=_str_list(item.get("stop_medication_queries")),
-                hospital_only_medication_queries=_str_list(
-                    item.get("hospital_only_medication_queries")
-                ),
-                allowed_error_categories=_str_list(item.get("allowed_error_categories")),
-                default_frequency=str(item.get("default_frequency") or "once daily"),
-                profiles=_load_profiles(item),
-            )
-        )
+        scenarios.append(_scenario_from_mapping(item))
     if not scenarios:
         raise ValueError("no usable scenarios found")
     return scenarios
@@ -494,6 +585,12 @@ def generate_one_case(
             "hospital_only_rxcuis": [item.rxcui for item in hospital_only],
             "icd10cm": diagnosis.icd10cm_code,
             "loinc_codes": [item.loinc_code for item in labs],
+            "generation_strategy": scenario.generation_strategy,
+            "seed_archetype_id": scenario.code,
+            "seed_archetype_name": scenario.seed_archetype_name,
+            "seed_source_type": scenario.seed_source_type,
+            "seed_source_filename": scenario.seed_source_filename,
+            "blueprint_version": scenario.blueprint_version,
         },
     )
     session.add(blueprint)
@@ -514,6 +611,7 @@ def generate_one_case(
         duration=profile.symptom_duration,
         course=profile.symptom_course,
         hospital_course=_hospital_course_text(profile.hospital_course_pattern),
+        context_note=profile.context_note,
     )
     narrative, narrative_source = _maybe_openai_narrative(
         template,
@@ -832,6 +930,14 @@ def generate_one_case(
         "scenario": scenario.code,
         "clinical_profile": profile.code,
         "hospital_course_pattern": profile.hospital_course_pattern,
+        "generation_strategy": scenario.generation_strategy,
+        "seed_archetype_id": (
+            scenario.code if scenario.generation_strategy == "resident_seed_guided" else None
+        ),
+        "seed_archetype_name": scenario.seed_archetype_name,
+        "seed_source_type": scenario.seed_source_type,
+        "seed_source_filename": scenario.seed_source_filename,
+        "blueprint_version": scenario.blueprint_version,
         "fingerprint": fingerprint_as_dict(fingerprint),
     }
     clean_report = validate_case(session, case, expect_injected_error=False, expected_category=NONE)
@@ -1788,6 +1894,7 @@ def _template_narrative(
     duration: str = "several days",
     course: str = "worsening",
     hospital_course: str = "",
+    context_note: str = "",
 ) -> CaseNarrative:
     symptom_text = ", ".join(symptoms) if symptoms else "reported symptoms"
     med_text = ", ".join(medications) if medications else "the selected home medications"
@@ -1798,16 +1905,18 @@ def _template_narrative(
         else ""
     )
     course_sentence = f" {hospital_course}" if hospital_course else ""
+    context_sentence = f" {context_note}" if context_note.strip() else ""
     chief = f"{symptom_text} in the setting of {diagnosis}"
     hpi = (
         f"A {age}-year-old {sex} is admitted with {diagnosis}. "
         f"Presenting symptoms include {symptom_text}, present for {duration} and {course}. "
-        f"Home medications include {med_text}.{held_sentence}{course_sentence}"
+        f"Home medications include {med_text}.{held_sentence}{context_sentence}{course_sentence}"
     )
     note = (
         f"Admission note for a {age}-year-old {sex} with {diagnosis}. "
         f"Symptoms: {symptom_text} for {duration} ({course}). "
-        f"Medications continued from home: {med_text}.{held_sentence}{course_sentence}"
+        f"Medications continued from home: {med_text}."
+        f"{held_sentence}{context_sentence}{course_sentence}"
     )
     return CaseNarrative(chief_complaint=chief, hpi=hpi, note_text=note)
 
