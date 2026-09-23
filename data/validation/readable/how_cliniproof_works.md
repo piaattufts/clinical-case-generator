@@ -1,6 +1,6 @@
 # How CliniProof Builds and Validates a Case
 
-This overview is for residents who are curious about the technology, physicians, medical educators, pharmacists, informatics staff, and AI engineers. It explains the system in clinical language first, then names the software pieces.
+This overview is for residents who are curious about the technology, physicians, medical educators, pharmacists, informatics staff, and AI engineers. It explains the system in clinical language first, then names the software pieces. It is not required reading before completing C1–C5.
 
 It discusses how cases are made. It does not reveal which frozen case labeled VAL-201 through VAL-224 contains which assessment target.
 
@@ -113,7 +113,7 @@ Cases are built in a fixed order. Each stage completes before the next stage beg
 7. Controlled error introduction applies exactly one planned change for assessment cases. Clean controls skip this step.
 8. Post-error validation checks that the intended target is now present, that required evidence remains visible, and that a second assessment target was not introduced.
 9. Blinded resident export gives residents the chart without family, category, trigger metadata, or answer keys.
-10. Clinician validation is the human step. Two clinical reviewers independently complete blinded clinical plausibility (C1). After those ratings are submitted and locked, they independently complete C2 through C5 and an Accept, Revise, or Exclude recommendation. Important disagreements undergo structured consensus review. Original independent ratings are preserved. Automated checks cannot certify realism or educational appropriateness.
+10. Clinician validation is the human step. A clinician or resident reviews the complete case and assesses C1–C5 in one pass. Ratings are recorded on the clinical validation worksheet. Automated checks cannot certify realism or educational appropriateness.
 
 ## D. What OpenAI does
 

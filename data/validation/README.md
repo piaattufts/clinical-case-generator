@@ -111,11 +111,9 @@ The software performs automated checks of structure, terminology provenance, imp
 
 ## How clinical review will be conducted
 
-Two clinical reviewers will independently assess every case. They will first evaluate clinical plausibility without seeing the intended assessment target. After those ratings have been submitted, they will receive the investigator version of the case and evaluate whether the intended problem is present, detectable, and isolated from other unintended clinical problems.
+Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1–C5 in one pass.
 
-The study method is independent dual expert review with structured consensus resolution. It is not a Delphi process. Original independent ratings are preserved. Cases with important disagreements undergo structured consensus review, and the consensus outcome is recorded separately. Reviewers may request specific revisions. If consensus cannot be reached, the case remains unresolved and is not considered clinically validated.
-
-The Stage 1 packet is [`readable/plausibility_only_packet.md`](readable/plausibility_only_packet.md). The Stage 2 packet is [`readable/clinician_validation_packet.md`](readable/clinician_validation_packet.md). Criterion definitions are in [`readable/validation_rubric.md`](readable/validation_rubric.md). The two-reviewer workflow is in [`readable/reviewer_protocol.md`](readable/reviewer_protocol.md). Independent ratings are recorded on the empty [`readable/clinical_validation_worksheet.csv`](readable/clinical_validation_worksheet.csv). Consensus outcomes are recorded separately on the empty [`readable/consensus_worksheet.csv`](readable/consensus_worksheet.csv).
+The packet is [`readable/clinician_validation_packet.md`](readable/clinician_validation_packet.md). Ratings are recorded on [`readable/clinical_validation_worksheet.csv`](readable/clinical_validation_worksheet.csv). Criterion definitions are in [`readable/validation_rubric.md`](readable/validation_rubric.md). Reviewer comments do not overwrite frozen case files.
 
 ## Provenance
 
@@ -162,33 +160,25 @@ The table below says who may receive each file. Residents should not receive inv
 
 These files are generated from the frozen JSON. They do not replace it, and they do not regenerate the underlying VAL cases.
 
-Use the following table to choose a starting file. Residents and independent plausibility reviewers should stay on the resident-safe documents. Only investigators and expert validators should open the concealed-target packet.
+Use the following table to choose a starting file. Clinical validation uses a single review stage.
 
-| If you are... | Start here |
+| Who is using it | File |
 | --- | --- |
-| Resident or clinician reviewing cases | [`readable/all_cases.md`](readable/all_cases.md) |
-| Clinical reviewer completing Stage 1 (blinded C1) | [`readable/plausibility_only_packet.md`](readable/plausibility_only_packet.md) |
-| Clinical reviewer completing Stage 2 (C2–C5) | [`readable/clinician_validation_packet.md`](readable/clinician_validation_packet.md) |
-| Clinical reviewer reading the two-reviewer protocol | [`readable/reviewer_protocol.md`](readable/reviewer_protocol.md) |
-| Medical educator reviewing the framework | [`readable/validation_rubric.md`](readable/validation_rubric.md) |
-| Recording independent ratings (empty template) | [`readable/clinical_validation_worksheet.csv`](readable/clinical_validation_worksheet.csv) |
-| Recording consensus (empty template) | [`readable/consensus_worksheet.csv`](readable/consensus_worksheet.csv) |
-| Clinician or resident curious how CliniProof works | [`readable/how_cliniproof_works.md`](readable/how_cliniproof_works.md) |
-| Clinical informatics / AI engineer | [`readable/developer_notes.md`](readable/developer_notes.md) |
+| Resident or clinician reviewing and rating cases | [`readable/clinician_validation_packet.md`](readable/clinician_validation_packet.md) |
+| Resident or clinician recording ratings | [`readable/clinical_validation_worksheet.csv`](readable/clinical_validation_worksheet.csv) |
+| Medical educator reviewing the validation criteria | [`readable/validation_rubric.md`](readable/validation_rubric.md) |
+| Clinician or resident wanting to understand how CliniProof generates cases | [`readable/how_cliniproof_works.md`](readable/how_cliniproof_works.md) |
+| Developer maintaining the pipeline | [`readable/developer_notes.md`](readable/developer_notes.md) |
 
-The following files are safe for residents and for plausibility-only review. They contain resident-visible content and generic explanations. They do not include per-case planted-error answers.
+The following files are supporting readable views. They are not a separate review stage:
 
 - [`readable/all_cases.md`](readable/all_cases.md)
-- [`readable/plausibility_only_packet.md`](readable/plausibility_only_packet.md)
 - [`readable/cases/VAL-201.md`](readable/cases/VAL-201.md) through [`VAL-224.md`](readable/cases/VAL-224.md)
 - [`readable/how_cliniproof_works.md`](readable/how_cliniproof_works.md), which describes mechanisms only
 - [`readable/developer_notes.md`](readable/developer_notes.md), which describes generic implementation only
 - [`readable/validation_rubric.md`](readable/validation_rubric.md), which is the rubric without per-case answers
-- [`readable/reviewer_protocol.md`](readable/reviewer_protocol.md), which describes the two-reviewer workflow
-- [`readable/clinical_validation_worksheet.csv`](readable/clinical_validation_worksheet.csv), an empty independent-rating template
-- [`readable/consensus_worksheet.csv`](readable/consensus_worksheet.csv), an empty consensus template stored separately from independent ratings
 
-The investigator and clinical-validator packet must not be distributed to resident participants. Reviewers should complete Stage 1 C1 before opening it:
+The primary clinician-validation packet is:
 
 - [`readable/clinician_validation_packet.md`](readable/clinician_validation_packet.md)
 

@@ -15,14 +15,10 @@ from typing import Any
 from app.services.readable_docs import (
     ABOUT_CASE_DATA,
     ALL_CASES_HEADER,
-    CLINICAL_VALIDATION_WORKSHEET_CSV,
-    CONSENSUS_WORKSHEET_CSV,
+    CLINICIAN_PACKET_HEADER,
     DEVELOPER_NOTES_MD,
     HOW_CLINIPROOF_WORKS_MD,
-    INVESTIGATOR_HEADER,
-    PLAUSIBILITY_HEADER,
     READABLE_INDEX_MD,
-    REVIEWER_PROTOCOL_MD,
     VALIDATION_RUBRIC_MD,
 )
 
@@ -73,7 +69,7 @@ LOCATION_LABELS = {
     "plan.decision_reason": "Medication plan / decision reason",
 }
 
-C1_FORM = """### C1 Clinical plausibility
+C1_TO_C5_FORM = """### C1 Clinical plausibility
 
 Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Rate each domain independently. A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 must include a written explanation that identifies the specific clinical concern.
 
@@ -98,14 +94,7 @@ Written explanation for any domain rated 1 or 2:
 
 ____________________________________
 
-C1 result:
-
-☐ Clinically plausible
-
-☐ Revision needed for clinical plausibility
-"""
-
-C2_TO_C5_FORM = """### C2 Intended assessment problem
+### C2 Intended assessment problem
 
 Does the case actually contain the medication-reconciliation or transition-of-care problem it was designed to assess? Determine whether the intended problem is present, whether it matches the intended category, and whether the investigator description accurately reflects the clinical case. C2 is a hard requirement: if it fails, the case cannot be used against its intended answer key until the problem is corrected or the case is excluded. A written explanation is required for a failure.
 
@@ -872,17 +861,10 @@ def render_all_cases(case_pages: Sequence[tuple[str, str]]) -> str:
     return ALL_CASES_HEADER.rstrip() + "\n\n---\n\n" + _join_pages([page for _, page in case_pages])
 
 
-def render_plausibility_packet(case_pages: Sequence[tuple[str, str]]) -> str:
-    blocks = [PLAUSIBILITY_HEADER.rstrip()]
-    for _, page in case_pages:
-        blocks.append(page.rstrip() + "\n\n" + C1_FORM.rstrip())
-    return "\n\n---\n\n".join(blocks) + "\n"
-
-
-def render_investigator_packet(
+def render_clinician_packet(
     case_pages: Sequence[tuple[str, str]], investigator_rows: Mapping[str, Mapping[str, Any]]
 ) -> str:
-    blocks = [INVESTIGATOR_HEADER.rstrip()]
+    blocks = [CLINICIAN_PACKET_HEADER.rstrip()]
     for case_id, page in case_pages:
         spec = render_investigator_spec(investigator_rows[case_id])
         blocks.append(
@@ -890,9 +872,38 @@ def render_investigator_packet(
             + "\n\n"
             + spec.rstrip()
             + "\n\n"
-            + C2_TO_C5_FORM.rstrip()
+            + C1_TO_C5_FORM.rstrip()
         )
     return "\n\n---\n\n".join(blocks) + "\n"
+
+
+WORKSHEET_COLUMNS = (
+    "validation_case_id",
+    "reviewer_id",
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c4_additional_problem",
+    "recommendation",
+    "comments",
+)
+
+OBSOLETE_READABLE_FILES = (
+    "plausibility_only_packet.md",
+    "reviewer_protocol.md",
+    "consensus_worksheet.csv",
+)
+
+
+def render_clinical_validation_worksheet() -> str:
+    header = ",".join(WORKSHEET_COLUMNS)
+    rows = [header]
+    empty = "," * (len(WORKSHEET_COLUMNS) - 1)
+    for case_id in CASE_IDS:
+        rows.append(f"{case_id}{empty}")
+    return "\n".join(rows) + "\n"
 
 
 def _with_trailing_newline(text: str) -> str:
@@ -921,13 +932,10 @@ def build_readable_packets(
         "readme": output_dir / "README.md",
         "all_cases": output_dir / "all_cases.md",
         "validation_rubric": output_dir / "validation_rubric.md",
-        "plausibility_only_packet": output_dir / "plausibility_only_packet.md",
         "clinician_validation_packet": output_dir / "clinician_validation_packet.md",
         "how_cliniproof_works": output_dir / "how_cliniproof_works.md",
         "developer_notes": output_dir / "developer_notes.md",
-        "reviewer_protocol": output_dir / "reviewer_protocol.md",
         "clinical_validation_worksheet": output_dir / "clinical_validation_worksheet.csv",
-        "consensus_worksheet": output_dir / "consensus_worksheet.csv",
     }
     files["readme"].write_text(
         _with_trailing_newline(READABLE_INDEX_MD), encoding="utf-8", newline="\n"
@@ -938,11 +946,8 @@ def build_readable_packets(
         encoding="utf-8",
         newline="\n",
     )
-    files["plausibility_only_packet"].write_text(
-        render_plausibility_packet(pages), encoding="utf-8", newline="\n"
-    )
     files["clinician_validation_packet"].write_text(
-        render_investigator_packet(pages, investigator), encoding="utf-8", newline="\n"
+        render_clinician_packet(pages, investigator), encoding="utf-8", newline="\n"
     )
     files["how_cliniproof_works"].write_text(
         _with_trailing_newline(HOW_CLINIPROOF_WORKS_MD), encoding="utf-8", newline="\n"
@@ -950,15 +955,13 @@ def build_readable_packets(
     files["developer_notes"].write_text(
         _with_trailing_newline(DEVELOPER_NOTES_MD), encoding="utf-8", newline="\n"
     )
-    files["reviewer_protocol"].write_text(
-        _with_trailing_newline(REVIEWER_PROTOCOL_MD), encoding="utf-8", newline="\n"
-    )
     files["clinical_validation_worksheet"].write_text(
-        CLINICAL_VALIDATION_WORKSHEET_CSV, encoding="utf-8", newline="\n"
+        render_clinical_validation_worksheet(), encoding="utf-8", newline="\n"
     )
-    files["consensus_worksheet"].write_text(
-        CONSENSUS_WORKSHEET_CSV, encoding="utf-8", newline="\n"
-    )
+    for obsolete_name in OBSOLETE_READABLE_FILES:
+        obsolete_path = output_dir / obsolete_name
+        if obsolete_path.exists():
+            obsolete_path.unlink()
     written.update(files)
     return written
 

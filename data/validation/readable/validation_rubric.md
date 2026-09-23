@@ -2,16 +2,11 @@
 
 ## Purpose
 
-Two clinical reviewers independently evaluate each synthetic inpatient case before it is accepted for use in the resident assessment. The study method is independent dual expert review with structured consensus resolution. It is not a Delphi process.
-
-Review proceeds in two stages.
-
-1. Blinded clinical plausibility review. Both reviewers first receive only the resident-visible version of each case. They do not see whether the case is a control, the intended error family, the intended error category, the medication targeted by the assessment, the correct action, or any other answer-key field. They independently complete Criterion 1 (C1). Those ratings are submitted and locked before Stage 2 begins.
-2. Assessment-target validation. After C1 ratings are locked, both reviewers receive the investigator packet that names the intended assessment target. They then independently complete Criteria C2 through C5 and record an overall recommendation of Accept, Revise, or Exclude.
+A clinician or resident evaluates each synthetic inpatient case in a single review before it is accepted for use. Clinical validation uses a single review stage. Each reviewer reads the complete case and assesses C1–C5 in one pass.
 
 Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. The frozen set is `CLINIPROOF_TAXONOMY_V1`, containing cases VAL-201 through VAL-224.
 
-The five criteria serve different purposes and should not be collapsed into a single pass or fail judgment. C1 can be completed from the resident-visible chart alone. C2 through C4 are hard requirements: if any of them fails, the case cannot be used against its intended answer key until it is revised or excluded. C5 is advisory and must not by itself cause a case to fail validation.
+The five criteria serve different purposes and should not be collapsed into a single pass or fail judgment. C2 through C4 are required: if any of them fails, the case cannot be used against its intended answer key until it is revised or excluded. C5 is advisory and must not by itself cause a case to fail validation.
 
 The taxonomy also defines required companion medication omitted (`f2_coprescription_omitted`), which represents a situation in which a clinically required companion medication is missing. This category is not included in the current validation set because the software does not yet have a sufficiently source-backed deterministic rule for deciding when such a companion medication is required (`not_yet_implementable`). Rather than guessing or encoding an unsupported rule, the system currently rejects this category.
 
@@ -23,7 +18,7 @@ Could this reasonably represent a patient encountered in the stated inpatient cl
 
 ### Reviewer should look for
 
-Both reviewers independently rate the following eight domains from the resident-visible chart only:
+Reviewers rate the following eight domains from the clinical chart:
 
 1. Presentation and demographics
 2. Fit between presentation and diagnosis
@@ -50,16 +45,11 @@ C1 passes when all clinically relevant domains are rated 3 or 4 and the overall 
 
 If any domain is rated 1 or 2, or if the overall answer is No, record that revision is needed for clinical plausibility.
 
-On the Stage 1 form, record only:
-
-- Clinically plausible
-- Revision needed for clinical plausibility
-
-Do not record Accept, Revise, or Exclude until Stage 2 is complete.
+C1 is completed in the same review as C2 through C5.
 
 ### Technical interpretation
 
-C1 is a clinical-realism judgment on the resident-visible export. It does not inspect the concealed family or category fields. Software already checked schema, terminology identifiers, and implemented rules. C1 asks whether a physician still finds the chart coherent.
+C1 is a clinical-realism judgment on the chart. Software already checked schema, terminology identifiers, and implemented rules. C1 asks whether a physician still finds the chart coherent.
 
 ## C2 — Intended assessment problem
 
@@ -199,7 +189,7 @@ The taxonomy also defines this category for a situation in which a clinically re
 
 ## Reviewer recommendation
 
-Each reviewer records one independent recommendation after completing C1 through C5. Consensus is not a recommendation option on this form.
+After completing C1–C5 in the same review, record one recommendation.
 
 ☐ Accept
 
@@ -222,33 +212,3 @@ ____________________________________
 Recommended revisions are required whenever Revise is selected. Examples may include changing an implausible formulation, clarifying the hospital course, correcting an unrealistic laboratory unit, adding information needed to detect the intended problem, or removing an unintended second discrepancy.
 
 Do not automatically modify a case based on reviewer comments. Human review comments are recommendations that must be considered by the study team. Do not overwrite the frozen CLINIPROOF_TAXONOMY_V1 case files during human review. Reviewer comments and revision requests should be stored separately.
-
-## Consensus review
-
-Complete only when independent reviewers disagree.
-
-Reviewer A initial recommendation:
-
-Reviewer B initial recommendation:
-
-Areas of disagreement:
-
-Consensus discussion summary:
-
-Consensus outcome:
-
-☐ Accepted
-
-☐ Revision required
-
-☐ Excluded
-
-☐ Unresolved
-
-Preserve both original independent ratings. Show both reviewers the areas of disagreement. Discuss the clinical rationale. Record a consensus outcome separately. Do not overwrite original reviewer ratings with the consensus result.
-
-If the two reviewers cannot reach consensus, mark Unresolved. Do not automatically accept the case. An unresolved case is not considered clinically validated. It may receive an additional clinical opinion if one becomes available, or it may remain excluded from the clinically validated set.
-
-Structured consensus review is required when reviewers disagree on C1 pass versus revision needed, when either reviewer fails C2, when reviewers disagree on C2, C3, C4, or Accept / Revise / Exclude, or when clinically important reviewer comments conflict. Cases with agreement require no consensus discussion unless the investigators choose to review them.
-
-If the consensus outcome is Revision required, record the specific requested revision, the reason, the criterion affected, and the date or version of the revision. After the case is revised, it should be reviewed again. Only the criteria affected by the revision need to be repeated unless the change materially alters the whole case. If a revision changes the clinical presentation, medication regimen, target discrepancy, evidence needed to detect the problem, or answer key, then repeat the relevant C1 through C4 assessments.

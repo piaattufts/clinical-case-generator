@@ -97,11 +97,13 @@ The software performs automated checks of structure, terminology provenance, imp
 
 ## Resident blinding
 
-The resident JSON omits answer-key objects, internal generation identifiers, family and category fields, trigger metadata, and clean or injected state. Readable files `all_cases.md`, `plausibility_only_packet.md`, and the individual case pages are derived only from that blinded export.
+The resident JSON omits answer-key objects, internal generation identifiers, family and category fields, trigger metadata, and clean or injected state. Readable files `all_cases.md` and the individual case pages are derived only from that blinded export.
 
-## Clinician dual expert review
+## Human clinician validation
 
-Human validation of the frozen set uses independent dual expert review with structured consensus resolution. Two clinical reviewers complete blinded C1, then independently complete C2 through C5. Original independent ratings are stored on `clinical_validation_worksheet.csv`. Consensus outcomes are stored separately on `consensus_worksheet.csv` and do not overwrite those ratings. Reviewer comments do not rewrite frozen JSON. The protocol is `reviewer_protocol.md`.
+Human validation of the frozen set uses a single review stage. A clinician or resident reads the complete case in `clinician_validation_packet.md` and assesses C1–C5 in one pass. Ratings are stored on `clinical_validation_worksheet.csv`. Reviewer comments do not rewrite frozen JSON.
+
+Case generation and automated checks remain unchanged. Software checks structure, terminology, implemented rules, and the intended assessment manipulation. Those checks do not replace this human review.
 
 ## Freeze immutability and provenance
 
