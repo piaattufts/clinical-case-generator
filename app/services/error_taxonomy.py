@@ -992,6 +992,15 @@ def _find_family1_plan_gaps(
         if plan.correct_discharge_state != "continue" or listed is None:
             continue
         home = home_by_ref.get(plan.ref_medication_id)
+        if home is None and plan.home_state == "absent":
+            home = next(
+                (
+                    item
+                    for item in view.inpatient
+                    if item.ref_medication_id == plan.ref_medication_id and item.status != "held"
+                ),
+                None,
+            )
         if home is None:
             continue
         if (home.dose or "") != (listed.dose or ""):

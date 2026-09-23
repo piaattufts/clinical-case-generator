@@ -18,7 +18,6 @@ from app.models.cases import CaseAnswerKey, CaseMedication, ClinicalCase
 from app.models.generation import CaseMedicationPlan
 from app.models.reference import RefMedication
 from app.repositories.cases import list_medications_for_case
-from app.services.clinical_coherence import inferred_route, synthetic_dose_for
 from app.services.error_taxonomy import (
     F1_COMMISSION,
     F1_DOSE,
@@ -54,6 +53,7 @@ from app.services.error_taxonomy import (
     plan_rxcui,
     require_eligible,
 )
+from app.services.medication_regimens import administration_for
 from app.sources.exceptions import CaseValidationError
 from app.utils.identifiers import CHILD_ID_PREFIXES, format_child_business_id
 
@@ -231,6 +231,7 @@ def _inject_field_mismatch(
     original = str(getattr(medication, field_name) or "")
     planted = _altered_value(field_name, original)
     setattr(medication, field_name, planted)
+    medication.notes = None
     plan.is_error_target = True
     rxcui = plan_rxcui(session, plan) or ""
     category = {"dose": F1_DOSE, "route": F1_ROUTE, "frequency": F1_FREQUENCY}[field_name]
@@ -921,7 +922,7 @@ def _clone_to_discharge(
         source_type=source.source_type,
         source_file=None,
         source_reference=source.source_reference,
-        notes=None,
+        notes=source.notes,
     )
 
 
@@ -931,8 +932,11 @@ def _replace_medication_identity(medication: CaseMedication, replacement: RefMed
     medication.drug = label
     medication.reported_name = label
     medication.source_reference = f"RXCUI:{replacement.rxcui}"
-    medication.dose = synthetic_dose_for(replacement)
-    medication.route = inferred_route(replacement)
+    admin = administration_for(replacement, fallback_frequency=medication.frequency or "once daily")
+    medication.dose = admin.dose
+    medication.route = admin.route
+    medication.frequency = admin.frequency
+    medication.notes = admin.chart_note
 
 
 def _altered_value(field_name: str, original: str) -> str:

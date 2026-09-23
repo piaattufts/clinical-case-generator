@@ -79,11 +79,9 @@ from app.services.case_diversity import (
 from app.services.clinical_coherence import (
     INDICATION_BY_QUERY,
     convert_conventional,
-    inferred_route,
     is_symptom_level_concept,
     preferred_lab_unit,
     spec_for_lab,
-    synthetic_dose_for,
 )
 from app.services.error_injection import InjectionResult, inject_reconciliation_error
 from app.services.error_taxonomy import (
@@ -103,6 +101,11 @@ from app.services.error_taxonomy import (
     class_usable_for_substitution,
     require_eligible,
     resolve_requested_category,
+)
+from app.services.medication_regimens import (
+    administration_for,
+    regimen_for_medication,
+    temporal_role_for,
 )
 from app.services.rules import CaseSnapshot, evaluate_rules, hard_violations
 from app.services.validation import require_valid, serialize_report, validate_case
@@ -188,6 +191,7 @@ class ClinicalProfile:
     monitoring_service: str | None = None
     include_discharge_status: bool = True
     admission_reason: str = ""
+    medication_temporal_roles: dict[str, str] = field(default_factory=dict)
 
 
 HOSPITAL_COURSE_TEXT = {
@@ -212,8 +216,8 @@ HOSPITAL_COURSE_TEXT = {
         "were monitored until the patient was ready for discharge."
     ),
     "glycemic_stabilization": (
-        "Glucose was monitored and diabetes therapy was continued while the "
-        "inpatient team prepared a discharge plan."
+        "Capillary glucose was monitored. Correctional subcutaneous insulin was "
+        "given while inpatient and stopped at discharge. Home metformin was continued."
     ),
     "hypertensive_treatment": (
         "Blood pressure was treated and observed in hospital. The discharge plan "
@@ -394,6 +398,7 @@ def _load_profiles(item: dict[str, Any]) -> list[ClinicalProfile]:
                     else bool(row.get("include_discharge_status"))
                 ),
                 admission_reason=str(row.get("admission_reason") or ""),
+                medication_temporal_roles=_role_map(row.get("medication_temporal_roles")),
             )
         )
     return profiles
@@ -656,6 +661,8 @@ def generate_one_case(
             )
     ids = _IdCounter(case_id_code)
     age = rng.randint(scenario.age_min, scenario.age_max)
+    if _case_uses_standard_apixaban(medications) and age >= 80:
+        age = 79
     sex = rng.choice(["Female", "Male"])
     hospital_day = rng.randint(2, 6)
     patient_name = f"SYN Patient {sequence:03d}"
@@ -728,8 +735,11 @@ def generate_one_case(
     session.flush()
     display_diagnosis = diagnosis.preferred_name or diagnosis.icd10cm_code or "source diagnosis"
     symptom_names = [item.preferred_name or "symptom" for item in symptoms]
-    med_names = [_med_label(item) for item in medications]
+    home_meds, started_meds = _partition_temporal(medications, profile)
+    med_names = [_med_label(item) for item in home_meds]
+    started_names = [_med_label(item) for item in started_meds]
     stopped_names = [_med_label(item) for item in stop_medications]
+    hospital_names = [_med_label(item) for item in hospital_only]
     hold_name = _med_label(hold_restart) if hold_restart is not None else None
     context_note = " ".join(
         part for part in (profile.admission_reason, profile.context_note) if part and part.strip()
@@ -747,6 +757,8 @@ def generate_one_case(
         context_note=context_note,
         hold_name=hold_name,
         hold_reason=profile.hold_reason,
+        started=started_names,
+        hospital_only_names=hospital_names,
     )
     narrative, narrative_source = _maybe_openai_narrative(
         template,
@@ -754,11 +766,17 @@ def generate_one_case(
         sex=sex,
         diagnosis=display_diagnosis,
         symptoms=symptom_names,
-        medications=med_names + stopped_names + ([hold_name] if hold_name else []),
+        medications=med_names
+        + started_names
+        + stopped_names
+        + hospital_names
+        + ([hold_name] if hold_name else []),
         use_openai=use_openai,
         allowed_names=set(
             symptom_names
             + med_names
+            + started_names
+            + hospital_names
             + stopped_names
             + ([hold_name] if hold_name else [])
             + [display_diagnosis]
@@ -815,7 +833,7 @@ def generate_one_case(
     session.add(
         CaseSocialSupport(
             case_id=case.id,
-            living_situation="Lives at home",
+            living_situation="Baseline living situation: lives at home",
             caregiver_support=None,
             health_care_proxy=None,
             supervision_requirement=None,
@@ -970,7 +988,9 @@ def generate_one_case(
                     status="final",
                 )
             )
-    admission_weight = rng.randint(60, 110)
+    admission_weight = rng.randint(65, 110)
+    if _case_uses_standard_apixaban(medications) and admission_weight <= 60:
+        admission_weight = 72
     session.add(
         CaseWeight(
             case_id=case.id,
@@ -1020,6 +1040,7 @@ def generate_one_case(
             frequency=scenario.default_frequency,
             quantity_or_days=None if supply_days is None else f"{supply_days} days",
             verification_source=profile.bpmh_source,
+            temporal_overrides=profile.medication_temporal_roles,
         )
     if hold_restart is not None:
         _add_held_restart_medication(
@@ -1333,10 +1354,32 @@ def _add_continued_medication(
     frequency: str,
     quantity_or_days: str | None = None,
     verification_source: str = "patient_and_prior_records",
+    temporal_overrides: dict[str, str] | None = None,
 ) -> None:
     label = _med_label(medication)
-    dose = synthetic_dose_for(medication)
-    route = inferred_route(medication)
+    admin = administration_for(
+        medication,
+        fallback_frequency=frequency,
+        overrides=temporal_overrides,
+    )
+    dose = admin.dose
+    route = admin.route
+    frequency = admin.frequency
+    if admin.temporal_role == "started_inpatient":
+        _add_started_inpatient_medication(
+            session,
+            case=case,
+            ids=ids,
+            medication=medication,
+            label=label,
+            indication=indication,
+            dose=dose,
+            route=route,
+            frequency=frequency,
+            notes=_started_inpatient_note(admin.chart_note),
+            quantity_or_days=quantity_or_days,
+        )
+        return
     for context, status in (
         ("home", "home"),
         ("inpatient", "active"),
@@ -1357,6 +1400,7 @@ def _add_continued_medication(
                 held_reason=None,
                 quantity_or_days=quantity_or_days if context == "discharge" else None,
                 verification_source=verification_source,
+                notes=admin.chart_note,
             )
         )
     session.add(
@@ -1386,8 +1430,10 @@ def _add_stopped_medication(
     verification_source: str = "patient_and_prior_records",
 ) -> None:
     label = _med_label(medication)
-    dose = synthetic_dose_for(medication)
-    route = inferred_route(medication)
+    admin = administration_for(medication, fallback_frequency=frequency)
+    dose = admin.dose
+    route = admin.route
+    frequency = admin.frequency
     held_reason = "Held on admission; not continued at discharge."
     for context, status in (("home", "held"), ("inpatient", "held")):
         session.add(
@@ -1446,8 +1492,10 @@ def _add_held_restart_medication(
     verification_source: str = "patient_and_prior_records",
 ) -> None:
     label = _med_label(medication)
-    dose = synthetic_dose_for(medication)
-    route = inferred_route(medication)
+    admin = administration_for(medication, fallback_frequency=frequency)
+    dose = admin.dose
+    route = admin.route
+    frequency = admin.frequency
     reason = held_reason or (
         "Held inpatient for documented in-hospital hypotension; intended to restart."
     )
@@ -1523,8 +1571,10 @@ def _add_hospital_only_medication(
     frequency: str,
 ) -> None:
     label = _med_label(medication)
-    dose = synthetic_dose_for(medication)
-    route = inferred_route(medication)
+    admin = administration_for(medication, fallback_frequency=frequency)
+    dose = admin.dose
+    route = admin.route
+    frequency = admin.frequency
     reason = (
         f"Started in hospital for an inpatient-only indication; stop at discharge. "
         f"No outpatient continuation of {label}."
@@ -1542,6 +1592,7 @@ def _add_hospital_only_medication(
             frequency=frequency,
             indication=reason,
             held_reason=None,
+            notes=admin.chart_note,
         )
     )
     session.add(
@@ -1574,10 +1625,14 @@ def _add_inpatient_substitution(
 ) -> None:
     home_label = _med_label(home_medication)
     sub_label = _med_label(substitute)
-    home_dose = synthetic_dose_for(home_medication)
-    sub_dose = synthetic_dose_for(substitute)
-    home_route = inferred_route(home_medication)
-    sub_route = inferred_route(substitute)
+    home_admin = administration_for(home_medication, fallback_frequency=frequency)
+    sub_admin = administration_for(substitute, fallback_frequency=frequency)
+    home_dose = home_admin.dose
+    sub_dose = sub_admin.dose
+    home_route = home_admin.route
+    sub_route = sub_admin.route
+    frequency = home_admin.frequency
+    sub_frequency = sub_admin.frequency
     sub_indication = (
         f"Formulary substitution for {home_label} during admission "
         f"(RxClass {class_id} {class_name})."
@@ -1595,6 +1650,7 @@ def _add_inpatient_substitution(
             frequency=frequency,
             indication=indication,
             held_reason=None,
+            notes=home_admin.chart_note,
         )
     )
     session.add(
@@ -1607,9 +1663,10 @@ def _add_inpatient_substitution(
             status="active",
             dose=sub_dose,
             route=sub_route,
-            frequency=frequency,
+            frequency=sub_frequency,
             indication=sub_indication,
             held_reason=None,
+            notes=sub_admin.chart_note,
         )
     )
     session.add(
@@ -1625,6 +1682,7 @@ def _add_inpatient_substitution(
             frequency=frequency,
             indication=indication,
             held_reason=None,
+            notes=home_admin.chart_note,
         )
     )
     session.add(
@@ -1686,6 +1744,7 @@ def _medication_row(
     target_or_goal: str | None = None,
     monitoring: str | None = None,
     verification_source: str = "patient_and_prior_records",
+    notes: str | None = None,
 ) -> CaseMedication:
     return CaseMedication(
         case_id=case.id,
@@ -1709,7 +1768,7 @@ def _medication_row(
         source_type="reference",
         source_file=None,
         source_reference=f"RXCUI:{medication.rxcui}",
-        notes=NUMERIC_ORIGIN if medication.strength is None else None,
+        notes=notes,
     )
 
 
@@ -1998,12 +2057,22 @@ def _select_named_medications(
 ) -> list[RefMedication]:
     selected: list[RefMedication] = []
     used = set(seen)
+    missing: list[str] = []
     for query in queries:
         row = match_medication(session, query)
-        if row is None or row.rxcui in used:
+        if row is None:
+            missing.append(query)
+            continue
+        if row.rxcui in used:
             continue
         used.add(row.rxcui)
         selected.append(row)
+    if missing:
+        raise ReferenceResolutionError(
+            "medication",
+            ",".join(missing),
+            "named medication has no source-backed concept",
+        )
     selected.sort(key=lambda item: item.rxcui)
     return selected
 
@@ -2029,6 +2098,10 @@ def _select_substitution_pair(
             )
             for sibling in sorted(siblings, key=lambda item: item.rxcui):
                 if sibling.rxcui in excluded:
+                    continue
+                if regimen_for_medication(sibling) is None and not str(sibling.rxcui).startswith(
+                    "TEST_"
+                ):
                     continue
                 snapshot = CaseSnapshot(
                     age=None,
@@ -2164,17 +2237,17 @@ def _maybe_add_warfarin_monitoring(
             case_id=case.id,
             monitoring_id=ids.next_id("monitoring"),
             parameter=inr.long_common_name or inr.loinc_code,
-            frequency="as labeled",
+            frequency="within 7 days, then by the INR result",
             target=None,
-            trigger_for_action=None,
+            trigger_for_action="Repeat INR sooner if bleeding or a new interacting medicine occurs",
             duration=None,
-            responsible_service="outpatient anticoagulation",
+            responsible_service="laboratory monitoring",
         )
     )
     for row in list_medications_for_case(session, case.id):
-        if row.ref_medication_id != warfarin_ref.id:
+        if row.ref_medication_id != warfarin_ref.id or row.context != "discharge":
             continue
-        row.monitoring = "Outpatient monitoring arranged."
+        row.monitoring = "INR laboratory monitoring is separate from the clinic appointment."
 
 
 def _maybe_openai_narrative(
@@ -2237,9 +2310,14 @@ def _template_narrative(
     context_note: str = "",
     hold_name: str | None = None,
     hold_reason: str | None = None,
+    started: list[str] | None = None,
+    hospital_only_names: list[str] | None = None,
 ) -> CaseNarrative:
     symptom_text = ", ".join(symptoms) if symptoms else "reported symptoms"
-    med_text = ", ".join(medications) if medications else "the selected home medications"
+    if medications:
+        med_text = ", ".join(medications)
+    else:
+        med_text = "no chronic home medications were recorded"
     held_text = ", ".join(held) if held else ""
     held_sentence = (
         f" {held_text} was discontinued and is not intended at discharge." if held_text else ""
@@ -2248,22 +2326,118 @@ def _template_narrative(
     if hold_name:
         reason = hold_reason or "a documented inpatient safety concern"
         hold_sentence = f" {hold_name} was held during the admission ({reason})."
+    started_text = ", ".join(started or [])
+    started_sentence = (
+        f" Started during this admission: {started_text}." if started_text else ""
+    )
+    hospital_text = ", ".join(hospital_only_names or [])
+    hospital_sentence = (
+        f" Used only in the hospital and stopped at discharge: {hospital_text}."
+        if hospital_text
+        else ""
+    )
     course_sentence = f" {hospital_course}" if hospital_course else ""
     context_sentence = f" {context_note}" if context_note.strip() else ""
     chief = f"{symptom_text} in the setting of {diagnosis}"
     hpi = (
         f"A {age}-year-old {sex} is admitted with {diagnosis}. "
         f"Presenting symptoms include {symptom_text}, present for {duration} and {course}. "
-        f"Home medications include {med_text}.{hold_sentence}{held_sentence}"
-        f"{context_sentence}{course_sentence}"
+        f"Home medications include {med_text}.{started_sentence}{hospital_sentence}"
+        f"{hold_sentence}{held_sentence}{context_sentence}{course_sentence}"
     )
     note = (
         f"Admission note for a {age}-year-old {sex} with {diagnosis}. "
         f"Symptoms: {symptom_text} for {duration} ({course}). "
         f"Medications continued from home: {med_text}."
-        f"{hold_sentence}{held_sentence}{context_sentence}{course_sentence}"
+        f"{started_sentence}{hospital_sentence}{hold_sentence}{held_sentence}"
+        f"{context_sentence}{course_sentence}"
     )
     return CaseNarrative(chief_complaint=chief, hpi=hpi, note_text=note)
+
+
+def _partition_temporal(
+    medications: list[RefMedication], profile: ClinicalProfile
+) -> tuple[list[RefMedication], list[RefMedication]]:
+    home: list[RefMedication] = []
+    started: list[RefMedication] = []
+    for medication in medications:
+        role = temporal_role_for(medication, profile.medication_temporal_roles)
+        if role == "started_inpatient":
+            started.append(medication)
+        else:
+            home.append(medication)
+    return home, started
+
+
+def _case_uses_standard_apixaban(medications: list[RefMedication]) -> bool:
+    for medication in medications:
+        regimen = regimen_for_medication(medication)
+        if regimen is not None and regimen.id == "APIXABAN_NVAF_STANDARD":
+            return True
+        if "apixaban" in " ".join(
+            part
+            for part in (medication.ingredient, medication.generic_name, medication.concept_name)
+            if part
+        ).casefold():
+            return True
+    return False
+
+
+def _started_inpatient_note(chart_note: str | None) -> str:
+    marker = "Started during this admission."
+    if chart_note and "started during this admission" in chart_note.casefold():
+        return chart_note
+    if chart_note:
+        return f"{chart_note} {marker}"
+    return marker
+
+
+def _add_started_inpatient_medication(
+    session: Session,
+    *,
+    case: ClinicalCase,
+    ids: _IdCounter,
+    medication: RefMedication,
+    label: str,
+    indication: str,
+    dose: str,
+    route: str | None,
+    frequency: str,
+    notes: str,
+    quantity_or_days: str | None,
+) -> None:
+    for context, status in (("inpatient", "active"), ("discharge", "discharge")):
+        session.add(
+            _medication_row(
+                case=case,
+                ids=ids,
+                medication=medication,
+                label=label,
+                context=context,
+                status=status,
+                dose=dose,
+                route=route,
+                frequency=frequency,
+                indication=indication,
+                held_reason=None,
+                quantity_or_days=quantity_or_days if context == "discharge" else None,
+                notes=notes,
+            )
+        )
+    session.add(
+        CaseMedicationPlan(
+            plan_id=ids.next_id("plan"),
+            case_id=case.id,
+            ref_medication_id=medication.id,
+            drug=label,
+            home_state="absent",
+            inpatient_state="new_start",
+            correct_discharge_state="continue",
+            decision="continue",
+            decision_reason="Started during this admission and continued at discharge.",
+            is_error_target=False,
+        )
+    )
 
 
 def _reference_versions(session: Session) -> dict[str, str | None]:
@@ -2309,6 +2483,16 @@ def _optional_str(value: Any) -> str | None:
     if value in (None, ""):
         return None
     return str(value)
+
+
+def _role_map(value: Any) -> dict[str, str]:
+    if not isinstance(value, dict):
+        return {}
+    return {
+        str(key): str(role)
+        for key, role in value.items()
+        if str(key).strip() and str(role).strip()
+    }
 
 
 def _dict_list(value: Any) -> list[dict[str, str]]:

@@ -1,0 +1,226 @@
+{
+  "batch_code": "CLINIPROOF_BALANCED_V4",
+  "generation_strategy": "balanced_structured",
+  "master_seed": 20260925,
+  "description": "Final clinical-regimen QC revision of balanced structured generation. CLINIPROOF_BALANCED_V3 remains a frozen preclinical artifact. Each assignment names a distinct clinical profile. OpenAI is not used.",
+  "require_balanced_scenarios": true,
+  "require_unique_clinical_profiles": true,
+  "cases": [
+    {
+      "validation_case_id": "VAL-701",
+      "scenario": "HF_INPATIENT",
+      "clinical_profile": "HF_VOLUME_OVERLOAD",
+      "inject_error": true,
+      "error_family": "family_1",
+      "error_category": "f1_omission",
+      "sequence": 1401
+    },
+    {
+      "validation_case_id": "VAL-702",
+      "scenario": "HF_INPATIENT",
+      "clinical_profile": "HF_POST_DIURESIS",
+      "inject_error": true,
+      "error_family": "family_1",
+      "error_category": "f1_therapeutic_substitution",
+      "sequence": 1402
+    },
+    {
+      "validation_case_id": "VAL-703",
+      "scenario": "HF_INPATIENT",
+      "clinical_profile": "HF_WITH_WARFARIN",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_monitoring_not_arranged",
+      "sequence": 1403
+    },
+    {
+      "validation_case_id": "VAL-704",
+      "scenario": "HF_INPATIENT",
+      "clinical_profile": "HF_MEDICATION_ADJUSTMENT",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_inpatient_substitution_not_reverted",
+      "sequence": 1404
+    },
+    {
+      "validation_case_id": "VAL-705",
+      "scenario": "HF_INPATIENT",
+      "clinical_profile": "HF_DISCHARGE_MONITORING",
+      "inject_error": false,
+      "error_family": "none",
+      "error_category": null,
+      "sequence": 1405
+    },
+    {
+      "validation_case_id": "VAL-706",
+      "scenario": "AF_ANTICOAGULATION",
+      "clinical_profile": "AF_RATE_CONTROL_APIXABAN",
+      "inject_error": true,
+      "error_family": "family_1",
+      "error_category": "f1_omission",
+      "sequence": 1406
+    },
+    {
+      "validation_case_id": "VAL-707",
+      "scenario": "AF_ANTICOAGULATION",
+      "clinical_profile": "AF_WARFARIN_INR",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_monitoring_not_arranged",
+      "sequence": 1407
+    },
+    {
+      "validation_case_id": "VAL-708",
+      "scenario": "AF_ANTICOAGULATION",
+      "clinical_profile": "AF_WITH_STATIN",
+      "inject_error": true,
+      "error_family": "family_1",
+      "error_category": "f1_dose_mismatch",
+      "sequence": 1408
+    },
+    {
+      "validation_case_id": "VAL-709",
+      "scenario": "AF_ANTICOAGULATION",
+      "clinical_profile": "AF_HELD_NSAID",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_held_med_no_restart_plan",
+      "sequence": 1409
+    },
+    {
+      "validation_case_id": "VAL-710",
+      "scenario": "AF_ANTICOAGULATION",
+      "clinical_profile": "AF_POST_RATE_CONTROL",
+      "inject_error": false,
+      "error_family": "none",
+      "error_category": null,
+      "sequence": 1410
+    },
+    {
+      "validation_case_id": "VAL-711",
+      "scenario": "HTN_INPATIENT",
+      "clinical_profile": "HTN_ACE_CCB",
+      "inject_error": true,
+      "error_family": "family_1",
+      "error_category": "f1_commission",
+      "sequence": 1411
+    },
+    {
+      "validation_case_id": "VAL-712",
+      "scenario": "HTN_INPATIENT",
+      "clinical_profile": "HTN_ACE_THIAZIDE",
+      "inject_error": true,
+      "error_family": "family_1",
+      "error_category": "f1_dose_mismatch",
+      "sequence": 1412
+    },
+    {
+      "validation_case_id": "VAL-713",
+      "scenario": "HTN_INPATIENT",
+      "clinical_profile": "HTN_CCB_STATIN",
+      "inject_error": true,
+      "error_family": "family_1",
+      "error_category": "f1_route_mismatch",
+      "sequence": 1413
+    },
+    {
+      "validation_case_id": "VAL-714",
+      "scenario": "HTN_INPATIENT",
+      "clinical_profile": "HTN_TRIPLE_THERAPY",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_hospital_only_continued",
+      "sequence": 1414
+    },
+    {
+      "validation_case_id": "VAL-715",
+      "scenario": "HTN_INPATIENT",
+      "clinical_profile": "HTN_NEW_DIAGNOSIS",
+      "inject_error": false,
+      "error_family": "none",
+      "error_category": null,
+      "sequence": 1415
+    },
+    {
+      "validation_case_id": "VAL-716",
+      "scenario": "T2DM_INPATIENT",
+      "clinical_profile": "T2DM_METFORMIN_ACE",
+      "inject_error": true,
+      "error_family": "family_1",
+      "error_category": "f1_omission",
+      "sequence": 1416
+    },
+    {
+      "validation_case_id": "VAL-717",
+      "scenario": "T2DM_INPATIENT",
+      "clinical_profile": "T2DM_METFORMIN_STATIN",
+      "inject_error": true,
+      "error_family": "family_1",
+      "error_category": "f1_frequency_mismatch",
+      "sequence": 1417
+    },
+    {
+      "validation_case_id": "VAL-718",
+      "scenario": "T2DM_INPATIENT",
+      "clinical_profile": "T2DM_GLYCEMIC_STABILIZATION",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_insufficient_supply",
+      "sequence": 1418
+    },
+    {
+      "validation_case_id": "VAL-719",
+      "scenario": "T2DM_INPATIENT",
+      "clinical_profile": "T2DM_PENDING_DURATION",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_pending_decision_followup_missing",
+      "sequence": 1419
+    },
+    {
+      "validation_case_id": "VAL-720",
+      "scenario": "T2DM_INPATIENT",
+      "clinical_profile": "T2DM_CONTROL",
+      "inject_error": false,
+      "error_family": "none",
+      "error_category": null,
+      "sequence": 1420
+    },
+    {
+      "validation_case_id": "VAL-721",
+      "scenario": "CAP_INPATIENT",
+      "clinical_profile": "CAP_TYPICAL_COUGH",
+      "inject_error": true,
+      "error_family": "family_1",
+      "error_category": "f1_frequency_mismatch",
+      "sequence": 1421
+    },
+    {
+      "validation_case_id": "VAL-722",
+      "scenario": "CAP_INPATIENT",
+      "clinical_profile": "CAP_DYSPNEA_WHEEZE",
+      "inject_error": true,
+      "error_family": "family_1",
+      "error_category": "f1_dose_mismatch",
+      "sequence": 1422
+    },
+    {
+      "validation_case_id": "VAL-723",
+      "scenario": "CAP_INPATIENT",
+      "clinical_profile": "CAP_INPATIENT_ANTIBIOTIC",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_held_med_no_restart_plan",
+      "sequence": 1423
+    },
+    {
+      "validation_case_id": "VAL-724",
+      "scenario": "CAP_INPATIENT",
+      "clinical_profile": "CAP_HOME_TRANSITION",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_insufficient_supply",
+      "sequence": 1424
+    }
+  ]
+}

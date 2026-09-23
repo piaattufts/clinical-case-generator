@@ -420,8 +420,8 @@ def test_hold_reason_is_profile_specific() -> None:
 
 
 def test_active_batch_codes_are_corrected_revisions() -> None:
-    assert BALANCED_BATCH_CODE == "CLINIPROOF_BALANCED_V3"
-    assert SEEDCASES_BATCH_CODE == "CLINIPROOF_SEEDCASES_V2"
+    assert BALANCED_BATCH_CODE == "CLINIPROOF_BALANCED_V4"
+    assert SEEDCASES_BATCH_CODE == "CLINIPROOF_SEEDCASES_V3"
     assert active_batch_codes() == (BALANCED_BATCH_CODE, SEEDCASES_BATCH_CODE)
     assert ARCHIVED_BATCH_CODE in archived_batch_codes()
     assert PRECLINICAL_BALANCED_CODE in archived_batch_codes()
@@ -582,6 +582,17 @@ def test_balanced_v3_plan_declares_balanced_structured() -> None:
     )
     assert plan["generation_strategy"] == "balanced_structured"
     assert plan["batch_code"] == "CLINIPROOF_BALANCED_V3"
+    v4 = json.loads(
+        (
+            Path(__file__).resolve().parents[1]
+            / "data"
+            / "validation_balanced_v4"
+            / "batch_plan.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert v4["batch_code"] == "CLINIPROOF_BALANCED_V4"
+    assert v4["cases"][0]["validation_case_id"] == "VAL-701"
+    assert v4["cases"][-1]["validation_case_id"] == "VAL-724"
     assert len(plan["cases"]) == 24
 
 

@@ -1,5 +1,8 @@
 # Randomized template batch versus resident-seed-guided batch
 
+> Historical document. This compares superseded freezes `CLINIPROOF_TAXONOMY_V1` and `CLINIPROOF_SEEDCASES_V1`.
+> Current comparison: [`../validation_comparison/active_batch_comparison.md`](../validation_comparison/active_batch_comparison.md).
+
 machine-validated synthetic resident-review cases pending clinician validation
 
 This comparison uses exported charts. It does not regenerate or modify

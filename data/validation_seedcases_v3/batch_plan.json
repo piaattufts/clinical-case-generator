@@ -1,0 +1,250 @@
+{
+  "batch_code": "CLINIPROOF_SEEDCASES_V3",
+  "generation_strategy": "resident_seed_guided",
+  "master_seed": 20260926,
+  "description": "Final clinical-regimen QC revision of resident-seed-guided generation. CLINIPROOF_SEEDCASES_V2 remains a frozen preclinical artifact. Resident source documents are not copied. OpenAI is not used.",
+  "require_balanced_scenarios": true,
+  "require_unique_clinical_profiles": true,
+  "cases": [
+    {
+      "validation_case_id": "VAL-801",
+      "scenario": "MEDREC_UNCERTAIN_HISTORY",
+      "clinical_profile": "MEDREC_COLLATERAL_VERIFIED",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": false,
+      "error_family": "none",
+      "error_category": null,
+      "sequence": 1501
+    },
+    {
+      "validation_case_id": "VAL-802",
+      "scenario": "MEDREC_UNCERTAIN_HISTORY",
+      "clinical_profile": "MEDREC_VERIFIED_STATIN_CONTINUED",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_1",
+      "error_category": "f1_omission",
+      "sequence": 1502
+    },
+    {
+      "validation_case_id": "VAL-803",
+      "scenario": "MEDREC_UNCERTAIN_HISTORY",
+      "clinical_profile": "MEDREC_HOME_SERVICES_SUPPLY",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_insufficient_supply",
+      "sequence": 1503
+    },
+    {
+      "validation_case_id": "VAL-804",
+      "scenario": "MEDREC_UNCERTAIN_HISTORY",
+      "clinical_profile": "MEDREC_PENDING_COGNITIVE_THERAPY",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_pending_decision_followup_missing",
+      "sequence": 1504
+    },
+    {
+      "validation_case_id": "VAL-805",
+      "scenario": "HF_DECOMPENSATION",
+      "clinical_profile": "HF_DECOMP_UNCOMPLICATED_DIURESIS",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": false,
+      "error_family": "none",
+      "error_category": null,
+      "sequence": 1505
+    },
+    {
+      "validation_case_id": "VAL-806",
+      "scenario": "HF_DECOMPENSATION",
+      "clinical_profile": "HF_DECOMP_AKI_HOLDS",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_held_med_no_restart_plan",
+      "sequence": 1506
+    },
+    {
+      "validation_case_id": "VAL-807",
+      "scenario": "HF_DECOMPENSATION",
+      "clinical_profile": "HF_DECOMP_POTASSIUM_REPLACEMENT",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_1",
+      "error_category": "f1_dose_mismatch",
+      "sequence": 1507
+    },
+    {
+      "validation_case_id": "VAL-808",
+      "scenario": "HF_DECOMPENSATION",
+      "clinical_profile": "HF_DECOMP_DIURETIC_ADJUSTMENT",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_1",
+      "error_category": "f1_therapeutic_substitution",
+      "sequence": 1508
+    },
+    {
+      "validation_case_id": "VAL-809",
+      "scenario": "OPAT_ENDOCARDITIS",
+      "clinical_profile": "OPAT_STABLE_COMPLETION_PLAN",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": false,
+      "error_family": "none",
+      "error_category": null,
+      "sequence": 1509
+    },
+    {
+      "validation_case_id": "VAL-810",
+      "scenario": "OPAT_ENDOCARDITIS",
+      "clinical_profile": "OPAT_OMITTED_PARENTERAL_THERAPY",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_1",
+      "error_category": "f1_omission",
+      "sequence": 1510
+    },
+    {
+      "validation_case_id": "VAL-811",
+      "scenario": "OPAT_ENDOCARDITIS",
+      "clinical_profile": "OPAT_SHORT_ANTIBIOTIC_SUPPLY",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_insufficient_supply",
+      "sequence": 1511
+    },
+    {
+      "validation_case_id": "VAL-812",
+      "scenario": "OPAT_ENDOCARDITIS",
+      "clinical_profile": "OPAT_MISSING_ID_FOLLOWUP",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_pending_decision_followup_missing",
+      "sequence": 1512
+    },
+    {
+      "validation_case_id": "VAL-813",
+      "scenario": "TRANSPLANT_CMV",
+      "clinical_profile": "TRANSPLANT_CMV_IMPROVING",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": false,
+      "error_family": "none",
+      "error_category": null,
+      "sequence": 1513
+    },
+    {
+      "validation_case_id": "VAL-814",
+      "scenario": "TRANSPLANT_CMV",
+      "clinical_profile": "TRANSPLANT_MMF_HOLD_RESTART",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_held_med_no_restart_plan",
+      "sequence": 1514
+    },
+    {
+      "validation_case_id": "VAL-815",
+      "scenario": "TRANSPLANT_CMV",
+      "clinical_profile": "TRANSPLANT_TACROLIMUS_ADJUSTMENT",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_1",
+      "error_category": "f1_dose_mismatch",
+      "sequence": 1515
+    },
+    {
+      "validation_case_id": "VAL-816",
+      "scenario": "TRANSPLANT_CMV",
+      "clinical_profile": "TRANSPLANT_PENDING_ANTIVIRAL_DURATION",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_pending_decision_followup_missing",
+      "sequence": 1516
+    },
+    {
+      "validation_case_id": "VAL-817",
+      "scenario": "POSTOP_ANTICOAGULATION",
+      "clinical_profile": "POSTOP_WARFARIN_MONITORING",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_monitoring_not_arranged",
+      "sequence": 1517
+    },
+    {
+      "validation_case_id": "VAL-818",
+      "scenario": "POSTOP_ANTICOAGULATION",
+      "clinical_profile": "POSTOP_OMITTED_ANTICOAGULATION",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_1",
+      "error_category": "f1_omission",
+      "sequence": 1518
+    },
+    {
+      "validation_case_id": "VAL-819",
+      "scenario": "POSTOP_ANTICOAGULATION",
+      "clinical_profile": "POSTOP_ANTICOAG_SUPPLY",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_insufficient_supply",
+      "sequence": 1519
+    },
+    {
+      "validation_case_id": "VAL-820",
+      "scenario": "POSTOP_ANTICOAGULATION",
+      "clinical_profile": "POSTOP_BRIDGE_HOSPITAL_ONLY",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_hospital_only_continued",
+      "sequence": 1520
+    },
+    {
+      "validation_case_id": "VAL-821",
+      "scenario": "GI_BLEED_ACUTE_CHANGE",
+      "clinical_profile": "GI_BLEED_AC_HELD_RESTART",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_held_med_no_restart_plan",
+      "sequence": 1521
+    },
+    {
+      "validation_case_id": "VAL-822",
+      "scenario": "GI_BLEED_ACUTE_CHANGE",
+      "clinical_profile": "GI_BLEED_PPI_HOSPITAL_ONLY",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_hospital_only_continued",
+      "sequence": 1522
+    },
+    {
+      "validation_case_id": "VAL-823",
+      "scenario": "GI_BLEED_ACUTE_CHANGE",
+      "clinical_profile": "GI_BLEED_PENDING_AC_DECISION",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_2",
+      "error_category": "f2_pending_decision_followup_missing",
+      "sequence": 1523
+    },
+    {
+      "validation_case_id": "VAL-824",
+      "scenario": "GI_BLEED_ACUTE_CHANGE",
+      "clinical_profile": "GI_BLEED_ASPIRIN_NOT_RESTARTED",
+      "generation_strategy": "resident_seed_guided",
+      "inject_error": true,
+      "error_family": "family_1",
+      "error_category": "f1_commission",
+      "sequence": 1524
+    }
+  ]
+}

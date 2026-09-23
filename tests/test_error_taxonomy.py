@@ -836,7 +836,7 @@ def test_cli_does_not_default_to_archived_taxonomy_v1() -> None:
     assert freeze_default is None
     assert "CLINIPROOF_TAXONOMY_V1" not in active_batch_codes()
     assert "CLINIPROOF_TAXONOMY_V1" in archived_batch_codes()
-    assert "CLINIPROOF_BALANCED_V3" in active_batch_codes()
-    assert "CLINIPROOF_SEEDCASES_V2" in active_batch_codes()
+    assert "CLINIPROOF_BALANCED_V4" in active_batch_codes()
+    assert "CLINIPROOF_SEEDCASES_V3" in active_batch_codes()
     assert "CLINIPROOF_BALANCED_V2" in archived_batch_codes()
     assert "CLINIPROOF_SEEDCASES_V1" in archived_batch_codes()

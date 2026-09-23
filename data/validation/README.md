@@ -2,7 +2,7 @@
 
 **Status: historical / archived.** This directory is preserved for provenance. It is **not** an active prospective study set. New reviewers should start at [`../active_validation_sets.md`](../active_validation_sets.md).
 
-The public identifiers remain VAL-201 through VAL-224. Do not regenerate, overwrite, or renumber these files. The two active datasets are `CLINIPROOF_BALANCED_V2` and `CLINIPROOF_SEEDCASES_V1`.
+The public identifiers remain VAL-201 through VAL-224. Do not regenerate, overwrite, or renumber these files. Current prospective sets are `CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`. See [`../active_validation_sets.md`](../active_validation_sets.md).
 
 This archive is not labeled clinically invalid. It was superseded as the active prospective set because the study design now evaluates two newer generation strategies.
 

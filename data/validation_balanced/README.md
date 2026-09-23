@@ -1,10 +1,13 @@
 # Prospective balanced CliniProof set (`CLINIPROOF_BALANCED_V2`)
 
-**Status: archived preclinical-QC version.** This freeze is **not** an active prospective study set. The corrected active balanced set is [`CLINIPROOF_BALANCED_V3`](../validation_balanced_v3/).
+> Historical document. This describes a superseded preclinical freeze.
+> Current prospective sets: [`CLINIPROOF_BALANCED_V4`](../validation_balanced_v4/README.md) and [`CLINIPROOF_SEEDCASES_V3`](../validation_seedcases_v3/README.md).
+
+**Status: archived preclinical-QC version.** This freeze is **not** an active prospective study set. Later revisions are `CLINIPROOF_BALANCED_V3` and the current set [`CLINIPROOF_BALANCED_V4`](../validation_balanced_v4/README.md).
 
 This directory preserves the preclinical-QC freeze `CLINIPROOF_BALANCED_V2`. Public identifiers are VAL-301 through VAL-324. `generation_strategy = balanced_structured`.
 
-It does **not** replace archived `CLINIPROOF_TAXONOMY_V1` in [`data/validation/`](../validation/). The corrected active set is [`CLINIPROOF_BALANCED_V3`](../validation_balanced_v3/). `CLINIPROOF_SEEDCASES_V1` in [`data/validation_seedcases/`](../validation_seedcases/) is likewise a preclinical-QC archive.
+It does **not** replace archived `CLINIPROOF_TAXONOMY_V1` in [`data/validation/`](../validation/). The current balanced set is [`CLINIPROOF_BALANCED_V4`](../validation_balanced_v4/README.md). `CLINIPROOF_SEEDCASES_V1` in [`data/validation_seedcases/`](../validation_seedcases/) is likewise a preclinical-QC archive.
 
 Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. Passing the clean-case diversity audit does not mean the cases are clinically validated.
 

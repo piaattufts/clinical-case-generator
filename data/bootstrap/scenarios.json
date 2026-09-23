@@ -140,7 +140,13 @@
               "timepoint": "admission",
               "study_type": "Chest radiograph",
               "body_site": "chest",
-              "finding": "Improving pulmonary edema compared with admission."
+              "finding": "Pulmonary vascular congestion and interstitial edema."
+            },
+            {
+              "timepoint": "discharge",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "Improved pulmonary edema compared with admission."
             }
           ],
           "consults": [
@@ -200,7 +206,21 @@
               "recommendation": "Continue the intended heart-failure and diuretic plan."
             }
           ],
-          "admission_reason": "Admitted for decompensated heart failure with atrial fibrillation."
+          "admission_reason": "Admitted for decompensated heart failure with atrial fibrillation.",
+          "procedures": [
+            {
+              "procedure_name": "Electrocardiogram",
+              "procedure_type": "diagnostic",
+              "timepoint": "admission",
+              "findings": "Sinus rhythm without ST-segment elevation."
+            },
+            {
+              "procedure_name": "Cardiac biomarker review",
+              "procedure_type": "diagnostic",
+              "timepoint": "admission",
+              "findings": "No troponin elevation was documented."
+            }
+          ]
         },
         {
           "code": "HF_MEDICATION_ADJUSTMENT",
@@ -292,7 +312,13 @@
               "timepoint": "admission",
               "study_type": "Chest radiograph",
               "body_site": "chest",
-              "finding": "Improving congestion."
+              "finding": "Pulmonary vascular congestion."
+            },
+            {
+              "timepoint": "discharge",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "Improved congestion compared with admission."
             }
           ],
           "consults": [
@@ -440,7 +466,21 @@
               "recommendation": "Continue rate control and the planned anticoagulation."
             }
           ],
-          "admission_reason": "Admitted for symptomatic atrial fibrillation requiring rate control and INR assessment."
+          "admission_reason": "Admitted for symptomatic atrial fibrillation requiring rate control and INR assessment.",
+          "procedures": [
+            {
+              "procedure_name": "Electrocardiogram",
+              "procedure_type": "diagnostic",
+              "timepoint": "admission",
+              "findings": "Sinus rhythm without ST-segment elevation."
+            },
+            {
+              "procedure_name": "Cardiac biomarker review",
+              "procedure_type": "diagnostic",
+              "timepoint": "admission",
+              "findings": "No troponin elevation was documented."
+            }
+          ]
         },
         {
           "code": "AF_WITH_STATIN",
@@ -537,7 +577,21 @@
           "hold_medication_query": "carvedilol",
           "hold_reason": "Held inpatient for documented hypotension during rate control; intended to restart.",
           "restart_plan": "Resume when systolic blood pressure remains above 100 mmHg for 24 hours.",
-          "admission_reason": "Admitted for symptomatic atrial fibrillation with chest discomfort."
+          "admission_reason": "Admitted for symptomatic atrial fibrillation with chest discomfort.",
+          "procedures": [
+            {
+              "procedure_name": "Electrocardiogram",
+              "procedure_type": "diagnostic",
+              "timepoint": "admission",
+              "findings": "Sinus rhythm without ST-segment elevation."
+            },
+            {
+              "procedure_name": "Cardiac biomarker review",
+              "procedure_type": "diagnostic",
+              "timepoint": "admission",
+              "findings": "No troponin elevation was documented."
+            }
+          ]
         },
         {
           "code": "AF_POST_RATE_CONTROL",
@@ -676,7 +730,21 @@
               "recommendation": "Continue observed antihypertensive therapy after end-organ evaluation."
             }
           ],
-          "admission_reason": "Admitted for symptomatic hypertensive urgency with chest pain, observed for end-organ symptoms."
+          "admission_reason": "Admitted for symptomatic hypertensive urgency with chest pain, observed for end-organ symptoms.",
+          "procedures": [
+            {
+              "procedure_name": "Electrocardiogram",
+              "procedure_type": "diagnostic",
+              "timepoint": "admission",
+              "findings": "Sinus rhythm without ST-segment elevation."
+            },
+            {
+              "procedure_name": "Cardiac biomarker review",
+              "procedure_type": "diagnostic",
+              "timepoint": "admission",
+              "findings": "No troponin elevation was documented."
+            }
+          ]
         },
         {
           "code": "HTN_ACE_THIAZIDE",
@@ -797,7 +865,21 @@
               "recommendation": "Continue observed antihypertensive therapy after end-organ evaluation."
             }
           ],
-          "admission_reason": "Admitted for symptomatic hypertensive urgency on triple oral therapy, observed for end-organ symptoms."
+          "admission_reason": "Admitted for symptomatic hypertensive urgency on triple oral therapy, observed for end-organ symptoms.",
+          "procedures": [
+            {
+              "procedure_name": "Electrocardiogram",
+              "procedure_type": "diagnostic",
+              "timepoint": "admission",
+              "findings": "Sinus rhythm without ST-segment elevation."
+            },
+            {
+              "procedure_name": "Cardiac biomarker review",
+              "procedure_type": "diagnostic",
+              "timepoint": "admission",
+              "findings": "No troponin elevation was documented."
+            }
+          ]
         },
         {
           "code": "HTN_NEW_DIAGNOSIS",
@@ -832,7 +914,10 @@
               "finding": "No acute infiltrate."
             }
           ],
-          "admission_reason": "Admitted for a first presentation of severe symptomatic hypertension requiring observed treatment."
+          "admission_reason": "Admitted for a first presentation of severe symptomatic hypertension requiring observed treatment.",
+          "medication_temporal_roles": {
+            "enalapril": "started_inpatient"
+          }
         }
       ]
     },
@@ -905,7 +990,10 @@
             "hypertension",
             "hyperlipidemia"
           ],
-          "admission_reason": "Admitted for symptomatic hyperglycemia with polyuria requiring supervised glucose and fluid management."
+          "admission_reason": "Admitted for symptomatic hyperglycemia with polyuria requiring supervised glucose and fluid management.",
+          "hospital_only_medication_queries": [
+            "insulin lispro"
+          ]
         },
         {
           "code": "T2DM_METFORMIN_STATIN",
@@ -933,7 +1021,10 @@
             "hyperlipidemia"
           ],
           "admission_reason": "Admitted for symptomatic hyperglycemia requiring inpatient glucose stabilization.",
-          "target_medication_query": "metformin"
+          "target_medication_query": "metformin",
+          "hospital_only_medication_queries": [
+            "insulin lispro"
+          ]
         },
         {
           "code": "T2DM_GLYCEMIC_STABILIZATION",
@@ -953,7 +1044,7 @@
             "creatinine",
             "hemoglobin"
           ],
-          "hospital_course_pattern": "observed_stabilization",
+          "hospital_course_pattern": "glycemic_stabilization",
           "io_timepoint": "hospital_day_3",
           "vital_pattern": "glycemic",
           "followup_item": "Diabetes medication-supply follow-up",
@@ -964,7 +1055,10 @@
             "hyperlipidemia"
           ],
           "admission_reason": "Admitted for symptomatic hyperglycemia with volume depletion requiring supervised treatment.",
-          "target_medication_query": "metformin"
+          "target_medication_query": "metformin",
+          "hospital_only_medication_queries": [
+            "insulin lispro"
+          ]
         },
         {
           "code": "T2DM_PENDING_DURATION",
@@ -982,7 +1076,7 @@
           "lab_queries": [
             "glucose"
           ],
-          "hospital_course_pattern": "improving_after_treatment",
+          "hospital_course_pattern": "glycemic_stabilization",
           "io_timepoint": "hospital_day_2",
           "vital_pattern": "glycemic",
           "followup_item": "Reassess pending therapeutic decision",
@@ -994,7 +1088,10 @@
           "pending_decision_medication_query": "metformin",
           "pending_decision_text": "The outpatient metformin dose after this hyperglycemic admission remains to be confirmed at endocrinology follow-up.",
           "target_medication_query": "metformin",
-          "admission_reason": "Admitted for symptomatic hyperglycemia; a pending outpatient diabetes-therapy decision was recorded."
+          "admission_reason": "Admitted for symptomatic hyperglycemia; a pending outpatient diabetes-therapy decision was recorded.",
+          "hospital_only_medication_queries": [
+            "insulin lispro"
+          ]
         },
         {
           "code": "T2DM_CONTROL",
@@ -1023,7 +1120,10 @@
             "hypertension",
             "hyperlipidemia"
           ],
-          "admission_reason": "Admitted for symptomatic hyperglycemia that improved with supervised inpatient management."
+          "admission_reason": "Admitted for symptomatic hyperglycemia that improved with supervised inpatient management.",
+          "hospital_only_medication_queries": [
+            "insulin lispro"
+          ]
         }
       ]
     },
@@ -1187,7 +1287,13 @@
               "timepoint": "admission",
               "study_type": "Chest radiograph",
               "body_site": "chest",
-              "finding": "Lobar infiltrate improving compared with admission."
+              "finding": "Lobar infiltrate consistent with pneumonia."
+            },
+            {
+              "timepoint": "discharge",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "Improved lobar infiltrate compared with admission."
             }
           ],
           "hold_medication_query": "albuterol",
@@ -1227,7 +1333,13 @@
               "timepoint": "admission",
               "study_type": "Chest radiograph",
               "body_site": "chest",
-              "finding": "Improving infiltrate."
+              "finding": "Pulmonary infiltrate."
+            },
+            {
+              "timepoint": "discharge",
+              "study_type": "Chest radiograph",
+              "body_site": "chest",
+              "finding": "Improved infiltrate compared with admission."
             }
           ],
           "admission_reason": "Admitted for pneumonia; a remaining oral antibiotic course was arranged at discharge.",

@@ -1056,6 +1056,57 @@ def _with_trailing_newline(text: str) -> str:
     return text if text.endswith("\n") else text + "\n"
 
 
+def _batch_readable_index(batch_code: str, ids: Sequence[str]) -> str:
+    first = ids[0] if ids else "VAL-001"
+    last = ids[-1] if ids else "VAL-001"
+    try:
+        spec = get_batch(batch_code)
+        status = (
+            "active prospective set pending clinician validation"
+            if spec.is_active
+            else "archived historical provenance, not an active prospective study set"
+        )
+        strategy = spec.generation_strategy
+    except KeyError:
+        status = "batch status is not in the validation registry"
+        strategy = "unspecified"
+    seed_note = ""
+    if "seed" in batch_code.casefold() or strategy == "resident_seed_guided":
+        seed_note = (
+            "\nThese synthetic cases were guided by resident-authored clinical examples. "
+            "They are not copies of the source patients, and the six source examples are "
+            "not an epidemiologic sample. Blinded resident materials do not name the source "
+            "document.\n"
+        )
+    return f"""# Readable CliniProof review materials
+
+This directory contains the human-readable review materials for `{batch_code}`, cases {first} through {last}.
+
+Status: {status}.
+Generation strategy: `{strategy}`.
+
+Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1–C5 in one pass. Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. Passing automated checks does not mean the cases are clinically validated.
+{seed_note}
+These Markdown files are readable views. They do not replace the frozen JSON. Current prospective sets are listed in [`../../active_validation_sets.md`](../../active_validation_sets.md). `CLINIPROOF_TAXONOMY_V1` is archived historical provenance and is not the current study set.
+
+## Where should I start?
+
+| Who is using it | File |
+| --- | --- |
+| Resident or clinician reviewing and rating cases | [`clinician_validation_packet.md`](clinician_validation_packet.md) |
+| Resident or clinician recording ratings | [`clinical_validation_worksheet.csv`](clinical_validation_worksheet.csv) |
+| Medical educator reviewing the validation criteria | [`validation_rubric.md`](validation_rubric.md) |
+| Someone reading every chart in order | [`all_cases.md`](all_cases.md) |
+| One case at a time | [`cases/`](cases/) |
+
+[`clinician_validation_packet.md`](clinician_validation_packet.md) contains the readable chart, the intended assessment issue, and the C1–C5 forms. Individual pages under [`cases/`](cases/) do not include the answer key.
+
+## Machine validation is not clinical validation
+
+Automated checks cover structure, terminology provenance, curated regimen constraints, and the intended assessment manipulation. Human reviewers still complete C1–C5 in one pass.
+"""
+
+
 def build_readable_packets(
     *,
     resident_path: Path = DEFAULT_RESIDENT_PATH,
@@ -1090,25 +1141,7 @@ def build_readable_packets(
     }
     readme_text = READABLE_INDEX_MD
     if batch_code != "CLINIPROOF_TAXONOMY_V1" or ids != CASE_IDS:
-        first = ids[0] if ids else "VAL-001"
-        last = ids[-1] if ids else "VAL-001"
-        readme_text = (
-            "# Readable CliniProof review materials\n\n"
-            f"This directory contains the human-readable review materials for "
-            f"`{batch_code}`, cases {first} through {last}. Clinical validation uses "
-            "a single review stage. Each clinician or resident reviews the complete "
-            "case and assesses C1–C5 in one pass.\n\n"
-            "Until clinicians finish review, treat every record as a machine-validated "
-            "synthetic resident-review case pending clinician validation. Passing the "
-            "clean-case diversity audit does not mean the cases are clinically validated.\n"
-        )
-        if batch_code in {"CLINIPROOF_SEEDCASES_V1", "CLINIPROOF_SEEDCASES_V2"}:
-            readme_text += (
-                "\nThese synthetic cases were derived from expert/resident-authored "
-                "clinical archetypes. They are not copies of the source patients. "
-                "Blinded resident materials do not name the source archetype or the "
-                "original document.\n"
-            )
+        readme_text = _batch_readable_index(batch_code, ids)
     files["readme"].write_text(_with_trailing_newline(readme_text), encoding="utf-8", newline="\n")
     files["all_cases"].write_text(
         render_all_cases(pages, batch_code=batch_code, case_ids=ids),
