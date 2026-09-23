@@ -2,7 +2,7 @@
 
 ## Purpose
 
-The cases are synthetically generated clinical cases produced by CliniProof and are being reviewed for clinical validity. Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1 through C5 in one pass.
+The cases are synthetically generated clinical cases produced by CliniProof and are being reviewed for clinical validity. Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1–C5 in one pass.
 
 The frozen set is `CLINIPROOF_TAXONOMY_V1`, containing twenty-four cases labeled VAL-201 through VAL-224. Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. That sentence means the software has already checked structure, terminology, and a limited set of implemented rules, but a clinician has not yet accepted the case for educational use.
 
@@ -11,7 +11,7 @@ The frozen set is `CLINIPROOF_TAXONOMY_V1`, containing twenty-four cases labeled
 For each case:
 
 1. Read the complete case.
-2. Assess C1 through C5 using the forms that follow the case.
+2. Assess C1–C5 using the forms that follow the case.
 3. Record ratings in [`clinical_validation_worksheet.csv`](clinical_validation_worksheet.csv).
 4. Add comments where a problem is identified.
 

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-A clinician or resident evaluates each synthetic inpatient case in a single review before it is accepted for use. Clinical validation uses a single review stage. Each reviewer reads the complete case and assesses C1 through C5 in one pass.
+A clinician or resident evaluates each synthetic inpatient case in a single review before it is accepted for use. Clinical validation uses a single review stage. Each reviewer reads the complete case and assesses C1–C5 in one pass.
 
 Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. The frozen set is `CLINIPROOF_TAXONOMY_V1`, containing cases VAL-201 through VAL-224.
 
@@ -189,7 +189,7 @@ The taxonomy also defines this category for a situation in which a clinically re
 
 ## Reviewer recommendation
 
-After completing C1 through C5 in the same review, record one recommendation.
+After completing C1–C5 in the same review, record one recommendation.
 
 ☐ Accept
 
