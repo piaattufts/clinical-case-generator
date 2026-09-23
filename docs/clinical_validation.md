@@ -26,7 +26,12 @@ C2, C3, and C4 must be acceptable before a case is used against its answer key. 
 
 ## Materials
 
-Use the clinician packet and worksheet for the batch under review. Packets for the two active sets are linked from [`data/active_validation_sets.md`](../data/active_validation_sets.md). The packet shows the chart and the intended target. Individual blinded case pages do not include the answer key. The category definitions are in [`error_taxonomy.md`](error_taxonomy.md).
+Use the clinician packet and worksheet for the set under review.
+
+- [Balanced structured packet](../data/case_sets/balanced/readable/clinician_validation_packet.md) and [worksheet](../data/case_sets/balanced/readable/clinical_validation_worksheet.csv)
+- [Resident-seed-guided packet](../data/case_sets/seed_guided/readable/clinician_validation_packet.md) and [worksheet](../data/case_sets/seed_guided/readable/clinical_validation_worksheet.csv)
+
+The packet shows the chart and the intended target. Individual blinded case pages do not include the answer key. The category definitions are in [`error_taxonomy.md`](error_taxonomy.md). The criterion summary on each case-set overview is enough to start; this page is the same review in slightly more detail.
 
 ## What software already checked
 

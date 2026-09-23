@@ -23,23 +23,26 @@ clinical-case-generator bootstrap-reference-data
 
 ## Study batches
 
-Freeze and export require an explicit plan or batch code. Neither command defaults to archived historical `CLINIPROOF_TAXONOMY_V1` or to either active strategy.
+Freeze and export require an explicit plan or batch code. Neither command silently selects an archived batch.
 
 ```bash
-clinical-case-generator freeze-validation-batch --plan data/validation_balanced_v4/batch_plan.json
+clinical-case-generator freeze-validation-batch --plan data/case_sets/balanced/batch_plan.json
 clinical-case-generator export-validation-batch --batch-code CLINIPROOF_BALANCED_V4
 python -m app.services.readable_packets \
   --batch-code CLINIPROOF_BALANCED_V4 \
-  --resident data/validation_balanced_v4/resident_validation_cases.json
+  --resident data/case_sets/balanced/resident_validation_cases.json
 
-clinical-case-generator freeze-validation-batch --plan data/validation_seedcases_v3/batch_plan.json
+clinical-case-generator freeze-validation-batch --plan data/case_sets/seed_guided/batch_plan.json
 clinical-case-generator export-validation-batch --batch-code CLINIPROOF_SEEDCASES_V3
 python -m app.services.readable_packets \
   --batch-code CLINIPROOF_SEEDCASES_V3 \
-  --resident data/validation_seedcases_v3/resident_validation_cases.json
+  --resident data/case_sets/seed_guided/resident_validation_cases.json
+python -m app.services.case_set_overview
 ```
 
-Do not re-freeze a batch that has already been committed as immutable. The current active batches were new freezes because the previous prospective batches were already immutable. A further clinical correction needs a new batch code and a non-overlapping VAL range.
+Do not re-freeze a committed immutable batch in order to change clinical content. After clinician review starts, a further clinical correction needs a new batch code and a non-overlapping VAL range. The directories `data/case_sets/balanced/` and `data/case_sets/seed_guided/` can remain the human-facing locations.
+
+Earlier frozen batches are kept under `data/archive/validation_sets/` for provenance. See that directory's README. Do not point a routine freeze at those plans.
 
 ## Regimens
 

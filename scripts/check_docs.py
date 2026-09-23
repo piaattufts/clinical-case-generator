@@ -38,26 +38,35 @@ ACTIVE_DOCS = (
     ROOT / "docs" / "provenance.md",
     ROOT / "docs" / "repository_structure.md",
     ROOT / "docs" / "developer_guide.md",
+    ROOT / "docs" / "clinician_walkthrough" / "README.md",
     ROOT / "data" / "README.md",
     ROOT / "data" / "active_validation_sets.md",
+    ROOT / "data" / "case_sets" / "README.md",
     ROOT / "data" / "seed_cases" / "README.md",
-    ROOT / "data" / "validation_balanced_v4" / "README.md",
-    ROOT / "data" / "validation_seedcases_v3" / "README.md",
-    ROOT / "data" / "clinical_qc_report.md",
+    ROOT / "data" / "case_sets" / "balanced" / "README.md",
+    ROOT / "data" / "case_sets" / "seed_guided" / "README.md",
+    ROOT / "data" / "case_sets" / "investigator" / "clinical_qc_report.md",
 )
 
 LINK_ROOTS = (
     ROOT / "README.md",
     ROOT / "docs" / "README.md",
+    ROOT / "docs" / "clinical_validation.md",
+    ROOT / "docs" / "clinician_walkthrough" / "README.md",
+    ROOT / "docs" / "repository_structure.md",
+    ROOT / "docs" / "developer_guide.md",
     ROOT / "data" / "active_validation_sets.md",
-    ROOT / "data" / "validation_balanced_v4" / "README.md",
-    ROOT / "data" / "validation_seedcases_v3" / "README.md",
+    ROOT / "data" / "case_sets" / "README.md",
+    ROOT / "data" / "case_sets" / "balanced" / "README.md",
+    ROOT / "data" / "case_sets" / "seed_guided" / "README.md",
     ROOT / "data" / "README.md",
+    ROOT / "data" / "seed_cases" / "README.md",
+    ROOT / "data" / "archive" / "validation_sets" / "README.md",
 )
 
 BATCHES = (
-    ("CLINIPROOF_BALANCED_V4", "VAL-701", "VAL-724", ROOT / "data" / "validation_balanced_v4"),
-    ("CLINIPROOF_SEEDCASES_V3", "VAL-801", "VAL-824", ROOT / "data" / "validation_seedcases_v3"),
+    ("CLINIPROOF_BALANCED_V4", "VAL-701", "VAL-724", ROOT / "data" / "case_sets" / "balanced"),
+    ("CLINIPROOF_SEEDCASES_V3", "VAL-801", "VAL-824", ROOT / "data" / "case_sets" / "seed_guided"),
 )
 
 

@@ -26,9 +26,12 @@ from app.services.validation_registry import get_batch, missing_batch_code_messa
 MISSING = "Not specified"
 CASE_IDS = tuple(f"VAL-{index:03d}" for index in range(201, 225))
 REPO_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_RESIDENT_PATH = REPO_ROOT / "data" / "validation" / "resident_validation_cases.json"
-DEFAULT_INVESTIGATOR_PATH = REPO_ROOT / "data" / "validation" / "investigator_answer_key.json"
-DEFAULT_OUTPUT_DIR = REPO_ROOT / "data" / "validation" / "readable"
+_ARCHIVED_V1 = (
+    REPO_ROOT / "data" / "archive" / "validation_sets" / "CLINIPROOF_TAXONOMY_V1"
+)
+DEFAULT_RESIDENT_PATH = _ARCHIVED_V1 / "resident_validation_cases.json"
+DEFAULT_INVESTIGATOR_PATH = _ARCHIVED_V1 / "investigator_answer_key.json"
+DEFAULT_OUTPUT_DIR = _ARCHIVED_V1 / "readable"
 
 INTERNAL_MED_STATUS = frozenset({"home", "active", "discharge"})
 
@@ -1056,6 +1059,34 @@ def _with_trailing_newline(text: str) -> str:
     return text if text.endswith("\n") else text + "\n"
 
 
+def _uses_archived_v1_templates(batch_code: str, ids: Sequence[str]) -> bool:
+    return batch_code == "CLINIPROOF_TAXONOMY_V1" and tuple(ids) == CASE_IDS
+
+
+def _current_study_copy(text: str) -> str:
+    """Retarget supporting prose for a current case set without rewriting archived packets."""
+    updated = text.replace("data/validation_balanced_v4/", "data/case_sets/balanced/")
+    updated = updated.replace("data/validation_seedcases_v3/", "data/case_sets/seed_guided/")
+    updated = updated.replace(
+        "clinical-case-generator freeze-validation-batch "
+        "--plan data/validation_balanced_v3/batch_plan.json\n",
+        "clinical-case-generator freeze-validation-batch "
+        "--plan data/case_sets/balanced/batch_plan.json\n",
+    )
+    updated = updated.replace(
+        " Active prospective sets are `CLINIPROOF_BALANCED_V4` and "
+        "`CLINIPROOF_SEEDCASES_V3`. `CLINIPROOF_TAXONOMY_V1` is archived "
+        "historical provenance.",
+        "",
+    )
+    updated = updated.replace(
+        "Frozen files for batch `CLINIPROOF_TAXONOMY_V1` under `data/validation/` "
+        "are archived historical provenance. ",
+        "Frozen study files are not rewritten in place to change clinical content. ",
+    )
+    return updated
+
+
 def _batch_readable_index(batch_code: str, ids: Sequence[str]) -> str:
     first = ids[0] if ids else "VAL-001"
     last = ids[-1] if ids else "VAL-001"
@@ -1087,7 +1118,7 @@ Generation strategy: `{strategy}`.
 
 Clinical validation uses a single review stage. Each clinician or resident reviews the complete case and assesses C1–C5 in one pass. Until clinicians finish review, treat every record as a machine-validated synthetic resident-review case pending clinician validation. Passing automated checks does not mean the cases are clinically validated.
 {seed_note}
-These Markdown files are readable views. They do not replace the frozen JSON. Current prospective sets are listed in [`../../active_validation_sets.md`](../../active_validation_sets.md). `CLINIPROOF_TAXONOMY_V1` is archived historical provenance and is not the current study set.
+These Markdown files are readable views. They do not replace the frozen JSON. The case-set overview is [`../README.md`](../README.md).
 
 ## Where should I start?
 
@@ -1148,8 +1179,15 @@ def build_readable_packets(
         encoding="utf-8",
         newline="\n",
     )
+    rubric = VALIDATION_RUBRIC_MD
+    how = HOW_CLINIPROOF_WORKS_MD
+    notes = DEVELOPER_NOTES_MD
+    if not _uses_archived_v1_templates(batch_code, ids):
+        rubric = _current_study_copy(rubric)
+        how = _current_study_copy(how)
+        notes = _current_study_copy(notes)
     files["validation_rubric"].write_text(
-        _with_trailing_newline(VALIDATION_RUBRIC_MD),
+        _with_trailing_newline(rubric),
         encoding="utf-8",
         newline="\n",
     )
@@ -1161,10 +1199,10 @@ def build_readable_packets(
         newline="\n",
     )
     files["how_cliniproof_works"].write_text(
-        _with_trailing_newline(HOW_CLINIPROOF_WORKS_MD), encoding="utf-8", newline="\n"
+        _with_trailing_newline(how), encoding="utf-8", newline="\n"
     )
     files["developer_notes"].write_text(
-        _with_trailing_newline(DEVELOPER_NOTES_MD), encoding="utf-8", newline="\n"
+        _with_trailing_newline(notes), encoding="utf-8", newline="\n"
     )
     files["clinical_validation_worksheet"].write_text(
         render_clinical_validation_worksheet(ids), encoding="utf-8", newline="\n"

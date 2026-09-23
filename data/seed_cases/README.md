@@ -4,7 +4,7 @@ Resident-authored documents in [`resident_authored/`](resident_authored/) are **
 
 They are not study cases. They are not copied, paraphrased patient-by-patient, or frozen as VAL records. The six source files are preserved unchanged. They are abstracted into blueprints. Synthetic study cases are new patients. The six examples do not establish prevalence of diseases, medications, or errors, and exact original patient details are not reused as study records. Source-backed terminology is resolved separately from resident expertise.
 
-The active study cases that use these archetypes are `CLINIPROOF_SEEDCASES_V3`, VAL-801–VAL-824, in [`../validation_seedcases_v3/`](../validation_seedcases_v3/README.md). Until clinicians finish review, those generated records remain machine-validated synthetic resident-review cases pending clinician validation. Passing a diversity audit is not clinical validation.
+The study cases that use these archetypes are `CLINIPROOF_SEEDCASES_V3`, VAL-801–VAL-824, in the [resident-seed-guided case set](../case_sets/seed_guided/README.md). Until clinicians finish review, those generated records remain machine-validated synthetic resident-review cases pending clinician validation. Passing a diversity audit is not clinical validation.
 
 ## Why the source cases are not an epidemiological sample
 
@@ -44,7 +44,7 @@ Generation strategy for this path is `resident_seed_guided`. Frozen template bat
 
 ## GI-bleed seed handling
 
-`GI_BLEED_ACUTE_CHANGE` is retained as an archetype because the seed is a useful example of changing clinical status. The active set `CLINIPROOF_SEEDCASES_V3` includes it only as **discharge-ready** variants (held anticoagulation, pending restart, hospital-only PPI, or an isolated list error). The febrile hypotensive overlay is documented here and omitted from generated charts. `CLINIPROOF_SEEDCASES_V1` and `CLINIPROOF_SEEDCASES_V2` remain archived.
+`GI_BLEED_ACUTE_CHANGE` is retained as an archetype because the seed is a useful example of changing clinical status. The current set `CLINIPROOF_SEEDCASES_V3` includes it only as **discharge-ready** variants (held anticoagulation, pending restart, hospital-only PPI, or an isolated list error). The febrile hypotensive overlay is documented here and omitted from generated charts.
 
 ## What blinded residents do not see
 
@@ -75,4 +75,4 @@ The assigned error for each VAL identifier is in the batch plan and the investig
 
 ## Reproducibility
 
-Blueprints are versioned (`blueprint_version` in [`blueprints/archetypes.json`](blueprints/archetypes.json)). Generation does not parse DOCX files at freeze time. Changing a DOCX without changing the blueprint does not change generated cases. `CLINIPROOF_SEEDCASES_V1` and `CLINIPROOF_SEEDCASES_V2` remain archived. The current prospective seed-guided batch is `CLINIPROOF_SEEDCASES_V3`.
+Blueprints are versioned (`blueprint_version` in [`blueprints/archetypes.json`](blueprints/archetypes.json)). Generation does not parse DOCX files at freeze time. Changing a DOCX without changing the blueprint does not change generated cases. The current prospective seed-guided batch is `CLINIPROOF_SEEDCASES_V3`.

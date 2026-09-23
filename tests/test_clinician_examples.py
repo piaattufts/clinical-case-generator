@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-ROOT = Path(__file__).resolve().parents[1] / "data" / "docs" / "clinician_examples"
+ROOT = Path(__file__).resolve().parents[1] / "docs" / "clinician_walkthrough" / "examples"
 
 
 def _load(name: str) -> dict[str, Any]:

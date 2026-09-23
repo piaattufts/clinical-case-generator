@@ -115,7 +115,7 @@ def _hash(path: Path) -> str:
 
 
 def _frozen_hashes() -> dict[str, str]:
-    root = REPO / "data" / "validation"
+    root = REPO / "data" / "archive" / "validation_sets" / "CLINIPROOF_TAXONOMY_V1"
     return {name: _hash(root / name) for name in FROZEN_FILES}
 
 

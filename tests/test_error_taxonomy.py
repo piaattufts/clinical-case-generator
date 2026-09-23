@@ -574,7 +574,11 @@ def test_coprescription_never_appears_in_eligible_errors(db_session: Session) ->
 
 
 def test_archived_validation_plan_is_cliniproof_taxonomy_v1() -> None:
-    plan = json.loads(Path("data/validation/batch_plan.json").read_text(encoding="utf-8"))
+    plan = json.loads(
+        Path("data/archive/validation_sets/CLINIPROOF_TAXONOMY_V1/batch_plan.json").read_text(
+            encoding="utf-8"
+        )
+    )
     assert plan["batch_code"] == "CLINIPROOF_TAXONOMY_V1"
     assert plan["cases"][0]["validation_case_id"] == "VAL-201"
     assert plan["cases"][0]["error_category"] == F1_OMISSION
@@ -593,7 +597,7 @@ def test_archived_validation_plan_is_cliniproof_taxonomy_v1() -> None:
 
 
 def test_committed_cliniproof_export_is_canonical_and_blinded() -> None:
-    validation_dir = Path("data/validation")
+    validation_dir = Path("data/archive/validation_sets/CLINIPROOF_TAXONOMY_V1")
     plan = json.loads((validation_dir / "batch_plan.json").read_text(encoding="utf-8"))
     resident = json.loads(
         (validation_dir / "resident_validation_cases.json").read_text(encoding="utf-8")
@@ -827,7 +831,9 @@ def test_cli_does_not_default_to_archived_taxonomy_v1() -> None:
 
     assert DEFAULT_BATCH_CODE == ARCHIVED_BATCH_CODE
     assert DEFAULT_BATCH_CODE == "CLINIPROOF_TAXONOMY_V1"
-    assert DEFAULT_BATCH_PLAN_PATH == Path("data/validation/batch_plan.json").resolve()
+    assert DEFAULT_BATCH_PLAN_PATH == Path(
+        "data/archive/validation_sets/CLINIPROOF_TAXONOMY_V1/batch_plan.json"
+    ).resolve()
     plan = json.loads(DEFAULT_BATCH_PLAN_PATH.read_text(encoding="utf-8"))
     assert plan["batch_code"] == DEFAULT_BATCH_CODE
     export_default = inspect.signature(export_validation_batch_cmd).parameters["batch_code"].default
