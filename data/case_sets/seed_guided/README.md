@@ -16,7 +16,7 @@ Generation approach: Resident-seed-guided generation
 
 ## Word review version
 
-A Word-formatted version for clinician review is available in the
+The clinician validation casebook, with each chart followed by its rubric, is in the
 [Resident and Clinician Review Package](../../../docs/resident_review_package/README.md).
 
 ## What this case set is

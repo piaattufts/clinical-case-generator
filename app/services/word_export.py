@@ -216,10 +216,16 @@ def build_case_document(
     return document
 
 
-def _render_case(document: WordDocument, case: dict[str, Any]) -> None:
+def _render_case(
+    document: WordDocument,
+    case: dict[str, Any],
+    *,
+    page_break: bool = True,
+    heading_text: str | None = None,
+) -> None:
     case_id = str(case.get("case_id_code") or "")
-    heading = _add_heading(document, case_id, 1)
-    heading.paragraph_format.page_break_before = True
+    heading = _add_heading(document, heading_text or case_id, 1)
+    heading.paragraph_format.page_break_before = page_break
     info = clinical(case)
     presented = presentation(case)
     _add_heading(document, "Patient overview", 2)
