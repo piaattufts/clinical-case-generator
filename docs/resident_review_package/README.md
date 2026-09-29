@@ -5,11 +5,17 @@ This page is the current Word-format review package for the two prospective Clin
 The Word files are a reading format. They are not a second source of truth.
 
 ```text
-active structured case data
+canonical structured case data
         ↓
-deterministic DOCX rendering
+clinical chart
++
+canonical investigator metadata
         ↓
-Word review files
+validation reference, placed after C1
++
+fixed validation rubric
+        ↓
+validation casebook
 ```
 
 The canonical clinical content remains the active structured case data for `CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`. If a Word chart and the structured case ever disagree, the structured case is the source of truth.
@@ -18,25 +24,22 @@ The canonical clinical content remains the active structured case data for `CLIN
 
 | Resource | Contents | Intended use |
 | --- | --- | --- |
-| Balanced case set | 24 synthetic cases from the balanced structured generation strategy (`CLINIPROOF_BALANCED_V4`, VAL-701–VAL-724) | Clinical review and validation |
-| Seed-guided case set | 24 synthetic cases derived from six resident-provided clinical archetypes (`CLINIPROOF_SEEDCASES_V3`, VAL-801–VAL-824) | Clinical review and validation |
-| Validation codebook | Instructions and C1–C5 review criteria | Use while reviewing either case set |
-| Generation prompt | Exact instructions used to produce the Word exports | Reproducibility and transparency |
-| Export QA report | Fidelity and export checks | Technical and provenance review |
+| Balanced validation casebook | 24 charts from `CLINIPROOF_BALANCED_V4`, VAL-701–VAL-724, each followed by its rubric and comments | Clinician validation |
+| Seed-guided validation casebook | 24 charts from `CLINIPROOF_SEEDCASES_V3`, VAL-801–VAL-824, each followed by its rubric and comments | Clinician validation |
+| Generation prompt | Exact instructions used to produce the earlier chart-only Word export | Reproducibility and transparency |
+| Export QA reports | Fidelity checks for the chart export and for the validation casebooks | Technical and provenance review |
 
 ## Review files
 
+Complete validation documents containing each clinical case followed immediately by its validation rubric and reviewer comment fields. The instructions are inside the casebook. A separate codebook is not required.
+
 ### Balanced structured case set
 
-[Download the Balanced Case Set (Word)](files/CliniProof_Balanced_Case_Set.docx)
+[Download the Balanced Validation Casebook (Word)](files/CliniProof_Balanced_Validation_Casebook.docx)
 
 ### Resident-seed-guided case set
 
-[Download the Seed-Guided Case Set (Word)](files/CliniProof_Seed_Guided_Case_Set.docx)
-
-### Validation codebook
-
-[Download the Resident Validation Codebook (Word)](files/CliniProof_Resident_Validation_Codebook.docx)
+[Download the Seed-Guided Validation Casebook (Word)](files/CliniProof_SeedGuided_Validation_Casebook.docx)
 
 Case-set overviews, with composition and review links, are the [balanced structured overview](../../data/case_sets/balanced/README.md) and the [resident-seed-guided overview](../../data/case_sets/seed_guided/README.md). The full rating method is in [clinical validation](../clinical_validation.md).
 
@@ -148,19 +151,17 @@ A resident review dashboard is **planned**. It is not implemented in the current
 
 ## How to use this review package
 
-1. Download either case-set Word document.
-2. Keep the validation codebook open while reviewing.
-3. Read each case as a clinical discharge and medication-reconciliation chart.
-4. Apply the C1–C5 criteria.
-5. Record any concern with enough specificity to identify the case section, medication, laboratory finding, or clinical issue.
-6. Recommend Accept, Revise, or Exclude according to the codebook.
-7. Do not assume every case necessarily contains a medication problem unless the formal validation materials explicitly provide the intended target.
+1. Download the validation casebook for the set you are reviewing.
+2. Read each clinical chart, and complete C1 before you read that case's validation reference.
+3. Complete C2–C5, the comments, and Accept, Revise, or Exclude in the same file.
+4. Save a separate copy. Do not overwrite the original file.
+5. Return that copy to the study investigator. Do not upload it to this public repository.
 
 The clinician validation packet for a set, linked from that set's overview, is where a validator sees the intended target. The Word case sets on this page do not include it.
 
 ## What is being validated
 
-The full instructions, scales, and recommendation definitions are in the Word codebook.
+The full instructions, scales, and recommendation definitions are printed in each validation casebook.
 
 ### C1 — Clinical plausibility
 
@@ -199,7 +200,9 @@ The report for this package records:
 - Medication mismatches: 0 in each set
 - Numeric mismatches: 0 in each set
 - Unsupported or generated patient-specific facts: 0 in each set
-- Answer-key leakage: none in either case document or in the codebook
-- Result: PASS for both case sets and for the codebook
+- Answer-key leakage in those chart-only files: none
+- Result: PASS for both chart-only sets and for that codebook check
+
+The validation casebooks intentionally include each case's investigator reference after C1. [Casebook QA](VALIDATION_CASEBOOK_QA.md) checks that this reference matches the batch plan and the answer key, and that the chart still matches the resident-facing source.
 
 Historical case-set versions are retained elsewhere in the repository for provenance.

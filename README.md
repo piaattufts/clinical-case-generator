@@ -10,11 +10,10 @@ Internally, each case is stored as structured machine-readable data. The same fi
 
 CliniProof currently contains two prospective synthetic case sets for clinician and resident validation. Both have 24 cases. Both are pending human clinician validation. Batch codes, kept in the study files: `CLINIPROOF_BALANCED_V4` (VAL-701–VAL-724) and `CLINIPROOF_SEEDCASES_V3` (VAL-801–VAL-824).
 
-Download the chart you are reviewing and the codebook. One click on a Word link downloads the file.
+For clinician validation, each case set is distributed as one Word casebook. Each clinical case is immediately followed by C1–C5 validation criteria, the case-specific validation reference required for assessment of the intended design, and space for reviewer comments and an Accept/Revise/Exclude recommendation. One click downloads the file.
 
-- [Balanced case set (Word)](docs/resident_review_package/files/CliniProof_Balanced_Case_Set.docx)
-- [Resident-seed-guided case set (Word)](docs/resident_review_package/files/CliniProof_Seed_Guided_Case_Set.docx)
-- [Resident validation codebook (Word)](docs/resident_review_package/files/CliniProof_Resident_Validation_Codebook.docx)
+- [Balanced validation casebook (Word)](docs/resident_review_package/files/CliniProof_Balanced_Validation_Casebook.docx)
+- [Seed-guided validation casebook (Word)](docs/resident_review_package/files/CliniProof_SeedGuided_Validation_Casebook.docx)
 - [Review package landing page](docs/resident_review_package/README.md)
 
 The overviews, with composition and case maps, are the [balanced structured case set](data/case_sets/balanced/README.md) and the [resident-seed-guided case set](data/case_sets/seed_guided/README.md). A teaching chart that is not a study case is in the [clinician walkthrough](docs/clinician_walkthrough/README.md).
@@ -25,8 +24,8 @@ The two sets ask different design questions. They are not two versions of the sa
 
 | Case set | Cases | Generation approach | Review file |
 | --- | ---: | --- | --- |
-| [Balanced structured set](data/case_sets/balanced/README.md) | 24 | Predefined structured clinical profiles | [Word download](docs/resident_review_package/files/CliniProof_Balanced_Case_Set.docx) |
-| [Resident-seed-guided set](data/case_sets/seed_guided/README.md) | 24 | Six resident-provided cases abstracted into clinical archetypes | [Word download](docs/resident_review_package/files/CliniProof_Seed_Guided_Case_Set.docx) |
+| [Balanced structured set](data/case_sets/balanced/README.md) | 24 | Predefined structured clinical profiles | [Validation casebook](docs/resident_review_package/files/CliniProof_Balanced_Validation_Casebook.docx) |
+| [Resident-seed-guided set](data/case_sets/seed_guided/README.md) | 24 | Six resident-provided cases abstracted into clinical archetypes | [Validation casebook](docs/resident_review_package/files/CliniProof_SeedGuided_Validation_Casebook.docx) |
 
 ### Balanced structured case set
 
@@ -191,6 +190,22 @@ The structured case data are the canonical source of truth. Each current case co
 
 The DOCX renderer reads those fields and places them into clinician-readable headings, paragraphs, and tables. The renderer does not ask a language model to rewrite, summarize, repair, or medically complete the case. Missing information is not inferred. Medication dose, route, frequency, laboratory values, monitoring, and follow-up are preserved from the source. The Word documents are a presentation and export layer, not a second independently generated dataset.
 
+The validation casebook adds a second canonical source after the chart. The investigator answer key and the batch plan supply the case type, family, category, clean expected state, what was introduced, the evidence location, and the expected action. Those values are copied into the Validation Reference. They are not rewritten by a language model. The reference is placed after C1 so the plausibility rating is made from the chart alone.
+
+```text
+canonical structured / JSON case data
+        ↓
+clinical case sections
++
+canonical investigator metadata
+        ↓
+validation reference
++
+fixed validation rubric
+        ↓
+validation casebook DOCX
+```
+
 ### Clinical-content fidelity
 
 DOCX production was not permitted to:
@@ -206,31 +221,31 @@ DOCX production was not permitted to:
 - add monitoring
 - add follow-up
 - repair an intentionally incomplete transition
-- expose an investigator answer key
+- place the investigator answer key inside the clinical chart
 
-The [DOCX generation prompt](docs/resident_review_package/DOCX_GENERATION_PROMPT.md) is the export specification: the instructions that governed that rendering. It is not the clinical source of truth.
+The validation reference that follows C1 is copied from the investigator record. It is not inserted into the chart the reviewer reads first.
+
+The [DOCX generation prompt](docs/resident_review_package/DOCX_GENERATION_PROMPT.md) is the export specification for the earlier chart rendering. The casebook is produced by the same rule: render canonical fields, do not invent them. Neither document is the clinical source of truth.
 
 ### Export QA
 
 The [DOCX export QA report](docs/resident_review_package/DOCX_EXPORT_QA.md) records the checks that were run on this export, and whether they passed. It is separate from the rules the prompt required.
 
-For this export, the report records that both case sets passed. Each set had 24 cases expected and 24 exported, with no missing identifiers and no duplicate identifiers. Medication mismatches were 0. Numeric mismatches were 0. Unsupported or generated patient-specific facts were 0. Answer-key leakage was none. The codebook check also passed, including the statement that a resident review dashboard is planned rather than already built.
+For the chart-only export, the report records that both case sets passed. Each set had 24 cases expected and 24 exported, with no missing identifiers and no duplicate identifiers. Medication mismatches were 0. Numeric mismatches were 0. Unsupported or generated patient-specific facts were 0. Answer-key leakage in those chart-only files was none. The validation casebooks are checked separately in [the casebook QA report](docs/resident_review_package/VALIDATION_CASEBOOK_QA.md). That check confirms the validation reference matches the batch plan and the answer key, and that the clinical chart still matches the resident-facing source.
 
 ## Review package contents
 
-| File | What it contains | Answer key? |
+| File | What it contains | Who should use it |
 | --- | --- | --- |
-| [Balanced Word case set](docs/resident_review_package/files/CliniProof_Balanced_Case_Set.docx) | All 24 current balanced cases, one case at the start of each section, in the chart order above | No |
-| [Seed-guided Word case set](docs/resident_review_package/files/CliniProof_Seed_Guided_Case_Set.docx) | All 24 current seed-guided cases, in the same chart order. These cases originate from resident-derived archetypes | No |
-| [Validation codebook](docs/resident_review_package/files/CliniProof_Resident_Validation_Codebook.docx) | Review instructions, C1–C5 definitions and scales, Accept / Revise / Exclude, and how to document a concern | No case-specific key |
-| [Blank validation worksheet, balanced](data/case_sets/balanced/readable/clinical_validation_worksheet.csv) | One row per case, VAL-701–VAL-724, with empty rating columns | No, until a reviewer fills it in |
-| [Blank validation worksheet, seed-guided](data/case_sets/seed_guided/readable/clinical_validation_worksheet.csv) | One row per case, VAL-801–VAL-824, with empty rating columns | No, until a reviewer fills it in |
-| [DOCX generation prompt](docs/resident_review_package/DOCX_GENERATION_PROMPT.md) | The exact instructions used to create the Word review package | Methodology only |
-| [DOCX export QA report](docs/resident_review_package/DOCX_EXPORT_QA.md) | Whether the Word text matched the structured source | No case targets |
+| [Balanced validation casebook](docs/resident_review_package/files/CliniProof_Balanced_Validation_Casebook.docx) | All 24 balanced charts. After each chart: C1, then that case's validation reference, then C2–C5, comments, and Accept / Revise / Exclude | Clinician validators |
+| [Seed-guided validation casebook](docs/resident_review_package/files/CliniProof_SeedGuided_Validation_Casebook.docx) | The same pattern for the 24 seed-guided cases, which originate from resident-derived archetypes | Clinician validators |
+| [DOCX generation prompt](docs/resident_review_package/DOCX_GENERATION_PROMPT.md) | The instructions used for the earlier chart-only Word export | Reproducibility |
+| [Chart-export QA report](docs/resident_review_package/DOCX_EXPORT_QA.md) | Fidelity of the chart-only export | Provenance |
+| [Casebook QA report](docs/resident_review_package/VALIDATION_CASEBOOK_QA.md) | Fidelity of the validation casebooks | Provenance |
 
-Each Word case includes the patient overview, reason for hospitalization, relevant history, hospital course, admission and discharge findings, home medications, inpatient medications, discharge medications, medication reconciliation, monitoring, follow-up, discharge instructions, and other relevant clinical information when the source case has those fields.
+Each chart includes the patient overview, reason for hospitalization, relevant history, hospital course, admission and discharge findings, home medications, inpatient medications, discharge medications, medication reconciliation, monitoring, follow-up, discharge instructions, and other relevant clinical information when the source case has those fields.
 
-The codebook does not list the intended problem for any case. Formal validation that must compare a chart with its assigned target uses the clinician validation packet for that set, which is separate from the Word charts: [balanced packet](data/case_sets/balanced/readable/clinician_validation_packet.md) and [seed-guided packet](data/case_sets/seed_guided/readable/clinician_validation_packet.md). Do not send the packet, or the investigator answer key, to a reviewer who is supposed to find the problem without being told what it is. The method for the ratings is also in [docs/clinical_validation.md](docs/clinical_validation.md).
+The validation reference is inside the casebook, after C1. It is copied from the investigator record. Do not give this casebook to a resident who is supposed to find the problem without being told what it is. The method for the ratings is also in [docs/clinical_validation.md](docs/clinical_validation.md). Markdown packets that also contain the target remain at [the balanced packet](data/case_sets/balanced/readable/clinician_validation_packet.md) and [the seed-guided packet](data/case_sets/seed_guided/readable/clinician_validation_packet.md).
 
 ## How to review the cases
 
@@ -240,13 +255,7 @@ You may review one or both case sets, depending on the study assignment.
 
 ### Step 1 — Download the files
 
-Download:
-
-1. the Word case set you are reviewing;
-2. the [Resident Validation Codebook](docs/resident_review_package/files/CliniProof_Resident_Validation_Codebook.docx);
-3. the blank worksheet for that set, linked in the table above.
-
-Keep the codebook open while you read. Record ratings in the worksheet, not in the case Word file. The case file is the chart.
+Download the validation casebook for the set you are reviewing. The instructions, the charts, the validation references, and the comment fields are in that one file. A separate codebook or spreadsheet is not required.
 
 ### Step 2 — Read the case as a clinical chart
 
@@ -254,15 +263,15 @@ Read the presentation, diagnosis, relevant past history, clinical trajectory, la
 
 ### Step 3 — Apply the validation criteria
 
-Use the scales in the codebook. The summary below is orientation. It does not replace the codebook.
+Use the scales printed in the casebook. The summary below is orientation. Complete C1 from the chart before you read that case's validation reference.
 
 ### C1 — Clinical plausibility
 
-Does this represent a believable inpatient encounter? Could this reasonably be an inpatient encounter as charted? Consider the presentation, the diagnosis, the vital signs, the laboratories, the regimen, the hospital course, internal consistency, and the discharge plan. The codebook also asks for domain ratings on a 1–4 scale and an overall Yes or No.
+Does this represent a believable inpatient encounter? Could this reasonably be an inpatient encounter as charted? Consider the presentation, the diagnosis, the vital signs, the laboratories, the regimen, the hospital course, internal consistency, and the discharge plan. The casebook asks for domain ratings on a 1–4 scale and an overall Pass or Fail. Complete this before the validation reference.
 
 ### C2 — Intended assessment problem
 
-Where the intended assessment target is provided as part of formal validation, is it actually present and correctly represented? A control should contain none. The Word case set does not print that target. When the study assignment includes it, it is in the clinician validation packet for that set.
+Where the intended assessment target is provided as part of formal validation, is it actually present and correctly represented? A control should contain none. In the casebook, that target is the Validation Reference printed after C1. It is not inside the clinical chart.
 
 ### C3 — Detectability
 
@@ -280,7 +289,7 @@ C1 through C4 need to be acceptable before a case is used against its answer key
 
 ## Reviewer recommendation
 
-After C1 through C5, record one recommendation in the worksheet. The categories are the ones in the codebook.
+After C1 through C5, record one recommendation in the casebook. The categories are the ones printed there.
 
 ### Accept
 
@@ -296,48 +305,30 @@ Exclude. The case should not be used, even if software checks passed, because it
 
 ## Saving your completed review
 
-Ratings are recorded on the validation worksheet, a spreadsheet file with one row per case. The columns are `validation_case_id`, `reviewer_id`, `c1`, `c2`, `c3`, `c4`, `c5`, `c4_additional_problem`, `recommendation`, and `comments`. Leave `validation_case_id` as printed. Do not add or delete case rows.
-
-1. Download the blank worksheet for the set you are reviewing. Do not edit the copy that lives in this repository.
-2. Open it in a spreadsheet program.
-3. Enter your reviewer code in `reviewer_id`.
-4. Enter the codebook's rating for each criterion. Use Pass or Fail for C2, C3, and C4. Use the codebook's C1 result in `c1`, and use `comments` for any domain that needs a written explanation. Use Easy, Moderate, Hard, or Inappropriate / outlier for C5. Use Accept, Revise, or Exclude in `recommendation`.
-5. Save your completed copy on your own computer.
-6. Rename that copy. Do not overwrite the original downloaded file.
+Please save a separate copy of the casebook before entering ratings. Do not overwrite the original review file. Type the ratings and comments into that copy. The casebook is the completed validation record.
 
 Completed-file names:
 
 ```text
-CliniProof_Validation_[ReviewerCode]_Balanced_[YYYY-MM-DD].csv
-CliniProof_Validation_[ReviewerCode]_SeedGuided_[YYYY-MM-DD].csv
+CliniProof_Balanced_Validation_[ReviewerCode]_[YYYY-MM-DD].docx
+CliniProof_SeedGuided_Validation_[ReviewerCode]_[YYYY-MM-DD].docx
 ```
 
-Examples:
+Example:
 
 ```text
-CliniProof_Validation_R01_Balanced_2026-09-29.csv
-CliniProof_Validation_R02_SeedGuided_2026-09-29.csv
+CliniProof_Balanced_Validation_R01_2026-09-29.docx
 ```
 
 Use the reviewer code the study team gave you. Do not put a full name in the filename.
 
-If you mark Revise, or if C4 fails, the comments need enough detail to find the problem. You do not need to rewrite the case.
-
-```text
-Case: VAL-___
-Section: Discharge medications
-Issue: ...
-Clinical concern: ...
-Suggested revision: ...
-```
-
-Put that text in `comments`. If C4 fails, also name the additional problem in `c4_additional_problem`.
+If you mark Revise, or if C4 fails, the comment in the casebook needs enough detail to find the problem: the case ID, the section, the medication or laboratory or clinical issue, why it matters, and a suggested correction if you have one. You do not need to rewrite the case.
 
 ## Returning your completed validation
 
 Save the completed review using the filename convention above and return it to the study investigator using the agreed study communication channel.
 
-No submission address, portal, or shared folder is specified in this repository. Reviewers do not need to edit the repository, create a GitHub account, open a pull request, or upload completed validation documents to the public repository. GitHub hosts the blank charts, the codebook, and the blank worksheet. Completed human validation stays with the study team.
+No submission address, portal, or shared folder is specified in this repository. Reviewers do not need to edit the repository, create a GitHub account, open a pull request, or upload completed validation documents to the public repository. GitHub hosts the blank validation casebooks. Completed human validation stays with the study team.
 
 ## How these cases connect to the CliniProof dashboard
 
@@ -503,19 +494,19 @@ They cannot independently establish clinical realism, educational appropriatenes
 
 After a chart is accepted, a resident study is a different task. The resident receives the blinded chart and records what, if anything, is wrong. That response is not a substitute for C1–C5, and a clinician rating is not a resident answer.
 
-Blinded files for that later task are [data/case_sets/balanced/resident_validation_cases.json](data/case_sets/balanced/resident_validation_cases.json) and [data/case_sets/seed_guided/resident_validation_cases.json](data/case_sets/seed_guided/resident_validation_cases.json), with a separate empty resident worksheet that is not the C1–C5 validation worksheet. They omit the answer key, the batch plan, the manifest, and the investigator notes. The readable pages under `readable/cases/` are the same blinded charts in Markdown. The Word files on this page are the same blinded charts for the current review.
+Blinded files for that later task are [data/case_sets/balanced/resident_validation_cases.json](data/case_sets/balanced/resident_validation_cases.json) and [data/case_sets/seed_guided/resident_validation_cases.json](data/case_sets/seed_guided/resident_validation_cases.json), with a separate empty resident worksheet that is not the C1–C5 validation worksheet. They omit the answer key, the batch plan, the manifest, and the investigator notes. The readable pages under `readable/cases/` are the same blinded charts in Markdown. The validation casebooks on this page are for clinician validation. They include the validation reference after C1 and are not the blinded charts for that later resident task.
 
 ## Artifacts
 
-Each current case set has the same kinds of files. Clinicians rating cases start with the Word chart or the overview, the codebook, and the C1–C5 worksheet. Investigators use the key.
+Each current case set has the same kinds of files. Clinicians rating cases use the validation casebook. Investigators also have the key.
 
 | File | Who uses it | Contains the answer? |
 | --- | --- | --- |
-| Word case set and codebook | Clinicians and residents reviewing charts | No |
+| Validation casebook | Clinician validators | Yes, after C1, copied from the investigator record |
 | `README.md` | Clinicians and collaborators | No |
 | `readable/all_cases.md` and `readable/cases/` | Anyone reading the charts in Markdown | No |
 | `readable/clinician_validation_packet.md` | Validators who have been given the assigned target | Yes, the intended issue for each case |
-| `readable/clinical_validation_worksheet.csv` | Reviewers recording C1–C5 | No, until a reviewer fills a private copy |
+| `readable/clinical_validation_worksheet.csv` | An earlier blank rating grid. Not required when the casebook is used | No, until someone fills a private copy |
 | `resident_validation_cases.json` | Canonical structured case data, and later blinded review | No |
 | `investigator_answer_key.md` | Investigators | Yes |
 | `batch_plan.json`, manifest, coverage, diversity report | Investigators and developers | The plan names the assigned target |
@@ -572,7 +563,7 @@ The clinical review materials are the Word package under [docs/resident_review_p
 - Automated uniqueness metrics do not by themselves establish pedagogical diversity.
 - Clinician C1–C5 review is still required. Internal QC means ready for that review, not clinically validated.
 - C5 is advisory. Actual difficulty requires later resident performance.
-- There is no resident-review application in this repository. Current review uses the Word charts, the codebook, and the C1–C5 worksheet. A dashboard for later resident administration is planned.
+- There is no resident-review application in this repository. Current clinician validation uses the Word casebook. A dashboard for later resident administration is planned.
 - SNOMED CT and MIMIC-IV are not ingested. LOINC laboratory import requires credentials.
 
 ## Developer setup
