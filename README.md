@@ -37,6 +37,11 @@ Start with the overview page for either case set. That page shows the clinical c
 - [Resident-seed-guided overview](data/case_sets/seed_guided/README.md), then [all cases](data/case_sets/seed_guided/readable/all_cases.md), the [clinician validation packet](data/case_sets/seed_guided/readable/clinician_validation_packet.md), and the [worksheet](data/case_sets/seed_guided/readable/clinical_validation_worksheet.csv).
 - A short teaching walkthrough, separate from the study cases, is in [docs/clinician_walkthrough/README.md](docs/clinician_walkthrough/README.md).
 
+### Resident and clinician review package
+
+Word-format case sets and the validation codebook are available in the
+[CliniProof Resident and Clinician Review Package](docs/resident_review_package/README.md).
+
 The packet includes the intended assessment issue so a validator can rate the chart and the target together. The case pages in `all_cases.md` do not. Do not send the packet or the answer key to a resident who is supposed to find the problem without being told what it is.
 
 ## What this repository studies
