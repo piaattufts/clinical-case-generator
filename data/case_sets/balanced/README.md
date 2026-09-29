@@ -9,6 +9,8 @@ Generation approach: Balanced structured generation
 ## Start reviewing
 
 - [Read all cases](readable/all_cases.md)
+- [Word document for resident review](../../../exports/word/CliniProof_Balanced_Case_Set.docx)
+- [Resident validation codebook](../../../exports/word/CliniProof_Resident_Validation_Codebook.docx)
 - [Open the clinician validation packet](readable/clinician_validation_packet.md)
 - [Open the validation worksheet](readable/clinical_validation_worksheet.csv)
 

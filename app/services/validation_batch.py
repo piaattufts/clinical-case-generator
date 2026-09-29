@@ -1390,10 +1390,12 @@ def _rule_snapshot(session: Session) -> list[dict[str, Any]]:
 
 
 def _list(session: Session, model: Any, case_id: UUID, order_column: Any) -> list[Any]:
-    rows = session.scalars(
-        select(model).where(model.case_id == case_id).order_by(order_column.nulls_last())
-    ).all()
-    return list(rows)
+    rows: list[Any] = list(
+        session.scalars(
+            select(model).where(model.case_id == case_id).order_by(order_column.nulls_last())
+        ).all()
+    )
+    return rows
 
 
 def _json_object(payload: object) -> dict[str, Any]:
