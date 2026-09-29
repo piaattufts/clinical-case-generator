@@ -4,18 +4,49 @@ CliniProof is a synthetic clinical-case generation and validation framework for 
 
 The cases are hospital charts written for clinicians, medical educators, residents, and research collaborators. Each chart is a new synthetic encounter. It is not an extract from a medical record. Medication, diagnosis, and laboratory concepts are tied to standard terminologies. Ages, vital signs, and laboratory numbers are synthetic. A clinician still has to decide whether the chart is fit to use.
 
+Internally, each case is stored as structured machine-readable data. The same fields are exported as human-readable Word documents for clinical review. Reviewers do not need to read that structured data, and they do not need to use Git or Python.
+
+## Start here: current clinician and resident review package
+
+CliniProof currently contains two prospective synthetic case sets for clinician and resident validation. Both have 24 cases. Both are pending human clinician validation. Batch codes, kept in the study files: `CLINIPROOF_BALANCED_V4` (VAL-701–VAL-724) and `CLINIPROOF_SEEDCASES_V3` (VAL-801–VAL-824).
+
+Download the chart you are reviewing and the codebook. One click on a Word link downloads the file.
+
+- [Balanced case set (Word)](docs/resident_review_package/files/CliniProof_Balanced_Case_Set.docx)
+- [Resident-seed-guided case set (Word)](docs/resident_review_package/files/CliniProof_Seed_Guided_Case_Set.docx)
+- [Resident validation codebook (Word)](docs/resident_review_package/files/CliniProof_Resident_Validation_Codebook.docx)
+- [Review package landing page](docs/resident_review_package/README.md)
+
+The overviews, with composition and case maps, are the [balanced structured case set](data/case_sets/balanced/README.md) and the [resident-seed-guided case set](data/case_sets/seed_guided/README.md). A teaching chart that is not a study case is in the [clinician walkthrough](docs/clinician_walkthrough/README.md).
+
 ## Current prospective case sets
 
-Two case sets are open for review. Both have 24 cases. Both are pending human clinician validation. They ask different design questions. They are not two versions of the same batch.
+The two sets ask different design questions. They are not two versions of the same batch. This page does not rank them.
 
-| Case set | Cases | Generation approach | Main purpose |
-| --- | --- | --- | --- |
-| [Balanced structured case set](data/case_sets/balanced/README.md) | VAL-701–VAL-724 (24) | Balanced structured generation | Controlled coverage across common inpatient scenario families |
-| [Resident-seed-guided case set](data/case_sets/seed_guided/README.md) | VAL-801–VAL-824 (24) | Resident-seed-guided generation | Workflow diversity grounded in resident-authored clinical archetypes |
+| Case set | Cases | Generation approach | Review file |
+| --- | ---: | --- | --- |
+| [Balanced structured set](data/case_sets/balanced/README.md) | 24 | Predefined structured clinical profiles | [Word download](docs/resident_review_package/files/CliniProof_Balanced_Case_Set.docx) |
+| [Resident-seed-guided set](data/case_sets/seed_guided/README.md) | 24 | Six resident-provided cases abstracted into clinical archetypes | [Word download](docs/resident_review_package/files/CliniProof_Seed_Guided_Case_Set.docx) |
 
-Batch codes, kept in the study files: `CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`.
+### Balanced structured case set
 
-## How the two sets differ
+`CLINIPROOF_BALANCED_V4`, VAL-701 through VAL-724.
+
+Cases begin from predefined structured clinical profiles. The current families are heart failure, atrial fibrillation, hypertension, type 2 diabetes, and pneumonia. Each of the 24 assignments uses a different profile. The counts are a study-design choice: five cases in each of the first four families and four pneumonia cases. The set is deliberately balanced across those families. It is design-driven. It is not prevalence-weighted, and the cases are not taken from electronic health records. Patient-specific values are synthetic.
+
+The overview is [data/case_sets/balanced/README.md](data/case_sets/balanced/README.md). The readable Markdown charts are [data/case_sets/balanced/readable/all_cases.md](data/case_sets/balanced/readable/all_cases.md).
+
+### Resident-seed-guided case set
+
+`CLINIPROOF_SEEDCASES_V3`, VAL-801 through VAL-824.
+
+Six cases provided by residents were used as clinical design inputs. Those documents were abstracted into archetypes: the discharge workflow the chart has to support. Four synthetic profiles were then written for each archetype, and the generator produced new synthetic encounters. The resulting VAL cases are not copies of the resident cases. The six source cases are not treated as prevalence data. They do not estimate how often a disease, a drug, or a reconciliation problem occurs.
+
+The six workflows are medication-history uncertainty, acute heart-failure decompensation, endocarditis treated with outpatient parenteral antibiotics, kidney transplant with cytomegalovirus treatment, hip fracture with interruption and resumption of anticoagulation, and gastrointestinal bleeding with anticoagulation holds and restart decisions.
+
+The source documents stay in [data/seed_cases/](data/seed_cases/README.md). The study charts are [data/case_sets/seed_guided/README.md](data/case_sets/seed_guided/README.md) and [data/case_sets/seed_guided/readable/all_cases.md](data/case_sets/seed_guided/readable/all_cases.md).
+
+## How the two generation strategies differ
 
 | | [Balanced structured set](data/case_sets/balanced/README.md) | [Resident-seed-guided set](data/case_sets/seed_guided/README.md) |
 | --- | --- | --- |
@@ -29,68 +60,7 @@ Batch codes, kept in the study files: `CLINIPROOF_BALANCED_V4` and `CLINIPROOF_S
 
 The table compares design choices. It does not rank the strategies. A reader should choose a set because of the question being asked.
 
-## For clinicians
-
-Start with the overview page for either case set. That page shows the clinical composition, how every chart is organized, the 24-case map, and how to record a review. You do not need the generator, the database, or the answer key to begin.
-
-- [Balanced structured overview](data/case_sets/balanced/README.md), then [all cases](data/case_sets/balanced/readable/all_cases.md), the [clinician validation packet](data/case_sets/balanced/readable/clinician_validation_packet.md), and the [worksheet](data/case_sets/balanced/readable/clinical_validation_worksheet.csv).
-- [Resident-seed-guided overview](data/case_sets/seed_guided/README.md), then [all cases](data/case_sets/seed_guided/readable/all_cases.md), the [clinician validation packet](data/case_sets/seed_guided/readable/clinician_validation_packet.md), and the [worksheet](data/case_sets/seed_guided/readable/clinical_validation_worksheet.csv).
-- A short teaching walkthrough, separate from the study cases, is in [docs/clinician_walkthrough/README.md](docs/clinician_walkthrough/README.md).
-
-### Resident and clinician review package
-
-Word-format case sets and the validation codebook are available in the
-[CliniProof Resident and Clinician Review Package](docs/resident_review_package/README.md).
-
-The packet includes the intended assessment issue so a validator can rate the chart and the target together. The case pages in `all_cases.md` do not. Do not send the packet or the answer key to a resident who is supposed to find the problem without being told what it is.
-
-## What this repository studies
-
-Discharge is a high-risk transition. A drug can be left off the list, continued when it should stop, written at the wrong dose, route, or frequency, or continued without the monitoring, supply, restart, or follow-up that makes it safe. Those problems are common in medication reconciliation, and they are easy to miss when the list itself looks tidy.
-
-CliniProof builds charts in which that question can be studied under known conditions. Some charts contain one medication-reconciliation or transition-of-care problem. Some are clean controls, so a reviewer cannot assume every chart is wrong. The immediate use of the two case sets is clinician validation: is each chart plausible, is the intended problem actually there, could a resident find it, and is there a second problem that could be mistaken for the answer?
-
-## Study design
-
-The repository holds two active prospective validation datasets, 48 cases in all. Each dataset is frozen as its own batch. Both strategies build a clinically coherent clean case before any assessment problem is introduced. Canonical medication, diagnosis, and laboratory concepts are resolved from the project's terminology tables. Demographics, numeric results, and narrative wording are synthetic. The assigned problem is chosen in the batch plan. It is not chosen by a language model, and a failed assignment is not silently replaced with a different category.
-
-OpenAI is optional. It may only reword narrative from facts the structured generator has already chosen. It does not choose diagnoses, medications, doses, error categories, or answer-key content. The committed study cases used template wording.
-
-Neither set is a prevalence-weighted sample of hospital discharges. Passing software checks does not make a chart clinically valid. Human clinician validation remains required. The cases are ready for that review. They are not yet clinically validated.
-
-## Balanced structured generation
-
-The balanced set is built from predefined clinical scenario families and named clinical profiles. The current families are heart failure, atrial fibrillation, hypertension, type 2 diabetes, and pneumonia. Each of the 24 assignments uses a different profile. The counts are a study-design choice: five cases in each of the first four families and four pneumonia cases. They are not an estimate of how often those problems are admitted.
-
-Each profile specifies the presentation, the medication roles, the hospital course, and the follow-up. Generation then:
-
-1. selects the scenario family and the named profile;
-2. constructs a synthetic clean encounter;
-3. checks terminology, units, route and formulation, and the implemented clinical rules;
-4. audits whether the clean case is distinct from the other clean cases;
-5. confirms that the preassigned target is eligible for that chart;
-6. introduces exactly one discrepancy, or keeps the chart as a clean control;
-7. checks the chart again;
-8. freezes separate resident-facing and investigator-facing files.
-
-The overview, including the case map, is [data/case_sets/balanced/README.md](data/case_sets/balanced/README.md).
-
-## Resident-seed-guided generation
-
-The seed-guided set starts from six resident-authored clinical examples. Those documents are design references. They are not copied into the study charts, and they are not an epidemiologic sample. A reviewer abstracted each example into an archetype: the discharge workflow the chart has to support. Four synthetic profiles were then written for each archetype so the 24 charts differ before any assessment problem is introduced.
-
-The six workflows are:
-
-- medication-history uncertainty, including delirium and a later collateral list;
-- acute heart-failure decompensation, diuresis, and medication adjustment;
-- endocarditis treated with outpatient parenteral antibiotics;
-- kidney transplant with cytomegalovirus treatment and immunosuppression changes;
-- hip fracture with interruption and resumption of anticoagulation;
-- gastrointestinal bleeding with anticoagulation holds and restart decisions.
-
-Generation uses the same terminology, regimen, validation, and error-injection steps as the balanced set. The source documents stay in [data/seed_cases/](data/seed_cases/README.md). The study charts are [data/case_sets/seed_guided/README.md](data/case_sets/seed_guided/README.md).
-
-## How each case is structured
+## What each case contains
 
 Every study case is written as a hospital chart, in this order:
 
@@ -136,7 +106,256 @@ Imaging / consultations / procedures / other context
 | Monitoring and follow-up | Transition-of-care requirements |
 | Other clinical information | Imaging, procedures, consultations, and return precautions |
 
-Read the medication lists against the course and the follow-up. The assessment problem is not always inside the list.
+Read the medication lists against the course and the follow-up. The assessment problem is not always inside the list. A section that has no stored items is left empty in the chart. Emptiness is part of the case. It is not a cue inserted by the Word export.
+
+## What this repository studies
+
+Discharge is a high-risk transition. A drug can be left off the list, continued when it should stop, written at the wrong dose, route, or frequency, or continued without the monitoring, supply, restart, or follow-up that makes it safe. Those problems are common in medication reconciliation, and they are easy to miss when the list itself looks tidy.
+
+CliniProof builds charts in which that question can be studied under known conditions. Some charts contain one medication-reconciliation or transition-of-care problem. Some are clean controls, so a reviewer cannot assume every chart is wrong. The immediate use of the two case sets is clinician validation: is each chart plausible, is the intended problem actually there, could a resident find it, and is there a second problem that could be mistaken for the answer?
+
+The repository holds two active prospective validation datasets, 48 cases in all. Each dataset is frozen as its own batch. Both strategies build a clinically coherent clean case before any assessment problem is introduced. Canonical medication, diagnosis, and laboratory concepts are resolved from the project's terminology tables. Demographics, numeric results, and narrative wording are synthetic. The assigned problem is chosen in the batch plan. It is not chosen by a language model, and a failed assignment is not silently replaced with a different category.
+
+OpenAI is optional. It may only reword narrative from facts the structured generator has already chosen. It does not choose diagnoses, medications, doses, error categories, or answer-key content. The committed study cases used template wording.
+
+Neither set is a prevalence-weighted sample of hospital discharges. Passing software checks does not make a chart clinically valid. Human clinician validation remains required. The cases are ready for that review. They are not yet clinically validated.
+
+## How a CliniProof case is constructed
+
+```text
+Clinical scenario or resident-derived archetype
+        ↓
+Structured clinical profile
+        ↓
+Synthetic patient encounter
+        ↓
+Home / inpatient / discharge medication transition
+        ↓
+Monitoring and follow-up
+        ↓
+Clean clinical case
+        ↓
+Automated structural and clinical-consistency checks
+        ↓
+Pre-specified assessment change where applicable
+        ↓
+Post-change validation
+        ↓
+Resident-visible clinical case
+        +
+separate investigator reference
+```
+
+The clean clinical state is constructed before an assessment discrepancy is introduced.
+
+Where an error-bearing case is required, the intended discrepancy is selected prospectively and applied as a controlled transformation after the clean case passes the implemented checks. Clean controls skip the discrepancy-injection step. This page does not say which current case is a control or which target belongs to which case. The resident-facing chart and the Word file do not contain that record. The investigator reference is stored separately.
+
+Generation then, for either strategy:
+
+1. selects the scenario family or archetype and the named profile;
+2. constructs a synthetic clean encounter;
+3. checks terminology, units, route and formulation, and the implemented clinical rules;
+4. audits whether the clean case is distinct from the other clean cases;
+5. confirms that the preassigned target is eligible for that chart;
+6. introduces exactly one discrepancy, or keeps the chart as a clean control;
+7. checks the chart again;
+8. freezes separate resident-facing and investigator-facing files.
+
+The balanced set uses predefined scenario families. The seed-guided set uses the same terminology, regimen, validation, and error-injection steps after the archetype is chosen. Balanced structured generation and resident-seed-guided generation are the two labels for those paths.
+
+## How the Word review files were produced
+
+The Word documents are not separately generated clinical cases. They are human-readable renderings of the current structured case data.
+
+```text
+Canonical structured case data / JSON export
+        ↓
+deterministic DOCX renderer
+        ↓
+human-readable Word clinical chart
+```
+
+```text
+structured case record
+     ↓
+Word renderer
+     ↓
+clinical review document
+```
+
+### Canonical structured source
+
+The structured case data are the canonical source of truth. Each current case contains structured fields for demographics, diagnoses, clinical course, laboratory findings, medication lists, medication transitions, monitoring, follow-up, and other case information. Those fields live with the case set. The resident-facing records are [data/case_sets/balanced/resident_validation_cases.json](data/case_sets/balanced/resident_validation_cases.json) and [data/case_sets/seed_guided/resident_validation_cases.json](data/case_sets/seed_guided/resident_validation_cases.json). Reviewers do not need to open them. If a Word chart and the structured case ever disagree, the structured case is the source of truth.
+
+### Deterministic DOCX rendering
+
+The DOCX renderer reads those fields and places them into clinician-readable headings, paragraphs, and tables. The renderer does not ask a language model to rewrite, summarize, repair, or medically complete the case. Missing information is not inferred. Medication dose, route, frequency, laboratory values, monitoring, and follow-up are preserved from the source. The Word documents are a presentation and export layer, not a second independently generated dataset.
+
+### Clinical-content fidelity
+
+DOCX production was not permitted to:
+
+- invent clinical details
+- infer missing diagnoses
+- infer medication indications
+- change a medication
+- change a dose
+- change a route
+- change a frequency
+- change a laboratory value
+- add monitoring
+- add follow-up
+- repair an intentionally incomplete transition
+- expose an investigator answer key
+
+The [DOCX generation prompt](docs/resident_review_package/DOCX_GENERATION_PROMPT.md) is the export specification: the instructions that governed that rendering. It is not the clinical source of truth.
+
+### Export QA
+
+The [DOCX export QA report](docs/resident_review_package/DOCX_EXPORT_QA.md) records the checks that were run on this export, and whether they passed. It is separate from the rules the prompt required.
+
+For this export, the report records that both case sets passed. Each set had 24 cases expected and 24 exported, with no missing identifiers and no duplicate identifiers. Medication mismatches were 0. Numeric mismatches were 0. Unsupported or generated patient-specific facts were 0. Answer-key leakage was none. The codebook check also passed, including the statement that a resident review dashboard is planned rather than already built.
+
+## Review package contents
+
+| File | What it contains | Answer key? |
+| --- | --- | --- |
+| [Balanced Word case set](docs/resident_review_package/files/CliniProof_Balanced_Case_Set.docx) | All 24 current balanced cases, one case at the start of each section, in the chart order above | No |
+| [Seed-guided Word case set](docs/resident_review_package/files/CliniProof_Seed_Guided_Case_Set.docx) | All 24 current seed-guided cases, in the same chart order. These cases originate from resident-derived archetypes | No |
+| [Validation codebook](docs/resident_review_package/files/CliniProof_Resident_Validation_Codebook.docx) | Review instructions, C1–C5 definitions and scales, Accept / Revise / Exclude, and how to document a concern | No case-specific key |
+| [Blank validation worksheet, balanced](data/case_sets/balanced/readable/clinical_validation_worksheet.csv) | One row per case, VAL-701–VAL-724, with empty rating columns | No, until a reviewer fills it in |
+| [Blank validation worksheet, seed-guided](data/case_sets/seed_guided/readable/clinical_validation_worksheet.csv) | One row per case, VAL-801–VAL-824, with empty rating columns | No, until a reviewer fills it in |
+| [DOCX generation prompt](docs/resident_review_package/DOCX_GENERATION_PROMPT.md) | The exact instructions used to create the Word review package | Methodology only |
+| [DOCX export QA report](docs/resident_review_package/DOCX_EXPORT_QA.md) | Whether the Word text matched the structured source | No case targets |
+
+Each Word case includes the patient overview, reason for hospitalization, relevant history, hospital course, admission and discharge findings, home medications, inpatient medications, discharge medications, medication reconciliation, monitoring, follow-up, discharge instructions, and other relevant clinical information when the source case has those fields.
+
+The codebook does not list the intended problem for any case. Formal validation that must compare a chart with its assigned target uses the clinician validation packet for that set, which is separate from the Word charts: [balanced packet](data/case_sets/balanced/readable/clinician_validation_packet.md) and [seed-guided packet](data/case_sets/seed_guided/readable/clinician_validation_packet.md). Do not send the packet, or the investigator answer key, to a reviewer who is supposed to find the problem without being told what it is. The method for the ratings is also in [docs/clinical_validation.md](docs/clinical_validation.md).
+
+## How to review the cases
+
+Review is one reading of the complete case. Record all five ratings in that same pass. There is no separate plausibility stage and no second consensus stage. This review decides whether a chart is fit to use. It is not the later task in which a resident, blinded to the answer, says what is wrong.
+
+You may review one or both case sets, depending on the study assignment.
+
+### Step 1 — Download the files
+
+Download:
+
+1. the Word case set you are reviewing;
+2. the [Resident Validation Codebook](docs/resident_review_package/files/CliniProof_Resident_Validation_Codebook.docx);
+3. the blank worksheet for that set, linked in the table above.
+
+Keep the codebook open while you read. Record ratings in the worksheet, not in the case Word file. The case file is the chart.
+
+### Step 2 — Read the case as a clinical chart
+
+Read the presentation, diagnosis, relevant past history, clinical trajectory, laboratory findings, home medications, medications during hospitalization, discharge medications, monitoring, follow-up, and discharge plan. Treat the case as a medication-reconciliation and transition-of-care chart. Compare the three medication lists, and also read indication, dose, route, frequency, holds, new starts, supply, monitoring, and follow-up. A clinic appointment is not the same thing as a laboratory task.
+
+### Step 3 — Apply the validation criteria
+
+Use the scales in the codebook. The summary below is orientation. It does not replace the codebook.
+
+### C1 — Clinical plausibility
+
+Does this represent a believable inpatient encounter? Could this reasonably be an inpatient encounter as charted? Consider the presentation, the diagnosis, the vital signs, the laboratories, the regimen, the hospital course, internal consistency, and the discharge plan. The codebook also asks for domain ratings on a 1–4 scale and an overall Yes or No.
+
+### C2 — Intended assessment problem
+
+Where the intended assessment target is provided as part of formal validation, is it actually present and correctly represented? A control should contain none. The Word case set does not print that target. When the study assignment includes it, it is in the clinician validation packet for that set.
+
+### C3 — Detectability
+
+Could an internal-medicine resident identify the problem from the visible chart and say what should change, without the chart announcing the answer?
+
+### C4 — No unintended clinically meaningful problem
+
+Is there another clinically meaningful medication problem that could reasonably be read as a different answer? A second dose, frequency, route, hold, or monitoring problem can make the case unusable.
+
+### C5 — Difficulty
+
+How difficult is the case likely to be for the intended learner? This rating is advisory. C5 is provisional. Actual difficulty requires resident performance data.
+
+C1 through C4 need to be acceptable before a case is used against its answer key.
+
+## Reviewer recommendation
+
+After C1 through C5, record one recommendation in the worksheet. The categories are the ones in the codebook.
+
+### Accept
+
+Accept. The case is suitable for use without clinically meaningful revision. The chart can be used for its assigned purpose, or as a control.
+
+### Revise
+
+Revise. The case requires one or more changes before it should be used. Name the correction. Do not silently edit a frozen case. A revision after review has started is a new freeze, made by the study team.
+
+### Exclude
+
+Exclude. The case should not be used, even if software checks passed, because its problems cannot be reasonably corrected without substantially reconstructing it.
+
+## Saving your completed review
+
+Ratings are recorded on the validation worksheet, a spreadsheet file with one row per case. The columns are `validation_case_id`, `reviewer_id`, `c1`, `c2`, `c3`, `c4`, `c5`, `c4_additional_problem`, `recommendation`, and `comments`. Leave `validation_case_id` as printed. Do not add or delete case rows.
+
+1. Download the blank worksheet for the set you are reviewing. Do not edit the copy that lives in this repository.
+2. Open it in a spreadsheet program.
+3. Enter your reviewer code in `reviewer_id`.
+4. Enter the codebook's rating for each criterion. Use Pass or Fail for C2, C3, and C4. Use the codebook's C1 result in `c1`, and use `comments` for any domain that needs a written explanation. Use Easy, Moderate, Hard, or Inappropriate / outlier for C5. Use Accept, Revise, or Exclude in `recommendation`.
+5. Save your completed copy on your own computer.
+6. Rename that copy. Do not overwrite the original downloaded file.
+
+Completed-file names:
+
+```text
+CliniProof_Validation_[ReviewerCode]_Balanced_[YYYY-MM-DD].csv
+CliniProof_Validation_[ReviewerCode]_SeedGuided_[YYYY-MM-DD].csv
+```
+
+Examples:
+
+```text
+CliniProof_Validation_R01_Balanced_2026-09-29.csv
+CliniProof_Validation_R02_SeedGuided_2026-09-29.csv
+```
+
+Use the reviewer code the study team gave you. Do not put a full name in the filename.
+
+If you mark Revise, or if C4 fails, the comments need enough detail to find the problem. You do not need to rewrite the case.
+
+```text
+Case: VAL-___
+Section: Discharge medications
+Issue: ...
+Clinical concern: ...
+Suggested revision: ...
+```
+
+Put that text in `comments`. If C4 fails, also name the additional problem in `c4_additional_problem`.
+
+## Returning your completed validation
+
+Save the completed review using the filename convention above and return it to the study investigator using the agreed study communication channel.
+
+No submission address, portal, or shared folder is specified in this repository. Reviewers do not need to edit the repository, create a GitHub account, open a pull request, or upload completed validation documents to the public repository. GitHub hosts the blank charts, the codebook, and the blank worksheet. Completed human validation stays with the study team.
+
+## How these cases connect to the CliniProof dashboard
+
+```text
+structured synthetic case
+        ↓
+clinical validation
+        ↓
+accepted/frozen case content
+        ↓
+CliniProof dashboard / study presentation
+        ↓
+resident review and reasoning
+```
+
+The current Word files are for validating the case content. The dashboard is the planned presentation and interaction layer. It is not implemented in this repository. There is no resident-review application here yet. After a chart is accepted, residents would encounter it through that study interface and reason about reconciliation and transition of care. Concealed assessment metadata stays with investigators and can be used for scoring. It is not part of the Word charts.
+
+The same underlying case structure is what the planned dashboard would show: presentation, history, laboratories, the three medication lists, monitoring, follow-up, and discharge information.
 
 ## How medication transitions are represented
 
@@ -201,7 +420,7 @@ Cases are meant to differ in the clinical situation:
 
 Two cases are not treated as clinically distinct merely because they differ in age, sex, random seed, an exact laboratory number, an exact vital sign, the case identifier, or which discrepancy was later introduced. The diversity audit ignores those fields and compares the clean clinical structure. Exact duplicate fingerprints are rejected. Similarity of 0.85 or higher is rejected. Similarity from 0.70 to 0.85 is reported as a warning, not as a rejection. A warning means two charts share clinical structure. It does not mean they failed clinician review, because that review has not happened yet.
 
-On the current balanced set the closest clean-case pair is VAL-717 and VAL-719, similarity 0.74, with one warning and no exact duplicates. On the current seed-guided set the closest pair is VAL-805 and VAL-807, similarity 0.79, with seven warnings and no exact duplicates. Those figures describe structure. They are not a claim of pedagogical or clinical validity.
+On the current balanced set the closest clean-case pair is VAL-717 and VAL-719, similarity 0.74, with one warning and no exact duplicates. On the current seed-guided set the closest pair is VAL-805 and VAL-807, similarity 0.79, with seven warnings and no exact duplicates. Those figures describe structure. They are not a claim of pedagogical or clinical validity, and they do not identify an assessment target.
 
 ## Medication-reconciliation problems represented
 
@@ -241,45 +460,7 @@ Definitions in clinical language are also in [docs/error_taxonomy.md](docs/error
 
 A control has no introduced discrepancy. Residents are not told which identifiers are controls. Investigators use the answer key. Clinician review of a control asks whether the chart is plausible and whether any unintended medication problem is present.
 
-## How clinicians should review these cases
-
-Review is one reading of the complete case. Record all five ratings in that same pass. There is no separate plausibility stage and no second consensus stage. This review decides whether a chart is fit to use. It is not the later task in which a resident, blinded to the answer, says what is wrong.
-
-### C1 — Clinical plausibility
-
-Could this reasonably be an inpatient encounter? Consider the presentation, the diagnosis, the vital signs, the laboratories, the regimen, the hospital course, internal consistency, and the discharge plan.
-
-### C2 — Intended assessment problem
-
-Is the intended medication-reconciliation or transition-of-care problem actually present, and does it match its category? A control should contain none.
-
-### C3 — Detectability
-
-Could an internal-medicine resident identify the problem from the visible chart and say what should change, without the chart announcing the answer?
-
-### C4 — No unintended clinically meaningful problem
-
-Is there another clinically meaningful medication problem that could reasonably be read as a different answer? A second dose, frequency, route, hold, or monitoring problem can make the case unusable.
-
-### C5 — Difficulty
-
-How difficult is the case likely to be for the intended learner? This rating is advisory. Actual difficulty will later be estimated from resident performance.
-
-Recommendations:
-
-- **Accept.** The chart can be used for its assigned purpose, or as a control.
-- **Revise.** The chart needs a stated correction before use. Do not silently edit a case after review has started. A revision after that point is a new freeze.
-- **Exclude.** The chart should not be used, even if software checks passed.
-
-C1 through C4 need to be acceptable before a case is used against its answer key. The worksheet instructions are also in [docs/clinical_validation.md](docs/clinical_validation.md). The per-case forms are in each clinician validation packet.
-
-## What residents see later
-
-After a chart is accepted, a resident study is a different task. The resident receives the blinded chart and records what, if anything, is wrong. That response is not a substitute for C1–C5, and a clinician rating is not a resident answer.
-
-Blinded files for that later task are [data/case_sets/balanced/resident_validation_cases.json](data/case_sets/balanced/resident_validation_cases.json) and [data/case_sets/seed_guided/resident_validation_cases.json](data/case_sets/seed_guided/resident_validation_cases.json), with the matching empty resident worksheet. They omit the answer key, the batch plan, the manifest, and the investigator notes. The readable pages under `readable/cases/` are the same blinded charts in Markdown.
-
-## Terminology and provenance
+## Clinical terminology and provenance
 
 Terminology provenance validates concept identity. It does not establish that the choice is clinically appropriate for the synthetic patient.
 
@@ -312,17 +493,30 @@ These are the regimen choices used so the charts do not contain a second, accide
 
 The [clinician walkthrough](docs/clinician_walkthrough/README.md) uses a heart-failure teaching chart built with this regimen. That chart is not a study case.
 
+## Automated checks versus human validation
+
+Automated checks can assess schema completeness, supported terminology, laboratory value and unit compatibility, medication route and form consistency, implemented dose and frequency constraints, medication temporal-state consistency, duplicate and near-duplicate clean-case structure, whether a pre-specified discrepancy was introduced as designed, and whether the Word export matches the structured source.
+
+They cannot independently establish clinical realism, educational appropriateness, evidentiary sufficiency, the absence of every competing clinical interpretation, or learner difficulty. Those judgments are the human review described above. Automated checking is not clinical validation.
+
+## What residents see later
+
+After a chart is accepted, a resident study is a different task. The resident receives the blinded chart and records what, if anything, is wrong. That response is not a substitute for C1–C5, and a clinician rating is not a resident answer.
+
+Blinded files for that later task are [data/case_sets/balanced/resident_validation_cases.json](data/case_sets/balanced/resident_validation_cases.json) and [data/case_sets/seed_guided/resident_validation_cases.json](data/case_sets/seed_guided/resident_validation_cases.json), with a separate empty resident worksheet that is not the C1–C5 validation worksheet. They omit the answer key, the batch plan, the manifest, and the investigator notes. The readable pages under `readable/cases/` are the same blinded charts in Markdown. The Word files on this page are the same blinded charts for the current review.
+
 ## Artifacts
 
-Each current case set has the same kinds of files. Clinicians rating cases start with the overview and the readable packet. Investigators use the key.
+Each current case set has the same kinds of files. Clinicians rating cases start with the Word chart or the overview, the codebook, and the C1–C5 worksheet. Investigators use the key.
 
 | File | Who uses it | Contains the answer? |
 | --- | --- | --- |
+| Word case set and codebook | Clinicians and residents reviewing charts | No |
 | `README.md` | Clinicians and collaborators | No |
-| `readable/all_cases.md` and `readable/cases/` | Anyone reading the charts | No |
-| `readable/clinician_validation_packet.md` | Clinician validators | Yes, the intended issue for each case |
-| `readable/clinical_validation_worksheet.csv` | Validators recording C1–C5 | No, until a reviewer fills it in |
-| `resident_validation_cases.json` | Later blinded resident review | No |
+| `readable/all_cases.md` and `readable/cases/` | Anyone reading the charts in Markdown | No |
+| `readable/clinician_validation_packet.md` | Validators who have been given the assigned target | Yes, the intended issue for each case |
+| `readable/clinical_validation_worksheet.csv` | Reviewers recording C1–C5 | No, until a reviewer fills a private copy |
+| `resident_validation_cases.json` | Canonical structured case data, and later blinded review | No |
 | `investigator_answer_key.md` | Investigators | Yes |
 | `batch_plan.json`, manifest, coverage, diversity report | Investigators and developers | The plan names the assigned target |
 
@@ -352,6 +546,8 @@ python -m app.services.readable_packets \
 python -m app.services.case_set_overview
 ```
 
+The Word review files are regenerated from those same resident-facing records with `python -m app.services.word_export`. That command renders. It does not rewrite case content.
+
 Do not re-freeze a batch that has already been treated as immutable in order to change clinical content. After clinician review of these sets starts, a clinical correction should be a new batch code and a non-overlapping case-identifier range. The human-facing directories `data/case_sets/balanced/` and `data/case_sets/seed_guided/` can stay stable while the batch code inside the files changes.
 
 The case-set overview pages are rendered from the manifest, the profiles, and the diversity report. Regenerate them with `python -m app.services.case_set_overview` after a new freeze. That renderer does not copy answer-key fields into the public case map.
@@ -359,6 +555,10 @@ The case-set overview pages are rendered from the manifest, the profiles, and th
 ## Worked teaching examples
 
 [docs/clinician_walkthrough/README.md](docs/clinician_walkthrough/README.md) walks through one readable heart-failure chart, how the chart is assembled, how a medication transition is represented, how a clean chart differs from a chart with one assessment problem, what the software checks, and what the clinician still reviews. The teaching charts are not study cases.
+
+## Repository structure
+
+The clinical review materials are the Word package under [docs/resident_review_package/](docs/resident_review_package/README.md) and the two case-set directories under `data/case_sets/`. Methods, the validation write-up, and the directory map for people maintaining the repository are in [docs/methods.md](docs/methods.md), [docs/clinical_validation.md](docs/clinical_validation.md), and [docs/repository_structure.md](docs/repository_structure.md).
 
 ## Limitations
 
@@ -372,7 +572,7 @@ The case-set overview pages are rendered from the manifest, the profiles, and th
 - Automated uniqueness metrics do not by themselves establish pedagogical diversity.
 - Clinician C1–C5 review is still required. Internal QC means ready for that review, not clinically validated.
 - C5 is advisory. Actual difficulty requires later resident performance.
-- There is no resident-review application in this repository. Review uses the Markdown packet and the worksheet.
+- There is no resident-review application in this repository. Current review uses the Word charts, the codebook, and the C1–C5 worksheet. A dashboard for later resident administration is planned.
 - SNOMED CT and MIMIC-IV are not ingested. LOINC laboratory import requires credentials.
 
 ## Developer setup
@@ -412,7 +612,7 @@ mypy app
 python scripts/check_docs.py
 ```
 
-Further command detail is in [docs/developer_guide.md](docs/developer_guide.md). The directory map is in [docs/repository_structure.md](docs/repository_structure.md). Methods are in [docs/methods.md](docs/methods.md).
+Further command detail is in [docs/developer_guide.md](docs/developer_guide.md).
 
 ### Troubleshooting
 
@@ -437,6 +637,10 @@ Earlier generator snapshots, from before the current teaching charts, are stored
 | `CLINIPROOF_SEEDCASES_V2` | `data/archive/validation_sets/CLINIPROOF_SEEDCASES_V2` | historical VAL-601–VAL-624 |
 
 Those files were not regenerated when the repository was reorganized. Do not send an archived packet as the current review set.
+
+## Study status
+
+Both current sets are machine-checked and ready for human clinician validation. They are not yet clinically validated. Completed reviews are returned to the study team. They are not posted back to this public repository.
 
 ## Licensing
 
