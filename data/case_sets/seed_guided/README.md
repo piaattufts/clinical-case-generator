@@ -14,6 +14,11 @@ Generation approach: Resident-seed-guided generation
 - [Open the clinician validation packet](readable/clinician_validation_packet.md)
 - [Open the validation worksheet](readable/clinical_validation_worksheet.csv)
 
+## Word review version
+
+A Word-formatted version for clinician review is available in the
+[Resident and Clinician Review Package](../../../docs/resident_review_package/README.md).
+
 ## What this case set is
 
 This set starts from six resident-authored clinical examples. Each example
