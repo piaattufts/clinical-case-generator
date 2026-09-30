@@ -16,7 +16,7 @@ For clinician validation, each case set is distributed as one Word casebook. Eac
 - [Seed-guided validation casebook (Word)](docs/resident_review_package/files/CliniProof_SeedGuided_Validation_Casebook.docx)
 - [Review package landing page](docs/resident_review_package/README.md)
 
-The validation casebooks are fillable Microsoft Word documents. Click the checkboxes to select ratings and type comments directly into the provided fields. Please select one response per rating item.
+The validation casebooks are fillable Microsoft Word documents. Click the checkboxes to select ratings and type comments directly into the provided fields. Please select one response per rating item. Open the file in desktop Microsoft Word. A preview can show the boxes as ordinary characters; in Word they are form controls.
 
 The overviews, with composition and case maps, are the [balanced structured case set](data/case_sets/balanced/README.md) and the [resident-seed-guided case set](data/case_sets/seed_guided/README.md). A teaching chart that is not a study case is in the [clinician walkthrough](docs/clinician_walkthrough/README.md).
 
@@ -307,7 +307,7 @@ Exclude. The case should not be used, even if software checks passed, because it
 
 ## Saving your completed review
 
-The validation casebooks are fillable Microsoft Word documents. Click the checkboxes to select ratings and type comments directly into the provided fields. Please select one response per rating item.
+The validation casebooks are fillable Microsoft Word documents. Click the checkboxes to select ratings and type comments directly into the provided fields. Please select one response per rating item. Open the file in desktop Microsoft Word. A preview can show the boxes as ordinary characters; in Word they are form controls.
 
 Please save a separate copy of the casebook before entering ratings. Do not overwrite the original review file. The casebook is the completed validation record.
 

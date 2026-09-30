@@ -4,7 +4,7 @@ This page is the current Word-format review package for the two prospective Clin
 
 The Word files are a reading format. They are not a second source of truth.
 
-The validation casebooks are fillable Microsoft Word documents. Click the checkboxes to select ratings and type comments directly into the provided fields. Please select one response per rating item.
+The validation casebooks are fillable Microsoft Word documents. Click the checkboxes to select ratings and type comments directly into the provided fields. Please select one response per rating item. Open the file in desktop Microsoft Word. A preview can show the boxes as ordinary characters; in Word they are form controls.
 
 ```text
 canonical structured case data

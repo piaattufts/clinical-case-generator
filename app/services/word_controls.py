@@ -8,6 +8,7 @@ macros, ActiveX, or document protection.
 
 from __future__ import annotations
 
+import io
 import zipfile
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field
@@ -16,11 +17,19 @@ from typing import Any
 from xml.etree import ElementTree as ET
 
 from docx.oxml import OxmlElement
+from docx.oxml import ns as oxml_ns
 from docx.oxml.ns import qn
 
 W_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 W14_NS = "http://schemas.microsoft.com/office/word/2010/wordml"
+W15_NS = "http://schemas.microsoft.com/office/word/2012/wordml"
 XML_NS = "http://www.w3.org/XML/1998/namespace"
+FORM_COLOR = "2E75B6"
+W15_DECLARATION = 'xmlns:w15="http://schemas.microsoft.com/office/word/2012/wordml"'
+
+# python-docx only knows the prefixes in its own map. Word 2013 form
+# appearance lives in the w15 namespace, so register it before building controls.
+oxml_ns.nsmap["w15"] = W15_NS
 
 CHECKBOX_FONT = "MS Gothic"
 CHECKBOX_SIZE_PT = 14
@@ -33,6 +42,66 @@ BALLOT_CHARS = ("\u2610", "\u2611", "\u2612", "\u25A1", "\u25A2", "\u25FB")
 _NEXT_ID: dict[int, int] = {}
 
 
+def prepare_form_document(document: Any) -> None:
+    """Make Word open this file as a current document, not a compatibility-mode file.
+
+    python-docx writes compatibility mode 14. Desktop Word then shows the
+    checkbox characters but does not treat them as form controls until the
+    document is converted. Mode 16 is the current Word document format.
+    """
+    settings = document.settings.element
+    for setting in settings.iter(qn("w:compatSetting")):
+        if setting.get(qn("w:name")) == "compatibilityMode":
+            setting.set(qn("w:val"), "16")
+
+
+def finalize_word_form(path: Path) -> None:
+    """Put the Word 2013 namespace on the document root after python-docx saves.
+
+    Each control already declares xmlns:w15 locally. The root mc:Ignorable list
+    also has to be able to name that prefix, and an undeclared prefix makes
+    Word discard the form controls.
+    """
+    original = path.read_bytes()
+    buffer = io.BytesIO()
+    with (
+        zipfile.ZipFile(io.BytesIO(original)) as source,
+        zipfile.ZipFile(buffer, "w") as output,
+    ):
+        for info in source.infolist():
+            payload = source.read(info.filename)
+            if info.filename == "word/document.xml":
+                payload = _declare_form_namespace(payload)
+            output.writestr(info, payload)
+    path.write_bytes(buffer.getvalue())
+
+
+def _declare_form_namespace(payload: bytes) -> bytes:
+    text = payload.decode("utf-8")
+    text = text.replace(f' ns0:w15="{W15_NS}"', "")
+    marker = "<w:document "
+    begin = text.find(marker)
+    if begin < 0:
+        return text.encode("utf-8")
+    end = text.find(">", begin)
+    start = text[begin:end]
+    if "xmlns:w15=" not in start:
+        start = start.replace(marker, f"<w:document {W15_DECLARATION} ", 1)
+    if 'mc:Ignorable="' in start and "w15" not in _ignorable_value(start):
+        start = start.replace('mc:Ignorable="', 'mc:Ignorable="w15 ', 1)
+    return (text[:begin] + start + text[end:]).encode("utf-8")
+
+
+def _ignorable_value(start_tag: str) -> str:
+    marker = 'mc:Ignorable="'
+    begin = start_tag.find(marker)
+    if begin < 0:
+        return ""
+    begin += len(marker)
+    end = start_tag.find('"', begin)
+    return start_tag[begin:end]
+
+
 def append_checkbox(paragraph: Any, document: Any, *, tag: str, alias: str) -> None:
     """Append one unchecked Word checkbox content control to a paragraph."""
     paragraph._p.append(_checkbox_sdt(document, tag=tag, alias=alias))
@@ -41,6 +110,11 @@ def append_checkbox(paragraph: Any, document: Any, *, tag: str, alias: str) -> N
 def append_plain_text(paragraph: Any, document: Any, *, tag: str, alias: str) -> None:
     """Append one single-line plain-text content control to a paragraph."""
     paragraph._p.append(_plain_text_sdt(document, tag=tag, alias=alias))
+
+
+def append_rich_text_field(cell: Any, document: Any, *, tag: str, alias: str, lines: int) -> None:
+    """Append a multi-line rich-text content control inside a table cell."""
+    cell._tc.append(_rich_text_sdt(document, tag=tag, alias=alias, lines=lines))
 
 
 def _checkbox_sdt(document: Any, *, tag: str, alias: str) -> Any:
@@ -58,6 +132,7 @@ def _checkbox_sdt(document: Any, *, tag: str, alias: str) -> Any:
     properties.append(_string_element("w:alias", alias))
     properties.append(_string_element("w:tag", tag))
     properties.append(_string_element("w:id", _next_id(document)))
+    _append_form_appearance(properties)
     checkbox = OxmlElement("w14:checkbox")
     checked = OxmlElement("w14:checked")
     checked.set(qn("w14:val"), "0")
@@ -86,6 +161,7 @@ def _plain_text_sdt(document: Any, *, tag: str, alias: str) -> Any:
     properties.append(_string_element("w:alias", alias))
     properties.append(_string_element("w:tag", tag))
     properties.append(_string_element("w:id", _next_id(document)))
+    _append_form_appearance(properties)
     text_mode = OxmlElement("w:text")
     text_mode.set(qn("w:multiLine"), "0")
     properties.append(text_mode)
@@ -103,6 +179,38 @@ def _plain_text_sdt(document: Any, *, tag: str, alias: str) -> Any:
     content.append(run)
     sdt.append(content)
     return sdt
+
+
+def _rich_text_sdt(document: Any, *, tag: str, alias: str, lines: int) -> Any:
+    sdt = OxmlElement("w:sdt")
+    properties = OxmlElement("w:sdtPr")
+    properties.append(_string_element("w:alias", alias))
+    properties.append(_string_element("w:tag", tag))
+    properties.append(_string_element("w:id", _next_id(document)))
+    _append_form_appearance(properties)
+    sdt.append(properties)
+    sdt.append(OxmlElement("w:sdtEndPr"))
+    content = OxmlElement("w:sdtContent")
+    for _ in range(lines):
+        paragraph = OxmlElement("w:p")
+        run = OxmlElement("w:r")
+        text = OxmlElement("w:t")
+        text.set(qn("xml:space"), "preserve")
+        text.text = " "
+        run.append(text)
+        paragraph.append(run)
+        content.append(paragraph)
+    sdt.append(content)
+    return sdt
+
+
+def _append_form_appearance(properties: Any) -> None:
+    color = OxmlElement("w15:color")
+    color.set(qn("w15:val"), FORM_COLOR)
+    appearance = OxmlElement("w15:appearance")
+    appearance.set(qn("w15:val"), "boundingBox")
+    properties.append(color)
+    properties.append(appearance)
 
 
 def _symbol_content(half_points: str) -> Any:
@@ -186,6 +294,9 @@ class FormControlAudit:
     activex_parts: int = 0
     duplicate_sdt_ids: int = 0
     w14_checkbox_start_tags: int = 0
+    bounding_box_controls: int = 0
+    rich_text_controls: int = 0
+    compatibility_mode: str = ""
     xml_parts_well_formed: bool = False
 
 
@@ -215,6 +326,8 @@ def audit_form_controls(path: Path) -> FormControlAudit:
             audit.display_ballot_glyphs += _display_ballot_count(root)
             audit.symbol_elements += len(list(root.iter(_clark(W_NS, "sym"))))
             audit.wingdings_fonts += _wingdings_count(root)
+            if name == "word/settings.xml":
+                audit.compatibility_mode = _compatibility_mode(root)
             if name == "word/document.xml":
                 _audit_document(root, audit)
                 audit.w14_checkbox_start_tags = payload.count(b"<w14:checkbox")
@@ -241,6 +354,8 @@ def _audit_document(root: ET.Element, audit: FormControlAudit) -> None:
                 continue
             tag = _attribute(properties.find(_clark(W_NS, "tag")), "val")
             seen_ids.append(_attribute(properties.find(_clark(W_NS, "id")), "val"))
+            if _has_bounding_box(properties):
+                audit.bounding_box_controls += 1
             if properties.find(_clark(W14_NS, "checkbox")) is not None:
                 audit.checkbox_controls += 1
                 checkbox_counts[case_id][tag] += 1
@@ -254,6 +369,8 @@ def _audit_document(root: ET.Element, audit: FormControlAudit) -> None:
                 text_counts[case_id][tag] += 1
                 if not _plain_text_well_formed(control):
                     audit.malformed_plain_text += 1
+            else:
+                audit.rich_text_controls += 1
     audit.checkboxes_by_case = {key: dict(value) for key, value in checkbox_counts.items()}
     audit.plain_text_by_case = {key: dict(value) for key, value in text_counts.items()}
     populated = [item for item in seen_ids if item]
@@ -284,6 +401,8 @@ def _checkbox_well_formed(control: ET.Element) -> bool:
         return False
     if not _attribute(properties.find(_clark(W_NS, "id")), "val"):
         return False
+    if not _has_bounding_box(properties):
+        return False
     content = control.find(_clark(W_NS, "sdtContent"))
     if content is None:
         return False
@@ -308,6 +427,8 @@ def _plain_text_well_formed(control: ET.Element) -> bool:
         return False
     if properties.find(_clark(W_NS, "text")) is None:
         return False
+    if not _has_bounding_box(properties):
+        return False
     if not _attribute(properties.find(_clark(W_NS, "tag")), "val"):
         return False
     texts = list(content.iter(_clark(W_NS, "t")))
@@ -315,6 +436,18 @@ def _plain_text_well_formed(control: ET.Element) -> bool:
         return False
     node = texts[0]
     return node.text == " " * TEXT_FIELD_SPACES and node.get(_clark(XML_NS, "space")) == "preserve"
+
+
+def _has_bounding_box(properties: ET.Element) -> bool:
+    appearance = properties.find(_clark(W15_NS, "appearance"))
+    return appearance is not None and _w15(appearance, "val") == "boundingBox"
+
+
+def _compatibility_mode(settings: ET.Element) -> str:
+    for setting in settings.iter(_clark(W_NS, "compatSetting")):
+        if setting.get(_clark(W_NS, "name")) == "compatibilityMode":
+            return setting.get(_clark(W_NS, "val")) or ""
+    return ""
 
 
 def _checked_value(control: ET.Element) -> str:
@@ -403,3 +536,7 @@ def _attribute(element: ET.Element | None, name: str) -> str:
 
 def _w14(element: ET.Element, name: str) -> str:
     return element.get(_clark(W14_NS, name)) or ""
+
+
+def _w15(element: ET.Element, name: str) -> str:
+    return element.get(_clark(W15_NS, name)) or ""
