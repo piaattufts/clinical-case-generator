@@ -16,6 +16,7 @@ from typing import Any
 
 from docx.document import Document as WordDocument
 from docx.enum.section import WD_SECTION
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Inches, Pt, RGBColor
@@ -26,15 +27,20 @@ from app.services.readable_packets import (
     _format_state,
     _location_text,
 )
+from app.services.word_controls import append_checkbox, append_plain_text
 from app.services.word_export import (
+    HEADER_FILL,
     ActiveBatch,
     _add_body,
     _add_fixed_table,
     _add_heading,
     _keep_row_together,
+    _mark_header_row,
     _new_document,
     _render_case,
     _set_run_font,
+    _set_table_width,
+    _write_cell,
     load_active_batches,
     load_resident_cases,
 )
@@ -56,6 +62,18 @@ C1_DOMAINS = (
 
 FAMILY_1 = "family_1"
 FAMILY_2 = "family_2"
+OPTION_GAP = "\u2003\u2003\u2003"
+TAG_C1_SCORE = "c1-score"
+TAG_C1_RESULT = "c1-result"
+TAG_C2_RESULT = "c2-result"
+TAG_C3_RESULT = "c3-result"
+TAG_C4_RESULT = "c4-result"
+TAG_C5 = "c5-difficulty"
+TAG_RECOMMENDATION = "recommendation"
+TAG_REVIEWER_CODE = "reviewer-code"
+TAG_REVIEW_DATE = "review-date"
+TAG_INITIALS = "reviewer-initials"
+TAG_CASE_DATE = "case-date"
 
 
 class ValidationCasebookError(ValueError):
@@ -258,8 +276,9 @@ def _write_front_matter(
         "Purpose: Clinical validation of synthetic medication-reconciliation "
         "and transition-of-care assessment cases.",
     )
-    _add_body(document, "Reviewer code: ______________________")
-    _add_body(document, "Review date: ________________________")
+    _add_text_field(document, "Reviewer code", tag=TAG_REVIEWER_CODE, alias="Reviewer code")
+    _add_text_field(document, "Review date", tag=TAG_REVIEW_DATE, alias="Review date")
+    _add_body(document, "Please select one response per item unless otherwise indicated.")
     _add_body(
         document,
         "These are clinician-validation documents. They contain case-specific "
@@ -406,13 +425,14 @@ def _write_validation(document: WordDocument, item: PreparedCase) -> None:
         "written explanation. C1 passes when every clinically relevant domain "
         "is rated 3 or 4.",
     )
-    _add_fixed_table(
+    _add_c1_rating_table(document)
+    _add_choice_line(
         document,
-        ("Domain", "1", "2", "3", "4"),
-        [(domain, "☐", "☐", "☐", "☐") for domain in C1_DOMAINS],
-        (3.6, 0.8, 0.8, 0.8, 0.8),
+        ("Pass", "Fail"),
+        tag=TAG_C1_RESULT,
+        alias="C1 overall result",
+        prefix="Overall C1:",
     )
-    _add_body(document, "Overall C1:  ☐ Pass     ☐ Fail")
     _comment_box(document, "C1 reviewer comments")
     _add_heading(document, "Validation Reference", 2)
     _banner(
@@ -437,7 +457,7 @@ def _write_validation(document: WordDocument, item: PreparedCase) -> None:
             "medication-reconciliation or transition-of-care problem described "
             "above, and does it match the intended category?",
         )
-    _add_body(document, "☐ Pass     ☐ Fail")
+    _add_choice_line(document, ("Pass", "Fail"), tag=TAG_C2_RESULT, alias="C2 result")
     _comment_box(document, "C2 reviewer comments")
     _add_heading(document, "C3 — Detectability", 3)
     if item.is_control:
@@ -459,7 +479,7 @@ def _write_validation(document: WordDocument, item: PreparedCase) -> None:
             "wording gives away the answer, and whether the expected clinical "
             "action can reasonably be determined.",
         )
-    _add_body(document, "☐ Pass     ☐ Fail")
+    _add_choice_line(document, ("Pass", "Fail"), tag=TAG_C3_RESULT, alias="C3 result")
     _comment_box(document, "C3 reviewer comments")
     _add_heading(document, "C4 — Absence of unintended competing problems", 3)
     if item.is_control:
@@ -475,7 +495,7 @@ def _write_validation(document: WordDocument, item: PreparedCase) -> None:
             "clinically meaningful medication-reconciliation or transition-of-care "
             "problem that a reasonable resident could interpret as an alternative target?",
         )
-    _add_body(document, "☐ Pass     ☐ Fail")
+    _add_choice_line(document, ("Pass", "Fail"), tag=TAG_C4_RESULT, alias="C4 result")
     _add_heading(document, "If C4 fails", 3)
     _add_fixed_table(
         document,
@@ -494,7 +514,12 @@ def _write_validation(document: WordDocument, item: PreparedCase) -> None:
         "This is an expert estimate only. Actual difficulty will ultimately be "
         "determined from resident performance.",
     )
-    _add_body(document, "☐ Easy     ☐ Moderate     ☐ Hard     ☐ Inappropriate / outlier")
+    _add_choice_line(
+        document,
+        ("Easy", "Moderate", "Hard", "Inappropriate / outlier"),
+        tag=TAG_C5,
+        alias="C5 difficulty",
+    )
     _comment_box(document, "C5 reviewer comments", lines=3)
     _add_heading(document, "Overall recommendation", 2)
     _add_body(
@@ -510,10 +535,20 @@ def _write_validation(document: WordDocument, item: PreparedCase) -> None:
         "Exclude: the case should not be used, because its problems cannot be "
         "reasonably corrected without substantially reconstructing it.",
     )
-    _add_body(document, "☐ Accept     ☐ Revise     ☐ Exclude")
+    _add_choice_line(
+        document,
+        ("Accept", "Revise", "Exclude"),
+        tag=TAG_RECOMMENDATION,
+        alias="Overall recommendation",
+    )
     _comment_box(document, "Overall comments / suggested revisions", lines=6)
-    _add_body(document, "Reviewer initials/code: __________________")
-    _add_body(document, "Date: __________________")
+    _add_text_field(
+        document,
+        "Reviewer initials/code",
+        tag=TAG_INITIALS,
+        alias="Reviewer initials or code",
+    )
+    _add_text_field(document, "Date", tag=TAG_CASE_DATE, alias="Date")
 
 
 def _control_reference(document: WordDocument) -> None:
@@ -596,6 +631,93 @@ def _drug_names(value: object) -> str:
         if isinstance(row, dict) and row.get("drug")
     ]
     return "\n".join(names) if names else "Not specified in the investigator record"
+
+
+def _add_c1_rating_table(document: WordDocument) -> None:
+    headers = ("Domain", "1", "2", "3", "4")
+    widths = (3.6, 0.8, 0.8, 0.8, 0.8)
+    table = document.add_table(rows=1, cols=len(headers))
+    table.style = "Table Grid"
+    table.autofit = False
+    _set_table_width(table, sum(widths))
+    _set_grid_widths(table, widths)
+    for index, header in enumerate(headers):
+        cell = table.rows[0].cells[index]
+        _write_cell(cell, header, bold=True, fill=HEADER_FILL)
+        cell.width = Inches(widths[index])
+        if index:
+            _align_cell(cell, center=True)
+    _mark_header_row(table.rows[0])
+    _keep_row_together(table.rows[0])
+    for domain in C1_DOMAINS:
+        row = table.add_row()
+        cells = row.cells
+        _write_cell(cells[0], domain, bold=False, fill=None)
+        cells[0].width = Inches(widths[0])
+        _align_cell(cells[0], center=False)
+        for index in range(1, 5):
+            cell = cells[index]
+            cell.text = ""
+            cell.width = Inches(widths[index])
+            paragraph = cell.paragraphs[0]
+            paragraph.clear()
+            paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            paragraph.paragraph_format.space_before = Pt(2)
+            paragraph.paragraph_format.space_after = Pt(2)
+            append_checkbox(paragraph, document, tag=TAG_C1_SCORE, alias="C1 domain rating")
+            _align_cell(cell, center=True)
+        _set_row_height(row, 420)
+        _keep_row_together(row)
+    document.add_paragraph().paragraph_format.space_after = Pt(2)
+
+
+def _add_choice_line(
+    document: WordDocument,
+    labels: tuple[str, ...],
+    *,
+    tag: str,
+    alias: str,
+    prefix: str = "",
+) -> None:
+    paragraph = document.add_paragraph()
+    paragraph.paragraph_format.space_before = Pt(4)
+    paragraph.paragraph_format.space_after = Pt(8)
+    paragraph.paragraph_format.keep_together = True
+    if prefix:
+        _set_run_font(paragraph.add_run(f"{prefix}  "), size=11)
+    for index, label in enumerate(labels):
+        append_checkbox(paragraph, document, tag=tag, alias=alias)
+        _set_run_font(paragraph.add_run(f"\u00A0\u00A0{label}"), size=11)
+        if index != len(labels) - 1:
+            _set_run_font(paragraph.add_run(OPTION_GAP), size=11)
+
+
+def _add_text_field(document: WordDocument, label: str, *, tag: str, alias: str) -> None:
+    paragraph = document.add_paragraph()
+    paragraph.paragraph_format.space_after = Pt(6)
+    _set_run_font(paragraph.add_run(f"{label}: "), size=11)
+    append_plain_text(paragraph, document, tag=tag, alias=alias)
+
+
+def _set_grid_widths(table: Any, widths: tuple[float, ...]) -> None:
+    columns = table._tbl.tblGrid.gridCol_lst
+    if len(columns) != len(widths):
+        raise ValidationCasebookError("C1 rating table column count does not match its widths")
+    for column, width in zip(columns, widths, strict=True):
+        column.w = Inches(width)
+
+
+def _align_cell(cell: Any, *, center: bool) -> None:
+    tc_pr = cell._tc.get_or_add_tcPr()
+    existing = tc_pr.find(qn("w:vAlign"))
+    if existing is not None:
+        tc_pr.remove(existing)
+    align = OxmlElement("w:vAlign")
+    align.set(qn("w:val"), "center")
+    tc_pr.append(align)
+    if center:
+        for paragraph in cell.paragraphs:
+            paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
 
 def _comment_box(document: WordDocument, label: str, *, lines: int = 4) -> None:

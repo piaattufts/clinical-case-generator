@@ -4,6 +4,8 @@ This page is the current Word-format review package for the two prospective Clin
 
 The Word files are a reading format. They are not a second source of truth.
 
+The validation casebooks are fillable Microsoft Word documents. Click the checkboxes to select ratings and type comments directly into the provided fields. Please select one response per rating item.
+
 ```text
 canonical structured case data
         ↓
@@ -153,7 +155,7 @@ A resident review dashboard is **planned**. It is not implemented in the current
 
 1. Download the validation casebook for the set you are reviewing.
 2. Read each clinical chart, and complete C1 before you read that case's validation reference.
-3. Complete C2–C5, the comments, and Accept, Revise, or Exclude in the same file.
+3. Click the checkboxes to select ratings. Type comments directly into the provided fields. Please select one response per rating item.
 4. Save a separate copy. Do not overwrite the original file.
 5. Return that copy to the study investigator. Do not upload it to this public repository.
 
