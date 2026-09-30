@@ -44,7 +44,7 @@ These checks were run on the two clinician validation casebooks. They compare ea
 
 ## Fillable form controls
 
-Response boxes are Microsoft Word checkbox content controls (`w:sdt` / `w14:checkbox`), not static ballot-box characters. Each case has 47 controls: C1 domain ratings 32, C1 Pass/Fail 2, C2 Pass/Fail 2, C3 Pass/Fail 2, C4 Pass/Fail 2, C5 difficulty 4, and Accept / Revise / Exclude 3. Across 24 cases that is 1128 checkbox controls in each file. Reviewer code, review date, initials, and date are plain-text content controls. Comment areas remain ordinary editable table cells. The files contain no macros, no ActiveX, and no document protection.
+Response boxes are Microsoft Word checkbox content controls (`w:sdt` / `w14:checkbox`), not static ballot-box characters. The document compatibility mode is 16, so current desktop Word opens the file as a current document and toggles those controls on click. Each control uses a visible bounding box. Comment areas are rich-text content controls. Each case has 47 controls: C1 domain ratings 32, C1 Pass/Fail 2, C2 Pass/Fail 2, C3 Pass/Fail 2, C4 Pass/Fail 2, C5 difficulty 4, and Accept / Revise / Exclude 3. Across 24 cases that is 1128 checkbox controls in each file. Reviewer code, review date, initials, and date are plain-text content controls. Comment areas remain ordinary editable table cells. The files contain no macros, no ActiveX, and no document protection.
 
 - Checkbox content controls in each file: 1128
 - Static ballot-box glyphs outside a content control: 0

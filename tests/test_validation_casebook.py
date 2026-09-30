@@ -213,6 +213,11 @@ def _assert_fillable(path: Path) -> None:
     assert audit.activex_parts == 0
     assert audit.duplicate_sdt_ids == 0
     assert audit.malformed_plain_text == 0
+    assert audit.compatibility_mode == "16"
+    assert audit.rich_text_controls == 24 * 6
+    assert audit.bounding_box_controls == (
+        audit.checkbox_controls + audit.plain_text_controls + audit.rich_text_controls
+    )
     assert audit.plain_text_controls == 2 + (24 * 2)
     assert "COVER" in audit.plain_text_by_case
     assert audit.checkboxes_by_case.get("COVER", {}) == {}

@@ -27,7 +27,13 @@ from app.services.readable_packets import (
     _format_state,
     _location_text,
 )
-from app.services.word_controls import append_checkbox, append_plain_text
+from app.services.word_controls import (
+    append_checkbox,
+    append_plain_text,
+    append_rich_text_field,
+    finalize_word_form,
+    prepare_form_document,
+)
 from app.services.word_export import (
     HEADER_FILL,
     ActiveBatch,
@@ -220,6 +226,7 @@ def build_casebook(
     filename_pattern: str,
 ) -> WordDocument:
     document = _new_document(title)
+    prepare_form_document(document)
     _write_front_matter(document, batch, stats_for(batch, cases), title, filename_pattern)
     for item in cases:
         _start_case_section(document, title, item.case_id)
@@ -256,6 +263,7 @@ def export_casebooks(root: Path, output_dir: Path) -> dict[str, Path]:
         document = build_casebook(batch, cases, title=title, filename_pattern=pattern)
         path = output_dir / filename
         document.save(str(path))
+        finalize_word_form(path)
         written[filename] = path
     return written
 
@@ -433,7 +441,7 @@ def _write_validation(document: WordDocument, item: PreparedCase) -> None:
         alias="C1 overall result",
         prefix="Overall C1:",
     )
-    _comment_box(document, "C1 reviewer comments")
+    _comment_box(document, "C1 reviewer comments", tag="c1-comments")
     _add_heading(document, "Validation Reference", 2)
     _banner(
         document,
@@ -458,7 +466,7 @@ def _write_validation(document: WordDocument, item: PreparedCase) -> None:
             "above, and does it match the intended category?",
         )
     _add_choice_line(document, ("Pass", "Fail"), tag=TAG_C2_RESULT, alias="C2 result")
-    _comment_box(document, "C2 reviewer comments")
+    _comment_box(document, "C2 reviewer comments", tag="c2-comments")
     _add_heading(document, "C3 — Detectability", 3)
     if item.is_control:
         _add_body(
@@ -480,7 +488,7 @@ def _write_validation(document: WordDocument, item: PreparedCase) -> None:
             "action can reasonably be determined.",
         )
     _add_choice_line(document, ("Pass", "Fail"), tag=TAG_C3_RESULT, alias="C3 result")
-    _comment_box(document, "C3 reviewer comments")
+    _comment_box(document, "C3 reviewer comments", tag="c3-comments")
     _add_heading(document, "C4 — Absence of unintended competing problems", 3)
     if item.is_control:
         _add_body(
@@ -507,7 +515,7 @@ def _write_validation(document: WordDocument, item: PreparedCase) -> None:
         ],
         (2.8, 4.0),
     )
-    _comment_box(document, "C4 reviewer comments")
+    _comment_box(document, "C4 reviewer comments", tag="c4-comments")
     _add_heading(document, "C5 — Expected learner difficulty", 3)
     _add_body(
         document,
@@ -520,7 +528,7 @@ def _write_validation(document: WordDocument, item: PreparedCase) -> None:
         tag=TAG_C5,
         alias="C5 difficulty",
     )
-    _comment_box(document, "C5 reviewer comments", lines=3)
+    _comment_box(document, "C5 reviewer comments", tag="c5-comments", lines=3)
     _add_heading(document, "Overall recommendation", 2)
     _add_body(
         document,
@@ -541,7 +549,12 @@ def _write_validation(document: WordDocument, item: PreparedCase) -> None:
         tag=TAG_RECOMMENDATION,
         alias="Overall recommendation",
     )
-    _comment_box(document, "Overall comments / suggested revisions", lines=6)
+    _comment_box(
+        document,
+        "Overall comments / suggested revisions",
+        tag="overall-comments",
+        lines=6,
+    )
     _add_text_field(
         document,
         "Reviewer initials/code",
@@ -720,15 +733,14 @@ def _align_cell(cell: Any, *, center: bool) -> None:
             paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
 
-def _comment_box(document: WordDocument, label: str, *, lines: int = 4) -> None:
+def _comment_box(document: WordDocument, label: str, *, tag: str, lines: int = 4) -> None:
     table = document.add_table(rows=1, cols=1)
     table.style = "Table Grid"
     cell = table.cell(0, 0)
     cell.text = ""
     paragraph = cell.paragraphs[0]
     _set_run_font(paragraph.add_run(label), size=11, bold=True)
-    for _ in range(lines):
-        cell.add_paragraph("")
+    append_rich_text_field(cell, document, tag=tag, alias=label, lines=lines)
     _set_row_height(table.rows[0], 360 * lines)
     document.add_paragraph().paragraph_format.space_after = Pt(4)
 
