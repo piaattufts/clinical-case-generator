@@ -6,11 +6,23 @@ import hashlib
 from pathlib import Path
 
 from app.services.validation_casebook import (
+    TAG_C1_RESULT,
+    TAG_C1_SCORE,
+    TAG_C2_RESULT,
+    TAG_C3_RESULT,
+    TAG_C4_RESULT,
+    TAG_C5,
+    TAG_CASE_DATE,
+    TAG_INITIALS,
+    TAG_RECOMMENDATION,
+    TAG_REVIEW_DATE,
+    TAG_REVIEWER_CODE,
     export_casebooks,
-    load_active_batches,
     load_prepared_cases,
     stats_for,
 )
+from app.services.word_controls import CHECKED_CHAR, audit_form_controls
+from app.services.word_export import load_active_batches
 from app.services.word_facts import medication_tuple, rows_for_context
 from docx import Document
 from docx.oxml.ns import qn
@@ -109,9 +121,10 @@ def test_casebooks_match_plan_and_answer_key_without_changing_sources(tmp_path: 
             assert "C4 — Absence of unintended competing problems" in after_reference
             assert "C5 — Expected learner difficulty" in after_reference
             assert "Overall recommendation" in after_reference
-            assert "☐ Accept" in after_reference
-            assert "☐ Revise" in after_reference
-            assert "☐ Exclude" in after_reference
+            assert "Accept" in after_reference
+            assert "Revise" in after_reference
+            assert "Exclude" in after_reference
+            assert "Presentation and demographics" in text
             for label in (
                 "C1 reviewer comments",
                 "C2 reviewer comments",
@@ -142,6 +155,27 @@ def test_casebooks_match_plan_and_answer_key_without_changing_sources(tmp_path: 
         assert "agreed study communication channel" in whole
         assert "do not need to edit GitHub" in whole
         assert "will not be shown to residents during the later assessment study" in whole
+        assert "Please select one response per item unless otherwise indicated." in whole
+
+
+def test_generated_casebooks_use_word_checkbox_controls(tmp_path: Path) -> None:
+    written = export_casebooks(ROOT, tmp_path)
+    for path in written.values():
+        _assert_fillable(path)
+        _assert_entries_survive_resave(path, tmp_path)
+
+
+def test_readme_describes_fillable_casebooks() -> None:
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    package = (ROOT / "docs" / "resident_review_package" / "README.md").read_text(encoding="utf-8")
+    sentence = (
+        "The validation casebooks are fillable Microsoft Word documents. "
+        "Click the checkboxes to select ratings and type comments directly into "
+        "the provided fields."
+    )
+    for text in (readme, package):
+        assert sentence in text
+        assert "Please select one response per rating item." in text
 
 
 def test_committed_casebooks_open() -> None:
@@ -149,7 +183,8 @@ def test_committed_casebooks_open() -> None:
         "CliniProof_Balanced_Validation_Casebook.docx",
         "CliniProof_SeedGuided_Validation_Casebook.docx",
     ):
-        document = Document(str(PACKAGE / name))
+        path = PACKAGE / name
+        document = Document(str(path))
         headings = [
             paragraph.text
             for paragraph in document.paragraphs
@@ -159,3 +194,105 @@ def test_committed_casebooks_open() -> None:
         ]
         assert len(headings) == 24
         assert len(set(headings)) == 24
+        _assert_fillable(path)
+
+
+def _assert_fillable(path: Path) -> None:
+    audit = audit_form_controls(path)
+    assert audit.xml_parts_well_formed
+    assert audit.checkbox_controls == 24 * 47
+    assert audit.malformed_checkboxes == 0
+    assert audit.unchecked_checkboxes == audit.checkbox_controls
+    assert audit.w14_checkbox_start_tags == audit.checkbox_controls
+    assert audit.static_ballot_glyphs == 0
+    assert audit.display_ballot_glyphs == audit.checkbox_controls
+    assert audit.wingdings_fonts == 0
+    assert audit.symbol_elements == 0
+    assert audit.macros is False
+    assert audit.document_protection is False
+    assert audit.activex_parts == 0
+    assert audit.duplicate_sdt_ids == 0
+    assert audit.malformed_plain_text == 0
+    assert audit.plain_text_controls == 2 + (24 * 2)
+    assert "COVER" in audit.plain_text_by_case
+    assert audit.checkboxes_by_case.get("COVER", {}) == {}
+    assert audit.plain_text_by_case["COVER"][TAG_REVIEWER_CODE] == 1
+    assert audit.plain_text_by_case["COVER"][TAG_REVIEW_DATE] == 1
+    case_ids = [case_id for case_id in audit.checkboxes_by_case if case_id != "COVER"]
+    assert len(case_ids) == 24
+    for case_id in case_ids:
+        counts = audit.checkboxes_by_case[case_id]
+        assert counts[TAG_C1_SCORE] == 32
+        assert counts[TAG_C1_RESULT] == 2
+        assert counts[TAG_C2_RESULT] == 2
+        assert counts[TAG_C3_RESULT] == 2
+        assert counts[TAG_C4_RESULT] == 2
+        assert counts[TAG_C5] == 4
+        assert counts[TAG_RECOMMENDATION] == 3
+        assert sum(counts.values()) == 47
+        fields = audit.plain_text_by_case[case_id]
+        assert fields[TAG_INITIALS] == 1
+        assert fields[TAG_CASE_DATE] == 1
+
+
+def _assert_entries_survive_resave(path: Path, tmp_path: Path) -> None:
+    document = Document(str(path))
+    checkbox = next(document.element.iter(qn("w14:checkbox")))
+    checked = checkbox.find(qn("w14:checked"))
+    assert checked is not None
+    checked.set(qn("w14:val"), "1")
+    control = checkbox.getparent().getparent()
+    display = control.find(".//" + qn("w:t"))
+    assert display is not None
+    display.text = CHECKED_CHAR
+    commented = False
+    for table in document.tables:
+        if table.rows and "C1 reviewer comments" in table.cell(0, 0).text:
+            table.cell(0, 0).add_paragraph("Persisted reviewer comment")
+            commented = True
+            break
+    assert commented
+    coded = False
+    for control in document.element.iter(qn("w:sdt")):
+        properties = control.find(qn("w:sdtPr"))
+        if properties is None:
+            continue
+        tag = properties.find(qn("w:tag"))
+        if tag is None or tag.get(qn("w:val")) != TAG_REVIEWER_CODE:
+            continue
+        text = control.find(".//" + qn("w:t"))
+        assert text is not None
+        text.text = "R01"
+        coded = True
+        break
+    assert coded
+    saved = tmp_path / f"resaved-{path.name}"
+    document.save(str(saved))
+    reopened = Document(str(saved))
+    reopened_box = next(reopened.element.iter(qn("w14:checkbox")))
+    reopened_checked = reopened_box.find(qn("w14:checked"))
+    assert reopened_checked is not None
+    assert reopened_checked.get(qn("w14:val")) == "1"
+    reopened_control = reopened_box.getparent().getparent()
+    reopened_text = reopened_control.find(".//" + qn("w:t"))
+    assert reopened_text is not None
+    assert reopened_text.text == CHECKED_CHAR
+    assert any("Persisted reviewer comment" in table.cell(0, 0).text for table in reopened.tables)
+    reviewer_code = ""
+    for control in reopened.element.iter(qn("w:sdt")):
+        properties = control.find(qn("w:sdtPr"))
+        if properties is None:
+            continue
+        tag = properties.find(qn("w:tag"))
+        if tag is None or tag.get(qn("w:val")) != TAG_REVIEWER_CODE:
+            continue
+        text = control.find(".//" + qn("w:t"))
+        reviewer_code = "" if text is None else (text.text or "")
+        break
+    assert reviewer_code == "R01"
+    again = audit_form_controls(saved)
+    assert again.checkbox_controls == 24 * 47
+    assert again.static_ballot_glyphs == 0
+    assert again.macros is False
+    assert again.document_protection is False
+    assert again.xml_parts_well_formed
