@@ -33,23 +33,18 @@ dev = [
 
 [project.scripts]
 clinical-case-generator = "app.cli:main"
-inthewild-review = "inthewild_review.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["app"]
 
-[tool.hatch.build.targets.wheel.force-include]
-"src/inthewild_review" = "inthewild_review"
-
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
-pythonpath = [".", "src"]
 
 [tool.ruff]
 target-version = "py312"
 line-length = 100
-src = ["app", "tests", "scripts", "src"]
+src = ["app", "tests", "scripts"]
 extend-exclude = ["alembic/versions"]
 
 [tool.ruff.lint]
@@ -60,13 +55,6 @@ select = ["E", "F", "I", "UP", "B", "W"]
 "alembic/versions/*" = ["E501"]
 "app/services/readable_packets.py" = ["E501"]
 "app/services/readable_docs.py" = ["E501"]
-"src/inthewild_review/*" = ["E501"]
-"tests/test_normalization.py" = ["E501"]
-"tests/test_deduplication.py" = ["E501"]
-"tests/test_screening.py" = ["E501"]
-"tests/test_agreement.py" = ["E501"]
-"tests/test_extraction.py" = ["E501"]
-"tests/test_prisma.py" = ["E501"]
 
 [tool.mypy]
 python_version = "3.12"

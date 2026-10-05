@@ -21,16 +21,3 @@ Both overviews link to the readable charts, the clinician validation packet, and
 [data/bootstrap/](bootstrap/) holds the terminology manifest, scenario profiles, and curated medication regimens used to build cases. Those files are generator inputs. They are not a case set.
 
 A one-page pointer to the two current sets is also at [active_validation_sets.md](active_validation_sets.md).
-
-## Scoping review data
-
-The in-the-wild social-robot review uses separate directories and does not read the case-set files above.
-
-- `data/raw/` holds bibliographic exports. Do not edit them.
-- `data/interim/` holds normalized records, duplicate candidates, and the citation graph.
-- `data/screening/` holds human screening decisions.
-- `data/extraction/` holds publication, study, deployment, and scenario rows.
-- `data/processed/` is regenerated from those rows.
-- `data/search_validation.csv` lists known items. Retrieval cells stay blank until a search export is checked.
-
-The review README at the repository root explains the commands.
