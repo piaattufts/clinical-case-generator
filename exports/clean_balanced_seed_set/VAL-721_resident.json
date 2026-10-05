@@ -1,0 +1,354 @@
+{
+  "case_id_code": "VAL-721",
+  "ClinicalCase": {
+    "title": "pulmonology inpatient case VAL-721",
+    "case_id_code": "VAL-721",
+    "case_status": "review",
+    "generation_source": "synthetic",
+    "one_liner": "46-year-old Female with Lobar pneumonia, unspecified organism",
+    "admission_dx": "Lobar pneumonia, unspecified organism",
+    "disposition_status": "home",
+    "chief_complaint": "Cough in the setting of Lobar pneumonia, unspecified organism",
+    "patient_name": "VAL Patient 721",
+    "patient_age": 46,
+    "patient_gender": "Female",
+    "ethnicity": null,
+    "weight_kg": "66.000",
+    "social_context": "Baseline living situation: lives at home",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "pulmonology",
+    "allergies": [],
+    "medical_history": [
+      "Essential (primary) hypertension"
+    ],
+    "source_type": "authored_scenario",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Cough in the setting of Lobar pneumonia, unspecified organism",
+      "hpi": "A 46-year-old Female is admitted with Lobar pneumonia, unspecified organism. Presenting symptoms include Cough, present for several days and persistent. Home medications include albuterol 0.1 MG Inhalation Powder. Started during this admission: azithromycin 250 MG Oral Tablet. Admitted for community-acquired pneumonia with hypoxia and a lobar infiltrate. Inpatient antimicrobial therapy was administered and respiratory symptoms were monitored until the patient was ready for discharge.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "Cough"
+      ],
+      "symptom_duration": "several days",
+      "symptom_course": "persistent"
+    },
+    "social_support": {
+      "living_situation": "Baseline living situation: lives at home",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": false,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-VAL721-001",
+      "case_id": "VAL-721",
+      "diagnosis": "Lobar pneumonia, unspecified organism",
+      "diagnosis_type": "admission",
+      "status": "active",
+      "context": "inpatient",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL721-002",
+      "case_id": "VAL-721",
+      "diagnosis": "Essential (primary) hypertension",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-VAL721-001",
+      "case_id": "VAL-721",
+      "note_type": "admission",
+      "note_text": "Admission note for a 46-year-old Female with Lobar pneumonia, unspecified organism. Symptoms: Cough for several days (persistent). Medications continued from home: albuterol 0.1 MG Inhalation Powder. Started during this admission: azithromycin 250 MG Oral Tablet. Admitted for community-acquired pneumonia with hypoxia and a lobar infiltrate. Inpatient antimicrobial therapy was administered and respiratory symptoms were monitored until the patient was ready for discharge.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "note_id": "NOTE-VAL721-002",
+      "case_id": "VAL-721",
+      "note_type": "hospital_course",
+      "note_text": "Inpatient antimicrobial therapy was administered and respiratory symptoms were monitored until the patient was ready for discharge.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-VAL721-001",
+      "case_id": "VAL-721",
+      "timepoint": "admission",
+      "temp_c": "38.20",
+      "bp_systolic": 120,
+      "bp_diastolic": 80,
+      "heart_rate": 105,
+      "resp_rate": 22,
+      "spo2_percent": "92.00",
+      "oxygen_support": null,
+      "source_reference": null
+    },
+    {
+      "vital_id": "VIT-VAL721-002",
+      "case_id": "VAL-721",
+      "timepoint": "discharge",
+      "temp_c": "36.80",
+      "bp_systolic": 128,
+      "bp_diastolic": 69,
+      "heart_rate": 76,
+      "resp_rate": 18,
+      "spo2_percent": "99.00",
+      "oxygen_support": null,
+      "source_reference": null
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-VAL721-001",
+      "case_id": "VAL-721",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.2,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL721-002",
+      "case_id": "VAL-721",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 0.8,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL721-003",
+      "case_id": "VAL-721",
+      "timepoint": "admission",
+      "test_name": "Sodium [Moles/volume] in Serum or Plasma",
+      "value": 135.0,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL721-004",
+      "case_id": "VAL-721",
+      "timepoint": "discharge",
+      "test_name": "Sodium [Moles/volume] in Serum or Plasma",
+      "value": 140.0,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "source_reference": null
+    }
+  ],
+  "CaseImaging": [
+    {
+      "study_id": "STUDY-VAL721-001",
+      "case_id": "VAL-721",
+      "timepoint": "admission",
+      "study_type": "Chest radiograph",
+      "body_site": "chest",
+      "finding": "Right lower-lobe infiltrate consistent with pneumonia.",
+      "source_reference": null
+    }
+  ],
+  "CaseConsult": [
+    {
+      "consult_id": "CON-VAL721-001",
+      "case_id": "VAL-721",
+      "service": "pulmonology",
+      "timepoint": "inpatient",
+      "assessment": "Community-acquired pneumonia.",
+      "recommendation": "Continue the intended antimicrobial and respiratory plan.",
+      "source_reference": null
+    }
+  ],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-VAL721-003",
+      "case_id": "VAL-721",
+      "context": "home",
+      "drug": "albuterol 0.1 MG Inhalation Powder",
+      "reported_name": "albuterol 0.1 MG Inhalation Powder",
+      "dose": "2 inhalations",
+      "route": "inhaled",
+      "frequency": "every 6 hours as needed",
+      "indication": "symptomatic bronchospasm; not a treatment for the admission diagnosis",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:252298",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL721-004",
+      "case_id": "VAL-721",
+      "context": "inpatient",
+      "drug": "albuterol 0.1 MG Inhalation Powder",
+      "reported_name": "albuterol 0.1 MG Inhalation Powder",
+      "dose": "2 inhalations",
+      "route": "inhaled",
+      "frequency": "every 6 hours as needed",
+      "indication": "symptomatic bronchospasm; not a treatment for the admission diagnosis",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:252298",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL721-005",
+      "case_id": "VAL-721",
+      "context": "inpatient",
+      "drug": "azithromycin 250 MG Oral Tablet",
+      "reported_name": "azithromycin 250 MG Oral Tablet",
+      "dose": "250 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Lobar pneumonia, unspecified organism",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:308460",
+      "notes": "Started during this admission."
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-VAL721-001",
+      "case_id": "VAL-721",
+      "item": "Pneumonia follow-up",
+      "timing": "7 days",
+      "with_service": "pulmonology",
+      "source_reference": null
+    }
+  ],
+  "CaseInstruction": [],
+  "CaseMonitoring": [],
+  "CaseProblemList": [
+    {
+      "problem_id": "PROB-VAL721-001",
+      "case_id": "VAL-721",
+      "problem": "Essential (primary) hypertension",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL721-002",
+      "case_id": "VAL-721",
+      "problem": "Lobar pneumonia, unspecified organism",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "high",
+      "status": "active",
+      "source_reference": null
+    }
+  ],
+  "CaseProcedure": [],
+  "CaseTherapyRestriction": [],
+  "CaseReturnPrecaution": [
+    {
+      "precaution_id": "RP-VAL721-001",
+      "case_id": "VAL-721",
+      "symptom": "Cough",
+      "reason": "Worsening of the presenting symptom",
+      "action": "Seek urgent evaluation",
+      "severity": "urgent",
+      "patient_instruction": null,
+      "source_reference": null
+    }
+  ],
+  "CaseMedicationReconciliation": [
+    {
+      "medrec_id": "MR-VAL721-001",
+      "case_id": "VAL-721",
+      "bpmh_source": "patient_and_prior_records",
+      "bpmh_interviewer": null,
+      "bpmh_date": null,
+      "medrec_status": "complete",
+      "patient_able_to_participate": true,
+      "unverified_medications_present": null,
+      "reconciliation_admission": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "reconciliation_discharge": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "discrepancy_types": [],
+      "pharmacist_review": true,
+      "high_alert_meds_identified": [],
+      "notes": null,
+      "source_reference": null
+    }
+  ],
+  "CaseWeight": [
+    {
+      "weight_id": "WT-VAL721-001",
+      "case_id": "VAL-721",
+      "timepoint": "admission",
+      "weight_kg": "66.000",
+      "dry_weight_kg": null,
+      "source_reference": null
+    }
+  ],
+  "CaseIntakeOutput": [],
+  "CaseDevice": [],
+  "CaseMicrobiology": []
+}

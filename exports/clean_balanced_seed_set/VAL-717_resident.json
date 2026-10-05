@@ -1,0 +1,380 @@
+{
+  "case_id_code": "VAL-717",
+  "ClinicalCase": {
+    "title": "general medicine inpatient case VAL-717",
+    "case_id_code": "VAL-717",
+    "case_status": "review",
+    "generation_source": "synthetic",
+    "one_liner": "66-year-old Male with Type 2 diabetes mellitus with hyperglycemia",
+    "admission_dx": "Type 2 diabetes mellitus with hyperglycemia",
+    "disposition_status": "home",
+    "chief_complaint": "Fatigue in the setting of Type 2 diabetes mellitus with hyperglycemia",
+    "patient_name": "VAL Patient 717",
+    "patient_age": 66,
+    "patient_gender": "Male",
+    "ethnicity": null,
+    "weight_kg": "84.000",
+    "social_context": "Baseline living situation: lives at home",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "general medicine",
+    "allergies": [],
+    "medical_history": [
+      "Mixed hyperlipidemia"
+    ],
+    "source_type": "authored_scenario",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Fatigue in the setting of Type 2 diabetes mellitus with hyperglycemia",
+      "hpi": "A 66-year-old Male is admitted with Type 2 diabetes mellitus with hyperglycemia. Presenting symptoms include Fatigue, present for several days and persistent. Home medications include atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia requiring inpatient glucose stabilization. Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "Fatigue"
+      ],
+      "symptom_duration": "several days",
+      "symptom_course": "persistent"
+    },
+    "social_support": {
+      "living_situation": "Baseline living situation: lives at home",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": false,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-VAL717-001",
+      "case_id": "VAL-717",
+      "diagnosis": "Type 2 diabetes mellitus with hyperglycemia",
+      "diagnosis_type": "admission",
+      "status": "active",
+      "context": "inpatient",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL717-002",
+      "case_id": "VAL-717",
+      "diagnosis": "Mixed hyperlipidemia",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-VAL717-001",
+      "case_id": "VAL-717",
+      "note_type": "admission",
+      "note_text": "Admission note for a 66-year-old Male with Type 2 diabetes mellitus with hyperglycemia. Symptoms: Fatigue for several days (persistent). Medications continued from home: atorvastatin 40 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: 3 ML insulin lispro 100 UNT/ML Pen Injector. Admitted for symptomatic hyperglycemia requiring inpatient glucose stabilization. Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "note_id": "NOTE-VAL717-002",
+      "case_id": "VAL-717",
+      "note_type": "hospital_course",
+      "note_text": "Capillary glucose was monitored. Correctional subcutaneous insulin was used during inpatient glucose management.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-VAL717-001",
+      "case_id": "VAL-717",
+      "timepoint": "admission",
+      "temp_c": "36.60",
+      "bp_systolic": 141,
+      "bp_diastolic": 77,
+      "heart_rate": 90,
+      "resp_rate": 20,
+      "spo2_percent": "98.00",
+      "oxygen_support": null,
+      "source_reference": null
+    },
+    {
+      "vital_id": "VIT-VAL717-002",
+      "case_id": "VAL-717",
+      "timepoint": "discharge",
+      "temp_c": "36.80",
+      "bp_systolic": 133,
+      "bp_diastolic": 71,
+      "heart_rate": 85,
+      "resp_rate": 20,
+      "spo2_percent": "96.00",
+      "oxygen_support": null,
+      "source_reference": null
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-VAL717-001",
+      "case_id": "VAL-717",
+      "timepoint": "admission",
+      "test_name": "Fasting glucose [Mass/volume] in Serum or Plasma",
+      "value": 334.0,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL717-002",
+      "case_id": "VAL-717",
+      "timepoint": "discharge",
+      "test_name": "Fasting glucose [Mass/volume] in Serum or Plasma",
+      "value": 146.0,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL717-003",
+      "case_id": "VAL-717",
+      "timepoint": "admission",
+      "test_name": "Hemoglobin [Mass/volume] in Blood by Oximetry",
+      "value": 13.5,
+      "value_text": null,
+      "unit": "g/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL717-004",
+      "case_id": "VAL-717",
+      "timepoint": "discharge",
+      "test_name": "Hemoglobin [Mass/volume] in Blood by Oximetry",
+      "value": 12.0,
+      "value_text": null,
+      "unit": "g/dL",
+      "status": "final",
+      "source_reference": null
+    }
+  ],
+  "CaseImaging": [],
+  "CaseConsult": [],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-VAL717-003",
+      "case_id": "VAL-717",
+      "context": "home",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:617311",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL717-004",
+      "case_id": "VAL-717",
+      "context": "home",
+      "drug": "metformin hydrochloride 500 MG Oral Tablet",
+      "reported_name": "metformin hydrochloride 500 MG Oral Tablet",
+      "dose": "500 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "Type 2 diabetes mellitus with hyperglycemia",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:861007",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL717-005",
+      "case_id": "VAL-717",
+      "context": "inpatient",
+      "drug": "3 ML insulin lispro 100 UNT/ML Pen Injector",
+      "reported_name": "3 ML insulin lispro 100 UNT/ML Pen Injector",
+      "dose": "individualized",
+      "route": "subcutaneous",
+      "frequency": "with glucose checks",
+      "indication": "Type 2 diabetes mellitus with hyperglycemia",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:1652639",
+      "notes": "Correctional insulin was used during inpatient glucose management."
+    },
+    {
+      "medication_id": "MED-VAL717-006",
+      "case_id": "VAL-717",
+      "context": "inpatient",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:617311",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL717-007",
+      "case_id": "VAL-717",
+      "context": "inpatient",
+      "drug": "metformin hydrochloride 500 MG Oral Tablet",
+      "reported_name": "metformin hydrochloride 500 MG Oral Tablet",
+      "dose": "500 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "Type 2 diabetes mellitus with hyperglycemia",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:861007",
+      "notes": null
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-VAL717-001",
+      "case_id": "VAL-717",
+      "item": "Glycemic follow-up",
+      "timing": "14 days",
+      "with_service": "endocrinology",
+      "source_reference": null
+    }
+  ],
+  "CaseInstruction": [],
+  "CaseMonitoring": [],
+  "CaseProblemList": [
+    {
+      "problem_id": "PROB-VAL717-001",
+      "case_id": "VAL-717",
+      "problem": "Mixed hyperlipidemia",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL717-002",
+      "case_id": "VAL-717",
+      "problem": "Type 2 diabetes mellitus with hyperglycemia",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "high",
+      "status": "active",
+      "source_reference": null
+    }
+  ],
+  "CaseProcedure": [],
+  "CaseTherapyRestriction": [],
+  "CaseReturnPrecaution": [
+    {
+      "precaution_id": "RP-VAL717-001",
+      "case_id": "VAL-717",
+      "symptom": "Fatigue",
+      "reason": "Worsening of the presenting symptom",
+      "action": "Seek urgent evaluation",
+      "severity": "urgent",
+      "patient_instruction": null,
+      "source_reference": null
+    }
+  ],
+  "CaseMedicationReconciliation": [
+    {
+      "medrec_id": "MR-VAL717-001",
+      "case_id": "VAL-717",
+      "bpmh_source": "patient_and_prior_records",
+      "bpmh_interviewer": null,
+      "bpmh_date": null,
+      "medrec_status": "complete",
+      "patient_able_to_participate": true,
+      "unverified_medications_present": null,
+      "reconciliation_admission": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "reconciliation_discharge": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "discrepancy_types": [],
+      "pharmacist_review": true,
+      "high_alert_meds_identified": [],
+      "notes": null,
+      "source_reference": null
+    }
+  ],
+  "CaseWeight": [
+    {
+      "weight_id": "WT-VAL717-001",
+      "case_id": "VAL-717",
+      "timepoint": "admission",
+      "weight_kg": "84.000",
+      "dry_weight_kg": null,
+      "source_reference": null
+    }
+  ],
+  "CaseIntakeOutput": [],
+  "CaseDevice": [],
+  "CaseMicrobiology": []
+}
