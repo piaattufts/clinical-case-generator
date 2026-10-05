@@ -82,6 +82,7 @@ from app.services.generation import (
     load_scenarios,
     resolve_profile,
 )
+from app.services.resident_case import reference_discharge_plan
 from app.services.seed_archetypes import (
     GENERATION_STRATEGY_SEED,
     GENERATION_STRATEGY_TEMPLATE,
@@ -1040,7 +1041,14 @@ def _resident_payload(
                 "source_reference": None,
                 "notes": item.notes,
             }
-            for index, item in enumerate(list_medications_for_case(session, case.id), start=1)
+            for index, item in enumerate(
+                [
+                    row
+                    for row in list_medications_for_case(session, case.id)
+                    if row.context != "discharge"
+                ],
+                start=1,
+            )
         ],
         "CaseFollowup": [
             {
@@ -1065,7 +1073,14 @@ def _resident_payload(
                 "source_reference": None,
             }
             for index, item in enumerate(
-                _list(session, CaseInstruction, case.id, CaseInstruction.instruction_id), start=1
+                [
+                    row
+                    for row in _list(
+                        session, CaseInstruction, case.id, CaseInstruction.instruction_id
+                    )
+                    if "exactly as listed" not in (row.instruction_text or "").casefold()
+                ],
+                start=1,
             )
         ],
         "CaseMonitoring": [
@@ -1353,6 +1368,7 @@ def _investigator_payload(
             "post_injection_validation": frozen.final_validation,
             "frozen_at": frozen.frozen_at,
             "dataset_status": DATASET_STATUS,
+            "reference_discharge_plan": reference_discharge_plan(session, case),
         }
     )
 
