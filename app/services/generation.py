@@ -489,6 +489,11 @@ def load_scenarios(path: Path | None = None) -> list[Scenario]:
     return scenarios
 
 
+# The resident task uses a clean chart. Planted discrepancies are an experimental
+# layer for later AI-intervention studies, not the default case generator.
+DEFAULT_INJECT_ERROR = False
+
+
 def generate_synthetic_cases(
     session: Session,
     *,
@@ -496,7 +501,7 @@ def generate_synthetic_cases(
     seed: int,
     start_index: int = 1,
     scenario_code: str | None = None,
-    inject_error: bool = True,
+    inject_error: bool = DEFAULT_INJECT_ERROR,
     use_openai: bool = True,
     error_category: str | None = None,
 ) -> list[GeneratedCaseResult]:
@@ -534,7 +539,7 @@ def generate_one_case(
     sequence: int,
     seed: int,
     scenario: Scenario,
-    inject_error: bool = True,
+    inject_error: bool = DEFAULT_INJECT_ERROR,
     use_openai: bool = True,
     error_category: str | None = None,
     profile_code: str | None = None,
@@ -1163,7 +1168,10 @@ def generate_one_case(
             case_id=case.id,
             instruction_id=ids.next_id("instruction"),
             category="medications",
-            instruction_text="Take discharge medications exactly as listed.",
+            instruction_text=(
+                "Review the hospital course and current medications before deciding "
+                "which medicines should continue after discharge."
+            ),
             source_type="synthetic",
         )
     )

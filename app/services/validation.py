@@ -446,6 +446,10 @@ def _assessment_consistency(
             warnings.append("clean case plan has is_error_target set")
         if case.clean_case is False:
             errors.append("clean case flag is false before injection")
+        from app.services.resident_case import reference_plan_errors, resident_leak_errors
+
+        errors.extend(reference_plan_errors(session, case))
+        errors.extend(resident_leak_errors(session, case))
     return LayerResult("assessment", passed=not errors, errors=errors, warnings=warnings)
 
 

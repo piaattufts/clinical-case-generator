@@ -1,8 +1,9 @@
-"""Deterministic CliniProof error injection.
+"""Experimental discrepancy injection. Not used by the default case generator.
 
-The assessment blueprint selects the target category before the case is mutated.
-OpenAI is not used to choose the error. Unknown or ineligible categories fail
-rather than falling back to another type.
+The resident task is a clean chart plus a hidden discharge reference. Planting a
+medication error in the chart is retained for later AI-intervention experiments
+and for the historical validation batches. The default generator does not call
+this module. Unknown or ineligible categories fail rather than falling back.
 """
 
 from __future__ import annotations
