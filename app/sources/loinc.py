@@ -18,8 +18,9 @@ from app.sources.http import as_list, get_json, new_client
 
 LOINC_FHIR_BASE_URL = "https://fhir.loinc.org"
 LOINC_SYSTEM = "http://loinc.org"
-# Implicit FHIR valueset for the LOINC CodeSystem on fhir.loinc.org (not a guessed code).
-LOINC_VALUESET_URL = "http://loinc.org?fhir_vs"
+# Current LOINC FHIR value set on fhir.loinc.org. The older implicit
+# http://loinc.org?fhir_vs URL now returns 404.
+LOINC_VALUESET_URL = "http://loinc.org/vs"
 SOURCE_CODE = "LOINC"
 
 _LOOKUP_PROPERTY_MAP = {

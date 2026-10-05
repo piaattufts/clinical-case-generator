@@ -1,0 +1,265 @@
+{
+  "case_id_code": "SYN-009003",
+  "presentation": {
+    "chief_complaint": "Dyspnea, edema, and orthopnea.",
+    "history_of_present_illness": "60-year-old male presenting with dyspnea, edema, and orthopnea in the setting of acute systolic (congestive) heart failure. He reports shortness of breath that worsens when lying flat along with swelling.",
+    "one_liner": "60-year-old Male with Acute systolic (congestive) heart failure",
+    "admission_diagnosis": "Acute systolic (congestive) heart failure"
+  },
+  "diagnoses": [
+    {
+      "diagnosis": "Acute systolic (congestive) heart failure",
+      "diagnosis_type": "admission",
+      "status": "active"
+    }
+  ],
+  "hospital_course": [
+    {
+      "note_type": "admission",
+      "note_text": "Admitted for evaluation and treatment of acute systolic (congestive) heart failure with dyspnea, edema, and orthopnea. Current medications on arrival include spironolactone 25 MG Oral Tablet, furosemide 40 MG Oral Tablet, lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, warfarin sodium 5 MG Oral Tablet, 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet, and ibuprofen 400 MG Oral Tablet."
+    },
+    {
+      "note_type": "hospital_course",
+      "note_text": "The inpatient stay was brief. Symptoms and vital signs were observed, and the patient was judged ready for discharge home."
+    }
+  ],
+  "vitals": [
+    {
+      "timepoint": "admission",
+      "bp_systolic": 119,
+      "bp_diastolic": 79,
+      "heart_rate": 78,
+      "resp_rate": 20,
+      "spo2_percent": 97.0
+    },
+    {
+      "timepoint": "discharge",
+      "bp_systolic": 111,
+      "bp_diastolic": 71,
+      "heart_rate": 74,
+      "resp_rate": 14,
+      "spo2_percent": 99.0
+    }
+  ],
+  "labs": [
+    {
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.1,
+      "value_text": null,
+      "unit": "mg/dL"
+    },
+    {
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.0,
+      "value_text": null,
+      "unit": "mg/dL"
+    },
+    {
+      "timepoint": "admission",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 4.0,
+      "value_text": null,
+      "unit": "mmol/L"
+    },
+    {
+      "timepoint": "discharge",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 4.4,
+      "value_text": null,
+      "unit": "mmol/L"
+    },
+    {
+      "timepoint": "admission",
+      "test_name": "Natriuretic peptide B [Mass/volume] in Serum or Plasma",
+      "value": 490.0,
+      "value_text": null,
+      "unit": "pg/mL"
+    },
+    {
+      "timepoint": "discharge",
+      "test_name": "Natriuretic peptide B [Mass/volume] in Serum or Plasma",
+      "value": 211.0,
+      "value_text": null,
+      "unit": "pg/mL"
+    },
+    {
+      "timepoint": "admission",
+      "test_name": "INR in Platelet poor plasma or blood by Coagulation assay",
+      "value": 2.6,
+      "value_text": null,
+      "unit": "{INR}"
+    },
+    {
+      "timepoint": "discharge",
+      "test_name": "INR in Platelet poor plasma or blood by Coagulation assay",
+      "value": 2.4,
+      "value_text": null,
+      "unit": "{INR}"
+    }
+  ],
+  "medications": [
+    {
+      "medication": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+      "context": "home",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "home",
+      "held_reason": null
+    },
+    {
+      "medication": "atorvastatin 40 MG Oral Tablet",
+      "context": "home",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "home",
+      "held_reason": null
+    },
+    {
+      "medication": "furosemide 40 MG Oral Tablet",
+      "context": "home",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "home",
+      "held_reason": null
+    },
+    {
+      "medication": "ibuprofen 400 MG Oral Tablet",
+      "context": "home",
+      "dose": "400 MG",
+      "route": "oral",
+      "frequency": "every 8 hours as needed",
+      "indication": "symptomatic analgesia; not a treatment for the admission diagnosis",
+      "status": "held",
+      "held_reason": "Stopped during this admission."
+    },
+    {
+      "medication": "lisinopril 10 MG Oral Tablet",
+      "context": "home",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "home",
+      "held_reason": null
+    },
+    {
+      "medication": "spironolactone 25 MG Oral Tablet",
+      "context": "home",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "home",
+      "held_reason": null
+    },
+    {
+      "medication": "warfarin sodium 5 MG Oral Tablet",
+      "context": "home",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "home",
+      "held_reason": null
+    },
+    {
+      "medication": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+      "context": "inpatient",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "active",
+      "held_reason": null
+    },
+    {
+      "medication": "atorvastatin 40 MG Oral Tablet",
+      "context": "inpatient",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "active",
+      "held_reason": null
+    },
+    {
+      "medication": "furosemide 40 MG Oral Tablet",
+      "context": "inpatient",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "active",
+      "held_reason": null
+    },
+    {
+      "medication": "ibuprofen 400 MG Oral Tablet",
+      "context": "inpatient",
+      "dose": "400 MG",
+      "route": "oral",
+      "frequency": "every 8 hours as needed",
+      "indication": "symptomatic analgesia; not a treatment for the admission diagnosis",
+      "status": "held",
+      "held_reason": "Stopped during this admission."
+    },
+    {
+      "medication": "lisinopril 10 MG Oral Tablet",
+      "context": "inpatient",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "active",
+      "held_reason": null
+    },
+    {
+      "medication": "spironolactone 25 MG Oral Tablet",
+      "context": "inpatient",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "active",
+      "held_reason": null
+    },
+    {
+      "medication": "warfarin sodium 5 MG Oral Tablet",
+      "context": "inpatient",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "active",
+      "held_reason": null
+    }
+  ],
+  "instructions": [
+    {
+      "category": "medications",
+      "instruction_text": "ibuprofen 400 MG Oral Tablet was stopped during this admission."
+    },
+    {
+      "category": "medications",
+      "instruction_text": "Review the hospital course and current medications before deciding which medicines should continue after discharge."
+    }
+  ],
+  "discharge_status": {
+    "disposition": "home",
+    "discharge_readiness": "ready"
+  },
+  "follow_up_considerations": [
+    {
+      "item": "Primary care follow-up",
+      "timing": "7 days",
+      "with_service": "primary care"
+    }
+  ]
+}
