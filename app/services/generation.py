@@ -1,7 +1,10 @@
 """Constrained synthetic case generation from local source-backed reference rows.
 
-Canonical concepts are selected in Python. OpenAI may only assemble narrative
-language after that selection. Numeric values are synthetic and labeled as such.
+The default path builds a clean clinical case. The discharge regimen is a hidden
+reference, not a list handed to the resident. `--inject-error` is experimental
+and is not part of that path. Canonical concepts are selected in Python.
+OpenAI may only assemble narrative after that selection. Numeric values are
+synthetic.
 """
 
 from __future__ import annotations

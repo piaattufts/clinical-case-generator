@@ -6,7 +6,7 @@ The project overview for every audience is the root [README](../README.md). Case
 | --- | --- |
 | [clinician_walkthrough/README.md](clinician_walkthrough/README.md) | How a chart is built, using a readable teaching case that is not a study case. |
 | [resident_review_package/README.md](resident_review_package/README.md) | Word case sets, validation codebook, export prompt, and export QA for current review. |
-| [methods.md](methods.md) | How both generation strategies build a clean case, curate regimens, inject one discrepancy, and stop before clinician review. |
+| [methods.md](methods.md) | How a clean case is built, how experimental error injection differs, and how the recovered 48-case export relates to the frozen batches. |
 | [clinical_validation.md](clinical_validation.md) | The one-stage C1–C5 clinician review and how it differs from later resident study responses. |
 | [error_taxonomy.md](error_taxonomy.md) | Family 1 and Family 2 categories. |
 | [provenance.md](provenance.md) | What RxNorm, LOINC, ICD-10-CM, curated rules, seeds, and answer keys do and do not establish. |

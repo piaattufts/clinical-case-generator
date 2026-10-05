@@ -1,6 +1,6 @@
 # CliniProof Resident and Clinician Review Package
 
-This page is the current Word-format review package for the two prospective CliniProof case sets. It is for clinicians and residents who are validating the charts before those cases are used in the planned CliniProof dashboard and study.
+This page is the Word-format review package for the two frozen prospective batches, `CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`. Those casebooks include a validation reference after C1 because they were built when many charts contained one injected discrepancy. They are historical review artifacts. They are not the current resident-facing study set. The recovered clean charts are in [exports/clean_balanced_seed_set/](../../exports/clean_balanced_seed_set/AUDIT.md). The [project README](../../README.md) describes the current workflow.
 
 The Word files are a reading format. They are not a second source of truth.
 

@@ -1,18 +1,25 @@
 # Repository structure
 
 ```text
-README.md                    clinician-facing project overview
-app/                         application and generation code
-data/case_sets/balanced/     current balanced structured case set
-data/case_sets/seed_guided/  current resident-seed-guided case set
-data/case_sets/investigator/ internal QC and the comparison of the two sets
-data/seed_cases/             resident source documents and derived archetypes
-data/bootstrap/              terminology manifest, scenarios, and curated regimens
-data/archive/validation_sets/ earlier frozen batches, kept for provenance
-docs/                        methods, validation, provenance, and this map
-docs/clinician_walkthrough/  readable teaching charts, separate from the study cases
-tests/                       automated tests
-scripts/                     documentation checks
+README.md                         project overview for clinicians and developers
+app/services/generation.py        default clean-case generator
+app/services/resident_case.py    resident chart versus hidden reference plan
+app/services/validation.py        structural and coherence checks
+app/services/error_injection.py   experimental chart discrepancies; not the default path
+app/services/clean_set_recovery.py  resident/evaluator split from frozen clean sources
+app/services/validation_batch.py  freeze and export of historical VAL batches
+exports/clean_balanced_seed_set/  current resident-facing and evaluator export
+data/case_sets/balanced/          frozen CLINIPROOF_BALANCED_V4 source, not the resident handout
+data/case_sets/seed_guided/       frozen CLINIPROOF_SEEDCASES_V3 source, not the resident handout
+data/case_sets/investigator/      internal QC of those frozen batches
+data/seed_cases/                  resident source documents and derived archetypes
+data/bootstrap/                   terminology manifest, scenarios, and curated regimens
+data/archive/validation_sets/     earlier frozen batches, kept for provenance
+docs/                             methods, validation, provenance, and this map
+docs/clinician_walkthrough/       teaching charts, separate from the study cases
+tests/test_clean_resident_case.py clean generation hides the reference
+tests/test_clean_set_recovery.py  recovery does not modify frozen resident exports
+scripts/                          documentation checks
 ```
 
 ## Source of truth versus generated files
@@ -24,4 +31,4 @@ scripts/                     documentation checks
 | Case-set overviews | `data/case_sets/balanced/README.md`, `data/case_sets/seed_guided/README.md` | Rendered by `python -m app.services.case_set_overview` from the manifest, profiles, and diversity report. |
 | Authoritative docs | `docs/*.md`, root `README.md`, `data/README.md` | Describe the study. Manifest counts are checked by `scripts/check_docs.py`. |
 
-The two directories under `data/case_sets/` are the prospective review sets. Earlier freezes live under `data/archive/validation_sets/`. Their own README explains the directories. The human-facing case-set paths stay stable when a batch code inside the files changes.
+`data/case_sets/balanced/` and `data/case_sets/seed_guided/` are the frozen source batches. Historical validation artifacts are retained for provenance and reproducibility. They should not be used as the current resident-facing study set. That export is `exports/clean_balanced_seed_set/`. Earlier freezes live under `data/archive/validation_sets/`.

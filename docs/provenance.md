@@ -7,7 +7,7 @@ Terminology provenance establishes concept identity. It does not independently e
 | Source | What a stored identifier means |
 | --- | --- |
 | RxNorm | The medication concept, ingredient, strength, and dose form that were resolved for that row. |
-| LOINC | The laboratory observation identity. |
+| LOINC | The laboratory observation identity. Import uses the value set `http://loinc.org/vs` on `https://fhir.loinc.org`. The older `http://loinc.org?fhir_vs` URL returns 404 and is not active. Credentials are `LOINC_USERNAME` and `LOINC_PASSWORD` in the environment or a gitignored `.env` file. |
 | ICD-10-CM | The diagnosis concept used for the problem. |
 | UCUM | The unit identity attached to a numeric result. |
 | Curated clinical rules and regimens | A project decision, with a citation, about dose, route, frequency, temporal role, or a hard constraint. The citation is stored with the regimen or rule. |
@@ -15,7 +15,7 @@ Terminology provenance establishes concept identity. It does not independently e
 | Case blueprints | The archetype and profile definitions derived from those references, in `data/seed_cases/blueprints/`. |
 | Deterministic seeds | The master seed and the per-assignment seed that reproduce the synthetic draws. |
 | Batch manifests | The frozen list of VAL identifiers, scenarios, profiles, and error assignments. |
-| Answer keys | The investigator record of the intended discrepancy, the clean expected state, and the injected state. |
+| Answer keys | Historical investigator records of an injected discrepancy, the clean expected state, and the injected state. The current resident task uses `reference_discharge_plan` on the evaluator file instead. |
 
 ## What is synthetic
 

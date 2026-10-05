@@ -11,7 +11,7 @@ python -m pip install -e ".[dev]"
 cp .env.example .env
 ```
 
-Set `LOINC_USERNAME` and `LOINC_PASSWORD` in `.env` before importing laboratories. Then:
+Set `DATABASE_URL`, `LOINC_USERNAME`, and `LOINC_PASSWORD` in `.env` before importing laboratories. `OPENAI_API_KEY` is optional. `SNOMED_BASE_URL`, `SNOMED_API_TOKEN`, and `MIMIC_LOCAL_PATH` are unused until those sources are ingested. LOINC search uses `http://loinc.org/vs`. Do not commit `.env`. Then:
 
 ```bash
 docker compose up -d
@@ -63,4 +63,12 @@ After bootstrap, `clinical-case-generator` can serve the reference API with the 
 
 ## Generated cases outside a study batch
 
-`clinical-case-generator generate-synthetic-cases --count 3 --seed 42` builds ordinary synthetic cases for development. Those cases are not part of either prospective validation set. Validate one with `clinical-case-generator validate-cases --case-id SYN-000001` only after generation has created that identifier.
+The default command builds clean cases. It does not inject a medication error and does not write a second corrupted case. The hidden reference stays off the resident document.
+
+```bash
+clinical-case-generator generate-synthetic-cases --count 3 --seed 42
+```
+
+Those development cases are not the recovered 48-case export. Validate one with `clinical-case-generator validate-cases --case-id SYN-000001` only after generation has created that identifier.
+
+`--inject-error` is experimental / legacy / optional and not part of the default resident case pipeline. It edits the chart. Do not use it for the resident study set. Recovering a clean chart from an injected case requires the archived pre-injection source, which is what `app/services/clean_set_recovery.py` does for the frozen VAL files. It does not rerun generation.
