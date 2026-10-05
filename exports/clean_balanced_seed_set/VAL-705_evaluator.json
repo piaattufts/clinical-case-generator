@@ -1,0 +1,576 @@
+{
+  "case_id_code": "VAL-705",
+  "ClinicalCase": {
+    "title": "cardiology inpatient case VAL-705",
+    "case_id_code": "VAL-705",
+    "case_status": "review",
+    "generation_source": "synthetic",
+    "one_liner": "62-year-old Male with Acute systolic (congestive) heart failure",
+    "admission_dx": "Acute systolic (congestive) heart failure",
+    "disposition_status": "home",
+    "chief_complaint": "Dyspnea, Orthopnea, Fatigue in the setting of Acute systolic (congestive) heart failure",
+    "patient_name": "VAL Patient 705",
+    "patient_age": 62,
+    "patient_gender": "Male",
+    "ethnicity": null,
+    "weight_kg": "92.000",
+    "social_context": "Baseline living situation: lives at home",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "cardiology",
+    "allergies": [],
+    "medical_history": [
+      "Paroxysmal atrial fibrillation",
+      "Mixed hyperlipidemia"
+    ],
+    "source_type": "authored_scenario",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Dyspnea, Orthopnea, Fatigue in the setting of Acute systolic (congestive) heart failure",
+      "hpi": "A 62-year-old Male is admitted with Acute systolic (congestive) heart failure. Presenting symptoms include Dyspnea, Orthopnea, Fatigue, present for one week and persistent. Home medications include apixaban 5 MG Oral Tablet, carvedilol 6.25 MG Oral Tablet, furosemide 40 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for decompensated heart failure with a planned home-health transition. The inpatient stay was brief. Symptoms and vital signs were observed, and the patient was judged ready for discharge home.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "Dyspnea",
+        "Orthopnea",
+        "Fatigue"
+      ],
+      "symptom_duration": "one week",
+      "symptom_course": "persistent"
+    },
+    "social_support": {
+      "living_situation": "Baseline living situation: lives at home",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": true,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-VAL705-001",
+      "case_id": "VAL-705",
+      "diagnosis": "Acute systolic (congestive) heart failure",
+      "diagnosis_type": "admission",
+      "status": "active",
+      "context": "inpatient",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL705-002",
+      "case_id": "VAL-705",
+      "diagnosis": "Paroxysmal atrial fibrillation",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL705-003",
+      "case_id": "VAL-705",
+      "diagnosis": "Mixed hyperlipidemia",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-VAL705-001",
+      "case_id": "VAL-705",
+      "note_type": "admission",
+      "note_text": "Admission note for a 62-year-old Male with Acute systolic (congestive) heart failure. Symptoms: Dyspnea, Orthopnea, Fatigue for one week (persistent). Medications continued from home: apixaban 5 MG Oral Tablet, carvedilol 6.25 MG Oral Tablet, furosemide 40 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for decompensated heart failure with a planned home-health transition. The inpatient stay was brief. Symptoms and vital signs were observed, and the patient was judged ready for discharge home.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "note_id": "NOTE-VAL705-002",
+      "case_id": "VAL-705",
+      "note_type": "hospital_course",
+      "note_text": "The inpatient stay was brief. Symptoms and vital signs were observed, and the patient was judged ready for discharge home.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-VAL705-001",
+      "case_id": "VAL-705",
+      "timepoint": "admission",
+      "temp_c": "36.80",
+      "bp_systolic": 129,
+      "bp_diastolic": 76,
+      "heart_rate": 78,
+      "resp_rate": 14,
+      "spo2_percent": "98.00",
+      "oxygen_support": null,
+      "source_reference": null
+    },
+    {
+      "vital_id": "VIT-VAL705-002",
+      "case_id": "VAL-705",
+      "timepoint": "discharge",
+      "temp_c": "36.80",
+      "bp_systolic": 114,
+      "bp_diastolic": 86,
+      "heart_rate": 72,
+      "resp_rate": 19,
+      "spo2_percent": "98.00",
+      "oxygen_support": null,
+      "source_reference": null
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-VAL705-001",
+      "case_id": "VAL-705",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.3,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL705-002",
+      "case_id": "VAL-705",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 0.8,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL705-003",
+      "case_id": "VAL-705",
+      "timepoint": "admission",
+      "test_name": "Natriuretic peptide B [Mass/volume] in Serum or Plasma",
+      "value": 480.0,
+      "value_text": null,
+      "unit": "pg/mL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL705-004",
+      "case_id": "VAL-705",
+      "timepoint": "discharge",
+      "test_name": "Natriuretic peptide B [Mass/volume] in Serum or Plasma",
+      "value": 222.0,
+      "value_text": null,
+      "unit": "pg/mL",
+      "status": "final",
+      "source_reference": null
+    }
+  ],
+  "CaseImaging": [
+    {
+      "study_id": "STUDY-VAL705-001",
+      "case_id": "VAL-705",
+      "timepoint": "admission",
+      "study_type": "Chest radiograph",
+      "body_site": "chest",
+      "finding": "Pulmonary vascular congestion.",
+      "source_reference": null
+    },
+    {
+      "study_id": "STUDY-VAL705-002",
+      "case_id": "VAL-705",
+      "timepoint": "discharge",
+      "study_type": "Chest radiograph",
+      "body_site": "chest",
+      "finding": "Improved congestion compared with admission.",
+      "source_reference": null
+    }
+  ],
+  "CaseConsult": [
+    {
+      "consult_id": "CON-VAL705-001",
+      "case_id": "VAL-705",
+      "service": "cardiology",
+      "timepoint": "inpatient",
+      "assessment": "Inpatient cardiology recommendations were recorded.",
+      "recommendation": "Continue the intended heart-failure and diuretic plan.",
+      "source_reference": null
+    }
+  ],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-VAL705-005",
+      "case_id": "VAL-705",
+      "context": "home",
+      "drug": "apixaban 5 MG Oral Tablet",
+      "reported_name": "apixaban 5 MG Oral Tablet",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "Paroxysmal atrial fibrillation",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL705-006",
+      "case_id": "VAL-705",
+      "context": "home",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL705-007",
+      "case_id": "VAL-705",
+      "context": "home",
+      "drug": "carvedilol 6.25 MG Oral Tablet",
+      "reported_name": "carvedilol 6.25 MG Oral Tablet",
+      "dose": "6.25 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL705-008",
+      "case_id": "VAL-705",
+      "context": "home",
+      "drug": "furosemide 40 MG Oral Tablet",
+      "reported_name": "furosemide 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL705-009",
+      "case_id": "VAL-705",
+      "context": "inpatient",
+      "drug": "apixaban 5 MG Oral Tablet",
+      "reported_name": "apixaban 5 MG Oral Tablet",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "Paroxysmal atrial fibrillation",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL705-010",
+      "case_id": "VAL-705",
+      "context": "inpatient",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL705-011",
+      "case_id": "VAL-705",
+      "context": "inpatient",
+      "drug": "carvedilol 6.25 MG Oral Tablet",
+      "reported_name": "carvedilol 6.25 MG Oral Tablet",
+      "dose": "6.25 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL705-012",
+      "case_id": "VAL-705",
+      "context": "inpatient",
+      "drug": "furosemide 40 MG Oral Tablet",
+      "reported_name": "furosemide 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-VAL705-001",
+      "case_id": "VAL-705",
+      "item": "Heart-failure clinic with home-health support",
+      "timing": "10 days",
+      "with_service": "cardiology",
+      "source_reference": null
+    }
+  ],
+  "CaseInstruction": [],
+  "CaseMonitoring": [],
+  "CaseProblemList": [
+    {
+      "problem_id": "PROB-VAL705-001",
+      "case_id": "VAL-705",
+      "problem": "Paroxysmal atrial fibrillation",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL705-002",
+      "case_id": "VAL-705",
+      "problem": "Mixed hyperlipidemia",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL705-003",
+      "case_id": "VAL-705",
+      "problem": "Acute systolic (congestive) heart failure",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "high",
+      "status": "active",
+      "source_reference": null
+    }
+  ],
+  "CaseProcedure": [],
+  "CaseTherapyRestriction": [],
+  "CaseReturnPrecaution": [
+    {
+      "precaution_id": "RP-VAL705-001",
+      "case_id": "VAL-705",
+      "symptom": "Dyspnea",
+      "reason": "Worsening of the presenting symptom",
+      "action": "Seek urgent evaluation",
+      "severity": "urgent",
+      "patient_instruction": null,
+      "source_reference": null
+    }
+  ],
+  "CaseMedicationReconciliation": [
+    {
+      "medrec_id": "MR-VAL705-001",
+      "case_id": "VAL-705",
+      "bpmh_source": "patient_and_prior_records",
+      "bpmh_interviewer": null,
+      "bpmh_date": null,
+      "medrec_status": "complete",
+      "patient_able_to_participate": true,
+      "unverified_medications_present": null,
+      "reconciliation_admission": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "reconciliation_discharge": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "discrepancy_types": [],
+      "pharmacist_review": true,
+      "high_alert_meds_identified": [],
+      "notes": null,
+      "source_reference": null
+    }
+  ],
+  "CaseWeight": [
+    {
+      "weight_id": "WT-VAL705-001",
+      "case_id": "VAL-705",
+      "timepoint": "admission",
+      "weight_kg": "92.000",
+      "dry_weight_kg": null,
+      "source_reference": null
+    },
+    {
+      "weight_id": "WT-VAL705-002",
+      "case_id": "VAL-705",
+      "timepoint": "discharge",
+      "weight_kg": "86.000",
+      "dry_weight_kg": "87.000",
+      "source_reference": null
+    }
+  ],
+  "CaseIntakeOutput": [
+    {
+      "io_id": "IO-VAL705-001",
+      "case_id": "VAL-705",
+      "timepoint": "hospital_day_1",
+      "intake_ml": 1384,
+      "output_ml": 2120,
+      "net_ml": -736,
+      "notes": null,
+      "source_reference": null
+    }
+  ],
+  "CaseDevice": [],
+  "CaseMicrobiology": [],
+  "reference_discharge_plan": {
+    "medications": [
+      {
+        "medication": "apixaban 5 MG Oral Tablet",
+        "action": "continue",
+        "dose": "5 MG",
+        "route": "oral",
+        "frequency": "twice daily",
+        "duration": null,
+        "indication": "Paroxysmal atrial fibrillation",
+        "rationale": "Home and discharge rows in the clean chart match.",
+        "monitoring": null
+      },
+      {
+        "medication": "atorvastatin 40 MG Oral Tablet",
+        "action": "continue",
+        "dose": "40 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Mixed hyperlipidemia",
+        "rationale": "Home and discharge rows in the clean chart match.",
+        "monitoring": null
+      },
+      {
+        "medication": "carvedilol 6.25 MG Oral Tablet",
+        "action": "continue",
+        "dose": "6.25 MG",
+        "route": "oral",
+        "frequency": "twice daily",
+        "duration": null,
+        "indication": "Acute systolic (congestive) heart failure",
+        "rationale": "Home and discharge rows in the clean chart match.",
+        "monitoring": null
+      },
+      {
+        "medication": "furosemide 40 MG Oral Tablet",
+        "action": "continue",
+        "dose": "40 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Acute systolic (congestive) heart failure",
+        "rationale": "Home and discharge rows in the clean chart match.",
+        "monitoring": null
+      }
+    ],
+    "monitoring_requirements": [],
+    "follow_up_requirements": [
+      {
+        "item": "Heart-failure clinic with home-health support",
+        "timing": "10 days",
+        "with_service": "cardiology"
+      }
+    ]
+  }
+}

@@ -1,0 +1,378 @@
+{
+  "case_id_code": "VAL-715",
+  "ClinicalCase": {
+    "title": "general medicine inpatient case VAL-715",
+    "case_id_code": "VAL-715",
+    "case_status": "review",
+    "generation_source": "synthetic",
+    "one_liner": "72-year-old Female with Essential (primary) hypertension",
+    "admission_dx": "Essential (primary) hypertension",
+    "disposition_status": "home",
+    "chief_complaint": "Fatigue in the setting of Essential (primary) hypertension",
+    "patient_name": "VAL Patient 715",
+    "patient_age": 72,
+    "patient_gender": "Female",
+    "ethnicity": null,
+    "weight_kg": "77.000",
+    "social_context": "Baseline living situation: lives at home",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "general medicine",
+    "allergies": [],
+    "medical_history": [
+      "Mixed hyperlipidemia"
+    ],
+    "source_type": "authored_scenario",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Fatigue in the setting of Essential (primary) hypertension",
+      "hpi": "A 72-year-old Female is admitted with Essential (primary) hypertension. Presenting symptoms include Fatigue, present for two days and progressive. Home medications include atorvastatin 40 MG Oral Tablet. Started during this admission: enalapril maleate 5 MG. Admitted for a first presentation of severe symptomatic hypertension requiring observed treatment. Blood pressure was treated and observed in hospital until symptoms settled.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "Fatigue"
+      ],
+      "symptom_duration": "two days",
+      "symptom_course": "progressive"
+    },
+    "social_support": {
+      "living_situation": "Baseline living situation: lives at home",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": false,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-VAL715-001",
+      "case_id": "VAL-715",
+      "diagnosis": "Essential (primary) hypertension",
+      "diagnosis_type": "admission",
+      "status": "active",
+      "context": "inpatient",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL715-002",
+      "case_id": "VAL-715",
+      "diagnosis": "Mixed hyperlipidemia",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-VAL715-001",
+      "case_id": "VAL-715",
+      "note_type": "admission",
+      "note_text": "Admission note for a 72-year-old Female with Essential (primary) hypertension. Symptoms: Fatigue for two days (progressive). Medications continued from home: atorvastatin 40 MG Oral Tablet. Started during this admission: enalapril maleate 5 MG. Admitted for a first presentation of severe symptomatic hypertension requiring observed treatment. Blood pressure was treated and observed in hospital until symptoms settled.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "note_id": "NOTE-VAL715-002",
+      "case_id": "VAL-715",
+      "note_type": "hospital_course",
+      "note_text": "Blood pressure was treated and observed in hospital until symptoms settled.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-VAL715-001",
+      "case_id": "VAL-715",
+      "timepoint": "admission",
+      "temp_c": "36.70",
+      "bp_systolic": 191,
+      "bp_diastolic": 110,
+      "heart_rate": 75,
+      "resp_rate": 19,
+      "spo2_percent": "98.00",
+      "oxygen_support": null,
+      "source_reference": null
+    },
+    {
+      "vital_id": "VIT-VAL715-002",
+      "case_id": "VAL-715",
+      "timepoint": "discharge",
+      "temp_c": "36.80",
+      "bp_systolic": 137,
+      "bp_diastolic": 75,
+      "heart_rate": 83,
+      "resp_rate": 20,
+      "spo2_percent": "95.00",
+      "oxygen_support": null,
+      "source_reference": null
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-VAL715-001",
+      "case_id": "VAL-715",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.1,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL715-002",
+      "case_id": "VAL-715",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.0,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL715-003",
+      "case_id": "VAL-715",
+      "timepoint": "admission",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 3.6,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL715-004",
+      "case_id": "VAL-715",
+      "timepoint": "discharge",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 4.0,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "source_reference": null
+    }
+  ],
+  "CaseImaging": [
+    {
+      "study_id": "STUDY-VAL715-001",
+      "case_id": "VAL-715",
+      "timepoint": "admission",
+      "study_type": "Chest radiograph",
+      "body_site": "chest",
+      "finding": "No acute infiltrate.",
+      "source_reference": null
+    }
+  ],
+  "CaseConsult": [],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-VAL715-003",
+      "case_id": "VAL-715",
+      "context": "home",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL715-004",
+      "case_id": "VAL-715",
+      "context": "inpatient",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL715-005",
+      "case_id": "VAL-715",
+      "context": "inpatient",
+      "drug": "enalapril maleate 5 MG",
+      "reported_name": "enalapril maleate 5 MG",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "Essential (primary) hypertension",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": "Started during this admission."
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-VAL715-001",
+      "case_id": "VAL-715",
+      "item": "New antihypertensive follow-up",
+      "timing": "10 days",
+      "with_service": "primary care",
+      "source_reference": null
+    }
+  ],
+  "CaseInstruction": [],
+  "CaseMonitoring": [],
+  "CaseProblemList": [
+    {
+      "problem_id": "PROB-VAL715-001",
+      "case_id": "VAL-715",
+      "problem": "Mixed hyperlipidemia",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL715-002",
+      "case_id": "VAL-715",
+      "problem": "Essential (primary) hypertension",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "high",
+      "status": "active",
+      "source_reference": null
+    }
+  ],
+  "CaseProcedure": [],
+  "CaseTherapyRestriction": [],
+  "CaseReturnPrecaution": [
+    {
+      "precaution_id": "RP-VAL715-001",
+      "case_id": "VAL-715",
+      "symptom": "Fatigue",
+      "reason": "Worsening of the presenting symptom",
+      "action": "Seek urgent evaluation",
+      "severity": "urgent",
+      "patient_instruction": null,
+      "source_reference": null
+    }
+  ],
+  "CaseMedicationReconciliation": [
+    {
+      "medrec_id": "MR-VAL715-001",
+      "case_id": "VAL-715",
+      "bpmh_source": "patient_and_prior_records",
+      "bpmh_interviewer": null,
+      "bpmh_date": null,
+      "medrec_status": "complete",
+      "patient_able_to_participate": true,
+      "unverified_medications_present": null,
+      "reconciliation_admission": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "reconciliation_discharge": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "discrepancy_types": [],
+      "pharmacist_review": true,
+      "high_alert_meds_identified": [],
+      "notes": null,
+      "source_reference": null
+    }
+  ],
+  "CaseWeight": [
+    {
+      "weight_id": "WT-VAL715-001",
+      "case_id": "VAL-715",
+      "timepoint": "admission",
+      "weight_kg": "77.000",
+      "dry_weight_kg": null,
+      "source_reference": null
+    }
+  ],
+  "CaseIntakeOutput": [],
+  "CaseDevice": [],
+  "CaseMicrobiology": [],
+  "reference_discharge_plan": {
+    "medications": [
+      {
+        "medication": "atorvastatin 40 MG Oral Tablet",
+        "action": "continue",
+        "dose": "40 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Mixed hyperlipidemia",
+        "rationale": "Home and discharge rows in the clean chart match.",
+        "monitoring": null
+      },
+      {
+        "medication": "enalapril maleate 5 MG",
+        "action": "start",
+        "dose": "5 MG",
+        "route": "oral",
+        "frequency": "twice daily",
+        "duration": null,
+        "indication": "Essential (primary) hypertension",
+        "rationale": "The clean chart starts this medicine during the admission.",
+        "monitoring": null
+      }
+    ],
+    "monitoring_requirements": [],
+    "follow_up_requirements": [
+      {
+        "item": "New antihypertensive follow-up",
+        "timing": "10 days",
+        "with_service": "primary care"
+      }
+    ]
+  }
+}
