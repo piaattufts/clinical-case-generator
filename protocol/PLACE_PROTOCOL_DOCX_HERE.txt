@@ -1,0 +1,6 @@
+Place the authoritative protocol at this path:
+
+protocol/InTheWild_Review_Methods.docx
+
+The file was not in the repository when the workflow was built.
+Do not replace it with a summary. The markdown files in this directory are working notes, not the protocol.

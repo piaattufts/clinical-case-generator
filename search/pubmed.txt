@@ -1,0 +1,10 @@
+# PUBMED TRANSLATION
+# STATUS: NOT VALIDATED
+#
+# TODO: HUMAN VERIFICATION REQUIRED
+#
+# Do not treat this file as a translated query.
+# Translate the final Scopus query from search/scopus.txt only after that
+# query has been pasted from the protocol.
+# Record the translation check in search/search_log.csv.
+# Remove this warning only after a person has verified the translation.

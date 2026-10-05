@@ -12,3 +12,15 @@ The project overview for every audience is the root [README](../README.md). Case
 | [provenance.md](provenance.md) | What RxNorm, LOINC, ICD-10-CM, curated rules, seeds, and answer keys do and do not establish. |
 | [repository_structure.md](repository_structure.md) | Directory map and which files are source of truth versus generated. |
 | [developer_guide.md](developer_guide.md) | Install, bootstrap, freeze, export, and test commands for both current batches. |
+
+## Scoping review
+
+The root README describes the scoping review of social robots in naturalistic settings. These files belong to that review:
+
+| Document | What it covers |
+| --- | --- |
+| [workflow.md](workflow.md) | Human steps and commands, in order. |
+| [reproducibility.md](reproducibility.md) | What is raw, what is regenerated, and what is never silent. |
+| [data_dictionary.md](data_dictionary.md) | Column meanings. |
+| [methods_traceability.md](methods_traceability.md) | Where each methods requirement is implemented. |
+| [unresolved_protocol_decisions.md](unresolved_protocol_decisions.md) | Choices that are still open, including the missing protocol file. |

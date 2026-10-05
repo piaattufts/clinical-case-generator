@@ -1,0 +1,49 @@
+{
+  "generated_at": "2026-10-05T20:48:48+00:00",
+  "data_state": "derived_from_repository_files",
+  "note": "Counts are computed from the files in this repository. Zero means the corresponding file has no coded rows. It is not a search result and it is not a completed review.",
+  "identification": {
+    "by_database": {},
+    "database_total": 0,
+    "citation_chasing": 0,
+    "other": 0,
+    "total_records": 0
+  },
+  "duplicates": {
+    "candidate_pairs": 0,
+    "confirmed_same_record_pairs": 0,
+    "records_removed": 0,
+    "note": "A record is removed only when a human has marked SAME_RECORD and named retained_record_id. Unconfirmed candidates stay in the set."
+  },
+  "records_after_confirmed_duplicate_removal": 0,
+  "title_abstract": {
+    "screened": 0,
+    "include": 0,
+    "maybe": 0,
+    "exclude": 0,
+    "exclude_by_code": {},
+    "source": "data/screening/title_abstract_screening.csv",
+    "note": "Calibration files are not included in these counts."
+  },
+  "full_text": {
+    "sought": 0,
+    "unavailable": 0,
+    "assessed": 0,
+    "unclear": 0,
+    "pending": 0,
+    "include": 0,
+    "maybe": 0,
+    "exclude": 0,
+    "with_decision": 0,
+    "without_decision": 0,
+    "exclude_by_reason": {}
+  },
+  "included": {
+    "full_text_include_records": 0,
+    "publications": 0,
+    "studies": 0,
+    "deployments": 0,
+    "scenarios": 0,
+    "note": "Publication, study, deployment, and scenario counts are different units. They are not interchangeable."
+  }
+}
