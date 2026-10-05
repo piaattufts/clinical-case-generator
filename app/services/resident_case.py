@@ -28,6 +28,7 @@ from app.models.cases import (
     ClinicalCase,
 )
 from app.models.generation import CaseMedicationPlan
+from app.models.reference import RefMedication
 from app.repositories.cases import (
     list_followups_for_case,
     list_instructions_for_case,
@@ -35,18 +36,27 @@ from app.repositories.cases import (
     list_monitoring_for_case,
     list_plans_for_case,
 )
+from app.repositories.reference import list_enabled_rules
+from app.services.medication_decisions import (
+    CLINICALLY_INCONSISTENT,
+    consider_source_backed_change,
+    consistency_errors,
+    documented_allergies,
+    evidence_payload,
+    evidence_trace,
+    justify_home_medication,
+    justify_hospital_start,
+    justify_visible_stop,
+    public_action,
+)
+from app.services.medication_regimens import regimen_for_text
 from app.services.validation_registry import all_batch_specs
 from app.utils.jsonio import dumps_json
 
-_ACTION_FOR_DECISION = {
-    "continue": "continue",
-    "stop": "stop",
-    "restart": "start",
-    "new_start": "start",
-    "dose_change": "change",
-    "hold": "stop",
-}
-_REQUIRED_ACTIONS = frozenset({"continue", "start", "change"})
+_REQUIRED_ACTIONS = frozenset({"continue", "start", "change", "restart"})
+_STORED_DECISIONS = frozenset(
+    {"continue", "stop", "restart", "hold", "dose_change", "new_start"}
+)
 _RESIDENT_CONTEXTS = frozenset({"home", "inpatient", "inpatient_history"})
 _ANSWER_KEYS = frozenset(
     {
@@ -70,12 +80,71 @@ def reference_discharge_plan(session: Session, case: ClinicalCase) -> dict[str, 
     plans = list_plans_for_case(session, case.id)
     rows = list_medications_for_case(session, case.id)
     by_ref = _rows_by_reference(rows)
+    diagnosis_names = [item.diagnosis for item in _diagnoses(session, case) if item.diagnosis]
+    creatinine, creatinine_unit = _named_lab(session, case, "creatinine")
+    potassium, potassium_unit = _named_lab(session, case, "potassium")
+    peptide, peptide_unit = _named_lab(session, case, "natriuretic")
+    systolic = _named_systolic(session, case)
+    heart_rate = _named_heart_rate(session, case)
+    monitoring = [
+        {
+            "parameter": item.parameter,
+            "frequency": item.frequency,
+            "target": item.target,
+            "duration": item.duration,
+        }
+        for item in list_monitoring_for_case(session, case.id)
+    ]
+    visible = _resident_visible_text(session, case)
+    allergies = documented_allergies([visible])
+    names = [plan.drug or "" for plan in plans]
     medications: list[dict[str, Any]] = []
     to_stop: list[str] = []
     for plan in plans:
-        action = _ACTION_FOR_DECISION.get(plan.decision or "", plan.decision or "")
+        action = public_action(plan.decision)
         source = _source_row(plan, by_ref)
         name = plan.drug or (None if source is None else source.drug) or ""
+        explained = _explain_plan(
+            name,
+            plan.decision,
+            diagnosis_names,
+            creatinine=creatinine,
+            creatinine_unit=creatinine_unit,
+            potassium=potassium,
+            potassium_unit=potassium_unit,
+            systolic_bp=systolic,
+            natriuretic_peptide=peptide,
+            natriuretic_unit=peptide_unit,
+            heart_rate=heart_rate,
+            dose=None if source is None else source.dose,
+            route=None if source is None else source.route,
+            frequency=None if source is None else source.frequency,
+            visible_reason=None if source is None else source.held_reason,
+            course_text=_hospital_course(session, case),
+            rule_codes=_allow_rule_codes(session, plan.ref_medication_id),
+        )
+        trace = evidence_trace(explained)
+        evidence_class = explained.evidence_class
+        if explained.include and trace["discharge_action"] != action:
+            evidence_class = CLINICALLY_INCONSISTENT
+        elif not explained.include and action not in {"", "omit"}:
+            evidence_class = explained.evidence_class
+        problems = consistency_errors(
+            medication=name,
+            action=action,
+            indication=None if source is None else source.indication,
+            diagnosis_names=diagnosis_names,
+            admission_diagnosis=case.admission_dx,
+            monitoring_parameters=[str(item.get("parameter") or "") for item in monitoring],
+            medication_names=names,
+            allergies=allergies,
+            visible_text=visible,
+            temporal_role=_temporal_role(name),
+        )
+        if problems and evidence_class == "SUFFICIENT_EVIDENCE":
+            evidence_class = CLINICALLY_INCONSISTENT
+        trace["evidence_class"] = evidence_class
+        trace["discharge_action"] = action
         entry = {
             "medication": name,
             "action": action,
@@ -86,6 +155,10 @@ def reference_discharge_plan(session: Session, case: ClinicalCase) -> dict[str, 
             "indication": None if source is None else source.indication,
             "rationale": plan.decision_reason,
             "required": action in _REQUIRED_ACTIONS,
+            "evidence_class": evidence_class,
+            "supporting_evidence": evidence_payload(explained),
+            "evidence_trace": trace,
+            "consistency_errors": problems,
         }
         medications.append(entry)
         if action == "stop" and name:
@@ -95,15 +168,7 @@ def reference_discharge_plan(session: Session, case: ClinicalCase) -> dict[str, 
         "medications_to_stop": to_stop,
         "acceptable_alternatives": [],
         "contraindications": [],
-        "monitoring_requirements": [
-            {
-                "parameter": item.parameter,
-                "frequency": item.frequency,
-                "target": item.target,
-                "duration": item.duration,
-            }
-            for item in list_monitoring_for_case(session, case.id)
-        ],
+        "monitoring_requirements": monitoring,
         "follow_up_requirements": [
             {"item": item.item, "timing": item.timing, "with_service": item.with_service}
             for item in list_followups_for_case(session, case.id)
@@ -214,10 +279,10 @@ def reference_plan_errors(session: Session, case: ClinicalCase) -> list[str]:
     rows = list_medications_for_case(session, case.id)
     by_ref = _rows_by_reference(rows)
     for plan in plans:
-        action = _ACTION_FOR_DECISION.get(plan.decision or "")
-        if action is None:
+        if plan.decision not in _STORED_DECISIONS:
             errors.append(f"reference plan {plan.drug or plan.plan_id} has no supported decision")
             continue
+        action = public_action(plan.decision)
         if not plan.decision_reason:
             errors.append(f"reference plan {plan.drug or plan.plan_id} has no rationale")
         if action not in _REQUIRED_ACTIONS:
@@ -306,6 +371,170 @@ def _plain_number(value: Decimal | float | None) -> float | None:
     if value is None:
         return None
     return float(value)
+
+
+def _explain_plan(
+    name: str,
+    stored_decision: str | None,
+    diagnosis_names: list[str],
+    *,
+    creatinine: float | None,
+    creatinine_unit: str | None,
+    potassium: float | None,
+    potassium_unit: str | None,
+    systolic_bp: int | None,
+    natriuretic_peptide: float | None,
+    natriuretic_unit: str | None,
+    heart_rate: int | None,
+    dose: str | None,
+    route: str | None,
+    frequency: str | None,
+    visible_reason: str | None,
+    course_text: str,
+    rule_codes: list[str],
+) -> Any:
+    if stored_decision == "new_start":
+        return justify_hospital_start(
+            name, diagnosis_names, dose=dose, route=route, frequency=frequency
+        )
+    if stored_decision == "stop":
+        return justify_visible_stop(
+            name,
+            diagnosis_names,
+            visible_reason=visible_reason,
+            dose=dose,
+            route=route,
+            frequency=frequency,
+        )
+    if stored_decision == "dose_change":
+        return consider_source_backed_change(
+            name,
+            indication=diagnosis_names[0] if diagnosis_names else None,
+            evidence_text=course_text,
+        )
+    return justify_home_medication(
+        name,
+        diagnosis_names,
+        creatinine=creatinine,
+        creatinine_unit=creatinine_unit,
+        potassium=potassium,
+        potassium_unit=potassium_unit,
+        systolic_bp=systolic_bp,
+        natriuretic_peptide=natriuretic_peptide,
+        natriuretic_unit=natriuretic_unit,
+        heart_rate=heart_rate,
+        dose=dose,
+        route=route,
+        frequency=frequency,
+        rule_codes=rule_codes,
+    )
+
+
+def _hospital_course(session: Session, case: ClinicalCase) -> str:
+    notes = session.scalars(
+        select(CaseNote).where(
+            CaseNote.case_id == case.id,
+            CaseNote.note_type == "hospital_course",
+        )
+    ).all()
+    return "\n".join(note.note_text or "" for note in notes)
+
+
+def _allow_rule_codes(session: Session, ref_medication_id: Any) -> list[str]:
+    if ref_medication_id is None:
+        return []
+    medication = session.get(RefMedication, ref_medication_id)
+    if medication is None:
+        return []
+    codes: list[str] = []
+    for rule in list_enabled_rules(session):
+        constraint = rule.constraint_json if isinstance(rule.constraint_json, dict) else {}
+        if str(constraint.get("action") or "") != "allow_with_diagnosis":
+            continue
+        if rule.input_rxcui and rule.input_rxcui == medication.rxcui:
+            codes.append(rule.rule_code)
+    return codes
+
+
+def _diagnoses(session: Session, case: ClinicalCase) -> list[CaseDiagnosis]:
+    return list(
+        session.scalars(select(CaseDiagnosis).where(CaseDiagnosis.case_id == case.id)).all()
+    )
+
+
+def _named_lab(
+    session: Session, case: ClinicalCase, needle: str
+) -> tuple[float | None, str | None]:
+    rows = list(session.scalars(select(CaseLab).where(CaseLab.case_id == case.id)).all())
+    matches = [
+        row
+        for row in rows
+        if needle in (row.test_name or "").casefold() and row.value is not None
+    ]
+    discharge = [row for row in matches if row.timepoint == "discharge"]
+    chosen = discharge[-1] if discharge else (matches[-1] if matches else None)
+    if chosen is None or chosen.value is None:
+        return None, None
+    return float(chosen.value), chosen.unit
+
+
+def _named_systolic(session: Session, case: ClinicalCase) -> int | None:
+    rows = list(session.scalars(select(CaseVital).where(CaseVital.case_id == case.id)).all())
+    discharge = [row for row in rows if row.timepoint == "discharge" and row.bp_systolic]
+    chosen = discharge[-1] if discharge else None
+    if chosen is None:
+        admitted = [row for row in rows if row.bp_systolic]
+        chosen = admitted[-1] if admitted else None
+    systolic = None if chosen is None else chosen.bp_systolic
+    return None if systolic is None else int(systolic)
+
+
+def _named_heart_rate(session: Session, case: ClinicalCase) -> int | None:
+    rows = list(session.scalars(select(CaseVital).where(CaseVital.case_id == case.id)).all())
+    discharge = [row for row in rows if row.timepoint == "discharge" and row.heart_rate is not None]
+    chosen = discharge[-1] if discharge else None
+    if chosen is None:
+        admitted = [row for row in rows if row.heart_rate is not None]
+        chosen = admitted[-1] if admitted else None
+    rate = None if chosen is None else chosen.heart_rate
+    return None if rate is None else int(rate)
+
+
+def _resident_visible_text(session: Session, case: ClinicalCase) -> str:
+    parts = [
+        case.chief_complaint or "",
+        case.one_liner or "",
+        case.admission_dx or "",
+    ]
+    presentation = session.scalar(
+        select(CasePresentation).where(CasePresentation.case_id == case.id)
+    )
+    if presentation is not None:
+        parts.extend([presentation.hpi or "", presentation.chief_complaint or ""])
+    for note in session.scalars(select(CaseNote).where(CaseNote.case_id == case.id)):
+        parts.append(note.note_text or "")
+    for item in list_medications_for_case(session, case.id):
+        if item.context not in _RESIDENT_CONTEXTS:
+            continue
+        parts.extend(
+            [
+                item.drug or "",
+                item.indication or "",
+                item.held_reason or "",
+                item.notes or "",
+            ]
+        )
+    for instruction in list_instructions_for_case(session, case.id):
+        text = instruction.instruction_text or ""
+        if _LISTED_DISCHARGE_INSTRUCTION in text.casefold():
+            continue
+        parts.append(text)
+    return "\n".join(parts)
+
+
+def _temporal_role(name: str) -> str | None:
+    regimen = regimen_for_text(name)
+    return None if regimen is None else regimen.temporal_role
 
 
 def _medication_fact(item: CaseMedication) -> dict[str, Any]:

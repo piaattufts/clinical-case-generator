@@ -1,6 +1,6 @@
 {
   "version": "4",
-  "description": "Inpatient medication-reconciliation scenario families with named clinical profiles. Concepts are selected from local source-backed reference rows. Error categories are canonical CliniProof IDs only. Profiles create clean-case diversity before error injection.",
+  "description": "Inpatient medication-reconciliation scenario families with named clinical profiles. Concepts are selected from local source-backed reference rows. Error categories are canonical CliniProof IDs only. Profiles describe clinical state: diagnoses, candidate medicines, labs, and hospital events. stop_medication_queries and hospital_only_medication_queries are deprecated as discharge answers and are not the clean-path source of truth. Error injection still reads them.",
   "scenarios": [
     {
       "code": "HF_INPATIENT",

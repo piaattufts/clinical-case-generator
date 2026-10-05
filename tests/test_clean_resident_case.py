@@ -48,7 +48,13 @@ def test_clean_case_has_no_injected_error_and_hides_the_reference(db_session: Se
         "start",
         "stop",
         "change",
+        "hold",
+        "restart",
     }
+    assert "evidence_trace" not in resident
+    assert all("evidence_trace" not in item for item in resident["medications"])
+    classes = {item.get("evidence_class") for item in reference["medications"]}
+    assert classes == {"SUFFICIENT_EVIDENCE"}
     assert evaluator["reference_discharge_plan"] == reference
     assert evaluator["medications"] == resident["medications"]
 

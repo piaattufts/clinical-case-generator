@@ -102,6 +102,13 @@ from app.services.error_taxonomy import (
     require_eligible,
     resolve_requested_category,
 )
+from app.services.medication_decisions import (
+    consider_source_backed_change,
+    justify_home_medication,
+    justify_hospital_start,
+    justify_visible_stop,
+    visible_stop_reason,
+)
 from app.services.medication_regimens import (
     administration_for,
     regimen_for_medication,
@@ -133,7 +140,11 @@ class Scenario:
     medication_queries: list[str]
     anticoagulant_mutex_queries: list[str]
     lab_queries: list[str]
+    # Deprecated as a discharge answer. The clean pipeline does not stop a
+    # medicine because its name is in this list. Error injection still reads it.
     stop_medication_queries: list[str] = field(default_factory=list)
+    # Deprecated as a discharge answer. A hospital medicine is discharged only
+    # when a visible indication supports it. Error injection still reads it.
     hospital_only_medication_queries: list[str] = field(default_factory=list)
     allowed_error_categories: list[str] = field(default_factory=list)
     default_frequency: str = "once daily"
@@ -156,8 +167,11 @@ class ClinicalProfile:
     medication_optional_queries: list[str] = field(default_factory=list)
     optional_include: list[str] = field(default_factory=list)
     anticoagulant: str | None = None
+    # Deprecated as a discharge answer on the clean path. See Scenario.
     stop_medication_queries: list[str] = field(default_factory=list)
+    # Deprecated as a discharge answer on the clean path. See Scenario.
     hospital_only_medication_queries: list[str] = field(default_factory=list)
+    adverse_events: list[dict[str, str]] = field(default_factory=list)
     lab_queries: list[str] = field(default_factory=list)
     hospital_course_pattern: str = "day1_io_ready_home"
     disposition: str = "home"
@@ -302,7 +316,11 @@ HOSPITAL_COURSE_TEXT = {
 
 
 def default_profile(scenario: Scenario) -> ClinicalProfile:
-    """Family-level profile used when a batch assignment does not name a variant."""
+    """Family-level profile used when a batch assignment does not name a variant.
+
+    Medication lists on this profile are candidates. The clean discharge action
+    is chosen later from diagnoses, labs, vitals, and hospital events.
+    """
     return ClinicalProfile(
         code="default",
         symptom_queries=list(scenario.symptom_queries),
@@ -351,6 +369,7 @@ def _load_profiles(item: dict[str, Any]) -> list[ClinicalProfile]:
                 hospital_only_medication_queries=_str_list(
                     row.get("hospital_only_medication_queries")
                 ),
+                adverse_events=_dict_list(row.get("adverse_events")),
                 lab_queries=_str_list(row.get("lab_queries")),
                 hospital_course_pattern=str(
                     row.get("hospital_course_pattern") or "day1_io_ready_home"
@@ -575,6 +594,7 @@ def generate_one_case(
         rng,
         profile=profile,
         force_warfarin=inject_error and preferred_error == F2_MONITORING,
+        allow_random_anticoagulant=inject_error,
     )
     stop_queries = (
         list(profile.stop_medication_queries)
@@ -609,7 +629,10 @@ def generate_one_case(
             ",".join(hospital_only_queries) or preferred_error,
             "f2_hospital_only_continued requires a source-backed inpatient-only medication",
         )
-    labs = _select_labs(session, profile.lab_queries or scenario.lab_queries)
+    lab_queries = list(profile.lab_queries or scenario.lab_queries)
+    if not inject_error and not any(_is_warfarin(item) for item in medications):
+        lab_queries = [query for query in lab_queries if "inr" not in query.casefold()]
+    labs = _select_labs(session, lab_queries)
     if inject_error and preferred_error == F2_MONITORING:
         _require_warfarin_and_inr(medications, labs)
     comorbidities = _select_comorbidities(
@@ -742,7 +765,8 @@ def generate_one_case(
     home_meds, started_meds = _partition_temporal(medications, profile)
     med_names = [_med_label(item) for item in home_meds]
     started_names = [_med_label(item) for item in started_meds]
-    stopped_names = [_med_label(item) for item in stop_medications]
+    # Clean charts do not narrate a stop that the decision layer has not justified.
+    stopped_names = [_med_label(item) for item in stop_medications] if inject_error else []
     hospital_names = [_med_label(item) for item in hospital_only]
     hold_name = _med_label(hold_restart) if hold_restart is not None else None
     context_note = " ".join(
@@ -1043,70 +1067,45 @@ def generate_one_case(
             continued_for_sub = [
                 item for item in continued_for_sub if item.rxcui != pending_hold.rxcui
             ]
-    for medication in continued_for_sub:
-        _add_continued_medication(
+    if inject_error:
+        _write_profile_listed_medications(
             session,
             case=case,
             ids=ids,
-            medication=medication,
-            indication=_indication_for(session, medication, problems),
-            frequency=scenario.default_frequency,
-            quantity_or_days=None if supply_days is None else f"{supply_days} days",
-            verification_source=profile.bpmh_source,
-            temporal_overrides=profile.medication_temporal_roles,
+            profile=profile,
+            scenario=scenario,
+            problems=problems,
+            continued_for_sub=continued_for_sub,
+            pending_hold=pending_hold,
+            hold_restart=hold_restart,
+            substitution_pair=substitution_pair,
+            preferred_error=preferred_error,
+            stop_medications=stop_medications,
+            hospital_only=hospital_only,
+            supply_days=supply_days,
         )
-    if pending_hold is not None:
-        _add_pending_hold_medication(
+    else:
+        # stop_medication_queries are not discharge answers on the clean path.
+        decisions = _write_evidence_based_medications(
             session,
             case=case,
             ids=ids,
-            medication=pending_hold,
-            indication=_indication_for(session, pending_hold, problems),
-            frequency=scenario.default_frequency,
-            verification_source=profile.bpmh_source,
-        )
-    if hold_restart is not None:
-        _add_held_restart_medication(
-            session,
-            case=case,
-            ids=ids,
-            medication=hold_restart,
-            indication=_indication_for(session, hold_restart, problems),
-            frequency=scenario.default_frequency,
-            held_reason=profile.hold_reason,
-            restart_plan=profile.restart_plan,
-            verification_source=profile.bpmh_source,
-        )
-    if substitution_pair is not None and preferred_error == F2_INPATIENT_SUB:
-        _add_inpatient_substitution(
-            session,
-            case=case,
-            ids=ids,
-            home_medication=substitution_pair[0],
-            substitute=substitution_pair[1],
-            class_id=substitution_pair[2],
-            class_name=substitution_pair[3],
-            indication=_indication_for(session, substitution_pair[0], problems),
+            profile=profile,
+            problems=problems,
+            candidates=continued_for_sub,
+            hospital_started=hospital_only,
+            stop_candidates=[] if inject_error else stop_medications,
             frequency=scenario.default_frequency,
         )
-    for medication in stop_medications:
-        _add_stopped_medication(
+        _realign_clean_narrative(
             session,
-            case=case,
-            ids=ids,
-            medication=medication,
-            indication=_indication_for(session, medication, problems),
-            frequency=scenario.default_frequency,
-            verification_source=profile.bpmh_source,
-        )
-    for medication in hospital_only:
-        _add_hospital_only_medication(
-            session,
-            case=case,
-            ids=ids,
-            medication=medication,
-            indication=_indication_for(session, medication, problems),
-            frequency=scenario.default_frequency,
+            case,
+            age=age,
+            sex=sex,
+            diagnosis=display_diagnosis,
+            symptoms=symptom_names,
+            profile=profile,
+            decisions=decisions,
         )
     session.add(
         CaseMedicationReconciliation(
@@ -1368,6 +1367,579 @@ def _select_stop_medications(
         selected.append(row)
     selected.sort(key=lambda item: item.rxcui)
     return selected
+
+
+def _write_profile_listed_medications(
+    session: Session,
+    *,
+    case: ClinicalCase,
+    ids: _IdCounter,
+    profile: ClinicalProfile,
+    scenario: Scenario,
+    problems: list[RefDiagnosis],
+    continued_for_sub: list[RefMedication],
+    pending_hold: RefMedication | None,
+    hold_restart: RefMedication | None,
+    substitution_pair: tuple[RefMedication, RefMedication, str, str] | None,
+    preferred_error: str,
+    stop_medications: list[RefMedication],
+    hospital_only: list[RefMedication],
+    supply_days: int | None,
+) -> None:
+    """Historical error-injection path. List membership still selects the planted chart."""
+    for medication in continued_for_sub:
+        _add_continued_medication(
+            session,
+            case=case,
+            ids=ids,
+            medication=medication,
+            indication=_indication_for(session, medication, problems),
+            frequency=scenario.default_frequency,
+            quantity_or_days=None if supply_days is None else f"{supply_days} days",
+            verification_source=profile.bpmh_source,
+            temporal_overrides=profile.medication_temporal_roles,
+        )
+    if pending_hold is not None:
+        _add_pending_hold_medication(
+            session,
+            case=case,
+            ids=ids,
+            medication=pending_hold,
+            indication=_indication_for(session, pending_hold, problems),
+            frequency=scenario.default_frequency,
+            verification_source=profile.bpmh_source,
+        )
+    if hold_restart is not None:
+        _add_held_restart_medication(
+            session,
+            case=case,
+            ids=ids,
+            medication=hold_restart,
+            indication=_indication_for(session, hold_restart, problems),
+            frequency=scenario.default_frequency,
+            held_reason=profile.hold_reason,
+            restart_plan=profile.restart_plan,
+            verification_source=profile.bpmh_source,
+        )
+    if substitution_pair is not None and preferred_error == F2_INPATIENT_SUB:
+        _add_inpatient_substitution(
+            session,
+            case=case,
+            ids=ids,
+            home_medication=substitution_pair[0],
+            substitute=substitution_pair[1],
+            class_id=substitution_pair[2],
+            class_name=substitution_pair[3],
+            indication=_indication_for(session, substitution_pair[0], problems),
+            frequency=scenario.default_frequency,
+        )
+    for medication in stop_medications:
+        _add_stopped_medication(
+            session,
+            case=case,
+            ids=ids,
+            medication=medication,
+            indication=_indication_for(session, medication, problems),
+            frequency=scenario.default_frequency,
+            verification_source=profile.bpmh_source,
+        )
+    for medication in hospital_only:
+        _add_hospital_only_medication(
+            session,
+            case=case,
+            ids=ids,
+            medication=medication,
+            indication=_indication_for(session, medication, problems),
+            frequency=scenario.default_frequency,
+        )
+
+
+_CHANGE_COURSE_PATTERNS = frozenset({"diuretic_dose_adjustment", "medication_adjustment"})
+
+
+def _write_evidence_based_medications(
+    session: Session,
+    *,
+    case: ClinicalCase,
+    ids: _IdCounter,
+    profile: ClinicalProfile,
+    problems: list[RefDiagnosis],
+    candidates: list[RefMedication],
+    hospital_started: list[RefMedication],
+    stop_candidates: list[RefMedication],
+    frequency: str,
+) -> list[Any]:
+    """Clean-path writer. Omits a medicine the decision layer cannot justify."""
+    from app.services.medication_decisions import MedicationDecision
+
+    names = [item.preferred_name or item.icd10cm_code or "" for item in problems]
+    creatinine, creatinine_unit = _chart_lab(session, case, "creatinine")
+    potassium, potassium_unit = _chart_lab(session, case, "potassium")
+    peptide, peptide_unit = _chart_lab(session, case, "natriuretic")
+    systolic = _chart_systolic(session, case)
+    heart_rate = _chart_heart_rate(session, case)
+    course = _hospital_course_text(profile.hospital_course_pattern)
+    kept: list[MedicationDecision] = []
+    for medication in candidates:
+        admin = administration_for(
+            medication,
+            fallback_frequency=frequency,
+            overrides=profile.medication_temporal_roles,
+        )
+        label = _med_label(medication)
+        if admin.temporal_role == "started_inpatient":
+            decision = justify_hospital_start(
+                label,
+                names,
+                dose=admin.dose,
+                route=admin.route,
+                frequency=admin.frequency,
+            )
+        elif admin.temporal_role == "hospital_only":
+            decision = justify_visible_stop(
+                label,
+                names,
+                visible_reason=admin.chart_note,
+                dose=admin.dose,
+                route=admin.route,
+                frequency=admin.frequency,
+            )
+        else:
+            decision = justify_home_medication(
+                label,
+                names,
+                creatinine=creatinine,
+                creatinine_unit=creatinine_unit,
+                potassium=potassium,
+                potassium_unit=potassium_unit,
+                systolic_bp=systolic,
+                natriuretic_peptide=peptide,
+                natriuretic_unit=peptide_unit,
+                heart_rate=heart_rate,
+                dose=admin.dose,
+                route=admin.route,
+                frequency=admin.frequency,
+                rule_codes=_allow_rule_codes(session, medication),
+            )
+            if (
+                decision.include
+                and decision.action == "continue"
+                and profile.hospital_course_pattern in _CHANGE_COURSE_PATTERNS
+            ):
+                changed = consider_source_backed_change(
+                    label,
+                    indication=decision.indication,
+                    evidence_text=course,
+                )
+                if changed.include:
+                    decision = changed
+        if _persist_justified(session, case, ids, medication, decision, profile.bpmh_source):
+            kept.append(decision)
+    for medication in hospital_started:
+        admin = administration_for(medication, fallback_frequency=frequency)
+        label = _med_label(medication)
+        if admin.temporal_role == "hospital_only":
+            decision = justify_visible_stop(
+                label,
+                names,
+                visible_reason=admin.chart_note,
+                dose=admin.dose,
+                route=admin.route,
+                frequency=admin.frequency,
+            )
+        else:
+            decision = justify_hospital_start(
+                label,
+                names,
+                dose=admin.dose,
+                route=admin.route,
+                frequency=admin.frequency,
+            )
+        if _persist_justified(session, case, ids, medication, decision, profile.bpmh_source):
+            kept.append(decision)
+    for medication in stop_candidates:
+        admin = administration_for(medication, fallback_frequency=frequency)
+        label = _med_label(medication)
+        decision = justify_visible_stop(
+            label,
+            names,
+            visible_reason=visible_stop_reason(
+                label,
+                course_text=course,
+                adverse_events=profile.adverse_events,
+            ),
+            dose=admin.dose,
+            route=admin.route,
+            frequency=admin.frequency,
+        )
+        if _persist_justified(session, case, ids, medication, decision, profile.bpmh_source):
+            kept.append(decision)
+    return kept
+
+
+def _allow_rule_codes(session: Session, medication: RefMedication) -> list[str]:
+    """Enabled allow-with-diagnosis rules for this medicine. They do not set the action."""
+    codes: list[str] = []
+    for rule in list_enabled_rules(session):
+        constraint = rule.constraint_json if isinstance(rule.constraint_json, dict) else {}
+        if str(constraint.get("action") or "") != "allow_with_diagnosis":
+            continue
+        if rule.input_rxcui and rule.input_rxcui == medication.rxcui:
+            codes.append(rule.rule_code)
+    return codes
+
+
+def _persist_justified(
+    session: Session,
+    case: ClinicalCase,
+    ids: _IdCounter,
+    medication: RefMedication,
+    decision: Any,
+    verification_source: str,
+) -> bool:
+    if not decision.include:
+        return False
+    label = decision.medication
+    if decision.action == "stop":
+        _add_evidence_stop(
+            session,
+            case=case,
+            ids=ids,
+            medication=medication,
+            label=label,
+            indication=decision.indication or "",
+            dose=decision.dose or "",
+            route=decision.route,
+            frequency=decision.frequency or "",
+            held_reason=decision.held_reason or decision.rationale,
+            verification_source=verification_source,
+        )
+    elif decision.action == "new_start":
+        _add_started_inpatient_medication(
+            session,
+            case=case,
+            ids=ids,
+            medication=medication,
+            label=label,
+            indication=decision.indication or "",
+            dose=decision.dose or "",
+            route=decision.route,
+            frequency=decision.frequency or "",
+            notes=_started_inpatient_note(None),
+            quantity_or_days=None,
+        )
+    elif decision.action == "hold":
+        _add_held_for_fact(
+            session,
+            case=case,
+            ids=ids,
+            medication=medication,
+            label=label,
+            indication=decision.indication or "",
+            dose=decision.dose or "",
+            route=decision.route,
+            frequency=decision.frequency or "",
+            held_reason=decision.held_reason or decision.rationale,
+            verification_source=verification_source,
+        )
+    else:
+        _add_continued_medication(
+            session,
+            case=case,
+            ids=ids,
+            medication=medication,
+            indication=decision.indication or "",
+            frequency=decision.frequency or "once daily",
+            verification_source=verification_source,
+        )
+    _override_plan_reason(session, case, medication, decision)
+    return True
+
+
+def _add_held_for_fact(
+    session: Session,
+    *,
+    case: ClinicalCase,
+    ids: _IdCounter,
+    medication: RefMedication,
+    label: str,
+    indication: str,
+    dose: str,
+    route: str | None,
+    frequency: str,
+    held_reason: str,
+    verification_source: str,
+) -> None:
+    session.add(
+        _medication_row(
+            case=case,
+            ids=ids,
+            medication=medication,
+            label=label,
+            context="home",
+            status="home",
+            dose=dose,
+            route=route,
+            frequency=frequency,
+            indication=indication,
+            held_reason=None,
+            verification_source=verification_source,
+        )
+    )
+    for context, status in (("inpatient", "held"), ("discharge", "held")):
+        session.add(
+            _medication_row(
+                case=case,
+                ids=ids,
+                medication=medication,
+                label=label,
+                context=context,
+                status=status,
+                dose=dose,
+                route=route,
+                frequency=frequency,
+                indication=indication,
+                held_reason=held_reason,
+                verification_source=verification_source,
+            )
+        )
+    session.add(
+        CaseMedicationPlan(
+            plan_id=ids.next_id("plan"),
+            case_id=case.id,
+            ref_medication_id=medication.id,
+            drug=label,
+            home_state="continue",
+            inpatient_state="held",
+            correct_discharge_state="hold",
+            decision="hold",
+            decision_reason=held_reason,
+            is_error_target=False,
+        )
+    )
+
+
+def _add_evidence_stop(
+    session: Session,
+    *,
+    case: ClinicalCase,
+    ids: _IdCounter,
+    medication: RefMedication,
+    label: str,
+    indication: str,
+    dose: str,
+    route: str | None,
+    frequency: str,
+    held_reason: str,
+    verification_source: str,
+) -> None:
+    """Chart a stop from a visible clinical fact. Do not state the discharge answer."""
+    session.add(
+        _medication_row(
+            case=case,
+            ids=ids,
+            medication=medication,
+            label=label,
+            context="home",
+            status="home",
+            dose=dose,
+            route=route,
+            frequency=frequency,
+            indication=indication,
+            held_reason=None,
+            verification_source=verification_source,
+        )
+    )
+    session.add(
+        _medication_row(
+            case=case,
+            ids=ids,
+            medication=medication,
+            label=label,
+            context="inpatient",
+            status="held",
+            dose=dose,
+            route=route,
+            frequency=frequency,
+            indication=indication,
+            held_reason=held_reason,
+            verification_source=verification_source,
+        )
+    )
+    session.add(
+        _medication_row(
+            case=case,
+            ids=ids,
+            medication=medication,
+            label=label,
+            context="discharge",
+            status="discontinued",
+            dose=dose,
+            route=route,
+            frequency=frequency,
+            indication=indication,
+            held_reason=held_reason,
+            verification_source=verification_source,
+        )
+    )
+    session.add(
+        CaseMedicationPlan(
+            plan_id=ids.next_id("plan"),
+            case_id=case.id,
+            ref_medication_id=medication.id,
+            drug=label,
+            home_state="continue",
+            inpatient_state="held",
+            correct_discharge_state="stop",
+            decision="stop",
+            decision_reason=held_reason,
+            is_error_target=False,
+        )
+    )
+
+
+def _apply_discharge_regimen(
+    session: Session,
+    case: ClinicalCase,
+    medication: RefMedication,
+    decision: Any,
+) -> None:
+    """Show the new dose on inpatient and discharge rows. Home keeps the prior dose."""
+    for row in list_medications_for_case(session, case.id):
+        if row.ref_medication_id != medication.id or row.context == "home":
+            continue
+        if decision.dose:
+            row.dose = decision.dose
+        if decision.frequency:
+            row.frequency = decision.frequency
+
+
+def _override_plan_reason(
+    session: Session, case: ClinicalCase, medication: RefMedication, decision: Any
+) -> None:
+    from app.repositories.cases import list_plans_for_case
+
+    matches = [
+        plan
+        for plan in list_plans_for_case(session, case.id)
+        if plan.ref_medication_id == medication.id
+    ]
+    if not matches:
+        return
+    plan = matches[-1]
+    plan.decision_reason = decision.rationale
+    if decision.action == "hold":
+        plan.decision = "hold"
+        plan.correct_discharge_state = "hold"
+    elif decision.action == "new_start":
+        plan.decision = "new_start"
+        plan.correct_discharge_state = "start"
+    elif decision.action == "dose_change":
+        plan.decision = "dose_change"
+        plan.correct_discharge_state = "change"
+        _apply_discharge_regimen(session, case, medication, decision)
+    elif decision.action == "stop":
+        plan.decision = "stop"
+        plan.correct_discharge_state = "stop"
+
+
+def _realign_clean_narrative(
+    session: Session,
+    case: ClinicalCase,
+    *,
+    age: int,
+    sex: str,
+    diagnosis: str,
+    symptoms: list[str],
+    profile: ClinicalProfile,
+    decisions: list[Any],
+) -> None:
+    home = [item.medication for item in decisions if item.action == "continue"]
+    started = [item.medication for item in decisions if item.action == "new_start"]
+    holds = [item for item in decisions if item.action == "hold"]
+    template = _template_narrative(
+        age,
+        sex,
+        diagnosis,
+        symptoms,
+        home,
+        [],
+        duration=profile.symptom_duration,
+        course=profile.symptom_course,
+        hospital_course=_hospital_course_text(profile.hospital_course_pattern),
+        context_note=profile.admission_reason,
+        hold_name=holds[0].medication if holds else None,
+        hold_reason=holds[0].held_reason if holds else None,
+        started=started,
+        hospital_only_names=[],
+    )
+    case.chief_complaint = template.chief_complaint
+    presentation = session.scalar(
+        select(CasePresentation).where(CasePresentation.case_id == case.id)
+    )
+    if presentation is not None:
+        presentation.chief_complaint = template.chief_complaint
+        presentation.hpi = template.hpi
+    admission = session.scalar(
+        select(CaseNote).where(CaseNote.case_id == case.id, CaseNote.note_type == "admission")
+    )
+    if admission is not None:
+        admission.note_text = template.note_text
+
+
+def _chart_lab(
+    session: Session, case: ClinicalCase, needle: str
+) -> tuple[float | None, str | None]:
+    rows = list(session.scalars(select(CaseLab).where(CaseLab.case_id == case.id)).all())
+    matches = [
+        row
+        for row in rows
+        if needle in (row.test_name or "").casefold() and row.value is not None
+    ]
+    discharge = [row for row in matches if row.timepoint == "discharge"]
+    chosen = discharge[-1] if discharge else (matches[-1] if matches else None)
+    if chosen is None or chosen.value is None:
+        return None, None
+    return float(chosen.value), chosen.unit
+
+
+def _chart_systolic(session: Session, case: ClinicalCase) -> int | None:
+    rows = list(session.scalars(select(CaseVital).where(CaseVital.case_id == case.id)).all())
+    discharge = [
+        row for row in rows if row.timepoint == "discharge" and row.bp_systolic is not None
+    ]
+    chosen = discharge[-1] if discharge else None
+    if chosen is None:
+        admitted = [row for row in rows if row.bp_systolic is not None]
+        chosen = admitted[-1] if admitted else None
+    systolic = None if chosen is None else chosen.bp_systolic
+    return None if systolic is None else int(systolic)
+
+
+def _chart_heart_rate(session: Session, case: ClinicalCase) -> int | None:
+    rows = list(session.scalars(select(CaseVital).where(CaseVital.case_id == case.id)).all())
+    discharge = [row for row in rows if row.timepoint == "discharge" and row.heart_rate is not None]
+    chosen = discharge[-1] if discharge else None
+    if chosen is None:
+        admitted = [row for row in rows if row.heart_rate is not None]
+        chosen = admitted[-1] if admitted else None
+    rate = None if chosen is None else chosen.heart_rate
+    return None if rate is None else int(rate)
+
+
+def _profile_has_anticoagulant_indication(profile: ClinicalProfile, scenario: Scenario) -> bool:
+    """Anticoagulant candidates require atrial fibrillation on a diagnosis query."""
+    blob = " ".join(list(profile.comorbidity_queries) + list(scenario.diagnosis_queries))
+    return "fibrillation" in blob.casefold()
+
+
+def _is_warfarin(medication: RefMedication) -> bool:
+    blob = " ".join(
+        part
+        for part in (medication.ingredient, medication.generic_name, medication.concept_name)
+        if part
+    ).casefold()
+    return "warfarin" in blob
 
 
 def _add_continued_medication(
@@ -2092,6 +2664,7 @@ def _select_medications(
     *,
     profile: ClinicalProfile | None = None,
     force_warfarin: bool = False,
+    allow_random_anticoagulant: bool = False,
 ) -> list[RefMedication]:
     selected: list[RefMedication] = []
     seen: set[str] = set()
@@ -2117,7 +2690,14 @@ def _select_medications(
     wanted: str | None = None
     if force_warfarin:
         wanted = "warfarin"
-    elif profile is not None and profile.anticoagulant:
+    elif (
+        profile is not None
+        and profile.anticoagulant
+        and (
+            allow_random_anticoagulant
+            or _profile_has_anticoagulant_indication(profile, scenario)
+        )
+    ):
         wanted = profile.anticoagulant
     if mutex:
         mutex.sort(key=lambda item: item.rxcui)
@@ -2139,11 +2719,13 @@ def _select_medications(
                     "warfarin",
                     "f2_monitoring_not_arranged requires a source-backed warfarin row",
                 )
-        elif (
+        elif allow_random_anticoagulant and (
             profile is None
             or profile.code == "default"
             or not profile.medication_required_queries
         ):
+            # Historical error-injection batches only. Clean cases do not draw
+            # an anticoagulant without an indication on the profile.
             chosen = rng.choice(mutex)
         else:
             chosen = None
@@ -2453,7 +3035,7 @@ def _template_narrative(
     note = (
         f"Admission note for a {age}-year-old {sex} with {diagnosis}. "
         f"Symptoms: {symptom_text} for {duration} ({course}). "
-        f"Medications continued from home: {med_text}."
+        f"Home medications on admission include {med_text}."
         f"{started_sentence}{hospital_sentence}{hold_sentence}{held_sentence}"
         f"{context_sentence}{course_sentence}"
     )
