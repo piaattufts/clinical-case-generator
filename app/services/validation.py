@@ -446,7 +446,42 @@ def _assessment_consistency(
             warnings.append("clean case plan has is_error_target set")
         if case.clean_case is False:
             errors.append("clean case flag is false before injection")
+        from app.services.medication_decisions import plans_use_list_membership, readiness_failure
+        from app.services.resident_case import (
+            reference_discharge_plan,
+            reference_plan_errors,
+            resident_leak_errors,
+        )
+
+        errors.extend(reference_plan_errors(session, case))
+        errors.extend(resident_leak_errors(session, case))
+        # Historical error-injection charts still use list membership. The clean
+        # pipeline replaces those sentences, and only then is evidence required.
+        if not plans_use_list_membership([plan.decision_reason for plan in plans]):
+            for item in reference_discharge_plan(session, case)["medications"]:
+                name = str(item.get("medication") or "")
+                if "test_" in name.casefold():
+                    continue
+                evidence_class = str(item.get("evidence_class") or "")
+                if readiness_failure(evidence_class, pilot=True):
+                    errors.append(f"{name} is {evidence_class}")
+                for problem in item.get("consistency_errors") or []:
+                    errors.append(str(problem))
+            if _inr_without_warfarin(session, case):
+                errors.append("INR monitoring is present without warfarin")
     return LayerResult("assessment", passed=not errors, errors=errors, warnings=warnings)
+
+
+def _inr_without_warfarin(session: Session, case: ClinicalCase) -> bool:
+    names = " ".join(
+        item.drug or "" for item in list_medications_for_case(session, case.id)
+    ).casefold()
+    if "warfarin" in names:
+        return False
+    return any(
+        "inr" in (item.parameter or "").casefold()
+        for item in list_monitoring_for_case(session, case.id)
+    )
 
 
 def _planted_field_changed(

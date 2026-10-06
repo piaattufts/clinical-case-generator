@@ -233,8 +233,14 @@ def generate_synthetic_cases_cmd(
     ] = None,
     inject_error: Annotated[
         bool,
-        typer.Option("--inject-error/--no-inject-error"),
-    ] = True,
+        typer.Option(
+            "--inject-error/--no-inject-error",
+            help=(
+                "Experimental only. Plants one chart discrepancy after the clean "
+                "case is built. The resident task uses a clean case; omit this flag."
+            ),
+        ),
+    ] = False,
     error_category: Annotated[
         str | None,
         typer.Option(

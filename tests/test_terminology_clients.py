@@ -87,13 +87,13 @@ def test_loinc_lookup_and_filtered_search() -> None:
     assert [item.loinc_code for item in hits] == [TEST_LOINC]
 
 
-def test_loinc_search_uses_implicit_code_system_valueset() -> None:
+def test_loinc_search_uses_current_code_system_valueset() -> None:
     seen: list[str] = []
 
     def handler(request: httpx.Request) -> httpx.Response:
         seen.append(str(request.url))
         if request.url.path.endswith("ValueSet/$expand"):
-            assert request.url.params.get("url") == "http://loinc.org?fhir_vs"
+            assert request.url.params.get("url") == "http://loinc.org/vs"
             assert request.url.params.get("filter") == "TEST_lab"
             return httpx.Response(
                 200,
@@ -123,7 +123,7 @@ def test_loinc_search_uses_implicit_code_system_valueset() -> None:
     )
     hits = client.search_by_name("TEST_lab", count=5)
     assert [item.loinc_code for item in hits] == [TEST_LOINC]
-    assert any("ValueSet/$expand" in url and "fhir_vs" in url for url in seen)
+    assert any("ValueSet/$expand" in url and "loinc.org%2Fvs" in url for url in seen)
 
 
 def test_loinc_term_code_shape_excludes_parts_answers_and_groups() -> None:

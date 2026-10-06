@@ -176,6 +176,9 @@ def test_genuinely_distinct_cases_are_not_near_duplicates() -> None:
 def test_same_profile_different_seed_is_duplicate(db_session: Session) -> None:
     _seed_generation_refs(db_session)
     scenario = _test_scenario()
+    # Clean charts do not draw a random anticoagulant. Keep the mutex empty so
+    # the pre-injection chart matches a clean case of the same profile.
+    scenario.anticoagulant_mutex_queries = []
     first = generate_one_case(
         db_session,
         sequence=31,
