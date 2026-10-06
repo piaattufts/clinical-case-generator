@@ -4,13 +4,15 @@
 
 The default case is a clean clinical chart. The resident decides the discharge medication regimen. The intended regimen is a hidden reference discharge plan and is not part of the resident-facing file. Deliberate chart errors are experimental / legacy / optional and not part of the default resident case pipeline.
 
-The recovered 48-case export in `exports/clean_balanced_seed_set/` was not produced by rerunning this pipeline. It was restored from the archived pre-injection snapshots of `CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`. See the root README.
+The recovered 48-case export in `exports/clean_balanced_seed_set/` was not produced by rerunning this pipeline. It was restored from the archived pre-injection snapshots of `CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`. Clinical Revision Cycle 2, described in the root README, then made separate review copies for VAL-801–VAL-824. It did not regenerate cases and did not overwrite the recovered export or the frozen VAL files. VAL-701–VAL-724 were not part of that cycle.
 
 ## Overview
 
 Historical prospective batches were generated as clinically coherent clean cases before any experimental discrepancy was introduced. The two strategies stay separate. Balanced structured generation does not use the resident seed documents. Resident-seed-guided generation does not rebalance itself into the scenario grid.
 
 ## Shared structured pipeline
+
+Historical validation design. Not the current resident-facing study workflow. The numbered steps below describe how the frozen batches were built, including one injected discrepancy on most charts.
 
 1. Select the case-generation strategy.
 2. Select the scenario or archetype and the named clinical profile.

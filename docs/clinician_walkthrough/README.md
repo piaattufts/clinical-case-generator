@@ -11,7 +11,7 @@ The current resident task, described in the [project README](../../README.md), i
 - [Balanced structured case set](../../data/case_sets/balanced/README.md) (CLINIPROOF_BALANCED_V4, VAL-701–VAL-724)
 - [Resident-seed-guided case set](../../data/case_sets/seed_guided/README.md) (CLINIPROOF_SEEDCASES_V3, VAL-801–VAL-824)
 
-Those two overviews are the charts under review. The heart-failure chart below is a separate teaching example, identified as TEACH-001 and TEACH-002.
+Those two overviews are the frozen historical sources. Historical validation design. Not the current resident-facing study workflow. Clinical Revision Cycle 2 review documents for VAL-801–VAL-824 are described in the [project README](../../README.md). The heart-failure chart below is a separate teaching example, identified as TEACH-001 and TEACH-002.
 
 ## 1. What a CliniProof case looks like
 

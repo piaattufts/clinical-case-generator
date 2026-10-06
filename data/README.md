@@ -2,7 +2,7 @@
 
 ## Current resident-facing export
 
-The recovered clean charts for the original 48 slots are in [../exports/clean_balanced_seed_set/](../exports/clean_balanced_seed_set/AUDIT.md). Forty-four are ready for expert review. VAL-709, VAL-711, VAL-714, and VAL-801 are clinically inconsistent and are not validated study cases. Those files were recovered from the frozen sources below. They were not regenerated.
+The recovered clean charts for the original 48 slots are in [../exports/clean_balanced_seed_set/](../exports/clean_balanced_seed_set/AUDIT.md). The recovery audit labels 44 of those files ready for expert review. That label is not clinician approval. VAL-709, VAL-711, VAL-714, and the unrepaired VAL-801 file in that export are clinically inconsistent and are not validated study cases. Those files were recovered from the frozen sources below. They were not regenerated. Clinical Revision Cycle 2, described in the project README, prepares a separate review set for VAL-801–VAL-824 and does not rewrite this export. VAL-701–VAL-724 were not part of that cycle.
 
 ## Frozen source batches
 

@@ -10,8 +10,8 @@ Current status
 - Clean resident/evaluator separation implemented.
 - Default generator produces clean cases only.
 - Original 48-case balanced set recovered from archived clean sources.
-- 44 cases currently ready for clinician review.
-- 4 cases remain clinically inconsistent and are excluded pending resolution.
+- VAL-801–VAL-824 Clinical Revision Cycle 2: 24 cases prepared for clinician review, 0 held, 0 clinically validated.
+- The recovered 48-slot export still labels four charts clinically inconsistent. Cycle 2 does not rewrite that export.
 - Original frozen VAL files remain unchanged.
 ```
 
@@ -24,6 +24,251 @@ The project creates structured inpatient clinical cases for studying discharge m
 The resident receives a clean clinical chart and independently determines the discharge medication regimen. The resident is not asked to find a deliberately planted medication error. The base case does not contain one.
 
 The intended discharge regimen is retained separately as a hidden reference standard for validation and later scoring. A complete scoring engine is not implemented in this repository. Comparison of a resident response with the reference is a study procedure, not a finished product.
+
+## Clinical Revision Cycle 2
+
+The original validation package used a different study design. Some charts were clean controls. Some charts contained one deliberately injected discrepancy. Clinicians were asked whether that planted discrepancy worked. That package tested the error-injection framework. It is not the resident task.
+
+Clinician feedback clarified the intended task:
+
+```text
+clean clinical chart
+        ↓
+resident independently determines discharge medications
+        ↓
+hidden clinician-validated reference plan
+        ↓
+comparison / scoring
+```
+
+The resident should not receive a prewritten discharge medication answer, a planted error, an error label, or the hidden reference plan. Any future AI-generated incorrect recommendation is a later experimental intervention. It is separate from the base clinical case.
+
+### Initial validation design
+
+The first clinician-validation package mixed clean controls with cases that each carried one deliberately introduced medication-reconciliation or transition-of-care discrepancy. That mix was useful for testing the error-injection framework. It did not match the final resident-facing study design.
+
+### Clean-source recovery
+
+The study population was not regenerated. All 48 original VAL cases were recovered from their archived clean, pre-injection source. No cases were reconstructed from seeds. Original seeds, scenarios, and profiles were preserved. Original frozen VAL files were not overwritten.
+
+For VAL-801–VAL-824, those recovered clean cases were then reassessed with the clinician's first-round comments. The recovered files in `exports/clean_balanced_seed_set/` stay as that recovery record. Cycle 2 writes separate review copies.
+
+### Revision Cycle 2
+
+Cycle 2 had two purposes.
+
+1. Revise cases in which the clinician had already identified underlying clinical weaknesses.
+2. Pre-audit the remaining recovered clean cases for obvious structural or clinical inconsistencies before asking the clinician to review them.
+
+### Cycle 2 review groups
+
+There are two clinician-review packages. They are not merged.
+
+#### A. Revised cases
+
+Six cases were substantively revised because prior clinician review found weaknesses in the underlying clean clinical scenario, not only in an injected-error layer:
+
+- VAL-801
+- VAL-802
+- VAL-803
+- VAL-805
+- VAL-809
+- VAL-813
+
+Directory: `exports/ko_revised_cases_v1/`
+
+Review document: [exports/ko_revised_cases_v1/KO_REVISED_CASES_REVIEW.docx](exports/ko_revised_cases_v1/KO_REVISED_CASES_REVIEW.docx)
+
+#### B. Clean cases for fresh review
+
+Eighteen recovered clean cases are prepared for fresh review under the corrected study design:
+
+- VAL-804
+- VAL-806
+- VAL-807
+- VAL-808
+- VAL-810
+- VAL-811
+- VAL-812
+- VAL-814
+- VAL-815
+- VAL-816
+- VAL-817
+- VAL-818
+- VAL-819
+- VAL-820
+- VAL-821
+- VAL-822
+- VAL-823
+- VAL-824
+
+Directory: `exports/ko_remaining_clean_cases_v1/`
+
+Review document: [exports/ko_remaining_clean_cases_v1/KO_REMAINING_CLEAN_CASES_REVIEW.docx](exports/ko_remaining_clean_cases_v1/KO_REMAINING_CLEAN_CASES_REVIEW.docx)
+
+The two groups are kept separate for provenance. The first group contains cases that were revised in response to clinician feedback. The second group contains recovered clean cases undergoing fresh review under the corrected study design.
+
+| Cycle 2 status | Count |
+| --- | ---: |
+| Revised after prior clinician feedback | 6 |
+| Clean cases prepared for fresh review | 18 |
+| Total VAL-801–VAL-824 prepared for clinician review | 24 |
+| Currently held before review | 0 |
+| Clinically validated by clinician in Cycle 2 | 0 |
+
+### VAL-801–VAL-824 — Cycle 2 status
+
+- 24 clean cases are prepared for clinician review.
+- 6 were clinically revised in response to first-round clinician feedback.
+- 18 recovered clean cases are prepared for fresh review.
+- 9 of those 18 required narrow pre-review consistency repairs.
+- 0 cases are currently held.
+- All current cases pass structural and internal evidence-sufficiency checks.
+- No Cycle 2 case should be described as clinically validated until clinician review is completed.
+
+`READY_FOR_CLINICIAN_REVIEW` is a workflow status, not clinical approval. The same is true of `READY_FOR_FRESH_REVIEW`, the label on the nine recovered charts that did not need a Cycle 2 rewrite. Automated structural and evidence checks are intended to prevent obvious defects from reaching the clinician. They do not replace clinician validation.
+
+The held audit is [exports/ko_held_cases_v1/AUDIT.md](exports/ko_held_cases_v1/AUDIT.md). It currently records zero held cases. There is no held-case review document.
+
+### Cases revised from first-round clinician feedback
+
+#### VAL-801 — Delirium / dehydration
+
+Delirium is attributed to dehydration from poor intake. Dry mucous membranes and a 20 mmHg orthostatic blood-pressure drop support that account. Glucose improves from 163 to 103 mg/dL with restored intake. Confusion resolves as intake improves. Ibuprofen remains available for knee pain. The unsupported ibuprofen discontinuation was removed. Creatinine remains stable at 1.1 then 1.0 mg/dL.
+
+Reference plan: continue atorvastatin, continue lisinopril, continue metformin, continue ibuprofen.
+
+#### VAL-802 — Delirium / dehydration with renal context
+
+Delirium is attributed to poor intake and dehydration. A creatinine of 1.2 mg/dL six weeks earlier is the renal baseline. Creatinine is 1.3 mg/dL on admission and 1.2 mg/dL at discharge. Potassium is 4.2 then 4.1 mmol/L. Systolic blood pressure is 138 then 124 mmHg. Atorvastatin remains present for hyperlipidemia.
+
+Reference plan: continue lisinopril, continue atorvastatin.
+
+#### VAL-803 — Thiazide-associated hyponatremia
+
+Delirium is attributed to thiazide-associated hyponatremia. Sodium is 128 mmol/L while the patient is taking hydrochlorothiazide. Hydrochlorothiazide is held. Sodium improves to 135 mmol/L and confusion clears. Creatinine is 1.0 then 1.2 mg/dL. Potassium is 4.4 then 4.2 mmol/L. The recovered lisinopril supply remains 30 days.
+
+Reference plan: stop hydrochlorothiazide, continue lisinopril, continue atorvastatin, continue metformin.
+
+#### VAL-805 — Acute systolic heart failure
+
+The chart now has a realistic inpatient decongestion course. Weight changes 86, then 83, then 80 kg. 80 kg is the documented dry weight. Intake and output are net negative on hospital days 1–3. Inpatient furosemide is intravenous 40 mg twice daily, distinct from the home oral regimen. Creatinine improves from 1.7 to 0.9 mg/dL. Potassium improves from 4.7 to 4.3 mmol/L. Natriuretic peptide improves from 1120 to 369 pg/mL. Discharge systolic blood pressure is 110 mmHg, heart rate is 69, and oxygen saturation is 98 percent. Ejection fraction is 30 percent.
+
+Current reference plan: continue oral furosemide 40 mg daily, continue metoprolol succinate 25 mg daily, continue atorvastatin. A low-dose ACE inhibitor, ARB, or SGLT2 inhibitor is recorded as an acceptable alternative, not as a required reference medication.
+
+Cycle 2 clinician review specifically asks whether additional HFrEF therapies should be considered required versus acceptable alternatives.
+
+#### VAL-809 — Infective endocarditis
+
+The chart now includes fever of 38.6°C, heart rate 104, a recent dental extraction, a new murmur, viridans group streptococcus, and a documented vegetation. Later cultures show no growth and the fever resolves. Creatinine improves from 1.3 to 1.0 to 0.8 mg/dL. The prior baseline is 0.8 mg/dL. Lisinopril is held during the creatinine elevation. Discharge systolic blood pressure is 118 mmHg.
+
+Reference plan: start ceftriaxone 2 g intravenously daily for four weeks, restart lisinopril, continue atorvastatin.
+
+#### VAL-813 — Transplant / CMV
+
+The patient presents with diarrhea while taking tacrolimus and mycophenolate. Valganciclovir is no longer a home medication. CMV viral load is detected after admission, and valganciclovir 900 mg twice daily begins after that detection. Creatinine is 1.2 then 1.0 mg/dL. The transplant/CMV scenario was retained rather than replaced.
+
+Reference plan: start valganciclovir, continue tacrolimus, continue mycophenolate, continue amlodipine, continue atorvastatin.
+
+Cycle 2 clinician review explicitly asks whether continuing mycophenolate at discharge is appropriate in the presented CMV and transplant context.
+
+### Pre-review consistency repair
+
+The first Cycle 2 precheck found nine recovered clean cases that should not go to clinicians until obvious inconsistencies were corrected:
+
+- VAL-806
+- VAL-807
+- VAL-808
+- VAL-814
+- VAL-815
+- VAL-816
+- VAL-817
+- VAL-820
+- VAL-821
+
+These cases were not regenerated. Each repair is a traceable copy of the recovered clean source. The copies that passed the evidence audit are in the fresh-review package. None of the nine remains held.
+
+**VAL-806.** No prior creatinine existed in the source data. The restart instruction that depended on a hidden baseline was removed. Visible data are creatinine 2.8 then 1.6 mg/dL, potassium 4.5 mmol/L, and systolic pressure 116 mmHg. The reference changed from restart lisinopril to hold lisinopril.
+
+**VAL-807.** The potassium-repletion claim was removed because no potassium product existed in the medication data. The measured potassium, 3.5 then 3.8 mmol/L, remains. The answer-revealing “intended outpatient diuretic dose” wording was removed.
+
+**VAL-808.** Answer-revealing “intended regimen” wording was removed. Inpatient furosemide is intravenous 40 mg twice daily. The home dose remains oral 40 mg daily. Four days of negative fluid balance are in the chart. Weight reaches the documented dry weight, from 94 kg to 86 kg. The hidden reference uses oral furosemide 40 mg twice daily. Returning to once-daily oral furosemide is an acceptable alternative.
+
+**VAL-814.** Valganciclovir was removed from the home list. Treatment begins after the in-hospital viral-load result. The inpatient dose is renal-adjusted: 450 mg once daily while creatinine is 2.5 mg/dL, then 450 mg twice daily at creatinine 1.6 mg/dL. The direct mycophenolate restart instruction was removed. The reference starts valganciclovir and restarts mycophenolate. A continued mycophenolate hold is an acceptable alternative.
+
+**VAL-815.** The unsupported tacrolimus dose-adjustment narrative was removed. Home and inpatient tacrolimus remain 1 mg every 12 hours. The admission is framed as established CMV disease already treated with valganciclovir.
+
+**VAL-816.** The admission is framed as established CMV disease already under treatment. The answer-like pending-decision instruction was removed. Infectious-disease follow-up is the review context instead.
+
+**VAL-817.** Implementation wording such as “in this profile” was removed. The enoxaparin narrative was removed because enoxaparin was not in the source medication record. INR remains 2.6 on warfarin.
+
+**VAL-820.** The enoxaparin indication is inpatient VTE prophylaxis. Warfarin remains the medication associated with atrial fibrillation. INR is 3.2 then 2.0.
+
+Review whether pharmacologic VTE prophylaxis with enoxaparin is clinically appropriate in the presence of concurrent warfarin therapy and the documented INR values.
+
+**VAL-821.** The direct instruction to resume apixaban was removed. The resident sees the gastrointestinal bleed, hemoglobin 8.7 then 10.9 g/dL, atrial fibrillation, creatinine 1.2 mg/dL, and gastroenterology follow-up in seven days. The hidden reference recommends restarting apixaban. A continued hold until gastroenterology review is an acceptable alternative.
+
+### Repair principle
+
+Revision Cycle 2 did not preserve an existing reference answer at all costs. When an existing medication decision could not be supported by resident-visible evidence, either the clinical representation or the hidden reference decision was corrected. Clinical facts determine the reference plan. Facts are not invented merely to justify a pre-existing answer.
+
+```text
+clinical facts
+    ↓
+hospital course / labs / treatment response
+    ↓
+medication decision
+    ↓
+hidden reference plan
+```
+
+### Evidence-sufficiency audit
+
+Every reference medication decision is checked against information visible in the resident chart.
+
+Current internal evidence classifications are `SUFFICIENT_EVIDENCE`, `WEAK_EVIDENCE`, `HIDDEN_ANSWER_DEPENDENCY`, and `CLINICALLY_INCONSISTENT`.
+
+For the current VAL-801–VAL-824 Cycle 2 packages, all 24 cases are prepared for clinician review. Every reference decision in those packages passed the current evidence-sufficiency audit. No current case is held for `HIDDEN_ANSWER_DEPENDENCY` or `CLINICALLY_INCONSISTENT`. Evaluator files for the six revised cases and the nine repairs use `READY_FOR_CLINICIAN_REVIEW`. The nine recovered charts that were not rewritten use `READY_FOR_FRESH_REVIEW`. Both labels mean the case is ready to enter review.
+
+This is an automated/internal readiness check. It does not establish that the reference plan is clinically correct. Clinician reviewers determine that.
+
+### Cycle 2 provenance
+
+```text
+original frozen VAL case
+        ↓
+archived pre-injection clean source
+        ↓
+clean-source recovery
+        ↓
+Cycle 1 clinician feedback
+        ↓
+Cycle 2 revision / pre-review consistency audit
+        ↓
+resident + evaluator representations
+        ↓
+Cycle 2 clinician review
+```
+
+Historical frozen files remain available for provenance. Cycle 2 does not overwrite them. Corrected and revised files live in the export directories above. VAL-701–VAL-724 were not part of this cycle. Their recovered charts, including the three inconsistent balanced cases, are unchanged.
+
+## Cycle 2 clinician review
+
+The clinician reviews a clean chart. The task is not to judge a planted discrepancy.
+
+For each case the reviewer assesses:
+
+1. Clinical plausibility.
+2. Whether the resident-facing chart contains enough information for an internal-medicine resident to determine a discharge medication regimen.
+3. Whether the hidden reference discharge plan is defensible.
+4. Whether another discharge plan should also be accepted.
+5. Missing, contradictory, or misleading information, including unrealistic medication behavior, inappropriate monitoring, and implausible hospital-course details.
+6. Whether the case is appropriate for a resident-level assessment.
+7. An overall disposition: Accept, Revise, or Exclude.
+
+The clinician sees the resident-facing chart first. The hidden reference is in a separate section labeled for clinician validation and marked as not shown to residents. Ratings come before that section.
+
+The reference standard should not assume that every case has exactly one clinically valid discharge regimen. Reviewers can record an acceptable alternative medication, action, or timing, and can note alternative monitoring, follow-up, or a context-dependent choice. Those notes are for later scoring design. A multi-answer scoring engine is not implemented in this repository.
 
 ## Core principle
 
@@ -180,7 +425,7 @@ Historical validation artifacts are retained for provenance and reproducibility.
 
 Discharge is a high-risk transition. The study question is which medicines a resident would continue, stop, start, or change, given the chart. Differences from the hidden reference can later be classified. That classifier is not built here.
 
-The repository holds two active prospective validation datasets, 48 cases in all, as frozen source batches. The recovered resident-facing export of those same 48 slots is [exports/clean_balanced_seed_set/](exports/clean_balanced_seed_set/AUDIT.md). Forty-four of those recovered cases are ready for expert review. Four are not. None of the 48 is clinically approved.
+The repository holds two active prospective validation datasets, 48 cases in all, as frozen source batches. The recovered resident-facing export of those same 48 slots is [exports/clean_balanced_seed_set/](exports/clean_balanced_seed_set/AUDIT.md). The recovery audit labels 44 of those files ready for expert review and 4 clinically inconsistent. That count describes the recovered export only. It is not clinician approval, and it is not the Cycle 2 status of VAL-801–VAL-824. None of the 48 recovered files is clinically approved. Cycle 2 is a separate review preparation for the seed-guided identifiers.
 
 OpenAI is optional. It may only reword narrative from facts the structured generator has already chosen. It does not choose diagnoses, medications, doses, or the reference plan. The committed study cases used template wording.
 
@@ -267,6 +512,8 @@ The validation casebooks are fillable Microsoft Word documents. Click the checkb
 - Error-bearing cases were recovered from their archived pre-injection clean source.
 - Clean controls used their original clean chart.
 
+This table is the recovery audit of `exports/clean_balanced_seed_set/`. It is not the Cycle 2 count for VAL-801–VAL-824, and it is not clinician approval.
+
 | Status | Count |
 | --- | ---: |
 | Recovered from clean source | 48 |
@@ -276,13 +523,13 @@ The validation casebooks are fillable Microsoft Word documents. Click the checkb
 | Unrecoverable | 0 |
 | Ready for expert review | 44 |
 
-Ready for expert review means the injected chart change and the discharge-answer wording are gone, and the automated clinical pass did not find a blocking inconsistency. It does not mean an expert has approved the case.
+Ready for expert review, in this recovery table, means the injected chart change and the discharge-answer wording are gone, and the automated clinical pass did not find a blocking inconsistency. It does not mean an expert has approved the case.
 
 The full row-by-row record is [exports/clean_balanced_seed_set/AUDIT.md](exports/clean_balanced_seed_set/AUDIT.md).
 
-### Four cases that are not validated study cases
+### Four cases that are not validated study cases in the recovered export
 
-These four are not currently considered validated study cases. They are exported and labeled `CLINICALLY_INCONSISTENT`. They were not rewritten, and no replacement was generated.
+These four remain labeled `CLINICALLY_INCONSISTENT` inside `exports/clean_balanced_seed_set/`. They were not rewritten there, and no replacement was generated. VAL-801 in that export is still the unrepaired chart. The Cycle 2 revision of VAL-801 is a separate file under `exports/ko_revised_cases_v1/`. VAL-709, VAL-711, and VAL-714 were not part of Cycle 2.
 
 | Case | Problem |
 | --- | --- |
@@ -353,7 +600,7 @@ A clinician still has to judge whether each medicine has an appropriate indicati
 
 > Passing automated tests does not mean a case has passed clinician review.
 
-The recovered set contains 44 cases ready for expert review. Those 44 are not cases that experts have already validated.
+The recovery audit's "ready for expert review" label on 44 of the 48 recovered files means the injected chart change and the discharge-answer wording are gone, and the automated pass did not find a blocking inconsistency. It does not mean an expert has approved the case. Cycle 2 status for VAL-801–VAL-824 is separate and is not clinical approval either.
 
 ## Using the cases in a study
 
@@ -391,10 +638,20 @@ app/services/resident_case.py       resident chart versus hidden reference plan
 app/services/validation.py           structural and coherence checks
 app/services/error_injection.py      experimental chart discrepancies; not the default path
 app/services/clean_set_recovery.py   rebuilds the 48 resident/evaluator files from frozen sources
+app/services/ko_review_sets.py       Cycle 2 review copies for VAL-801–VAL-824
 app/services/validation_batch.py     freeze and export of historical VAL batches
 tests/test_clean_resident_case.py    clean generation hides the reference and does not inject an error
 tests/test_clean_set_recovery.py     recovery leaves frozen files unchanged and restores known clean facts
-exports/clean_balanced_seed_set/     current resident-facing and evaluator export of the 48 slots
+tests/test_ko_review_sets.py         Cycle 2 packages hide the reference and leave frozen files unchanged
+exports/clean_balanced_seed_set/     recovered 48-slot export; not overwritten by Cycle 2
+exports/ko_revised_cases_v1/         six cases revised after first-round clinician feedback
+    KO_REVISED_CASES_REVIEW.docx
+    AUDIT.md
+exports/ko_remaining_clean_cases_v1/ eighteen fresh-review cases, including nine narrow repairs
+    KO_REMAINING_CLEAN_CASES_REVIEW.docx
+    AUDIT.md
+exports/ko_held_cases_v1/            held audit; currently records zero held cases
+    AUDIT.md
 ```
 
 Methods and the directory map are also in [docs/methods.md](docs/methods.md) and [docs/repository_structure.md](docs/repository_structure.md).
@@ -480,7 +737,7 @@ Teaching charts that are not study cases are in [docs/clinician_walkthrough/READ
 - Regimens are curated for these profiles. They are not a universal prescribing engine.
 - There is no resident-review application and no finished scoring engine in this repository.
 - SNOMED CT and MIMIC-IV are not ingested.
-- The four inconsistent recovered cases are not ready for use as study cases.
+- The four inconsistent files inside the recovered 48-slot export are not ready for use as study cases. Cycle 2 does not change those files. Its revised VAL-801 copy is a separate export.
 
 ## Licensing
 

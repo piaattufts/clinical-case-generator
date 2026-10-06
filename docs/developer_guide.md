@@ -72,3 +72,5 @@ clinical-case-generator generate-synthetic-cases --count 3 --seed 42
 Those development cases are not the recovered 48-case export. Validate one with `clinical-case-generator validate-cases --case-id SYN-000001` only after generation has created that identifier.
 
 `--inject-error` is experimental / legacy / optional and not part of the default resident case pipeline. It edits the chart. Do not use it for the resident study set. Recovering a clean chart from an injected case requires the archived pre-injection source, which is what `app/services/clean_set_recovery.py` does for the frozen VAL files. It does not rerun generation.
+
+Clinical Revision Cycle 2 packages for VAL-801–VAL-824 are built by `app/services/ko_review_sets.py` into separate export directories. That step does not regenerate cases and does not modify frozen VAL files or `exports/clean_balanced_seed_set/`. The root README is the description of those packages. Do not re-freeze a batch in order to apply Cycle 2 edits.

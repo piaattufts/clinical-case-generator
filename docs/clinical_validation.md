@@ -2,7 +2,9 @@
 
 The current resident task is to read a clean chart and decide the discharge medication regimen. The intended regimen is a hidden reference. It is not printed in the resident chart, and the base case does not contain a deliberately planted medication error.
 
-The C1–C5 instrument below was written for the frozen historical charts (`CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`), many of which contain one injected discrepancy. Those Word casebooks are retained for provenance. They are not the current resident-facing study set. Use [the recovered export](../exports/clean_balanced_seed_set/AUDIT.md) for that purpose. Passing automated tests does not mean a case has passed clinician review.
+Clinical Revision Cycle 2 for VAL-801–VAL-824 uses a different review form. The clinician rates plausibility, decision sufficiency, reference-plan validity, acceptable alternatives, missing or misleading information, resident-level appropriateness, and an overall Accept, Revise, or Exclude. The resident chart comes first. The hidden reference follows in a separate validation section. Those Word documents are linked from the root README. They are not the C1–C5 casebooks below.
+
+The C1–C5 instrument below is the historical validation design. It was written for the frozen charts (`CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`), many of which contain one injected discrepancy. Those Word casebooks are retained for provenance. They are not the current resident-facing study set. The recovered export remains [exports/clean_balanced_seed_set/](../exports/clean_balanced_seed_set/AUDIT.md). Passing automated tests does not mean a case has passed clinician review. `READY_FOR_CLINICIAN_REVIEW` is a workflow status, not clinical approval.
 
 Clinician validation is one review of the complete case. There is no second stage and no separate plausibility-only pass. The same reading produces five ratings.
 
