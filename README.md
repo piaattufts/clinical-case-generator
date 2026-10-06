@@ -102,9 +102,11 @@ Eighteen recovered clean cases are prepared for fresh review under the corrected
 - VAL-823
 - VAL-824
 
-Directory: `exports/ko_remaining_clean_cases_v1/`
+Directory: `exports/ko_clean_cases_for_review_v1/`
 
-Review document: [exports/ko_remaining_clean_cases_v1/KO_REMAINING_CLEAN_CASES_REVIEW.docx](exports/ko_remaining_clean_cases_v1/KO_REMAINING_CLEAN_CASES_REVIEW.docx)
+Review document: [exports/ko_clean_cases_for_review_v1/KO_CLEAN_CASES_REVIEW.docx](exports/ko_clean_cases_for_review_v1/KO_CLEAN_CASES_REVIEW.docx)
+
+These charts are clean cases ready for clinician review. That label is not clinical validation.
 
 The two groups are kept separate for provenance. The first group contains cases that were revised in response to clinician feedback. The second group contains recovered clean cases undergoing fresh review under the corrected study design.
 
@@ -188,15 +190,15 @@ The first Cycle 2 precheck found nine recovered clean cases that should not go t
 
 These cases were not regenerated. Each repair is a traceable copy of the recovered clean source. The copies that passed the evidence audit are in the fresh-review package. None of the nine remains held.
 
-**VAL-806.** No prior creatinine existed in the source data. The restart instruction that depended on a hidden baseline was removed. Visible data are creatinine 2.8 then 1.6 mg/dL, potassium 4.5 mmol/L, and systolic pressure 116 mmHg. The reference changed from restart lisinopril to hold lisinopril.
+**VAL-806.** No prior creatinine existed in the source data, so none was invented. The instruction that told the resident to restart lisinopril was removed. Visible data are creatinine 2.8 then 1.6 mg/dL, potassium 4.5 mmol/L, and systolic pressure 116 mmHg. The hidden reference restarts lisinopril from that visible course. The decision is flagged `WEAK_EVIDENCE` because creatinine is still elevated and no baseline is known. Continued hold is an acceptable alternative.
 
 **VAL-807.** The potassium-repletion claim was removed because no potassium product existed in the medication data. The measured potassium, 3.5 then 3.8 mmol/L, remains. The answer-revealing “intended outpatient diuretic dose” wording was removed.
 
-**VAL-808.** Answer-revealing “intended regimen” wording was removed. Inpatient furosemide is intravenous 40 mg twice daily. The home dose remains oral 40 mg daily. Four days of negative fluid balance are in the chart. Weight reaches the documented dry weight, from 94 kg to 86 kg. The hidden reference uses oral furosemide 40 mg twice daily. Returning to once-daily oral furosemide is an acceptable alternative.
+**VAL-808.** Answer-revealing “intended regimen” wording was removed. The source home and inpatient loop-diuretic doses are the same, oral furosemide 40 mg once daily, so no adjustment was added. Discharge weight stays 92 kg. The 86 kg dry weight was the unsupported field and is corrected to 92 kg, which matches the observed 2 kg loss. The reference continues oral furosemide 40 mg once daily.
 
 **VAL-814.** Valganciclovir was removed from the home list. Treatment begins after the in-hospital viral-load result. The inpatient dose is renal-adjusted: 450 mg once daily while creatinine is 2.5 mg/dL, then 450 mg twice daily at creatinine 1.6 mg/dL. The direct mycophenolate restart instruction was removed. The reference starts valganciclovir and restarts mycophenolate. A continued mycophenolate hold is an acceptable alternative.
 
-**VAL-815.** The unsupported tacrolimus dose-adjustment narrative was removed. Home and inpatient tacrolimus remain 1 mg every 12 hours. The admission is framed as established CMV disease already treated with valganciclovir.
+**VAL-815.** The unsupported tacrolimus dose-adjustment narrative was removed. Home and inpatient tacrolimus remain 1 mg every 12 hours, with creatinine 0.8 then 0.9 mg/dL and potassium 4.6 then 4.5 mmol/L. CMV uses the same chronology as VAL-813: valganciclovir is not a home medicine and starts after the in-hospital viral load, at 900 mg twice daily.
 
 **VAL-816.** The admission is framed as established CMV disease already under treatment. The answer-like pending-decision instruction was removed. Infectious-disease follow-up is the review context instead.
 
@@ -647,11 +649,11 @@ exports/clean_balanced_seed_set/     recovered 48-slot export; not overwritten b
 exports/ko_revised_cases_v1/         six cases revised after first-round clinician feedback
     KO_REVISED_CASES_REVIEW.docx
     AUDIT.md
-exports/ko_remaining_clean_cases_v1/ eighteen fresh-review cases, including nine narrow repairs
-    KO_REMAINING_CLEAN_CASES_REVIEW.docx
+exports/ko_clean_cases_for_review_v1/ clean cases ready for clinician review
+    KO_CLEAN_CASES_REVIEW.docx
     AUDIT.md
 exports/ko_held_cases_v1/            held audit; currently records zero held cases
-    AUDIT.md
+    KO_HELD_CASES_AUDIT.md
 ```
 
 Methods and the directory map are also in [docs/methods.md](docs/methods.md) and [docs/repository_structure.md](docs/repository_structure.md).

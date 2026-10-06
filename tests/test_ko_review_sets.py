@@ -48,8 +48,8 @@ def test_ko_sets_cover_each_seed_case_once_and_hide_the_reference(tmp_path: Path
         case_id: "READY_FOR_CLINICIAN_REVIEW" for case_id in REPAIR_IDS
     }
     assert not list(held.glob("*.docx"))
-    assert (held / "AUDIT.md").read_text(encoding="utf-8")
-    assert "No repaired case remains held." in (held / "AUDIT.md").read_text(encoding="utf-8")
+    held_audit = (held / "KO_HELD_CASES_AUDIT.md").read_text(encoding="utf-8")
+    assert "No case remains held." in held_audit
 
     for case_id in REVISED_IDS:
         resident = json.loads((revised / f"{case_id}_resident.json").read_text(encoding="utf-8"))
@@ -83,11 +83,15 @@ def test_ko_sets_cover_each_seed_case_once_and_hide_the_reference(tmp_path: Path
         assert resident != original
         _assert_split(resident, evaluator)
         classes = [item["evidence_class"] for item in evaluator["evidence_trace"]]
-        assert set(classes) <= {"SUFFICIENT_EVIDENCE"}
+        assert set(classes) <= {"SUFFICIENT_EVIDENCE", "WEAK_EVIDENCE"}
+        assert "HIDDEN_ANSWER_DEPENDENCY" not in classes
+        assert "CLINICALLY_INCONSISTENT" not in classes
         blob = json.dumps(resident).casefold()
         assert "resume when holding" not in blob
         assert "intended to restart" not in blob
+        assert "intended regimen" not in blob
         assert "in this profile" not in blob
+        assert "expected state" not in blob
 
     statin = json.loads((revised / "VAL-802_resident.json").read_text(encoding="utf-8"))
     assert any("atorvastatin" in row["drug"] for row in statin["CaseMedication"])
@@ -107,14 +111,20 @@ def test_ko_sets_cover_each_seed_case_once_and_hide_the_reference(tmp_path: Path
     )
     assert ibuprofen["action"] == "continue"
 
+    lisinopril_806 = json.loads((fresh / "VAL-806_evaluator.json").read_text(encoding="utf-8"))
     held_lisinopril = next(
         item
-        for item in json.loads((fresh / "VAL-806_evaluator.json").read_text(encoding="utf-8"))[
-            "reference_discharge_plan"
-        ]["medications"]
+        for item in lisinopril_806["reference_discharge_plan"]["medications"]
         if item["medication"].startswith("lisinopril")
     )
-    assert held_lisinopril["action"] == "hold"
+    assert held_lisinopril["action"] == "restart"
+    assert next(
+        item["evidence_class"]
+        for item in lisinopril_806["evidence_trace"]
+        if item["medication"].startswith("lisinopril")
+    ) == "WEAK_EVIDENCE"
+    chart_806 = json.loads((fresh / "VAL-806_resident.json").read_text(encoding="utf-8"))
+    assert "restart lisinopril" not in json.dumps(chart_806).casefold()
     potassium = json.loads((fresh / "VAL-807_resident.json").read_text(encoding="utf-8"))
     assert "potassium repletion" not in json.dumps(potassium).casefold()
     diuretic = json.loads((fresh / "VAL-808_resident.json").read_text(encoding="utf-8"))
@@ -123,13 +133,18 @@ def test_ko_sets_cover_each_seed_case_once_and_hide_the_reference(tmp_path: Path
         for row in diuretic["CaseMedication"]
         if row["drug"].startswith("furosemide") and row["context"] == "inpatient"
     )
-    assert inpatient_loop["route"] == "intravenous"
-    assert inpatient_loop["frequency"] == "twice daily"
+    home_loop = next(
+        row
+        for row in diuretic["CaseMedication"]
+        if row["drug"].startswith("furosemide") and row["context"] == "home"
+    )
+    assert inpatient_loop["route"] == home_loop["route"] == "oral"
+    assert inpatient_loop["frequency"] == home_loop["frequency"] == "once daily"
     discharge_weight = next(
         row for row in diuretic["CaseWeight"] if row["timepoint"] == "discharge"
     )
-    assert discharge_weight["weight_kg"] == "86.000"
-    assert discharge_weight["dry_weight_kg"] == "86.000"
+    assert discharge_weight["weight_kg"] == "92.000"
+    assert discharge_weight["dry_weight_kg"] == "92.000"
     cmv = json.loads((fresh / "VAL-814_resident.json").read_text(encoding="utf-8"))
     assert not any(
         "valganciclovir" in row["drug"] and row["context"] == "home"
@@ -157,9 +172,7 @@ def test_ko_sets_cover_each_seed_case_once_and_hide_the_reference(tmp_path: Path
     ).casefold()
     fresh_text = "\n".join(
         paragraph.text
-        for paragraph in Document(
-            str(fresh / "KO_REMAINING_CLEAN_CASES_REVIEW.docx")
-        ).paragraphs
+        for paragraph in Document(str(fresh / "KO_CLEAN_CASES_REVIEW.docx")).paragraphs
     ).casefold()
     for text in (revised_text, fresh_text):
         for phrase in FORBIDDEN_PACKET_PHRASES:
@@ -168,8 +181,10 @@ def test_ko_sets_cover_each_seed_case_once_and_hide_the_reference(tmp_path: Path
         assert "not shown to residents" in text
         assert "c1 — clinical plausibility" in text
         assert "c4 — alternative acceptable answers" in text
-    assert "which hfref therapies" in revised_text
-    assert "is continuing mycophenolate at discharge appropriate" in revised_text
+    assert "which additional heart-failure therapies" in revised_text
+    assert "temporarily held" in revised_text
+    assert "clean cases ready for clinician review" in fresh_text
+    assert "does not mean clinically validated" in fresh_text
     for case_id in summary["held"]:
         assert case_id.casefold() not in fresh_text
 
