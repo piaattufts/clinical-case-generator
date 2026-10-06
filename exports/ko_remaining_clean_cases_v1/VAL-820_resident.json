@@ -28,7 +28,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Fatigue, Nausea in the setting of Fracture of unspecified part of neck of right femur, initial encounter for closed fracture",
-      "hpi": "A 82-year-old Female is admitted with Fracture of unspecified part of neck of right femur, initial encounter for closed fracture. Presenting symptoms include Fatigue, Nausea, present for one week and improving after treatment. Home medications include lisinopril 10 MG Oral Tablet, warfarin sodium 5 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: 0.4 ML enoxaparin sodium 100 MG/ML Prefilled Syringe. Admitted after hip-fracture surgery with inpatient bridging anticoagulation only. Enoxaparin was used for inpatient venous-thromboembolism prophylaxis. Postoperative hemoglobin was observed without transfusion. Rehabilitation and anticoagulation follow-up were planned.",
+      "hpi": "An 82-year-old woman is admitted after hip-fracture surgery. Home medicines are lisinopril, warfarin for atrial fibrillation, and metformin. Enoxaparin was started during the hospitalization for venous-thromboembolism prophylaxis.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "Fatigue",
@@ -106,7 +106,7 @@
       "note_id": "NOTE-VAL820-001",
       "case_id": "VAL-820",
       "note_type": "admission",
-      "note_text": "Admission note for a 82-year-old Female with Fracture of unspecified part of neck of right femur, initial encounter for closed fracture. Symptoms: Fatigue, Nausea for one week (improving after treatment). Medications continued from home: lisinopril 10 MG Oral Tablet, warfarin sodium 5 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: 0.4 ML enoxaparin sodium 100 MG/ML Prefilled Syringe. Admitted after hip-fracture surgery with inpatient bridging anticoagulation only. Enoxaparin was used for inpatient venous-thromboembolism prophylaxis. Postoperative hemoglobin was observed without transfusion. Rehabilitation and anticoagulation follow-up were planned.",
+      "note_text": "Admission note. Postoperative hip fracture. Enoxaparin 40 MG subcutaneous once daily is inpatient venous-thromboembolism prophylaxis. Warfarin is the home medicine for atrial fibrillation.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -114,7 +114,7 @@
       "note_id": "NOTE-VAL820-002",
       "case_id": "VAL-820",
       "note_type": "hospital_course",
-      "note_text": "Postoperative hemoglobin was observed without transfusion. Rehabilitation and anticoagulation follow-up were planned.",
+      "note_text": "Enoxaparin was used for venous-thromboembolism prophylaxis. It was not a home medicine. INR was 3.2 on admission and 2.0 at discharge. Hemoglobin rose from 8.3 g/dL to 11.1 g/dL. Warfarin remained the atrial-fibrillation medicine.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -306,7 +306,7 @@
       "dose": "40 MG",
       "route": "subcutaneous",
       "frequency": "once daily",
-      "indication": "Paroxysmal atrial fibrillation",
+      "indication": "Inpatient venous-thromboembolism prophylaxis",
       "status": "active",
       "held_reason": null,
       "verification_status": "verified",
@@ -318,7 +318,7 @@
       "source_type": "authored_scenario",
       "source_file": null,
       "source_reference": "RXCUI:854235",
-      "notes": "Enoxaparin was used for inpatient venous-thromboembolism prophylaxis."
+      "notes": "Started during the hospitalization for venous-thromboembolism prophylaxis after hip-fracture surgery. Not a home medicine and not treatment for atrial fibrillation."
     },
     {
       "medication_id": "MED-VAL820-009",

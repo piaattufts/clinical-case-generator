@@ -28,7 +28,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Fatigue in the setting of Fracture of unspecified part of neck of right femur, initial encounter for closed fracture",
-      "hpi": "A 87-year-old Male is admitted with Fracture of unspecified part of neck of right femur, initial encounter for closed fracture. Presenting symptoms include Fatigue, present for several days and improving after treatment. Home medications include lisinopril 10 MG Oral Tablet, warfarin sodium 5 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Admitted after operative repair of a femoral-neck fracture with planned warfarin resumption. Warfarin was interrupted for surgery and then resumed. The inpatient enoxaparin injection stops at discharge in this profile. Anticoagulation was interrupted for surgery and then resumed.",
+      "hpi": "An 87-year-old man is admitted after operative repair of a femoral-neck fracture. Home medicines are lisinopril, warfarin for atrial fibrillation, and metformin. He had been fatigued for several days.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "Fatigue"
@@ -105,7 +105,7 @@
       "note_id": "NOTE-VAL817-001",
       "case_id": "VAL-817",
       "note_type": "admission",
-      "note_text": "Admission note for a 87-year-old Male with Fracture of unspecified part of neck of right femur, initial encounter for closed fracture. Symptoms: Fatigue for several days (improving after treatment). Medications continued from home: lisinopril 10 MG Oral Tablet, warfarin sodium 5 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Admitted after operative repair of a femoral-neck fracture with planned warfarin resumption. Warfarin was interrupted for surgery and then resumed. The inpatient enoxaparin injection stops at discharge in this profile. Anticoagulation was interrupted for surgery and then resumed.",
+      "note_text": "Admission note. Postoperative femoral-neck fracture. Warfarin is a home medicine for atrial fibrillation. Hemoglobin is 9.0 g/dL and INR is 2.6.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -113,7 +113,7 @@
       "note_id": "NOTE-VAL817-002",
       "case_id": "VAL-817",
       "note_type": "hospital_course",
-      "note_text": "Anticoagulation was interrupted for surgery and then resumed.",
+      "note_text": "Warfarin was held around the operation and is active again on the inpatient list. INR is 2.6 at discharge and hemoglobin rose from 9.0 g/dL to 10.1 g/dL. Glucose was 127 mg/dL then 113 mg/dL.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -505,17 +505,6 @@
   "reference_discharge_plan": {
     "medications": [
       {
-        "medication": "lisinopril 10 MG Oral Tablet",
-        "action": "continue",
-        "dose": "10 MG",
-        "route": "oral",
-        "frequency": "once daily",
-        "duration": null,
-        "indication": "Essential (primary) hypertension",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": null
-      },
-      {
         "medication": "warfarin sodium 5 MG Oral Tablet",
         "action": "continue",
         "dose": "5 MG",
@@ -523,8 +512,21 @@
         "frequency": "once daily",
         "duration": null,
         "indication": "Paroxysmal atrial fibrillation",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": "INR check"
+        "rationale": "Warfarin is active on the inpatient list and the discharge INR is 2.6.",
+        "monitoring": null,
+        "required": true
+      },
+      {
+        "medication": "lisinopril 10 MG Oral Tablet",
+        "action": "continue",
+        "dose": "10 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Essential (primary) hypertension",
+        "rationale": "Hypertension remains active and lisinopril was not the perioperative anticoagulant.",
+        "monitoring": null,
+        "required": true
       },
       {
         "medication": "metformin hydrochloride 500 MG Oral Tablet",
@@ -534,18 +536,15 @@
         "frequency": "twice daily",
         "duration": null,
         "indication": "Type 2 diabetes mellitus without complications",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": null
+        "rationale": "Glucose improved from 127 mg/dL to 113 mg/dL.",
+        "monitoring": null,
+        "required": true
       }
     ],
-    "monitoring_requirements": [
-      {
-        "parameter": "INR in Platelet poor plasma or blood by Coagulation assay",
-        "frequency": "within 7 days, then by the INR result",
-        "target": null,
-        "duration": null
-      }
-    ],
+    "medications_to_stop": [],
+    "acceptable_alternatives": [],
+    "contraindications": [],
+    "monitoring_requirements": [],
     "follow_up_requirements": [
       {
         "item": "Anticoagulation clinic INR follow-up after warfarin resumption",
@@ -554,6 +553,48 @@
       }
     ]
   },
-  "clinician_review_status": "CLINICALLY_INCONSISTENT",
-  "precheck_finding": "answer leakage:resident narrative states an intended discharge list; contradictory timeline:narrative describes enoxaparin but it is not on the medication list"
+  "evidence_trace": [
+    {
+      "medication": "warfarin sodium 5 MG Oral Tablet",
+      "action": "continue",
+      "indication": "Paroxysmal atrial fibrillation",
+      "supporting_diagnosis": "Paroxysmal atrial fibrillation",
+      "supporting_hospital_event": "Warfarin is active again on the inpatient list after the operation.",
+      "supporting_labs": "INR 2.6; hemoglobin 9.0 then 10.1 g/dL",
+      "supporting_vitals": "discharge systolic blood pressure 136 mmHg",
+      "supporting_medication_history": "Home warfarin",
+      "rationale": "Warfarin is active on the inpatient list and the discharge INR is 2.6.",
+      "resident_visible_evidence_location": "diagnoses; medication list; hospital course; labs",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    },
+    {
+      "medication": "lisinopril 10 MG Oral Tablet",
+      "action": "continue",
+      "indication": "Essential (primary) hypertension",
+      "supporting_diagnosis": "Essential (primary) hypertension",
+      "supporting_hospital_event": "Warfarin is active again on the inpatient list after the operation.",
+      "supporting_labs": "none",
+      "supporting_vitals": "discharge systolic blood pressure 136 mmHg",
+      "supporting_medication_history": "Home lisinopril",
+      "rationale": "Hypertension remains active and lisinopril was not the perioperative anticoagulant.",
+      "resident_visible_evidence_location": "diagnoses; medication list; hospital course; labs",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    },
+    {
+      "medication": "metformin hydrochloride 500 MG Oral Tablet",
+      "action": "continue",
+      "indication": "Type 2 diabetes mellitus without complications",
+      "supporting_diagnosis": "Type 2 diabetes mellitus without complications",
+      "supporting_hospital_event": "Warfarin is active again on the inpatient list after the operation.",
+      "supporting_labs": "glucose 127 then 113 mg/dL",
+      "supporting_vitals": "discharge systolic blood pressure 136 mmHg",
+      "supporting_medication_history": "Home metformin",
+      "rationale": "Glucose improved from 127 mg/dL to 113 mg/dL.",
+      "resident_visible_evidence_location": "diagnoses; medication list; hospital course; labs",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    }
+  ],
+  "clinician_review_status": "READY_FOR_CLINICIAN_REVIEW",
+  "revision_summary": "The phrase 'in this profile' and the enoxaparin sentence were removed. Enoxaparin is not part of this medication record, and the INR is already 2.6 on warfarin, so no prophylactic enoxaparin row was added. The reference continues warfarin, lisinopril, and metformin.",
+  "precheck_finding": "none"
 }

@@ -26,7 +26,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Edema, Orthopnea in the setting of Acute systolic (congestive) heart failure",
-      "hpi": "A 66-year-old Female is admitted with Acute systolic (congestive) heart failure. Presenting symptoms include Edema, Orthopnea, present for one week and worsening. Home medications include spironolactone 25 MG Oral Tablet, furosemide 40 MG Oral Tablet, lisinopril 10 MG Oral Tablet, 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet. Admitted for decompensated heart failure requiring diuretic adjustment. The outpatient diuretic plan was reviewed during the stay. The discharge list is the intended home regimen after that adjustment. The outpatient diuretic plan was adjusted during the stay after the inpatient response to therapy was observed.",
+      "hpi": "A 66-year-old woman with systolic heart failure and hypertension is admitted with one week of worsening edema and orthopnea. Home medicines are oral furosemide 40 MG once daily, spironolactone, lisinopril, and metoprolol succinate. Dry weight is 86 kg and admission weight is 94 kg.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "Edema",
@@ -84,7 +84,7 @@
       "note_id": "NOTE-VAL808-001",
       "case_id": "VAL-808",
       "note_type": "admission",
-      "note_text": "Admission note for a 66-year-old Female with Acute systolic (congestive) heart failure. Symptoms: Edema, Orthopnea for one week (worsening). Medications continued from home: spironolactone 25 MG Oral Tablet, furosemide 40 MG Oral Tablet, lisinopril 10 MG Oral Tablet, 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet. Admitted for decompensated heart failure requiring diuretic adjustment. The outpatient diuretic plan was reviewed during the stay. The discharge list is the intended home regimen after that adjustment. The outpatient diuretic plan was adjusted during the stay after the inpatient response to therapy was observed.",
+      "note_text": "Admission note. Volume overload at 94 kg, above the 86 kg dry weight. Home oral furosemide once daily is not the inpatient regimen.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -92,7 +92,7 @@
       "note_id": "NOTE-VAL808-002",
       "case_id": "VAL-808",
       "note_type": "hospital_course",
-      "note_text": "The outpatient diuretic plan was adjusted during the stay after the inpatient response to therapy was observed.",
+      "note_text": "Intravenous furosemide 40 MG twice daily was used while the weight was above dry weight. Intake and output were net negative on hospital days 1 through 4. Weight fell from 94 kg to 90 kg and then to 86 kg, equal to the dry weight. Creatinine stayed 0.9 mg/dL and potassium rose from 3.4 mmol/L to 3.7 mmol/L. Discharge systolic blood pressure was 142 mmHg.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -188,8 +188,8 @@
       "case_id": "VAL-808",
       "service": "cardiology",
       "timepoint": "inpatient",
-      "assessment": "Inpatient cardiology recommendations were recorded.",
-      "recommendation": "Continue the intended heart-failure and diuretic plan.",
+      "assessment": "Weight returned to the 86 kg dry weight.",
+      "recommendation": "Creatinine stayed 0.9 mg/dL and potassium was 3.7 mmol/L.",
       "source_reference": null
     }
   ],
@@ -316,8 +316,8 @@
       "drug": "furosemide 40 MG Oral Tablet",
       "reported_name": "furosemide 40 MG Oral Tablet",
       "dose": "40 MG",
-      "route": "oral",
-      "frequency": "once daily",
+      "route": "intravenous",
+      "frequency": "twice daily",
       "indication": "Acute systolic (congestive) heart failure",
       "status": "active",
       "held_reason": null,
@@ -330,7 +330,7 @@
       "source_type": "authored_scenario",
       "source_file": null,
       "source_reference": "RXCUI:313988",
-      "notes": null
+      "notes": "Intravenous furosemide 40 MG twice daily while weight was above the 86 kg dry weight. The home regimen was 40 MG orally once daily."
     },
     {
       "medication_id": "MED-VAL808-011",
@@ -466,8 +466,16 @@
     {
       "weight_id": "WT-VAL808-002",
       "case_id": "VAL-808",
+      "timepoint": "hospital_day_2",
+      "weight_kg": "90.000",
+      "dry_weight_kg": null,
+      "source_reference": null
+    },
+    {
+      "weight_id": "WT-VAL808-003",
+      "case_id": "VAL-808",
       "timepoint": "discharge",
-      "weight_kg": "92.000",
+      "weight_kg": "86.000",
       "dry_weight_kg": "86.000",
       "source_reference": null
     }
@@ -476,10 +484,40 @@
     {
       "io_id": "IO-VAL808-001",
       "case_id": "VAL-808",
+      "timepoint": "hospital_day_1",
+      "intake_ml": 1100,
+      "output_ml": 3500,
+      "net_ml": -2400,
+      "notes": null,
+      "source_reference": null
+    },
+    {
+      "io_id": "IO-VAL808-002",
+      "case_id": "VAL-808",
+      "timepoint": "hospital_day_2",
+      "intake_ml": 1200,
+      "output_ml": 3400,
+      "net_ml": -2200,
+      "notes": null,
+      "source_reference": null
+    },
+    {
+      "io_id": "IO-VAL808-003",
+      "case_id": "VAL-808",
+      "timepoint": "hospital_day_3",
+      "intake_ml": 1400,
+      "output_ml": 3000,
+      "net_ml": -1600,
+      "notes": null,
+      "source_reference": null
+    },
+    {
+      "io_id": "IO-VAL808-004",
+      "case_id": "VAL-808",
       "timepoint": "hospital_day_4",
-      "intake_ml": 1569,
-      "output_ml": 2248,
-      "net_ml": -679,
+      "intake_ml": 1400,
+      "output_ml": 3200,
+      "net_ml": -1800,
       "notes": null,
       "source_reference": null
     }

@@ -28,7 +28,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Fatigue, Nausea in the setting of Fracture of unspecified part of neck of right femur, initial encounter for closed fracture",
-      "hpi": "A 82-year-old Female is admitted with Fracture of unspecified part of neck of right femur, initial encounter for closed fracture. Presenting symptoms include Fatigue, Nausea, present for one week and improving after treatment. Home medications include lisinopril 10 MG Oral Tablet, warfarin sodium 5 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: 0.4 ML enoxaparin sodium 100 MG/ML Prefilled Syringe. Admitted after hip-fracture surgery with inpatient bridging anticoagulation only. Enoxaparin was used for inpatient venous-thromboembolism prophylaxis. Postoperative hemoglobin was observed without transfusion. Rehabilitation and anticoagulation follow-up were planned.",
+      "hpi": "An 82-year-old woman is admitted after hip-fracture surgery. Home medicines are lisinopril, warfarin for atrial fibrillation, and metformin. Enoxaparin was started during the hospitalization for venous-thromboembolism prophylaxis.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "Fatigue",
@@ -106,7 +106,7 @@
       "note_id": "NOTE-VAL820-001",
       "case_id": "VAL-820",
       "note_type": "admission",
-      "note_text": "Admission note for a 82-year-old Female with Fracture of unspecified part of neck of right femur, initial encounter for closed fracture. Symptoms: Fatigue, Nausea for one week (improving after treatment). Medications continued from home: lisinopril 10 MG Oral Tablet, warfarin sodium 5 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Started during the hospitalization: 0.4 ML enoxaparin sodium 100 MG/ML Prefilled Syringe. Admitted after hip-fracture surgery with inpatient bridging anticoagulation only. Enoxaparin was used for inpatient venous-thromboembolism prophylaxis. Postoperative hemoglobin was observed without transfusion. Rehabilitation and anticoagulation follow-up were planned.",
+      "note_text": "Admission note. Postoperative hip fracture. Enoxaparin 40 MG subcutaneous once daily is inpatient venous-thromboembolism prophylaxis. Warfarin is the home medicine for atrial fibrillation.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -114,7 +114,7 @@
       "note_id": "NOTE-VAL820-002",
       "case_id": "VAL-820",
       "note_type": "hospital_course",
-      "note_text": "Postoperative hemoglobin was observed without transfusion. Rehabilitation and anticoagulation follow-up were planned.",
+      "note_text": "Enoxaparin was used for venous-thromboembolism prophylaxis. It was not a home medicine. INR was 3.2 on admission and 2.0 at discharge. Hemoglobin rose from 8.3 g/dL to 11.1 g/dL. Warfarin remained the atrial-fibrillation medicine.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -306,7 +306,7 @@
       "dose": "40 MG",
       "route": "subcutaneous",
       "frequency": "once daily",
-      "indication": "Paroxysmal atrial fibrillation",
+      "indication": "Inpatient venous-thromboembolism prophylaxis",
       "status": "active",
       "held_reason": null,
       "verification_status": "verified",
@@ -318,7 +318,7 @@
       "source_type": "authored_scenario",
       "source_file": null,
       "source_reference": "RXCUI:854235",
-      "notes": "Enoxaparin was used for inpatient venous-thromboembolism prophylaxis."
+      "notes": "Started during the hospitalization for venous-thromboembolism prophylaxis after hip-fracture surgery. Not a home medicine and not treatment for atrial fibrillation."
     },
     {
       "medication_id": "MED-VAL820-009",
@@ -529,17 +529,6 @@
   "reference_discharge_plan": {
     "medications": [
       {
-        "medication": "lisinopril 10 MG Oral Tablet",
-        "action": "continue",
-        "dose": "10 MG",
-        "route": "oral",
-        "frequency": "once daily",
-        "duration": null,
-        "indication": "Essential (primary) hypertension",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": null
-      },
-      {
         "medication": "warfarin sodium 5 MG Oral Tablet",
         "action": "continue",
         "dose": "5 MG",
@@ -547,8 +536,21 @@
         "frequency": "once daily",
         "duration": null,
         "indication": "Paroxysmal atrial fibrillation",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": "INR check"
+        "rationale": "Warfarin treats atrial fibrillation and the discharge INR is 2.0.",
+        "monitoring": null,
+        "required": true
+      },
+      {
+        "medication": "lisinopril 10 MG Oral Tablet",
+        "action": "continue",
+        "dose": "10 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Essential (primary) hypertension",
+        "rationale": "Hypertension remains active.",
+        "monitoring": null,
+        "required": true
       },
       {
         "medication": "metformin hydrochloride 500 MG Oral Tablet",
@@ -558,8 +560,9 @@
         "frequency": "twice daily",
         "duration": null,
         "indication": "Type 2 diabetes mellitus without complications",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": null
+        "rationale": "Diabetes remains active and glucose was 124 mg/dL then 119 mg/dL.",
+        "monitoring": null,
+        "required": true
       },
       {
         "medication": "0.4 ML enoxaparin sodium 100 MG/ML Prefilled Syringe",
@@ -568,19 +571,18 @@
         "route": "subcutaneous",
         "frequency": "once daily",
         "duration": null,
-        "indication": "Paroxysmal atrial fibrillation",
-        "rationale": "Started in hospital for an inpatient-only indication.",
-        "monitoring": null
+        "indication": "Inpatient venous-thromboembolism prophylaxis",
+        "rationale": "Enoxaparin was started in the hospital for venous-thromboembolism prophylaxis, not for atrial fibrillation. It is not a home medicine. Warfarin covers atrial fibrillation and the discharge INR is 2.0.",
+        "monitoring": null,
+        "required": false
       }
     ],
-    "monitoring_requirements": [
-      {
-        "parameter": "INR in Platelet poor plasma or blood by Coagulation assay",
-        "frequency": "within 7 days, then by the INR result",
-        "target": null,
-        "duration": null
-      }
+    "medications_to_stop": [
+      "0.4 ML enoxaparin sodium 100 MG/ML Prefilled Syringe"
     ],
+    "acceptable_alternatives": [],
+    "contraindications": [],
+    "monitoring_requirements": [],
     "follow_up_requirements": [
       {
         "item": "Orthopedic rehabilitation follow-up",
@@ -589,6 +591,61 @@
       }
     ]
   },
-  "clinician_review_status": "NEEDS_PRE_REVIEW_FIX",
-  "precheck_finding": "indication mismatch:enoxaparin is labeled for atrial fibrillation while the narrative describes venous-thromboembolism prophylaxis"
+  "evidence_trace": [
+    {
+      "medication": "warfarin sodium 5 MG Oral Tablet",
+      "action": "continue",
+      "indication": "Paroxysmal atrial fibrillation",
+      "supporting_diagnosis": "Paroxysmal atrial fibrillation",
+      "supporting_hospital_event": "Warfarin remained the atrial-fibrillation medicine.",
+      "supporting_labs": "INR 3.2 then 2.0; hemoglobin 8.3 then 11.1 g/dL",
+      "supporting_vitals": "none",
+      "supporting_medication_history": "Home warfarin",
+      "rationale": "Warfarin treats atrial fibrillation and the discharge INR is 2.0.",
+      "resident_visible_evidence_location": "diagnoses; medication list; hospital course; labs",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    },
+    {
+      "medication": "lisinopril 10 MG Oral Tablet",
+      "action": "continue",
+      "indication": "Essential (primary) hypertension",
+      "supporting_diagnosis": "Essential (primary) hypertension",
+      "supporting_hospital_event": "Warfarin remained the atrial-fibrillation medicine.",
+      "supporting_labs": "INR 3.2 then 2.0; hemoglobin 8.3 then 11.1 g/dL",
+      "supporting_vitals": "none",
+      "supporting_medication_history": "Home lisinopril",
+      "rationale": "Hypertension remains active.",
+      "resident_visible_evidence_location": "diagnoses; medication list; hospital course; labs",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    },
+    {
+      "medication": "metformin hydrochloride 500 MG Oral Tablet",
+      "action": "continue",
+      "indication": "Type 2 diabetes mellitus without complications",
+      "supporting_diagnosis": "Type 2 diabetes mellitus without complications",
+      "supporting_hospital_event": "Warfarin remained the atrial-fibrillation medicine.",
+      "supporting_labs": "INR 3.2 then 2.0; hemoglobin 8.3 then 11.1 g/dL",
+      "supporting_vitals": "none",
+      "supporting_medication_history": "Home metformin",
+      "rationale": "Diabetes remains active and glucose was 124 mg/dL then 119 mg/dL.",
+      "resident_visible_evidence_location": "diagnoses; medication list; hospital course; labs",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    },
+    {
+      "medication": "0.4 ML enoxaparin sodium 100 MG/ML Prefilled Syringe",
+      "action": "stop",
+      "indication": "Inpatient venous-thromboembolism prophylaxis",
+      "supporting_diagnosis": "Fracture of unspecified part of neck of right femur, initial encounter for closed fracture",
+      "supporting_hospital_event": "Enoxaparin was started during the hospitalization for prophylaxis.",
+      "supporting_labs": "INR 2.0; hemoglobin 11.1 g/dL",
+      "supporting_vitals": "none",
+      "supporting_medication_history": "Not a home medicine",
+      "rationale": "Enoxaparin was started in the hospital for venous-thromboembolism prophylaxis, not for atrial fibrillation. It is not a home medicine. Warfarin covers atrial fibrillation and the discharge INR is 2.0.",
+      "resident_visible_evidence_location": "history of present illness; hospital course; medication list; labs",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    }
+  ],
+  "clinician_review_status": "READY_FOR_CLINICIAN_REVIEW",
+  "revision_summary": "Enoxaparin indication is inpatient venous-thromboembolism prophylaxis in the narrative, the medication record, and the hidden stop decision. It is not labeled as atrial-fibrillation therapy.",
+  "precheck_finding": "none"
 }

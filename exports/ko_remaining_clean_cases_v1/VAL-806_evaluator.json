@@ -27,7 +27,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Dyspnea, Edema in the setting of Acute systolic (congestive) heart failure",
-      "hpi": "A 82-year-old Female is admitted with Acute systolic (congestive) heart failure. Presenting symptoms include Dyspnea, Edema, present for several days and progressive. Home medications include furosemide 40 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet. lisinopril 10 MG Oral Tablet was held during the admission (Held for rising creatinine during decongestion; intended to restart after renal recovery.). Admitted for decompensated heart failure with worsening renal function. Creatinine rose with congestion. Lisinopril was held during decongestion because of worsening renal function. Creatinine rose with congestion. Selected therapy was held.",
+      "hpi": "An 82-year-old woman with heart failure, hypertension, and hyperlipidemia is admitted with several days of progressive dyspnea and edema. Home medicines are furosemide, atorvastatin, metoprolol succinate, and lisinopril. No prior creatinine from before this illness is documented.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "Dyspnea",
@@ -95,7 +95,7 @@
       "note_id": "NOTE-VAL806-001",
       "case_id": "VAL-806",
       "note_type": "admission",
-      "note_text": "Admission note for a 82-year-old Female with Acute systolic (congestive) heart failure. Symptoms: Dyspnea, Edema for several days (progressive). Medications continued from home: furosemide 40 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet. lisinopril 10 MG Oral Tablet was held during the admission (Held for rising creatinine during decongestion; intended to restart after renal recovery.). Admitted for decompensated heart failure with worsening renal function. Creatinine rose with congestion. Lisinopril was held during decongestion because of worsening renal function. Creatinine rose with congestion. Selected therapy was held.",
+      "note_text": "Admission note. Volume overload with creatinine 2.8 mg/dL. Lisinopril was held because the creatinine rose during decongestion.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -103,7 +103,7 @@
       "note_id": "NOTE-VAL806-002",
       "case_id": "VAL-806",
       "note_type": "hospital_course",
-      "note_text": "Creatinine rose with congestion. Selected therapy was held.",
+      "note_text": "Lisinopril was held while creatinine was 2.8 mg/dL. Creatinine then fell to 1.6 mg/dL. Potassium was 3.8 mmol/L on admission and 4.5 mmol/L at discharge. Discharge systolic blood pressure was 116 mmHg. No prior creatinine is available for comparison.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -199,8 +199,8 @@
       "case_id": "VAL-806",
       "service": "cardiology",
       "timepoint": "inpatient",
-      "assessment": "Inpatient cardiology recommendations were recorded.",
-      "recommendation": "Continue the intended heart-failure and diuretic plan.",
+      "assessment": "Creatinine fell from 2.8 mg/dL to 1.6 mg/dL during diuresis.",
+      "recommendation": "No creatinine from before this illness is in the record.",
       "source_reference": null
     }
   ],
@@ -288,7 +288,7 @@
       "held_reason": null,
       "verification_status": "verified",
       "verification_source": "patient_and_prior_records",
-      "target_or_goal": "Resume lisinopril when creatinine is falling toward the prior baseline.",
+      "target_or_goal": null,
       "monitoring": null,
       "quantity_or_days": null,
       "refills": null,
@@ -377,10 +377,10 @@
       "frequency": "once daily",
       "indication": "Essential (primary) hypertension",
       "status": "held",
-      "held_reason": "Held for rising creatinine during decongestion; intended to restart after renal recovery.",
+      "held_reason": "Held for creatinine 2.8 mg/dL during decongestion. Discharge creatinine is 1.6 mg/dL.",
       "verification_status": "verified",
       "verification_source": "patient_and_prior_records",
-      "target_or_goal": "Resume lisinopril when creatinine is falling toward the prior baseline.",
+      "target_or_goal": null,
       "monitoring": null,
       "quantity_or_days": null,
       "refills": null,
@@ -400,16 +400,7 @@
       "source_reference": null
     }
   ],
-  "CaseInstruction": [
-    {
-      "instruction_id": null,
-      "case_id": "VAL-806",
-      "category": "medications",
-      "instruction_text": "Resume when holding lisinopril 10 MG Oral Tablet: Resume lisinopril when creatinine is falling toward the prior baseline.",
-      "source_type": "recovered_clean_chart",
-      "source_reference": null
-    }
-  ],
+  "CaseInstruction": [],
   "CaseMonitoring": [],
   "CaseProblemList": [
     {
@@ -519,6 +510,18 @@
   "reference_discharge_plan": {
     "medications": [
       {
+        "medication": "lisinopril 10 MG Oral Tablet",
+        "action": "hold",
+        "dose": "10 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Essential (primary) hypertension",
+        "rationale": "Creatinine improved from 2.8 mg/dL to 1.6 mg/dL but remains elevated, potassium is 4.5 mmol/L, systolic pressure is 116 mmHg, and no prior creatinine is documented.",
+        "monitoring": null,
+        "required": false
+      },
+      {
         "medication": "furosemide 40 MG Oral Tablet",
         "action": "continue",
         "dose": "40 MG",
@@ -526,8 +529,9 @@
         "frequency": "once daily",
         "duration": null,
         "indication": "Acute systolic (congestive) heart failure",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": null
+        "rationale": "The home medicine matches an active diagnosis and was not the held ACE inhibitor.",
+        "monitoring": null,
+        "required": true
       },
       {
         "medication": "atorvastatin 40 MG Oral Tablet",
@@ -537,8 +541,9 @@
         "frequency": "once daily",
         "duration": null,
         "indication": "Mixed hyperlipidemia",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": null
+        "rationale": "The home medicine matches an active diagnosis and was not the held ACE inhibitor.",
+        "monitoring": null,
+        "required": true
       },
       {
         "medication": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
@@ -548,21 +553,14 @@
         "frequency": "once daily",
         "duration": null,
         "indication": "Acute systolic (congestive) heart failure",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": null
-      },
-      {
-        "medication": "lisinopril 10 MG Oral Tablet",
-        "action": "restart",
-        "dose": "10 MG",
-        "route": "oral",
-        "frequency": "once daily",
-        "duration": null,
-        "indication": "Essential (primary) hypertension",
-        "rationale": "Home medication is held inpatient and has a documented restart plan.",
-        "monitoring": null
+        "rationale": "The home medicine matches an active diagnosis and was not the held ACE inhibitor.",
+        "monitoring": null,
+        "required": true
       }
     ],
+    "medications_to_stop": [],
+    "acceptable_alternatives": [],
+    "contraindications": [],
     "monitoring_requirements": [],
     "follow_up_requirements": [
       {
@@ -572,6 +570,61 @@
       }
     ]
   },
-  "clinician_review_status": "NEEDS_PRE_REVIEW_FIX",
-  "precheck_finding": "answer leakage:an instruction directs the resident to resume a held medicine; unsupported:a restart instruction refers to a creatinine baseline that is not in the chart"
+  "evidence_trace": [
+    {
+      "medication": "lisinopril 10 MG Oral Tablet",
+      "action": "hold",
+      "indication": "Essential (primary) hypertension",
+      "supporting_diagnosis": "Essential (primary) hypertension",
+      "supporting_hospital_event": "Lisinopril was held while creatinine was 2.8 mg/dL.",
+      "supporting_labs": "creatinine 2.8 mg/dL then 1.6 mg/dL; potassium 4.5 mmol/L",
+      "supporting_vitals": "discharge systolic blood pressure 116 mmHg",
+      "supporting_medication_history": "Home lisinopril",
+      "rationale": "Creatinine improved from 2.8 mg/dL to 1.6 mg/dL but remains elevated, potassium is 4.5 mmol/L, systolic pressure is 116 mmHg, and no prior creatinine is documented.",
+      "resident_visible_evidence_location": "hospital course; labs; vitals",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    },
+    {
+      "medication": "furosemide 40 MG Oral Tablet",
+      "action": "continue",
+      "indication": "Acute systolic (congestive) heart failure",
+      "supporting_diagnosis": "Acute systolic (congestive) heart failure",
+      "supporting_hospital_event": "Diuresis proceeded while lisinopril was held.",
+      "supporting_labs": "creatinine 1.6 mg/dL; potassium 4.5 mmol/L",
+      "supporting_vitals": "systolic blood pressure 116 mmHg",
+      "supporting_medication_history": "Home furosemide",
+      "rationale": "The home medicine matches an active diagnosis and was not the held ACE inhibitor.",
+      "resident_visible_evidence_location": "diagnoses; medication list; hospital course; labs",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    },
+    {
+      "medication": "atorvastatin 40 MG Oral Tablet",
+      "action": "continue",
+      "indication": "Mixed hyperlipidemia",
+      "supporting_diagnosis": "Mixed hyperlipidemia",
+      "supporting_hospital_event": "Diuresis proceeded while lisinopril was held.",
+      "supporting_labs": "creatinine 1.6 mg/dL; potassium 4.5 mmol/L",
+      "supporting_vitals": "systolic blood pressure 116 mmHg",
+      "supporting_medication_history": "Home atorvastatin",
+      "rationale": "The home medicine matches an active diagnosis and was not the held ACE inhibitor.",
+      "resident_visible_evidence_location": "diagnoses; medication list; hospital course; labs",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    },
+    {
+      "medication": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+      "action": "continue",
+      "indication": "Acute systolic (congestive) heart failure",
+      "supporting_diagnosis": "Acute systolic (congestive) heart failure",
+      "supporting_hospital_event": "Diuresis proceeded while lisinopril was held.",
+      "supporting_labs": "creatinine 1.6 mg/dL; potassium 4.5 mmol/L",
+      "supporting_vitals": "systolic blood pressure 116 mmHg",
+      "supporting_medication_history": "Home 24",
+      "rationale": "The home medicine matches an active diagnosis and was not the held ACE inhibitor.",
+      "resident_visible_evidence_location": "diagnoses; medication list; hospital course; labs",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    }
+  ],
+  "clinician_review_status": "READY_FOR_CLINICIAN_REVIEW",
+  "revision_summary": "No prior creatinine exists in the source data. The lisinopril reference is hold, based on creatinine 2.8 then 1.6 mg/dL, potassium 4.5 mmol/L, and systolic pressure 116 mmHg. Direct restart instructions were removed.",
+  "precheck_finding": "none"
 }

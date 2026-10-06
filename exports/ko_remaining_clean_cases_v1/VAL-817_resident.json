@@ -28,7 +28,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Fatigue in the setting of Fracture of unspecified part of neck of right femur, initial encounter for closed fracture",
-      "hpi": "A 87-year-old Male is admitted with Fracture of unspecified part of neck of right femur, initial encounter for closed fracture. Presenting symptoms include Fatigue, present for several days and improving after treatment. Home medications include lisinopril 10 MG Oral Tablet, warfarin sodium 5 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Admitted after operative repair of a femoral-neck fracture with planned warfarin resumption. Warfarin was interrupted for surgery and then resumed. The inpatient enoxaparin injection stops at discharge in this profile. Anticoagulation was interrupted for surgery and then resumed.",
+      "hpi": "An 87-year-old man is admitted after operative repair of a femoral-neck fracture. Home medicines are lisinopril, warfarin for atrial fibrillation, and metformin. He had been fatigued for several days.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "Fatigue"
@@ -105,7 +105,7 @@
       "note_id": "NOTE-VAL817-001",
       "case_id": "VAL-817",
       "note_type": "admission",
-      "note_text": "Admission note for a 87-year-old Male with Fracture of unspecified part of neck of right femur, initial encounter for closed fracture. Symptoms: Fatigue for several days (improving after treatment). Medications continued from home: lisinopril 10 MG Oral Tablet, warfarin sodium 5 MG Oral Tablet, metformin hydrochloride 500 MG Oral Tablet. Admitted after operative repair of a femoral-neck fracture with planned warfarin resumption. Warfarin was interrupted for surgery and then resumed. The inpatient enoxaparin injection stops at discharge in this profile. Anticoagulation was interrupted for surgery and then resumed.",
+      "note_text": "Admission note. Postoperative femoral-neck fracture. Warfarin is a home medicine for atrial fibrillation. Hemoglobin is 9.0 g/dL and INR is 2.6.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -113,7 +113,7 @@
       "note_id": "NOTE-VAL817-002",
       "case_id": "VAL-817",
       "note_type": "hospital_course",
-      "note_text": "Anticoagulation was interrupted for surgery and then resumed.",
+      "note_text": "Warfarin was held around the operation and is active again on the inpatient list. INR is 2.6 at discharge and hemoglobin rose from 9.0 g/dL to 10.1 g/dL. Glucose was 127 mg/dL then 113 mg/dL.",
       "source_type": "authored_scenario",
       "source_reference": null
     }

@@ -27,7 +27,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Dyspnea, Orthopnea in the setting of Acute systolic (congestive) heart failure",
-      "hpi": "A 60-year-old Male is admitted with Acute systolic (congestive) heart failure. Presenting symptoms include Dyspnea, Orthopnea, present for two days and acutely worsening. Home medications include furosemide 40 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet. Admitted for decompensated heart failure with hypokalemia during diuresis. Diuresis was accompanied by potassium repletion. The intended outpatient diuretic dose is recorded. Diuresis was accompanied by potassium repletion. Electrolytes were trending toward a range acceptable for discharge.",
+      "hpi": "A 60-year-old man with heart failure and hyperlipidemia is admitted with two days of worsening dyspnea and orthopnea. Home medicines are oral furosemide 40 MG once daily, atorvastatin, and metoprolol succinate.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "Dyspnea",
@@ -95,7 +95,7 @@
       "note_id": "NOTE-VAL807-001",
       "case_id": "VAL-807",
       "note_type": "admission",
-      "note_text": "Admission note for a 60-year-old Male with Acute systolic (congestive) heart failure. Symptoms: Dyspnea, Orthopnea for two days (acutely worsening). Medications continued from home: furosemide 40 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet. Admitted for decompensated heart failure with hypokalemia during diuresis. Diuresis was accompanied by potassium repletion. The intended outpatient diuretic dose is recorded. Diuresis was accompanied by potassium repletion. Electrolytes were trending toward a range acceptable for discharge.",
+      "note_text": "Admission note. Decompensated heart failure. The medication list does not include a potassium replacement product.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -103,7 +103,7 @@
       "note_id": "NOTE-VAL807-002",
       "case_id": "VAL-807",
       "note_type": "hospital_course",
-      "note_text": "Diuresis was accompanied by potassium repletion. Electrolytes were trending toward a range acceptable for discharge.",
+      "note_text": "Diuresis used the recorded loop diuretic. Potassium was 3.5 mmol/L on admission and 3.8 mmol/L at discharge. Creatinine stayed 1.2 mg/dL. Natriuretic peptide fell from 836 pg/mL to 585 pg/mL. Weight fell from 99 kg to 93 kg. No potassium medication was administered.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -231,7 +231,7 @@
       "service": "cardiology",
       "timepoint": "inpatient",
       "assessment": "Inpatient cardiology recommendations were recorded.",
-      "recommendation": "Continue the intended heart-failure and diuretic plan.",
+      "recommendation": "Potassium was 3.5 mmol/L then 3.8 mmol/L without a potassium product.",
       "source_reference": null
     }
   ],

@@ -28,7 +28,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Fatigue in the setting of Gastrointestinal hemorrhage, unspecified",
-      "hpi": "A 78-year-old Female is admitted with Gastrointestinal hemorrhage, unspecified. Presenting symptoms include Fatigue, present for two days and improving after treatment. Home medications include lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. apixaban 5 MG Oral Tablet was held during the admission (Held for gastrointestinal bleeding; intended to restart after hemoglobin stability.). Admitted for gastrointestinal bleeding with held anticoagulation. Bleeding settled and hemoglobin was stable. Apixaban was held. The patient is discharge-ready. Gastrointestinal bleeding settled and hemoglobin was stable. Anticoagulation was held.",
+      "hpi": "A 78-year-old woman with atrial fibrillation is admitted with two days of fatigue from gastrointestinal bleeding. Home medicines are apixaban 5 MG twice daily, lisinopril, and atorvastatin. Apixaban was held for the bleeding.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "Fatigue"
@@ -105,7 +105,7 @@
       "note_id": "NOTE-VAL821-001",
       "case_id": "VAL-821",
       "note_type": "admission",
-      "note_text": "Admission note for a 78-year-old Female with Gastrointestinal hemorrhage, unspecified. Symptoms: Fatigue for two days (improving after treatment). Medications continued from home: lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. apixaban 5 MG Oral Tablet was held during the admission (Held for gastrointestinal bleeding; intended to restart after hemoglobin stability.). Admitted for gastrointestinal bleeding with held anticoagulation. Bleeding settled and hemoglobin was stable. Apixaban was held. The patient is discharge-ready. Gastrointestinal bleeding settled and hemoglobin was stable. Anticoagulation was held.",
+      "note_text": "Admission note. Gastrointestinal bleeding. Hemoglobin is 8.7 g/dL. Apixaban, used for atrial fibrillation, was held for gastrointestinal bleeding.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -113,7 +113,7 @@
       "note_id": "NOTE-VAL821-002",
       "case_id": "VAL-821",
       "note_type": "hospital_course",
-      "note_text": "Gastrointestinal bleeding settled and hemoglobin was stable. Anticoagulation was held.",
+      "note_text": "Gastrointestinal bleeding settled. Hemoglobin rose from 8.7 g/dL to 10.9 g/dL. Apixaban remained held for gastrointestinal bleeding. Creatinine was 0.9 mg/dL then 1.2 mg/dL. Discharge systolic blood pressure was 140 mmHg. Gastroenterology follow-up is scheduled in 7 days.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -199,8 +199,8 @@
       "case_id": "VAL-821",
       "service": "gastroenterology",
       "timepoint": "inpatient",
-      "assessment": "Gastroenterology recommendations were recorded.",
-      "recommendation": "Hold anticoagulation while hemoglobin remains stable, then reassess.",
+      "assessment": "Gastrointestinal bleeding settled.",
+      "recommendation": "Hemoglobin rose from 8.7 g/dL to 10.9 g/dL.",
       "source_reference": null
     }
   ],
@@ -219,7 +219,7 @@
       "held_reason": null,
       "verification_status": "verified",
       "verification_source": "patient_and_prior_records",
-      "target_or_goal": "Resume apixaban if hemoglobin remains stable for 48 hours and bleeding has not recurred.",
+      "target_or_goal": null,
       "monitoring": null,
       "quantity_or_days": null,
       "refills": null,
@@ -285,10 +285,10 @@
       "frequency": "twice daily",
       "indication": "Paroxysmal atrial fibrillation",
       "status": "held",
-      "held_reason": "Held for gastrointestinal bleeding; intended to restart after hemoglobin stability.",
+      "held_reason": "Held for gastrointestinal bleeding.",
       "verification_status": "verified",
       "verification_source": "patient_and_prior_records",
-      "target_or_goal": "Resume apixaban if hemoglobin remains stable for 48 hours and bleeding has not recurred.",
+      "target_or_goal": null,
       "monitoring": null,
       "quantity_or_days": null,
       "refills": null,
@@ -354,16 +354,7 @@
       "source_reference": null
     }
   ],
-  "CaseInstruction": [
-    {
-      "instruction_id": null,
-      "case_id": "VAL-821",
-      "category": "medications",
-      "instruction_text": "Resume when holding apixaban 5 MG Oral Tablet: Resume apixaban if hemoglobin remains stable for 48 hours and bleeding has not recurred.",
-      "source_type": "recovered_clean_chart",
-      "source_reference": null
-    }
-  ],
+  "CaseInstruction": [],
   "CaseMonitoring": [],
   "CaseProblemList": [
     {

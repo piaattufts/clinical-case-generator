@@ -27,7 +27,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Dyspnea, Orthopnea in the setting of Acute systolic (congestive) heart failure",
-      "hpi": "A 60-year-old Male is admitted with Acute systolic (congestive) heart failure. Presenting symptoms include Dyspnea, Orthopnea, present for two days and acutely worsening. Home medications include furosemide 40 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet. Admitted for decompensated heart failure with hypokalemia during diuresis. Diuresis was accompanied by potassium repletion. The intended outpatient diuretic dose is recorded. Diuresis was accompanied by potassium repletion. Electrolytes were trending toward a range acceptable for discharge.",
+      "hpi": "A 60-year-old man with heart failure and hyperlipidemia is admitted with two days of worsening dyspnea and orthopnea. Home medicines are oral furosemide 40 MG once daily, atorvastatin, and metoprolol succinate.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "Dyspnea",
@@ -95,7 +95,7 @@
       "note_id": "NOTE-VAL807-001",
       "case_id": "VAL-807",
       "note_type": "admission",
-      "note_text": "Admission note for a 60-year-old Male with Acute systolic (congestive) heart failure. Symptoms: Dyspnea, Orthopnea for two days (acutely worsening). Medications continued from home: furosemide 40 MG Oral Tablet, atorvastatin 40 MG Oral Tablet, 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet. Admitted for decompensated heart failure with hypokalemia during diuresis. Diuresis was accompanied by potassium repletion. The intended outpatient diuretic dose is recorded. Diuresis was accompanied by potassium repletion. Electrolytes were trending toward a range acceptable for discharge.",
+      "note_text": "Admission note. Decompensated heart failure. The medication list does not include a potassium replacement product.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -103,7 +103,7 @@
       "note_id": "NOTE-VAL807-002",
       "case_id": "VAL-807",
       "note_type": "hospital_course",
-      "note_text": "Diuresis was accompanied by potassium repletion. Electrolytes were trending toward a range acceptable for discharge.",
+      "note_text": "Diuresis used the recorded loop diuretic. Potassium was 3.5 mmol/L on admission and 3.8 mmol/L at discharge. Creatinine stayed 1.2 mg/dL. Natriuretic peptide fell from 836 pg/mL to 585 pg/mL. Weight fell from 99 kg to 93 kg. No potassium medication was administered.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -231,7 +231,7 @@
       "service": "cardiology",
       "timepoint": "inpatient",
       "assessment": "Inpatient cardiology recommendations were recorded.",
-      "recommendation": "Continue the intended heart-failure and diuretic plan.",
+      "recommendation": "Potassium was 3.5 mmol/L then 3.8 mmol/L without a potassium product.",
       "source_reference": null
     }
   ],
@@ -502,8 +502,9 @@
         "frequency": "once daily",
         "duration": null,
         "indication": "Acute systolic (congestive) heart failure",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": null
+        "rationale": "Creatinine stayed 1.2 mg/dL and potassium was 3.8 mmol/L after diuresis.",
+        "monitoring": null,
+        "required": true
       },
       {
         "medication": "atorvastatin 40 MG Oral Tablet",
@@ -513,8 +514,9 @@
         "frequency": "once daily",
         "duration": null,
         "indication": "Mixed hyperlipidemia",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": null
+        "rationale": "Hyperlipidemia remains active and no statin adverse effect is described.",
+        "monitoring": null,
+        "required": true
       },
       {
         "medication": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
@@ -524,10 +526,14 @@
         "frequency": "once daily",
         "duration": null,
         "indication": "Acute systolic (congestive) heart failure",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": null
+        "rationale": "The beta blocker was already home therapy for systolic heart failure.",
+        "monitoring": null,
+        "required": true
       }
     ],
+    "medications_to_stop": [],
+    "acceptable_alternatives": [],
+    "contraindications": [],
     "monitoring_requirements": [],
     "follow_up_requirements": [
       {
@@ -537,6 +543,48 @@
       }
     ]
   },
-  "clinician_review_status": "NEEDS_PRE_REVIEW_FIX",
-  "precheck_finding": "unsupported:hospital course describes potassium repletion but no potassium medication is listed"
+  "evidence_trace": [
+    {
+      "medication": "furosemide 40 MG Oral Tablet",
+      "action": "continue",
+      "indication": "Acute systolic (congestive) heart failure",
+      "supporting_diagnosis": "Acute systolic (congestive) heart failure",
+      "supporting_hospital_event": "Diuresis used the recorded loop diuretic.",
+      "supporting_labs": "potassium 3.5 then 3.8 mmol/L; creatinine 1.2 mg/dL",
+      "supporting_vitals": "discharge oxygen saturation 98 percent",
+      "supporting_medication_history": "Home furosemide",
+      "rationale": "Creatinine stayed 1.2 mg/dL and potassium was 3.8 mmol/L after diuresis.",
+      "resident_visible_evidence_location": "diagnoses; medication list; hospital course; labs",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    },
+    {
+      "medication": "atorvastatin 40 MG Oral Tablet",
+      "action": "continue",
+      "indication": "Mixed hyperlipidemia",
+      "supporting_diagnosis": "Mixed hyperlipidemia",
+      "supporting_hospital_event": "Diuresis used the recorded loop diuretic.",
+      "supporting_labs": "potassium 3.5 then 3.8 mmol/L; creatinine 1.2 mg/dL",
+      "supporting_vitals": "discharge oxygen saturation 98 percent",
+      "supporting_medication_history": "Home atorvastatin",
+      "rationale": "Hyperlipidemia remains active and no statin adverse effect is described.",
+      "resident_visible_evidence_location": "diagnoses; medication list; hospital course; labs",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    },
+    {
+      "medication": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+      "action": "continue",
+      "indication": "Acute systolic (congestive) heart failure",
+      "supporting_diagnosis": "Acute systolic (congestive) heart failure",
+      "supporting_hospital_event": "Diuresis used the recorded loop diuretic.",
+      "supporting_labs": "potassium 3.5 then 3.8 mmol/L; creatinine 1.2 mg/dL",
+      "supporting_vitals": "discharge oxygen saturation 98 percent",
+      "supporting_medication_history": "Home 24",
+      "rationale": "The beta blocker was already home therapy for systolic heart failure.",
+      "resident_visible_evidence_location": "diagnoses; medication list; hospital course; labs",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    }
+  ],
+  "clinician_review_status": "READY_FOR_CLINICIAN_REVIEW",
+  "revision_summary": "The source medication list has no potassium product, so the repletion claim was removed. Potassium remains the measured 3.5 then 3.8 mmol/L. Home heart-failure medicines stay on the reference plan.",
+  "precheck_finding": "none"
 }

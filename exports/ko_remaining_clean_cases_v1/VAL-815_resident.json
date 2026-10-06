@@ -28,7 +28,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Nausea in the setting of Other cytomegaloviral diseases",
-      "hpi": "A 68-year-old Female is admitted with Other cytomegaloviral diseases. Presenting symptoms include Nausea, present for two days and intermittent. Home medications include amlodipine 5 MG Oral Tablet, BX Rating tacrolimus 1 MG Oral Capsule, valganciclovir 450 MG Oral Tablet, lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for cytomegalovirus disease after kidney transplantation with a tacrolimus dose adjustment. Tacrolimus was continued at the intended adjusted outpatient dose for transplant immunosuppression, not as treatment for CMV. Home therapy was reviewed during the stay after the inpatient response was observed.",
+      "hpi": "A 68-year-old woman with a kidney transplant is admitted with two days of nausea. CMV disease was diagnosed before this admission, and she was already taking valganciclovir. Other home medicines are tacrolimus 1 MG every 12 hours, amlodipine, lisinopril, and atorvastatin. The tacrolimus dose on the medication list is unchanged.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "Nausea"
@@ -105,7 +105,7 @@
       "note_id": "NOTE-VAL815-001",
       "case_id": "VAL-815",
       "note_type": "admission",
-      "note_text": "Admission note for a 68-year-old Female with Other cytomegaloviral diseases. Symptoms: Nausea for two days (intermittent). Medications continued from home: amlodipine 5 MG Oral Tablet, BX Rating tacrolimus 1 MG Oral Capsule, valganciclovir 450 MG Oral Tablet, lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for cytomegalovirus disease after kidney transplantation with a tacrolimus dose adjustment. Tacrolimus was continued at the intended adjusted outpatient dose for transplant immunosuppression, not as treatment for CMV. Home therapy was reviewed during the stay after the inpatient response was observed.",
+      "note_text": "Admission note. Nausea in a transplant recipient already taking valganciclovir for CMV disease before this admission. Tacrolimus is 1 MG every 12 hours at home and in the hospital. No dose change is recorded.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -113,7 +113,7 @@
       "note_id": "NOTE-VAL815-002",
       "case_id": "VAL-815",
       "note_type": "hospital_course",
-      "note_text": "Home therapy was reviewed during the stay after the inpatient response was observed.",
+      "note_text": "Nausea was evaluated while established CMV treatment continued. Tacrolimus remained 1 MG every 12 hours. There was no tacrolimus dose change. Creatinine was 0.8 mg/dL then 0.9 mg/dL and potassium was 4.6 mmol/L then 4.5 mmol/L. Valganciclovir, amlodipine, lisinopril, and atorvastatin stayed at the recorded home doses.",
       "source_type": "authored_scenario",
       "source_reference": null
     }

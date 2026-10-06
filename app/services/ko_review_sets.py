@@ -1,8 +1,10 @@
 """Clinician-review packages for the recovered VAL-801–VAL-824 clean charts.
 
-Set A revises six cases from clinician feedback. Set B packages the other
-eighteen recovered charts without a clinical rewrite. Neither set reads the
-historical injected charts, and neither overwrites the frozen VAL files.
+Set A revises six cases from earlier clinician feedback. Nine other charts are
+corrected from the recovered clean source. Charts that pass the evidence audit
+join the untouched ready cases in the fresh-review package. Charts that still
+fail stay in a held audit and are not placed in a clinician-review document.
+Historical frozen VAL files are not overwritten.
 """
 
 from __future__ import annotations
@@ -58,6 +60,28 @@ REMAINING_IDS = (
     "VAL-823",
     "VAL-824",
 )
+FRESH_UNTOUCHED_IDS = (
+    "VAL-804",
+    "VAL-810",
+    "VAL-811",
+    "VAL-812",
+    "VAL-818",
+    "VAL-819",
+    "VAL-822",
+    "VAL-823",
+    "VAL-824",
+)
+REPAIR_IDS = (
+    "VAL-806",
+    "VAL-807",
+    "VAL-808",
+    "VAL-814",
+    "VAL-815",
+    "VAL-816",
+    "VAL-817",
+    "VAL-820",
+    "VAL-821",
+)
 
 Revision = tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]], str]
 
@@ -82,30 +106,65 @@ _LEAKS = (
 )
 
 
-def write_ko_review_sets(revised_dir: Path, remaining_dir: Path) -> dict[str, Any]:
-    """Write both review directories from the recovered clean export."""
+def write_ko_review_sets(
+    revised_dir: Path,
+    fresh_dir: Path,
+    held_dir: Path,
+) -> dict[str, Any]:
+    """Write the revised, fresh-review, and held packages."""
     revised_dir.mkdir(parents=True, exist_ok=True)
-    remaining_dir.mkdir(parents=True, exist_ok=True)
+    fresh_dir.mkdir(parents=True, exist_ok=True)
+    held_dir.mkdir(parents=True, exist_ok=True)
     revised_rows = [_write_revised(case_id, revised_dir) for case_id in REVISED_IDS]
-    remaining_rows = [_write_remaining(case_id, remaining_dir) for case_id in REMAINING_IDS]
+    untouched_rows = [_write_remaining(case_id, fresh_dir) for case_id in FRESH_UNTOUCHED_IDS]
+    fresh_rows = list(untouched_rows)
+    held_rows: list[dict[str, Any]] = []
+    repair_status: dict[str, str] = {}
+    for case_id in REPAIR_IDS:
+        row = _build_repaired(case_id)
+        repair_status[case_id] = row["status"]
+        if row["status"] == READY_REVIEW:
+            _dump(fresh_dir, case_id, row["resident"], row["evaluator"])
+            fresh_rows.append(row)
+        else:
+            _dump(held_dir, case_id, row["resident"], row["evaluator"])
+            held_rows.append(row)
+    fresh_rows.sort(key=lambda item: item["case_id"])
+    _purge_case_files(fresh_dir, {row["case_id"] for row in fresh_rows})
+    _purge_case_files(held_dir, {row["case_id"] for row in held_rows})
+    for stale in held_dir.glob("*.docx"):
+        stale.unlink()
     _write_docx(
         revised_dir / "KO_REVISED_CASES_REVIEW.docx",
         "Revised cases for clinician review",
         revised_rows,
     )
     _write_docx(
-        remaining_dir / "KO_REMAINING_CLEAN_CASES_REVIEW.docx",
-        "Remaining clean cases for clinician review",
-        remaining_rows,
+        fresh_dir / "KO_REMAINING_CLEAN_CASES_REVIEW.docx",
+        "Clean cases for fresh clinician review",
+        fresh_rows,
     )
     (revised_dir / "AUDIT.md").write_text(_revised_audit(revised_rows), encoding="utf-8")
-    (remaining_dir / "AUDIT.md").write_text(_remaining_audit(remaining_rows), encoding="utf-8")
+    (fresh_dir / "AUDIT.md").write_text(_fresh_audit(fresh_rows), encoding="utf-8")
+    (held_dir / "AUDIT.md").write_text(_held_audit(held_rows), encoding="utf-8")
     return {
         "revised": [row["case_id"] for row in revised_rows],
-        "remaining": [row["case_id"] for row in remaining_rows],
+        "fresh": [row["case_id"] for row in fresh_rows],
+        "held": [row["case_id"] for row in held_rows],
+        "remaining": [row["case_id"] for row in fresh_rows],
         "revised_status": {row["case_id"]: row["status"] for row in revised_rows},
-        "remaining_status": {row["case_id"]: row["status"] for row in remaining_rows},
+        "fresh_status": {row["case_id"]: row["status"] for row in fresh_rows},
+        "held_status": {row["case_id"]: row["status"] for row in held_rows},
+        "repair_status": repair_status,
+        "remaining_status": {row["case_id"]: row["status"] for row in fresh_rows},
     }
+
+
+def _purge_case_files(directory: Path, keep_ids: set[str]) -> None:
+    for path in directory.glob("VAL-*_*.json"):
+        case_id = path.name.split("_", 1)[0]
+        if case_id not in keep_ids:
+            path.unlink()
 
 
 def _load_pair(case_id: str) -> tuple[dict[str, Any], dict[str, Any]]:
@@ -1242,6 +1301,985 @@ def _revise_813(chart: dict[str, Any]) -> Revision:
     return chart, _plan_bundle(plans, chart.get("CaseFollowup") or []), traces, summary
 
 
+def _drop_direct_orders(chart: dict[str, Any]) -> None:
+    chart["CaseInstruction"] = [
+        row
+        for row in chart.get("CaseInstruction") or []
+        if "resume when holding" not in (row.get("instruction_text") or "").casefold()
+        and "exactly as listed" not in (row.get("instruction_text") or "").casefold()
+    ]
+    for row in chart.get("CaseMedication") or []:
+        goal = (row.get("target_or_goal") or "").casefold()
+        if "resume " in goal or "restart" in goal:
+            row["target_or_goal"] = None
+
+
+def _repair_blockers(chart: dict[str, Any], traces: list[dict[str, Any]]) -> list[str]:
+    findings: list[str] = []
+    blob = json.dumps(chart).casefold()
+    needles = (
+        *_LEAKS,
+        "resume when holding",
+        "intended to restart",
+        "in this profile",
+        "the discharge list is the intended",
+        "intended outpatient",
+        "intended adjusted outpatient",
+    )
+    for needle in needles:
+        if needle in blob:
+            findings.append(f"answer leakage:{needle}")
+    if any(item["evidence_class"] == HIDDEN for item in traces):
+        findings.append(HIDDEN)
+    if any(item["evidence_class"] == INCONSISTENT for item in traces):
+        findings.append(INCONSISTENT)
+    if any(item["evidence_class"] == WEAK for item in traces):
+        findings.append(WEAK)
+    if not _cmv_chronology_ok(chart):
+        findings.append("contradictory timeline:CMV and valganciclovir do not agree")
+    return findings
+
+
+def _cmv_chronology_ok(chart: dict[str, Any]) -> bool:
+    admission = ((chart.get("ClinicalCase") or {}).get("admission_dx") or "").casefold()
+    if "cytomegalo" not in admission:
+        return True
+    blob = json.dumps(chart).casefold()
+    home = any(
+        "valganciclovir" in (row.get("drug") or "").casefold() and row.get("context") == "home"
+        for row in chart.get("CaseMedication") or []
+    )
+    if home:
+        return "before this admission" in blob
+    return "viral load" in blob and "not taking valganciclovir" in blob
+
+
+def _build_repaired(case_id: str) -> dict[str, Any]:
+    resident, _evaluator = _load_pair(case_id)
+    revised, reference, trace, summary = _REPAIRS[case_id](deepcopy(resident))
+    _strip_resident_answers(revised)
+    _drop_direct_orders(revised)
+    blockers = _repair_blockers(revised, trace)
+    status = READY_REVIEW if not blockers else NOT_READY
+    evaluator = deepcopy(revised)
+    evaluator["reference_discharge_plan"] = reference
+    evaluator["evidence_trace"] = trace
+    evaluator["clinician_review_status"] = status
+    evaluator["revision_summary"] = summary
+    evaluator["precheck_finding"] = "none" if not blockers else "; ".join(blockers)
+    return {
+        "case_id": case_id,
+        "resident": revised,
+        "evaluator": evaluator,
+        "summary": summary,
+        "status": status,
+        "classes": [item["evidence_class"] for item in trace],
+        "finding": evaluator["precheck_finding"],
+    }
+
+
+def _continue_home(
+    chart: dict[str, Any],
+    plans: list[dict[str, Any]],
+    traces: list[dict[str, Any]],
+    medication: str,
+    indication: str,
+    phrases: list[str],
+    rationale: str,
+    event: str,
+    labs: str,
+    vitals: str,
+) -> None:
+    plan, trace = _decision(
+        chart,
+        medication=medication,
+        action="continue",
+        indication=indication,
+        rationale=rationale,
+        diagnosis=indication,
+        event=event,
+        labs=labs,
+        vitals=vitals,
+        history=f"Home {medication.split()[0]}",
+        location="diagnoses; medication list; hospital course; labs",
+        phrases=phrases,
+    )
+    plans.append(plan)
+    traces.append(trace)
+
+
+def _repair_806(chart: dict[str, Any]) -> Revision:
+    _drop_direct_orders(chart)
+    for row in _meds(chart, "lisinopril"):
+        if row.get("context") == "inpatient":
+            row["status"] = "held"
+            row["held_reason"] = (
+                "Held for creatinine 2.8 mg/dL during decongestion. "
+                "Discharge creatinine is 1.6 mg/dL."
+            )
+    hpi = (
+        "An 82-year-old woman with heart failure, hypertension, and hyperlipidemia is "
+        "admitted with several days of progressive dyspnea and edema. Home medicines are "
+        "furosemide, atorvastatin, metoprolol succinate, and lisinopril. No prior creatinine "
+        "from before this illness is documented."
+    )
+    admission = (
+        "Admission note. Volume overload with creatinine 2.8 mg/dL. Lisinopril was held "
+        "because the creatinine rose during decongestion."
+    )
+    course = (
+        "Lisinopril was held while creatinine was 2.8 mg/dL. Creatinine then fell to "
+        "1.6 mg/dL. Potassium was 3.8 mmol/L on admission and 4.5 mmol/L at discharge. "
+        "Discharge systolic blood pressure was 116 mmHg. No prior creatinine is available "
+        "for comparison."
+    )
+    _set_text(chart, hpi=hpi, admission=admission, course=course)
+    for consult in chart.get("CaseConsult") or []:
+        consult["assessment"] = "Creatinine fell from 2.8 mg/dL to 1.6 mg/dL during diuresis."
+        consult["recommendation"] = "No creatinine from before this illness is in the record."
+    plans: list[dict[str, Any]] = []
+    traces: list[dict[str, Any]] = []
+    hold, hold_trace = _decision(
+        chart,
+        medication="lisinopril 10 MG Oral Tablet",
+        action="hold",
+        indication="Essential (primary) hypertension",
+        rationale=(
+            "Creatinine improved from 2.8 mg/dL to 1.6 mg/dL but remains elevated, "
+            "potassium is 4.5 mmol/L, systolic pressure is 116 mmHg, and no prior "
+            "creatinine is documented."
+        ),
+        diagnosis="Essential (primary) hypertension",
+        event="Lisinopril was held while creatinine was 2.8 mg/dL.",
+        labs="creatinine 2.8 mg/dL then 1.6 mg/dL; potassium 4.5 mmol/L",
+        vitals="discharge systolic blood pressure 116 mmHg",
+        history="Home lisinopril",
+        location="hospital course; labs; vitals",
+        phrases=["lisinopril was held", "1.6", "2.8", "no prior creatinine", "4.5"],
+    )
+    plans.append(hold)
+    traces.append(hold_trace)
+    for medication, indication, phrases in (
+        (
+            "furosemide 40 MG Oral Tablet",
+            "Acute systolic (congestive) heart failure",
+            ["furosemide", "heart failure"],
+        ),
+        (
+            "atorvastatin 40 MG Oral Tablet",
+            "Mixed hyperlipidemia",
+            ["atorvastatin", "hyperlipidemia"],
+        ),
+        (
+            "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+            "Acute systolic (congestive) heart failure",
+            ["metoprolol", "heart failure"],
+        ),
+    ):
+        _continue_home(
+            chart,
+            plans,
+            traces,
+            medication,
+            indication,
+            phrases,
+            "The home medicine matches an active diagnosis and was not the held ACE inhibitor.",
+            "Diuresis proceeded while lisinopril was held.",
+            "creatinine 1.6 mg/dL; potassium 4.5 mmol/L",
+            "systolic blood pressure 116 mmHg",
+        )
+    summary = (
+        "No prior creatinine exists in the source data. The lisinopril reference is hold, "
+        "based on creatinine 2.8 then 1.6 mg/dL, potassium 4.5 mmol/L, and systolic pressure "
+        "116 mmHg. Direct restart instructions were removed."
+    )
+    return chart, _plan_bundle(plans, chart.get("CaseFollowup") or []), traces, summary
+
+
+def _repair_807(chart: dict[str, Any]) -> Revision:
+    hpi = (
+        "A 60-year-old man with heart failure and hyperlipidemia is admitted with two days "
+        "of worsening dyspnea and orthopnea. Home medicines are oral furosemide 40 MG once "
+        "daily, atorvastatin, and metoprolol succinate."
+    )
+    admission = (
+        "Admission note. Decompensated heart failure. The medication list does not include "
+        "a potassium replacement product."
+    )
+    course = (
+        "Diuresis used the recorded loop diuretic. Potassium was 3.5 mmol/L on admission and "
+        "3.8 mmol/L at discharge. Creatinine stayed 1.2 mg/dL. Natriuretic peptide fell from "
+        "836 pg/mL to 585 pg/mL. Weight fell from 99 kg to 93 kg. No potassium medication "
+        "was administered."
+    )
+    _set_text(chart, hpi=hpi, admission=admission, course=course)
+    for consult in chart.get("CaseConsult") or []:
+        consult["recommendation"] = (
+            "Potassium was 3.5 mmol/L then 3.8 mmol/L without a potassium product."
+        )
+    plans: list[dict[str, Any]] = []
+    traces: list[dict[str, Any]] = []
+    for medication, indication, phrases, rationale in (
+        (
+            "furosemide 40 MG Oral Tablet",
+            "Acute systolic (congestive) heart failure",
+            ["furosemide", "3.8", "1.2"],
+            "Creatinine stayed 1.2 mg/dL and potassium was 3.8 mmol/L after diuresis.",
+        ),
+        (
+            "atorvastatin 40 MG Oral Tablet",
+            "Mixed hyperlipidemia",
+            ["atorvastatin", "hyperlipidemia"],
+            "Hyperlipidemia remains active and no statin adverse effect is described.",
+        ),
+        (
+            "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+            "Acute systolic (congestive) heart failure",
+            ["metoprolol", "heart failure"],
+            "The beta blocker was already home therapy for systolic heart failure.",
+        ),
+    ):
+        _continue_home(
+            chart,
+            plans,
+            traces,
+            medication,
+            indication,
+            phrases,
+            rationale,
+            "Diuresis used the recorded loop diuretic.",
+            "potassium 3.5 then 3.8 mmol/L; creatinine 1.2 mg/dL",
+            "discharge oxygen saturation 98 percent",
+        )
+    summary = (
+        "The source medication list has no potassium product, so the repletion claim was "
+        "removed. Potassium remains the measured 3.5 then 3.8 mmol/L. Home heart-failure "
+        "medicines stay on the reference plan."
+    )
+    return chart, _plan_bundle(plans, chart.get("CaseFollowup") or []), traces, summary
+
+
+def _repair_808(chart: dict[str, Any]) -> Revision:
+    chart["CaseWeight"] = [
+        {
+            "weight_id": "WT-VAL808-001",
+            "case_id": "VAL-808",
+            "timepoint": "admission",
+            "weight_kg": "94.000",
+            "dry_weight_kg": None,
+            "source_reference": None,
+        },
+        {
+            "weight_id": "WT-VAL808-002",
+            "case_id": "VAL-808",
+            "timepoint": "hospital_day_2",
+            "weight_kg": "90.000",
+            "dry_weight_kg": None,
+            "source_reference": None,
+        },
+        {
+            "weight_id": "WT-VAL808-003",
+            "case_id": "VAL-808",
+            "timepoint": "discharge",
+            "weight_kg": "86.000",
+            "dry_weight_kg": "86.000",
+            "source_reference": None,
+        },
+    ]
+    chart["CaseIntakeOutput"] = [
+        {
+            "io_id": f"IO-VAL808-00{index}",
+            "case_id": "VAL-808",
+            "timepoint": f"hospital_day_{index}",
+            "intake_ml": intake,
+            "output_ml": output,
+            "net_ml": intake - output,
+            "notes": None,
+            "source_reference": None,
+        }
+        for index, intake, output in (
+            (1, 1100, 3500),
+            (2, 1200, 3400),
+            (3, 1400, 3000),
+            (4, 1400, 3200),
+        )
+    ]
+    for row in _meds(chart, "furosemide"):
+        if row.get("context") == "inpatient":
+            row["route"] = "intravenous"
+            row["frequency"] = "twice daily"
+            row["notes"] = (
+                "Intravenous furosemide 40 MG twice daily while weight was above the "
+                "86 kg dry weight. The home regimen was 40 MG orally once daily."
+            )
+    hpi = (
+        "A 66-year-old woman with systolic heart failure and hypertension is admitted with "
+        "one week of worsening edema and orthopnea. Home medicines are oral furosemide 40 MG "
+        "once daily, spironolactone, lisinopril, and metoprolol succinate. Dry weight is 86 kg "
+        "and admission weight is 94 kg."
+    )
+    admission = (
+        "Admission note. Volume overload at 94 kg, above the 86 kg dry weight. Home oral "
+        "furosemide once daily is not the inpatient regimen."
+    )
+    course = (
+        "Intravenous furosemide 40 MG twice daily was used while the weight was above dry "
+        "weight. Intake and output were net negative on hospital days 1 through 4. Weight "
+        "fell from 94 kg to 90 kg and then to 86 kg, equal to the dry weight. Creatinine "
+        "stayed 0.9 mg/dL and potassium rose from 3.4 mmol/L to 3.7 mmol/L. Discharge "
+        "systolic blood pressure was 142 mmHg."
+    )
+    _set_text(chart, hpi=hpi, admission=admission, course=course)
+    for consult in chart.get("CaseConsult") or []:
+        consult["assessment"] = "Weight returned to the 86 kg dry weight."
+        consult["recommendation"] = "Creatinine stayed 0.9 mg/dL and potassium was 3.7 mmol/L."
+    plans: list[dict[str, Any]] = []
+    traces: list[dict[str, Any]] = []
+    changed, changed_trace = _decision(
+        chart,
+        medication="furosemide 40 MG Oral Tablet",
+        action="change",
+        indication="Acute systolic (congestive) heart failure",
+        rationale=(
+            "Oral 40 MG once daily was the regimen at admission, when weight was 94 kg. "
+            "Intravenous 40 MG twice daily brought the weight to the 86 kg dry weight with "
+            "creatinine 0.9 mg/dL and potassium 3.7 mmol/L, so the oral frequency becomes "
+            "twice daily."
+        ),
+        diagnosis="Acute systolic (congestive) heart failure",
+        event="Intravenous furosemide 40 MG twice daily while weight was above dry weight.",
+        labs="creatinine 0.9 mg/dL; potassium 3.7 mmol/L",
+        vitals="discharge systolic blood pressure 142 mmHg",
+        history="Home oral furosemide 40 MG once daily",
+        location="hospital course; weights; medication list; labs",
+        phrases=["intravenous furosemide", "86 kg", "once daily", "0.9"],
+        route="oral",
+        frequency="twice daily",
+    )
+    plans.append(changed)
+    traces.append(changed_trace)
+    for medication, indication, phrases in (
+        (
+            "spironolactone 25 MG Oral Tablet",
+            "Acute systolic (congestive) heart failure",
+            ["spironolactone", "3.7"],
+        ),
+        (
+            "lisinopril 10 MG Oral Tablet",
+            "Essential (primary) hypertension",
+            ["lisinopril", "0.9", "142"],
+        ),
+        (
+            "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+            "Acute systolic (congestive) heart failure",
+            ["metoprolol", "heart failure"],
+        ),
+    ):
+        _continue_home(
+            chart,
+            plans,
+            traces,
+            medication,
+            indication,
+            phrases,
+            "This home medicine matches an active diagnosis, and creatinine and potassium "
+            "stayed acceptable during diuresis.",
+            "Weight returned to the 86 kg dry weight.",
+            "creatinine 0.9 mg/dL; potassium 3.7 mmol/L",
+            "systolic blood pressure 142 mmHg",
+        )
+    alternatives = [
+        {
+            "medication": "furosemide 40 MG Oral Tablet",
+            "action": "continue",
+            "rationale": (
+                "Once weight equals the 86 kg dry weight, a reviewer may accept returning "
+                "to oral 40 MG once daily with early weight follow-up."
+            ),
+        }
+    ]
+    summary = (
+        "Answer-revealing discharge-list language was removed. Inpatient furosemide is "
+        "intravenous 40 MG twice daily, distinct from home oral 40 MG once daily. Discharge "
+        "weight is the 86 kg dry weight after four days of negative balance. The reference "
+        "changes oral furosemide to twice daily."
+    )
+    return (
+        chart,
+        _plan_bundle(
+            plans,
+            chart.get("CaseFollowup") or [],
+            alternatives=alternatives,
+        ),
+        traces,
+        summary,
+    )
+
+
+def _repair_814(chart: dict[str, Any]) -> Revision:
+    _drop_direct_orders(chart)
+    kept = []
+    for row in chart.get("CaseMedication") or []:
+        drug = (row.get("drug") or "").casefold()
+        if "valganciclovir" in drug and row.get("context") == "home":
+            continue
+        if "valganciclovir" in drug:
+            row["dose"] = "450 MG"
+            row["frequency"] = "twice daily"
+            row["notes"] = (
+                "Started after the CMV viral load was detected during this admission. "
+                "Given as one 450 MG tablet twice daily while creatinine is 1.6 mg/dL. "
+                "Not a home medicine."
+            )
+            row["indication"] = "Other cytomegaloviral diseases"
+        if "mycophenolate" in drug and row.get("context") == "inpatient":
+            row["status"] = "held"
+            row["held_reason"] = "Held during active CMV infection with diarrhea."
+        kept.append(row)
+    chart["CaseMedication"] = kept
+    for procedure in chart.get("CaseProcedure") or []:
+        if procedure.get("time") == "admission":
+            procedure["findings"] = "CMV viral load drawn after admission was detected."
+        elif procedure.get("time") == "inpatient":
+            procedure["findings"] = (
+                "CMV viral burden was lower than the admission result."
+            )
+    hpi = (
+        "A 71-year-old man with a kidney transplant is admitted with one week of progressive "
+        "diarrhea and nausea. Maintenance immunosuppression is tacrolimus and mycophenolate. "
+        "He also takes amlodipine. He was not taking valganciclovir before this admission."
+    )
+    admission = (
+        "Admission note. Diarrhea and nausea after kidney transplantation. Home "
+        "immunosuppression is tacrolimus and mycophenolate. Valganciclovir is not a home "
+        "medicine. Creatinine is 2.5 mg/dL."
+    )
+    course = (
+        "CMV viral load drawn after admission was detected. Valganciclovir was started only "
+        "after that result. While creatinine was 2.5 mg/dL the dose used was 450 MG once "
+        "daily. Creatinine then fell to 1.6 mg/dL, and the inpatient dose is 450 MG twice "
+        "daily, given as 450 MG tablets. A later viral-load review was lower than the "
+        "admission result. Mycophenolate was held during the active CMV infection. "
+        "Diarrhea was improving as the viral load fell."
+    )
+    _set_text(chart, hpi=hpi, admission=admission, course=course)
+    for consult in chart.get("CaseConsult") or []:
+        if consult.get("service") == "infectious disease":
+            consult["assessment"] = "CMV viral load drawn after admission was detected."
+            consult["recommendation"] = (
+                "A later viral-load review was lower than the admission result."
+            )
+        if consult.get("service") == "transplant":
+            consult["assessment"] = "Mycophenolate was held during active CMV infection."
+            consult["recommendation"] = "Creatinine fell from 2.5 mg/dL to 1.6 mg/dL."
+    plans: list[dict[str, Any]] = []
+    traces: list[dict[str, Any]] = []
+    started, started_trace = _decision(
+        chart,
+        medication="valganciclovir 450 MG Oral Tablet",
+        action="start",
+        dose="450 MG",
+        frequency="twice daily",
+        indication="Other cytomegaloviral diseases",
+        rationale=(
+            "Started after the in-hospital viral load. The twice-daily 450 MG dose matches "
+            "creatinine 1.6 mg/dL; 900 MG twice daily is not used at that creatinine."
+        ),
+        diagnosis="Other cytomegaloviral diseases",
+        event="Valganciclovir was started only after the viral load was detected.",
+        labs="creatinine 2.5 mg/dL then 1.6 mg/dL",
+        vitals="none",
+        history="Not a home medicine",
+        location="history of present illness; hospital course; procedures",
+        phrases=["not taking valganciclovir", "viral load", "450 mg twice daily", "1.6"],
+    )
+    plans.append(started)
+    traces.append(started_trace)
+    restarted, restarted_trace = _decision(
+        chart,
+        medication="mycophenolate mofetil 500 MG Oral Tablet",
+        action="restart",
+        indication="Kidney transplant status",
+        rationale=(
+            "Mycophenolate was held for CMV diarrhea. The later viral load is lower than "
+            "the admission result, diarrhea was improving, and creatinine fell to 1.6 mg/dL."
+        ),
+        diagnosis="Kidney transplant status",
+        event="Mycophenolate was held during the active CMV infection.",
+        labs="creatinine 1.6 mg/dL; later viral load lower than admission",
+        vitals="none",
+        history="Home mycophenolate 1000 MG twice daily",
+        location="hospital course; procedures; labs",
+        phrases=["mycophenolate was held", "lower than the admission", "diarrhea was improving"],
+    )
+    plans.append(restarted)
+    traces.append(restarted_trace)
+    for medication, indication, phrases in (
+        (
+            "BX Rating tacrolimus 1 MG Oral Capsule",
+            "Kidney transplant status",
+            ["tacrolimus", "transplant"],
+        ),
+        (
+            "amlodipine 5 MG Oral Tablet",
+            "Essential (primary) hypertension",
+            ["amlodipine", "hypertension"],
+        ),
+    ):
+        _continue_home(
+            chart,
+            plans,
+            traces,
+            medication,
+            indication,
+            phrases,
+            "This home medicine matches an active diagnosis and is not the new antiviral.",
+            "Tacrolimus and amlodipine were kept active during CMV treatment.",
+            "creatinine 1.6 mg/dL",
+            "none",
+        )
+    alternatives = [
+        {
+            "medication": "mycophenolate mofetil 500 MG Oral Tablet",
+            "action": "hold",
+            "rationale": (
+                "A reviewer may keep mycophenolate held until the transplant visit because "
+                "the viral load is lower but not described as cleared."
+            ),
+        }
+    ]
+    summary = (
+        "Valganciclovir is no longer a home medicine. It starts after the in-hospital viral "
+        "load, at 450 MG twice daily once creatinine is 1.6 mg/dL. Direct mycophenolate "
+        "restart instructions were removed. The hidden reference still restarts mycophenolate "
+        "because the viral load is lower and diarrhea was improving."
+    )
+    return (
+        chart,
+        _plan_bundle(
+            plans,
+            chart.get("CaseFollowup") or [],
+            alternatives=alternatives,
+        ),
+        traces,
+        summary,
+    )
+
+
+def _repair_815(chart: dict[str, Any]) -> Revision:
+    hpi = (
+        "A 68-year-old woman with a kidney transplant is admitted with two days of nausea. "
+        "CMV disease was diagnosed before this admission, and she was already taking "
+        "valganciclovir. Other home medicines are tacrolimus 1 MG every 12 hours, amlodipine, "
+        "lisinopril, and atorvastatin. The tacrolimus dose on the medication list is unchanged."
+    )
+    admission = (
+        "Admission note. Nausea in a transplant recipient already taking valganciclovir for "
+        "CMV disease before this admission. Tacrolimus is 1 MG every 12 hours at home and "
+        "in the hospital. No dose change is recorded."
+    )
+    course = (
+        "Nausea was evaluated while established CMV treatment continued. Tacrolimus remained "
+        "1 MG every 12 hours. There was no tacrolimus dose change. Creatinine was 0.8 mg/dL "
+        "then 0.9 mg/dL and potassium was 4.6 mmol/L then 4.5 mmol/L. Valganciclovir, "
+        "amlodipine, lisinopril, and atorvastatin stayed at the recorded home doses."
+    )
+    _set_text(chart, hpi=hpi, admission=admission, course=course)
+    for consult in chart.get("CaseConsult") or []:
+        text = (consult.get("recommendation") or "").casefold()
+        if "intended" in text:
+            consult["recommendation"] = "Tacrolimus remained 1 MG every 12 hours."
+    plans: list[dict[str, Any]] = []
+    traces: list[dict[str, Any]] = []
+    for medication, indication, phrases in (
+        (
+            "BX Rating tacrolimus 1 MG Oral Capsule",
+            "Kidney transplant status",
+            ["tacrolimus", "1 mg every 12 hours", "no dose change"],
+        ),
+        (
+            "valganciclovir 450 MG Oral Tablet",
+            "Other cytomegaloviral diseases",
+            ["valganciclovir", "before this admission"],
+        ),
+        (
+            "amlodipine 5 MG Oral Tablet",
+            "Essential (primary) hypertension",
+            ["amlodipine", "hypertension"],
+        ),
+        (
+            "lisinopril 10 MG Oral Tablet",
+            "Essential (primary) hypertension",
+            ["lisinopril", "0.9", "4.5"],
+        ),
+        (
+            "atorvastatin 40 MG Oral Tablet",
+            "Mixed hyperlipidemia",
+            ["atorvastatin", "hyperlipidemia"],
+        ),
+    ):
+        _continue_home(
+            chart,
+            plans,
+            traces,
+            medication,
+            indication,
+            phrases,
+            "The recorded dose is unchanged and matches an active diagnosis.",
+            "No tacrolimus dose change is recorded.",
+            "creatinine 0.8 then 0.9 mg/dL; potassium 4.5 mmol/L",
+            "none",
+        )
+    summary = (
+        "The tacrolimus dose-change claim was removed because home and inpatient doses are "
+        "both 1 MG every 12 hours. CMV is framed as disease already under valganciclovir "
+        "before this admission."
+    )
+    return chart, _plan_bundle(plans, chart.get("CaseFollowup") or []), traces, summary
+
+
+def _repair_816(chart: dict[str, Any]) -> Revision:
+    hpi = (
+        "A 57-year-old man with a kidney transplant is admitted with one day of diarrhea and "
+        "fatigue that are improving. CMV disease was diagnosed before this admission, and he "
+        "was already taking valganciclovir. Home medicines also include tacrolimus and "
+        "atorvastatin."
+    )
+    admission = (
+        "Admission note. Improving diarrhea and fatigue in a transplant recipient already "
+        "taking valganciclovir for CMV disease before this admission."
+    )
+    course = (
+        "Symptoms improved during the stay. Valganciclovir was already treatment for CMV "
+        "disease before this admission and remained on the inpatient list at 900 MG twice "
+        "daily. Creatinine was 1.0 mg/dL then 0.9 mg/dL. Tacrolimus remained 1 MG every "
+        "12 hours. Infectious-disease follow-up is scheduled to review the antiviral course."
+    )
+    _set_text(chart, hpi=hpi, admission=admission, course=course)
+    for row in chart.get("CaseInstruction") or []:
+        row["instruction_text"] = (
+            "Infectious-disease follow-up is scheduled to review the antiviral course."
+        )
+    for follow in chart.get("CaseFollowup") or []:
+        follow["item"] = "Infectious-disease follow-up to review antiviral therapy"
+    for consult in chart.get("CaseConsult") or []:
+        if "intended" in (consult.get("recommendation") or "").casefold():
+            consult["recommendation"] = (
+                "Antiviral therapy was already underway before this admission."
+            )
+    plans: list[dict[str, Any]] = []
+    traces: list[dict[str, Any]] = []
+    for medication, indication, phrases in (
+        (
+            "valganciclovir 450 MG Oral Tablet",
+            "Other cytomegaloviral diseases",
+            ["valganciclovir", "before this admission", "900 mg"],
+        ),
+        (
+            "BX Rating tacrolimus 1 MG Oral Capsule",
+            "Kidney transplant status",
+            ["tacrolimus", "transplant"],
+        ),
+        (
+            "atorvastatin 40 MG Oral Tablet",
+            "Mixed hyperlipidemia",
+            ["atorvastatin", "hyperlipidemia"],
+        ),
+    ):
+        _continue_home(
+            chart,
+            plans,
+            traces,
+            medication,
+            indication,
+            phrases,
+            "The recorded dose is unchanged and matches an active diagnosis.",
+            "Symptoms improved during established CMV treatment.",
+            "creatinine 1.0 then 0.9 mg/dL",
+            "none",
+        )
+    summary = (
+        "CMV is framed as established disease already treated with valganciclovir before "
+        "this admission. The direct pending-decision instruction was replaced with follow-up "
+        "context. The reference continues the recorded doses."
+    )
+    return chart, _plan_bundle(plans, chart.get("CaseFollowup") or []), traces, summary
+
+
+def _repair_817(chart: dict[str, Any]) -> Revision:
+    hpi = (
+        "An 87-year-old man is admitted after operative repair of a femoral-neck fracture. "
+        "Home medicines are lisinopril, warfarin for atrial fibrillation, and metformin. "
+        "He had been fatigued for several days."
+    )
+    admission = (
+        "Admission note. Postoperative femoral-neck fracture. Warfarin is a home medicine "
+        "for atrial fibrillation. Hemoglobin is 9.0 g/dL and INR is 2.6."
+    )
+    course = (
+        "Warfarin was held around the operation and is active again on the inpatient list. "
+        "INR is 2.6 at discharge and hemoglobin rose from 9.0 g/dL to 10.1 g/dL. "
+        "Glucose was 127 mg/dL then 113 mg/dL."
+    )
+    _set_text(chart, hpi=hpi, admission=admission, course=course)
+    plans: list[dict[str, Any]] = []
+    traces: list[dict[str, Any]] = []
+    for medication, indication, phrases, rationale, labs in (
+        (
+            "warfarin sodium 5 MG Oral Tablet",
+            "Paroxysmal atrial fibrillation",
+            ["warfarin", "2.6", "atrial fibrillation"],
+            "Warfarin is active on the inpatient list and the discharge INR is 2.6.",
+            "INR 2.6; hemoglobin 9.0 then 10.1 g/dL",
+        ),
+        (
+            "lisinopril 10 MG Oral Tablet",
+            "Essential (primary) hypertension",
+            ["lisinopril", "hypertension"],
+            "Hypertension remains active and lisinopril was not the perioperative anticoagulant.",
+            "none",
+        ),
+        (
+            "metformin hydrochloride 500 MG Oral Tablet",
+            "Type 2 diabetes mellitus without complications",
+            ["metformin", "diabetes", "113"],
+            "Glucose improved from 127 mg/dL to 113 mg/dL.",
+            "glucose 127 then 113 mg/dL",
+        ),
+    ):
+        _continue_home(
+            chart,
+            plans,
+            traces,
+            medication,
+            indication,
+            phrases,
+            rationale,
+            "Warfarin is active again on the inpatient list after the operation.",
+            labs,
+            "discharge systolic blood pressure 136 mmHg",
+        )
+    summary = (
+        "The phrase 'in this profile' and the enoxaparin sentence were removed. Enoxaparin "
+        "is not part of this medication record, and the INR is already 2.6 on warfarin, so "
+        "no prophylactic enoxaparin row was added. The reference continues warfarin, "
+        "lisinopril, and metformin."
+    )
+    return chart, _plan_bundle(plans, chart.get("CaseFollowup") or []), traces, summary
+
+
+def _repair_820(chart: dict[str, Any]) -> Revision:
+    prophylaxis = "Inpatient venous-thromboembolism prophylaxis"
+    for row in _meds(chart, "0.4 ML enoxaparin"):
+        row["indication"] = prophylaxis
+        row["notes"] = (
+            "Started during the hospitalization for venous-thromboembolism prophylaxis "
+            "after hip-fracture surgery. Not a home medicine and not treatment for "
+            "atrial fibrillation."
+        )
+    hpi = (
+        "An 82-year-old woman is admitted after hip-fracture surgery. Home medicines are "
+        "lisinopril, warfarin for atrial fibrillation, and metformin. Enoxaparin was started "
+        "during the hospitalization for venous-thromboembolism prophylaxis."
+    )
+    admission = (
+        "Admission note. Postoperative hip fracture. Enoxaparin 40 MG subcutaneous once "
+        "daily is inpatient venous-thromboembolism prophylaxis. Warfarin is the home "
+        "medicine for atrial fibrillation."
+    )
+    course = (
+        "Enoxaparin was used for venous-thromboembolism prophylaxis. It was not a home "
+        "medicine. INR was 3.2 on admission and 2.0 at discharge. Hemoglobin rose from "
+        "8.3 g/dL to 11.1 g/dL. Warfarin remained the atrial-fibrillation medicine."
+    )
+    _set_text(chart, hpi=hpi, admission=admission, course=course)
+    plans: list[dict[str, Any]] = []
+    traces: list[dict[str, Any]] = []
+    for medication, indication, phrases, rationale in (
+        (
+            "warfarin sodium 5 MG Oral Tablet",
+            "Paroxysmal atrial fibrillation",
+            ["warfarin", "atrial fibrillation", "2.0"],
+            "Warfarin treats atrial fibrillation and the discharge INR is 2.0.",
+        ),
+        (
+            "lisinopril 10 MG Oral Tablet",
+            "Essential (primary) hypertension",
+            ["lisinopril", "hypertension"],
+            "Hypertension remains active.",
+        ),
+        (
+            "metformin hydrochloride 500 MG Oral Tablet",
+            "Type 2 diabetes mellitus without complications",
+            ["metformin", "diabetes"],
+            "Diabetes remains active and glucose was 124 mg/dL then 119 mg/dL.",
+        ),
+    ):
+        _continue_home(
+            chart,
+            plans,
+            traces,
+            medication,
+            indication,
+            phrases,
+            rationale,
+            "Warfarin remained the atrial-fibrillation medicine.",
+            "INR 3.2 then 2.0; hemoglobin 8.3 then 11.1 g/dL",
+            "none",
+        )
+    stopped, stopped_trace = _decision(
+        chart,
+        medication="0.4 ML enoxaparin sodium 100 MG/ML Prefilled Syringe",
+        action="stop",
+        indication=prophylaxis,
+        rationale=(
+            "Enoxaparin was started in the hospital for venous-thromboembolism prophylaxis, "
+            "not for atrial fibrillation. It is not a home medicine. Warfarin covers atrial "
+            "fibrillation and the discharge INR is 2.0."
+        ),
+        diagnosis=(
+            "Fracture of unspecified part of neck of right femur, "
+            "initial encounter for closed fracture"
+        ),
+        event="Enoxaparin was started during the hospitalization for prophylaxis.",
+        labs="INR 2.0; hemoglobin 11.1 g/dL",
+        vitals="none",
+        history="Not a home medicine",
+        location="history of present illness; hospital course; medication list; labs",
+        phrases=[
+            "venous-thromboembolism prophylaxis",
+            "not a home medicine",
+            "enoxaparin",
+            "2.0",
+        ],
+    )
+    plans.append(stopped)
+    traces.append(stopped_trace)
+    summary = (
+        "Enoxaparin indication is inpatient venous-thromboembolism prophylaxis in the "
+        "narrative, the medication record, and the hidden stop decision. It is not labeled "
+        "as atrial-fibrillation therapy."
+    )
+    return chart, _plan_bundle(plans, chart.get("CaseFollowup") or []), traces, summary
+
+
+def _repair_821(chart: dict[str, Any]) -> Revision:
+    _drop_direct_orders(chart)
+    for row in _meds(chart, "apixaban"):
+        if row.get("context") == "inpatient":
+            row["status"] = "held"
+            row["held_reason"] = "Held for gastrointestinal bleeding."
+    hpi = (
+        "A 78-year-old woman with atrial fibrillation is admitted with two days of fatigue "
+        "from gastrointestinal bleeding. Home medicines are apixaban 5 MG twice daily, "
+        "lisinopril, and atorvastatin. Apixaban was held for the bleeding."
+    )
+    admission = (
+        "Admission note. Gastrointestinal bleeding. Hemoglobin is 8.7 g/dL. Apixaban, used "
+        "for atrial fibrillation, was held for gastrointestinal bleeding."
+    )
+    course = (
+        "Gastrointestinal bleeding settled. Hemoglobin rose from 8.7 g/dL to 10.9 g/dL. "
+        "Apixaban remained held for gastrointestinal bleeding. Creatinine was 0.9 mg/dL "
+        "then 1.2 mg/dL. Discharge systolic blood pressure was 140 mmHg. Gastroenterology "
+        "follow-up is scheduled in 7 days."
+    )
+    _set_text(chart, hpi=hpi, admission=admission, course=course)
+    for consult in chart.get("CaseConsult") or []:
+        consult["assessment"] = "Gastrointestinal bleeding settled."
+        consult["recommendation"] = "Hemoglobin rose from 8.7 g/dL to 10.9 g/dL."
+    plans: list[dict[str, Any]] = []
+    traces: list[dict[str, Any]] = []
+    for medication, indication, phrases in (
+        (
+            "lisinopril 10 MG Oral Tablet",
+            "Essential (primary) hypertension",
+            ["lisinopril", "hypertension"],
+        ),
+        (
+            "atorvastatin 40 MG Oral Tablet",
+            "Mixed hyperlipidemia",
+            ["atorvastatin", "hyperlipidemia"],
+        ),
+    ):
+        _continue_home(
+            chart,
+            plans,
+            traces,
+            medication,
+            indication,
+            phrases,
+            "This home medicine was not the held anticoagulant.",
+            "Gastrointestinal bleeding settled.",
+            "creatinine 1.2 mg/dL",
+            "systolic blood pressure 140 mmHg",
+        )
+    restarted, restarted_trace = _decision(
+        chart,
+        medication="apixaban 5 MG Oral Tablet",
+        action="restart",
+        indication="Paroxysmal atrial fibrillation",
+        rationale=(
+            "Apixaban was held for gastrointestinal bleeding. Bleeding then settled and "
+            "hemoglobin rose from 8.7 g/dL to 10.9 g/dL. Atrial fibrillation remains the "
+            "indication, creatinine is 1.2 mg/dL, and weight is 83 kg."
+        ),
+        diagnosis="Paroxysmal atrial fibrillation",
+        event="Apixaban was held for gastrointestinal bleeding.",
+        labs="hemoglobin 8.7 g/dL then 10.9 g/dL; creatinine 1.2 mg/dL",
+        vitals="discharge systolic blood pressure 140 mmHg",
+        history="Home apixaban 5 MG twice daily for atrial fibrillation",
+        location="history of present illness; hospital course; labs; diagnoses",
+        phrases=[
+            "apixaban",
+            "gastrointestinal bleeding settled",
+            "10.9",
+            "atrial fibrillation",
+            "held for gastrointestinal bleeding",
+        ],
+    )
+    plans.append(restarted)
+    traces.append(restarted_trace)
+    alternatives = [
+        {
+            "medication": "apixaban 5 MG Oral Tablet",
+            "action": "hold",
+            "rationale": (
+                "A reviewer may keep apixaban held until the gastroenterology visit in "
+                "7 days because the admission hemoglobin was 8.7 g/dL."
+            ),
+        }
+    ]
+    summary = (
+        "Direct instructions to resume apixaban were removed. The chart shows the bleed, "
+        "hemoglobin rise from 8.7 to 10.9 g/dL, the atrial-fibrillation indication, and "
+        "gastroenterology follow-up in 7 days. The hidden reference restarts apixaban."
+    )
+    return (
+        chart,
+        _plan_bundle(
+            plans,
+            chart.get("CaseFollowup") or [],
+            alternatives=alternatives,
+        ),
+        traces,
+        summary,
+    )
+
+
+_REPAIRS = {
+    "VAL-806": _repair_806,
+    "VAL-807": _repair_807,
+    "VAL-808": _repair_808,
+    "VAL-814": _repair_814,
+    "VAL-815": _repair_815,
+    "VAL-816": _repair_816,
+    "VAL-817": _repair_817,
+    "VAL-820": _repair_820,
+    "VAL-821": _repair_821,
+}
+
+
 _REVISIONS = {
     "VAL-801": _revise_801,
     "VAL-802": _revise_802,
@@ -1401,6 +2439,7 @@ def _add_case(document: Any, row: dict[str, Any]) -> None:
             "Too difficult or inappropriate",
         ),
     )
+    _case_specific_questions(document, case_id)
     _yes_no(document, case_id, "overall", "Overall recommendation", ("Accept", "Revise", "Exclude"))
     _comment(document, case_id, "overall-comment", "Revision comments")
     document.add_heading("CLINICIAN VALIDATION REFERENCE", 2)
@@ -1435,6 +2474,31 @@ def _add_case(document: Any, row: dict[str, Any]) -> None:
             f"Visible in {item.get('resident_visible_evidence_location')}.",
             style="List Bullet",
         )
+
+
+def _case_specific_questions(document: Any, case_id: str) -> None:
+    if case_id == "VAL-805":
+        document.add_heading("Case-specific question — HFrEF therapy", 3)
+        document.add_paragraph(
+            "Which HFrEF therapies, if any, should be required versus acceptable alternatives "
+            "given ejection fraction 30 percent, systolic blood pressure 110 mmHg, creatinine "
+            "0.9 mg/dL, and potassium 4.3 mmol/L?"
+        )
+        _comment(document, case_id, "hfref-therapies", "Required versus acceptable HFrEF therapies")
+    if case_id == "VAL-813":
+        document.add_heading("Case-specific question — mycophenolate", 3)
+        document.add_paragraph(
+            "Is continuing mycophenolate at discharge appropriate in this CMV and "
+            "transplant context?"
+        )
+        _yes_no(
+            document,
+            case_id,
+            "MMF",
+            "Mycophenolate at discharge",
+            ("Appropriate", "Not appropriate"),
+        )
+        _comment(document, case_id, "mmf-comment", "Mycophenolate comment")
 
 
 def _c1(document: Any, case_id: str) -> None:
@@ -1520,6 +2584,66 @@ def _revised_audit(rows: list[dict[str, Any]]) -> str:
                 issue=issues[row["case_id"]],
                 revision=row["summary"].replace("|", "/"),
                 sufficient=sufficient,
+                status=row["status"],
+            )
+        )
+    lines.append("")
+    return "\n".join(lines)
+
+
+def _fresh_audit(rows: list[dict[str, Any]]) -> str:
+    lines = [
+        "# Clean cases for fresh clinician review",
+        "",
+        "Untouched rows are the recovered charts that already passed the precheck. "
+        "Repaired rows are corrected copies that passed the evidence audit.",
+        "",
+        "| Case | Clean source | Correction | Evidence | Status |",
+        "| --- | --- | --- | --- | --- |",
+    ]
+    for row in rows:
+        if row["case_id"] in REPAIR_IDS:
+            evidence = (
+                "sufficient"
+                if row["classes"] and all(item == SUFFICIENT for item in row["classes"])
+                else "not sufficient"
+            )
+            correction = row["summary"].replace("|", "/")
+        else:
+            evidence = "recovered reference retained"
+            correction = "none"
+        lines.append(
+            f"| {row['case_id']} | yes | {correction} | {evidence} | {row['status']} |"
+        )
+    lines.append("")
+    return "\n".join(lines)
+
+
+def _held_audit(rows: list[dict[str, Any]]) -> str:
+    lines = [
+        "# Held cases after repair",
+        "",
+        "These corrected copies still fail the evidence audit. They are not in a "
+        "clinician-review document.",
+        "",
+    ]
+    if not rows:
+        lines.extend(["No repaired case remains held.", ""])
+        return "\n".join(lines)
+    lines.extend(
+        [
+            "| Case | Repair attempted | Why it still fails | Evidence | Status |",
+            "| --- | --- | --- | --- | --- |",
+        ]
+    )
+    for row in rows:
+        classes = ", ".join(row["classes"]) or "none"
+        lines.append(
+            "| {case} | {repair} | {why} | {evidence} | {status} |".format(
+                case=row["case_id"],
+                repair=row["summary"].replace("|", "/"),
+                why=row["finding"].replace("|", "/"),
+                evidence=classes,
                 status=row["status"],
             )
         )

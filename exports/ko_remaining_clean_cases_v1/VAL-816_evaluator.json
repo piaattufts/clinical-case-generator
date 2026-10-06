@@ -27,7 +27,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Diarrhea, Fatigue in the setting of Other cytomegaloviral diseases",
-      "hpi": "A 57-year-old Male is admitted with Other cytomegaloviral diseases. Presenting symptoms include Diarrhea, Fatigue, present for one day and improving after treatment. Home medications include BX Rating tacrolimus 1 MG Oral Capsule, valganciclovir 450 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for cytomegalovirus disease after kidney transplantation; antiviral duration remains pending. Antiviral duration after conversion remains a pending outpatient decision. Tacrolimus continues for immunosuppression. Infectious symptoms improved. Antiviral therapy was reviewed during the stay.",
+      "hpi": "A 57-year-old man with a kidney transplant is admitted with one day of diarrhea and fatigue that are improving. CMV disease was diagnosed before this admission, and he was already taking valganciclovir. Home medicines also include tacrolimus and atorvastatin.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "Diarrhea",
@@ -95,7 +95,7 @@
       "note_id": "NOTE-VAL816-001",
       "case_id": "VAL-816",
       "note_type": "admission",
-      "note_text": "Admission note for a 57-year-old Male with Other cytomegaloviral diseases. Symptoms: Diarrhea, Fatigue for one day (improving after treatment). Medications continued from home: BX Rating tacrolimus 1 MG Oral Capsule, valganciclovir 450 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. Admitted for cytomegalovirus disease after kidney transplantation; antiviral duration remains pending. Antiviral duration after conversion remains a pending outpatient decision. Tacrolimus continues for immunosuppression. Infectious symptoms improved. Antiviral therapy was reviewed during the stay.",
+      "note_text": "Admission note. Improving diarrhea and fatigue in a transplant recipient already taking valganciclovir for CMV disease before this admission.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -103,7 +103,7 @@
       "note_id": "NOTE-VAL816-002",
       "case_id": "VAL-816",
       "note_type": "hospital_course",
-      "note_text": "Infectious symptoms improved. Antiviral therapy was reviewed during the stay.",
+      "note_text": "Symptoms improved during the stay. Valganciclovir was already treatment for CMV disease before this admission and remained on the inpatient list at 900 MG twice daily. Creatinine was 1.0 mg/dL then 0.9 mg/dL. Tacrolimus remained 1 MG every 12 hours. Infectious-disease follow-up is scheduled to review the antiviral course.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -325,7 +325,7 @@
     {
       "followup_id": "FU-VAL-816-001",
       "case_id": "VAL-816",
-      "item": "Reassess pending therapeutic decision",
+      "item": "Infectious-disease follow-up to review antiviral therapy",
       "timing": "14 days",
       "with_service": "infectious disease",
       "source_reference": null
@@ -336,7 +336,7 @@
       "instruction_id": "INS-VAL816-002",
       "case_id": "VAL-816",
       "category": "followup",
-      "instruction_text": "A pending therapeutic decision remains. Remaining duration of valganciclovir is to be confirmed at infectious-disease follow-up.",
+      "instruction_text": "Infectious-disease follow-up is scheduled to review the antiviral course.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -474,17 +474,6 @@
   "reference_discharge_plan": {
     "medications": [
       {
-        "medication": "BX Rating tacrolimus 1 MG Oral Capsule",
-        "action": "continue",
-        "dose": "1 MG",
-        "route": "oral",
-        "frequency": "every 12 hours",
-        "duration": null,
-        "indication": "Kidney transplant status",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": null
-      },
-      {
         "medication": "valganciclovir 450 MG Oral Tablet",
         "action": "continue",
         "dose": "900 MG",
@@ -492,8 +481,21 @@
         "frequency": "twice daily",
         "duration": null,
         "indication": "Other cytomegaloviral diseases",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": null
+        "rationale": "The recorded dose is unchanged and matches an active diagnosis.",
+        "monitoring": null,
+        "required": true
+      },
+      {
+        "medication": "BX Rating tacrolimus 1 MG Oral Capsule",
+        "action": "continue",
+        "dose": "1 MG",
+        "route": "oral",
+        "frequency": "every 12 hours",
+        "duration": null,
+        "indication": "Kidney transplant status",
+        "rationale": "The recorded dose is unchanged and matches an active diagnosis.",
+        "monitoring": null,
+        "required": true
       },
       {
         "medication": "atorvastatin 40 MG Oral Tablet",
@@ -503,26 +505,65 @@
         "frequency": "once daily",
         "duration": null,
         "indication": "Mixed hyperlipidemia",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": null
+        "rationale": "The recorded dose is unchanged and matches an active diagnosis.",
+        "monitoring": null,
+        "required": true
       }
     ],
-    "monitoring_requirements": [
-      {
-        "parameter": "tacrolimus trough and serum creatinine",
-        "frequency": "as directed by the transplant service",
-        "target": null,
-        "duration": null
-      }
-    ],
+    "medications_to_stop": [],
+    "acceptable_alternatives": [],
+    "contraindications": [],
+    "monitoring_requirements": [],
     "follow_up_requirements": [
       {
-        "item": "Reassess pending therapeutic decision",
+        "item": "Infectious-disease follow-up to review antiviral therapy",
         "timing": "14 days",
         "with_service": "infectious disease"
       }
     ]
   },
-  "clinician_review_status": "CLINICALLY_INCONSISTENT",
-  "precheck_finding": "contradictory timeline:valganciclovir is already a home medicine while the admission is for CMV disease, and the chart does not describe prophylaxis"
+  "evidence_trace": [
+    {
+      "medication": "valganciclovir 450 MG Oral Tablet",
+      "action": "continue",
+      "indication": "Other cytomegaloviral diseases",
+      "supporting_diagnosis": "Other cytomegaloviral diseases",
+      "supporting_hospital_event": "Symptoms improved during established CMV treatment.",
+      "supporting_labs": "creatinine 1.0 then 0.9 mg/dL",
+      "supporting_vitals": "none",
+      "supporting_medication_history": "Home valganciclovir",
+      "rationale": "The recorded dose is unchanged and matches an active diagnosis.",
+      "resident_visible_evidence_location": "diagnoses; medication list; hospital course; labs",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    },
+    {
+      "medication": "BX Rating tacrolimus 1 MG Oral Capsule",
+      "action": "continue",
+      "indication": "Kidney transplant status",
+      "supporting_diagnosis": "Kidney transplant status",
+      "supporting_hospital_event": "Symptoms improved during established CMV treatment.",
+      "supporting_labs": "creatinine 1.0 then 0.9 mg/dL",
+      "supporting_vitals": "none",
+      "supporting_medication_history": "Home BX",
+      "rationale": "The recorded dose is unchanged and matches an active diagnosis.",
+      "resident_visible_evidence_location": "diagnoses; medication list; hospital course; labs",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    },
+    {
+      "medication": "atorvastatin 40 MG Oral Tablet",
+      "action": "continue",
+      "indication": "Mixed hyperlipidemia",
+      "supporting_diagnosis": "Mixed hyperlipidemia",
+      "supporting_hospital_event": "Symptoms improved during established CMV treatment.",
+      "supporting_labs": "creatinine 1.0 then 0.9 mg/dL",
+      "supporting_vitals": "none",
+      "supporting_medication_history": "Home atorvastatin",
+      "rationale": "The recorded dose is unchanged and matches an active diagnosis.",
+      "resident_visible_evidence_location": "diagnoses; medication list; hospital course; labs",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    }
+  ],
+  "clinician_review_status": "READY_FOR_CLINICIAN_REVIEW",
+  "revision_summary": "CMV is framed as established disease already treated with valganciclovir before this admission. The direct pending-decision instruction was replaced with follow-up context. The reference continues the recorded doses.",
+  "precheck_finding": "none"
 }

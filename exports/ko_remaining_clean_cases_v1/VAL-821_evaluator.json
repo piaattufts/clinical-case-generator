@@ -28,7 +28,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Fatigue in the setting of Gastrointestinal hemorrhage, unspecified",
-      "hpi": "A 78-year-old Female is admitted with Gastrointestinal hemorrhage, unspecified. Presenting symptoms include Fatigue, present for two days and improving after treatment. Home medications include lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. apixaban 5 MG Oral Tablet was held during the admission (Held for gastrointestinal bleeding; intended to restart after hemoglobin stability.). Admitted for gastrointestinal bleeding with held anticoagulation. Bleeding settled and hemoglobin was stable. Apixaban was held. The patient is discharge-ready. Gastrointestinal bleeding settled and hemoglobin was stable. Anticoagulation was held.",
+      "hpi": "A 78-year-old woman with atrial fibrillation is admitted with two days of fatigue from gastrointestinal bleeding. Home medicines are apixaban 5 MG twice daily, lisinopril, and atorvastatin. Apixaban was held for the bleeding.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "Fatigue"
@@ -105,7 +105,7 @@
       "note_id": "NOTE-VAL821-001",
       "case_id": "VAL-821",
       "note_type": "admission",
-      "note_text": "Admission note for a 78-year-old Female with Gastrointestinal hemorrhage, unspecified. Symptoms: Fatigue for two days (improving after treatment). Medications continued from home: lisinopril 10 MG Oral Tablet, atorvastatin 40 MG Oral Tablet. apixaban 5 MG Oral Tablet was held during the admission (Held for gastrointestinal bleeding; intended to restart after hemoglobin stability.). Admitted for gastrointestinal bleeding with held anticoagulation. Bleeding settled and hemoglobin was stable. Apixaban was held. The patient is discharge-ready. Gastrointestinal bleeding settled and hemoglobin was stable. Anticoagulation was held.",
+      "note_text": "Admission note. Gastrointestinal bleeding. Hemoglobin is 8.7 g/dL. Apixaban, used for atrial fibrillation, was held for gastrointestinal bleeding.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -113,7 +113,7 @@
       "note_id": "NOTE-VAL821-002",
       "case_id": "VAL-821",
       "note_type": "hospital_course",
-      "note_text": "Gastrointestinal bleeding settled and hemoglobin was stable. Anticoagulation was held.",
+      "note_text": "Gastrointestinal bleeding settled. Hemoglobin rose from 8.7 g/dL to 10.9 g/dL. Apixaban remained held for gastrointestinal bleeding. Creatinine was 0.9 mg/dL then 1.2 mg/dL. Discharge systolic blood pressure was 140 mmHg. Gastroenterology follow-up is scheduled in 7 days.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -199,8 +199,8 @@
       "case_id": "VAL-821",
       "service": "gastroenterology",
       "timepoint": "inpatient",
-      "assessment": "Gastroenterology recommendations were recorded.",
-      "recommendation": "Hold anticoagulation while hemoglobin remains stable, then reassess.",
+      "assessment": "Gastrointestinal bleeding settled.",
+      "recommendation": "Hemoglobin rose from 8.7 g/dL to 10.9 g/dL.",
       "source_reference": null
     }
   ],
@@ -219,7 +219,7 @@
       "held_reason": null,
       "verification_status": "verified",
       "verification_source": "patient_and_prior_records",
-      "target_or_goal": "Resume apixaban if hemoglobin remains stable for 48 hours and bleeding has not recurred.",
+      "target_or_goal": null,
       "monitoring": null,
       "quantity_or_days": null,
       "refills": null,
@@ -285,10 +285,10 @@
       "frequency": "twice daily",
       "indication": "Paroxysmal atrial fibrillation",
       "status": "held",
-      "held_reason": "Held for gastrointestinal bleeding; intended to restart after hemoglobin stability.",
+      "held_reason": "Held for gastrointestinal bleeding.",
       "verification_status": "verified",
       "verification_source": "patient_and_prior_records",
-      "target_or_goal": "Resume apixaban if hemoglobin remains stable for 48 hours and bleeding has not recurred.",
+      "target_or_goal": null,
       "monitoring": null,
       "quantity_or_days": null,
       "refills": null,
@@ -354,16 +354,7 @@
       "source_reference": null
     }
   ],
-  "CaseInstruction": [
-    {
-      "instruction_id": null,
-      "case_id": "VAL-821",
-      "category": "medications",
-      "instruction_text": "Resume when holding apixaban 5 MG Oral Tablet: Resume apixaban if hemoglobin remains stable for 48 hours and bleeding has not recurred.",
-      "source_type": "recovered_clean_chart",
-      "source_reference": null
-    }
-  ],
+  "CaseInstruction": [],
   "CaseMonitoring": [],
   "CaseProblemList": [
     {
@@ -471,8 +462,9 @@
         "frequency": "once daily",
         "duration": null,
         "indication": "Essential (primary) hypertension",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": null
+        "rationale": "This home medicine was not the held anticoagulant.",
+        "monitoring": null,
+        "required": true
       },
       {
         "medication": "atorvastatin 40 MG Oral Tablet",
@@ -482,8 +474,9 @@
         "frequency": "once daily",
         "duration": null,
         "indication": "Mixed hyperlipidemia",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": null
+        "rationale": "This home medicine was not the held anticoagulant.",
+        "monitoring": null,
+        "required": true
       },
       {
         "medication": "apixaban 5 MG Oral Tablet",
@@ -493,10 +486,20 @@
         "frequency": "twice daily",
         "duration": null,
         "indication": "Paroxysmal atrial fibrillation",
-        "rationale": "Home medication is held inpatient and has a documented restart plan.",
-        "monitoring": null
+        "rationale": "Apixaban was held for gastrointestinal bleeding. Bleeding then settled and hemoglobin rose from 8.7 g/dL to 10.9 g/dL. Atrial fibrillation remains the indication, creatinine is 1.2 mg/dL, and weight is 83 kg.",
+        "monitoring": null,
+        "required": true
       }
     ],
+    "medications_to_stop": [],
+    "acceptable_alternatives": [
+      {
+        "medication": "apixaban 5 MG Oral Tablet",
+        "action": "hold",
+        "rationale": "A reviewer may keep apixaban held until the gastroenterology visit in 7 days because the admission hemoglobin was 8.7 g/dL."
+      }
+    ],
+    "contraindications": [],
     "monitoring_requirements": [],
     "follow_up_requirements": [
       {
@@ -506,6 +509,48 @@
       }
     ]
   },
-  "clinician_review_status": "NEEDS_PRE_REVIEW_FIX",
-  "precheck_finding": "answer leakage:an instruction directs the resident to resume a held medicine"
+  "evidence_trace": [
+    {
+      "medication": "lisinopril 10 MG Oral Tablet",
+      "action": "continue",
+      "indication": "Essential (primary) hypertension",
+      "supporting_diagnosis": "Essential (primary) hypertension",
+      "supporting_hospital_event": "Gastrointestinal bleeding settled.",
+      "supporting_labs": "creatinine 1.2 mg/dL",
+      "supporting_vitals": "systolic blood pressure 140 mmHg",
+      "supporting_medication_history": "Home lisinopril",
+      "rationale": "This home medicine was not the held anticoagulant.",
+      "resident_visible_evidence_location": "diagnoses; medication list; hospital course; labs",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    },
+    {
+      "medication": "atorvastatin 40 MG Oral Tablet",
+      "action": "continue",
+      "indication": "Mixed hyperlipidemia",
+      "supporting_diagnosis": "Mixed hyperlipidemia",
+      "supporting_hospital_event": "Gastrointestinal bleeding settled.",
+      "supporting_labs": "creatinine 1.2 mg/dL",
+      "supporting_vitals": "systolic blood pressure 140 mmHg",
+      "supporting_medication_history": "Home atorvastatin",
+      "rationale": "This home medicine was not the held anticoagulant.",
+      "resident_visible_evidence_location": "diagnoses; medication list; hospital course; labs",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    },
+    {
+      "medication": "apixaban 5 MG Oral Tablet",
+      "action": "restart",
+      "indication": "Paroxysmal atrial fibrillation",
+      "supporting_diagnosis": "Paroxysmal atrial fibrillation",
+      "supporting_hospital_event": "Apixaban was held for gastrointestinal bleeding.",
+      "supporting_labs": "hemoglobin 8.7 g/dL then 10.9 g/dL; creatinine 1.2 mg/dL",
+      "supporting_vitals": "discharge systolic blood pressure 140 mmHg",
+      "supporting_medication_history": "Home apixaban 5 MG twice daily for atrial fibrillation",
+      "rationale": "Apixaban was held for gastrointestinal bleeding. Bleeding then settled and hemoglobin rose from 8.7 g/dL to 10.9 g/dL. Atrial fibrillation remains the indication, creatinine is 1.2 mg/dL, and weight is 83 kg.",
+      "resident_visible_evidence_location": "history of present illness; hospital course; labs; diagnoses",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    }
+  ],
+  "clinician_review_status": "READY_FOR_CLINICIAN_REVIEW",
+  "revision_summary": "Direct instructions to resume apixaban were removed. The chart shows the bleed, hemoglobin rise from 8.7 to 10.9 g/dL, the atrial-fibrillation indication, and gastroenterology follow-up in 7 days. The hidden reference restarts apixaban.",
+  "precheck_finding": "none"
 }

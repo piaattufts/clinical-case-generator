@@ -27,7 +27,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Diarrhea, Nausea in the setting of Other cytomegaloviral diseases",
-      "hpi": "A 71-year-old Male is admitted with Other cytomegaloviral diseases. Presenting symptoms include Diarrhea, Nausea, present for one week and progressive. Home medications include amlodipine 5 MG Oral Tablet, BX Rating tacrolimus 1 MG Oral Capsule, valganciclovir 450 MG Oral Tablet. mycophenolate mofetil 500 MG Oral Tablet was held during the admission (Held during active infection as an immunosuppression adjustment; intended to restart.). Admitted for cytomegalovirus disease after kidney transplantation with an infection-related mycophenolate hold. Mycophenolate was held during infection as an immunosuppression adjustment. Tacrolimus continues for transplant immunosuppression. Volume-related kidney injury led to temporary holds of selected immunosuppression.",
+      "hpi": "A 71-year-old man with a kidney transplant is admitted with one week of progressive diarrhea and nausea. Maintenance immunosuppression is tacrolimus and mycophenolate. He also takes amlodipine. He was not taking valganciclovir before this admission.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "Diarrhea",
@@ -95,7 +95,7 @@
       "note_id": "NOTE-VAL814-001",
       "case_id": "VAL-814",
       "note_type": "admission",
-      "note_text": "Admission note for a 71-year-old Male with Other cytomegaloviral diseases. Symptoms: Diarrhea, Nausea for one week (progressive). Medications continued from home: amlodipine 5 MG Oral Tablet, BX Rating tacrolimus 1 MG Oral Capsule, valganciclovir 450 MG Oral Tablet. mycophenolate mofetil 500 MG Oral Tablet was held during the admission (Held during active infection as an immunosuppression adjustment; intended to restart.). Admitted for cytomegalovirus disease after kidney transplantation with an infection-related mycophenolate hold. Mycophenolate was held during infection as an immunosuppression adjustment. Tacrolimus continues for transplant immunosuppression. Volume-related kidney injury led to temporary holds of selected immunosuppression.",
+      "note_text": "Admission note. Diarrhea and nausea after kidney transplantation. Home immunosuppression is tacrolimus and mycophenolate. Valganciclovir is not a home medicine. Creatinine is 2.5 mg/dL.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -103,7 +103,7 @@
       "note_id": "NOTE-VAL814-002",
       "case_id": "VAL-814",
       "note_type": "hospital_course",
-      "note_text": "Volume-related kidney injury led to temporary holds of selected immunosuppression.",
+      "note_text": "CMV viral load drawn after admission was detected. Valganciclovir was started only after that result. While creatinine was 2.5 mg/dL the dose used was 450 MG once daily. Creatinine then fell to 1.6 mg/dL, and the inpatient dose is 450 MG twice daily, given as 450 MG tablets. A later viral-load review was lower than the admission result. Mycophenolate was held during the active CMV infection. Diarrhea was improving as the viral load fell.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -167,8 +167,8 @@
       "case_id": "VAL-814",
       "service": "transplant",
       "timepoint": "inpatient",
-      "assessment": "Transplant-service recommendations were recorded.",
-      "recommendation": "Continue immunosuppression with infection-related adjustments as documented.",
+      "assessment": "Mycophenolate was held during active CMV infection.",
+      "recommendation": "Creatinine fell from 2.5 mg/dL to 1.6 mg/dL.",
       "source_reference": null
     },
     {
@@ -176,8 +176,8 @@
       "case_id": "VAL-814",
       "service": "infectious disease",
       "timepoint": "inpatient",
-      "assessment": "Infectious-disease recommendations were recorded.",
-      "recommendation": "Continue antiviral therapy and infection-related monitoring as documented.",
+      "assessment": "CMV viral load drawn after admission was detected.",
+      "recommendation": "A later viral-load review was lower than the admission result.",
       "source_reference": null
     }
   ],
@@ -242,7 +242,7 @@
       "held_reason": null,
       "verification_status": "verified",
       "verification_source": "patient_and_prior_records",
-      "target_or_goal": "Resume mycophenolate when diarrhea has resolved and the transplant team confirms restart.",
+      "target_or_goal": null,
       "monitoring": null,
       "quantity_or_days": null,
       "refills": null,
@@ -250,29 +250,6 @@
       "source_file": null,
       "source_reference": "RXCUI:200060",
       "notes": null
-    },
-    {
-      "medication_id": "MED-VAL814-008",
-      "case_id": "VAL-814",
-      "context": "home",
-      "drug": "valganciclovir 450 MG Oral Tablet",
-      "reported_name": "valganciclovir 450 MG Oral Tablet",
-      "dose": "900 MG",
-      "route": "oral",
-      "frequency": "twice daily",
-      "indication": "Other cytomegaloviral diseases",
-      "status": "home",
-      "held_reason": null,
-      "verification_status": "verified",
-      "verification_source": "patient_and_prior_records",
-      "target_or_goal": null,
-      "monitoring": null,
-      "quantity_or_days": null,
-      "refills": null,
-      "source_type": "authored_scenario",
-      "source_file": null,
-      "source_reference": "RXCUI:313566",
-      "notes": "Given as 450 MG tablets."
     },
     {
       "medication_id": "MED-VAL814-009",
@@ -331,10 +308,10 @@
       "frequency": "twice daily",
       "indication": "Kidney transplant status",
       "status": "held",
-      "held_reason": "Held during active infection as an immunosuppression adjustment; intended to restart.",
+      "held_reason": "Held during active CMV infection with diarrhea.",
       "verification_status": "verified",
       "verification_source": "patient_and_prior_records",
-      "target_or_goal": "Resume mycophenolate when diarrhea has resolved and the transplant team confirms restart.",
+      "target_or_goal": null,
       "monitoring": null,
       "quantity_or_days": null,
       "refills": null,
@@ -349,7 +326,7 @@
       "context": "inpatient",
       "drug": "valganciclovir 450 MG Oral Tablet",
       "reported_name": "valganciclovir 450 MG Oral Tablet",
-      "dose": "900 MG",
+      "dose": "450 MG",
       "route": "oral",
       "frequency": "twice daily",
       "indication": "Other cytomegaloviral diseases",
@@ -364,7 +341,7 @@
       "source_type": "authored_scenario",
       "source_file": null,
       "source_reference": "RXCUI:313566",
-      "notes": "Given as 450 MG tablets."
+      "notes": "Started after the CMV viral load was detected during this admission. Given as one 450 MG tablet twice daily while creatinine is 1.6 mg/dL. Not a home medicine."
     }
   ],
   "CaseFollowup": [
@@ -377,16 +354,7 @@
       "source_reference": null
     }
   ],
-  "CaseInstruction": [
-    {
-      "instruction_id": null,
-      "case_id": "VAL-814",
-      "category": "medications",
-      "instruction_text": "Resume when holding mycophenolate mofetil 500 MG Oral Tablet: Resume mycophenolate when diarrhea has resolved and the transplant team confirms restart.",
-      "source_type": "recovered_clean_chart",
-      "source_reference": null
-    }
-  ],
+  "CaseInstruction": [],
   "CaseMonitoring": [
     {
       "monitoring_id": "MON-VAL814-001",
@@ -442,7 +410,7 @@
       "time": "admission",
       "performed_by": null,
       "anesthesia_type": null,
-      "findings": "CMV viral burden was detected and supported antiviral treatment.",
+      "findings": "CMV viral load drawn after admission was detected.",
       "complications": null,
       "duration_minutes": null,
       "laterality": null,
