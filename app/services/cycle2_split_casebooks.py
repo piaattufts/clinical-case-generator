@@ -676,7 +676,10 @@ def _round2_form(document: WordDocument, row: dict[str, Any]) -> None:
     _add_body(document, "Not shown to residents in the assessment study.")
     _add_body(document, "Complete C1 and C2 before using this reference.")
     _reference_table(document, row["evaluator"])
-    question = SPECIAL_QUESTIONS.get(case_id)
+    if "special_question" in row:
+        question = row.get("special_question") or None
+    else:
+        question = SPECIAL_QUESTIONS.get(case_id)
     if question:
         _add_heading(document, "Case-specific adjudication", 3)
         _add_body(document, question)
