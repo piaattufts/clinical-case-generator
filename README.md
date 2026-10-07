@@ -53,9 +53,9 @@ Clinicians should review the cases in two codebooks, and they should open Set 1 
 
 **Set 1 — Revised cases following Round 1 feedback (6 cases)**
 
-**[Download the revised-case clinician codebook](exports/ko_cycle2_revised_validation/CliniProof_Cycle2_Revised_Cases_Validation.docx)**
+**[Download the revised-case clinician codebook](exports/ko_cycle2_revised_validation_v2/CliniProof_Cycle2_Revised_Cases_Validation.docx)**
 
-These six cases were changed in response to substantive feedback from the first clinician review. Each revised case is followed by its completed Round 1 feedback and a record of how Round 2 addressed that feedback. [Set 1 package notes](exports/ko_cycle2_revised_validation/README.md). [Set 1 manifest](exports/ko_cycle2_revised_validation/MANIFEST.md).
+These six cases were revised from the completed Round 1 review. Each case shows the revised chart and a blank Round 2 form first. The historical ratings and comments follow, and then the author response and evidence list. [Version 2 package notes](exports/ko_cycle2_revised_validation_v2/README.md). [Version 2 manifest](exports/ko_cycle2_revised_validation_v2/MANIFEST.md). The extraction, response matrix, and evidence ledger are in [the version 2 review record](exports/ko_cycle2_revised_validation/ROUND1_REVIEWER_RESPONSE_MATRIX.md). The earlier six-case file remains available as [the previous revised-case codebook](exports/ko_cycle2_revised_validation/CliniProof_Cycle2_Revised_Cases_Validation.docx).
 
 **Set 2 — Remaining clean cases for fresh review (18 cases)**
 
@@ -171,7 +171,7 @@ The table compares the two rounds after the narrative above. It is a summary, no
 | Reference information | Intended planted discrepancy | Hidden discharge medication plan |
 | Current use | Provenance and reproducibility | Active clinician validation |
 
-**Current review:** [Set 1 revised-case codebook](exports/ko_cycle2_revised_validation/CliniProof_Cycle2_Revised_Cases_Validation.docx), then [Set 2 clean-case codebook](exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx)
+**Current review:** [Set 1 revised-case codebook, version 2](exports/ko_cycle2_revised_validation_v2/CliniProof_Cycle2_Revised_Cases_Validation.docx), then [Set 2 clean-case codebook](exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx)
 
 **Previous methodology:** [Round 1 casebook](docs/resident_review_package/files/CliniProof_SeedGuided_Validation_Casebook.docx)
 
@@ -181,7 +181,7 @@ The table below is the map of who should open which file. Clinicians reviewing t
 
 | File or package | What it contains | Who should use it |
 | --- | --- | --- |
-| [Set 1 revised-case codebook](exports/ko_cycle2_revised_validation/CliniProof_Cycle2_Revised_Cases_Validation.docx) | Six revised cases, blank Round 2 forms, and the Round 1 feedback that follows each form | Clinician reviewers, first |
+| [Set 1 revised-case codebook, version 2](exports/ko_cycle2_revised_validation_v2/CliniProof_Cycle2_Revised_Cases_Validation.docx) | Six revised cases, blank Round 2 forms, then the historical Round 1 record and the author response | Clinician reviewers, first |
 | [Set 2 clean-case codebook](exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx) | Eighteen clean cases and blank Round 2 forms | Clinician reviewers, after Set 1 |
 | [Combined convenience copy](exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx) | All 24 cases in one file. Combined investigator convenience copy — not the preferred clinician workflow | Investigators |
 | [Round 2 revised-case package](exports/ko_revised_cases_v1/KO_REVISED_CASES_REVIEW.docx) | Six cases changed in response to Round 1 clinician feedback. The [audit](exports/ko_revised_cases_v1/AUDIT.md) records what changed. | Investigators and provenance |
@@ -551,7 +551,8 @@ exports/ko_clean_cases_for_review_v1/ eighteen clean cases ready for clinician r
     AUDIT.md
 exports/ko_held_cases_v1/             held audit; currently records zero held cases
     KO_HELD_CASES_AUDIT.md
-exports/ko_cycle2_revised_validation/   Set 1 clinician codebook, six revised cases
+exports/ko_cycle2_revised_validation/   Round 1 extract, response matrix, and evidence ledger
+exports/ko_cycle2_revised_validation_v2/ Set 1 clinician codebook, version 2, six revised cases
     CliniProof_Cycle2_Revised_Cases_Validation.docx
 exports/ko_cycle2_clean_validation/     Set 2 clinician codebook, eighteen clean cases
     CliniProof_Cycle2_Clean_Cases_Validation.docx
