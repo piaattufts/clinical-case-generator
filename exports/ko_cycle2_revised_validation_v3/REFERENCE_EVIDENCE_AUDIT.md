@@ -1,20 +1,56 @@
-# Reference evidence audit for version 3
+# Reference-evidence audit, version 3
 
-No reference action is HIDDEN_REFERENCE_DEPENDENCY or CLINICALLY_INCONSISTENT.
-Ambiguous actions are marked on the evaluator plan and have an acceptable alternative.
+Every hidden reference action is classified from the resident chart. Allowed classes are SUFFICIENT_VISIBLE_EVIDENCE, WEAK_VISIBLE_EVIDENCE, and CLINICALLY_AMBIGUOUS.
 
-| Case | Medication | Reference action | Visible evidence | Class | Alternative |
-| --- | --- | --- | --- | --- | --- |
-| VAL-801 | Ibuprofen | continue | On the list for symptomatic analgesia. Creatinine 1.1 then 1.0 mg/dL. No bleeding diagnosis. | SUFFICIENT_VISIBLE_EVIDENCE | A resident may still stop an as-needed NSAID. The chart does not forbid it and does not encode a second required action. |
-| VAL-801 | Lisinopril, metformin, atorvastatin | continue | Active diagnoses and inpatient administration. | SUFFICIENT_VISIBLE_EVIDENCE | None required. |
-| VAL-802 | Lisinopril | continue | Creatinine 1.3 then 1.2 mg/dL. Blood pressure 138/69 then 124/68 mmHg. No baseline. | CLINICALLY_AMBIGUOUS | Hold. |
-| VAL-802 | Atorvastatin | continue | On the verified list. | SUFFICIENT_VISIBLE_EVIDENCE | None. |
-| VAL-803 | Hydrochlorothiazide | stop | Home drug. Synthetic sodium 128 then 135 mmol/L. Held while sodium was 128 mmol/L. Confusion cleared. | CLINICALLY_AMBIGUOUS | Hold pending an outpatient sodium check. |
-| VAL-803 | Lisinopril | continue, 30 days | Clean reference duration. Creatinine 1.0 then 1.2 mg/dL. | SUFFICIENT_VISIBLE_EVIDENCE | None for the duration. The 7-day supply is not restored. |
-| VAL-805 | Furosemide | change to 40 mg oral twice daily | Weight 81 then 78 kg, dry weight 73 kg, one negative fluid day, oral 40 mg once daily charted. | CLINICALLY_AMBIGUOUS | Continue 40 mg once daily. |
-| VAL-805 | Metoprolol, atorvastatin | continue | Administered and matched to systolic heart failure or hyperlipidemia. | SUFFICIENT_VISIBLE_EVIDENCE | Additional drug classes are acceptable, not required. |
-| VAL-809 | Ceftriaxone | start / continue 2 g IV daily | Vegetation, gram-positive cocci, culture clearance, inpatient start, PICC. | SUFFICIENT_VISIBLE_EVIDENCE | Duration is not invented. |
-| VAL-809 | Lisinopril | continue | Creatinine 1.3 then 0.8 mg/dL. No baseline. Inpatient row was active. | CLINICALLY_AMBIGUOUS | Hold. |
-| VAL-813 | Valganciclovir | start 900 mg twice daily | Not a home medicine. Started after viral-load detection. Creatinine 1.2 then 1.0 mg/dL. | SUFFICIENT_VISIBLE_EVIDENCE | None for the start. |
-| VAL-813 | Tacrolimus | continue 1 mg every 12 hours | Only recorded immunosuppressant. No trough. | CLINICALLY_AMBIGUOUS | Temporary reduction. |
-| VAL-813 | Mycophenolate | absent | Not on the source list and not added. | Not scored | The codebook does not ask about it. |
+| Case | Medication | Action | Classification | Why |
+| --- | --- | --- | --- | --- |
+| VAL-801 | atorvastatin 40 MG Oral Tablet | continue | SUFFICIENT_VISIBLE_EVIDENCE | Hyperlipidemia is active. The drug is on the home and inpatient lists. No adverse effect is described. |
+| VAL-801 | lisinopril 10 MG Oral Tablet | continue | SUFFICIENT_VISIBLE_EVIDENCE | Hypertension is active. Creatinine is 1.1 mg/dL then 1.0 mg/dL. Blood pressure is 136/78 mmHg then 121/71 mmHg. |
+| VAL-801 | metformin hydrochloride 500 MG Oral Tablet | continue | SUFFICIENT_VISIBLE_EVIDENCE | Diabetes is active. Glucose is 163 mg/dL then 103 mg/dL. Creatinine does not rise. |
+| VAL-801 | ibuprofen 400 MG Oral Tablet | continue | CLINICALLY_AMBIGUOUS | The drug is on both lists, creatinine is stable, and no melena or hematemesis is recorded. Stopping an as-needed NSAID in a 75-year-old with delirium is also defensible. That alternative is encoded. The chart does not choose. |
+| VAL-802 | lisinopril 10 MG Oral Tablet | continue | CLINICALLY_AMBIGUOUS | Creatinine is 1.3 mg/dL then 1.2 mg/dL and no pre-admission value is recorded. Hold is encoded. |
+| VAL-802 | atorvastatin 40 MG Oral Tablet | continue | SUFFICIENT_VISIBLE_EVIDENCE | Hyperlipidemia. The drug is on the home list. The note does not say to continue it at discharge. |
+| VAL-803 | hydrochlorothiazide 25 MG Oral Tablet | stop | SUFFICIENT_VISIBLE_EVIDENCE | Admission sodium is 128 mmol/L while hydrochlorothiazide is a home medicine. The inpatient row is held, and discharge sodium is 135 mmol/L. Confusion cleared. The note does not say to leave the drug stopped. Restart with sodium follow-up is encoded. |
+| VAL-803 | lisinopril 10 MG Oral Tablet | continue | CLINICALLY_AMBIGUOUS | Creatinine rises from 1.0 mg/dL to 1.2 mg/dL. The clean duration is 30 days. Hold is encoded. The resident chart does not state a day supply. |
+| VAL-803 | atorvastatin 40 MG Oral Tablet | continue | SUFFICIENT_VISIBLE_EVIDENCE | Hyperlipidemia and an active inpatient row. The sodium history does not implicate this drug. |
+| VAL-803 | metformin hydrochloride 500 MG Oral Tablet | continue | SUFFICIENT_VISIBLE_EVIDENCE | Diabetes. Glucose is 149 mg/dL then 129 mg/dL. Creatinine remains in a range that does not by itself stop metformin. |
+| VAL-805 | 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet | continue | SUFFICIENT_VISIBLE_EVIDENCE | Systolic heart failure. The same dose is on the home and inpatient lists. Heart rate and blood pressure are recorded. The note identifies the dose and does not call it the discharge prescription. |
+| VAL-805 | atorvastatin 40 MG Oral Tablet | continue | SUFFICIENT_VISIBLE_EVIDENCE | Hyperlipidemia and an active inpatient row. |
+| VAL-805 | furosemide 40 MG Oral Tablet | continue | CLINICALLY_AMBIGUOUS | The only recorded order is 40 mg oral once daily. Oxygen saturation and natriuretic peptide improved, and one day of output was net negative. Discharge weight is 78 kg and dry weight is 73 kg, so continuation is not a claim that dry weight was reached. A dose increase without an invented number is encoded. |
+| VAL-805 | Additional systolic heart-failure therapy (ACE inhibitor, ARNI, SGLT2 inhibitor, or MRA) | start | CLINICALLY_AMBIGUOUS | No ejection fraction is recorded. Discharge creatinine is 0.9 mg/dL and potassium is 4.3 mmol/L. Starting another class is acceptable and not required. |
+| VAL-809 | ceftriaxone 2000 MG Injection | start | SUFFICIENT_VISIBLE_EVIDENCE | A vegetation is present, the admission culture grew gram-positive cocci, a later culture showed no growth, and ceftriaxone was started in the hospital. The consultation does not say to complete a planned course. No remaining duration is stored, and none was added. |
+| VAL-809 | lisinopril 10 MG Oral Tablet | continue | CLINICALLY_AMBIGUOUS | Creatinine falls from 1.3 mg/dL to 0.8 mg/dL. No pre-admission creatinine is recorded. Hold is encoded. |
+| VAL-809 | atorvastatin 40 MG Oral Tablet | continue | SUFFICIENT_VISIBLE_EVIDENCE | Hyperlipidemia and an active inpatient row. |
+| VAL-813 | valganciclovir 450 MG Oral Tablet | start | SUFFICIENT_VISIBLE_EVIDENCE | Not a home medicine. Started at 900 mg twice daily after the admission viral-load result. A later result was lower and diarrhea improved. Creatinine is 1.2 mg/dL then 1.0 mg/dL. |
+| VAL-813 | BX Rating tacrolimus 1 MG Oral Capsule | continue | CLINICALLY_AMBIGUOUS | It is the recorded immunosuppressant and was given through the stay at 1 mg every 12 hours. No trough is recorded. A temporary reduction is encoded. |
+| VAL-813 | amlodipine 5 MG Oral Tablet | continue | SUFFICIENT_VISIBLE_EVIDENCE | Hypertension. The drug is on the home and inpatient lists. |
+| VAL-813 | atorvastatin 40 MG Oral Tablet | continue | SUFFICIENT_VISIBLE_EVIDENCE | Hyperlipidemia and an active inpatient row. |
+
+## Agreement with evaluator files
+
+- VAL-801 atorvastatin 40 MG Oral Tablet continue: matched
+- VAL-801 lisinopril 10 MG Oral Tablet continue: matched
+- VAL-801 metformin hydrochloride 500 MG Oral Tablet continue: matched
+- VAL-801 ibuprofen 400 MG Oral Tablet continue: matched
+- VAL-802 lisinopril 10 MG Oral Tablet continue: matched
+- VAL-802 atorvastatin 40 MG Oral Tablet continue: matched
+- VAL-803 hydrochlorothiazide 25 MG Oral Tablet stop: matched
+- VAL-803 lisinopril 10 MG Oral Tablet continue: matched
+- VAL-803 atorvastatin 40 MG Oral Tablet continue: matched
+- VAL-803 metformin hydrochloride 500 MG Oral Tablet continue: matched
+- VAL-805 24 HR metoprolol succinate 25 MG Extended Release Oral Tablet continue: matched
+- VAL-805 atorvastatin 40 MG Oral Tablet continue: matched
+- VAL-805 furosemide 40 MG Oral Tablet continue: matched
+- VAL-805 Additional systolic heart-failure therapy (ACE inhibitor, ARNI, SGLT2 inhibitor, or MRA) start: matched
+- VAL-809 ceftriaxone 2000 MG Injection start: matched
+- VAL-809 lisinopril 10 MG Oral Tablet continue: matched
+- VAL-809 atorvastatin 40 MG Oral Tablet continue: matched
+- VAL-813 valganciclovir 450 MG Oral Tablet start: matched
+- VAL-813 BX Rating tacrolimus 1 MG Oral Capsule continue: matched
+- VAL-813 amlodipine 5 MG Oral Tablet continue: matched
+- VAL-813 atorvastatin 40 MG Oral Tablet continue: matched
+
+HIDDEN_REFERENCE_DEPENDENCY count: 0.
+CLINICALLY_INCONSISTENT count: 0.
+
+Ambiguous actions and their alternatives are on the reference plan and in the case-specific adjudication question.

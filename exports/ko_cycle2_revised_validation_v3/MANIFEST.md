@@ -1,6 +1,6 @@
 # Set 1 version 3 manifest
 
-This is the current Set 1 package. Version 1 and version 2 are superseded revision attempts.
+Current Set 1 codebook: `CliniProof_Cycle2_Revised_Cases_Validation.docx`.
 
 | Case | Resident file | Evaluator file |
 | --- | --- | --- |
@@ -10,3 +10,5 @@ This is the current Set 1 package. Version 1 and version 2 are superseded revisi
 | VAL-805 | `VAL-805_resident.json` | `VAL-805_evaluator.json` |
 | VAL-809 | `VAL-809_resident.json` | `VAL-809_evaluator.json` |
 | VAL-813 | `VAL-813_resident.json` | `VAL-813_evaluator.json` |
+
+Prepared for re-review. Not clinically validated.

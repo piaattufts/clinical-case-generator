@@ -5,7 +5,7 @@
     "case_id_code": "VAL-805",
     "case_status": "review",
     "generation_source": "synthetic",
-    "one_liner": "68-year-old Female with Acute systolic (congestive) heart failure",
+    "one_liner": "68-year-old woman admitted with dyspnea, edema, and orthopnea.",
     "admission_dx": "Acute systolic (congestive) heart failure",
     "disposition_status": "home",
     "chief_complaint": "Dyspnea, Edema, Orthopnea in the setting of Acute systolic (congestive) heart failure",
@@ -27,15 +27,11 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Dyspnea, Edema, Orthopnea in the setting of Acute systolic (congestive) heart failure",
-      "hpi": "A 68-year-old Female is admitted with acute systolic heart failure. Dyspnea, edema, and orthopnea have been present for one week. Home medicines are oral furosemide 40 mg once daily, atorvastatin, and metoprolol succinate 25 mg once daily. The inpatient furosemide order is also 40 mg oral once daily. Weight is 81 kg on admission and 78 kg at discharge. Dry weight is 73 kg.",
-      "review_of_systems": null,
-      "presenting_symptoms": [
-        "Dyspnea",
-        "Edema",
-        "Orthopnea"
-      ],
+      "hpi": "A 68-year-old woman is admitted with acute systolic heart failure. Dyspnea, edema, and orthopnea have been present for one week. Home medicines are oral furosemide 40 mg once daily, atorvastatin, and metoprolol succinate 25 mg once daily. The inpatient furosemide order is the same oral dose. Weight is 81 kg on admission and 78 kg at discharge. Recorded dry weight is 73 kg.",
+      "review_of_systems": "See the history of present illness.",
+      "presenting_symptoms": "Dyspnea, edema, and orthopnea for one week.",
       "symptom_duration": "one week",
-      "symptom_course": "improving after treatment"
+      "symptom_course": "See the history of present illness."
     },
     "social_support": {
       "living_situation": "Baseline living situation: lives at home",
@@ -96,7 +92,7 @@
       "note_id": "NOTE-VAL805-001",
       "case_id": "VAL-805",
       "note_type": "admission",
-      "note_text": "Admission note for a 68-year-old Female with acute systolic heart failure. Symptoms are dyspnea, edema, and orthopnea for one week. Home and inpatient furosemide are both recorded as 40 mg oral once daily. No echocardiogram is recorded.",
+      "note_text": "Admission note for a 68-year-old woman with acute systolic heart failure. Symptoms are dyspnea, edema, and orthopnea for one week. Home and inpatient furosemide orders are both oral 40 mg once daily. No echocardiogram is recorded.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -104,7 +100,7 @@
       "note_id": "NOTE-VAL805-002",
       "case_id": "VAL-805",
       "note_type": "hospital_course",
-      "note_text": "Dyspnea, edema, and orthopnea were present for one week. The chest radiograph shows pulmonary edema without pneumonia. The recorded inpatient furosemide order is 40 mg oral once daily. Weight is 81 kg on admission and 78 kg at discharge. Dry weight is 73 kg. One intake-and-output day is stored, hospital day 3, with intake 1418 mL, output 2463 mL, and net -1045 mL. Creatinine is 1.7 mg/dL then 0.9 mg/dL. Potassium is 4.7 mmol/L then 4.3 mmol/L. B-type natriuretic peptide is 1120 pg/mL then 369 pg/mL. Blood pressure is 109/82 mmHg then 110/84 mmHg. Oxygen saturation is 92 percent then 98 percent. No echocardiogram and no ejection fraction are recorded. Metoprolol succinate 25 mg daily was administered.",
+      "note_text": "Dyspnea, edema, and orthopnea were present for one week. The chest radiograph shows pulmonary edema without pneumonia. The only recorded furosemide order, at home and in the hospital, is 40 mg oral once daily. Weight is 81 kg on admission and 78 kg at discharge. Dry weight is 73 kg. One intake-and-output day is stored, hospital day 3, with intake 1418 mL, output 2463 mL, and net -1045 mL. Creatinine is 1.7 mg/dL then 0.9 mg/dL. Potassium is 4.7 mmol/L then 4.3 mmol/L. B-type natriuretic peptide is 1120 pg/mL then 369 pg/mL. Blood pressure is 109/82 mmHg then 110/84 mmHg. Oxygen saturation is 92 percent then 98 percent. No echocardiogram and no ejection fraction are recorded. Metoprolol succinate 25 mg daily is the recorded home and inpatient dose.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -222,8 +218,8 @@
       "case_id": "VAL-805",
       "service": "cardiology",
       "timepoint": "inpatient",
-      "assessment": "Pulmonary edema is present on the admission radiograph.",
-      "recommendation": "No echocardiogram is recorded in this chart.",
+      "assessment": "Pulmonary edema is present on the chest radiograph. No ejection fraction is recorded.",
+      "recommendation": "No echocardiogram is recorded. This consultation does not record a medication order.",
       "source_reference": null
     }
   ],
@@ -371,7 +367,7 @@
     {
       "followup_id": "FU-VAL805-001",
       "case_id": "VAL-805",
-      "item": "Heart-failure clinic after diuresis",
+      "item": "Heart-failure clinic follow-up",
       "timing": "7 days",
       "with_service": "cardiology",
       "source_reference": null
@@ -494,8 +490,9 @@
         "frequency": "once daily",
         "duration": null,
         "indication": "Acute systolic (congestive) heart failure",
-        "rationale": "Home and discharge rows in the clean chart match.",
-        "monitoring": null
+        "rationale": "The same 25 mg daily dose is on the home and inpatient lists. Discharge blood pressure is 110/84 mmHg. No ejection fraction is recorded.",
+        "monitoring": null,
+        "evidence_class": "SUFFICIENT_VISIBLE_EVIDENCE"
       },
       {
         "medication": "atorvastatin 40 MG Oral Tablet",
@@ -505,18 +502,19 @@
         "frequency": "once daily",
         "duration": null,
         "indication": "Mixed hyperlipidemia",
-        "rationale": "Home and discharge rows in the clean chart match.",
-        "monitoring": null
+        "rationale": "Hyperlipidemia is active and the inpatient row is active.",
+        "monitoring": null,
+        "evidence_class": "SUFFICIENT_VISIBLE_EVIDENCE"
       },
       {
         "medication": "furosemide 40 MG Oral Tablet",
-        "action": "change",
+        "action": "continue",
         "dose": "40 MG",
         "route": "oral",
-        "frequency": "twice daily",
+        "frequency": "once daily",
         "duration": null,
         "indication": "Acute systolic (congestive) heart failure",
-        "rationale": "Discharge weight is 78 kg and dry weight is 73 kg after 40 mg oral once daily. Furosemide labeling allows a 20 to 80 mg dose to be repeated. Twice daily is the reference. Continuing once daily is acceptable because natriuretic peptide, creatinine, and oxygen saturation improved. No intravenous dose is in the project regimen.",
+        "rationale": "The only recorded order is 40 mg oral once daily. Discharge weight is 78 kg and dry weight is 73 kg. Oxygen saturation and natriuretic peptide improved. Continuation is not a claim that dry weight was reached. No intravenous dose is stored in the project regimen.",
         "monitoring": null,
         "evidence_class": "CLINICALLY_AMBIGUOUS"
       }
@@ -524,7 +522,7 @@
     "monitoring_requirements": [],
     "follow_up_requirements": [
       {
-        "item": "Heart-failure clinic after diuresis",
+        "item": "Heart-failure clinic follow-up",
         "timing": "7 days",
         "with_service": "cardiology"
       }
@@ -532,15 +530,15 @@
     "acceptable_alternatives": [
       {
         "medication": "furosemide 40 MG Oral Tablet",
-        "action": "continue",
-        "rationale": "Continuing 40 mg oral once daily is acceptable. Natriuretic peptide fell from 1120 to 369 pg/mL and oxygen saturation rose from 92 to 98 percent."
+        "action": "modify",
+        "rationale": "Increasing the loop diuretic, or deferring discharge until weight is closer to 73 kg, is acceptable. No intravenous dose is stored, so no numeric intravenous dose is specified. REQUIRES_CLINICIAN_DECISION for the increased dose."
       },
       {
-        "medication": "Additional systolic heart-failure therapy",
+        "medication": "Additional systolic heart-failure therapy (ACE inhibitor, ARNI, SGLT2 inhibitor, or MRA)",
         "action": "start",
-        "rationale": "An ACE inhibitor, ARNI, SGLT2 inhibitor, or mineralocorticoid antagonist is acceptable and not required. No ejection fraction is recorded. Discharge blood pressure is 110/84 mmHg, creatinine is 0.9 mg/dL, and potassium is 4.3 mmol/L. Admission creatinine was 1.7 mg/dL."
+        "rationale": "An additional class is acceptable and is not required. Discharge creatinine is 0.9 mg/dL and potassium is 4.3 mmol/L. No ejection fraction is recorded."
       }
-    ],
-    "evidence_uncertainty": "CLINICALLY_AMBIGUOUS"
-  }
+    ]
+  },
+  "clinician_review_status": "PREPARED_FOR_RE_REVIEW"
 }

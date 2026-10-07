@@ -1,6 +1,6 @@
 # Current case sets
 
-The recovered export of these 48 slots is [../../exports/clean_balanced_seed_set/](../../exports/clean_balanced_seed_set/AUDIT.md). Clinical Revision Cycle 2 review copies for VAL-801–VAL-824 are [the revised set](../../exports/ko_revised_cases_v1/AUDIT.md) and [the clean cases ready for clinician review](../../exports/ko_clean_cases_for_review_v1/AUDIT.md). That label is not clinical validation. The directories below are the frozen sources. Historical validation artifacts are retained for provenance and reproducibility. They should not be used as the current resident-facing study set.
+The recovered export of these 48 slots is [../../exports/clean_balanced_seed_set/](../../exports/clean_balanced_seed_set/AUDIT.md). The current Set 1 review copy is [version 3](../../exports/ko_cycle2_revised_validation_v3/CliniProof_Cycle2_Revised_Cases_Validation.docx). [An earlier six-case revision](../../exports/ko_revised_cases_v1/AUDIT.md) is superseded. Set 2 remains [the clean cases prepared for review](../../exports/ko_clean_cases_for_review_v1/AUDIT.md). That label is not clinical validation. The directories below are the frozen sources. Historical validation artifacts are retained for provenance and reproducibility. They should not be used as the current resident-facing study set.
 
 Two prospective case sets were frozen for human clinician validation of the original design.
 

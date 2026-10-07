@@ -56,8 +56,17 @@ def test_v3_facts_match_the_canonical_choices() -> None:
         for row in reference_805["reference_discharge_plan"]["medications"]
         if "furosemide" in row["medication"]
     ][0]
-    assert changed["action"] == "change"
-    assert changed["frequency"] == "twice daily"
+    # FUROSEMIDE_40_DAILY is oral 40 mg once daily and excludes injection.
+    # No repository regimen encodes twice daily or an intravenous dose.
+    assert changed["action"] == "continue"
+    assert changed["frequency"] == "once daily"
+    assert changed["route"] == "oral"
+    assert changed["evidence_class"] == "CLINICALLY_AMBIGUOUS"
+    alternatives = reference_805["reference_discharge_plan"]["acceptable_alternatives"]
+    assert any(
+        "furosemide" in item["medication"] and item["action"] == "modify" for item in alternatives
+    )
+    assert "twice daily" not in json.dumps(changed).lower()
     chart_809 = json.dumps(json.loads((V3 / "VAL-809_resident.json").read_text(encoding="utf-8")))
     assert "36.80" in chart_809
     assert "viridans" not in chart_809.lower()

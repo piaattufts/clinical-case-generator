@@ -5,7 +5,7 @@
     "case_id_code": "VAL-803",
     "case_status": "review",
     "generation_source": "synthetic",
-    "one_liner": "71-year-old Male with Delirium due to known physiological condition",
+    "one_liner": "71-year-old man admitted with fatigue, confusion, and serum sodium 128 mmol/L.",
     "admission_dx": "Delirium due to known physiological condition",
     "disposition_status": "home",
     "chief_complaint": "Fatigue, Confusion in the setting of Delirium due to known physiological condition",
@@ -28,14 +28,11 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Fatigue, Confusion in the setting of Delirium due to known physiological condition",
-      "hpi": "A 71-year-old Male is admitted with one week of fatigue and confusion. Home medicines include hydrochlorothiazide 25 mg daily, lisinopril, atorvastatin, and metformin. Serum sodium is 128 mmol/L on admission. Hydrochlorothiazide is held during the admission. Sodium is 135 mmol/L at discharge. Confusion clears as the sodium rises. Creatinine is 1.0 mg/dL then 1.2 mg/dL. Potassium is 4.4 mmol/L then 4.2 mmol/L.",
-      "review_of_systems": null,
-      "presenting_symptoms": [
-        "Fatigue",
-        "Confusion"
-      ],
+      "hpi": "A 71-year-old man is admitted with one week of fatigue and confusion. Home medicines include hydrochlorothiazide 25 mg daily, lisinopril 10 mg daily, atorvastatin 40 mg daily, and metformin 500 mg twice daily. Admission sodium is 128 mmol/L. Creatinine is 1.0 mg/dL on admission and 1.2 mg/dL at discharge.",
+      "review_of_systems": "See the history of present illness.",
+      "presenting_symptoms": "Fatigue and confusion for one week.",
       "symptom_duration": "one week",
-      "symptom_course": "persistent"
+      "symptom_course": "See the history of present illness."
     },
     "social_support": {
       "living_situation": "Baseline living situation: lives at home",
@@ -106,7 +103,7 @@
       "note_id": "NOTE-VAL803-001",
       "case_id": "VAL-803",
       "note_type": "admission",
-      "note_text": "Admission note for a 71-year-old Male with fatigue and confusion for one week. Hydrochlorothiazide 25 mg daily is a home medicine. Serum sodium is 128 mmol/L. Creatinine is 1.0 mg/dL. Potassium is 4.4 mmol/L.",
+      "note_text": "Admission note. Fatigue and confusion for one week. Hydrochlorothiazide is on the home list. Serum sodium on arrival is 128 mmol/L. Creatinine is 1.0 mg/dL.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -114,7 +111,7 @@
       "note_id": "NOTE-VAL803-002",
       "case_id": "VAL-803",
       "note_type": "hospital_course",
-      "note_text": "Serum sodium is 128 mmol/L on admission and 135 mmol/L at discharge. Hydrochlorothiazide is held during the admission. Confusion clears as the sodium rises. Creatinine is 1.0 mg/dL then 1.2 mg/dL. Potassium is 4.4 mmol/L then 4.2 mmol/L. Glucose is 149 mg/dL then 129 mg/dL.",
+      "note_text": "Admission sodium is 128 mmol/L. Hydrochlorothiazide was not given after that result. Discharge sodium is 135 mmol/L. Confusion cleared. Creatinine is 1.0 mg/dL then 1.2 mg/dL. Potassium is 4.4 mmol/L then 4.2 mmol/L. Glucose is 149 mg/dL then 129 mg/dL.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -223,7 +220,7 @@
       "value_text": null,
       "unit": "mmol/L",
       "status": "final",
-      "source_reference": "synthetic_v3"
+      "source_reference": "SYNTHETIC_ADDITION_SUPPORTED_BY_LITERATURE synthetic_v3"
     },
     {
       "lab_id": "LAB-VAL803-NA2",
@@ -234,7 +231,7 @@
       "value_text": null,
       "unit": "mmol/L",
       "status": "final",
-      "source_reference": "synthetic_v3"
+      "source_reference": "SYNTHETIC_ADDITION_SUPPORTED_BY_LITERATURE synthetic_v3"
     }
   ],
   "CaseImaging": [],
@@ -366,7 +363,7 @@
       "frequency": "once daily",
       "indication": "Essential (primary) hypertension",
       "status": "held",
-      "held_reason": "Serum sodium was 128 mmol/L on admission.",
+      "held_reason": "Admission serum sodium 128 mmol/L.",
       "verification_status": "verified",
       "verification_source": "caregiver_and_pharmacy",
       "target_or_goal": null,
@@ -429,7 +426,7 @@
     {
       "followup_id": "FU-VAL803-001",
       "case_id": "VAL-803",
-      "item": "Home-health and primary care medication-supply follow-up",
+      "item": "Primary care follow-up",
       "timing": "14 days",
       "with_service": "primary care",
       "source_reference": null
@@ -541,11 +538,11 @@
         "dose": "25 MG",
         "route": "oral",
         "frequency": "once daily",
-        "duration": "30 days",
+        "duration": null,
         "indication": "Essential (primary) hypertension",
-        "rationale": "Home hydrochlorothiazide is recorded. Synthetic sodium is 128 mmol/L then 135 mmol/L, and the inpatient row is held. Stopping it at discharge follows that course. A hold pending an outpatient sodium check is acceptable. The sodium values were not in the source chart.",
+        "rationale": "Admission sodium is 128 mmol/L while hydrochlorothiazide is a home medicine. The inpatient row is held after that result. Discharge sodium is 135 mmol/L and confusion cleared. The sodium pair is a synthetic addition. Restart is acceptable only with planned sodium checks.",
         "monitoring": null,
-        "evidence_class": "CLINICALLY_AMBIGUOUS"
+        "evidence_class": "SUFFICIENT_VISIBLE_EVIDENCE"
       },
       {
         "medication": "lisinopril 10 MG Oral Tablet",
@@ -555,9 +552,9 @@
         "frequency": "once daily",
         "duration": "30 days",
         "indication": "Essential (primary) hypertension",
-        "rationale": "The preserved chart uses 30 days. The reviewed case used 7 days. Creatinine 1.0 mg/dL then 1.2 mg/dL does not set the duration.",
+        "rationale": "The clean chart uses 30 days. The reviewed 7-day supply is not restored. Creatinine is 1.0 mg/dL then 1.2 mg/dL. Hold is acceptable if that rise is judged to be acute kidney injury.",
         "monitoring": null,
-        "evidence_class": "SUFFICIENT_VISIBLE_EVIDENCE"
+        "evidence_class": "CLINICALLY_AMBIGUOUS"
       },
       {
         "medication": "atorvastatin 40 MG Oral Tablet",
@@ -567,8 +564,9 @@
         "frequency": "once daily",
         "duration": "30 days",
         "indication": "Mixed hyperlipidemia",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": null
+        "rationale": "Hyperlipidemia is active. The sodium history does not implicate this drug.",
+        "monitoring": null,
+        "evidence_class": "SUFFICIENT_VISIBLE_EVIDENCE"
       },
       {
         "medication": "metformin hydrochloride 500 MG Oral Tablet",
@@ -578,14 +576,15 @@
         "frequency": "twice daily",
         "duration": "30 days",
         "indication": "Type 2 diabetes mellitus without complications",
-        "rationale": "Home therapy is continued through discharge in the clean case.",
-        "monitoring": null
+        "rationale": "Diabetes is active. Glucose is 149 mg/dL then 129 mg/dL.",
+        "monitoring": null,
+        "evidence_class": "SUFFICIENT_VISIBLE_EVIDENCE"
       }
     ],
     "monitoring_requirements": [],
     "follow_up_requirements": [
       {
-        "item": "Home-health and primary care medication-supply follow-up",
+        "item": "Primary care follow-up",
         "timing": "14 days",
         "with_service": "primary care"
       }
@@ -593,10 +592,15 @@
     "acceptable_alternatives": [
       {
         "medication": "hydrochlorothiazide 25 MG Oral Tablet",
+        "action": "restart",
+        "rationale": "Restart is acceptable only with planned sodium checks if blood pressure is not controlled on lisinopril alone. The reference does not restart it."
+      },
+      {
+        "medication": "lisinopril 10 MG Oral Tablet",
         "action": "hold",
-        "rationale": "Holding through an outpatient sodium check is acceptable. The sodium course is synthetic."
+        "rationale": "Hold is acceptable if the rise from 1.0 mg/dL to 1.2 mg/dL is judged to be acute kidney injury. The reference keeps the 30-day supply."
       }
-    ],
-    "evidence_uncertainty": "CLINICALLY_AMBIGUOUS"
-  }
+    ]
+  },
+  "clinician_review_status": "PREPARED_FOR_RE_REVIEW"
 }
