@@ -2,7 +2,7 @@
 
 The current resident task is to read a clean chart and decide the discharge medication regimen. The reference plan is kept separate. It is not printed in the resident chart, and the base case does not contain a deliberately planted medication error.
 
-Round 2 is the current clinician review of VAL-801–VAL-824. Its casebook is [CliniProof_Cycle2_Final_Validation.docx](../exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx). The [project README](../README.md) explains how Round 2 was derived from Round 1 and links both codebooks. Ready for clinician review does not mean clinically validated.
+Round 2 is the current clinician review of VAL-801–VAL-824. Clinicians start with [Set 1, the six revised cases](../exports/ko_cycle2_revised_validation/CliniProof_Cycle2_Revised_Cases_Validation.docx), and then review [Set 2, the eighteen clean cases](../exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx). The combined 24-case file is an investigator convenience copy, not the preferred workflow. The [project README](../README.md) explains how Round 2 was derived from Round 1. Ready for clinician review does not mean clinically validated.
 
 The C1–C5 instrument below is the Round 1 validation design. It was written for the frozen charts (`CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`), many of which contain one injected discrepancy. Those Word casebooks are retained so Round 1 can be reproduced. They are not the current resident-facing study set. The recovered clean charts remain in [exports/clean_balanced_seed_set/](../exports/clean_balanced_seed_set/AUDIT.md). Passing automated tests does not mean a case has passed clinician review.
 
