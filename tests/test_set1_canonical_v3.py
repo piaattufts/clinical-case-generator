@@ -118,7 +118,8 @@ def test_v3_package_gates_and_leaves_other_cases_unchanged(tmp_path: Path) -> No
     resident_809 = residents["VAL-809"]
     recorded = [vital["temp_c"] for vital in resident_809["CaseVital"]]
     assert recorded == ["36.80", "36.80"]
-    assert "38.4" in resident_809["ClinicalCase"]["presentation"]["hpi"]
+    assert "38.4" not in json.dumps(resident_809)
+    assert "fever" not in resident_809["ClinicalCase"]["presentation"]["hpi"].lower()
     assert "viridans" not in json.dumps(resident_809).lower()
     assert "dental extraction" not in json.dumps(resident_809).lower()
     assert "prosthetic valve is recorded" in json.dumps(resident_809).lower() or "No prosthetic valve" in json.dumps(resident_809)

@@ -18,7 +18,7 @@ These six cases are prepared for re-review. They are not clinically validated.
 | VAL-802 | Partial. The course is readable and no baseline was invented. Lisinopril remains ambiguous, and the alternative is encoded. The recorded recommendation was Exclude. | no | no | no | Prepared for re-review |
 | VAL-803 | Partial. A sodium precipitant was added and labeled synthetic. C2 through the overall recommendation were not completed and stay blank. | no | no | no | Prepared for re-review |
 | VAL-805 | Partial. Source weights and the oral dose remain. No intravenous dose and no ejection fraction were invented. The diuretic action is ambiguous. | no | no | no | Prepared for re-review |
-| VAL-809 | Partial. Source temperatures and the organism remain. A labeled home fever and poor dentition were added. No valve was added. The antibiotic duration is not invented. | no | no | no | Prepared for re-review |
+| VAL-809 | Partial. Source temperatures and the organism remain. Poor dentition was added and labeled synthetic. No home fever, valve, or dental extraction was added. The antibiotic duration is not invented. | no | no | no | Prepared for re-review |
 | VAL-813 | Partial. Valganciclovir is no longer a home medicine. No extra immunosuppressant was added. Potassium still has no cause. The recorded recommendation was Exclude. | no | no | no | Prepared for re-review |
 
 Set 2 was not re-audited and was not edited.

@@ -5,7 +5,7 @@
     "case_id_code": "VAL-809",
     "case_status": "review",
     "generation_source": "synthetic",
-    "one_liner": "82-year-old man admitted with fatigue, a reported home fever, and a vegetation.",
+    "one_liner": "82-year-old man admitted with fatigue and a vegetation.",
     "admission_dx": "Acute and subacute infective endocarditis",
     "disposition_status": "home",
     "chief_complaint": "Fatigue in the setting of Acute and subacute infective endocarditis",
@@ -27,9 +27,9 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Fatigue in the setting of Acute and subacute infective endocarditis",
-      "hpi": "An 82-year-old man is admitted with infective endocarditis. Fatigue has been present for one week. He reported a temperature of 38.4\u00b0C at home the evening before admission. Recorded hospital temperatures are 36.80\u00b0C on admission and 36.80\u00b0C at discharge. Poor dentition is noted. No prosthetic valve is recorded. Home medicines are lisinopril and atorvastatin. Ceftriaxone 2000 mg intravenously once daily was started during the admission. Transthoracic echocardiogram shows a mobile echodensity consistent with a vegetation and preserved ventricular function. Admission blood culture grew gram-positive cocci. A later culture showed no growth. Creatinine is 1.3 mg/dL on admission and 0.8 mg/dL at discharge. No creatinine from before this admission is recorded.",
+      "hpi": "An 82-year-old man is admitted with infective endocarditis. Fatigue has been present for one week. Recorded temperatures are 36.80\u00b0C on admission and 36.80\u00b0C at discharge. Poor dentition is noted. No prosthetic valve is recorded. Home medicines are lisinopril and atorvastatin. Ceftriaxone 2000 mg intravenously once daily was started during the admission. Transthoracic echocardiogram shows a mobile echodensity consistent with a vegetation and preserved ventricular function. Admission blood culture grew gram-positive cocci. A later culture showed no growth. Creatinine is 1.3 mg/dL on admission and 0.8 mg/dL at discharge. No creatinine from before this admission is recorded.",
       "review_of_systems": "See the history of present illness.",
-      "presenting_symptoms": "Fatigue for one week, with a reported home temperature of 38.4\u00b0C.",
+      "presenting_symptoms": "Fatigue for one week.",
       "symptom_duration": "one week",
       "symptom_course": "See the history of present illness."
     },
@@ -92,7 +92,7 @@
       "note_id": "NOTE-VAL809-001",
       "case_id": "VAL-809",
       "note_type": "admission",
-      "note_text": "An 82-year-old man is admitted with infective endocarditis. Fatigue has been present for one week. He reported a temperature of 38.4\u00b0C at home the evening before admission. Recorded hospital temperatures are 36.80\u00b0C on admission and 36.80\u00b0C at discharge. Poor dentition is noted. No prosthetic valve is recorded. Home medicines are lisinopril and atorvastatin. Ceftriaxone 2000 mg intravenously once daily was started during the admission. Transthoracic echocardiogram shows a mobile echodensity consistent with a vegetation and preserved ventricular function. Admission blood culture grew gram-positive cocci. A later culture showed no growth. Creatinine is 1.3 mg/dL on admission and 0.8 mg/dL at discharge. No creatinine from before this admission is recorded.",
+      "note_text": "An 82-year-old man is admitted with infective endocarditis. Fatigue has been present for one week. Recorded temperatures are 36.80\u00b0C on admission and 36.80\u00b0C at discharge. Poor dentition is noted. No prosthetic valve is recorded. Home medicines are lisinopril and atorvastatin. Ceftriaxone 2000 mg intravenously once daily was started during the admission. Transthoracic echocardiogram shows a mobile echodensity consistent with a vegetation and preserved ventricular function. Admission blood culture grew gram-positive cocci. A later culture showed no growth. Creatinine is 1.3 mg/dL on admission and 0.8 mg/dL at discharge. No creatinine from before this admission is recorded.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -100,7 +100,7 @@
       "note_id": "NOTE-VAL809-002",
       "case_id": "VAL-809",
       "note_type": "hospital_course",
-      "note_text": "Ceftriaxone 2000 mg intravenously once daily was given during the admission. The echocardiogram shows a vegetation with preserved ventricular function. Blood culture grew gram-positive cocci, and a later culture showed no growth. A temperature of 38.4\u00b0C was reported at home the evening before admission. Recorded temperatures are 36.80\u00b0C on admission and at discharge. Poor dentition is noted. No prosthetic valve is recorded. Creatinine is 1.3 mg/dL then 0.8 mg/dL. Lisinopril is on the inpatient list. No creatinine from before this admission is recorded.",
+      "note_text": "Ceftriaxone 2000 mg intravenously once daily was given during the admission. The echocardiogram shows a vegetation with preserved ventricular function. Blood culture grew gram-positive cocci, and a later culture showed no growth. Recorded temperatures are 36.80\u00b0C on admission and at discharge. Poor dentition is noted. No prosthetic valve is recorded. Creatinine is 1.3 mg/dL then 0.8 mg/dL. Lisinopril is on the inpatient list. No creatinine from before this admission is recorded.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -196,7 +196,7 @@
       "case_id": "VAL-809",
       "service": "infectious disease",
       "timepoint": "inpatient",
-      "assessment": "Fatigue, a reported home temperature, poor dentition, and a vegetation are recorded.",
+      "assessment": "Fatigue, poor dentition, and a vegetation are recorded.",
       "recommendation": "A vegetation is present. The admission blood culture grew gram-positive cocci. A later blood culture showed no growth.",
       "source_reference": null
     }

@@ -251,11 +251,11 @@ REVIEW_ITEMS: tuple[dict[str, str], ...] = (
         "id": "VAL-809-C01",
         "case": "VAL-809",
         "comment": "C1 Fail. “Presentation – requires more details, should present with fevers, have a history of mechanical valve or poor dentition that would predispose to endocarditis.” Overall: “Would have fevers/chills/predisposition to endocarditis.”",
-        "revision": "A reported home temperature of 38.4°C and poor dentition were added and labeled synthetic. The recorded temperatures stay 36.80°C. No prosthetic valve, dental extraction, murmur, or species name was added.",
+        "revision": "Poor dentition was added and labeled synthetic. The recorded temperatures stay 36.80°C. No home fever, dental extraction, murmur, prosthetic valve, or species name was added.",
         "location": "presentation; admission note; hospital course; vital signs; microbiology",
         "old": "Temperature 36.80°C on admission and at discharge. Symptom fatigue. Organism gram-positive cocci. Vegetation present. No valve or dental history.",
-        "new": "The vital table still shows 36.80°C at both time points. The history adds a reported home temperature of 38.4°C the evening before admission and poor dentition. No prosthetic valve is recorded. The organism remains gram-positive cocci.",
-        "reasoning": "Fever and a predisposition are part of the endocarditis picture the reviewer asked for. Replacing 36.80°C with 38.6°C would erase a source vital. A mechanical valve was specifically not added. A dental extraction and viridans group streptococcus are version 1 inventions and are not restored. Poor dentition is the predisposition the comment allowed. Both additions are synthetic.",
+        "new": "The vital table still shows 36.80°C at both time points. The history notes poor dentition and states that no prosthetic valve is recorded. The organism remains gram-positive cocci. No home temperature was added.",
+        "reasoning": "The reviewer asked for fever and a predisposition. Replacing 36.80°C, or adding a home temperature that was never recorded, would invent a vital sign. A mechanical valve, a dental extraction, and a viridans label are not in the source and are not restored. Poor dentition is the predisposition the comment allowed, and it is labeled synthetic. The recorded bacteremia, vegetation, and temperatures remain the evidence.",
         "evidence": "[E1] [E13] [E14]",
         "status": "REVISED",
     },
@@ -380,10 +380,10 @@ LEDGER: tuple[dict[str, str], ...] = (
     },
     {
         "case": "VAL-809",
-        "change": "Reported home temperature 38.4°C and poor dentition added. Recorded temperatures kept.",
+        "change": "Poor dentition added. Recorded temperatures kept. No home fever added.",
         "old": "36.80°C twice. Fatigue. Gram-positive cocci. No dental or valve history.",
-        "new": "Vital rows remain 36.80°C. History distinguishes the reported home temperature and records poor dentition. No prosthetic valve.",
-        "source": "Temperatures, organism, vegetation, and creatinine are CASE_SOURCE [E13]. The home temperature and poor dentition are SYNTHETIC_ADDITION_SUPPORTED_BY_LITERATURE [E14].",
+        "new": "Vital rows remain 36.80°C. History records poor dentition. No prosthetic valve and no home temperature.",
+        "source": "Temperatures, organism, vegetation, and creatinine are CASE_SOURCE [E13]. Poor dentition is SYNTHETIC_ADDITION_SUPPORTED_BY_LITERATURE [E14].",
         "classification": "SYNTHETIC_ADDITION_SUPPORTED_BY_LITERATURE",
     },
     {
@@ -437,8 +437,8 @@ SPECIAL_QUESTIONS = {
         "ARNI, SGLT2 inhibitor, or mineralocorticoid-receptor antagonist required, or only acceptable?"
     ),
     "VAL-809": (
-        "Recorded temperatures are 36.80°C on admission and at discharge. A temperature of "
-        "38.4°C was reported at home the evening before admission. Poor dentition is noted. "
+        "Recorded temperatures are 36.80°C on admission and at discharge. Poor dentition "
+        "is noted. No home temperature was added. "
         "No prosthetic valve is recorded. The culture grew gram-positive cocci. Creatinine "
         "is 1.3 mg/dL then 0.8 mg/dL, and no earlier creatinine is recorded. No remaining "
         "antibiotic duration is recorded. Should ceftriaxone be continued, and should "
@@ -713,12 +713,11 @@ def _patch_805(case: dict[str, Any]) -> None:
 
 def _patch_809(case: dict[str, Any]) -> None:
     case["ClinicalCase"]["one_liner"] = (
-        "82-year-old man admitted with fatigue, a reported home fever, and a vegetation."
+        "82-year-old man admitted with fatigue and a vegetation."
     )
     text = (
         "An 82-year-old man is admitted with infective endocarditis. Fatigue has been "
-        "present for one week. He reported a temperature of 38.4°C at home the evening "
-        "before admission. Recorded hospital temperatures are 36.80°C on admission and "
+        "present for one week. Recorded temperatures are 36.80°C on admission and "
         "36.80°C at discharge. Poor dentition is noted. No prosthetic valve is recorded. "
         "Home medicines are lisinopril and atorvastatin. Ceftriaxone 2000 mg intravenously "
         "once daily was started during the admission. Transthoracic echocardiogram shows "
@@ -729,7 +728,7 @@ def _patch_809(case: dict[str, Any]) -> None:
     )
     _set_hpi(case, text)
     case["ClinicalCase"]["presentation"]["presenting_symptoms"] = (
-        "Fatigue for one week, with a reported home temperature of 38.4°C."
+        "Fatigue for one week."
     )
     _set_note(case, "admission", text)
     _set_note(
@@ -738,7 +737,6 @@ def _patch_809(case: dict[str, Any]) -> None:
         "Ceftriaxone 2000 mg intravenously once daily was given during the admission. "
         "The echocardiogram shows a vegetation with preserved ventricular function. "
         "Blood culture grew gram-positive cocci, and a later culture showed no growth. "
-        "A temperature of 38.4°C was reported at home the evening before admission. "
         "Recorded temperatures are 36.80°C on admission and at discharge. Poor dentition "
         "is noted. No prosthetic valve is recorded. Creatinine is 1.3 mg/dL then "
         "0.8 mg/dL. Lisinopril is on the inpatient list. No creatinine from before this "
@@ -749,7 +747,7 @@ def _patch_809(case: dict[str, Any]) -> None:
         "infectious disease",
         "A vegetation is present. The admission blood culture grew gram-positive cocci. "
         "A later blood culture showed no growth.",
-        "Fatigue, a reported home temperature, poor dentition, and a vegetation are recorded.",
+        "Fatigue, poor dentition, and a vegetation are recorded.",
     )
     _set_followup(case, "Infectious-disease follow-up")
 
@@ -1348,7 +1346,7 @@ def _judgment(case_id: str, field: str, v1: str, v2: str, clean: str | None) -> 
     if case_id == "VAL-809" and field in {"hpi", "note:admission", "note:hospital_course"}:
         return (
             "Neither version copied",
-            "Version 1 replaces 36.80°C, names viridans group streptococcus, and adds a dental extraction. Version 2 keeps the source facts and still tells the resident to complete a planned course in the consultation. Version 3 keeps the source vitals and organism, adds a labeled home temperature and poor dentition, and does not state the discharge antibiotic plan.",
+            "Version 1 replaces 36.80°C, names viridans group streptococcus, and adds a dental extraction. Version 2 keeps the source facts and still tells the resident to complete a planned course in the consultation. Version 3 keeps the source vitals and organism, adds labeled poor dentition, does not add a home fever, and does not state the discharge antibiotic plan.",
         )
     if case_id == "VAL-803" and field in {"hpi", "note:admission", "note:hospital_course"}:
         return (
@@ -1485,7 +1483,7 @@ def _katie_reaudit(cases: dict[str, dict[str, Any]], evaluators: dict[str, dict[
         "VAL-802": "Partial. The course is readable and no baseline was invented. Lisinopril remains ambiguous, and the alternative is encoded. The recorded recommendation was Exclude.",
         "VAL-803": "Partial. A sodium precipitant was added and labeled synthetic. C2 through the overall recommendation were not completed and stay blank.",
         "VAL-805": "Partial. Source weights and the oral dose remain. No intravenous dose and no ejection fraction were invented. The diuretic action is ambiguous.",
-        "VAL-809": "Partial. Source temperatures and the organism remain. A labeled home fever and poor dentition were added. No valve was added. The antibiotic duration is not invented.",
+        "VAL-809": "Partial. Source temperatures and the organism remain. Poor dentition was added and labeled synthetic. No home fever, valve, or dental extraction was added. The antibiotic duration is not invented.",
         "VAL-813": "Partial. Valganciclovir is no longer a home medicine. No extra immunosuppressant was added. Potassium still has no cause. The recorded recommendation was Exclude.",
     }
     for case_id in CASE_IDS:
