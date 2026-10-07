@@ -1,10 +1,10 @@
 # Clinical validation
 
-The current resident task is to read a clean chart and decide the discharge medication regimen. The intended regimen is a hidden reference. It is not printed in the resident chart, and the base case does not contain a deliberately planted medication error.
+The current resident task is to read a clean chart and decide the discharge medication regimen. The reference plan is kept separate. It is not printed in the resident chart, and the base case does not contain a deliberately planted medication error.
 
-The active Cycle 2 form is [CliniProof_Cycle2_Final_Validation.docx](../exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx). Clinical Revision Cycle 2 for VAL-801–VAL-824 uses that form. The clinician rates plausibility, decision sufficiency, reference-plan validity, acceptable alternatives, missing or misleading information, resident-level appropriateness, and an overall Accept, Revise, or Exclude. The resident chart comes first. The hidden reference follows in a separate validation section. Those Word documents are linked from the root README. They are not the C1–C5 casebooks below.
+Round 2 is the current clinician review of VAL-801–VAL-824. Its casebook is [CliniProof_Cycle2_Final_Validation.docx](../exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx). The [project README](../README.md) explains how Round 2 was derived from Round 1 and links both codebooks. Ready for clinician review does not mean clinically validated.
 
-The C1–C5 instrument below is the historical validation design. It was written for the frozen charts (`CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`), many of which contain one injected discrepancy. Those Word casebooks are retained for provenance. They are not the current resident-facing study set. The recovered export remains [exports/clean_balanced_seed_set/](../exports/clean_balanced_seed_set/AUDIT.md). Passing automated tests does not mean a case has passed clinician review. `READY_FOR_CLINICIAN_REVIEW` is a workflow status, not clinical approval.
+The C1–C5 instrument below is the Round 1 validation design. It was written for the frozen charts (`CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`), many of which contain one injected discrepancy. Those Word casebooks are retained so Round 1 can be reproduced. They are not the current resident-facing study set. The recovered clean charts remain in [exports/clean_balanced_seed_set/](../exports/clean_balanced_seed_set/AUDIT.md). Passing automated tests does not mean a case has passed clinician review.
 
 Clinician validation is one review of the complete case. There is no second stage and no separate plausibility-only pass. The same reading produces five ratings.
 
