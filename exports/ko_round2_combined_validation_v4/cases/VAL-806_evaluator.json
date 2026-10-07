@@ -1,0 +1,635 @@
+{
+  "case_id_code": "VAL-806",
+  "ClinicalCase": {
+    "title": "cardiology inpatient case VAL-806",
+    "case_id_code": "VAL-806",
+    "case_status": "review",
+    "generation_source": "synthetic",
+    "one_liner": "82-year-old Female with Acute systolic (congestive) heart failure",
+    "admission_dx": "Acute systolic (congestive) heart failure",
+    "disposition_status": "home",
+    "chief_complaint": "Dyspnea, Edema in the setting of Acute systolic (congestive) heart failure",
+    "patient_name": "VAL Patient 806",
+    "patient_age": 82,
+    "patient_gender": "Female",
+    "ethnicity": null,
+    "weight_kg": "78.000",
+    "social_context": "Baseline living situation: lives at home",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "cardiology",
+    "allergies": [],
+    "medical_history": [
+      "Essential (primary) hypertension",
+      "Mixed hyperlipidemia"
+    ],
+    "source_type": "authored_scenario",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Dyspnea, Edema in the setting of Acute systolic (congestive) heart failure",
+      "hpi": "An 82-year-old woman with heart failure, hypertension, and hyperlipidemia is admitted with several days of progressive dyspnea and edema. Home medicines are furosemide, atorvastatin, metoprolol succinate, and lisinopril. No prior creatinine from before this illness is documented. She describes four days of restaurant meals and unrestricted fluids before the dyspnea worsened. She has had no chest pain. The electrocardiogram shows sinus rhythm without ST-segment elevation or depression. High-sensitivity troponin I is 9 ng/L, within the laboratory reference range. Temperature is 36.80\u00b0C and the leukocyte count is 8.1 x10^3/uL. No creatinine from before this illness is recorded. Lisinopril was held during the hospitalization.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "Dyspnea",
+        "Edema"
+      ],
+      "symptom_duration": "several days",
+      "symptom_course": "progressive"
+    },
+    "social_support": {
+      "living_situation": "Baseline living situation: lives at home",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": false,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-VAL806-001",
+      "case_id": "VAL-806",
+      "diagnosis": "Acute systolic (congestive) heart failure",
+      "diagnosis_type": "admission",
+      "status": "active",
+      "context": "inpatient",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL806-002",
+      "case_id": "VAL-806",
+      "diagnosis": "Essential (primary) hypertension",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL806-003",
+      "case_id": "VAL-806",
+      "diagnosis": "Mixed hyperlipidemia",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-VAL806-001",
+      "case_id": "VAL-806",
+      "note_type": "admission",
+      "note_text": "Admission note. Volume overload with creatinine 2.8 mg/dL. Lisinopril was held because the creatinine rose during decongestion. She describes four days of restaurant meals and unrestricted fluids before the dyspnea worsened. She has had no chest pain. The electrocardiogram shows sinus rhythm without ST-segment elevation or depression. High-sensitivity troponin I is 9 ng/L, within the laboratory reference range. Temperature is 36.80\u00b0C and the leukocyte count is 8.1 x10^3/uL. No creatinine from before this illness is recorded. Lisinopril was held during the hospitalization.",
+      "source_type": "authored_scenario",
+      "source_reference": "v4_revision_see_provenance"
+    },
+    {
+      "note_id": "NOTE-VAL806-002",
+      "case_id": "VAL-806",
+      "note_type": "hospital_course",
+      "note_text": "Lisinopril was held while creatinine was 2.8 mg/dL. Creatinine then fell to 1.6 mg/dL. Potassium was 3.8 mmol/L on admission and 4.5 mmol/L at discharge. Discharge systolic blood pressure was 116 mmHg. No prior creatinine is available for comparison. She describes four days of restaurant meals and unrestricted fluids before the dyspnea worsened. She has had no chest pain. The electrocardiogram shows sinus rhythm without ST-segment elevation or depression. High-sensitivity troponin I is 9 ng/L, within the laboratory reference range. Temperature is 36.80\u00b0C and the leukocyte count is 8.1 x10^3/uL. No creatinine from before this illness is recorded. Lisinopril was held during the hospitalization.",
+      "source_type": "authored_scenario",
+      "source_reference": "v4_revision_see_provenance"
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-VAL806-001",
+      "case_id": "VAL-806",
+      "timepoint": "admission",
+      "temp_c": "36.80",
+      "bp_systolic": 124,
+      "bp_diastolic": 72,
+      "heart_rate": 107,
+      "resp_rate": 21,
+      "spo2_percent": "89.00",
+      "oxygen_support": null,
+      "source_reference": null
+    },
+    {
+      "vital_id": "VIT-VAL806-002",
+      "case_id": "VAL-806",
+      "timepoint": "discharge",
+      "temp_c": "36.80",
+      "bp_systolic": 116,
+      "bp_diastolic": 72,
+      "heart_rate": 67,
+      "resp_rate": 14,
+      "spo2_percent": "96.00",
+      "oxygen_support": null,
+      "source_reference": null
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-VAL806-001",
+      "case_id": "VAL-806",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 2.8,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL806-002",
+      "case_id": "VAL-806",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.6,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL806-003",
+      "case_id": "VAL-806",
+      "timepoint": "admission",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 3.8,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL806-004",
+      "case_id": "VAL-806",
+      "timepoint": "discharge",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 4.5,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL-806-V4-005",
+      "case_id": "VAL-806",
+      "timepoint": "admission",
+      "test_name": "Troponin I.cardiac [Mass/volume] in Serum or Plasma",
+      "value": 9,
+      "value_text": null,
+      "unit": "ng/L",
+      "status": "final",
+      "source_reference": "synthetic_v4"
+    },
+    {
+      "lab_id": "LAB-VAL-806-V4-006",
+      "case_id": "VAL-806",
+      "timepoint": "admission",
+      "test_name": "Leukocytes [#/volume] in Blood",
+      "value": 8.1,
+      "value_text": null,
+      "unit": "10*3/uL",
+      "status": "final",
+      "source_reference": "synthetic_v4"
+    }
+  ],
+  "CaseImaging": [
+    {
+      "study_id": "STUDY-VAL806-001",
+      "case_id": "VAL-806",
+      "timepoint": "admission",
+      "study_type": "Chest radiograph",
+      "body_site": "chest",
+      "finding": "Congestion with small pleural effusions.",
+      "source_reference": null
+    },
+    {
+      "study_id": "STUDY-VAL-806-V4-002",
+      "case_id": "VAL-806",
+      "timepoint": "inpatient",
+      "study_type": "Electrocardiogram",
+      "body_site": "unspecified",
+      "finding": "Sinus rhythm. No ST-segment elevation or depression.",
+      "source_reference": "synthetic_v4"
+    }
+  ],
+  "CaseConsult": [
+    {
+      "consult_id": "CON-VAL806-001",
+      "case_id": "VAL-806",
+      "service": "cardiology",
+      "timepoint": "inpatient",
+      "assessment": "Creatinine fell from 2.8 mg/dL to 1.6 mg/dL during diuresis.",
+      "recommendation": "No creatinine from before this illness is in the record.",
+      "source_reference": null
+    }
+  ],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-VAL806-005",
+      "case_id": "VAL-806",
+      "context": "home",
+      "drug": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+      "reported_name": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:866427",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL806-006",
+      "case_id": "VAL-806",
+      "context": "home",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:617311",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL806-007",
+      "case_id": "VAL-806",
+      "context": "home",
+      "drug": "furosemide 40 MG Oral Tablet",
+      "reported_name": "furosemide 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:313988",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL806-008",
+      "case_id": "VAL-806",
+      "context": "home",
+      "drug": "lisinopril 10 MG Oral Tablet",
+      "reported_name": "lisinopril 10 MG Oral Tablet",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Essential (primary) hypertension",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:314076",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL806-009",
+      "case_id": "VAL-806",
+      "context": "inpatient",
+      "drug": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+      "reported_name": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:866427",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL806-010",
+      "case_id": "VAL-806",
+      "context": "inpatient",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:617311",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL806-011",
+      "case_id": "VAL-806",
+      "context": "inpatient",
+      "drug": "furosemide 40 MG Oral Tablet",
+      "reported_name": "furosemide 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:313988",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL806-012",
+      "case_id": "VAL-806",
+      "context": "inpatient",
+      "drug": "lisinopril 10 MG Oral Tablet",
+      "reported_name": "lisinopril 10 MG Oral Tablet",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Essential (primary) hypertension",
+      "status": "held",
+      "held_reason": "Held for creatinine 2.8 mg/dL during decongestion. Discharge creatinine is 1.6 mg/dL.",
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:314076",
+      "notes": null
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-VAL806-001",
+      "case_id": "VAL-806",
+      "item": "Cardiology follow-up to reassess held therapy",
+      "timing": "3 days",
+      "with_service": "cardiology",
+      "source_reference": null
+    }
+  ],
+  "CaseInstruction": [],
+  "CaseMonitoring": [],
+  "CaseProblemList": [
+    {
+      "problem_id": "PROB-VAL806-001",
+      "case_id": "VAL-806",
+      "problem": "Essential (primary) hypertension",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL806-002",
+      "case_id": "VAL-806",
+      "problem": "Mixed hyperlipidemia",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL806-003",
+      "case_id": "VAL-806",
+      "problem": "Acute systolic (congestive) heart failure",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "high",
+      "status": "active",
+      "source_reference": null
+    }
+  ],
+  "CaseProcedure": [],
+  "CaseTherapyRestriction": [],
+  "CaseReturnPrecaution": [
+    {
+      "precaution_id": "RP-VAL806-001",
+      "case_id": "VAL-806",
+      "symptom": "Dyspnea",
+      "reason": "Worsening of the presenting symptom",
+      "action": "Seek urgent evaluation",
+      "severity": "urgent",
+      "patient_instruction": null,
+      "source_reference": null
+    }
+  ],
+  "CaseMedicationReconciliation": [
+    {
+      "medrec_id": "MR-VAL806-001",
+      "case_id": "VAL-806",
+      "bpmh_source": "patient_and_prior_records",
+      "bpmh_interviewer": null,
+      "bpmh_date": null,
+      "medrec_status": "complete",
+      "patient_able_to_participate": true,
+      "unverified_medications_present": null,
+      "reconciliation_admission": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "reconciliation_discharge": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "discrepancy_types": [],
+      "pharmacist_review": true,
+      "high_alert_meds_identified": [],
+      "notes": null,
+      "source_reference": null
+    }
+  ],
+  "CaseWeight": [
+    {
+      "weight_id": "WT-VAL806-001",
+      "case_id": "VAL-806",
+      "timepoint": "admission",
+      "weight_kg": "78.000",
+      "dry_weight_kg": null,
+      "source_reference": null
+    },
+    {
+      "weight_id": "WT-VAL806-002",
+      "case_id": "VAL-806",
+      "timepoint": "discharge",
+      "weight_kg": "73.000",
+      "dry_weight_kg": "74.000",
+      "source_reference": null
+    }
+  ],
+  "CaseIntakeOutput": [
+    {
+      "io_id": "IO-VAL806-001",
+      "case_id": "VAL-806",
+      "timepoint": "hospital_day_4",
+      "intake_ml": 1307,
+      "output_ml": 2064,
+      "net_ml": -757,
+      "notes": null,
+      "source_reference": null
+    }
+  ],
+  "CaseDevice": [],
+  "CaseMicrobiology": [],
+  "reference_discharge_plan": {
+    "medications": [
+      {
+        "medication": "lisinopril 10 MG Oral Tablet",
+        "action": "restart",
+        "dose": "10 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Essential (primary) hypertension",
+        "rationale": "No pre-illness creatinine is in the source. The visible course is a fall from 2.8 mg/dL to 1.6 mg/dL, potassium 4.5 mmol/L, and systolic pressure 116 mmHg, with cardiology follow-up in 3 days. That is enough to end the hold, but the remaining creatinine elevation makes the decision weak.",
+        "monitoring": null,
+        "required": true,
+        "evidence_class": "CLINICALLY_AMBIGUOUS"
+      },
+      {
+        "medication": "furosemide 40 MG Oral Tablet",
+        "action": "continue",
+        "dose": "40 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Acute systolic (congestive) heart failure",
+        "rationale": "The home medicine matches an active diagnosis and was not the held ACE inhibitor.",
+        "monitoring": null,
+        "required": true,
+        "evidence_class": "SUFFICIENT_VISIBLE_EVIDENCE"
+      },
+      {
+        "medication": "atorvastatin 40 MG Oral Tablet",
+        "action": "continue",
+        "dose": "40 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Mixed hyperlipidemia",
+        "rationale": "The home medicine matches an active diagnosis and was not the held ACE inhibitor.",
+        "monitoring": null,
+        "required": true,
+        "evidence_class": "SUFFICIENT_VISIBLE_EVIDENCE"
+      },
+      {
+        "medication": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+        "action": "continue",
+        "dose": "25 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Acute systolic (congestive) heart failure",
+        "rationale": "The home medicine matches an active diagnosis and was not the held ACE inhibitor.",
+        "monitoring": null,
+        "required": true,
+        "evidence_class": "SUFFICIENT_VISIBLE_EVIDENCE"
+      }
+    ],
+    "medications_to_stop": [],
+    "acceptable_alternatives": [
+      {
+        "medication": "lisinopril 10 MG Oral Tablet",
+        "action": "hold",
+        "rationale": "A reviewer may keep lisinopril held because creatinine is still 1.6 mg/dL and no pre-illness baseline is documented."
+      }
+    ],
+    "contraindications": [],
+    "monitoring_requirements": [],
+    "follow_up_requirements": [
+      {
+        "item": "Cardiology follow-up to reassess held therapy",
+        "timing": "3 days",
+        "with_service": "cardiology"
+      }
+    ]
+  },
+  "precheck_finding": "WEAK_EVIDENCE: lisinopril 10 MG Oral Tablet",
+  "clinician_review_status": "READY_WITH_DECLARED_UNCERTAINTY",
+  "v4_provenance": {
+    "task_validity": "PASS",
+    "clinical_sufficiency": "PASS_WITH_MINOR_CONCERN",
+    "readiness": "READY_WITH_DECLARED_UNCERTAINTY",
+    "declared_uncertainty": "No pre-illness creatinine is recorded. Restarting lisinopril and a continued hold are both encoded.",
+    "alex_case_specific_feedback": false,
+    "synthetic_facts": [
+      {
+        "case": "VAL-806",
+        "field": "diet, electrocardiogram, troponin, leukocytes",
+        "value": "Four days of restaurant meals and unrestricted fluids; sinus rhythm; troponin I 9 ng/L; leukocytes 8.1",
+        "why": "Precipitant and ischemia screen without inventing a baseline creatinine",
+        "concern": "Clinical-sufficiency rubric applied; no Alex case-specific feedback",
+        "literature": "E2",
+        "optional": "No",
+        "labeled": "YES"
+      }
+    ]
+  }
+}

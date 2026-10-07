@@ -11,12 +11,13 @@ app/services/ko_review_sets.py    Cycle 2 review copies for VAL-801–VAL-824
 app/services/validation_batch.py  freeze and export of historical VAL batches
 exports/clean_balanced_seed_set/  recovered 48-slot export; not the Cycle 2 review handout
 exports/ko_revised_cases_v1/      superseded Set 1 revision attempt
-exports/ko_clean_cases_for_review_v1/  eighteen recovered clean cases under internal revision; not yet ready for clinician review
+exports/ko_clean_cases_for_review_v1/  eighteen recovered clean cases; version 4 starting point
 exports/ko_held_cases_v1/         held audit; currently zero held cases
 exports/ko_cycle2_revised_validation/ earlier Round 1 extract and response matrix
 exports/ko_cycle2_revised_validation_v2/ superseded Set 1 revision attempt
-exports/ko_cycle2_revised_validation_v3/ current Set 1 codebook, clinical revision log, and six revised cases
-exports/ko_cycle2_clean_validation/ eighteen recovered clean cases under internal revision; not yet ready for clinician review
+exports/ko_cycle2_revised_validation_v3/ previous canonical Set 1 revision, superseded by version 4
+exports/ko_cycle2_clean_validation/ earlier Set 2 package, superseded by version 4
+exports/ko_round2_combined_validation_v4/ current Round 2 version 4 cases, audits, and clinician codebooks
 exports/ko_cycle2_final_validation/ combined convenience copy, not the preferred clinician workflow
 tests/test_ko_review_sets.py      Cycle 2 package checks
 data/case_sets/balanced/          frozen CLINIPROOF_BALANCED_V4 source, not the resident handout
@@ -41,4 +42,4 @@ scripts/                          documentation checks
 | Case-set overviews | `data/case_sets/balanced/README.md`, `data/case_sets/seed_guided/README.md` | Rendered by `python -m app.services.case_set_overview` from the manifest, profiles, and diversity report. |
 | Authoritative docs | `docs/*.md`, root `README.md`, `data/README.md` | Describe the study. Manifest counts are checked by `scripts/check_docs.py`. |
 
-`data/case_sets/balanced/` and `data/case_sets/seed_guided/` are the frozen source batches. Historical validation artifacts are retained for provenance and reproducibility. They should not be used as the current resident-facing study set. The recovered 48-slot export is `exports/clean_balanced_seed_set/`. The current Set 1 review copy is `exports/ko_cycle2_revised_validation_v3/`. Set 2 remains `exports/ko_clean_cases_for_review_v1/` and `exports/ko_cycle2_clean_validation/`, both under internal revision and not yet ready for clinician review. Ready for clinician review does not mean clinically validated. The held audit at `exports/ko_held_cases_v1/KO_HELD_CASES_AUDIT.md` currently records zero held cases. Earlier freezes live under `data/archive/validation_sets/`.
+`data/case_sets/balanced/` and `data/case_sets/seed_guided/` are the frozen source batches. Historical validation artifacts are retained for provenance and reproducibility. They should not be used as the current resident-facing study set. The recovered 48-slot export is `exports/clean_balanced_seed_set/`. The current review package is `exports/ko_round2_combined_validation_v4/`. Set 1 version 3 remains `exports/ko_cycle2_revised_validation_v3/` as the previous canonical revision. Ready for clinician review does not mean clinically validated. The held audit at `exports/ko_held_cases_v1/KO_HELD_CASES_AUDIT.md` currently records zero held cases. Earlier freezes live under `data/archive/validation_sets/`.

@@ -1,3 +1,4 @@
+# ruff: noqa: E501
 """Canonical Set 1 version 3 stays inside the six reviewed cases."""
 
 from __future__ import annotations
@@ -5,8 +6,6 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
-
-from docx import Document
 
 from app.services.cycle2_v3_cases import (
     CASE_IDS,
@@ -18,6 +17,7 @@ from app.services.cycle2_v3_cases import (
     readme_mismatches,
     write_revision_package,
 )
+from docx import Document
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / "exports" / "ko_cycle2_revised_validation_v3"

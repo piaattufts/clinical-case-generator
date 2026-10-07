@@ -15,7 +15,6 @@ from pathlib import Path
 from typing import Any
 
 from docx.document import Document as WordDocument
-from docx.shared import RGBColor
 
 from app.services.cycle2_split_casebooks import _chart, _round2_form
 from app.services.cycle2_v2_cases import _historical_section
@@ -1753,7 +1752,7 @@ def write_revision_package(directory: Path) -> Path:
     (directory / "README_V3_FACT_CHECK.md").write_text("\n".join(fact_lines), encoding="utf-8")
     (directory / "README.md").write_text(_readme(), encoding="utf-8")
     (directory / "MANIFEST.md").write_text(_manifest(), encoding="utf-8")
-    for case_id, question in SPECIAL_QUESTIONS.items():
+    for _case_id, question in SPECIAL_QUESTIONS.items():
         if "30 percent" in question or "mycophenolate" in question.lower():
             raise ValueError(question)
     return _write_codebook(directory, built)

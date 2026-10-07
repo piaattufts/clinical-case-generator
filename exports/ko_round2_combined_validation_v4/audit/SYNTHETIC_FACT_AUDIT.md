@@ -1,0 +1,33 @@
+# Synthetic-fact audit
+
+A synthetic value is not a recovered source measurement. Literature supports the kind of finding, not the number.
+
+| Case | Field | Synthetic value | Why added | Reviewer/rubric concern | Literature | Could the case function without it? | Clearly labeled? |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| VAL-801 | history | Oriented and independent until several days ago, by collateral history | Delirium requires an acute change from baseline | Alex C1: delirium must be a change from baseline | E1 | No | YES |
+| VAL-801 | urinalysis and chest radiograph | Negative leukocyte esterase, negative nitrite, no focal consolidation | A volume-depletion precipitant is interpretable only if a simple infection screen is visible | Alex C1 precipitant; UTI was his example and was not added | E1 | No | YES |
+| VAL-802 | history and infection screen | Oriented at baseline; dry mucous membranes; negative urinalysis; clear chest radiograph | Clinical-sufficiency rubric for delirium | Clinical-sufficiency rubric applied; no Alex case-specific feedback | E1 | No | YES |
+| VAL-803 | history | Oriented at baseline; confusion changed over one week | Delirium definition | Clinical-sufficiency rubric applied; no Alex case-specific feedback. Katie reviewed this case and did not finish C2-C5. | E1 | No | YES |
+| VAL-804 | creatinine | 0.9 mg/dL then 0.8 mg/dL | Metformin continuation requires visible kidney function | Clinical-sufficiency rubric applied; no Alex case-specific feedback | E5 | No | YES |
+| VAL-804 | history and infection screen | Baseline orientation, dry mucous membranes, negative urinalysis, clear chest radiograph | Delirium precipitant | Clinical-sufficiency rubric applied; no Alex case-specific feedback | E1 | No | YES |
+| VAL-805 | adherence, electrocardiogram, troponin, leukocytes | Missed oral furosemide and metoprolol for three days; sinus rhythm without ST-segment change; troponin I 8 ng/L; leukocytes 7.4 | The heart-failure admission needs one coherent precipitant pathway and a limited ischemia and arrhythmia screen | Alex C1: decompensation was not investigated | E2 | No | YES |
+| VAL-806 | diet, electrocardiogram, troponin, leukocytes | Four days of restaurant meals and unrestricted fluids; sinus rhythm; troponin I 9 ng/L; leukocytes 8.1 | Precipitant and ischemia screen without inventing a baseline creatinine | Clinical-sufficiency rubric applied; no Alex case-specific feedback | E2 | No | YES |
+| VAL-807 | adherence, electrocardiogram, troponin, leukocytes | Missed two days of oral furosemide; sinus rhythm; troponin I 7 ng/L; leukocytes 6.8 | Precipitant pathway | Clinical-sufficiency rubric applied; no Alex case-specific feedback | E2 | No | YES |
+| VAL-808 | adherence, electrocardiogram, troponin, leukocytes | Missed two days of home heart-failure medicines; sinus rhythm; troponin I 6 ng/L; leukocytes 7.1 | Precipitant pathway | Clinical-sufficiency rubric applied; no Alex case-specific feedback | E2 | No | YES |
+| VAL-809 | source and surgical screen | No injection drug use, no preadmission catheter, no recent extraction, no abscess, no severe regurgitation, leukocytes 11.2 then 7.1 | Endocarditis management context without inventing fever, a prosthetic valve, an extraction, or a species | Alex C1: source, imaging, and surgical consideration | E3 | No | YES |
+| VAL-810 | source and surgical screen | No injection drug use, poor dentition, no recent extraction, no abscess, no severe regurgitation | Same endocarditis sufficiency screen | Clinical-sufficiency rubric applied; no Alex case-specific feedback | E3 | No | YES |
+| VAL-811 | source and surgical screen | No injection drug use, no preadmission catheter, no abscess, no severe regurgitation | Same endocarditis sufficiency screen | Clinical-sufficiency rubric applied; no Alex case-specific feedback | E3 | No | YES |
+| VAL-812 | source and surgical screen | No injection drug use, no abscess, no severe regurgitation | Same endocarditis sufficiency screen | Clinical-sufficiency rubric applied; no Alex case-specific feedback | E3 | No | YES |
+| VAL-813 | volume, stool study, blood count | Dry mucous membranes; negative C. difficile toxin; leukocytes 5.1, hemoglobin 11.4 g/dL, platelets 210 | Symptoms-before-label work-up and a baseline for valganciclovir | Alex C1: chronology and volume or electrolyte consequences | E4 | No | YES |
+| VAL-814 | potassium, leukocytes, stool study | Potassium 3.6 then 4.1 mmol/L; leukocytes 4.8; negative C. difficile toxin; dry mucous membranes | Diarrhea physiology and antiviral monitoring | Clinical-sufficiency rubric applied; no Alex case-specific feedback | E4 | No | YES |
+| VAL-815 | stool study and leukocytes | Negative C. difficile toxin; leukocytes 6.4 | Work-up before the CMV label and a blood count for the antiviral | Clinical-sufficiency rubric applied; no Alex case-specific feedback | E4 | No | YES |
+| VAL-816 | leukocytes | Leukocytes 5.6 x10^3/uL | Blood count while valganciclovir is already a home medicine | Clinical-sufficiency rubric applied; no Alex case-specific feedback | E12 | Yes | YES |
+| VAL-819 | hemoglobin | 10.4 g/dL then 11.1 g/dL | Postoperative bleeding stability for a warfarin decision | Clinical-sufficiency rubric applied; no Alex case-specific feedback | E9 | No | YES |
+| VAL-821 | bleeding description | Black stool the day before admission, not reported again after arrival | The hemorrhage label needs a visible bleeding manifestation | Clinical-sufficiency rubric applied; no Alex case-specific feedback | E8 | No | YES |
+| VAL-822 | bleeding description | Black stool the day before admission, not reported again after arrival; no chronic acid-suppression indication | Visible bleeding manifestation and the limit of the pantoprazole indication | Clinical-sufficiency rubric applied; no Alex case-specific feedback | E8 | No | YES |
+| VAL-823 | bleeding description | Black stool before admission, not reported again after the first hospital day | Visible bleeding manifestation | Clinical-sufficiency rubric applied; no Alex case-specific feedback | E8 | No | YES |
+| VAL-824 | bleeding and cardiovascular history | Black stool; no prior myocardial infarction and no coronary stent | Aspirin indication is otherwise only the phrase antiplatelet therapy | Clinical-sufficiency rubric applied; no Alex case-specific feedback | E11 | No | YES |
+
+New synthetic facts added in version 4: 23.
+Version 3 synthetic findings that remain in Set 1, including the standing systolic pressure on VAL-801, sodium 128 then 135 mmol/L on VAL-803, and poor dentition on VAL-809, stay labeled in the version 3 evidence ledger. They were not reclassified as recovered source data.
+UNSUPPORTED_SYNTHETIC_FACT count: 0.

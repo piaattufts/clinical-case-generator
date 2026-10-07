@@ -1,0 +1,125 @@
+{
+  "case_id": "VAL-805",
+  "source_document": "CliniProof_SeedGuided_Validation_Casebook_final_alex.docx",
+  "form_reviewer_code": null,
+  "form_review_date": null,
+  "document_last_modified_by": "Sugerman, Alexander",
+  "attribution_note": "The form reviewer-code, review-date, initials, and case-date controls are blank. Document core properties record lastModifiedBy Sugerman, Alexander. The file name identifies the Alex / Team KAPOw review. No initials were inferred.",
+  "c1_domains": [
+    {
+      "domain": "Presentation and demographics",
+      "selected": [
+        "3"
+      ],
+      "blank": false
+    },
+    {
+      "domain": "Fit between presentation and diagnosis",
+      "selected": [
+        "2"
+      ],
+      "blank": false
+    },
+    {
+      "domain": "Vital signs",
+      "selected": [
+        "3"
+      ],
+      "blank": false
+    },
+    {
+      "domain": "Laboratory findings",
+      "selected": [
+        "4"
+      ],
+      "blank": false
+    },
+    {
+      "domain": "Medication regimen",
+      "selected": [
+        "4"
+      ],
+      "blank": false
+    },
+    {
+      "domain": "Hospital course",
+      "selected": [
+        "3"
+      ],
+      "blank": false
+    },
+    {
+      "domain": "Consistency across the chart",
+      "selected": [
+        "4"
+      ],
+      "blank": false
+    },
+    {
+      "domain": "Discharge plan and follow-up",
+      "selected": [
+        "3"
+      ],
+      "blank": false
+    }
+  ],
+  "c1_overall": {
+    "labels": [
+      "Pass",
+      "Fail"
+    ],
+    "selected": [
+      "Pass"
+    ],
+    "blank": false
+  },
+  "c1_comment": "This case makes sense at face value but doesn\u2019t really seem complete clinically. It does not discuss the investigation into reasons for decompensation (missed meds, new arrythmia, ischemia, etc.) Overall it needs more clinical detail before it could be effective.",
+  "c2": {
+    "labels": [
+      "Pass",
+      "Fail"
+    ],
+    "selected": [],
+    "blank": true
+  },
+  "c2_comment": null,
+  "c3": {
+    "labels": [
+      "Pass",
+      "Fail"
+    ],
+    "selected": [],
+    "blank": true
+  },
+  "c3_comment": null,
+  "c4": {
+    "labels": [
+      "Pass",
+      "Fail"
+    ],
+    "selected": [],
+    "blank": true
+  },
+  "c4_comment": null,
+  "c5": {
+    "labels": [
+      "Easy",
+      "Moderate",
+      "Hard",
+      "Inappropriate / outlier"
+    ],
+    "selected": [],
+    "blank": true
+  },
+  "c5_comment": null,
+  "recommendation": {
+    "labels": [
+      "Accept",
+      "Revise",
+      "Exclude"
+    ],
+    "selected": [],
+    "blank": true
+  },
+  "overall_comment": null
+}
