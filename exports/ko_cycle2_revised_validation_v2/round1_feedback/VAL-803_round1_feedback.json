@@ -1,0 +1,177 @@
+{
+  "case_id": "VAL-803",
+  "source_document": "KO Casebook Validation.docx",
+  "source_case_set": "CLINIPROOF_SEEDCASES_FirstRound",
+  "document_reviewer_code": "KO",
+  "document_review_date": "10/5/2026",
+  "round1_review_status": "partial",
+  "c1": {
+    "domains": [
+      {
+        "domain": "Presentation and demographics",
+        "scores": {
+          "1": false,
+          "2": true,
+          "3": false,
+          "4": false
+        },
+        "flags": []
+      },
+      {
+        "domain": "Fit between presentation and diagnosis",
+        "scores": {
+          "1": true,
+          "2": false,
+          "3": false,
+          "4": false
+        },
+        "flags": []
+      },
+      {
+        "domain": "Vital signs",
+        "scores": {
+          "1": false,
+          "2": false,
+          "3": true,
+          "4": false
+        },
+        "flags": []
+      },
+      {
+        "domain": "Laboratory findings",
+        "scores": {
+          "1": false,
+          "2": false,
+          "3": true,
+          "4": false
+        },
+        "flags": []
+      },
+      {
+        "domain": "Medication regimen",
+        "scores": {
+          "1": false,
+          "2": false,
+          "3": true,
+          "4": false
+        },
+        "flags": []
+      },
+      {
+        "domain": "Hospital course",
+        "scores": {
+          "1": true,
+          "2": false,
+          "3": false,
+          "4": false
+        },
+        "flags": []
+      },
+      {
+        "domain": "Consistency across the chart",
+        "scores": {
+          "1": false,
+          "2": true,
+          "3": false,
+          "4": false
+        },
+        "flags": []
+      },
+      {
+        "domain": "Discharge plan and follow-up",
+        "scores": {
+          "1": false,
+          "2": false,
+          "3": true,
+          "4": false
+        },
+        "flags": []
+      }
+    ],
+    "overall": {
+      "pass": false,
+      "fail": true,
+      "flags": []
+    },
+    "comment": "Several issues \u2013 delirium diagnosis is unclear (delirium due to known physiologic condition), cause is not revealed during the hospital course. Medication list is fine but no changes that need to be made at discharge. Her creatinine changes so this might be considered clinically relevant or why the patient receives only 7 days of lisinopril."
+  },
+  "validation_reference": {
+    "case_type": "Error-bearing",
+    "error_family": "Family 2",
+    "error_category": "Insufficient medication supply (f2_insufficient_supply)",
+    "intended_assessment_target": "The prescribed quantity or days' supply is insufficient to cover the patient until the planned follow-up.",
+    "medication_involved": "lisinopril 10 MG Oral Tablet",
+    "clean_expected_state": "30 days",
+    "what_appears_in_the_historical_case": "7 days",
+    "evidence_available": "Days' supply must cover the scheduled follow-up or treatment endpoint.",
+    "evidence_location": "Follow-up appointments, discharge medications.quantity or days",
+    "detectability_location": "discharge medications.quantity or days",
+    "expected_clinical_action": "Increase days' supply so treatment continues through the planned follow-up."
+  },
+  "c2": {
+    "question": "Does the clinical case actually contain the intended medication-reconciliation or transition-of-care problem described above, and does it match the intended category?",
+    "selection": {
+      "pass": false,
+      "fail": false,
+      "flags": [
+        "NOT_COMPLETED_IN_ROUND_1"
+      ],
+      "status": "NOT_COMPLETED_IN_ROUND_1"
+    },
+    "comment": null
+  },
+  "c3": {
+    "question": "Could an internal-medicine resident identify and resolve the intended problem using only the clinical information provided in the patient-facing case?",
+    "selection": {
+      "pass": false,
+      "fail": false,
+      "flags": [
+        "NOT_COMPLETED_IN_ROUND_1"
+      ],
+      "status": "NOT_COMPLETED_IN_ROUND_1"
+    },
+    "comment": null
+  },
+  "c4": {
+    "question": "Apart from the intended assessment problem, does the case contain another clinically meaningful medication-reconciliation or transition-of-care problem that a reasonable resident could interpret as an alternative target?",
+    "selection": {
+      "pass": false,
+      "fail": false,
+      "flags": [
+        "NOT_COMPLETED_IN_ROUND_1"
+      ],
+      "status": "NOT_COMPLETED_IN_ROUND_1"
+    },
+    "medication_or_clinical_issue": null,
+    "where_it_appears": null,
+    "why_clinically_meaningful": null,
+    "comment": null
+  },
+  "c5": {
+    "selection": {
+      "easy": false,
+      "moderate": false,
+      "hard": false,
+      "inappropriate_or_outlier": false,
+      "flags": [
+        "NOT_COMPLETED_IN_ROUND_1"
+      ],
+      "status": "NOT_COMPLETED_IN_ROUND_1"
+    },
+    "comment": null
+  },
+  "overall_recommendation": {
+    "selection": {
+      "accept": false,
+      "revise": false,
+      "exclude": false,
+      "flags": [
+        "NOT_COMPLETED_IN_ROUND_1"
+      ],
+      "status": "NOT_COMPLETED_IN_ROUND_1"
+    },
+    "comment": null,
+    "reviewer_code": null,
+    "date": null
+  }
+}

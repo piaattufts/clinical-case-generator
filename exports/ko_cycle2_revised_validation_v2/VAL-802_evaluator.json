@@ -27,7 +27,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Confusion in the setting of Delirium due to known physiological condition",
-      "hpi": "A 81-year-old Female is admitted with delirium. Confusion has been present for two days and is described as improving after treatment. Recorded home medicines are lisinopril 10 MG Oral Tablet and atorvastatin 40 MG Oral Tablet. The chart does not name a precipitant. The only creatinine values are 1.3 mg/dL on admission and 1.2 mg/dL at discharge. No earlier baseline is recorded. Systolic blood pressure is 138 mmHg on admission and 124 mmHg at discharge.",
+      "hpi": "A 81-year-old Female is admitted with delirium after two days of confusion and poor oral intake. No other precipitant is recorded. Home medicines are lisinopril 10 mg daily and atorvastatin 40 mg daily. Creatinine is 1.3 mg/dL on admission and 1.2 mg/dL at discharge. No creatinine from before this admission is recorded. Blood pressure is 138/69 mmHg then 124/68 mmHg.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "Confusion"
@@ -94,7 +94,7 @@
       "note_id": "NOTE-VAL802-001",
       "case_id": "VAL-802",
       "note_type": "admission",
-      "note_text": "Admission note for a 81-year-old Female with delirium. Confusion for two days, described as improving after treatment. Home medicines are lisinopril and atorvastatin. No precipitant and no earlier creatinine are recorded.",
+      "note_text": "Admission note for a 81-year-old Female with delirium. Confusion and poor oral intake for two days. Home medicines are lisinopril and atorvastatin. No earlier creatinine is recorded.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -102,7 +102,7 @@
       "note_id": "NOTE-VAL802-002",
       "case_id": "VAL-802",
       "note_type": "hospital_course",
-      "note_text": "No new diagnosis is recorded. Creatinine is 1.3 mg/dL then 1.2 mg/dL. Blood pressure is 138/69 mmHg then 124/68 mmHg. Atorvastatin remains on the home and inpatient medication lists. No baseline creatinine is recorded.",
+      "note_text": "Poor oral intake was the only precipitant recorded. Confusion improved as intake resumed. Creatinine is 1.3 mg/dL then 1.2 mg/dL. Blood pressure is 138/69 mmHg then 124/68 mmHg. Atorvastatin 40 mg daily is on the verified home list. No creatinine from before this admission is recorded.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -336,7 +336,7 @@
       "discrepancy_types": [],
       "pharmacist_review": true,
       "high_alert_meds_identified": [],
-      "notes": "A later pharmacy fill history confirmed a continued statin. Incomplete information at admission is recorded as such.",
+      "notes": "A pharmacy fill history was used to verify the home list after admission. Atorvastatin 40 mg daily is on that list.",
       "source_reference": null
     }
   ],

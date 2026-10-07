@@ -28,7 +28,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Diarrhea in the setting of Other cytomegaloviral diseases",
-      "hpi": "A 64-year-old Female with a kidney transplant is admitted with diarrhea for several days, described as improving. Before this admission she was taking valganciclovir 900 mg orally twice daily, tacrolimus 1 mg every 12 hours, amlodipine, and atorvastatin. The chart does not show valganciclovir being started for a first diagnosis during this stay. Potassium is 4.7 mmol/L on admission and 3.9 mmol/L at discharge, and no cause for that change is recorded. Creatinine is 1.2 mg/dL then 1.0 mg/dL.",
+      "hpi": "A 64-year-old Female with a kidney transplant is admitted with diarrhea for several days. Home medicines are tacrolimus 1 mg every 12 hours, amlodipine 5 mg daily, and atorvastatin 40 mg daily. She was not taking valganciclovir before admission. The admission viral-load review detected CMV viral burden.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "Diarrhea"
@@ -105,7 +105,7 @@
       "note_id": "NOTE-VAL813-001",
       "case_id": "VAL-813",
       "note_type": "admission",
-      "note_text": "A 64-year-old Female with a kidney transplant is admitted with diarrhea for several days, described as improving. Before this admission she was taking valganciclovir 900 mg orally twice daily, tacrolimus 1 mg every 12 hours, amlodipine, and atorvastatin. The chart does not show valganciclovir being started for a first diagnosis during this stay. Potassium is 4.7 mmol/L on admission and 3.9 mmol/L at discharge, and no cause for that change is recorded. Creatinine is 1.2 mg/dL then 1.0 mg/dL.",
+      "note_text": "A 64-year-old Female with a kidney transplant is admitted with diarrhea for several days. Home medicines are tacrolimus 1 mg every 12 hours, amlodipine 5 mg daily, and atorvastatin 40 mg daily. She was not taking valganciclovir before admission. The admission viral-load review detected CMV viral burden.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -113,7 +113,7 @@
       "note_id": "NOTE-VAL813-002",
       "case_id": "VAL-813",
       "note_type": "hospital_course",
-      "note_text": "Diarrhea is described as improving. Valganciclovir was already a home medicine. Potassium changed from 4.7 mmol/L to 3.9 mmol/L without a recorded cause. Creatinine is 1.2 mg/dL then 1.0 mg/dL.",
+      "note_text": "The admission viral-load review detected CMV viral burden and supported antiviral treatment. Valganciclovir 900 mg orally twice daily, given as 450 mg tablets, was started after that result. A later review showed a lower viral burden. Tacrolimus 1 mg every 12 hours was continued. Diarrhea improved. Creatinine is 1.2 mg/dL then 1.0 mg/dL. Potassium is 4.7 mmol/L then 3.9 mmol/L. No cause for the potassium change is recorded.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -200,7 +200,7 @@
       "service": "transplant",
       "timepoint": "inpatient",
       "assessment": "Transplant-service recommendations were recorded.",
-      "recommendation": "Continue immunosuppression with infection-related adjustments as documented.",
+      "recommendation": "Tacrolimus 1 mg every 12 hours is the recorded immunosuppressant. No antimetabolite is on the medication list.",
       "source_reference": null
     },
     {
@@ -209,7 +209,7 @@
       "service": "infectious disease",
       "timepoint": "inpatient",
       "assessment": "Infectious-disease recommendations were recorded.",
-      "recommendation": "Continue antiviral therapy and infection-related monitoring as documented.",
+      "recommendation": "Antiviral treatment follows the admission viral-load result.",
       "source_reference": null
     }
   ],
@@ -282,29 +282,6 @@
       "source_file": null,
       "source_reference": null,
       "notes": null
-    },
-    {
-      "medication_id": "MED-VAL813-008",
-      "case_id": "VAL-813",
-      "context": "home",
-      "drug": "valganciclovir 450 MG Oral Tablet",
-      "reported_name": "valganciclovir 450 MG Oral Tablet",
-      "dose": "900 MG",
-      "route": "oral",
-      "frequency": "twice daily",
-      "indication": "Other cytomegaloviral diseases",
-      "status": "home",
-      "held_reason": null,
-      "verification_status": "verified",
-      "verification_source": "patient_and_prior_records",
-      "target_or_goal": null,
-      "monitoring": null,
-      "quantity_or_days": null,
-      "refills": null,
-      "source_type": "authored_scenario",
-      "source_file": null,
-      "source_reference": null,
-      "notes": "Given as 450 MG tablets."
     },
     {
       "medication_id": "MED-VAL813-009",
@@ -396,7 +373,7 @@
       "source_type": "authored_scenario",
       "source_file": null,
       "source_reference": null,
-      "notes": "Given as 450 MG tablets."
+      "notes": "Started after the admission viral-load result. Given as 450 MG tablets."
     }
   ],
   "CaseFollowup": [
@@ -606,13 +583,13 @@
       },
       {
         "medication": "valganciclovir 450 MG Oral Tablet",
-        "action": "continue",
+        "action": "start",
         "dose": "900 MG",
         "route": "oral",
         "frequency": "twice daily",
         "duration": null,
         "indication": "Other cytomegaloviral diseases",
-        "rationale": "Home and discharge rows in the clean chart match.",
+        "rationale": "Start 900 mg orally twice daily after the admission viral-load result. The 450 mg tablet is the product strength. Creatinine is 1.2 mg/dL then 1.0 mg/dL, and the project regimen does not reduce this dose in that range.",
         "monitoring": null
       }
     ],
@@ -633,9 +610,9 @@
     ],
     "acceptable_alternatives": [
       {
-        "medication": "valganciclovir 450 MG Oral Tablet",
-        "action": "stop",
-        "rationale": "Stopping or switching the antiviral is acceptable if the clinician rejects pre-admission therapy for this presentation. The recorded home row is otherwise continued."
+        "medication": "BX Rating tacrolimus 1 MG Oral Capsule",
+        "action": "modify",
+        "rationale": "A temporary reduction is acceptable if the transplant service documents one. No trough and no reduction are recorded, so the reference continues 1 mg every 12 hours."
       }
     ]
   }

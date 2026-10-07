@@ -1,0 +1,156 @@
+{
+  "case_id": "VAL-813",
+  "source_document": "KO Casebook Validation.docx",
+  "source_case_set": "CLINIPROOF_SEEDCASES_FirstRound",
+  "document_reviewer_code": "KO",
+  "document_review_date": "10/5/2026",
+  "round1_review_status": "complete",
+  "c1": {
+    "domains": [
+      {
+        "domain": "Presentation and demographics",
+        "scores": {
+          "1": false,
+          "2": true,
+          "3": false,
+          "4": false
+        },
+        "flags": []
+      },
+      {
+        "domain": "Fit between presentation and diagnosis",
+        "scores": {
+          "1": false,
+          "2": true,
+          "3": false,
+          "4": false
+        },
+        "flags": []
+      },
+      {
+        "domain": "Vital signs",
+        "scores": {
+          "1": false,
+          "2": true,
+          "3": false,
+          "4": false
+        },
+        "flags": []
+      },
+      {
+        "domain": "Laboratory findings",
+        "scores": {
+          "1": false,
+          "2": true,
+          "3": false,
+          "4": false
+        },
+        "flags": []
+      },
+      {
+        "domain": "Medication regimen",
+        "scores": {
+          "1": true,
+          "2": false,
+          "3": false,
+          "4": false
+        },
+        "flags": []
+      },
+      {
+        "domain": "Hospital course",
+        "scores": {
+          "1": false,
+          "2": true,
+          "3": false,
+          "4": false
+        },
+        "flags": []
+      },
+      {
+        "domain": "Consistency across the chart",
+        "scores": {
+          "1": false,
+          "2": true,
+          "3": false,
+          "4": false
+        },
+        "flags": []
+      },
+      {
+        "domain": "Discharge plan and follow-up",
+        "scores": {
+          "1": false,
+          "2": true,
+          "3": false,
+          "4": false
+        },
+        "flags": []
+      }
+    ],
+    "overall": {
+      "pass": false,
+      "fail": true,
+      "flags": []
+    },
+    "comment": "Patient is admitted for new diagnosis of CMV colitis, but was already on treatment for this (valganciclovir) prior to admission, which does not make sense. This medication would be started after diagnosis during the hospitalization. The medications are much too simplified for a post transplant patient. The labs are incomplete and the patient has a change in potassium without obvious cause or indication."
+  },
+  "validation_reference": {
+    "case_type": "Clean control",
+    "error_family": "None",
+    "error_category": "None",
+    "planted_assessment_discrepancy": "None",
+    "expected_condition": "No deliberately introduced medication-reconciliation or transition-of-care discrepancy"
+  },
+  "c2": {
+    "question": "Does this case appropriately contain no deliberately introduced medication-reconciliation or transition-of-care problem?",
+    "selection": {
+      "pass": false,
+      "fail": true,
+      "flags": []
+    },
+    "comment": "Since the patient was on valganciclovir on admission, it would make you think that you need to change to an alternative regimen to appropriately treat the CMV"
+  },
+  "c3": {
+    "question": "Does the case avoid misleading cues suggesting that an error must exist?",
+    "selection": {
+      "pass": false,
+      "fail": true,
+      "flags": []
+    },
+    "comment": "As above, it isn\u2019t clear why the patient was already on valganciclovir"
+  },
+  "c4": {
+    "question": "Does the case contain any clinically meaningful medication-reconciliation or transition-of-care problem that should not be present?",
+    "selection": {
+      "pass": false,
+      "fail": true,
+      "flags": []
+    },
+    "medication_or_clinical_issue": "Valganciclovir",
+    "where_it_appears": "Admission medications",
+    "why_clinically_meaningful": "Should not be an admission medication",
+    "comment": "This is an error in the case that would be confusing"
+  },
+  "c5": {
+    "selection": {
+      "easy": false,
+      "moderate": false,
+      "hard": false,
+      "inappropriate_or_outlier": true,
+      "flags": []
+    },
+    "comment": null
+  },
+  "overall_recommendation": {
+    "selection": {
+      "accept": false,
+      "revise": false,
+      "exclude": true,
+      "flags": []
+    },
+    "comment": null,
+    "reviewer_code": "KO",
+    "date": "10/5/2026"
+  }
+}
