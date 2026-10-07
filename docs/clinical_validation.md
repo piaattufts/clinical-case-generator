@@ -8,9 +8,9 @@ The C1–C5 instrument below is the Round 1 validation design. It was written fo
 
 Clinician validation is one review of the complete case. There is no second stage and no separate plausibility-only pass. The same reading produces five ratings.
 
-This document describes clinician validation of the synthetic charts. A clinician rating is not a resident answer, and a resident answer is not a substitute for C1–C5.
+This document describes the Round 1 instrument. A clinician rating is not a resident answer, and a resident answer is not a substitute for these ratings. The current Round 2 form, C1 through C6, is specified in the [project README](../README.md).
 
-Until C1–C5 review is finished, active cases are machine-checked synthetic charts that are ready for human clinician validation. They are not clinically validated.
+Round 2 cases are machine-checked and ready for that clinician reading. They are not clinically validated until a reviewer accepts them. The same is true of any chart that has only completed the Round 1 C1–C5 form described below.
 
 ## What the reviewer rates
 

@@ -1,6 +1,6 @@
 # Documentation index
 
-The project overview for every audience is the root [README](../README.md). Start with Round 2, the current clinician review of VAL-801–VAL-824. Round 1 is the earlier validation round that led to that redesign. Case-set homepages for the frozen sources are [balanced](../data/case_sets/balanced/README.md) and [seed-guided](../data/case_sets/seed_guided/README.md).
+The project overview for every audience is the root [README](../README.md). That page explains what CliniProof studies, what a resident will eventually do, what Round 2 asks a clinician to validate, and how those cases were derived from Round 1. Start with Round 2, the current clinician review of VAL-801–VAL-824. Round 1 is the earlier validation round that led to that redesign. Case-set homepages for the frozen sources are [balanced](../data/case_sets/balanced/README.md) and [seed-guided](../data/case_sets/seed_guided/README.md).
 
 | Document | What it covers |
 | --- | --- |
