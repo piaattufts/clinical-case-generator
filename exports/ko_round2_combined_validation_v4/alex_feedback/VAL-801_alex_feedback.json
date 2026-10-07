@@ -1,0 +1,125 @@
+{
+  "case_id": "VAL-801",
+  "source_document": "CliniProof_SeedGuided_Validation_Casebook_final_alex.docx",
+  "form_reviewer_code": null,
+  "form_review_date": null,
+  "document_last_modified_by": "Sugerman, Alexander",
+  "attribution_note": "The form reviewer-code, review-date, initials, and case-date controls are blank. Document core properties record lastModifiedBy Sugerman, Alexander. The file name identifies the Alex / Team KAPOw review. No initials were inferred.",
+  "c1_domains": [
+    {
+      "domain": "Presentation and demographics",
+      "selected": [
+        "2"
+      ],
+      "blank": false
+    },
+    {
+      "domain": "Fit between presentation and diagnosis",
+      "selected": [
+        "1"
+      ],
+      "blank": false
+    },
+    {
+      "domain": "Vital signs",
+      "selected": [
+        "4"
+      ],
+      "blank": false
+    },
+    {
+      "domain": "Laboratory findings",
+      "selected": [
+        "3"
+      ],
+      "blank": false
+    },
+    {
+      "domain": "Medication regimen",
+      "selected": [
+        "4"
+      ],
+      "blank": false
+    },
+    {
+      "domain": "Hospital course",
+      "selected": [
+        "1"
+      ],
+      "blank": false
+    },
+    {
+      "domain": "Consistency across the chart",
+      "selected": [
+        "1"
+      ],
+      "blank": false
+    },
+    {
+      "domain": "Discharge plan and follow-up",
+      "selected": [
+        "2"
+      ],
+      "blank": false
+    }
+  ],
+  "c1_overall": {
+    "labels": [
+      "Pass",
+      "Fail"
+    ],
+    "selected": [
+      "Fail"
+    ],
+    "blank": false
+  },
+  "c1_comment": "Overall the premise of the case doesn\u2019t really make sense \u2013 baseline delirium doesn\u2019t exist as it is, by definitition, a change from baseline. I think we are getting at a history of dementia with acute onset delirium but it might make more sense if there was a reason for the decompensation like a UTI or something simple.",
+  "c2": {
+    "labels": [
+      "Pass",
+      "Fail"
+    ],
+    "selected": [],
+    "blank": true
+  },
+  "c2_comment": null,
+  "c3": {
+    "labels": [
+      "Pass",
+      "Fail"
+    ],
+    "selected": [],
+    "blank": true
+  },
+  "c3_comment": null,
+  "c4": {
+    "labels": [
+      "Pass",
+      "Fail"
+    ],
+    "selected": [],
+    "blank": true
+  },
+  "c4_comment": null,
+  "c5": {
+    "labels": [
+      "Easy",
+      "Moderate",
+      "Hard",
+      "Inappropriate / outlier"
+    ],
+    "selected": [],
+    "blank": true
+  },
+  "c5_comment": null,
+  "recommendation": {
+    "labels": [
+      "Accept",
+      "Revise",
+      "Exclude"
+    ],
+    "selected": [],
+    "blank": true
+  },
+  "overall_comment": null
+}

@@ -10,7 +10,7 @@ The project has now gone through two rounds of clinician validation. Round 1 was
 
 A person joining the project can treat the two rounds as two successive questions about the same set of study slots, VAL-801 through VAL-824. Round 1 asked whether a predefined problem had been built into a chart in a way a resident could find. Round 2 asks whether a clean chart gives a resident enough coherent evidence to decide the discharge regimen, and whether the study's own proposed answer is clinically defensible.
 
-The project is currently in its second round of clinician validation. Round 2 contains 24 study slots. The six Set 1 cases have completed the current internal revision and audit process and are prepared for clinician re-review. The remaining eighteen Set 2 cases are still undergoing internal correction against the same study-design criteria and should not yet be sent for clinician review. Round 1 is preserved because it used the same underlying study slots and generated the clinician feedback that led to the current design. Keeping both rounds makes it possible to understand how the study evolved and to reproduce the earlier validation process.
+The project is currently in its second round of clinician validation. Round 2 contains 24 study slots. Version 4 is the current clinician-review package. It requires both task validity, from Katie's review of the assessment construct, and clinical sufficiency, from Alex's C1 review of four clean-control cases and from the same sufficiency rubric applied to the other cases. Cases that pass those internal gates are prepared for clinician review. They are not clinically validated. Round 1 is preserved because it used the same underlying study slots and generated the clinician feedback that led to the current design. Keeping both rounds makes it possible to understand how the study evolved and to reproduce the earlier validation process.
 
 Passing automated validation does not establish clinical validity. A case that is ready for clinician review has passed the repository's internal checks and is ready to be read by a clinician. That internal status is sometimes stored as `READY_FOR_CLINICIAN_REVIEW`. It does not mean a clinician has accepted the case.
 
@@ -18,13 +18,33 @@ Passing automated validation does not establish clinical validity. A case that i
 
 ### Current Round 2 status
 
-**Set 1.** Six revised cases. Prepared for clinician re-review. Not clinically validated.
+**Version 4.** 24 study slots passed the internal task-validity and clinical-sufficiency gates. Three cases are ready for clinician review without a declared gap: VAL-808, VAL-816, and VAL-817. Twenty-one cases are ready with a declared uncertainty, which is written on the reference as an acceptable alternative or as an absent fact that was not invented. None are clinically validated. No case is held.
 
-**Set 2.** Eighteen recovered clean cases. Under internal correction. Not yet ready for clinician review.
+**Previous package.** Set 1 version 3 remains in the repository as the previous canonical revision, superseded by Round 2 version 4.
 
 **Round 1.** Historical only. Not the current validation workflow.
 
-Round 2 is the current study design and includes 24 cases, VAL-801 through VAL-824. These cases are clean clinical cases: no deliberate medication error has been inserted into the chart, and no correct discharge-medication list is shown to the resident. The clinical chart contains the evidence needed to make a discharge decision, while the proposed reference plan is stored separately for clinician review and later scoring. None of these 24 cases should be described as clinically validated until a clinician has accepted it. Only the six Set 1 cases are prepared for that reading now.
+### Current Round 2 v4 clinician review
+
+**Set 1 — revised feedback cases (6 cases)**
+
+[Download the Round 2 v4 Set 1 clinician codebook](exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Set1_Clinician_Validation.docx)
+
+**Set 2 — remaining cases (18 cases; 0 held)**
+
+[Download the Round 2 v4 Set 2 clinician codebook](exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Set2_Clinician_Validation.docx)
+
+[Combined reviewer-feedback methodology](docs/combined_clinician_revision_method.md)
+
+[Reviewer comparison matrix](exports/ko_round2_combined_validation_v4/method/REVIEWER_COMPARISON_MATRIX.md)
+
+[Revision evidence ledger](exports/ko_round2_combined_validation_v4/revision/REVISION_EVIDENCE_LEDGER.md)
+
+[Final readiness audit](exports/ko_round2_combined_validation_v4/audit/FINAL_READINESS_MATRIX.csv)
+
+Katie's review identified a task problem: the resident must construct the discharge plan rather than detect a planted error. Alex's review identified a clinical-sufficiency problem: a clean chart can still be too sparse for meaningful reasoning. Version 4 therefore requires both. Reviewer comments were turned into a clinical or rubric interpretation, a revision, an old-versus-new comparison, a clinical reason, and an evidence or provenance label. Synthetic additions are labeled. Passing this internal audit means the case is prepared for clinician review. It does not mean the case is clinically validated.
+
+Round 2 is the current study design and includes 24 cases, VAL-801 through VAL-824. These cases are clean clinical cases: no deliberate medication error has been inserted into the chart, and no correct discharge-medication list is shown to the resident. The clinical chart contains the evidence needed to make a discharge decision, while the proposed reference plan is stored separately for clinician review and later scoring. None of these 24 cases should be described as clinically validated until a clinician has accepted it.
 
 The purpose of the current clinician review is therefore broader than checking whether a planted error can be detected. The reviewer is being asked to determine whether the clinical story is plausible, whether the chart contains enough information for a resident to make a reasonable discharge decision, whether the proposed reference medication plan is clinically defensible, and whether alternative discharge decisions should also be considered correct. The same questions apply to every case in the round. The separation between the revised Set 1 cases and the recovered Set 2 cases, described below, records how each file was prepared. The resident task is the same once a case is accepted.
 
@@ -46,7 +66,7 @@ The validation casebooks are fillable Microsoft Word documents. Click the checkb
 
 | Criterion | What the reviewer is judging |
 | --- | --- |
-| C1 | Whether the clinical case is plausible and internally coherent |
+| C1 | Whether the clinical case is plausible, internally coherent, and detailed enough for meaningful reasoning |
 | C2 | Whether the chart contains enough information for a resident to make the discharge decision |
 | C3 | Whether the hidden reference discharge plan is clinically defensible |
 | C4 | Whether alternative discharge decisions should also be accepted |
@@ -55,31 +75,23 @@ The validation casebooks are fillable Microsoft Word documents. Click the checkb
 
 The table is a map of the form. The important sequence is that C1 and C2 are answered from the chart alone, and only then does the reference plan appear.
 
-### Current Round 2 clinician review
+### Previous canonical revision
 
-Clinicians should currently review Set 1 only. Set 1 contains the six cases that were substantively revised after Round 1 feedback and have completed the current internal design audit. Each of those cases begins with the revised chart and a blank Round 2 form. The completed Round 1 feedback, and the clinical revision record, follow that form so the revised case can be judged before the earlier comments are seen. Every checkbox in the Set 1 codebook starts blank. Set 2 contains the remaining eighteen cases and is still undergoing internal correction; it should not yet be sent for clinician review.
+Set 1 version 3 is the previous canonical revision, superseded by Round 2 version 4. It is retained for provenance and is not the current clinician assignment.
 
-**Set 1 — Revised cases following Round 1 feedback (6 cases)**
+**[Previous Set 1 codebook, version 3](exports/ko_cycle2_revised_validation_v3/CliniProof_Cycle2_Revised_Cases_Validation.docx)**
 
-**[Download the revised-case clinician codebook](exports/ko_cycle2_revised_validation_v3/CliniProof_Cycle2_Revised_Cases_Validation.docx)**
+[Version 3 package notes](exports/ko_cycle2_revised_validation_v3/README.md). [Version 3 manifest](exports/ko_cycle2_revised_validation_v3/MANIFEST.md). [Version 3 revision record](exports/ko_cycle2_revised_validation_v3/CLINICAL_REVISION_LOG.md).
 
-These six cases were revised from the completed Round 1 review. Each case shows the revised chart and a blank Round 2 form first. The historical ratings and comments follow, and then the clinical revision record. [Version 3 package notes](exports/ko_cycle2_revised_validation_v3/README.md). [Version 3 manifest](exports/ko_cycle2_revised_validation_v3/MANIFEST.md). The extracted review, the clinical revision log, the field-level diff, and the evidence ledger are in [the version 3 revision record](exports/ko_cycle2_revised_validation_v3/CLINICAL_REVISION_LOG.md). Version 1 and version 2 remain in the repository as superseded revision attempts.
-
-**Set 2 — Remaining clean cases under internal revision (18 cases)**
-
-These eighteen cases have not yet passed the same Katie-design audit gate applied to Set 1 and should not yet be used for clinician review.
-
-**Set 2 package — NOT YET READY FOR CLINICIAN REVIEW.** The file is retained for investigators and provenance: **[Set 2 clean-case package](exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx)**. [Set 2 package notes](exports/ko_cycle2_clean_validation/README.md). [Set 2 manifest](exports/ko_cycle2_clean_validation/MANIFEST.md).
-
-A combined 24-case file is retained for investigators. It is not a clinician review assignment: [combined casebook](exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx).
+The earlier Set 2 package, before the version 4 sufficiency revision, remains at [exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx](exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx) for provenance. The combined pre-version-4 file is an investigator convenience copy: [combined casebook](exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx). The version 4 investigator copy is labeled as such inside [exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Combined_Investigator_Copy.docx](exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Combined_Investigator_Copy.docx).
 
 ### Which cases are in Round 2
 
 The 24 Round 2 cases come from the same VAL-801–VAL-824 study slots that were used in Round 1. Six cases—VAL-801, VAL-802, VAL-803, VAL-805, VAL-809, and VAL-813—received substantive clinical revision because the first clinician review identified weaknesses in the underlying clinical story itself. These revisions addressed issues such as unclear delirium etiologies, insufficient renal context, unrealistic heart-failure treatment trajectories, incomplete evidence for endocarditis, and inconsistent cytomegalovirus-treatment chronology. Those six files are the revised-case group.
 
-The remaining 18 cases were recovered from the preserved clean versions of the Round 1 cases. Nine of those 18 received narrower consistency corrections. Those corrections removed contradictions, answer-revealing wording, or mismatches between the narrative and the medication data. They were quality-control corrections, not clinician approval. The six Set 1 cases are currently prepared for clinician re-review. The remaining eighteen Set 2 cases still require internal correction before they can enter Round 2 clinician review. None of the 24 cases should be described as clinically validated. The case-by-case laboratory values and repair notes are collected later in this document and in the package audits, so they do not have to be read before opening the Set 1 codebook.
+The remaining 18 cases were recovered from the preserved clean versions of the Round 1 cases. Nine of those 18 received narrower consistency corrections. Those corrections removed contradictions, answer-revealing wording, or mismatches between the narrative and the medication data. They were quality-control corrections, not clinician approval. Version 4 prepared all 24 slots for clinician review after the combined gate. Three have no declared uncertainty: VAL-808, VAL-816, and VAL-817. The other twenty-one are ready with a declared uncertainty. None should be described as clinically validated. The case-by-case laboratory values and repair notes are collected later in this document and in the version 4 audits.
 
-The six revised cases are VAL-801, VAL-802, VAL-803, VAL-805, VAL-809, and VAL-813. The eighteen Set 2 cases still under internal revision are VAL-804, VAL-806, VAL-807, VAL-808, VAL-810, VAL-811, VAL-812, VAL-814, VAL-815, VAL-816, VAL-817, VAL-818, VAL-819, VAL-820, VAL-821, VAL-822, VAL-823, and VAL-824.
+The six revised cases are VAL-801, VAL-802, VAL-803, VAL-805, VAL-809, and VAL-813. The eighteen Set 2 cases are VAL-804, VAL-806, VAL-807, VAL-808, VAL-810, VAL-811, VAL-812, VAL-814, VAL-815, VAL-816, VAL-817, VAL-818, VAL-819, VAL-820, VAL-821, VAL-822, VAL-823, and VAL-824.
 
 ### How the Round 2 cases were produced
 
@@ -177,23 +189,25 @@ The table compares the two rounds after the narrative above. It is a summary, no
 | Clean controls | Included | Not part of current design |
 | Clinician validation target | Plausibility, presence and detectability of the intended discrepancy, competing problems | Plausibility, information sufficiency, reference-plan validity, acceptable alternatives |
 | Reference information | Intended planted discrepancy | Hidden discharge medication plan |
-| Current use | Provenance and reproducibility | Current study design. Set 1 is prepared for clinician re-review. Set 2 is under internal revision. |
+| Current use | Provenance and reproducibility | Current study design. Version 4 cases that pass both internal gates are prepared for clinician review. |
 
-**Current clinician review:** [Set 1 revised-case codebook, version 3](exports/ko_cycle2_revised_validation_v3/CliniProof_Cycle2_Revised_Cases_Validation.docx)
+**Current clinician review:** [Round 2 v4 Set 1](exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Set1_Clinician_Validation.docx) and [Round 2 v4 Set 2](exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Set2_Clinician_Validation.docx)
 
 **Previous methodology:** [Round 1 casebook](docs/resident_review_package/files/CliniProof_SeedGuided_Validation_Casebook.docx)
 
 ## Where to find the cases and review materials
 
-The table below is the map of who should open which file. Clinicians reviewing the current study use the Set 1 revised-case codebook. Set 2 is listed for investigators who are still correcting those cases. Investigators who need to see how a case was revised, or who need the hidden reference in JSON, use the later rows. Researchers reproducing Round 1 should use the historical casebooks and should not treat them as the current review.
+The table below is the map of who should open which file. Clinicians reviewing the current study use the version 4 Set 1 and Set 2 codebooks. Investigators who need provenance use the later rows. Researchers reproducing Round 1 should use the historical casebooks and should not treat them as the current review.
 
 | File or package | What it contains | Who should use it |
 | --- | --- | --- |
-| [Set 1 revised-case codebook, version 3](exports/ko_cycle2_revised_validation_v3/CliniProof_Cycle2_Revised_Cases_Validation.docx) | Six revised cases, blank Round 2 forms, then the historical Round 1 record and the clinical revision record | Clinician reviewers |
-| [Set 2 clean-case package](exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx) | Eighteen recovered clean cases still undergoing internal correction | Investigators / internal revision only |
+| [Round 2 v4 Set 1 codebook](exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Set1_Clinician_Validation.docx) | Six revised cases, blank version 4 forms, then historical KO and Alex feedback where it exists, then the revision record | Clinician reviewers |
+| [Round 2 v4 Set 2 codebook](exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Set2_Clinician_Validation.docx) | Eighteen cases that passed the same internal gates. No Alex case-specific comments are attached. | Clinician reviewers |
+| [Set 1 revised-case codebook, version 3](exports/ko_cycle2_revised_validation_v3/CliniProof_Cycle2_Revised_Cases_Validation.docx) | Previous canonical revision, superseded by Round 2 version 4 | Provenance |
+| [Earlier Set 2 package](exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx) | Eighteen recovered clean cases from before the version 4 sufficiency revision | Provenance |
 | [Combined convenience copy](exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx) | All 24 cases in one file. Investigator convenience copy, not a clinician review assignment | Investigators |
 | [Superseded Set 1 attempt](exports/ko_revised_cases_v1/KO_REVISED_CASES_REVIEW.docx) | Earlier six-case revision. Not the current Set 1 codebook. | Provenance |
-| [Round 2 clean-case package](exports/ko_clean_cases_for_review_v1/KO_CLEAN_CASES_REVIEW.docx) | Eighteen recovered clean cases under internal revision; not yet ready for clinician review. The [audit](exports/ko_clean_cases_for_review_v1/AUDIT.md) records which files were corrected. | Investigators / internal revision only |
+| [Round 2 clean-case package](exports/ko_clean_cases_for_review_v1/KO_CLEAN_CASES_REVIEW.docx) | Eighteen recovered clean cases used as the version 4 starting point. The [audit](exports/ko_clean_cases_for_review_v1/AUDIT.md) records the earlier recovery pass. | Provenance |
 | [Round 2 manifest](exports/ko_cycle2_final_validation/MANIFEST.md) | Mapping of case identifiers to source packages | Investigators |
 | [Round 1 seed-guided casebook](docs/resident_review_package/files/CliniProof_SeedGuided_Validation_Casebook.docx) | Historical planted-error validation for VAL-801–VAL-824 | Researchers studying Round 1 |
 | [Round 1 balanced casebook](docs/resident_review_package/files/CliniProof_Balanced_Validation_Casebook.docx) | Historical validation for VAL-701–VAL-724 | Researchers studying the separate balanced set |
@@ -203,7 +217,7 @@ The table below is the map of who should open which file. Clinicians reviewing t
 | [Frozen seed-guided source](data/case_sets/seed_guided/README.md) | `CLINIPROOF_SEEDCASES_V3`, the untouched Round 1 record of VAL-801–VAL-824 | Provenance |
 | [Frozen balanced source](data/case_sets/balanced/README.md) | `CLINIPROOF_BALANCED_V4`, the untouched Round 1 record of VAL-701–VAL-724 | Provenance |
 
-A reviewer who is validating the current study should open the Set 1 codebook. Set 2 is still under internal correction and is not part of that assignment. A collaborator who wants to see the earlier method should open the Round 1 seed-guided casebook and should not treat that form as the one to complete now. The JSON rows are examples of the two representations described later. Every current case has a resident file and a paired evaluator file in the same package.
+A reviewer who is validating the current study should open the version 4 Set 1 codebook and the version 4 Set 2 codebook. A collaborator who wants to see the earlier method should open the Round 1 seed-guided casebook and should not treat that form as the one to complete now. The JSON rows below the table are examples of the two representations described later. Every current case has a resident file and a paired evaluator file in `exports/ko_round2_combined_validation_v4/cases/`.
 
 ## What this repository studies
 
@@ -555,19 +569,20 @@ exports/clean_balanced_seed_set/      recovered 48-slot export; not overwritten 
 exports/ko_revised_cases_v1/          superseded Set 1 revision attempt
     KO_REVISED_CASES_REVIEW.docx
     AUDIT.md
-exports/ko_clean_cases_for_review_v1/ eighteen recovered clean cases under internal revision; not yet ready for clinician review
+exports/ko_clean_cases_for_review_v1/ eighteen recovered clean cases; version 4 starting point, not the current codebook
     KO_CLEAN_CASES_REVIEW.docx
     AUDIT.md
 exports/ko_held_cases_v1/             held audit; currently records zero held cases
     KO_HELD_CASES_AUDIT.md
 exports/ko_cycle2_revised_validation/   earlier Round 1 extract and response matrix
 exports/ko_cycle2_revised_validation_v2/ superseded Set 1 revision attempt
-exports/ko_cycle2_revised_validation_v3/ current Set 1 codebook and clinical revision record
+exports/ko_cycle2_revised_validation_v3/ previous canonical Set 1 revision, superseded by Round 2 version 4
     CliniProof_Cycle2_Revised_Cases_Validation.docx
     CLINICAL_REVISION_LOG.md
     REVISION_DIFF.md
     REVISION_EVIDENCE_LEDGER.md
-exports/ko_cycle2_clean_validation/     eighteen recovered clean cases under internal revision; not yet ready for clinician review
+exports/ko_cycle2_clean_validation/     earlier Set 2 package, superseded by the version 4 Set 2 codebook
+exports/ko_round2_combined_validation_v4/ current Round 2 version 4 cases, audits, and clinician codebooks
     CliniProof_Cycle2_Clean_Cases_Validation.docx
 exports/ko_cycle2_final_validation/     combined convenience copy, not the preferred workflow
     CliniProof_Cycle2_Final_Validation.docx
