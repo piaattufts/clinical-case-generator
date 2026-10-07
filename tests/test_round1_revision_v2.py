@@ -70,15 +70,20 @@ def test_v2_package_changes_only_the_six_cases(tmp_path: Path) -> None:
         assert "ibuprofen was stopped" not in json.dumps(resident) or case_id != "VAL-801"
     assert (feedback / "ROUND1_FEEDBACK_COMPLETE.md").is_file()
     assert (feedback / "ROUND1_FEEDBACK_EXTRACTION_AUDIT.md").is_file()
-    assert (feedback / "ROUND1_REVIEWER_RESPONSE_MATRIX.md").is_file()
+    assert (feedback / "CLINICAL_REVISION_LOG.md").is_file()
+    assert (feedback / "REVISION_DIFF.md").is_file()
     assert (feedback / "REVISION_EVIDENCE_LEDGER.md").is_file()
-    ledger_items = {row["item"] for row in LEDGER}
+    log = (feedback / "CLINICAL_REVISION_LOG.md").read_text(encoding="utf-8")
+    assert "Author response" not in log
+    assert "We agree" not in log
     for item in REVIEW_ITEMS:
-        if item["decision"] in {"ACCEPTED", "PARTIALLY_ACCEPTED"} and item["change"] != "None.":
-            assert item["id"] in ledger_items
+        assert item["status"]
+        assert item["reasoning"]
+        if item["status"] == "REVISED":
+            assert "[E" in item["evidence"]
     for row in LEDGER:
-        assert row["locator"]
         assert row["source"]
+        assert row["classification"]
     text = "\n".join(paragraph.text for paragraph in Document(str(document)).paragraphs)
     assert text.count("CASE VAL-") == 6
     for case_id in CASE_IDS:
@@ -89,10 +94,30 @@ def test_v2_package_changes_only_the_six_cases(tmp_path: Path) -> None:
             "ROUND 1 CLINICIAN FEEDBACK — HISTORICAL RECORD"
         )
         assert section.index("ROUND 1 CLINICIAN FEEDBACK — HISTORICAL RECORD") < section.index(
-            "ROUND 2 RESPONSE TO ROUND 1 REVIEW"
+            "CLINICAL REVISION RECORD"
         )
-    assert "Not completed in Round 1" in text
+    assert "NOT COMPLETED IN ROUND 1" in text
+    assert "Author response" not in text
     assert "Source document contains multiple selected responses" in text
+    resident_801 = json.loads((cases / "VAL-801_resident.json").read_text(encoding="utf-8"))
+    assert "dry mucous membranes" in json.dumps(resident_801)
+    resident_803 = json.loads((cases / "VAL-803_resident.json").read_text(encoding="utf-8"))
+    assert "sodium" not in json.dumps(resident_803).lower()
+    resident_805 = json.loads((cases / "VAL-805_resident.json").read_text(encoding="utf-8"))
+    furosemide = [
+        medication
+        for medication in resident_805["CaseMedication"]
+        if "furosemide" in medication["drug"]
+    ]
+    assert {medication["route"] for medication in furosemide} == {"oral"}
+    assert "78.000" in json.dumps(resident_805["CaseWeight"])
+    resident_809 = json.loads((cases / "VAL-809_resident.json").read_text(encoding="utf-8"))
+    assert all(vital["temp_c"] == "36.80" for vital in resident_809["CaseVital"])
+    resident_813 = json.loads((cases / "VAL-813_resident.json").read_text(encoding="utf-8"))
+    assert not any(
+        medication.get("context") == "home" and "valganciclovir" in medication["drug"]
+        for medication in resident_813["CaseMedication"]
+    )
     eight = [f"VAL-{number}" for number in range(801, 825) if f"VAL-{number}" not in CASE_IDS]
     for case_id in eight:
         assert f"CASE {case_id}" not in text

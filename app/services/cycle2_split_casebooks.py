@@ -109,8 +109,7 @@ SPECIAL_QUESTIONS = {
         "therapy with the documented INR values?"
     ),
     "VAL-821": (
-        "Restart apixaban at discharge versus continued hold pending "
-        "gastroenterology follow-up?"
+        "Restart apixaban at discharge versus continued hold pending gastroenterology follow-up?"
     ),
 }
 TIMEPOINT_ORDER = (
@@ -189,8 +188,7 @@ RESPONSE_ROWS: dict[str, tuple[tuple[str, str], ...]] = {
             "110 mmHg.",
         ),
         (
-            "The trainee needed a meaningful decision about additional heart-failure "
-            "therapy.",
+            "The trainee needed a meaningful decision about additional heart-failure therapy.",
             "The reference continues oral furosemide, metoprolol succinate, and "
             "atorvastatin. The form asks whether additional HFrEF therapy is required "
             "or only acceptable. It was not added automatically.",
@@ -205,8 +203,7 @@ RESPONSE_ROWS: dict[str, tuple[tuple[str, str], ...]] = {
             "vegetation. Later cultures show no growth and the fever resolves.",
         ),
         (
-            "The acute kidney injury was unexplained, and lisinopril handling was "
-            "not appropriate.",
+            "The acute kidney injury was unexplained, and lisinopril handling was not appropriate.",
             "Baseline creatinine is 0.8 mg/dL. Creatinine is 1.3, then 1.0, then "
             "0.8 mg/dL. Lisinopril is held during the elevation. The reference "
             "restarts it at discharge, and the chart does not announce that restart.",
@@ -228,8 +225,7 @@ RESPONSE_ROWS: dict[str, tuple[tuple[str, str], ...]] = {
             "daily begins after that detection.",
         ),
         (
-            "The transplant regimen was too simplified, and the laboratories were "
-            "incomplete.",
+            "The transplant regimen was too simplified, and the laboratories were incomplete.",
             "The chart keeps tacrolimus and mycophenolate, with creatinine 1.2 then "
             "1.0 mg/dL. The form asks the clinician to judge whether mycophenolate "
             "should continue. That reference action was not changed in advance.",
@@ -564,9 +560,7 @@ def _lab_table(document: WordDocument, chart: dict[str, Any]) -> None:
     for name in order:
         values = by_test[name]
         unit = next((pair[1] for pair in values.values() if pair[1]), "")
-        rendered.append(
-            (name, *tuple(values.get(when, ("", ""))[0] for when in timepoints), unit)
-        )
+        rendered.append((name, *tuple(values.get(when, ("", ""))[0] for when in timepoints), unit))
     _bordered_table(document, headers, tuple(rendered), widths, header=True)
 
 
@@ -994,8 +988,7 @@ def _historical_feedback(
     if feedback is None:
         _add_body(
             document,
-            f"{case_id} was not present in the completed Round 1 casebook. "
-            f"{NOT_COMPLETED}.",
+            f"{case_id} was not present in the completed Round 1 casebook. {NOT_COMPLETED}.",
         )
         return
     _add_body(document, f"Reviewer: {feedback.reviewer or NOT_COMPLETED}")
@@ -1129,17 +1122,18 @@ def _bordered_table(
     *,
     header: bool,
     fill: str | None = None,
+    size: int = 10,
 ) -> None:
     table = document.add_table(rows=1, cols=len(headers))
     table.style = "Table Grid"
     table.autofit = False
     _set_table_width(table, sum(widths))
     _set_borders(table)
-    _header_row(table.rows[0], headers, widths)
+    _header_row(table.rows[0], headers, widths, size=size)
     for values in rows:
         row = table.add_row()
         for index, value in enumerate(values):
-            _write_cell(row.cells[index], value, bold=False, fill=fill)
+            _write_cell(row.cells[index], value, bold=False, fill=fill, size=size)
             row.cells[index].width = Inches(widths[index])
             _valign(row.cells[index], "top")
         _keep_row_together(row)
@@ -1148,10 +1142,16 @@ def _bordered_table(
     document.add_paragraph().paragraph_format.space_after = Pt(2)
 
 
-def _header_row(row: Any, headers: tuple[str, ...], widths: tuple[float, ...]) -> None:
+def _header_row(
+    row: Any,
+    headers: tuple[str, ...],
+    widths: tuple[float, ...],
+    *,
+    size: int = 10,
+) -> None:
     for index, header in enumerate(headers):
         cell = row.cells[index]
-        _write_cell(cell, header, bold=True, fill=HEADER_FILL)
+        _write_cell(cell, header, bold=True, fill=HEADER_FILL, size=size)
         cell.width = Inches(widths[index])
     _keep_row_together(row)
 

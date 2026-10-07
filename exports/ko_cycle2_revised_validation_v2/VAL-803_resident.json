@@ -114,7 +114,7 @@
       "note_id": "NOTE-VAL803-002",
       "case_id": "VAL-803",
       "note_type": "hospital_course",
-      "note_text": "The patient returned to cognitive baseline. Home services were arranged and the verified medication list was prepared for discharge. The chart does not name a precipitant for the delirium.",
+      "note_text": "The patient returned to cognitive baseline. Home services were arranged and the verified medication list was prepared for discharge. No precipitant for the delirium is recorded. Creatinine is 1.0 mg/dL on admission and 1.2 mg/dL at discharge. Potassium is 4.4 mmol/L then 4.2 mmol/L. Hydrochlorothiazide, lisinopril, atorvastatin, and metformin are continued. No discharge medicine is stopped.",
       "source_type": "authored_scenario",
       "source_reference": null
     }

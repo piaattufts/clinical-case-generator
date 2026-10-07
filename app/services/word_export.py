@@ -542,9 +542,7 @@ def _lab_rows(rows: list[dict[str, Any]]) -> list[tuple[str, str, str]]:
     return rendered
 
 
-def _add_medication_section(
-    document: WordDocument, title: str, rows: list[dict[str, Any]]
-) -> None:
+def _add_medication_section(document: WordDocument, title: str, rows: list[dict[str, Any]]) -> None:
     _add_heading(document, title, 2)
     if not rows:
         _add_body(document, EMPTY_MEDICATIONS)
@@ -800,7 +798,14 @@ def _add_fixed_table(
     document.add_paragraph().paragraph_format.space_after = Pt(2)
 
 
-def _write_cell(cell: Any, text: str, *, bold: bool, fill: str | None) -> None:
+def _write_cell(
+    cell: Any,
+    text: str,
+    *,
+    bold: bool,
+    fill: str | None,
+    size: int = 10,
+) -> None:
     cell.text = text
     if fill:
         _shade(cell, fill)
@@ -808,7 +813,7 @@ def _write_cell(cell: Any, text: str, *, bold: bool, fill: str | None) -> None:
         paragraph.paragraph_format.space_after = Pt(1)
         paragraph.paragraph_format.space_before = Pt(1)
         for run in paragraph.runs:
-            _set_run_font(run, size=10, bold=bold)
+            _set_run_font(run, size=size, bold=bold)
 
 
 def _set_run_font(
@@ -882,9 +887,7 @@ def _add_page_field(paragraph: Any) -> None:
         _set_run_font(item, size=9, color=NAVY)
 
 
-def build_codebook(
-    balanced: ActiveBatch, seed: ActiveBatch, export_date: date
-) -> WordDocument:
+def build_codebook(balanced: ActiveBatch, seed: ActiveBatch, export_date: date) -> WordDocument:
     document = _new_document("CliniProof resident validation codebook")
     _add_title(document, "CliniProof Resident Validation Codebook")
     _add_body(document, f"Date of export: {export_date.strftime('%d %B %Y')}")

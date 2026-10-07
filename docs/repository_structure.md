@@ -13,8 +13,8 @@ exports/clean_balanced_seed_set/  recovered 48-slot export; not the Cycle 2 revi
 exports/ko_revised_cases_v1/      six revised VAL-801–VAL-824 cases and their review document
 exports/ko_clean_cases_for_review_v1/  clean cases ready for clinician review, not clinically validated
 exports/ko_held_cases_v1/         held audit; currently zero held cases
-exports/ko_cycle2_revised_validation/ Round 1 extract, response matrix, and evidence ledger
-exports/ko_cycle2_revised_validation_v2/ Set 1 version 2 clinician codebook for the six revised cases
+exports/ko_cycle2_revised_validation/ earlier Round 1 extract and response matrix
+exports/ko_cycle2_revised_validation_v2/ Set 1 codebook, clinical revision log, and six revised cases
 exports/ko_cycle2_clean_validation/ Set 2 clinician codebook for the eighteen clean cases
 exports/ko_cycle2_final_validation/ combined convenience copy, not the preferred clinician workflow
 tests/test_ko_review_sets.py      Cycle 2 package checks
