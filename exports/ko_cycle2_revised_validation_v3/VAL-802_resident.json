@@ -5,7 +5,7 @@
     "case_id_code": "VAL-802",
     "case_status": "review",
     "generation_source": "synthetic",
-    "one_liner": "81-year-old Female with Delirium due to known physiological condition",
+    "one_liner": "81-year-old woman admitted with confusion and poor oral intake.",
     "admission_dx": "Delirium due to known physiological condition",
     "disposition_status": "home",
     "chief_complaint": "Confusion in the setting of Delirium due to known physiological condition",
@@ -27,13 +27,11 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Confusion in the setting of Delirium due to known physiological condition",
-      "hpi": "A 81-year-old Female is admitted with delirium after two days of confusion and poor oral intake. No other precipitant is recorded. Home medicines are lisinopril 10 mg daily and atorvastatin 40 mg daily. Creatinine is 1.3 mg/dL on admission and 1.2 mg/dL at discharge. No creatinine from before this admission is recorded. Blood pressure is 138/69 mmHg then 124/68 mmHg.",
-      "review_of_systems": null,
-      "presenting_symptoms": [
-        "Confusion"
-      ],
+      "hpi": "An 81-year-old woman is admitted with delirium after two days of confusion and poor oral intake. No other precipitant is recorded. Home medicines are lisinopril 10 mg daily and atorvastatin 40 mg daily. Creatinine is 1.3 mg/dL on admission and 1.2 mg/dL at discharge. No creatinine from before this admission is recorded. Blood pressure is 138/69 mmHg then 124/68 mmHg.",
+      "review_of_systems": "See the history of present illness.",
+      "presenting_symptoms": "Confusion and poor oral intake for two days.",
       "symptom_duration": "two days",
-      "symptom_course": "improving after treatment"
+      "symptom_course": "See the history of present illness."
     },
     "social_support": {
       "living_situation": "Baseline living situation: lives at home",
@@ -94,7 +92,7 @@
       "note_id": "NOTE-VAL802-001",
       "case_id": "VAL-802",
       "note_type": "admission",
-      "note_text": "Admission note for a 81-year-old Female with delirium. Confusion and poor oral intake for two days. Home medicines are lisinopril and atorvastatin. No creatinine from before this admission is recorded.",
+      "note_text": "Admission note for an 81-year-old woman with delirium. Confusion and poor oral intake for two days. Home medicines are lisinopril and atorvastatin. No earlier creatinine is recorded.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -102,7 +100,7 @@
       "note_id": "NOTE-VAL802-002",
       "case_id": "VAL-802",
       "note_type": "hospital_course",
-      "note_text": "Poor oral intake was the only precipitant recorded. Confusion improved as intake resumed. Creatinine is 1.3 mg/dL then 1.2 mg/dL. Blood pressure is 138/69 mmHg then 124/68 mmHg. Atorvastatin 40 mg daily is on the verified home list. No creatinine from before this admission is recorded.",
+      "note_text": "Poor oral intake was the only precipitant recorded. Confusion improved as oral intake improved. Creatinine is 1.3 mg/dL then 1.2 mg/dL. Blood pressure is 138/69 mmHg then 124/68 mmHg. Atorvastatin 40 mg daily is on the home list. No creatinine from before this admission is recorded.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -259,7 +257,7 @@
     {
       "followup_id": "FU-VAL802-001",
       "case_id": "VAL-802",
-      "item": "Primary care medication-list follow-up",
+      "item": "Primary care follow-up",
       "timing": "5 days",
       "with_service": "primary care",
       "source_reference": null
@@ -336,7 +334,7 @@
       "discrepancy_types": [],
       "pharmacist_review": true,
       "high_alert_meds_identified": [],
-      "notes": "A pharmacy fill history was used to verify the home list after admission. Atorvastatin 40 mg daily is on that list.",
+      "notes": "A pharmacy fill history was obtained after admission. Atorvastatin 40 mg daily is on that list.",
       "source_reference": null
     }
   ],

@@ -1,3 +1,5 @@
+SUPERSEDED REVISION ATTEMPT. This is not the current Set 1 package. The current codebook is [version 3](../ko_cycle2_revised_validation_v3/CliniProof_Cycle2_Revised_Cases_Validation.docx).
+
 # Set 1 revised cases, version 2
 
 Open [CliniProof_Cycle2_Revised_Cases_Validation.docx](CliniProof_Cycle2_Revised_Cases_Validation.docx).
