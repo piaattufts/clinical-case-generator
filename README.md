@@ -53,9 +53,9 @@ Clinicians should review the cases in two codebooks, and they should open Set 1 
 
 **Set 1 — Revised cases following Round 1 feedback (6 cases)**
 
-**[Download the revised-case clinician codebook](exports/ko_cycle2_revised_validation_v2/CliniProof_Cycle2_Revised_Cases_Validation.docx)**
+**[Download the revised-case clinician codebook](exports/ko_cycle2_revised_validation_v3/CliniProof_Cycle2_Revised_Cases_Validation.docx)**
 
-These six cases were revised from the completed Round 1 review. Each case shows the revised chart and a blank Round 2 form first. The historical ratings and comments follow, and then the clinical revision record. [Version 2 package notes](exports/ko_cycle2_revised_validation_v2/README.md). [Version 2 manifest](exports/ko_cycle2_revised_validation_v2/MANIFEST.md). The extracted review, the clinical revision log, the field-level diff, and the evidence ledger are in [the version 2 revision record](exports/ko_cycle2_revised_validation_v2/CLINICAL_REVISION_LOG.md). The earlier six-case file remains available as [the previous revised-case codebook](exports/ko_cycle2_revised_validation/CliniProof_Cycle2_Revised_Cases_Validation.docx).
+These six cases were revised from the completed Round 1 review. Each case shows the revised chart and a blank Round 2 form first. The historical ratings and comments follow, and then the clinical revision record. [Version 3 package notes](exports/ko_cycle2_revised_validation_v3/README.md). [Version 3 manifest](exports/ko_cycle2_revised_validation_v3/MANIFEST.md). The extracted review, the clinical revision log, the field-level diff, and the evidence ledger are in [the version 3 revision record](exports/ko_cycle2_revised_validation_v3/CLINICAL_REVISION_LOG.md). Version 1 and version 2 remain in the repository as superseded revision attempts.
 
 **Set 2 — Remaining clean cases for fresh review (18 cases)**
 
@@ -171,7 +171,7 @@ The table compares the two rounds after the narrative above. It is a summary, no
 | Reference information | Intended planted discrepancy | Hidden discharge medication plan |
 | Current use | Provenance and reproducibility | Active clinician validation |
 
-**Current review:** [Set 1 revised-case codebook, version 2](exports/ko_cycle2_revised_validation_v2/CliniProof_Cycle2_Revised_Cases_Validation.docx), then [Set 2 clean-case codebook](exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx)
+**Current review:** [Set 1 revised-case codebook, version 3](exports/ko_cycle2_revised_validation_v3/CliniProof_Cycle2_Revised_Cases_Validation.docx), then [Set 2 clean-case codebook](exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx)
 
 **Previous methodology:** [Round 1 casebook](docs/resident_review_package/files/CliniProof_SeedGuided_Validation_Casebook.docx)
 
@@ -181,16 +181,16 @@ The table below is the map of who should open which file. Clinicians reviewing t
 
 | File or package | What it contains | Who should use it |
 | --- | --- | --- |
-| [Set 1 revised-case codebook, version 2](exports/ko_cycle2_revised_validation_v2/CliniProof_Cycle2_Revised_Cases_Validation.docx) | Six revised cases, blank Round 2 forms, then the historical Round 1 record and the clinical revision record | Clinician reviewers, first |
+| [Set 1 revised-case codebook, version 3](exports/ko_cycle2_revised_validation_v3/CliniProof_Cycle2_Revised_Cases_Validation.docx) | Six revised cases, blank Round 2 forms, then the historical Round 1 record and the clinical revision record | Clinician reviewers, first |
 | [Set 2 clean-case codebook](exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx) | Eighteen clean cases and blank Round 2 forms | Clinician reviewers, after Set 1 |
 | [Combined convenience copy](exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx) | All 24 cases in one file. Combined investigator convenience copy — not the preferred clinician workflow | Investigators |
-| [Round 2 revised-case package](exports/ko_revised_cases_v1/KO_REVISED_CASES_REVIEW.docx) | Six cases changed in response to Round 1 clinician feedback. The [audit](exports/ko_revised_cases_v1/AUDIT.md) records what changed. | Investigators and provenance |
+| [Superseded Set 1 attempt](exports/ko_revised_cases_v1/KO_REVISED_CASES_REVIEW.docx) | Earlier six-case revision. Not the current Set 1 codebook. | Provenance |
 | [Round 2 clean-case package](exports/ko_clean_cases_for_review_v1/KO_CLEAN_CASES_REVIEW.docx) | Eighteen recovered clean cases prepared for fresh review. The [audit](exports/ko_clean_cases_for_review_v1/AUDIT.md) records which files were corrected. | Investigators and provenance |
 | [Round 2 manifest](exports/ko_cycle2_final_validation/MANIFEST.md) | Mapping of case identifiers to source packages | Investigators |
 | [Round 1 seed-guided casebook](docs/resident_review_package/files/CliniProof_SeedGuided_Validation_Casebook.docx) | Historical planted-error validation for VAL-801–VAL-824 | Researchers studying Round 1 |
 | [Round 1 balanced casebook](docs/resident_review_package/files/CliniProof_Balanced_Validation_Casebook.docx) | Historical validation for VAL-701–VAL-724 | Researchers studying the separate balanced set |
-| [Resident JSON](exports/ko_revised_cases_v1/VAL-801_resident.json) | Clinical information without the hidden reference. Each current case has a file of this kind. | Later resident study and developers |
-| [Evaluator JSON](exports/ko_revised_cases_v1/VAL-801_evaluator.json) | The same case plus the hidden reference plan. Each current case has a paired evaluator file. | Investigators and later scoring |
+| [Resident JSON](exports/ko_cycle2_revised_validation_v3/VAL-801_resident.json) | Clinical information without the hidden reference for the current Set 1 example. | Later resident study and developers |
+| [Evaluator JSON](exports/ko_cycle2_revised_validation_v3/VAL-801_evaluator.json) | The same Set 1 example plus the hidden reference plan. | Investigators and later scoring |
 | [Recovered clean export](exports/clean_balanced_seed_set/AUDIT.md) | The 48 preserved clean charts before Round 2 edits | Investigators tracing provenance |
 | [Frozen seed-guided source](data/case_sets/seed_guided/README.md) | `CLINIPROOF_SEEDCASES_V3`, the untouched Round 1 record of VAL-801–VAL-824 | Provenance |
 | [Frozen balanced source](data/case_sets/balanced/README.md) | `CLINIPROOF_BALANCED_V4`, the untouched Round 1 record of VAL-701–VAL-724 | Provenance |
@@ -209,37 +209,35 @@ OpenAI is optional. It may only reword narrative from facts the structured gener
 
 The sections below document exactly what changed in individual cases during Round 2. These details are included for provenance and reproducibility rather than as introductory material. The same information is recorded in the package audit files. A clinician who is starting a review can skip this section and use the Round 2 casebook. An investigator who needs to see why a chart differs from the Round 1 file should read on.
 
-The six clinically revised cases are recorded in the [revised-case audit](exports/ko_revised_cases_v1/AUDIT.md). The eighteen cases prepared for fresh review, including the nine narrower corrections, are recorded in the [clean-case audit](exports/ko_clean_cases_for_review_v1/AUDIT.md). The recovered export under `exports/clean_balanced_seed_set/` was not edited. In particular, VAL-801 in that export is still the unrepaired chart in which ibuprofen is stopped without a visible reason. The Round 2 revision of VAL-801 is a separate file.
+The six clinically revised cases are recorded in the [version 3 revision log](exports/ko_cycle2_revised_validation_v3/CLINICAL_REVISION_LOG.md). The eighteen cases prepared for fresh review, including the nine narrower corrections, are recorded in the [clean-case audit](exports/ko_clean_cases_for_review_v1/AUDIT.md). The recovered export under `exports/clean_balanced_seed_set/` was not edited. In particular, VAL-801 in that export is still the unrepaired chart in which ibuprofen is stopped without a visible reason. The Round 2 revision of VAL-801 is a separate file.
 
 ### Cases revised from Round 1 clinician feedback
 
 Six study slots were rewritten because the first clinician review found a weakness in the clinical story itself, not only in the planted discrepancy. Each account below is the Round 2 chart and the hidden reference that accompanies it. None of these reference plans has been accepted by a clinician yet.
 
-#### VAL-801 — Delirium and dehydration
+#### VAL-801 — Delirium and poor oral intake
 
-Delirium is attributed to dehydration from poor intake. Dry mucous membranes and a 20 mmHg orthostatic blood-pressure drop support that account. Glucose improves from 163 to 103 mg/dL with restored intake, and that change is the result of eating again rather than the cause of the delirium. Confusion resolves as intake improves. Ibuprofen remains available for knee pain, and the unsupported ibuprofen discontinuation was removed. Creatinine remains stable at 1.1 then 1.0 mg/dL. There is no gastrointestinal bleed. The reference plan continues atorvastatin, lisinopril, metformin, and ibuprofen.
+The resident chart describes several days of confusion, fatigue, and poor oral intake, dry mucous membranes, and a 20 mmHg orthostatic fall from the recorded supine pressure of 136 mmHg. Those examination findings are synthetic. They are not a second vital-sign row. Glucose is 163 mg/dL then 103 mg/dL. Creatinine is 1.1 mg/dL then 1.0 mg/dL. Ibuprofen 400 mg every 8 hours as needed remains on the medication list for symptomatic analgesia. The chart does not say whether to stop it. The hidden reference continues atorvastatin, lisinopril, metformin, and ibuprofen.
 
-#### VAL-802 — Delirium, dehydration, and renal context
+#### VAL-802 — Delirium and poor oral intake
 
-Delirium is attributed to poor intake and dehydration. A creatinine of 1.2 mg/dL six weeks earlier is the renal baseline. Creatinine is 1.3 mg/dL on admission and 1.2 mg/dL at discharge. Potassium is 4.2 then 4.1 mmol/L. Systolic blood pressure is 138 then 124 mmHg. Atorvastatin remains present for hyperlipidemia. The statin omission that belonged to the old injected discrepancy is not in this chart. The reference plan continues lisinopril and atorvastatin.
+Poor oral intake is the only precipitant named. Creatinine is 1.3 mg/dL on admission and 1.2 mg/dL at discharge. No creatinine from before this admission is recorded. Blood pressure is 138/69 mmHg then 124/68 mmHg. Atorvastatin 40 mg daily is on the verified list. The chart does not say to continue it. The hidden reference continues lisinopril and atorvastatin. Holding lisinopril is an acceptable alternative because no baseline creatinine is stored.
 
-#### VAL-803 — Thiazide-associated hyponatremia
+#### VAL-803 — Delirium and a synthetic sodium course
 
-Delirium is attributed to thiazide-associated hyponatremia. Sodium is 128 mmol/L while the patient is taking hydrochlorothiazide. Hydrochlorothiazide is held, sodium improves to 135 mmol/L, and confusion clears. Creatinine is 1.0 then 1.2 mg/dL. Potassium is 4.4 then 4.2 mmol/L. The recovered lisinopril supply remains 30 days, rather than the shortened supply that the injected version had introduced. The reference plan stops hydrochlorothiazide and continues lisinopril, atorvastatin, and metformin.
+Hydrochlorothiazide 25 mg daily is a source medicine. Sodium 128 mmol/L on admission and 135 mmol/L at discharge are synthetic values. They were not in the clean laboratories. Hydrochlorothiazide is held on the inpatient list while the admission sodium is 128 mmol/L. Confusion clears as the sodium rises. Creatinine is 1.0 mg/dL then 1.2 mg/dL. Potassium is 4.4 mmol/L then 4.2 mmol/L. The resident chart does not state the discharge action. The hidden reference stops hydrochlorothiazide. A hold pending an outpatient sodium check is an acceptable alternative. Lisinopril, atorvastatin, and metformin continue. The lisinopril supply on the hidden reference is 30 days. Round 1 stopped after C1, and the later form fields stay incomplete.
 
 #### VAL-805 — Acute systolic heart failure
 
-The chart now has a realistic inpatient decongestion course. Weight changes from 86 kg to 83 kg to 80 kg, and 80 kg is the documented dry weight. Intake and output are net negative on hospital days 1 through 3. Inpatient furosemide is intravenous 40 mg twice daily, which is distinct from the home oral dose of 40 mg daily. Creatinine improves from 1.7 to 0.9 mg/dL. Potassium improves from 4.7 to 4.3 mmol/L. Natriuretic peptide improves from 1120 to 369 pg/mL. Discharge systolic blood pressure is 110 mmHg, heart rate is 69, and oxygen saturation is 98 percent. Ejection fraction is 30 percent.
-
-The current reference plan continues oral furosemide 40 mg daily, metoprolol succinate 25 mg daily, and atorvastatin. A low-dose ACE inhibitor, angiotensin-receptor blocker, or SGLT2 inhibitor is recorded as an acceptable alternative, not as a required reference medication. Round 2 clinician review specifically asks whether additional therapies for heart failure with reduced ejection fraction should be considered required or only acceptable. The reference was not rewritten to add those medicines automatically.
+Admission weight is 81 kg. Discharge weight is 78 kg. Dry weight is 73 kg. One intake-and-output day is stored, hospital day 3, with intake 1418 mL, output 2463 mL, and net −1045 mL. Home and inpatient furosemide are both recorded as 40 mg oral once daily. Creatinine is 1.7 mg/dL then 0.9 mg/dL. Potassium is 4.7 mmol/L then 4.3 mmol/L. B-type natriuretic peptide is 1120 pg/mL then 369 pg/mL. Blood pressure is 109/82 mmHg then 110/84 mmHg. Oxygen saturation is 92 percent then 98 percent. No ejection fraction is recorded. The hidden reference changes furosemide to 40 mg oral twice daily. Continuing 40 mg once daily is an acceptable alternative. Metoprolol succinate 25 mg daily and atorvastatin continue. An additional heart-failure drug class is acceptable and is not required.
 
 #### VAL-809 — Infective endocarditis
 
-The chart now includes fever of 38.6°C, heart rate 104, a dental extraction three weeks earlier, a new murmur, viridans group streptococcus, and a documented vegetation. Later cultures show no growth and the fever resolves. The prior creatinine baseline is 0.8 mg/dL. Creatinine is 1.3 mg/dL on admission, 1.0 mg/dL on day 3, and 0.8 mg/dL at discharge. Lisinopril is held while creatinine is elevated, and the chart does not announce that it will be restarted. Discharge systolic blood pressure is 118 mmHg. The reference plan starts ceftriaxone 2 g intravenously daily for four weeks, restarts lisinopril, and continues atorvastatin.
+The recorded symptom is fatigue for one week. Temperature is 36.80°C on admission and at discharge. Blood culture grew gram-positive cocci, and a later culture showed no growth. The echocardiogram shows a vegetation with preserved ventricular function. Ceftriaxone 2 g intravenously once daily was started during the admission. A PICC is in place. Creatinine is 1.3 mg/dL then 0.8 mg/dL. No creatinine from before this admission is recorded. The chart does not say to complete the antibiotic course and does not say what to do with lisinopril. The hidden reference continues ceftriaxone and lisinopril, and continues atorvastatin. Holding lisinopril is an acceptable alternative.
 
-#### VAL-813 — Transplant and new cytomegalovirus infection
+#### VAL-813 — Cytomegalovirus after kidney transplantation
 
-The patient presents with diarrhea while taking tacrolimus and mycophenolate. Valganciclovir is not a home medication. Cytomegalovirus viral load is detected after admission, and valganciclovir 900 mg twice daily begins after that detection. Creatinine is 1.2 then 1.0 mg/dL. The transplant scenario was retained rather than replaced with a different case. The reference plan starts valganciclovir and continues tacrolimus, mycophenolate, amlodipine, and atorvastatin. Round 2 review explicitly asks whether continuing mycophenolate at discharge is appropriate. That reference action was not changed in advance of the review.
+Valganciclovir is not a home medicine. The admission viral-load review detected CMV viral burden, and valganciclovir 900 mg twice daily, given as 450 mg tablets, was started after that result. A later review showed a lower viral burden. Home medicines are tacrolimus 1 mg every 12 hours, amlodipine 5 mg daily, and atorvastatin 40 mg daily. Creatinine is 1.2 mg/dL then 1.0 mg/dL. Potassium is 4.7 mmol/L then 3.9 mmol/L. No cause for the potassium change is recorded. The hidden reference starts valganciclovir and continues tacrolimus, amlodipine, and atorvastatin. A temporary tacrolimus reduction is an acceptable alternative. The chart does not contain another immunosuppressant, and the review question does not ask about one.
 
 ### Cases that needed narrower consistency corrections
 
@@ -285,9 +283,9 @@ These nine corrections are not clinician-approved fixes. They removed obstacles 
 
 | Case | Judgment still required |
 | --- | --- |
-| VAL-805 | Which additional heart-failure therapies are required, and which are only acceptable |
+| VAL-805 | Whether oral furosemide should change from 40 mg once daily to 40 mg twice daily, and which additional heart-failure medicines are only acceptable. No ejection fraction is recorded. |
 | VAL-806 | Lisinopril restart is `WEAK_EVIDENCE`. Continued hold is an acceptable alternative because no renal baseline is known. |
-| VAL-813 | Whether mycophenolate should continue during the presented cytomegalovirus illness |
+| VAL-813 | Whether the recorded valganciclovir dose is appropriate and whether tacrolimus should be temporarily reduced. No other immunosuppressant is on the chart. |
 | VAL-814 | Restart versus continued hold of mycophenolate |
 | VAL-820 | Whether separate enoxaparin prophylaxis is appropriate while the patient is receiving warfarin at the documented INR values |
 | VAL-821 | Restart versus continued hold of apixaban after gastrointestinal bleeding |
@@ -496,7 +494,7 @@ The recovery audit of the original 48 slots is a separate statement from Round 2
 
 Ready for expert review, in this recovery table, means the injected chart change and the discharge-answer wording are gone, and the automated clinical pass did not find a blocking inconsistency. It does not mean an expert has approved the case. The row-by-row record is [exports/clean_balanced_seed_set/AUDIT.md](exports/clean_balanced_seed_set/AUDIT.md).
 
-Four files inside that export remain labeled `CLINICALLY_INCONSISTENT`. They were not rewritten there, and no replacement was generated. VAL-709, VAL-711, and VAL-714 stop or associate a medicine without a supported reason on that chart, and they were not part of Round 2. VAL-801 in the same export still stops ibuprofen without a visible reason. The Round 2 revision of VAL-801 is the separate file under `exports/ko_revised_cases_v1/`.
+Four files inside that export remain labeled `CLINICALLY_INCONSISTENT`. They were not rewritten there, and no replacement was generated. VAL-709, VAL-711, and VAL-714 stop or associate a medicine without a supported reason on that chart, and they were not part of Round 2. VAL-801 in the same export still stops ibuprofen without a visible reason. The Round 2 revision of VAL-801 is the separate file under `exports/ko_cycle2_revised_validation_v3/`.
 
 | Case | Problem in the recovered export |
 | --- | --- |
@@ -543,7 +541,7 @@ tests/test_clean_resident_case.py     clean generation hides the reference and d
 tests/test_clean_set_recovery.py      recovery leaves frozen files unchanged and restores known clean facts
 tests/test_ko_review_sets.py          Round 2 packages hide the reference and leave frozen files unchanged
 exports/clean_balanced_seed_set/      recovered 48-slot export; not overwritten by Round 2
-exports/ko_revised_cases_v1/          six cases revised after Round 1 clinician feedback
+exports/ko_revised_cases_v1/          superseded Set 1 revision attempt
     KO_REVISED_CASES_REVIEW.docx
     AUDIT.md
 exports/ko_clean_cases_for_review_v1/ eighteen clean cases ready for clinician review
@@ -552,7 +550,8 @@ exports/ko_clean_cases_for_review_v1/ eighteen clean cases ready for clinician r
 exports/ko_held_cases_v1/             held audit; currently records zero held cases
     KO_HELD_CASES_AUDIT.md
 exports/ko_cycle2_revised_validation/   earlier Round 1 extract and response matrix
-exports/ko_cycle2_revised_validation_v2/ Set 1 clinician codebook and clinical revision record
+exports/ko_cycle2_revised_validation_v2/ superseded Set 1 revision attempt
+exports/ko_cycle2_revised_validation_v3/ current Set 1 codebook and clinical revision record
     CliniProof_Cycle2_Revised_Cases_Validation.docx
     CLINICAL_REVISION_LOG.md
     REVISION_DIFF.md
