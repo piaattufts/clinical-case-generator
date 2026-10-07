@@ -1,10 +1,18 @@
 # Methods
 
+## Current resident workflow
+
+The default case is a clean clinical chart. The resident decides the discharge medication regimen. The intended regimen is a hidden reference discharge plan and is not part of the resident-facing file. Deliberate chart errors are experimental / legacy / optional and not part of the default resident case pipeline.
+
+The recovered 48-case export in `exports/clean_balanced_seed_set/` was not produced by rerunning this pipeline. It was restored from the archived pre-injection snapshots of `CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`. Clinical Revision Cycle 2, described in the root README, then made separate review copies for VAL-801–VAL-824. It did not regenerate cases and did not overwrite the recovered export or the frozen VAL files. VAL-701–VAL-724 were not part of that cycle.
+
 ## Overview
 
-All prospective cases are generated as clinically coherent clean cases before any experimental discrepancy is introduced. The two active strategies stay separate. Balanced structured generation does not use the resident seed documents. Resident-seed-guided generation does not rebalance itself into the scenario grid.
+Historical prospective batches were generated as clinically coherent clean cases before any experimental discrepancy was introduced. The two strategies stay separate. Balanced structured generation does not use the resident seed documents. Resident-seed-guided generation does not rebalance itself into the scenario grid.
 
 ## Shared structured pipeline
+
+Historical validation design. Not the current resident-facing study workflow. The numbered steps below describe how the frozen batches were built, including one injected discrepancy on most charts.
 
 1. Select the case-generation strategy.
 2. Select the scenario or archetype and the named clinical profile.
@@ -66,8 +74,10 @@ Fields were not randomized for cosmetic variety.
 
 ## Error injection
 
-Family 1 changes the medication list or a list field: omission, commission, dose, route, frequency, or an unexplained same-class substitute. Family 2 keeps the list fact that should have triggered an action and removes that action: monitoring, a restart plan after a hold, enough supply, stopping a hospital-only drug, reverting an inpatient formulary substitute, or scheduling follow-up for a pending decision. Controls receive no injection. The category is assigned in the batch plan. Definitions are in [`error_taxonomy.md`](error_taxonomy.md).
+Error injection is experimental / legacy / optional and not part of the default resident case pipeline. The `--inject-error` flag changes the chart itself. It does not merely set a label. Family 1 changes the medication list or a list field: omission, commission, dose, route, frequency, or an unexplained same-class substitute. Family 2 keeps the list fact that should have triggered an action and removes that action: monitoring, a restart plan after a hold, enough supply, stopping a hospital-only drug, reverting an inpatient formulary substitute, or scheduling follow-up for a pending decision. Historical controls received no injection. The category is assigned in the batch plan. Definitions are in [`error_taxonomy.md`](error_taxonomy.md).
+
+LOINC laboratory search uses the value set `http://loinc.org/vs`. The older `http://loinc.org?fhir_vs` address returns 404 and is not the active endpoint.
 
 ## Validation
 
-Automated checks run before and after injection. They include terminology provenance, laboratory value and unit coherence, regimen dose/route/frequency, beta-blocker formulation and frequency, temporal-role consistency, imaging timepoint versus comparative wording, endocarditis microbiology chronology, echo findings that are imaging findings, disposition versus baseline living situation, and exactly one intended discrepancy on error-bearing cases. Human review is the one-stage C1–C5 procedure in [`clinical_validation.md`](clinical_validation.md). Passing automation means the case is ready for that review.
+On the default clean path, automated checks cover terminology provenance, laboratory value and unit coherence, regimen dose/route/frequency, beta-blocker formulation and frequency, and whether the resident document leaks the reference plan. Historical error-injection batches also checked exactly one intended discrepancy. Human review is still required. Passing automation does not mean a case has passed clinician review. The historical C1–C5 instrument is in [`clinical_validation.md`](clinical_validation.md).

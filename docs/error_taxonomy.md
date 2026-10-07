@@ -1,6 +1,8 @@
 # Error taxonomy
 
-This is the human-readable taxonomy for the discrepancies the generator can inject. Other documents should link here instead of keeping a second table. The software identifiers are the source of truth in `app/services/error_taxonomy.py`. A category that is not implemented is rejected. Freeze does not substitute a different category.
+This catalog describes **experimental / legacy** error injection. It is not the default resident case pipeline. The current resident task is to decide the discharge regimen from a clean chart. The categories below are retained for historical validation batches and for a later intervention experiment. They are not planted into the recovered study set.
+
+The software identifiers are the source of truth in `app/services/error_taxonomy.py`. A category that is not implemented is rejected. Freeze does not substitute a different category.
 
 Each error-bearing case is assigned one category in the batch plan. Controls use `none`.
 

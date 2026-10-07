@@ -1,5 +1,7 @@
 # CliniProof Resident-Seed-Guided Case Set
 
+This directory is the frozen `CLINIPROOF_SEEDCASES_V3` source. Historical validation design. Not the current resident-facing study workflow. Recovered clean charts for VAL-801–VAL-824 are in [../../../exports/clean_balanced_seed_set/](../../../exports/clean_balanced_seed_set/AUDIT.md). Clinical Revision Cycle 2 review copies are [the revised cases](../../../exports/ko_revised_cases_v1/KO_REVISED_CASES_REVIEW.docx) and [the clean cases ready for clinician review](../../../exports/ko_clean_cases_for_review_v1/KO_CLEAN_CASES_REVIEW.docx). Ready for clinician review does not mean clinically validated. Historical validation artifacts are retained for provenance and reproducibility.
+
 Batch: `CLINIPROOF_SEEDCASES_V3`
 Cases: VAL-801–VAL-824
 Number of cases: 24
