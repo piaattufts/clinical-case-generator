@@ -1,6 +1,10 @@
-# Cycle 2 clinician validation
+# Cycle 2 combined casebook
 
-This folder is the active clinician-validation package for VAL-801–VAL-824.
+Combined investigator convenience copy — not the preferred clinician workflow.
+
+Clinicians should use Set 1, [the revised-case codebook](../ko_cycle2_revised_validation/CliniProof_Cycle2_Revised_Cases_Validation.docx), and then Set 2, [the clean-case codebook](../ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx).
+
+This file keeps all 24 cases in one document for investigators who want a single convenience copy. It is not the preferred clinician workflow.
 
 Open [CliniProof_Cycle2_Final_Validation.docx](CliniProof_Cycle2_Final_Validation.docx) in desktop Microsoft Word.
 The checkboxes start blank. Ready for clinician review does not mean clinically validated.

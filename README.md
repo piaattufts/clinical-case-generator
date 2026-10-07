@@ -47,15 +47,23 @@ The validation casebooks are fillable Microsoft Word documents. Click the checkb
 
 The table is a map of the form. The important sequence is that C1 and C2 are answered from the chart alone, and only then does the reference plan appear.
 
-### Access the current Round 2 casebook
+### Current Round 2 clinician review
 
-Clinicians reviewing the current study should use the Round 2 clinician-validation casebook below. It contains all 24 cases, VAL-801 through VAL-824, in a single Microsoft Word document. Each case begins with the resident-facing clinical chart. The clinician completes the initial plausibility and information-sufficiency questions before viewing the hidden reference plan, and then evaluates the reference plan, acceptable alternatives, competing clinical issues, learner difficulty, and the overall Accept, Revise, or Exclude recommendation. Every checkbox starts blank.
+Clinicians should review the cases in two codebooks, and they should open Set 1 before Set 2. Set 1 contains the six cases that were substantively revised because Round 1 clinician feedback identified problems with the underlying clinical story. Each of those cases begins with the revised chart and a blank Round 2 form. The completed Round 1 feedback, and a record of how Round 2 responded to it, follow that form so the revised case can be judged before the earlier comments are seen. Set 2 contains the other eighteen clean cases, which are being reviewed for the first time under the corrected protocol. Every checkbox in both files starts blank.
 
-**[Download the Round 2 clinician-validation casebook](exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx)**
+**Set 1 — Revised cases following Round 1 feedback (6 cases)**
 
-[Round 2 package notes](exports/ko_cycle2_final_validation/README.md)
+**[Download the revised-case clinician codebook](exports/ko_cycle2_revised_validation/CliniProof_Cycle2_Revised_Cases_Validation.docx)**
 
-[Round 2 manifest](exports/ko_cycle2_final_validation/MANIFEST.md)
+These six cases were changed in response to substantive feedback from the first clinician review. Each revised case is followed by its completed Round 1 feedback and a record of how Round 2 addressed that feedback. [Set 1 package notes](exports/ko_cycle2_revised_validation/README.md). [Set 1 manifest](exports/ko_cycle2_revised_validation/MANIFEST.md).
+
+**Set 2 — Remaining clean cases for fresh review (18 cases)**
+
+**[Download the clean-case clinician codebook](exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx)**
+
+These 18 clean cases are being reviewed under the corrected Round 2 protocol. [Set 2 package notes](exports/ko_cycle2_clean_validation/README.md). [Set 2 manifest](exports/ko_cycle2_clean_validation/MANIFEST.md).
+
+A combined 24-case file is retained as an investigator convenience copy — not the preferred clinician workflow: [combined casebook](exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx).
 
 ### Which cases are in Round 2
 
@@ -163,17 +171,19 @@ The table compares the two rounds after the narrative above. It is a summary, no
 | Reference information | Intended planted discrepancy | Hidden discharge medication plan |
 | Current use | Provenance and reproducibility | Active clinician validation |
 
-**Current review:** [Round 2 casebook](exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx)
+**Current review:** [Set 1 revised-case codebook](exports/ko_cycle2_revised_validation/CliniProof_Cycle2_Revised_Cases_Validation.docx), then [Set 2 clean-case codebook](exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx)
 
 **Previous methodology:** [Round 1 casebook](docs/resident_review_package/files/CliniProof_SeedGuided_Validation_Casebook.docx)
 
 ## Where to find the cases and review materials
 
-The table below is the map of who should open which file. Clinicians reviewing the current study need only the first row. Investigators who need to see how a case was revised, or who need the hidden reference in JSON, use the later rows. Researchers reproducing Round 1 should use the historical casebooks and should not treat them as the current review.
+The table below is the map of who should open which file. Clinicians reviewing the current study start with the first row and then open the second. Investigators who need to see how a case was revised, or who need the hidden reference in JSON, use the later rows. Researchers reproducing Round 1 should use the historical casebooks and should not treat them as the current review.
 
 | File or package | What it contains | Who should use it |
 | --- | --- | --- |
-| [Round 2 clinician casebook](exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx) | All 24 current cases plus blank clinician-validation forms | Clinician reviewers |
+| [Set 1 revised-case codebook](exports/ko_cycle2_revised_validation/CliniProof_Cycle2_Revised_Cases_Validation.docx) | Six revised cases, blank Round 2 forms, and the Round 1 feedback that follows each form | Clinician reviewers, first |
+| [Set 2 clean-case codebook](exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx) | Eighteen clean cases and blank Round 2 forms | Clinician reviewers, after Set 1 |
+| [Combined convenience copy](exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx) | All 24 cases in one file. Combined investigator convenience copy — not the preferred clinician workflow | Investigators |
 | [Round 2 revised-case package](exports/ko_revised_cases_v1/KO_REVISED_CASES_REVIEW.docx) | Six cases changed in response to Round 1 clinician feedback. The [audit](exports/ko_revised_cases_v1/AUDIT.md) records what changed. | Investigators and provenance |
 | [Round 2 clean-case package](exports/ko_clean_cases_for_review_v1/KO_CLEAN_CASES_REVIEW.docx) | Eighteen recovered clean cases prepared for fresh review. The [audit](exports/ko_clean_cases_for_review_v1/AUDIT.md) records which files were corrected. | Investigators and provenance |
 | [Round 2 manifest](exports/ko_cycle2_final_validation/MANIFEST.md) | Mapping of case identifiers to source packages | Investigators |
@@ -185,7 +195,7 @@ The table below is the map of who should open which file. Clinicians reviewing t
 | [Frozen seed-guided source](data/case_sets/seed_guided/README.md) | `CLINIPROOF_SEEDCASES_V3`, the untouched Round 1 record of VAL-801–VAL-824 | Provenance |
 | [Frozen balanced source](data/case_sets/balanced/README.md) | `CLINIPROOF_BALANCED_V4`, the untouched Round 1 record of VAL-701–VAL-724 | Provenance |
 
-A reviewer who is validating the current study should open the Round 2 casebook in the first row. A collaborator who wants to see the earlier method should open the Round 1 seed-guided casebook and should not treat that form as the one to complete now. The JSON rows are examples of the two representations described later. Every current case has a resident file and a paired evaluator file in the same package.
+A reviewer who is validating the current study should open the Set 1 codebook in the first row, complete it, and then open the Set 2 codebook. A collaborator who wants to see the earlier method should open the Round 1 seed-guided casebook and should not treat that form as the one to complete now. The JSON rows are examples of the two representations described later. Every current case has a resident file and a paired evaluator file in the same package.
 
 ## What this repository studies
 
@@ -541,7 +551,11 @@ exports/ko_clean_cases_for_review_v1/ eighteen clean cases ready for clinician r
     AUDIT.md
 exports/ko_held_cases_v1/             held audit; currently records zero held cases
     KO_HELD_CASES_AUDIT.md
-exports/ko_cycle2_final_validation/    current 24-case clinician validation casebook
+exports/ko_cycle2_revised_validation/   Set 1 clinician codebook, six revised cases
+    CliniProof_Cycle2_Revised_Cases_Validation.docx
+exports/ko_cycle2_clean_validation/     Set 2 clinician codebook, eighteen clean cases
+    CliniProof_Cycle2_Clean_Cases_Validation.docx
+exports/ko_cycle2_final_validation/     combined convenience copy, not the preferred workflow
     CliniProof_Cycle2_Final_Validation.docx
 ```
 
