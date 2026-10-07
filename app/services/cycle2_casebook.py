@@ -88,7 +88,7 @@ def _load(case_id: str) -> dict[str, Any]:
         raise ValueError(f"{case_id} resident file contains the hidden reference")
     return {
         "case_id": case_id,
-        "group": "revised" if case_id in REVISED_IDS else "fresh review",
+        "group": "revised" if case_id in REVISED_IDS else "internal revision",
         "folder": folder.name,
         "resident": resident,
         "evaluator": evaluator,
@@ -288,16 +288,17 @@ def _readme() -> str:
         [
             "# Cycle 2 combined casebook",
             "",
-            "Combined investigator convenience copy — not the preferred clinician workflow.",
+            "Combined investigator convenience copy. Not a clinician review assignment.",
             "",
-            "Clinicians should use Set 1, "
-            "[the revised-case codebook](../ko_cycle2_revised_validation/"
-            "CliniProof_Cycle2_Revised_Cases_Validation.docx), and then Set 2, "
-            "[the clean-case codebook](../ko_cycle2_clean_validation/"
-            "CliniProof_Cycle2_Clean_Cases_Validation.docx).",
+            "Clinicians should review [Set 1, version 3]"
+            "(../ko_cycle2_revised_validation_v3/"
+            "CliniProof_Cycle2_Revised_Cases_Validation.docx) only. "
+            "[Set 2](../ko_cycle2_clean_validation/"
+            "CliniProof_Cycle2_Clean_Cases_Validation.docx) is still under "
+            "internal correction and is not yet ready for clinician review.",
             "",
             "This file keeps all 24 cases in one document for investigators who want "
-            "a single convenience copy. It is not the preferred clinician workflow.",
+            "a single convenience copy. It is not a clinician review assignment.",
             "",
             "Open [CliniProof_Cycle2_Final_Validation.docx]"
             "(CliniProof_Cycle2_Final_Validation.docx) in desktop Microsoft Word.",

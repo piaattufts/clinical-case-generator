@@ -1,10 +1,10 @@
 """Clinician-review packages for the recovered VAL-801–VAL-824 clean charts.
 
-Set A revises six cases from earlier clinician feedback. Nine other charts are
+Set 1 revises six cases from earlier clinician feedback. Nine other charts are
 corrected from the recovered clean source. Charts that pass the evidence audit
-join the untouched ready cases in the fresh-review package. Charts that still
-fail stay in a held audit and are not placed in a clinician-review document.
-Historical frozen VAL files are not overwritten.
+join the untouched recovered cases in the Set 2 package. That package is still
+under internal revision and is not a current clinician-review assignment. Charts
+that still fail stay in a held audit. Historical frozen VAL files are not overwritten.
 """
 
 from __future__ import annotations
@@ -2616,7 +2616,12 @@ def _revised_audit(rows: list[dict[str, Any]]) -> str:
 
 def _fresh_audit(rows: list[dict[str, Any]]) -> str:
     lines = [
-        "# Clean cases for fresh clinician review",
+        "# Recovered clean cases under internal revision",
+        "",
+        "Not yet ready for clinician review. The table below is the earlier recovery "
+        "audit. Its status labels, including `READY_FOR_CLINICIAN_REVIEW` and "
+        "`READY_FOR_FRESH_REVIEW`, record that pass. They do not mean these cases "
+        "have passed the Set 1 design audit.",
         "",
         "Untouched rows are the recovered charts that already passed the precheck. "
         "Repaired rows are corrected copies that passed the evidence audit.",

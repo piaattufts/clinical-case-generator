@@ -699,7 +699,7 @@ def _readme() -> str:
             "(CliniProof_Cycle2_Revised_Cases_Validation.docx).",
             "",
             "This version contains VAL-801, VAL-802, VAL-803, VAL-805, VAL-809, and "
-            "VAL-813 only. It does not replace the eighteen-case fresh-review codebook.",
+            "VAL-813 only. It does not replace the eighteen Set 2 cases, which remain under internal revision.",
             "",
             "Round 1 comments are reproduced after the blank Round 2 form. The clinical "
             "revision record follows that historical record. The revision log, the "

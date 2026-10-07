@@ -1,5 +1,7 @@
 # Clean cases for fresh clinician review
 
+Historical packaging audit. These labels are not the current clinician-review status. The eighteen cases are under internal revision and are not yet ready for clinician review.
+
 Untouched rows are the recovered charts that already passed the precheck. Repaired rows are corrected copies that passed the evidence audit.
 
 | Case | Clean source | Correction | Evidence | Status |

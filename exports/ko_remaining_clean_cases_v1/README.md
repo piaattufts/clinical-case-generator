@@ -1,8 +1,8 @@
 # Prior packaging
 
-This directory is an earlier packaging of the VAL-801–VAL-824 fresh-review cases.
+This directory is an earlier packaging of the recovered clean cases. It is historical provenance. Those cases are still under internal revision and are not yet ready for clinician review.
 
-The current clean-case review document is
+The recovered clean-case package is
 [../ko_clean_cases_for_review_v1/KO_CLEAN_CASES_REVIEW.docx](../ko_clean_cases_for_review_v1/KO_CLEAN_CASES_REVIEW.docx).
 
 Ready for clinician review does not mean clinically validated. Cases that remain held are listed in

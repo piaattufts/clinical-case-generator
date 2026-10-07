@@ -1,4 +1,6 @@
-# Clean cases for fresh clinician review
+# Recovered clean cases under internal revision
+
+Not yet ready for clinician review. The table below is the earlier recovery audit. Its status labels, including `READY_FOR_CLINICIAN_REVIEW` and `READY_FOR_FRESH_REVIEW`, record that pass. They do not mean these cases have passed the Set 1 design audit.
 
 Untouched rows are the recovered charts that already passed the precheck. Repaired rows are corrected copies that passed the evidence audit.
 

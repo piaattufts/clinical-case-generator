@@ -2,7 +2,7 @@
 
 The current resident task is to read a clean chart and decide the discharge medication regimen. The reference plan is kept separate. It is not printed in the resident chart, and the base case does not contain a deliberately planted medication error.
 
-Round 2 is the current clinician review of VAL-801–VAL-824. Clinicians start with [Set 1, version 3, the six revised cases](../exports/ko_cycle2_revised_validation_v3/CliniProof_Cycle2_Revised_Cases_Validation.docx), and then review [Set 2, the eighteen clean cases](../exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx). The combined 24-case file is an investigator convenience copy, not the preferred workflow. The [project README](../README.md) explains how Round 2 was derived from Round 1. Ready for clinician review does not mean clinically validated.
+Round 2 is the current study design for VAL-801–VAL-824. Clinicians should currently review [Set 1, version 3, the six revised cases](../exports/ko_cycle2_revised_validation_v3/CliniProof_Cycle2_Revised_Cases_Validation.docx) only. Those six cases are prepared for clinician re-review and are not clinically validated. [Set 2, the eighteen recovered clean cases](../exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx), is still under internal correction and is not yet ready for clinician review. The link is retained for investigators. The combined 24-case file is an investigator convenience copy. The [project README](../README.md) explains how Round 2 was derived from Round 1. Ready for clinician review does not mean clinically validated.
 
 The C1–C5 instrument below is the Round 1 validation design. It was written for the frozen charts (`CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`), many of which contain one injected discrepancy. Those Word casebooks are retained so Round 1 can be reproduced. They are not the current resident-facing study set. The recovered clean charts remain in [exports/clean_balanced_seed_set/](../exports/clean_balanced_seed_set/AUDIT.md). Passing automated tests does not mean a case has passed clinician review.
 
@@ -10,7 +10,7 @@ Clinician validation is one review of the complete case. There is no second stag
 
 This document describes the Round 1 instrument. A clinician rating is not a resident answer, and a resident answer is not a substitute for these ratings. The current Round 2 form, C1 through C6, is specified in the [project README](../README.md).
 
-Round 2 cases are machine-checked and ready for that clinician reading. They are not clinically validated until a reviewer accepts them. The same is true of any chart that has only completed the Round 1 C1–C5 form described below.
+The six Set 1 cases are prepared for clinician re-review. The eighteen Set 2 cases are still under internal correction and are not yet ready for clinician review. None of these cases is clinically validated until a reviewer accepts it. The same is true of any chart that has only completed the Round 1 C1–C5 form described below.
 
 ## What the reviewer rates
 
