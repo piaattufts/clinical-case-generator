@@ -5,7 +5,7 @@ The project overview for every audience is the root [README](../README.md). Case
 | Document | What it covers |
 | --- | --- |
 | [clinician_walkthrough/README.md](clinician_walkthrough/README.md) | How a chart is built, using a readable teaching case that is not a study case. |
-| [resident_review_package/README.md](resident_review_package/README.md) | Historical Word casebooks for the frozen batches. Cycle 2 review documents for VAL-801–VAL-824 are named in the root README. |
+| [resident_review_package/README.md](resident_review_package/README.md) | Historical Word casebooks for the frozen batches. The active Cycle 2 casebook is named in the root README. |
 | [methods.md](methods.md) | How a clean case is built, how experimental error injection differs, and how the recovered 48-case export relates to the frozen batches. |
 | [clinical_validation.md](clinical_validation.md) | Historical validation design: the one-stage C1–C5 review written for injected discrepancies. Not the current Cycle 2 form. |
 | [error_taxonomy.md](error_taxonomy.md) | Family 1 and Family 2 categories. |

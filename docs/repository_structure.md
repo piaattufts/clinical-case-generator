@@ -13,6 +13,7 @@ exports/clean_balanced_seed_set/  recovered 48-slot export; not the Cycle 2 revi
 exports/ko_revised_cases_v1/      six revised VAL-801–VAL-824 cases and their review document
 exports/ko_clean_cases_for_review_v1/  clean cases ready for clinician review, not clinically validated
 exports/ko_held_cases_v1/         held audit; currently zero held cases
+exports/ko_cycle2_final_validation/ active blank 24-case Cycle 2 validation casebook
 tests/test_ko_review_sets.py      Cycle 2 package checks
 data/case_sets/balanced/          frozen CLINIPROOF_BALANCED_V4 source, not the resident handout
 data/case_sets/seed_guided/       frozen CLINIPROOF_SEEDCASES_V3 source, not the resident handout

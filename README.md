@@ -1,21 +1,30 @@
 # CliniProof
 
-CliniProof builds structured synthetic inpatient charts for studying discharge medication decisions. A resident receives a clean clinical chart and decides which medicines should continue, stop, start, or change after discharge. The intended regimen is stored separately as a hidden reference discharge plan. It is used only for evaluation.
+CliniProof builds structured synthetic inpatient charts. The charts are not extracts from a medical record. Medication, diagnosis, and laboratory concepts are tied to standard terminologies. Ages, vital signs, and laboratory numbers are synthetic.
 
-The charts are not extracts from a medical record. Medication, diagnosis, and laboratory concepts are tied to standard terminologies. Ages, vital signs, and laboratory numbers are synthetic. A clinician still has to decide whether a chart is fit to use.
+## Current status
 
-```text
-Current status
+CliniProof now uses clean resident-facing clinical cases with a separate hidden reference discharge plan.
 
-- Clean resident/evaluator separation implemented.
-- Default generator produces clean cases only.
-- Original 48-case balanced set recovered from archived clean sources.
-- VAL-801–VAL-824 Clinical Revision Cycle 2: 24 cases prepared for clinician review, 0 held, 0 clinically validated.
-- The recovered 48-slot export still labels four charts clinically inconsistent. Cycle 2 does not rewrite that export.
-- Original frozen VAL files remain unchanged.
-```
+The resident receives the clinical information required to make an independent discharge-medication decision. The intended reference plan is withheld from the resident and is used only for clinician validation and later scoring.
 
-The study set is not finalized. Passing automated tests does not mean a case has passed clinician review.
+There is no deliberately planted medication error in the base resident case, and no clean-control versus error-bearing distinction in the active resident study set. A future erroneous AI recommendation would be a later experimental intervention, separate from the base clinical case. That intervention is not implemented here.
+
+### Clinical Revision Cycle 2 — VAL-801–VAL-824
+
+- 24 clean cases are prepared for clinician review.
+- 6 cases were revised in response to first-round clinician feedback.
+- 18 recovered clean cases are prepared for fresh review.
+- 9 of those 18 underwent narrow pre-review consistency repairs.
+- 0 cases are currently held.
+- All 24 pass structural and internal evidence-sufficiency checks.
+- None is clinically validated until reviewed and accepted by a clinician.
+
+VAL-701–VAL-724 were not part of Cycle 2. The recovered 48-slot export still labels four of its own files clinically inconsistent. Cycle 2 does not rewrite that export, and it does not mean all 48 cases have completed Cycle 2.
+
+The active clinician-validation file is [exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx](exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx).
+
+Passing automated validation does not establish clinical validity.
 
 ## Project purpose
 
@@ -108,7 +117,7 @@ Review document: [exports/ko_clean_cases_for_review_v1/KO_CLEAN_CASES_REVIEW.doc
 
 These charts are clean cases ready for clinician review. That label is not clinical validation.
 
-The two groups are kept separate for provenance. The first group contains cases that were revised in response to clinician feedback. The second group contains recovered clean cases undergoing fresh review under the corrected study design.
+The groups remain separate for provenance, not because they represent different resident tasks. The first group was revised after clinician feedback. The second group is recovered clean cases prepared for fresh review under the same study design.
 
 | Cycle 2 status | Count |
 | --- | ---: |
@@ -210,6 +219,15 @@ Review whether pharmacologic VTE prophylaxis with enoxaparin is clinically appro
 
 **VAL-821.** The direct instruction to resume apixaban was removed. The resident sees the gastrointestinal bleed, hemoglobin 8.7 then 10.9 g/dL, atrial fibrillation, creatinine 1.2 mg/dL, and gastroenterology follow-up in seven days. The hidden reference recommends restarting apixaban. A continued hold until gastroenterology review is an acceptable alternative.
 
+These nine repairs are not clinician-approved fixes. They are pre-review consistency corrections. The following items still require clinician judgment:
+
+| Case | Judgment still required |
+| --- | --- |
+| VAL-806 | Lisinopril restart is `WEAK_EVIDENCE`. Continued hold is an acceptable alternative because no renal baseline is known. |
+| VAL-814 | Restart versus continued hold of mycophenolate. |
+| VAL-820 | Whether separate enoxaparin VTE prophylaxis is appropriate while the patient is receiving warfarin at the documented INR values. |
+| VAL-821 | Restart versus continued hold of apixaban after gastrointestinal bleeding. |
+
 ### Repair principle
 
 Revision Cycle 2 did not preserve an existing reference answer at all costs. When an existing medication decision could not be supported by resident-visible evidence, either the clinical representation or the hidden reference decision was corrected. Clinical facts determine the reference plan. Facts are not invented merely to justify a pre-existing answer.
@@ -258,17 +276,30 @@ Historical frozen files remain available for provenance. Cycle 2 does not overwr
 
 The clinician reviews a clean chart. The task is not to judge a planted discrepancy.
 
-For each case the reviewer assesses:
+The active form is [CliniProof_Cycle2_Final_Validation.docx](exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx). It contains VAL-801 through VAL-824 once each. Checkboxes start blank. Older casebooks that place a planted-error reference after C1 are historical validation design. Do not use them as the active Cycle 2 review package.
 
-1. Clinical plausibility.
-2. Whether the resident-facing chart contains enough information for an internal-medicine resident to determine a discharge medication regimen.
-3. Whether the hidden reference discharge plan is defensible.
-4. Whether another discharge plan should also be accepted.
-5. Missing, contradictory, or misleading information, including unrealistic medication behavior, inappropriate monitoring, and implausible hospital-course details.
-6. Whether the case is appropriate for a resident-level assessment.
-7. An overall disposition: Accept, Revise, or Exclude.
+```text
+resident-facing clean chart
+        ↓
+C1 — clinical plausibility
+        ↓
+C2 — sufficiency for resident decision-making
+        ↓
+CLINICIAN VALIDATION REFERENCE
+hidden discharge plan
+        ↓
+C3 — reference-plan validity
+        ↓
+C4 — acceptable alternatives
+        ↓
+C5 — missing / misleading / competing issues
+        ↓
+C6 — expected learner difficulty
+        ↓
+Accept / Revise / Exclude
+```
 
-The clinician sees the resident-facing chart first. The hidden reference is in a separate section labeled for clinician validation and marked as not shown to residents. Ratings come before that section.
+The clinician reads the chart and answers C1 and C2 before the hidden reference. Accept. Revise. Exclude. are the overall recommendations. They do not mean a case has already been accepted.
 
 The reference standard should not assume that every case has exactly one clinically valid discharge regimen. Reviewers can record an acceptable alternative medication, action, or timing, and can note alternative monitoring, follow-up, or a context-dependent choice. Those notes are for later scoring design. A multi-answer scoring engine is not implemented in this repository.
 
@@ -326,9 +357,35 @@ Any manipulated AI recommendation is a separate experimental intervention. It is
 
 Two files can describe the same underlying case. They do not expose the same information.
 
+### What each resident-facing case contains
+
+```text
+Patient overview
+        ↓
+Reason for hospitalization
+        ↓
+History / relevant diagnoses
+        ↓
+Hospital course
+        ↓
+Admission and discharge clinical status
+        ↓
+Home medications
+        ↓
+Medications used during hospitalization
+        ↓
+Monitoring / follow-up context
+        ↓
+Discharge disposition and relevant instructions
+        ↓
+Resident determines discharge medication plan
+```
+
+There is no `Discharge medications` section that hands the resident the answer.
+
 ### Resident-facing case
 
-The resident-facing case may contain:
+The resident-facing representation includes clinical evidence. It may contain:
 
 - presentation
 - diagnoses and history
@@ -343,12 +400,12 @@ The resident-facing case may contain:
 
 It must not contain:
 
-- the reference discharge medication plan
-- expected discharge decisions
-- an answer key
+- a correct discharge medication list
+- `reference_discharge_plan`
+- expected medication actions
+- hidden rationale
 - scoring labels
-- planted-error labels
-- evaluator rationale
+- planted-error metadata
 
 Home and inpatient medication lists are clinical evidence. They are not the answer. The resident still has to decide what should happen at discharge.
 
@@ -425,9 +482,13 @@ Historical validation artifacts are retained for provenance and reproducibility.
 
 ## What this repository studies
 
-Discharge is a high-risk transition. The study question is which medicines a resident would continue, stop, start, or change, given the chart. Differences from the hidden reference can later be classified. That classifier is not built here.
+CliniProof creates structured synthetic inpatient cases in which residents must use the clinical presentation, hospital course, medication history, laboratory data, treatment response, monitoring needs, and follow-up context to determine an appropriate discharge medication plan.
 
-The repository holds two active prospective validation datasets, 48 cases in all, as frozen source batches. The recovered resident-facing export of those same 48 slots is [exports/clean_balanced_seed_set/](exports/clean_balanced_seed_set/AUDIT.md). The recovery audit labels 44 of those files ready for expert review and 4 clinically inconsistent. That count describes the recovered export only. It is not clinician approval, and it is not the Cycle 2 status of VAL-801–VAL-824. None of the 48 recovered files is clinically approved. Cycle 2 is a separate review preparation for the seed-guided identifiers.
+The central validation question is not whether a planted error can be detected. It is whether the chart contains sufficient and coherent clinical evidence for a resident to make a defensible discharge decision, and whether the hidden reference plan itself is clinically defensible.
+
+The resident reviews the clean inpatient case and independently determines the appropriate discharge medication plan.
+
+The frozen source registry lists two prospective batches, 48 cases in all. The recovered resident-facing export of those same 48 slots is [exports/clean_balanced_seed_set/](exports/clean_balanced_seed_set/AUDIT.md). The recovery audit labels 44 of those files ready for expert review and 4 clinically inconsistent. That count describes the recovered export only. It is not clinician approval, and it is not the Cycle 2 status of VAL-801–VAL-824. None of the 48 recovered files is clinically approved. Cycle 2 is a separate review preparation for the seed-guided identifiers.
 
 OpenAI is optional. It may only reword narrative from facts the structured generator has already chosen. It does not choose diagnoses, medications, doses, or the reference plan. The committed study cases used template wording.
 
@@ -436,17 +497,25 @@ Neither set is a prevalence-weighted sample of hospital discharges. Passing auto
 ## How a clean case is constructed
 
 ```text
-Clinical scenario or resident-derived archetype
+clinical scenario / resident-derived archetype
         ↓
-Structured clinical profile
+structured clinical profile
         ↓
-Diagnoses, labs, vitals, hospital course, medication history
+synthetic patient encounter
         ↓
-Hidden reference discharge plan
+clinical course, labs, treatment and medication history
         ↓
-Resident-facing chart (no reference plan)
+clean resident-facing chart
         ↓
-Automated structural checks
+internal consistency / evidence-sufficiency checks
+        ↓
+hidden reference discharge plan
+        ↓
+clinician validation
+        ↓
+accepted case
+        ↓
+later resident assessment
 ```
 
 Default generation writes one clean case. It does not inject a medication error and does not write a second case.
@@ -475,7 +544,13 @@ clinical-case-generator validate-cases --case-id SYN-000001
 
 The generator does not treat product strength as the administered dose and does not assume once daily. Curated regimens live in [data/bootstrap/medication_regimens.json](data/bootstrap/medication_regimens.json). If a real medication has no curated regimen, generation fails rather than inventing a dose.
 
-## Experimental error injection
+## Historical error-injection framework
+
+> Earlier validation work used clean controls and deliberately injected medication-reconciliation discrepancies to test the error-injection framework. That design is retained for provenance and experimental tooling, but it is not the current resident-facing study workflow.
+
+### Historical clean controls
+
+The frozen batches mixed unchanged charts, called clean controls, with charts that each received one injected discrepancy. The current resident study does not depend on a clean-control versus error-bearing distinction.
 
 `--inject-error` is experimental / legacy / optional and not part of the default resident case pipeline. Do not use it to generate the resident study set.
 
@@ -594,7 +669,9 @@ Error injection is not required. The default lifecycle stops at a clean case, a 
 
 ### Structural validation
 
-Automated checks can confirm that required fields exist, that the resident file does not contain the reference plan, that serialization is valid, that identifiers resolve to source-backed rows, and that the same seed rebuilds the same development case. `tests/test_clean_set_recovery.py` checks that recovery does not modify the frozen resident export.
+Automated checks can confirm schema completeness, terminology consistency, medication timeline consistency, answer leakage, whether the clinical evidence for a reference decision is visible in the resident chart, evidence sufficiency, and resident/evaluator separation. `tests/test_clean_set_recovery.py` checks that recovery does not modify the frozen resident export.
+
+Those checks do not establish clinical correctness, whether a medicine should actually be restarted, whether an alternative should be accepted, educational appropriateness, or actual learner difficulty. Those require clinician review.
 
 ### Clinical validation
 
@@ -603,6 +680,31 @@ A clinician still has to judge whether each medicine has an appropriate indicati
 > Passing automated tests does not mean a case has passed clinician review.
 
 The recovery audit's "ready for expert review" label on 44 of the 48 recovered files means the injected chart change and the discharge-answer wording are gone, and the automated pass did not find a blocking inconsistency. It does not mean an expert has approved the case. Cycle 2 status for VAL-801–VAL-824 is separate and is not clinical approval either.
+
+## What residents see later
+
+After clinician validation, residents receive the clean resident-facing chart without the hidden discharge reference.
+
+They use the available clinical information to construct their own discharge medication plan.
+
+The hidden clinician-validated plan remains investigator-only and can later support comparison/scoring.
+
+The resident is not asked to locate a deliberately planted chart error.
+
+The study may also collect rationale, confidence, reasoning structure, and a response to later AI advice. Those collection tools are not implemented in this repository. A scoring engine is not implemented here.
+
+## Active validation artifacts
+
+| Artifact | User | Hidden reference? |
+| --- | --- | --- |
+| [Cycle 2 clinician validation casebook](exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx) | clinician validator | Yes, after the initial chart assessment |
+| Resident-facing case JSON | resident study / developer | No |
+| Evaluator case JSON | investigator / scoring | Yes |
+| [Cycle 2 audit and manifest](exports/ko_cycle2_final_validation/MANIFEST.md) | investigator | Yes |
+| [Historical balanced casebook](docs/resident_review_package/files/CliniProof_Balanced_Validation_Casebook.docx) | provenance only | Yes |
+| [Historical seed-guided casebook](docs/resident_review_package/files/CliniProof_SeedGuided_Validation_Casebook.docx) | provenance only | Yes |
+
+Historical validation design — do not use the older casebooks as the active Cycle 2 review package.
 
 ## Using the cases in a study
 
@@ -654,6 +756,8 @@ exports/ko_clean_cases_for_review_v1/ clean cases ready for clinician review
     AUDIT.md
 exports/ko_held_cases_v1/            held audit; currently records zero held cases
     KO_HELD_CASES_AUDIT.md
+exports/ko_cycle2_final_validation/   active 24-case clinician validation casebook
+    CliniProof_Cycle2_Final_Validation.docx
 ```
 
 Methods and the directory map are also in [docs/methods.md](docs/methods.md) and [docs/repository_structure.md](docs/repository_structure.md).
