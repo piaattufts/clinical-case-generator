@@ -4,12 +4,14 @@ CliniProof cases are synthetic inpatient charts built to support medication-reco
 
 > The examples on this page are educational demonstrations only. They are not part of either prospective validation set.
 
+The current resident task, described in the [project README](../../README.md), is a clean chart. The resident decides the discharge regimen. TEACH-002 is a historical demonstration of experimental error injection: an error-bearing twin of the clean teaching chart. It is not how the default generator or the recovered study set is built.
+
 ## Current case sets
 
 - [Balanced structured case set](../../data/case_sets/balanced/README.md) (CLINIPROOF_BALANCED_V4, VAL-701–VAL-724)
 - [Resident-seed-guided case set](../../data/case_sets/seed_guided/README.md) (CLINIPROOF_SEEDCASES_V3, VAL-801–VAL-824)
 
-Those two overviews are the charts under review. The heart-failure chart below is a separate teaching example, identified as TEACH-001 and TEACH-002.
+Those two overviews are the frozen historical sources. Historical validation design. Not the current resident-facing study workflow. Clinical Revision Cycle 2 review documents for VAL-801–VAL-824 are described in the [project README](../../README.md). The heart-failure chart below is a separate teaching example, identified as TEACH-001 and TEACH-002.
 
 ## 1. What a CliniProof case looks like
 
@@ -270,7 +272,7 @@ A passed check means the chart is internally consistent with the rules the softw
 
 ## 9. What the clinician reviews
 
-Clinician validation is one reading of the complete chart. The same reading produces five ratings. This review decides whether a chart is fit to use. It is separate from the later task in which a resident, who does not see the answer, says what is wrong.
+Clinician validation is one reading of the complete chart. The same reading produces five ratings. This review decides whether a chart is fit to use. The current resident task is different: the resident sees a clean chart and decides the discharge regimen. The ratings below were written for the historical teaching pair, including the error-bearing TEACH-002 chart.
 
 ### C1 — Clinical plausibility
 

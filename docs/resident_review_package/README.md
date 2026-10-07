@@ -1,6 +1,6 @@
 # CliniProof Resident and Clinician Review Package
 
-This page is the current Word-format review package for the two prospective CliniProof case sets. It is for clinicians and residents who are validating the charts before those cases are used in the planned CliniProof dashboard and study.
+Historical validation design. Not the current resident-facing study workflow. The active Cycle 2 casebook is [CliniProof_Cycle2_Final_Validation.docx](../../exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx). This page is the Word-format review package for the two frozen prospective batches, `CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`. Those casebooks include a validation reference after C1 because they were built when many charts contained one injected discrepancy. They are historical review artifacts. They are not the current resident-facing study set. The recovered clean charts are in [exports/clean_balanced_seed_set/](../../exports/clean_balanced_seed_set/AUDIT.md). Clinical Revision Cycle 2 review documents for VAL-801–VAL-824 are [the revised-case form](../../exports/ko_revised_cases_v1/KO_REVISED_CASES_REVIEW.docx) and [the clean-case form](../../exports/ko_clean_cases_for_review_v1/KO_CLEAN_CASES_REVIEW.docx). Ready for clinician review does not mean clinically validated. The [project README](../../README.md) describes that workflow.
 
 The Word files are a reading format. They are not a second source of truth.
 

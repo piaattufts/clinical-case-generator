@@ -1,0 +1,447 @@
+{
+  "case_id_code": "VAL-802",
+  "ClinicalCase": {
+    "title": "general medicine inpatient case VAL-802",
+    "case_id_code": "VAL-802",
+    "case_status": "review",
+    "generation_source": "synthetic",
+    "one_liner": "81-year-old Female with Delirium due to known physiological condition",
+    "admission_dx": "Delirium due to known physiological condition",
+    "disposition_status": "home",
+    "chief_complaint": "Confusion in the setting of Delirium due to known physiological condition",
+    "patient_name": "VAL Patient 802",
+    "patient_age": 81,
+    "patient_gender": "Female",
+    "ethnicity": null,
+    "weight_kg": "83.000",
+    "social_context": "Baseline living situation: lives at home",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "general medicine",
+    "allergies": [],
+    "medical_history": [
+      "Essential (primary) hypertension",
+      "Mixed hyperlipidemia"
+    ],
+    "source_type": "authored_scenario",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Confusion in the setting of Delirium due to known physiological condition",
+      "hpi": "An 81-year-old woman with hypertension and hyperlipidemia is admitted with two days of confusion. She had been drinking poorly. A clinic creatinine six weeks earlier was 1.2 mg/dL. Home medicines are lisinopril and atorvastatin. There is no focal weakness.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "Confusion"
+      ],
+      "symptom_duration": "two days",
+      "symptom_course": "improving after treatment"
+    },
+    "social_support": {
+      "living_situation": "Baseline living situation: lives at home",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": false,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-VAL802-001",
+      "case_id": "VAL-802",
+      "diagnosis": "Delirium due to known physiological condition",
+      "diagnosis_type": "admission",
+      "status": "active",
+      "context": "inpatient",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL802-002",
+      "case_id": "VAL-802",
+      "diagnosis": "Essential (primary) hypertension",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL802-003",
+      "case_id": "VAL-802",
+      "diagnosis": "Mixed hyperlipidemia",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-VAL802-001",
+      "case_id": "VAL-802",
+      "note_type": "admission",
+      "note_text": "Admission note. Confusion for two days with poor oral intake. Outpatient creatinine was 1.2 mg/dL six weeks earlier. Home lisinopril and atorvastatin were confirmed from a collateral list.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "note_id": "NOTE-VAL802-002",
+      "case_id": "VAL-802",
+      "note_type": "hospital_course",
+      "note_text": "Delirium was attributed to dehydration from poor oral intake. Intravenous fluids were given. Creatinine was 1.3 mg/dL on admission and 1.2 mg/dL at discharge, matching the recent baseline of 1.2 mg/dL. Potassium was 4.2 mmol/L then 4.1 mmol/L. Systolic blood pressure was 138 mmHg on admission and 124 mmHg at discharge. Confusion cleared after rehydration. Kidney function and potassium were back at the recent baseline, and the discharge systolic pressure was 124 mmHg.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-VAL802-001",
+      "case_id": "VAL-802",
+      "timepoint": "admission",
+      "temp_c": "36.80",
+      "bp_systolic": 138,
+      "bp_diastolic": 69,
+      "heart_rate": 75,
+      "resp_rate": 15,
+      "spo2_percent": "98.00",
+      "oxygen_support": null,
+      "source_reference": null
+    },
+    {
+      "vital_id": "VIT-VAL802-002",
+      "case_id": "VAL-802",
+      "timepoint": "discharge",
+      "temp_c": "36.80",
+      "bp_systolic": 124,
+      "bp_diastolic": 68,
+      "heart_rate": 74,
+      "resp_rate": 20,
+      "spo2_percent": "97.00",
+      "oxygen_support": null,
+      "source_reference": null
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-VAL802-001",
+      "case_id": "VAL-802",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.3,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL802-002",
+      "case_id": "VAL-802",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.2,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL802-K1",
+      "case_id": "VAL-802",
+      "timepoint": "admission",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 4.2,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL802-K2",
+      "case_id": "VAL-802",
+      "timepoint": "discharge",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 4.1,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "source_reference": null
+    }
+  ],
+  "CaseImaging": [],
+  "CaseConsult": [],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-VAL802-002",
+      "case_id": "VAL-802",
+      "context": "home",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "pharmacy_fill_history",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:617311",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL802-003",
+      "case_id": "VAL-802",
+      "context": "home",
+      "drug": "lisinopril 10 MG Oral Tablet",
+      "reported_name": "lisinopril 10 MG Oral Tablet",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Essential (primary) hypertension",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "pharmacy_fill_history",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:314076",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL802-004",
+      "case_id": "VAL-802",
+      "context": "inpatient",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "pharmacy_fill_history",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:617311",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL802-005",
+      "case_id": "VAL-802",
+      "context": "inpatient",
+      "drug": "lisinopril 10 MG Oral Tablet",
+      "reported_name": "lisinopril 10 MG Oral Tablet",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Essential (primary) hypertension",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "pharmacy_fill_history",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:314076",
+      "notes": null
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-VAL802-001",
+      "case_id": "VAL-802",
+      "item": "Primary care medication-list follow-up",
+      "timing": "5 days",
+      "with_service": "primary care",
+      "source_reference": null
+    }
+  ],
+  "CaseInstruction": [],
+  "CaseMonitoring": [],
+  "CaseProblemList": [
+    {
+      "problem_id": "PROB-VAL802-001",
+      "case_id": "VAL-802",
+      "problem": "Essential (primary) hypertension",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL802-002",
+      "case_id": "VAL-802",
+      "problem": "Mixed hyperlipidemia",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL802-003",
+      "case_id": "VAL-802",
+      "problem": "Delirium due to known physiological condition",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "high",
+      "status": "active",
+      "source_reference": null
+    }
+  ],
+  "CaseProcedure": [],
+  "CaseTherapyRestriction": [],
+  "CaseReturnPrecaution": [
+    {
+      "precaution_id": "RP-VAL802-001",
+      "case_id": "VAL-802",
+      "symptom": "Confusion",
+      "reason": "Worsening of the presenting symptom",
+      "action": "Seek urgent evaluation",
+      "severity": "urgent",
+      "patient_instruction": null,
+      "source_reference": null
+    }
+  ],
+  "CaseMedicationReconciliation": [
+    {
+      "medrec_id": "MR-VAL802-001",
+      "case_id": "VAL-802",
+      "bpmh_source": "pharmacy_fill_history",
+      "bpmh_interviewer": null,
+      "bpmh_date": null,
+      "medrec_status": "complete",
+      "patient_able_to_participate": false,
+      "unverified_medications_present": null,
+      "reconciliation_admission": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "reconciliation_discharge": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "discrepancy_types": [],
+      "pharmacist_review": true,
+      "high_alert_meds_identified": [],
+      "notes": "A later pharmacy fill history confirmed a continued statin. Incomplete information at admission is recorded as such.",
+      "source_reference": null
+    }
+  ],
+  "CaseWeight": [
+    {
+      "weight_id": "WT-VAL802-001",
+      "case_id": "VAL-802",
+      "timepoint": "admission",
+      "weight_kg": "83.000",
+      "dry_weight_kg": null,
+      "source_reference": null
+    }
+  ],
+  "CaseIntakeOutput": [],
+  "CaseDevice": [],
+  "CaseMicrobiology": [],
+  "reference_discharge_plan": {
+    "medications": [
+      {
+        "medication": "lisinopril 10 MG Oral Tablet",
+        "action": "continue",
+        "dose": "10 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Essential (primary) hypertension",
+        "rationale": "Creatinine returned to the documented baseline and potassium and blood pressure were acceptable.",
+        "monitoring": null,
+        "required": true
+      },
+      {
+        "medication": "atorvastatin 40 MG Oral Tablet",
+        "action": "continue",
+        "dose": "40 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Mixed hyperlipidemia",
+        "rationale": "Hyperlipidemia remains active and no statin adverse effect is described.",
+        "monitoring": null,
+        "required": true
+      }
+    ],
+    "medications_to_stop": [],
+    "acceptable_alternatives": [],
+    "contraindications": [],
+    "monitoring_requirements": [],
+    "follow_up_requirements": [
+      {
+        "item": "Primary care medication-list follow-up",
+        "timing": "5 days",
+        "with_service": "primary care"
+      }
+    ]
+  },
+  "evidence_trace": [
+    {
+      "medication": "lisinopril 10 MG Oral Tablet",
+      "action": "continue",
+      "indication": "Essential (primary) hypertension",
+      "supporting_diagnosis": "Essential (primary) hypertension",
+      "supporting_hospital_event": "Confusion cleared after rehydration.",
+      "supporting_labs": "creatinine 1.3 then 1.2 mg/dL; potassium 4.2 then 4.1 mmol/L",
+      "supporting_vitals": "systolic blood pressure 124 mmHg at discharge",
+      "supporting_medication_history": "Home lisinopril",
+      "rationale": "Creatinine returned to the documented baseline and potassium and blood pressure were acceptable.",
+      "resident_visible_evidence_location": "hospital course; labs; vitals; diagnoses",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    },
+    {
+      "medication": "atorvastatin 40 MG Oral Tablet",
+      "action": "continue",
+      "indication": "Mixed hyperlipidemia",
+      "supporting_diagnosis": "Mixed hyperlipidemia",
+      "supporting_hospital_event": "Confusion cleared after rehydration.",
+      "supporting_labs": "none required",
+      "supporting_vitals": "none",
+      "supporting_medication_history": "Home atorvastatin",
+      "rationale": "Hyperlipidemia remains active and no statin adverse effect is described.",
+      "resident_visible_evidence_location": "hospital course; labs; vitals; diagnoses",
+      "evidence_class": "SUFFICIENT_EVIDENCE"
+    }
+  ],
+  "clinician_review_status": "READY_FOR_CLINICIAN_REVIEW",
+  "revision_summary": "Delirium is attributed to poor intake and dehydration. Creatinine is interpreted against a stated baseline of 1.2 mg/dL, with potassium 4.1 mmol/L and discharge systolic pressure 124 mmHg. Lisinopril and atorvastatin stay on the reference plan. Atorvastatin was already on the recovered chart and is not re-omitted."
+}

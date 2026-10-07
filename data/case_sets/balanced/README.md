@@ -1,5 +1,7 @@
 # CliniProof Balanced Structured Case Set
 
+This directory is the frozen `CLINIPROOF_BALANCED_V4` source. Historical validation design. Not the current resident-facing study workflow. Recovered clean charts for VAL-701–VAL-724 are in [../../../exports/clean_balanced_seed_set/](../../../exports/clean_balanced_seed_set/AUDIT.md). Clinical Revision Cycle 2 did not revise this set. Historical validation artifacts are retained for provenance and reproducibility.
+
 Batch: `CLINIPROOF_BALANCED_V4`
 Cases: VAL-701–VAL-724
 Number of cases: 24

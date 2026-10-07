@@ -1,8 +1,14 @@
 # Clinical validation
 
+The current resident task is to read a clean chart and decide the discharge medication regimen. The intended regimen is a hidden reference. It is not printed in the resident chart, and the base case does not contain a deliberately planted medication error.
+
+The active Cycle 2 form is [CliniProof_Cycle2_Final_Validation.docx](../exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx). Clinical Revision Cycle 2 for VAL-801–VAL-824 uses that form. The clinician rates plausibility, decision sufficiency, reference-plan validity, acceptable alternatives, missing or misleading information, resident-level appropriateness, and an overall Accept, Revise, or Exclude. The resident chart comes first. The hidden reference follows in a separate validation section. Those Word documents are linked from the root README. They are not the C1–C5 casebooks below.
+
+The C1–C5 instrument below is the historical validation design. It was written for the frozen charts (`CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`), many of which contain one injected discrepancy. Those Word casebooks are retained for provenance. They are not the current resident-facing study set. The recovered export remains [exports/clean_balanced_seed_set/](../exports/clean_balanced_seed_set/AUDIT.md). Passing automated tests does not mean a case has passed clinician review. `READY_FOR_CLINICIAN_REVIEW` is a workflow status, not clinical approval.
+
 Clinician validation is one review of the complete case. There is no second stage and no separate plausibility-only pass. The same reading produces five ratings.
 
-This document describes clinician validation of the synthetic charts. It is not the protocol for resident study responses. Resident study responses are the later task in which a resident reviews a blinded chart and records what, if anything, is wrong with reconciliation. Clinician validation decides whether a chart is fit to be used for that task. A clinician rating is not a resident answer, and a resident answer is not a substitute for C1–C5.
+This document describes clinician validation of the synthetic charts. A clinician rating is not a resident answer, and a resident answer is not a substitute for C1–C5.
 
 Until C1–C5 review is finished, active cases are machine-checked synthetic charts that are ready for human clinician validation. They are not clinically validated.
 
