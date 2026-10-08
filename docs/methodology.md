@@ -30,10 +30,7 @@ The charts for the current review are therefore the recovered pre-injection vers
 
 Two clinicians completed the same validation casebook independently. The instrument is unchanged and is stored as [CliniProof_Clinical_Validation_Template.docx](validation/CliniProof_Clinical_Validation_Template.docx), with field definitions in [CODEBOOK.md](validation/CODEBOOK.md). The cases may be revised between rounds. The coding instrument is not revised, so later ratings remain comparable with ratings already recorded.
 
-For each case the form asks for eight C1 domain scores from 1 to 4, a C1 Pass or Fail, C2 through C4 as Pass or Fail, C5 as Easy, Moderate, Hard, or Inappropriate / outlier, and an overall recommendation of Accept, Revise, or Exclude, each with a comment. Reviewer initials and the date are separate fields. A blank field stays blank. The completed forms are preserved byte for byte:
-
-- Reviewer 1: [KO_Casebook_Validation.docx](clinical_feedback/reviewer_1/KO_Casebook_Validation.docx)
-- Reviewer 2: [CliniProof_SeedGuided_Validation_Casebook_final_alex.docx](clinical_feedback/reviewer_2/CliniProof_SeedGuided_Validation_Casebook_final_alex.docx)
+For each case the form asks for eight C1 domain scores from 1 to 4, a C1 Pass or Fail, C2 through C4 as Pass or Fail, C5 as Easy, Moderate, Hard, or Inappropriate / outlier, and an overall recommendation of Accept, Revise, or Exclude, each with a comment. Reviewer initials and the date are separate fields. A blank field stays blank. Completed review forms are private study records. The public comparison is [reviewer_comparison.md](clinical_feedback/reviewer_comparison.md) and [reviewer_comparison.csv](clinical_feedback/reviewer_comparison.csv).
 
 Both reviewers provided clinical feedback. The method does not assign them separate scientific roles.
 
@@ -43,7 +40,7 @@ Reviewer 2 left substantive case-level feedback on 4 of 24 cases: VAL-801, VAL-8
 
 ## Case-level comparison
 
-Comments were compared case by case, using the same coding structure, and stored in [reviewer_comparison.csv](clinical_feedback/reviewer_comparison.csv). The narrative form is [reviewer_comparison.md](clinical_feedback/reviewer_comparison.md). For each reviewed case the comparison preserves the original rating and the free-text comment, records agreement, records complementary comments, and records reviewer-specific concerns. It does not force a consensus where the forms disagree or where one form is silent. The normalized table does not replace the Word files.
+Comments were compared case by case, using the same coding structure, and stored in [reviewer_comparison.csv](clinical_feedback/reviewer_comparison.csv). The narrative form is [reviewer_comparison.md](clinical_feedback/reviewer_comparison.md). For each reviewed case the comparison preserves the original rating and the free-text comment, records agreement, records complementary comments, and records reviewer-specific concerns. It does not force a consensus where the forms disagree or where one form is silent. The public comparison is the de-identified table. Completed review forms remain private study records.
 
 A case is a second-revision candidate only when both reviewers left substantive feedback. That overlap is four cases: VAL-801, VAL-805, VAL-809, and VAL-813. Shared concerns on those four, at the level recorded in the comparison, are an insufficient delirium story, an incomplete heart-failure hospitalization, an endocarditis chart too thin for the reasoning it asks, and a cytomegalovirus presentation that both reviewers found clinically incoherent. Reviewer-specific comments are retained beside those shared concerns.
 
