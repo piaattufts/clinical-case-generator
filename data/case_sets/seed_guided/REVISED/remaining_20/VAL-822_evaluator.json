@@ -1,0 +1,561 @@
+{
+  "case_id_code": "VAL-822",
+  "ClinicalCase": {
+    "title": "general medicine inpatient case VAL-822",
+    "case_id_code": "VAL-822",
+    "case_status": "review",
+    "generation_source": "synthetic",
+    "one_liner": "Gastrointestinal bleeding that has stopped, with a stated anticoagulation plan",
+    "admission_dx": "Gastrointestinal bleeding",
+    "disposition_status": "home",
+    "chief_complaint": "Black stools and fatigue",
+    "patient_name": "VAL Patient 822",
+    "patient_age": 79,
+    "patient_gender": "Female",
+    "ethnicity": null,
+    "weight_kg": "100.000",
+    "social_context": "Baseline living situation: lives at home",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "general medicine",
+    "allergies": [],
+    "medical_history": [
+      "Mixed hyperlipidemia",
+      "Essential (primary) hypertension",
+      "Type 2 diabetes mellitus without complications"
+    ],
+    "source_type": "authored_scenario",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Black stools and fatigue",
+      "hpi": "A 79-year-old woman is admitted with one day of melena and fatigue. She takes no anticoagulant. Hemoglobin is 8.5 g/dL then 10.7 g/dL, and melena stops. She is not in shock. Pantoprazole 40 mg orally once daily was started in the hospital. Gastroenterology says to continue it for four weeks, not to stop it on the day of discharge. Creatinine is 1.0 mg/dL. Lisinopril, atorvastatin, and metformin continue. Outpatient endoscopy is planned. No sepsis is present.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "Fatigue",
+        "Nausea"
+      ],
+      "symptom_duration": "one day",
+      "symptom_course": "improving after treatment"
+    },
+    "social_support": {
+      "living_situation": "Baseline living situation: lives at home",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": false,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-VAL822-001",
+      "case_id": "VAL-822",
+      "diagnosis": "Gastrointestinal hemorrhage, unspecified",
+      "diagnosis_type": "admission",
+      "status": "active",
+      "context": "inpatient",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL822-002",
+      "case_id": "VAL-822",
+      "diagnosis": "Mixed hyperlipidemia",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL822-003",
+      "case_id": "VAL-822",
+      "diagnosis": "Essential (primary) hypertension",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL822-004",
+      "case_id": "VAL-822",
+      "diagnosis": "Type 2 diabetes mellitus without complications",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-VAL822-001",
+      "case_id": "VAL-822",
+      "note_type": "admission",
+      "note_text": "Melena. Hemoglobin 8.5 g/dL. Pantoprazole started. Not in shock.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "note_id": "NOTE-VAL822-002",
+      "case_id": "VAL-822",
+      "note_type": "hospital_course",
+      "note_text": "Melena stopped. Pantoprazole continues for four weeks.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-VAL822-001",
+      "case_id": "VAL-822",
+      "timepoint": "admission",
+      "temp_c": "36.80",
+      "bp_systolic": 144,
+      "bp_diastolic": 71,
+      "heart_rate": 83,
+      "resp_rate": 20,
+      "spo2_percent": "96.00",
+      "oxygen_support": null,
+      "source_reference": null
+    },
+    {
+      "vital_id": "VIT-VAL822-002",
+      "case_id": "VAL-822",
+      "timepoint": "discharge",
+      "temp_c": "36.80",
+      "bp_systolic": 128,
+      "bp_diastolic": 78,
+      "heart_rate": 73,
+      "resp_rate": 15,
+      "spo2_percent": "95.00",
+      "oxygen_support": null,
+      "source_reference": null
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-VAL822-001",
+      "case_id": "VAL-822",
+      "timepoint": "admission",
+      "test_name": "Fasting glucose [Mass/volume] in Serum or Plasma",
+      "value": 153.0,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL822-002",
+      "case_id": "VAL-822",
+      "timepoint": "discharge",
+      "test_name": "Fasting glucose [Mass/volume] in Serum or Plasma",
+      "value": 126.0,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL822-003",
+      "case_id": "VAL-822",
+      "timepoint": "admission",
+      "test_name": "Hemoglobin [Mass/volume] in Blood by Oximetry",
+      "value": 8.5,
+      "value_text": null,
+      "unit": "g/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL822-004",
+      "case_id": "VAL-822",
+      "timepoint": "discharge",
+      "test_name": "Hemoglobin [Mass/volume] in Blood by Oximetry",
+      "value": 10.7,
+      "value_text": null,
+      "unit": "g/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL822-005",
+      "case_id": "VAL-822",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.0,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    }
+  ],
+  "CaseImaging": [],
+  "CaseConsult": [
+    {
+      "consult_id": "CON-VAL822-001",
+      "case_id": "VAL-822",
+      "service": "gastroenterology",
+      "timepoint": "inpatient",
+      "assessment": "Melena has stopped and the patient is hemodynamically stable. Endoscopy is not done during this stay.",
+      "recommendation": "Continue pantoprazole 40 mg daily for four weeks. Do not stop it at discharge.",
+      "source_reference": null
+    }
+  ],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-VAL822-005",
+      "case_id": "VAL-822",
+      "context": "home",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:617311",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL822-006",
+      "case_id": "VAL-822",
+      "context": "home",
+      "drug": "lisinopril 10 MG Oral Tablet",
+      "reported_name": "lisinopril 10 MG Oral Tablet",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Essential (primary) hypertension",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:314076",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL822-007",
+      "case_id": "VAL-822",
+      "context": "home",
+      "drug": "metformin hydrochloride 500 MG Oral Tablet",
+      "reported_name": "metformin hydrochloride 500 MG Oral Tablet",
+      "dose": "500 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "Type 2 diabetes mellitus without complications",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:861007",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL822-008",
+      "case_id": "VAL-822",
+      "context": "inpatient",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:617311",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL822-009",
+      "case_id": "VAL-822",
+      "context": "inpatient",
+      "drug": "lisinopril 10 MG Oral Tablet",
+      "reported_name": "lisinopril 10 MG Oral Tablet",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Essential (primary) hypertension",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:314076",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL822-010",
+      "case_id": "VAL-822",
+      "context": "inpatient",
+      "drug": "metformin hydrochloride 500 MG Oral Tablet",
+      "reported_name": "metformin hydrochloride 500 MG Oral Tablet",
+      "dose": "500 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "Type 2 diabetes mellitus without complications",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:861007",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL822-011",
+      "case_id": "VAL-822",
+      "context": "inpatient",
+      "drug": "pantoprazole 40 MG Delayed Release Oral Tablet",
+      "reported_name": "pantoprazole 40 MG Delayed Release Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Gastrointestinal hemorrhage, unspecified",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:314200",
+      "notes": "Continue for four weeks, including after discharge."
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-VAL822-001",
+      "case_id": "VAL-822",
+      "item": "Primary care follow-up after gastrointestinal bleed",
+      "timing": "5 days",
+      "with_service": "primary care",
+      "source_reference": null
+    }
+  ],
+  "CaseInstruction": [],
+  "CaseMonitoring": [],
+  "CaseProblemList": [
+    {
+      "problem_id": "PROB-VAL822-001",
+      "case_id": "VAL-822",
+      "problem": "Mixed hyperlipidemia",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL822-002",
+      "case_id": "VAL-822",
+      "problem": "Essential (primary) hypertension",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL822-003",
+      "case_id": "VAL-822",
+      "problem": "Type 2 diabetes mellitus without complications",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL822-004",
+      "case_id": "VAL-822",
+      "problem": "Gastrointestinal hemorrhage, unspecified",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "high",
+      "status": "active",
+      "source_reference": null
+    }
+  ],
+  "CaseProcedure": [],
+  "CaseTherapyRestriction": [],
+  "CaseReturnPrecaution": [
+    {
+      "precaution_id": "RP-VAL822-001",
+      "case_id": "VAL-822",
+      "symptom": "Fatigue",
+      "reason": "Worsening of the presenting symptom",
+      "action": "Seek urgent evaluation",
+      "severity": "urgent",
+      "patient_instruction": null,
+      "source_reference": null
+    }
+  ],
+  "CaseMedicationReconciliation": [
+    {
+      "medrec_id": "MR-VAL822-001",
+      "case_id": "VAL-822",
+      "bpmh_source": "patient_and_prior_records",
+      "bpmh_interviewer": null,
+      "bpmh_date": null,
+      "medrec_status": "complete",
+      "patient_able_to_participate": true,
+      "unverified_medications_present": null,
+      "reconciliation_admission": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "reconciliation_discharge": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "discrepancy_types": [],
+      "pharmacist_review": true,
+      "high_alert_meds_identified": [],
+      "notes": null,
+      "source_reference": null
+    }
+  ],
+  "CaseWeight": [
+    {
+      "weight_id": "WT-VAL822-001",
+      "case_id": "VAL-822",
+      "timepoint": "admission",
+      "weight_kg": "100.000",
+      "dry_weight_kg": null,
+      "source_reference": null
+    }
+  ],
+  "CaseIntakeOutput": [],
+  "CaseDevice": [],
+  "CaseMicrobiology": [],
+  "reference_discharge_plan": {
+    "medications": [
+      {
+        "medication": "pantoprazole 40 MG Delayed Release Oral Tablet",
+        "action": "continue",
+        "dose": "40 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Recent gastrointestinal bleeding",
+        "rationale": "Continue for four weeks, then stop. Indefinite use is not the plan.",
+        "monitoring": null
+      },
+      {
+        "medication": "lisinopril 10 MG Oral Tablet",
+        "action": "continue",
+        "dose": "10 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Hypertension",
+        "rationale": "Blood pressure is stable.",
+        "monitoring": null
+      },
+      {
+        "medication": "atorvastatin 40 MG Oral Tablet",
+        "action": "continue",
+        "dose": "40 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Hyperlipidemia",
+        "rationale": "Continued.",
+        "monitoring": null
+      },
+      {
+        "medication": "metformin hydrochloride 500 MG Oral Tablet",
+        "action": "continue",
+        "dose": "500 MG",
+        "route": "oral",
+        "frequency": "twice daily",
+        "duration": null,
+        "indication": "Type 2 diabetes mellitus",
+        "rationale": "Creatinine is 1.0 mg/dL and glucose has fallen.",
+        "monitoring": null
+      }
+    ],
+    "monitoring_requirements": [],
+    "follow_up_requirements": [
+      {
+        "item": "Primary care and outpatient endoscopy after the bleed",
+        "timing": "5 days",
+        "with_service": "primary care"
+      }
+    ]
+  },
+  "revision_provenance": {
+    "status": "FRAMEWORK-REVISED AND READY FOR CLINICIAN REVIEW",
+    "clinically_validated": false,
+    "framework": "docs/revision/revision_framework.md",
+    "baseline": "data/case_sets/seed_guided/CLEAN_BASE/VAL-822_resident.json",
+    "statement": "Framework-guided investigator revision; no case-specific clinician feedback.",
+    "reviewer_1_comment": null,
+    "synthetic_facts": [
+      {
+        "fact": "Melena, a creatinine of 1.0 mg/dL, and a four-week pantoprazole course.",
+        "why": "The clean reference stopped the only new bleed medicine on the day of discharge.",
+        "evidence": "A proton-pump inhibitor is usual after gastrointestinal bleeding while outpatient evaluation is pending. The project's pantoprazole regimen is 40 mg orally once daily."
+      }
+    ]
+  }
+}

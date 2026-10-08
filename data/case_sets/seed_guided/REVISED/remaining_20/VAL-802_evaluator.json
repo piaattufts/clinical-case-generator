@@ -1,0 +1,506 @@
+{
+  "case_id_code": "VAL-802",
+  "ClinicalCase": {
+    "title": "general medicine inpatient case VAL-802",
+    "case_id_code": "VAL-802",
+    "case_status": "review",
+    "generation_source": "synthetic",
+    "one_liner": "81-year-old woman with acute delirium from a urinary infection, now back to baseline",
+    "admission_dx": "Acute delirium, a change from baseline",
+    "disposition_status": "home",
+    "chief_complaint": "New confusion, worse than baseline",
+    "patient_name": "VAL Patient 802",
+    "patient_age": 81,
+    "patient_gender": "Female",
+    "ethnicity": null,
+    "weight_kg": "83.000",
+    "social_context": "Baseline living situation: lives at home",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "general medicine",
+    "allergies": [],
+    "medical_history": [
+      "Mild major neurocognitive disorder",
+      "Essential (primary) hypertension",
+      "Mixed hyperlipidemia"
+    ],
+    "source_type": "authored_scenario",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "New confusion, worse than baseline",
+      "hpi": "An 81-year-old woman with mild major neurocognitive disorder is admitted for two days of confusion that her caregiver says is worse than baseline. At baseline she recognizes family. Temperature is 37.9 C. Urinalysis shows leukocyte esterase, and the urine culture grows Escherichia coli. She finishes five days of nitrofurantoin 100 mg orally twice daily before discharge. Outpatient creatinine is 1.1 mg/dL, admission creatinine is 1.3 mg/dL, and discharge creatinine is 1.2 mg/dL. That small change is not treated as acute kidney injury. A pharmacy list confirms lisinopril 10 mg daily and atorvastatin 40 mg daily. Neither is stopped. There is no statin adverse effect on the chart. Confusion is back to the caregiver's baseline at discharge, and she is afebrile.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "Confusion"
+      ],
+      "symptom_duration": "two days",
+      "symptom_course": "improving after treatment"
+    },
+    "social_support": {
+      "living_situation": "Baseline living situation: lives at home",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": false,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-VAL802-001",
+      "case_id": "VAL-802",
+      "diagnosis": "Acute delirium, a change from the caregiver-reported baseline",
+      "diagnosis_type": "admission",
+      "status": "active",
+      "context": "inpatient",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL802-002",
+      "case_id": "VAL-802",
+      "diagnosis": "Essential (primary) hypertension",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL802-003",
+      "case_id": "VAL-802",
+      "diagnosis": "Mixed hyperlipidemia",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL802-005",
+      "case_id": "VAL-802",
+      "diagnosis": "Mild major neurocognitive disorder",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "baseline",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-VAL802-001",
+      "case_id": "VAL-802",
+      "note_type": "admission",
+      "note_text": "Acute confusion above the caregiver's baseline. Temperature 37.9 C. Creatinine 1.3 mg/dL against an outpatient value of 1.1 mg/dL. Lisinopril and atorvastatin are continued.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "note_id": "NOTE-VAL802-002",
+      "case_id": "VAL-802",
+      "note_type": "hospital_course",
+      "note_text": "Escherichia coli urinary infection. Nitrofurantoin 100 mg twice daily for five days was completed in the hospital and is not continued. The verified statin and lisinopril stay active. Creatinine at discharge is 1.2 mg/dL.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-VAL802-001",
+      "case_id": "VAL-802",
+      "timepoint": "admission",
+      "temp_c": "37.90",
+      "bp_systolic": 138,
+      "bp_diastolic": 69,
+      "heart_rate": 75,
+      "resp_rate": 15,
+      "spo2_percent": "98.00",
+      "oxygen_support": null,
+      "source_reference": null
+    },
+    {
+      "vital_id": "VIT-VAL802-002",
+      "case_id": "VAL-802",
+      "timepoint": "discharge",
+      "temp_c": "36.80",
+      "bp_systolic": 124,
+      "bp_diastolic": 68,
+      "heart_rate": 74,
+      "resp_rate": 20,
+      "spo2_percent": "97.00",
+      "oxygen_support": null,
+      "source_reference": null
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-VAL802-001",
+      "case_id": "VAL-802",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.3,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL802-002",
+      "case_id": "VAL-802",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.2,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL802-003",
+      "case_id": "VAL-802",
+      "timepoint": "outpatient_baseline",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.1,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL802-004",
+      "case_id": "VAL-802",
+      "timepoint": "admission",
+      "test_name": "Urinalysis",
+      "value": null,
+      "value_text": "Leukocyte esterase positive.",
+      "unit": null,
+      "status": "final",
+      "source_reference": null
+    }
+  ],
+  "CaseImaging": [],
+  "CaseConsult": [
+    {
+      "consult_id": "CON-VAL802-001",
+      "case_id": "VAL-802",
+      "service": "geriatrics",
+      "timepoint": "inpatient",
+      "assessment": "Acute delirium has returned to the caregiver-reported baseline.",
+      "recommendation": "Continue the verified lisinopril and atorvastatin. Do not prescribe nitrofurantoin after discharge.",
+      "source_reference": null
+    }
+  ],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-VAL802-002",
+      "case_id": "VAL-802",
+      "context": "home",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "pharmacy_fill_history",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:617311",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL802-003",
+      "case_id": "VAL-802",
+      "context": "home",
+      "drug": "lisinopril 10 MG Oral Tablet",
+      "reported_name": "lisinopril 10 MG Oral Tablet",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Essential (primary) hypertension",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "pharmacy_fill_history",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:314076",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL802-004",
+      "case_id": "VAL-802",
+      "context": "inpatient",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "pharmacy_fill_history",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:617311",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL802-005",
+      "case_id": "VAL-802",
+      "context": "inpatient",
+      "drug": "lisinopril 10 MG Oral Tablet",
+      "reported_name": "lisinopril 10 MG Oral Tablet",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Essential (primary) hypertension",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "pharmacy_fill_history",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:314076",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL802-005",
+      "case_id": "VAL-802",
+      "context": "inpatient",
+      "drug": "nitrofurantoin 100 MG Oral Capsule",
+      "reported_name": "nitrofurantoin 100 MG Oral Capsule",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "Urinary tract infection",
+      "status": "discontinued",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "pharmacy_fill_history",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:617311",
+      "notes": "Five days completed before discharge. Not a discharge medicine."
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-VAL802-001",
+      "case_id": "VAL-802",
+      "item": "Primary care medication-list follow-up",
+      "timing": "5 days",
+      "with_service": "primary care",
+      "source_reference": null
+    }
+  ],
+  "CaseInstruction": [],
+  "CaseMonitoring": [],
+  "CaseProblemList": [
+    {
+      "problem_id": "PROB-VAL802-001",
+      "case_id": "VAL-802",
+      "problem": "Essential (primary) hypertension",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL802-002",
+      "case_id": "VAL-802",
+      "problem": "Mixed hyperlipidemia",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL802-003",
+      "case_id": "VAL-802",
+      "problem": "Delirium due to known physiological condition",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "high",
+      "status": "active",
+      "source_reference": null
+    }
+  ],
+  "CaseProcedure": [],
+  "CaseTherapyRestriction": [],
+  "CaseReturnPrecaution": [
+    {
+      "precaution_id": "RP-VAL802-001",
+      "case_id": "VAL-802",
+      "symptom": "Confusion",
+      "reason": "Worsening of the presenting symptom",
+      "action": "Seek urgent evaluation",
+      "severity": "urgent",
+      "patient_instruction": null,
+      "source_reference": null
+    }
+  ],
+  "CaseMedicationReconciliation": [
+    {
+      "medrec_id": "MR-VAL802-001",
+      "case_id": "VAL-802",
+      "bpmh_source": "pharmacy_fill_history",
+      "bpmh_interviewer": null,
+      "bpmh_date": null,
+      "medrec_status": "complete",
+      "patient_able_to_participate": false,
+      "unverified_medications_present": null,
+      "reconciliation_admission": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "reconciliation_discharge": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "discrepancy_types": [],
+      "pharmacist_review": true,
+      "high_alert_meds_identified": [],
+      "notes": "A later pharmacy fill history confirmed a continued statin. Incomplete information at admission is recorded as such.",
+      "source_reference": null
+    }
+  ],
+  "CaseWeight": [
+    {
+      "weight_id": "WT-VAL802-001",
+      "case_id": "VAL-802",
+      "timepoint": "admission",
+      "weight_kg": "83.000",
+      "dry_weight_kg": null,
+      "source_reference": null
+    }
+  ],
+  "CaseIntakeOutput": [],
+  "CaseDevice": [],
+  "CaseMicrobiology": [
+    {
+      "micro_id": "MICRO-VAL802-001",
+      "case_id": "VAL-802",
+      "timepoint": "admission",
+      "specimen": "urine",
+      "test": "urine culture",
+      "organism": "Escherichia coli",
+      "result": "growth",
+      "quantity": null,
+      "status": "final",
+      "notes": "Treated with a completed five-day nitrofurantoin course.",
+      "source_reference": null
+    }
+  ],
+  "reference_discharge_plan": {
+    "medications": [
+      {
+        "medication": "lisinopril 10 MG Oral Tablet",
+        "action": "continue",
+        "dose": "10 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Hypertension",
+        "rationale": "Verified on the pharmacy list. Creatinine 1.2 mg/dL is close to the 1.1 mg/dL baseline. The geriatrics note says to continue it.",
+        "monitoring": null
+      },
+      {
+        "medication": "atorvastatin 40 MG Oral Tablet",
+        "action": "continue",
+        "dose": "40 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Hyperlipidemia",
+        "rationale": "The collateral pharmacy list confirms it. No adverse effect is described. The note says it was not stopped.",
+        "monitoring": null
+      },
+      {
+        "medication": "nitrofurantoin 100 MG Oral Capsule",
+        "action": "stop",
+        "dose": "100 MG",
+        "route": "oral",
+        "frequency": "twice daily",
+        "duration": null,
+        "indication": "Urinary tract infection",
+        "rationale": "Five days were completed before discharge.",
+        "monitoring": null
+      }
+    ],
+    "monitoring_requirements": [],
+    "follow_up_requirements": [
+      {
+        "item": "Primary care medication-list follow-up",
+        "timing": "5 days",
+        "with_service": "primary care"
+      }
+    ]
+  },
+  "revision_provenance": {
+    "status": "FRAMEWORK-REVISED AND READY FOR CLINICIAN REVIEW",
+    "clinically_validated": false,
+    "framework": "docs/revision/revision_framework.md",
+    "baseline": "data/case_sets/seed_guided/CLEAN_BASE/VAL-802_resident.json",
+    "statement": "Framework-guided investigator revision, plus Reviewer 1 case-specific comments recorded separately.",
+    "reviewer_1_comment": "Reviewer 1 said the delirium label was not coherent, the cause was missing, little happened in the hospital, baseline creatinine was missing, and the statin seemed not to be continued. The clean chart had no seven-day statin stop. The revision makes continuation explicit rather than adding a stop.",
+    "synthetic_facts": [
+      {
+        "fact": "Caregiver-reported cognitive baseline and a temperature of 37.9 C.",
+        "why": "Delirium was not shown as a change from baseline.",
+        "evidence": "DSM-5-TR defines delirium as a change from baseline."
+      },
+      {
+        "fact": "Pyuria, Escherichia coli, and nitrofurantoin 100 mg orally twice daily for five completed days.",
+        "why": "No precipitant or hospital treatment was visible.",
+        "evidence": "Gupta K et al. Clin Infect Dis. 2011;52:e103-e120. IDSA lists nitrofurantoin 100 mg twice daily for five days for uncomplicated cystitis. Estimated creatinine clearance from the chart's age, weight, and creatinine is above 30 mL/min."
+      },
+      {
+        "fact": "Outpatient creatinine 1.1 mg/dL.",
+        "why": "Reviewer 1 said the baseline creatinine was missing.",
+        "evidence": "The admission and discharge values were already on the clean chart."
+      }
+    ]
+  }
+}

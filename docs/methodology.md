@@ -77,7 +77,7 @@ next clinician review
 
 ## What the next round will do
 
-The four overlapping cases have been revised from the clean base. The revised charts are in [data/case_sets/seed_guided/REVISED/overlap_4/](../data/case_sets/seed_guided/REVISED/overlap_4/), with the change log in [overlap_4_revision_log.md](revision/overlap_4_revision_log.md). The next review uses the same codebook, filled out for these four charts in [CliniProof_Revised_Overlap4_Codebook.docx](validation/CliniProof_Revised_Overlap4_Codebook.docx). The cases are ready for that review. They are not clinically validated. No case in this series should be described as clinically validated until a clinician has accepted it on this instrument.
+The four overlapping cases have been revised from the clean base. The revised charts are in [data/case_sets/seed_guided/REVISED/overlap_4/](../data/case_sets/seed_guided/REVISED/overlap_4/), with the change log in [overlap_4_revision_log.md](revision/overlap_4_revision_log.md). The defects found in that revision were frozen in [revision_framework.md](revision/revision_framework.md) and applied to the other twenty clean charts in [data/case_sets/seed_guided/REVISED/remaining_20/](../data/case_sets/seed_guided/REVISED/remaining_20/). That application is investigator quality control. It is not additional clinician review. The next review uses the same codebook, in [CliniProof_Revised_Overlap4_Codebook.docx](validation/CliniProof_Revised_Overlap4_Codebook.docx) and [CliniProof_Revised_Remaining20_Codebook.docx](validation/CliniProof_Revised_Remaining20_Codebook.docx). None of these cases is clinically validated.
 
 ## After clinical acceptance
 
