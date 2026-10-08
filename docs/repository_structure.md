@@ -17,7 +17,8 @@ exports/ko_cycle2_revised_validation/ earlier Round 1 extract and response matri
 exports/ko_cycle2_revised_validation_v2/ superseded Set 1 revision attempt
 exports/ko_cycle2_revised_validation_v3/ previous canonical Set 1 revision, superseded by version 4
 exports/ko_cycle2_clean_validation/ earlier Set 2 package, superseded by version 4
-exports/ko_round2_combined_validation_v4/ current Round 2 version 4 cases, audits, and clinician codebooks
+exports/ko_round2_combined_validation_v4/ current Round 2 v4 package: codebooks, method, revision, audit, cases
+docs/combined_clinician_revision_method.md  manuscript-ready version 4 methodology
 exports/ko_cycle2_final_validation/ combined convenience copy, not the preferred clinician workflow
 tests/test_ko_review_sets.py      Cycle 2 package checks
 data/case_sets/balanced/          frozen CLINIPROOF_BALANCED_V4 source, not the resident handout

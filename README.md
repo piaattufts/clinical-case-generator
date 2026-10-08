@@ -1,241 +1,177 @@
 # CliniProof
 
-CliniProof is a research framework for creating and validating synthetic inpatient clinical cases for studying discharge-medication decision-making and clinical reasoning. Each case represents a synthetic hospitalization and includes the information that a clinician or resident would ordinarily use when planning discharge, such as the presenting problem, relevant medical history, hospital course, laboratory and vital-sign trends, home medications, medications used during hospitalization, and follow-up context. The cases are not extracts from a medical record. Medication, diagnosis, and laboratory names are tied to standard terminologies, while ages, vital signs, and laboratory numbers are synthetic.
+CliniProof is a research framework for creating and validating synthetic inpatient cases used to study discharge-medication decision-making and clinical reasoning. Each case is a synthetic hospitalization. It includes the information a clinician would ordinarily use when planning discharge: the presenting problem, relevant history, hospital course, laboratory and vital-sign trends, medicines taken at home, medicines used in the hospital, and follow-up context. The cases are not extracts from a medical record. Medication, diagnosis, and laboratory names are tied to standard terminologies. Ages, vital signs, and laboratory numbers are synthetic.
 
-The long-term study task is for an internal-medicine resident to review one of these cases and independently determine an appropriate discharge medication plan. The resident is not shown a correct discharge medication list. Instead, the research team maintains a separate reference discharge plan, which is the investigator-facing proposal for what should happen to each medicine at discharge, together with the rationale for those actions. That reference plan is hidden from the resident and must be reviewed by clinicians before it can be used for later comparison or scoring. A finished scoring program is not part of this repository.
+The intended resident task is to read one clean chart and independently determine a discharge medication plan. The resident may later be asked for a written rationale or a confidence rating. That response would then be compared with a hidden reference plan maintained by the research team. The reference is the investigator-facing proposal for what should happen to each medicine at discharge, together with the rationale for those actions. It is not shown to the resident. It has to be reviewed by clinicians before it can be used for comparison or scoring. A finished scoring program is not part of this repository.
 
-The project has now gone through two rounds of clinician validation. Round 1 was the earlier design: many cases were deliberately changed so that they contained one medication-reconciliation problem, and clinicians were asked whether that problem was present and detectable. Feedback from that round showed that this was not the correct representation of the intended resident task. Round 2, which the repository also calls Clinical Revision Cycle 2, returns to the preserved clean versions of those same study slots. A clean case is a synthetic hospitalization with no deliberately inserted medication problem and with no reference discharge plan printed in the chart the resident would see. Clinicians are now asked to judge both that clinical story and the hidden reference plan.
+```text
+clean clinical case
+        ↓
+resident independently determines a discharge medication plan
+        ↓
+resident may provide reasoning and confidence
+        ↓
+response is later compared with a clinician-reviewed hidden reference
+```
 
-## Overview
+The resident is not shown a completed discharge medication list, and the resident is not asked to find a planted error. Passing the repository's automated checks does not mean a case is clinically validated. Passing automated validation does not establish clinical validity. A case that is prepared for clinician review has passed the internal task and sufficiency gates and is ready to be read. That internal status is sometimes stored as `READY_FOR_CLINICIAN_REVIEW` or `READY_WITH_DECLARED_UNCERTAINTY`. Neither code means a clinician has accepted the case.
 
-A person joining the project can treat the two rounds as two successive questions about the same set of study slots, VAL-801 through VAL-824. Round 1 asked whether a predefined problem had been built into a chart in a way a resident could find. Round 2 asks whether a clean chart gives a resident enough coherent evidence to decide the discharge regimen, and whether the study's own proposed answer is clinically defensible.
+## Current Round 2 v4 status
 
-The project is currently in its second round of clinician validation. Round 2 contains 24 study slots. Version 4 is the current clinician-review package. It requires both task validity, from Katie's review of the assessment construct, and clinical sufficiency, from Alex's C1 review of four clean-control cases and from the same sufficiency rubric applied to the other cases. Cases that pass those internal gates are prepared for clinician review. They are not clinically validated. Round 1 is preserved because it used the same underlying study slots and generated the clinician feedback that led to the current design. Keeping both rounds makes it possible to understand how the study evolved and to reproduce the earlier validation process.
+Round 2 is the current study. It contains 24 study slots, VAL-801 through VAL-824. The current revision is version 4, in `exports/ko_round2_combined_validation_v4/`. It was built from two complementary kinds of clinician feedback.
 
-Passing automated validation does not establish clinical validity. A case that is ready for clinician review has passed the repository's internal checks and is ready to be read by a clinician. That internal status is sometimes stored as `READY_FOR_CLINICIAN_REVIEW`. It does not mean a clinician has accepted the case.
+Task validity comes primarily from Katie's review. The question is whether the case matches the resident task and avoids revealing the discharge answer. Clinical sufficiency comes primarily from Alex's review. The question is whether the hospitalization contains enough clinically relevant detail to support meaningful reasoning. A case can satisfy one of those questions and still fail the other, so version 4 required both.
 
-## Current study: Round 2
+All 24 cases are prepared for clinician review under the version 4 protocol. Clinician adjudication is still pending. None of the cases has been clinically validated.
 
-### Current Round 2 status
+Three cases passed with no declared gap in the reference plan: VAL-808, VAL-816, and VAL-817. Their internal status is `READY_FOR_CLINICIAN_REVIEW`.
 
-**Version 4.** 24 study slots passed the internal task-validity and clinical-sufficiency gates. Three cases are ready for clinician review without a declared gap: VAL-808, VAL-816, and VAL-817. Twenty-one cases are ready with a declared uncertainty, which is written on the reference as an acceptable alternative or as an absent fact that was not invented. None are clinically validated. No case is held.
+Twenty-one cases also passed every blocking internal check and are suitable for clinician adjudication, but one or more medication decisions remain clinically ambiguous or have more than one defensible answer. Their internal status is `READY_WITH_DECLARED_UNCERTAINTY`. That status does not mean the case failed. It means the uncertainty is written down, usually as an acceptable alternative or as a fact that was deliberately left uninvented, so a reviewer can judge it. Those cases are VAL-801, VAL-802, VAL-803, VAL-804, VAL-805, VAL-806, VAL-807, VAL-809, VAL-810, VAL-811, VAL-812, VAL-813, VAL-814, VAL-815, VAL-818, VAL-819, VAL-820, VAL-821, VAL-822, VAL-823, and VAL-824.
 
-**Previous package.** Set 1 version 3 remains in the repository as the previous canonical revision, superseded by Round 2 version 4.
+No case is held for revision, and no case was excluded from the current set.
 
-**Round 1.** Historical only. Not the current validation workflow.
+## Current Round 2 v4 clinician review
 
-### Current Round 2 v4 clinician review
+Clinicians should use the two version 4 codebooks below. Each file is a fillable Word document. The resident-facing chart comes first. Historical comments and the revision record come after the blank form, so they do not anchor the new reading.
 
-**Set 1 — revised feedback cases (6 cases)**
+### Set 1 — cases revised from direct clinician feedback
 
-[Download the Round 2 v4 Set 1 clinician codebook](exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Set1_Clinician_Validation.docx)
+[Download Set 1 clinician codebook](exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Set1_Clinician_Validation.docx)
 
-**Set 2 — remaining cases (18 cases; 0 held)**
+Set 1 contains VAL-801, VAL-802, VAL-803, VAL-805, VAL-809, and VAL-813. These six cases received substantive earlier clinician feedback. Version 4 reassessed each of them against both task validity and clinical sufficiency. Where Alex completed a case, his C1 comments are reproduced after the blank form and are labeled as his. Katie's Round 1 comments, from the KO review, are reproduced in the same position and are labeled separately.
 
-[Download the Round 2 v4 Set 2 clinician codebook](exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Set2_Clinician_Validation.docx)
+### Set 2 — remaining Round 2 cases
 
-[Combined reviewer-feedback methodology](docs/combined_clinician_revision_method.md)
+[Download Set 2 clinician codebook](exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Set2_Clinician_Validation.docx)
 
-[Reviewer comparison matrix](exports/ko_round2_combined_validation_v4/method/REVIEWER_COMPARISON_MATRIX.md)
+Set 2 contains VAL-804, VAL-806, VAL-807, VAL-808, VAL-810, VAL-811, VAL-812, VAL-814, VAL-815, VAL-816, VAL-817, VAL-818, VAL-819, VAL-820, VAL-821, VAL-822, VAL-823, and VAL-824. These eighteen cases were evaluated with the same task-validity rules and the same clinical-sufficiency rubric. Alex did not write case-specific comments for them, and the codebook does not attribute any comment to him. The rubric was an investigator application of the sufficiency questions raised by his review of the four clean controls.
 
-[Revision evidence ledger](exports/ko_round2_combined_validation_v4/revision/REVISION_EVIDENCE_LEDGER.md)
+### Investigator convenience copy
 
-[Final readiness audit](exports/ko_round2_combined_validation_v4/audit/FINAL_READINESS_MATRIX.csv)
+[Download combined investigator copy](exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Combined_Investigator_Copy.docx)
 
-Katie's review identified a task problem: the resident must construct the discharge plan rather than detect a planted error. Alex's review identified a clinical-sufficiency problem: a clean chart can still be too sparse for meaningful reasoning. Version 4 therefore requires both. Reviewer comments were turned into a clinical or rubric interpretation, a revision, an old-versus-new comparison, a clinical reason, and an evidence or provenance label. Synthetic additions are labeled. Passing this internal audit means the case is prepared for clinician review. It does not mean the case is clinically validated.
-
-Round 2 is the current study design and includes 24 cases, VAL-801 through VAL-824. These cases are clean clinical cases: no deliberate medication error has been inserted into the chart, and no correct discharge-medication list is shown to the resident. The clinical chart contains the evidence needed to make a discharge decision, while the proposed reference plan is stored separately for clinician review and later scoring. None of these 24 cases should be described as clinically validated until a clinician has accepted it.
-
-The purpose of the current clinician review is therefore broader than checking whether a planted error can be detected. The reviewer is being asked to determine whether the clinical story is plausible, whether the chart contains enough information for a resident to make a reasonable discharge decision, whether the proposed reference medication plan is clinically defensible, and whether alternative discharge decisions should also be considered correct. The same questions apply to every case in the round. The separation between the revised Set 1 cases and the recovered Set 2 cases, described below, records how each file was prepared. The resident task is the same once a case is accepted.
-
-### What the resident will eventually do
-
-After clinicians accept a case, a resident would receive only the resident-facing chart. That chart is the clinical evidence: presentation, hospital course, laboratory and vital-sign trends, medicines taken at home, medicines used in the hospital, monitoring, and follow-up. The resident uses that information to construct a discharge medication plan. The resident is not asked to search the chart for a deliberately planted error.
-
-The study may later collect a written rationale, a confidence rating, or a response to computer-generated advice. Those collection tools are not implemented in this repository. Any future incorrect recommendation from a model would be a separate experiment, added after the resident's first decision. It would not be written into the base clinical case.
-
-### What the clinician is validating now
-
-The clinician is validating the materials that would make that later resident task fair. For each case, the reviewer first sees the clinical information that a resident would later receive. This includes the patient's presentation, hospital course, clinically relevant laboratory and vital-sign trends, home medication history, inpatient treatment, and follow-up context. The proposed discharge-medication answer is deliberately absent from this portion of the case.
-
-After reviewing that chart, the clinician completes C1 and C2. C1 asks whether the case is plausible and internally coherent. C2 asks whether the chart contains enough information for a resident to decide the discharge regimen. The hidden reference discharge plan is then shown in a separate clinician-validation section.
-
-The reviewer then completes C3 through C6, which judge the reference plan, acceptable alternatives, competing problems, and expected difficulty, and gives an overall recommendation of Accept, Revise, or Exclude. Accept. Revise. Exclude. are the choices on the form. Selecting one of them during review is how a case becomes accepted, sent back for revision, or removed. The blank form does not record a prior decision.
+This file places the same twenty-four cases in one document for investigators who want a single copy. It is not the preferred clinician workflow.
 
 The validation casebooks are fillable Microsoft Word documents. Click the checkboxes to select ratings and type comments directly into the provided fields. Please select one response per rating item. Open the file in desktop Microsoft Word.
 
-| Criterion | What the reviewer is judging |
-| --- | --- |
-| C1 | Whether the clinical case is plausible, internally coherent, and detailed enough for meaningful reasoning |
-| C2 | Whether the chart contains enough information for a resident to make the discharge decision |
-| C3 | Whether the hidden reference discharge plan is clinically defensible |
-| C4 | Whether alternative discharge decisions should also be accepted |
-| C5 | Whether information is missing, misleading, contradictory, or competing |
-| C6 | Expected difficulty for the intended learner |
+## How clinician feedback shaped v4
 
-The table is a map of the form. The important sequence is that C1 and C2 are answered from the chart alone, and only then does the reference plan appear.
+Katie and Alex did not perform the same review. Their comments answer different questions about whether a case is fit to use.
 
-### Previous canonical revision
+Katie's review, preserved from the KO Round 1 casebook, focused on construct and task alignment. The core finding was that the earlier workflow treated the resident task as error detection. In that design, a resident received a medication transition that might contain one deliberately inserted problem and was asked whether the problem was present and detectable. The intended task is different. The resident has to construct the discharge medication plan from the chart. That finding produced the version 4 task rules: the base case does not supply a discharge medication answer; it does not contain a planted error; it does not use wording that reveals the intended regimen; the reference plan stays hidden; every reference action has to be supportable from resident-visible evidence; and when more than one action is defensible, the others are encoded as acceptable alternatives rather than scored as wrong.
 
-Set 1 version 3 is the previous canonical revision, superseded by Round 2 version 4. It is retained for provenance and is not the current clinician assignment.
+Alex's review focused on clinical plausibility and information sufficiency. His completed casebook records C1, the plausibility rating, for four clean-control cases: VAL-801, VAL-805, VAL-809, and VAL-813. He did not complete the later ratings or an overall accept, revise, or exclude decision, and those blanks were left blank. He did not review the other twenty cases. His comments showed that a chart can be free of a planted error and still be too sparse for meaningful reasoning. On VAL-801, delirium was not represented as a change from baseline with an interpretable precipitant. On VAL-805, the heart-failure story was recognizable but did not investigate why the patient had decompensated. On VAL-809, endocarditis was recognizable but lacked the work-up and management context a resident would use. On VAL-813, the chronology was backwards if the patient was said to present already labeled with cytomegalovirus colitis; symptoms should lead to the work-up, and the volume and electrolyte consequences of diarrhea need to be visible. The clinical-sufficiency rubric derived from that review was then applied systematically to every case, including the twenty he did not personally review. Those applications are labeled as investigator use of the rubric, not as Alex comments.
 
-**[Previous Set 1 codebook, version 3](exports/ko_cycle2_revised_validation_v3/CliniProof_Cycle2_Revised_Cases_Validation.docx)**
+## Combined validation dimensions
 
-[Version 3 package notes](exports/ko_cycle2_revised_validation_v3/README.md). [Version 3 manifest](exports/ko_cycle2_revised_validation_v3/MANIFEST.md). [Version 3 revision record](exports/ko_cycle2_revised_validation_v3/CLINICAL_REVISION_LOG.md).
+Task validity asks whether the materials implement the resident task. Clinical sufficiency asks whether the hospitalization is detailed enough for that task. The combination is the rule used to decide whether a case could enter the version 4 codebooks.
 
-The earlier Set 2 package, before the version 4 sufficiency revision, remains at [exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx](exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx) for provenance. The combined pre-version-4 file is an investigator convenience copy: [combined casebook](exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx). The version 4 investigator copy is labeled as such inside [exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Combined_Investigator_Copy.docx](exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Combined_Investigator_Copy.docx).
+| Task validity | Clinical sufficiency | Interpretation |
+| --- | --- | --- |
+| Adequate | Adequate | Prepared for clinician review |
+| Adequate | Insufficient | Revise the clinical content |
+| Insufficient | Adequate | Revise the assessment representation |
+| Insufficient | Insufficient | Substantial reconstruction, or exclusion from the current set |
 
-### Which cases are in Round 2
+The full account of extraction, comparison, evidence classes, and readiness rules is in the [combined clinician-revision methodology](docs/combined_clinician_revision_method.md).
 
-The 24 Round 2 cases come from the same VAL-801–VAL-824 study slots that were used in Round 1. Six cases—VAL-801, VAL-802, VAL-803, VAL-805, VAL-809, and VAL-813—received substantive clinical revision because the first clinician review identified weaknesses in the underlying clinical story itself. These revisions addressed issues such as unclear delirium etiologies, insufficient renal context, unrealistic heart-failure treatment trajectories, incomplete evidence for endocarditis, and inconsistent cytomegalovirus-treatment chronology. Those six files are the revised-case group.
+## How v4 cases were revised
 
-The remaining 18 cases were recovered from the preserved clean versions of the Round 1 cases. Nine of those 18 received narrower consistency corrections. Those corrections removed contradictions, answer-revealing wording, or mismatches between the narrative and the medication data. They were quality-control corrections, not clinician approval. Version 4 prepared all 24 slots for clinician review after the combined gate. Three have no declared uncertainty: VAL-808, VAL-816, and VAL-817. The other twenty-one are ready with a declared uncertainty. None should be described as clinically validated. The case-by-case laboratory values and repair notes are collected later in this document and in the version 4 audits.
+Version 4 did not start from the old error-bearing charts. Set 1 started from the version 3 revised charts. Set 2 started from the recovered clean charts. For each case the sequence was the same. The preserved clean representation was read against the reviewer comment, or against the sufficiency rubric when there was no case-specific comment. The clinical gap was identified. Only the missing piece was added or the revealing sentence removed. The old and new wording were recorded. The clinical reason was recorded. The provenance of any new fact was recorded. The hidden reference was then re-read from the resident-visible chart. If two actions were reasonable, the second was encoded as an acceptable alternative. Task-validity and clinical-sufficiency audits were run before the clinician package was generated.
 
-The six revised cases are VAL-801, VAL-802, VAL-803, VAL-805, VAL-809, and VAL-813. The eighteen Set 2 cases are VAL-804, VAL-806, VAL-807, VAL-808, VAL-810, VAL-811, VAL-812, VAL-814, VAL-815, VAL-816, VAL-817, VAL-818, VAL-819, VAL-820, VAL-821, VAL-822, VAL-823, and VAL-824.
-
-### How the Round 2 cases were produced
-
-Round 2 was not created by running the current generator and producing a new set of 24 patients. The project already had VAL-801 through VAL-824 from the earlier validation work. When those cases were originally created, a clean clinical version existed before any deliberate assessment discrepancy was introduced. Those pre-modification versions were preserved. In the technical sections below, that preserved chart is called the archived clean source, or the pre-injection source, because it is the chart from before a deliberate discrepancy was inserted.
-
-To prepare Round 2, the project returned to those preserved clean versions. This was important because simply deleting an error label from a Round 1 case would not restore the clean case. The original modification could change a medication, a dose, a route, a supply, a monitoring requirement, a follow-up plan, or a restart instruction. The archived clean chart therefore served as the source of truth. No new population of 24 cases was generated, and the frozen Round 1 files were left unchanged.
-
-The clinician comments from Round 1 were then reviewed against those recovered clean charts. Where the clinician had identified a weakness in the underlying clinical case, the case was revised. Where the clean chart was clinically coherent but contained a narrow inconsistency or wording that could reveal the answer, that issue was corrected. The result was a new Round 2 review representation of the same study slots, while the original Round 1 files were retained for provenance. The diagram below is that sequence. The implication is that a Round 2 file and a Round 1 file with the same identifier can both be opened, and they will not be the same document.
+The direction of that work is fixed:
 
 ```text
-Round 1 study slot
+clinical facts
         ↓
-preserved clean version from before error injection
+clinical reasoning
         ↓
-clinician feedback from Round 1
+discharge medication decision
         ↓
-clinical revision where necessary
-        ↓
-consistency and answer-leakage checks
-        ↓
-Round 2 resident-facing chart
-        +
-hidden reference discharge plan
-        ↓
-Round 2 clinician validation
+hidden reference plan
 ```
 
-## Round 1: Initial clinician validation
+The opposite direction was not used. A desired reference action was not allowed to justify invented facts. If the chart could not support an action, the reference was changed or the action was marked ambiguous before any new fact was considered.
 
-Round 1 was the project's first formal clinician-validation exercise for these cases. At that stage, the study design assumed that the resident would inspect a discharge medication transition and identify whether something was wrong. To test that workflow, most cases were deliberately modified to contain one medication-reconciliation or transition-of-care discrepancy, while a smaller number were left unchanged as clean controls. A clean control, in that earlier design, was a chart that was not given a planted problem, so a reviewer could not assume that every case contained one.
+## Synthetic fact provenance
 
-The Round 1 clinician casebook therefore asked a different set of questions from the current Round 2 form. Reviewers first assessed whether the case was clinically plausible. They were then shown the intended assessment target and asked whether that problem was actually present, whether a resident could reasonably detect it, whether another unintended clinical problem competed with the intended answer, and how difficult the case was likely to be. Those questions were a reasonable test of an error-injection framework. They are not the questions a reviewer should use for the current resident study.
+Synthetic details are allowed when a case cannot support reasoning without them. They have to be explicit. Version 4 added 23 new synthetic facts. Each one is listed in the evidence ledger with the reason it was needed, the reviewer concern or rubric item it addresses, and the literature that supports the plausibility of that kind of finding. The literature does not turn the patient-specific value into a recovered measurement. No unsupported synthetic fact remains in the clinician-ready set.
 
-Round 1 remains important because it provided the clinician feedback that motivated the redesign. It also provides a complete record of the earlier methodology, allowing collaborators to see exactly how the current study evolved. The files from that round are still in the repository and were not replaced by Round 2.
+Some synthetic facts were already present in version 3 and were kept, still labeled as synthetic. They were not recovered from an original record. Examples are the standing systolic pressure on VAL-801, the sodium pair of 128 mmol/L then 135 mmol/L on VAL-803, and poor dentition on VAL-809. Version 4 did not add a fever, a dental extraction, a prosthetic valve, or a named organism to the endocarditis case, and it did not add an intravenous furosemide dose or an ejection fraction to the heart-failure case, because those values were not in the source and were not required once an alternative action could be encoded.
 
-### What Round 1 tested
+## Why the hidden reference is not always a single answer
 
-The exercise tested whether the software could introduce exactly one intended medication problem into an otherwise coherent synthetic hospitalization, and whether a clinician judged that problem to be present, detectable, and free of a competing answer. The resident-facing concept was a supplied medication transition that might contain a planted discrepancy. The reference information was a description of that intended problem, not a hidden discharge plan that the resident was expected to construct. That design is no longer the active resident-study design.
+Twenty of the twenty-four cases contain at least one clinically reasonable alternative to the primary reference action. The hidden reference is a proposed structure for later comparison. It is not an unquestionable answer, and it is not a gold-standard label. Where more than one discharge decision is defensible, one action is stored as the primary reference and the others are stored as acceptable alternatives. Clinician review is what determines whether those alternatives should be accepted. Ambiguity of that kind is part of real discharge decision-making, so the materials keep it visible instead of forcing a single action.
 
-### Access the Round 1 validation materials
+## Internal audit results
 
-The original VAL-801–VAL-824 clinician-validation casebook is preserved in the repository and should be used only to understand or reproduce the Round 1 methodology. It should not be used for the current clinician review because its validation questions assume the earlier planted-error design. The instructions that accompanied those historical forms are on the Round 1 review-package page.
+After revision, the resident charts and hidden references were audited again. Direct answer leaks are sentences that tell the resident the discharge action; the count is 0. Hidden reference dependencies are reference actions whose reason exists only in the hidden plan; the count is 0. Clinical inconsistencies are reference actions that contradict the visible chart; the count among included cases is 0. Unsupported synthetic facts, meaning new patient-specific values without a provenance label, are 0. Twenty cases carry at least one acceptable alternative, as described above.
 
-**[Open the Round 1 VAL-801–VAL-824 clinician-validation casebook](docs/resident_review_package/files/CliniProof_SeedGuided_Validation_Casebook.docx)**
+The row-level results are in the [final readiness matrix](exports/ko_round2_combined_validation_v4/audit/FINAL_READINESS_MATRIX.csv), the [revision evidence ledger](exports/ko_round2_combined_validation_v4/revision/REVISION_EVIDENCE_LEDGER.md), and the [reviewer comparison matrix](exports/ko_round2_combined_validation_v4/method/REVIEWER_COMPARISON_MATRIX.md).
 
-[Round 1 validation instructions](docs/resident_review_package/README.md)
+## What the clinician completes
 
-A separate Round 1 casebook contains the balanced VAL-701–VAL-724 set. That set was not included in the current Round 2 revision. It used predefined clinical profiles rather than the six resident-authored scenarios that shaped VAL-801–VAL-824, and it remains available so that the earlier balanced validation can be reproduced.
-
-**[Open the Round 1 balanced VAL-701–VAL-724 casebook](docs/resident_review_package/files/CliniProof_Balanced_Validation_Casebook.docx)**
-
-### What clinicians found
-
-The first reading showed two different problems. One was methodological: the validation task asked reviewers to judge a planted discrepancy, whereas the intended resident would have to decide the discharge regimen without being handed that regimen. The other was clinical: even the underlying stories, once the planted change was set aside, were sometimes too thin or internally inconsistent to support a discharge decision. Examples included an unclear cause of delirium, a heart-failure hospitalization that did not show a realistic response to treatment, and a transplant case whose antiviral chronology did not match the medication list. Those findings are why some Round 2 cases were revised rather than merely restored.
-
-### Why the study design changed
-
-The first clinician review revealed a mismatch between the validation exercise and the study's intended resident task. The Round 1 materials assumed that residents would receive a discharge medication list and search for an intentionally inserted problem. The intended study, however, requires residents to make the discharge-medication decision themselves from the clinical evidence in the case. That is a different cognitive task, and it requires different materials.
-
-This distinction changes what must be validated. If the resident is expected to construct the discharge plan, the critical question is not whether an injected error is detectable. Instead, the clinical chart must contain enough information to support a discharge decision, and the study's hidden reference plan must itself be defensible. Round 2 was designed around those requirements. The contrast below is the change in one view. Round 1 validates a supplied problem. Round 2 validates a case from which the discharge plan still has to be built.
+Each version 4 case uses the same order. The reviewer sees the resident-facing chart and answers C1 and C2 before the reference appears. C1 asks whether the case is plausible and detailed enough for meaningful reasoning. C2 asks whether the chart contains enough clinically relevant information for an internal-medicine resident to determine a defensible discharge regimen independently. The hidden reference is then shown in a section marked as not for residents. C3 asks whether that reference is defensible. C4 asks whether another decision should also be accepted. C5 asks whether something is missing, misleading, or competing. C6 records expected difficulty. The overall recommendation is Accept, Revise, or Exclude.
 
 ```text
-ROUND 1
-clinical chart
-+ supplied discharge-medication transition
-+ possible planted discrepancy
+resident-facing chart
         ↓
-resident identifies a problem
-
-ROUND 2
-clean clinical chart
+C1 clinical plausibility and information sufficiency
         ↓
-resident determines the discharge plan
+C2 sufficiency for an independent discharge decision
         ↓
-response compared with hidden clinician-validated reference
+hidden clinician validation reference
+        ↓
+C3 reference validity
+        ↓
+C4 acceptable alternatives
+        ↓
+C5 missing, misleading, or competing issues
+        ↓
+C6 expected difficulty
+        ↓
+Accept, Revise, or Exclude
 ```
 
-## How Round 1 became Round 2
+Historical feedback and the clinical revision record are printed after that blank section. A reviewer can finish the new reading before seeing what an earlier reviewer said or how the chart was changed.
 
-Round 2 keeps the identifiers and the clinical situations that Round 1 had already assigned, and it changes the representation of those situations. The team recovered the preserved clean chart for each slot, read it against the Round 1 comments, revised the cases whose clinical stories could not support a discharge decision, and corrected narrower contradictions in the others. Resident-facing charts were then separated from the hidden reference plans, and the 24 results were placed in a new blank casebook. The original Round 1 documents stayed where they were.
+## Round 1, retained for provenance
 
-The same identifiers therefore point at two generations of files. A Round 1 file may contain the deliberately modified version created for the error-detection study. The Round 2 file begins from the preserved clean version of that slot and may also include a clinical revision. For example, Round 1 VAL-805 is the historical validation version used in the planted-error study. Round 2 VAL-805 is the recovered clean version after additional clinician-driven revision of the heart-failure hospitalization. The Round 1 file was not overwritten. Both versions remain available so that the evolution of the case can be traced.
+Round 1 was the first formal clinician review of VAL-801 through VAL-824. Twenty of those cases were given one deliberately planted medication-reconciliation problem. Four were left as clean controls. Reviewers were asked whether the case was plausible, whether the intended problem was present and detectable, whether another problem competed with it, and how difficult the case seemed. That was a reasonable test of an error-injection design. It is not the resident task in the current study, which is why Round 2 returned to the preserved clean charts and changed the questions.
 
-## Round 1 and Round 2 compared
+The Round 1 casebooks remain available so the earlier method can be reproduced. They should not be used for the current review.
 
-The table compares the two rounds after the narrative above. It is a summary, not a substitute for the casebooks.
+[Round 1 seed-guided casebook, VAL-801–VAL-824](docs/resident_review_package/files/CliniProof_SeedGuided_Validation_Casebook.docx)
 
-| Feature | Round 1 | Round 2 |
-| --- | --- | --- |
-| Purpose | Test whether a predefined medication-reconciliation problem was represented and detectable | Validate clean cases and their hidden discharge reference plans |
-| Current status | Historical | Current |
-| Case IDs | VAL-801–VAL-824 | VAL-801–VAL-824 |
-| What resident would receive | Medication transition that could contain a planted problem | Clean clinical case without a discharge answer |
-| Deliberately inserted error | Present in most cases | None |
-| Clean controls | Included | Not part of current design |
-| Clinician validation target | Plausibility, presence and detectability of the intended discrepancy, competing problems | Plausibility, information sufficiency, reference-plan validity, acceptable alternatives |
-| Reference information | Intended planted discrepancy | Hidden discharge medication plan |
-| Current use | Provenance and reproducibility | Current study design. Version 4 cases that pass both internal gates are prepared for clinician review. |
+[Round 1 balanced casebook, VAL-701–VAL-724](docs/resident_review_package/files/CliniProof_Balanced_Validation_Casebook.docx)
 
-**Current clinician review:** [Round 2 v4 Set 1](exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Set1_Clinician_Validation.docx) and [Round 2 v4 Set 2](exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Set2_Clinician_Validation.docx)
+[Round 1 review-package notes](docs/resident_review_package/README.md)
 
-**Previous methodology:** [Round 1 casebook](docs/resident_review_package/files/CliniProof_SeedGuided_Validation_Casebook.docx)
+The frozen sources of those rounds are still in the repository and were not overwritten. The balanced structured set is [`CLINIPROOF_BALANCED_V4`](data/case_sets/balanced/README.md), VAL-701–VAL-724. The resident-seed-guided set is [`CLINIPROOF_SEEDCASES_V3`](data/case_sets/seed_guided/README.md), VAL-801–VAL-824. They are the Round 1 record from which the clean charts were recovered. They are not the files to give a resident now.
 
-## Where to find the cases and review materials
+## Previous revision packages and provenance
 
-The table below is the map of who should open which file. Clinicians reviewing the current study use the version 4 Set 1 and Set 2 codebooks. Investigators who need provenance use the later rows. Researchers reproducing Round 1 should use the historical casebooks and should not treat them as the current review.
+Earlier review packages are kept so the path from Round 1 to version 4 can be audited. They are not the current clinician assignment.
 
-| File or package | What it contains | Who should use it |
-| --- | --- | --- |
-| [Round 2 v4 Set 1 codebook](exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Set1_Clinician_Validation.docx) | Six revised cases, blank version 4 forms, then historical KO and Alex feedback where it exists, then the revision record | Clinician reviewers |
-| [Round 2 v4 Set 2 codebook](exports/ko_round2_combined_validation_v4/codebooks/CliniProof_Round2_v4_Set2_Clinician_Validation.docx) | Eighteen cases that passed the same internal gates. No Alex case-specific comments are attached. | Clinician reviewers |
-| [Set 1 revised-case codebook, version 3](exports/ko_cycle2_revised_validation_v3/CliniProof_Cycle2_Revised_Cases_Validation.docx) | Previous canonical revision, superseded by Round 2 version 4 | Provenance |
-| [Earlier Set 2 package](exports/ko_cycle2_clean_validation/CliniProof_Cycle2_Clean_Cases_Validation.docx) | Eighteen recovered clean cases from before the version 4 sufficiency revision | Provenance |
-| [Combined convenience copy](exports/ko_cycle2_final_validation/CliniProof_Cycle2_Final_Validation.docx) | All 24 cases in one file. Investigator convenience copy, not a clinician review assignment | Investigators |
-| [Superseded Set 1 attempt](exports/ko_revised_cases_v1/KO_REVISED_CASES_REVIEW.docx) | Earlier six-case revision. Not the current Set 1 codebook. | Provenance |
-| [Round 2 clean-case package](exports/ko_clean_cases_for_review_v1/KO_CLEAN_CASES_REVIEW.docx) | Eighteen recovered clean cases used as the version 4 starting point. The [audit](exports/ko_clean_cases_for_review_v1/AUDIT.md) records the earlier recovery pass. | Provenance |
-| [Round 2 manifest](exports/ko_cycle2_final_validation/MANIFEST.md) | Mapping of case identifiers to source packages | Investigators |
-| [Round 1 seed-guided casebook](docs/resident_review_package/files/CliniProof_SeedGuided_Validation_Casebook.docx) | Historical planted-error validation for VAL-801–VAL-824 | Researchers studying Round 1 |
-| [Round 1 balanced casebook](docs/resident_review_package/files/CliniProof_Balanced_Validation_Casebook.docx) | Historical validation for VAL-701–VAL-724 | Researchers studying the separate balanced set |
-| [Resident JSON](exports/ko_cycle2_revised_validation_v3/VAL-801_resident.json) | Clinical information without the hidden reference for the current Set 1 example. | Later resident study and developers |
-| [Evaluator JSON](exports/ko_cycle2_revised_validation_v3/VAL-801_evaluator.json) | The same Set 1 example plus the hidden reference plan. | Investigators and later scoring |
-| [Recovered clean export](exports/clean_balanced_seed_set/AUDIT.md) | The 48 preserved clean charts before Round 2 edits | Investigators tracing provenance |
-| [Frozen seed-guided source](data/case_sets/seed_guided/README.md) | `CLINIPROOF_SEEDCASES_V3`, the untouched Round 1 record of VAL-801–VAL-824 | Provenance |
-| [Frozen balanced source](data/case_sets/balanced/README.md) | `CLINIPROOF_BALANCED_V4`, the untouched Round 1 record of VAL-701–VAL-724 | Provenance |
-
-A reviewer who is validating the current study should open the version 4 Set 1 codebook and the version 4 Set 2 codebook. A collaborator who wants to see the earlier method should open the Round 1 seed-guided casebook and should not treat that form as the one to complete now. The JSON rows below the table are examples of the two representations described later. Every current case has a resident file and a paired evaluator file in `exports/ko_round2_combined_validation_v4/cases/`.
+[Set 1 version 3](exports/ko_cycle2_revised_validation_v3/CliniProof_Cycle2_Revised_Cases_Validation.docx), in `exports/ko_cycle2_revised_validation_v3/`, is the previous canonical six-case revision. It is superseded by Round 2 version 4. `exports/ko_cycle2_revised_validation_v2/` and `exports/ko_revised_cases_v1/` are earlier superseded revision attempts. `exports/ko_clean_cases_for_review_v1/` is the previous Set 2 preparation package and the starting point for the version 4 Set 2 charts. `exports/ko_cycle2_clean_validation/` is the Set 2 codebook from before the sufficiency revision. `exports/ko_cycle2_final_validation/` is the previous combined convenience copy. None of these directories was deleted.
 
 ## What this repository studies
 
-The practical sections above are enough to open the right casebook. This section states the scientific question those files are built to answer. CliniProof creates structured synthetic inpatient cases in which a resident must use the clinical presentation, hospital course, medication history, laboratory data, treatment response, monitoring needs, and follow-up context to determine an appropriate discharge medication plan. The central validation question is not whether a planted error can be detected. It is whether the chart contains sufficient and coherent clinical evidence for a resident to make a defensible discharge decision, and whether the hidden reference plan itself is clinically defensible.
+The sections above are enough to open the current review. This section states the scientific question those files are built to answer, and the sections after it explain how cases are represented and generated.
+
+CliniProof creates structured synthetic inpatient cases in which a resident must use the clinical presentation, hospital course, medication history, laboratory data, treatment response, monitoring needs, and follow-up context to determine an appropriate discharge medication plan. The central validation question is not whether a planted error can be detected. It is whether the chart contains sufficient and coherent clinical evidence for a resident to make a defensible discharge decision, and whether the hidden reference plan itself is clinically defensible.
 
 The resident reviews the clean inpatient case and independently determines the appropriate discharge medication plan. The frozen source registry still lists two active prospective validation datasets, 48 case slots in all. Those frozen files are the Round 1 record that recovery read. They are not the files to give a resident, and they are not a claim that the Round 2 charts have already been accepted. The recovered resident-facing export of those same 48 slots is described with the validation materials below. Its audit labels 44 files ready for expert review and 4 clinically inconsistent. That count describes the recovered export only. It is not clinician approval, and it is not the Round 2 status of VAL-801 through VAL-824.
 
-OpenAI is optional. It may only reword narrative from facts the structured generator has already chosen. It does not choose diagnoses, medications, doses, or the reference plan. The committed study cases used template wording. Neither original batch is a prevalence-weighted sample of hospital discharges. Human clinician validation remains required.
+OpenAI is optional. It may only reword narrative from facts the structured generator has already chosen. It does not choose diagnoses, medications, doses, or the reference plan. The committed study cases used template wording. Neither original batch is a prevalence-weighted sample of hospital discharges. Human clinician review remains required before a case is used for scoring.
 
-## Round 2 detailed revision record
+## Recorded case facts
 
-The sections below document exactly what changed in individual cases during Round 2. These details are included for provenance and reproducibility rather than as introductory material. The same information is recorded in the package audit files. A clinician who is starting a review can skip this section and use the Set 1 codebook. An investigator who needs to see why a chart differs from the Round 1 file should read on.
-
-The six clinically revised cases are recorded in the [version 3 revision log](exports/ko_cycle2_revised_validation_v3/CLINICAL_REVISION_LOG.md). The eighteen recovered clean cases still under internal revision, including the nine narrower corrections, are recorded in the [clean-case audit](exports/ko_clean_cases_for_review_v1/AUDIT.md). The recovered export under `exports/clean_balanced_seed_set/` was not edited. In particular, VAL-801 in that export is still the unrepaired chart in which ibuprofen is stopped without a visible reason. The Round 2 revision of VAL-801 is a separate file.
+The accounts below preserve the chart facts that distinguish each study slot. They are here so an investigator can see what the resident chart contains without opening every JSON file. They are not a second status report. Current readiness is the version 4 matrix linked above. None of these reference plans has been accepted by a clinician.
 
 ### Cases revised from Round 1 clinician feedback
 
-Six study slots were rewritten because the first clinician review found a weakness in the clinical story itself, not only in the planted discrepancy. Each account below is the Round 2 chart and the hidden reference that accompanies it. None of these reference plans has been accepted by a clinician yet.
+Six study slots were rewritten because the first clinician review found a weakness in the clinical story itself, not only in the planted discrepancy. Each account below is the chart and the hidden reference that accompanies it.
 
 #### VAL-801 — Delirium and poor oral intake
 
@@ -263,7 +199,7 @@ Valganciclovir is not a home medicine. The admission viral-load review detected 
 
 ### Cases that needed narrower consistency corrections
 
-Nine of the eighteen recovered clean cases were coherent enough to keep, but they contained a contradiction, a sentence that revealed the discharge answer, or a mismatch between the narrative and the medication data. They were not regenerated, and they were not treated as clinician-approved. Each correction is a traceable copy of the recovered clean source. The copies that passed that earlier evidence check are in the recovered clean-case package. None of the nine remains held. Those cases are still under internal revision and are not yet ready for clinician review. The nine are VAL-806, VAL-807, VAL-808, VAL-814, VAL-815, VAL-816, VAL-817, VAL-820, and VAL-821.
+Nine of the eighteen recovered clean cases were coherent enough to keep, but they contained a contradiction, a sentence that revealed the discharge answer, or a mismatch between the narrative and the medication data. They were not regenerated, and they were not treated as accepted cases. Each correction is a traceable copy of the recovered clean source. The copies that passed that earlier evidence check are in the recovered clean-case package. None of the nine remains held. Version 4 reassessed these cases with the same gates used for the full set, and they are included in the current Set 2 codebook. The nine are VAL-806, VAL-807, VAL-808, VAL-814, VAL-815, VAL-816, VAL-817, VAL-820, and VAL-821.
 
 #### VAL-806 — Lisinopril after acute kidney injury
 
@@ -301,7 +237,7 @@ The enoxaparin indication is inpatient venous-thromboembolism prophylaxis, not a
 
 The sentences that told the resident to resume apixaban were removed, including goal text that named a restart. The chart shows the gastrointestinal bleed, hemoglobin 8.7 then 10.9 g/dL, atrial fibrillation, creatinine 1.2 mg/dL, weight 83 kg, gastroenterology follow-up in seven days, and systolic pressure near 140 mmHg. The hidden reference restarts apixaban 5 mg twice daily. A continued hold until the gastroenterology visit is an acceptable alternative.
 
-These nine corrections are not clinician-approved fixes. They removed obstacles that would have made a review unfair, and they left the clinical judgments below for the reviewer. The table is the list of decisions that the form still has to settle.
+These nine corrections did not by themselves accept the cases. They removed obstacles that would have made a review unfair, and they left the clinical judgments below for the reviewer. The table is the list of decisions that the form still has to settle.
 
 | Case | Judgment still required |
 | --- | --- |
@@ -333,7 +269,7 @@ hidden reference plan
 
 Every reference medication decision is checked against information visible in the resident chart. The internal labels are `SUFFICIENT_EVIDENCE`, `WEAK_EVIDENCE`, `HIDDEN_ANSWER_DEPENDENCY`, and `CLINICALLY_INCONSISTENT`. A decision is sufficient when every supporting phrase appears in the resident file and does not depend on the hidden plan. It is hidden when the reason exists only in the reference. It is clinically inconsistent when the chart contradicts the action. Weak evidence means the visible facts are thin but present. Weak evidence is recorded and does not by itself block review. A hidden dependency or a clinical contradiction does.
 
-Set 1, version 3, is the current six-case package and is prepared for clinician re-review. It is not clinically validated. Its re-audit is in [exports/ko_cycle2_revised_validation_v3/KATIE_REAUDIT.md](exports/ko_cycle2_revised_validation_v3/KATIE_REAUDIT.md). That re-audit found no direct answer leak, no hidden-reference dependency, and no clinical contradiction in those six resident charts. Some reference actions are ambiguous, and those alternatives are stored on the reference plan. Set 2 was not rewritten in this revision. Those eighteen cases are still under internal correction and are not yet ready for clinician review. This check does not clinically validate any case. Clinician reviewers determine whether a reference plan is acceptable.
+The version 3 re-audit of the six Set 1 cases is kept at [exports/ko_cycle2_revised_validation_v3/KATIE_REAUDIT.md](exports/ko_cycle2_revised_validation_v3/KATIE_REAUDIT.md). That earlier audit found no direct answer leak, no hidden-reference dependency, and no clinical contradiction in those six resident charts. Version 4 is the current package and repeated the audits for all 24 cases. Clinician reviewers still determine whether a reference plan is acceptable.
 
 The preparation path for one study slot is drawn below. Historical frozen files remain available, and Round 2 does not overwrite them. VAL-701 through VAL-724 were not part of this cycle. Their recovered charts, including three inconsistent balanced cases, are unchanged.
 
@@ -352,6 +288,7 @@ resident chart and hidden reference
         ↓
 Round 2 clinician review
 ```
+
 
 ## Resident-facing and investigator-facing representations
 
@@ -409,7 +346,7 @@ A newly generated case, built by `app/services/resident_case.py`, can also store
 
 `required`, `medications_to_stop`, `acceptable_alternatives`, and `contraindications` are part of the generator’s evaluator document. They are not fields in the recovered VAL-701 file above. The full evaluator file is [exports/clean_balanced_seed_set/VAL-701_evaluator.json](exports/clean_balanced_seed_set/VAL-701_evaluator.json). The matching resident file omits `reference_discharge_plan`.
 
-After a clinician accepts a case, the later study would show the resident only the clean chart. The resident would construct a discharge medication plan from that chart. The clinician-validated reference would stay with the research team. The study may also collect a written rationale, a confidence rating, or a later response to computer-generated advice. Those collection tools are not implemented in this repository, and neither is a scoring engine. Any manipulated recommendation from a model would be a separate experiment, inserted after the resident’s first decision. It would not be written into the chart the resident reads first.
+After a clinician accepts a case, the later study would show the resident only the clean chart. The resident would construct a discharge medication plan from that chart. The reference, once clinicians have accepted it, would stay with the research team. The study may also collect a written rationale, a confidence rating, or a later response to computer-generated advice. Those collection tools are not implemented in this repository, and neither is a scoring engine. Any manipulated recommendation from a model would be a separate experiment, inserted after the resident’s first decision. It would not be written into the chart the resident reads first.
 
 ## Case generation and terminology
 
@@ -519,7 +456,7 @@ The recovery audit of the original 48 slots is a separate statement from Round 2
 
 Ready for expert review, in this recovery table, means the injected chart change and the discharge-answer wording are gone, and the automated clinical pass did not find a blocking inconsistency. It does not mean an expert has approved the case. The row-by-row record is [exports/clean_balanced_seed_set/AUDIT.md](exports/clean_balanced_seed_set/AUDIT.md).
 
-Four files inside that export remain labeled `CLINICALLY_INCONSISTENT`. They were not rewritten there, and no replacement was generated. VAL-709, VAL-711, and VAL-714 stop or associate a medicine without a supported reason on that chart, and they were not part of Round 2. VAL-801 in the same export still stops ibuprofen without a visible reason. The Round 2 revision of VAL-801 is the separate file under `exports/ko_cycle2_revised_validation_v3/`.
+Four files inside that export remain labeled `CLINICALLY_INCONSISTENT`. They were not rewritten there, and no replacement was generated. VAL-709, VAL-711, and VAL-714 stop or associate a medicine without a supported reason on that chart, and they were not part of Round 2. VAL-801 in the same export still stops ibuprofen without a visible reason. The current Round 2 chart for VAL-801 is in `exports/ko_round2_combined_validation_v4/`. The previous chart remains in `exports/ko_cycle2_revised_validation_v3/`.
 
 | Case | Problem in the recovered export |
 | --- | --- |
@@ -582,9 +519,15 @@ exports/ko_cycle2_revised_validation_v3/ previous canonical Set 1 revision, supe
     REVISION_DIFF.md
     REVISION_EVIDENCE_LEDGER.md
 exports/ko_cycle2_clean_validation/     earlier Set 2 package, superseded by the version 4 Set 2 codebook
-exports/ko_round2_combined_validation_v4/ current Round 2 version 4 cases, audits, and clinician codebooks
-    CliniProof_Cycle2_Clean_Cases_Validation.docx
-exports/ko_cycle2_final_validation/     combined convenience copy, not the preferred workflow
+exports/ko_round2_combined_validation_v4/ current Round 2 version 4 package
+    codebooks/   Set 1 clinician codebook, Set 2 clinician codebook, combined investigator copy
+    method/      reviewer comparison, combined review method, clinical sufficiency rubric
+    revision/    case revision log, revision diff, evidence ledger
+    audit/       task validity, clinical sufficiency, answer leakage, reference support,
+                 synthetic facts, multiple answers, final readiness matrix
+    cases/       resident and evaluator JSON for VAL-801–VAL-824
+docs/combined_clinician_revision_method.md   manuscript-ready version 4 methodology
+exports/ko_cycle2_final_validation/     previous combined convenience copy, not the current workflow
     CliniProof_Cycle2_Final_Validation.docx
 ```
 
@@ -616,7 +559,7 @@ The frozen `CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3` directories un
 
 ## Limitations
 
-The cases are synthetic, and the scenario list is a bounded teaching set rather than a prevalence-weighted sample of hospital discharges. A terminology code does not prove that a dose is appropriate, companion-drug omission is not implemented, and the curated regimens are not a universal prescribing engine. There is no resident-review application and no finished scoring engine in this repository. SNOMED CT and MIMIC-IV are not ingested. The four inconsistent files inside the recovered 48-slot export are not ready for use as study cases. Round 2 does not change those files. Its revised VAL-801 copy is a separate export, and that copy is still awaiting clinician review.
+The cases are synthetic, and the scenario list is a bounded teaching set rather than a prevalence-weighted sample of hospital discharges. A terminology code does not prove that a dose is appropriate, companion-drug omission is not implemented, and the curated regimens are not a universal prescribing engine. There is no resident-review application and no finished scoring engine in this repository. SNOMED CT and MIMIC-IV are not ingested. The four inconsistent files inside the recovered 48-slot export are not ready for use as study cases. Round 2 does not change those files. The current VAL-801 chart is in the version 4 package and is prepared for clinician review. Clinician adjudication is still pending.
 
 ## Licensing
 
