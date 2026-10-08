@@ -1,0 +1,25 @@
+pair_id,val_id,g2_id,family,g1_revision_source,g1_casebook_page,g2_casebook_page,blinded_id_g1,blinded_id_g2
+M-801,VAL-801,G2-001,Medication history uncertainty,dual-review,4,3,N-6643,N-EC21
+M-802,VAL-802,G2-002,Medication history uncertainty,Reviewer 1 + framework,17,17,N-4734,N-AB2B
+M-803,VAL-803,G2-003,Medication history uncertainty,Reviewer 1 + framework,26,29,N-2AF3,N-62AF
+M-804,VAL-804,G2-004,Medication history uncertainty,framework only,37,42,N-EC17,N-7647
+M-805,VAL-805,G2-005,Acute heart-failure decompensation,dual-review,46,54,N-308C,N-EC67
+M-806,VAL-806,G2-006,Acute heart-failure decompensation,framework only,58,67,N-840D,N-8570
+M-807,VAL-807,G2-007,Acute heart-failure decompensation,framework only,69,81,N-AEF9,N-9A10
+M-808,VAL-808,G2-008,Acute heart-failure decompensation,framework only,80,94,N-C64F,N-C7DB
+M-809,VAL-809,G2-009,Outpatient parenteral antibiotic therapy after endocarditis,dual-review,91,107,N-F1FE,N-110A
+M-810,VAL-810,G2-010,Outpatient parenteral antibiotic therapy after endocarditis,framework only,103,116,N-EEED,N-CEE1
+M-811,VAL-811,G2-011,Outpatient parenteral antibiotic therapy after endocarditis,framework only,113,125,N-6735,N-E6BE
+M-812,VAL-812,G2-012,Outpatient parenteral antibiotic therapy after endocarditis,framework only,124,134,N-DCB1,N-61BC
+M-813,VAL-813,G2-013,Post-kidney-transplant infectious complication,dual-review,134,143,N-8AFF,N-ADA8
+M-814,VAL-814,G2-014,Post-kidney-transplant infectious complication,framework only,149,155,N-ECE7,N-B906
+M-815,VAL-815,G2-015,Post-kidney-transplant infectious complication,framework only,160,167,N-AF47,N-60EE
+M-816,VAL-816,G2-016,Post-kidney-transplant infectious complication,framework only,171,181,N-F9F0,N-D2FC
+M-817,VAL-817,G2-017,Postoperative anticoagulation after hip fracture,framework only,181,192,N-2ECA,N-6D42
+M-818,VAL-818,G2-018,Postoperative anticoagulation after hip fracture,framework only,192,203,N-F4E3,N-B5BE
+M-819,VAL-819,G2-019,Postoperative anticoagulation after hip fracture,framework only,202,214,N-DD3B,N-C74E
+M-820,VAL-820,G2-020,Postoperative anticoagulation after hip fracture,framework only,211,225,N-3004,N-D4F7
+M-821,VAL-821,G2-021,Gastrointestinal bleed with anticoagulation decisions,framework only,221,237,N-3E63,N-324E
+M-822,VAL-822,G2-022,Gastrointestinal bleed with anticoagulation decisions,framework only,231,246,N-D198,N-0785
+M-823,VAL-823,G2-023,Gastrointestinal bleed with anticoagulation decisions,framework only,240,256,N-C7EB,N-DB6F
+M-824,VAL-824,G2-024,Gastrointestinal bleed with anticoagulation decisions,framework only,250,265,N-6617,N-0F27

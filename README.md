@@ -50,7 +50,14 @@ Generation 2 is a separate Synthea-grounded pilot, `G2-001`–`G2-024`. It is te
 | Generation 1 methodology | Iterative clinical-validation method | [docs/methodology.md](docs/methodology.md) |
 | Generation 2 Synthea cohort | New synthetic generation approach | [data/case_sets/synthea_g2/](data/case_sets/synthea_g2/) |
 | Generation 2 methodology | Synthea plus CliniProof generation method | [docs/methodology_synthea_g2.md](docs/methodology_synthea_g2.md) |
-| Generation 2 clinician review package | Current Generation 2 review artifact | [docs/validation/CliniProof_Synthea_G2_Clinical_Validation.docx](docs/validation/CliniProof_Synthea_G2_Clinical_Validation.docx) |
+| Generation 2 clinician review package | Generation 2 casebook, pending clinician review, not validated | [docs/validation/CliniProof_Synthea_G2_Clinical_Validation.docx](docs/validation/CliniProof_Synthea_G2_Clinical_Validation.docx) |
+| Generation 2 response sheet | Blank long-format sheet for the Generation 2 casebook | [docs/validation/CliniProof_Synthea_G2_Clinical_Validation_response_template.csv](docs/validation/CliniProof_Synthea_G2_Clinical_Validation_response_template.csv) |
+| Revised Generation 1 casebook | All 24 revised cases, pending clinician review, not validated | [docs/validation/CliniProof_Revised_G1_Casebook.docx](docs/validation/CliniProof_Revised_G1_Casebook.docx) |
+| Revised Generation 1 response sheet | Blank long-format sheet for the revised Generation 1 casebook | [docs/validation/CliniProof_Revised_G1_Casebook_response_template.csv](docs/validation/CliniProof_Revised_G1_Casebook_response_template.csv) |
+| Paired blinded casebook | 48 charts under neutral IDs, pending clinician review, not validated | [docs/validation/CliniProof_Paired_Blinded_Casebook.docx](docs/validation/CliniProof_Paired_Blinded_Casebook.docx) |
+| Paired blinded response sheet | Blank long-format sheet using the neutral case IDs | [docs/validation/CliniProof_Paired_Blinded_Casebook_response_template.csv](docs/validation/CliniProof_Paired_Blinded_Casebook_response_template.csv) |
+| Case links | Investigator table joining each revised case to its Generation 2 counterpart | [docs/validation/case_links.csv](docs/validation/case_links.csv) |
+| Unblinding key | Investigator-only map from neutral chart IDs back to VAL and G2 identifiers. Do not send this file to reviewers. | [data/blinding/unblinding_key.json](data/blinding/unblinding_key.json) |
 
 The original freeze lives in [data/case_sets/seed_guided/](data/case_sets/seed_guided/) excluding [CLEAN_BASE/](data/case_sets/seed_guided/CLEAN_BASE/) and [REVISED/](data/case_sets/seed_guided/REVISED/). `CLEAN_BASE` and `REVISED` sit beside that freeze. The freeze still contains the historical planted-error variants. The clean base and the revised candidates do not.
 
@@ -83,9 +90,9 @@ On Reviewer 2’s four reviewed cases, C2 through C5 and the overall recommendat
 
 ### Case-level comparison
 
-The two reviews were compared with the same coding structure. The analysis is case-based. For each reviewed case the comparison keeps the recorded rating and the recorded comment, identifies areas of agreement, identifies complementary comments, and identifies reviewer-specific concerns. It does not force a consensus where the two forms disagree or where one form is silent. The de-identified comparison is [reviewer_comparison.md](docs/clinical_feedback/reviewer_comparison.md), with one row per case in [reviewer_comparison.csv](docs/clinical_feedback/reviewer_comparison.csv) and one row per case and item in [reviewer_item_ratings.csv](docs/clinical_feedback/reviewer_item_ratings.csv).
+The two reviews were compared with the same coding structure. The analysis is case-based. For each reviewed case the comparison keeps the recorded rating and the recorded comment, identifies areas of agreement, identifies complementary comments, and identifies reviewer-specific concerns. It does not force a consensus where the two forms disagree or where one form is silent. The de-identified comparison is [reviewer_comparison.md](docs/clinical_feedback/reviewer_comparison.md), with one row per case in [reviewer_comparison.csv](docs/clinical_feedback/reviewer_comparison.csv) and one row per case and item in [reviewer_item_ratings.csv](docs/clinical_feedback/reviewer_item_ratings.csv). The consistency audit is [docs/audit/consistency_audit.md](docs/audit/consistency_audit.md).
 
-Four cases had substantive feedback from both reviewers: VAL-801, VAL-805, VAL-809, and VAL-813. Those four were the direct-revision and calibration set. They were revised from [CLEAN_BASE](data/case_sets/seed_guided/CLEAN_BASE/). The revised charts are in [data/case_sets/seed_guided/REVISED/overlap_4/](data/case_sets/seed_guided/REVISED/overlap_4/), and the change log is [docs/revision/overlap_4_revision_log.md](docs/revision/overlap_4_revision_log.md). These are revised candidate cases pending clinician re-review.
+Four cases had substantive feedback from both reviewers: VAL-801, VAL-805, VAL-809, and VAL-813. On those four cases, C1 domain agreement is descriptive only: 11 of 31 single-response domain pairs agree exactly (35%), the mean absolute difference is 0.77, and overall C1 agrees on 3 of 4 cases. No kappa is reported. Those four were the direct-revision and calibration set. They were revised from [CLEAN_BASE](data/case_sets/seed_guided/CLEAN_BASE/). The revised charts are in [data/case_sets/seed_guided/REVISED/overlap_4/](data/case_sets/seed_guided/REVISED/overlap_4/), and the change log is [docs/revision/overlap_4_revision_log.md](docs/revision/overlap_4_revision_log.md). These are revised candidate cases pending clinician re-review.
 
 VAL-802 and VAL-803 have substantive feedback from Reviewer 1 only. They are not consensus cases. Their later revision used that Reviewer 1 feedback together with the frozen framework. The comparison CSV records that track as `REVIEWER_1_PLUS_FRAMEWORK`.
 
@@ -93,11 +100,11 @@ The recorded concerns, summarized from the comparison, are these.
 
 VAL-801. Both reviewers found the delirium story clinically insufficient. Reviewer 1 also found the cause unshown and the ibuprofen stop unexplained, and recommended revise. Reviewer 2 wrote that delirium has to be a change from baseline and that a precipitant should be interpretable. Reviewer 2’s later fields are blank.
 
-VAL-805. Both reviewers found the heart-failure hospitalization clinically incomplete. Reviewer 1 failed C1 and C3, described an inpatient diuretic course that matches the home dose, a discharge weight that is not at dry weight, and heart-failure therapy that is not set up as a decision, and recommended revise. The reviewers disagreed on C1. Reviewer 2 marked C1 Pass and wrote that the chart does not investigate why heart failure decompensated. That Pass conflicts with Reviewer 2’s own Fit between presentation and diagnosis score of 2, because the form rule is that any domain scored 1 or 2 makes C1 Fail. Later fields on Reviewer 2’s form are blank.
+VAL-805. Both reviewers found the heart-failure hospitalization clinically incomplete. Reviewer 1 failed C1 and C3, described an inpatient diuretic course that matches the home dose, a discharge weight that is not at dry weight, and heart-failure therapy that is not set up as a decision, and recommended revise. Reviewer 1 ticked both 2 and 3 on Medication regimen. The reviewers disagreed on C1. Reviewer 2 marked C1 Pass and wrote that the chart does not investigate why heart failure decompensated. That Pass conflicts with Reviewer 2’s own Fit between presentation and diagnosis score of 2, because the form rule is that any domain scored 1 or 2 makes C1 Fail. Later fields on Reviewer 2’s form are blank.
 
 VAL-809. Both reviewers found the endocarditis case too thin for the reasoning it asks. Reviewer 1 asked for fever and a predisposition, and questioned continuing lisinopril alongside the AKI, and recommended revise. Reviewer 2 asked for source evaluation, laboratory changes, imaging, and consideration of surgery, and failed C1. Later fields are blank.
 
-VAL-813. Both reviewers found the cytomegalovirus presentation clinically incoherent. Reviewer 1 noted that valganciclovir was already a home medicine, that the transplant regimen is too thin, and that the potassium change was described as "with obvious cause or indication" (recorded wording; likely intended "without"), and recommended exclude. Reviewer 2 wrote that the patient should not present already labeled with CMV colitis, and that volume loss should be considered in the kidney function and potassium. C1 is Fail. Later fields are blank.
+VAL-813. Both reviewers found the cytomegalovirus presentation clinically incoherent. Reviewer 1 noted that valganciclovir was already a home medicine, that the transplant regimen is too thin, and wrote "change in potassium with obvious cause or indication". Calling that change "unexplained" is an interpretation; the recorded wording likely intended "without". The overall recommendation was exclude. Reviewer 2 wrote that the patient should not present already labeled with CMV colitis, and that volume loss should be considered in the kidney function and potassium. C1 is Fail. Later fields are blank.
 
 | Case | Reviewer 1 | Reviewer 2 | Current status |
 | --- | --- | --- | --- |
@@ -252,32 +259,43 @@ Generation 2 does not replace Generation 1, and it does not modify Generation 1.
 
 | Generation 1 | Generation 2 | Family |
 | --- | --- | --- |
-| VAL-801 | G2-001 | Medication reconciliation |
-| VAL-802 | G2-002 | Medication reconciliation |
-| VAL-803 | G2-003 | Medication reconciliation |
-| VAL-804 | G2-004 | Medication reconciliation |
-| VAL-805 | G2-005 | Heart failure decompensation |
-| VAL-806 | G2-006 | Heart failure decompensation |
-| VAL-807 | G2-007 | Heart failure decompensation |
-| VAL-808 | G2-008 | Heart failure decompensation |
-| VAL-809 | G2-009 | Endocarditis / OPAT |
-| VAL-810 | G2-010 | Endocarditis / OPAT |
-| VAL-811 | G2-011 | Endocarditis / OPAT |
-| VAL-812 | G2-012 | Endocarditis / OPAT |
-| VAL-813 | G2-013 | Transplant / CMV |
-| VAL-814 | G2-014 | Transplant / CMV |
-| VAL-815 | G2-015 | Transplant / CMV |
-| VAL-816 | G2-016 | Transplant / CMV |
-| VAL-817 | G2-017 | Hip fracture / anticoagulation |
-| VAL-818 | G2-018 | Hip fracture / anticoagulation |
-| VAL-819 | G2-019 | Hip fracture / anticoagulation |
-| VAL-820 | G2-020 | Hip fracture / anticoagulation |
-| VAL-821 | G2-021 | GI bleed / anticoagulation |
-| VAL-822 | G2-022 | GI bleed / anticoagulation |
-| VAL-823 | G2-023 | GI bleed / anticoagulation |
-| VAL-824 | G2-024 | GI bleed / anticoagulation |
+| VAL-801 | G2-001 | Medication history uncertainty |
+| VAL-802 | G2-002 | Medication history uncertainty |
+| VAL-803 | G2-003 | Medication history uncertainty |
+| VAL-804 | G2-004 | Medication history uncertainty |
+| VAL-805 | G2-005 | Acute heart-failure decompensation |
+| VAL-806 | G2-006 | Acute heart-failure decompensation |
+| VAL-807 | G2-007 | Acute heart-failure decompensation |
+| VAL-808 | G2-008 | Acute heart-failure decompensation |
+| VAL-809 | G2-009 | Outpatient parenteral antibiotic therapy after endocarditis |
+| VAL-810 | G2-010 | Outpatient parenteral antibiotic therapy after endocarditis |
+| VAL-811 | G2-011 | Outpatient parenteral antibiotic therapy after endocarditis |
+| VAL-812 | G2-012 | Outpatient parenteral antibiotic therapy after endocarditis |
+| VAL-813 | G2-013 | Post-kidney-transplant infectious complication |
+| VAL-814 | G2-014 | Post-kidney-transplant infectious complication |
+| VAL-815 | G2-015 | Post-kidney-transplant infectious complication |
+| VAL-816 | G2-016 | Post-kidney-transplant infectious complication |
+| VAL-817 | G2-017 | Postoperative anticoagulation after hip fracture |
+| VAL-818 | G2-018 | Postoperative anticoagulation after hip fracture |
+| VAL-819 | G2-019 | Postoperative anticoagulation after hip fracture |
+| VAL-820 | G2-020 | Postoperative anticoagulation after hip fracture |
+| VAL-821 | G2-021 | Gastrointestinal bleed with anticoagulation decisions |
+| VAL-822 | G2-022 | Gastrointestinal bleed with anticoagulation decisions |
+| VAL-823 | G2-023 | Gastrointestinal bleed with anticoagulation decisions |
+| VAL-824 | G2-024 | Gastrointestinal bleed with anticoagulation decisions |
 
-The pair table with decision and monitoring notes is [matched_pairs.csv](data/case_sets/synthea_g2/matched_pairs.csv). The pair audit is [matched_pair_audit.md](data/case_sets/synthea_g2/reports/matched_pair_audit.md). Generation 1 matching profiles, which are research-design abstractions and not copies of the charts, are in [matching_profiles](data/case_sets/synthea_g2/matching_profiles/). A later blinded comparison can use the neutral pair identifiers in [blinding_map.json](data/case_sets/synthea_g2/blinding_map.json). That comparison has not been run. Resident narratives do not name the generation method.
+The display name is the archetype name in [archetypes.json](data/seed_cases/blueprints/archetypes.json). Generation 1 and Generation 2 keep their own codes.
+
+| Display name | Generation 1 code | Generation 2 code |
+| --- | --- | --- |
+| Medication history uncertainty | `MEDREC_UNCERTAIN_HISTORY` | `MED_HISTORY_UNCERTAINTY` |
+| Acute heart-failure decompensation | `HF_DECOMPENSATION` | `HF_DECOMPENSATION` |
+| Outpatient parenteral antibiotic therapy after endocarditis | `OPAT_ENDOCARDITIS` | `ENDOCARDITIS_OPAT` |
+| Post-kidney-transplant infectious complication | `TRANSPLANT_CMV` | `TRANSPLANT_CMV` |
+| Postoperative anticoagulation after hip fracture | `POSTOP_ANTICOAGULATION` | `HIP_FRACTURE_ANTICOAGULATION` |
+| Gastrointestinal bleed with anticoagulation decisions | `GI_BLEED_ACUTE_CHANGE` | `GI_BLEED_ANTICOAGULATION` |
+
+The pair table with decision and monitoring notes is [matched_pairs.csv](data/case_sets/synthea_g2/matched_pairs.csv). The pair audit is [matched_pair_audit.md](data/case_sets/synthea_g2/reports/matched_pair_audit.md). Generation 1 matching profiles, which are research-design abstractions and not copies of the charts, are in [matching_profiles](data/case_sets/synthea_g2/matching_profiles/). A later blinded comparison can use the neutral pair identifiers in [blinding_map.json](data/case_sets/synthea_g2/blinding_map.json). The paired casebook [CliniProof_Paired_Blinded_Casebook.docx](docs/validation/CliniProof_Paired_Blinded_Casebook.docx) orders those pairs and shows only a neutral chart ID. [case_links.csv](docs/validation/case_links.csv) and [data/blinding/unblinding_key.json](data/blinding/unblinding_key.json) are investigator-only. The unblinding key must not be sent to reviewers. That comparison has not been run. Resident narratives do not name the generation method. The revised Generation 1 casebook, the Generation 2 casebook, and the paired casebook are pending clinician review. They are not validated.
 
 The resident charts have no planted medication error and no completed discharge medication list. The hidden reference is only on the evaluator record. The cohort does not use MIMIC. No language model selects a diagnosis, medication, dose, laboratory value, or reference action. Status: technically generated and audited, and pending clinician validation.
 
@@ -312,12 +330,12 @@ The six workflow families still defined by those blueprints are:
 
 | Archetype | Clinical workflow | Resident source document | Study slots |
 | --- | --- | --- | --- |
-| `MEDREC_UNCERTAIN_HISTORY` | Medication-history uncertainty | `Bad_Med_Rec_Case.docx` | VAL-801–VAL-804 |
+| `MEDREC_UNCERTAIN_HISTORY` | Medication history uncertainty | `Bad_Med_Rec_Case.docx` | VAL-801–VAL-804 |
 | `HF_DECOMPENSATION` | Acute heart-failure decompensation | `Heart_Failure_Case.docx` | VAL-805–VAL-808 |
-| `OPAT_ENDOCARDITIS` | Infective endocarditis and outpatient parenteral antimicrobial transition | `OPAT_Case.docx` | VAL-809–VAL-812 |
-| `TRANSPLANT_CMV` | Kidney transplant and cytomegalovirus treatment | `Post_transplant_case.docx` | VAL-813–VAL-816 |
-| `POSTOP_ANTICOAGULATION` | Hip fracture with interruption and resumption of anticoagulation | `Post-Op_Case.docx` | VAL-817–VAL-820 |
-| `GI_BLEED_ACUTE_CHANGE` | Gastrointestinal bleeding with anticoagulation hold and restart | `Sepsis_AMA_Case.docx` | VAL-821–VAL-824 |
+| `OPAT_ENDOCARDITIS` | Outpatient parenteral antibiotic therapy after endocarditis | `OPAT_Case.docx` | VAL-809–VAL-812 |
+| `TRANSPLANT_CMV` | Post-kidney-transplant infectious complication | `Post_transplant_case.docx` | VAL-813–VAL-816 |
+| `POSTOP_ANTICOAGULATION` | Postoperative anticoagulation after hip fracture | `Post-Op_Case.docx` | VAL-817–VAL-820 |
+| `GI_BLEED_ACUTE_CHANGE` | Gastrointestinal bleed with anticoagulation decisions | `Sepsis_AMA_Case.docx` | VAL-821–VAL-824 |
 
 Four synthetic profiles were generated from each archetype, which yields 24 cases. A profile is one synthetic variant of an archetype. Profiles differ before any historical error injection, in symptoms, hospital course, which medication is held or started, and what follow-up is arranged. Four profiles are a study-design choice so that each family can carry more than one assignment. Four is not a prevalence weight. The profile codes and the details that were intentionally varied are documented in [data/seed_cases/README.md](data/seed_cases/README.md).
 
@@ -741,7 +759,7 @@ The cases change between iterative rounds, and the generation method can change.
 
 The blank form is [CliniProof_Clinical_Validation_Template.docx](docs/validation/CliniProof_Clinical_Validation_Template.docx). Field definitions, matching the form, are in [CODEBOOK.md](docs/validation/CODEBOOK.md). The template contains VAL-801 through VAL-824. For each case the reviewer sees the chart and then the items below. No additional C6 dimension has been added.
 
-**C1 — Clinical plausibility.** Eight domains are each scored 1, 2, 3, or 4:
+**C1 — Clinical plausibility.** Could this reasonably represent a patient encountered in the stated inpatient clinical setting? Eight domains are each scored 1, 2, 3, or 4:
 
 - Presentation and demographics
 - Fit between presentation and diagnosis
@@ -752,17 +770,17 @@ The blank form is [CliniProof_Clinical_Validation_Template.docx](docs/validation
 - Consistency across the chart
 - Discharge plan and follow-up
 
-C1 then has an overall Pass or Fail, and a comment.
+A rating of 1 means implausible. A rating of 2 means questionable and requires revision. A rating of 3 means plausible with minor concern. A rating of 4 means fully plausible. Any domain rated 1 or 2 needs a written explanation. C1 passes when every clinically relevant domain is rated 3 or 4. C1 then has an overall Pass or Fail, and a comment box labeled "C1 reviewer comments".
 
-**C2 — Intended assessment problem.** Pass or Fail, plus a comment. On a clean case this item asks whether the chart appropriately contains no deliberately introduced medication-reconciliation problem.
+**C2 — Intended assessment problem.** On a clean case the question is: "Does this case appropriately contain no deliberately introduced medication-reconciliation or transition-of-care problem?" Pass or Fail, plus a comment box labeled "C2 reviewer comments".
 
-**C3 — Detectability.** Pass or Fail, plus a comment.
+**C3 — Detectability.** On a clean case the question is: "Does the case avoid misleading cues suggesting that an error must exist?" Pass or Fail, plus a comment box labeled "C3 reviewer comments".
 
-**C4 — Competing problem.** Pass or Fail, plus a comment, and space for the medication or clinical issue when one is named.
+**C4 — Absence of unintended competing problems.** On a clean case the question is: "Does the case contain any clinically meaningful medication-reconciliation or transition-of-care problem that should not be present?" Pass or Fail. If C4 fails, the reviewer enters the medication or clinical issue, where it appears in the case, and why it is clinically meaningful. A comment box is labeled "C4 reviewer comments".
 
-**C5 — Difficulty.** One of Easy, Moderate, Hard, or Inappropriate / outlier, plus a comment.
+**C5 — Expected learner difficulty.** This is an expert estimate only. Actual difficulty will ultimately be determined from resident performance. One of Easy, Moderate, Hard, or Inappropriate / outlier, plus a comment box labeled "C5 reviewer comments".
 
-**Overall recommendation.** Accept, Revise, or Exclude, plus an overall comment. Reviewer initials and the case date are separate fields. A blank field stays blank.
+**Overall recommendation.** Accept: the case is suitable for use without clinically meaningful revision. Revise: the case requires one or more changes before it should be used. Exclude: the case should not be used, because its problems cannot be reasonably corrected without substantially reconstructing it. The comment box is labeled "Overall comments / suggested revisions". Reviewer initials/code and the date are separate fields. A blank field stays blank.
 
 Reviewer 2’s C2 through C5 and overall recommendation are blank on every case, including the four cases with a C1 rating. Those blanks were not filled by inference.
 

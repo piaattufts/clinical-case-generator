@@ -1,0 +1,561 @@
+{
+  "investigator_only": true,
+  "do_not_send_to_reviewers": true,
+  "order_seed": 20261009,
+  "pair_order": "Neutral pair id from data/case_sets/synthea_g2/blinding_map.json, ascending.",
+  "within_pair": "random.Random(order_seed) shuffles the two members after the pair ids are sorted. The same generator draws the neutral chart ids.",
+  "pairs": [
+    {
+      "pair_id": "M-801",
+      "family": "Medication history uncertainty",
+      "g1_revision_source": "dual-review",
+      "document_order": [
+        "N-6643",
+        "N-EC21"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-6643",
+          "source_id": "VAL-801",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 3
+        },
+        {
+          "blinded_id": "N-EC21",
+          "source_id": "G2-001",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 16
+        }
+      ]
+    },
+    {
+      "pair_id": "M-802",
+      "family": "Medication history uncertainty",
+      "g1_revision_source": "Reviewer 1 + framework",
+      "document_order": [
+        "N-4734",
+        "N-AB2B"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-4734",
+          "source_id": "VAL-802",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 30
+        },
+        {
+          "blinded_id": "N-AB2B",
+          "source_id": "G2-002",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 39
+        }
+      ]
+    },
+    {
+      "pair_id": "M-803",
+      "family": "Medication history uncertainty",
+      "g1_revision_source": "Reviewer 1 + framework",
+      "document_order": [
+        "N-62AF",
+        "N-2AF3"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-62AF",
+          "source_id": "G2-003",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 51
+        },
+        {
+          "blinded_id": "N-2AF3",
+          "source_id": "VAL-803",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 64
+        }
+      ]
+    },
+    {
+      "pair_id": "M-804",
+      "family": "Medication history uncertainty",
+      "g1_revision_source": "framework only",
+      "document_order": [
+        "N-EC17",
+        "N-7647"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-EC17",
+          "source_id": "VAL-804",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 75
+        },
+        {
+          "blinded_id": "N-7647",
+          "source_id": "G2-004",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 83
+        }
+      ]
+    },
+    {
+      "pair_id": "M-805",
+      "family": "Acute heart-failure decompensation",
+      "g1_revision_source": "dual-review",
+      "document_order": [
+        "N-EC67",
+        "N-308C"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-EC67",
+          "source_id": "G2-005",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 95
+        },
+        {
+          "blinded_id": "N-308C",
+          "source_id": "VAL-805",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 108
+        }
+      ]
+    },
+    {
+      "pair_id": "M-806",
+      "family": "Acute heart-failure decompensation",
+      "g1_revision_source": "framework only",
+      "document_order": [
+        "N-840D",
+        "N-8570"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-840D",
+          "source_id": "VAL-806",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 120
+        },
+        {
+          "blinded_id": "N-8570",
+          "source_id": "G2-006",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 131
+        }
+      ]
+    },
+    {
+      "pair_id": "M-807",
+      "family": "Acute heart-failure decompensation",
+      "g1_revision_source": "framework only",
+      "document_order": [
+        "N-9A10",
+        "N-AEF9"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-9A10",
+          "source_id": "G2-007",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 145
+        },
+        {
+          "blinded_id": "N-AEF9",
+          "source_id": "VAL-807",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 158
+        }
+      ]
+    },
+    {
+      "pair_id": "M-808",
+      "family": "Acute heart-failure decompensation",
+      "g1_revision_source": "framework only",
+      "document_order": [
+        "N-C7DB",
+        "N-C64F"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-C7DB",
+          "source_id": "G2-008",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 169
+        },
+        {
+          "blinded_id": "N-C64F",
+          "source_id": "VAL-808",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 182
+        }
+      ]
+    },
+    {
+      "pair_id": "M-809",
+      "family": "Outpatient parenteral antibiotic therapy after endocarditis",
+      "g1_revision_source": "dual-review",
+      "document_order": [
+        "N-F1FE",
+        "N-110A"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-F1FE",
+          "source_id": "VAL-809",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 193
+        },
+        {
+          "blinded_id": "N-110A",
+          "source_id": "G2-009",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 205
+        }
+      ]
+    },
+    {
+      "pair_id": "M-810",
+      "family": "Outpatient parenteral antibiotic therapy after endocarditis",
+      "g1_revision_source": "framework only",
+      "document_order": [
+        "N-EEED",
+        "N-CEE1"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-EEED",
+          "source_id": "VAL-810",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 214
+        },
+        {
+          "blinded_id": "N-CEE1",
+          "source_id": "G2-010",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 224
+        }
+      ]
+    },
+    {
+      "pair_id": "M-811",
+      "family": "Outpatient parenteral antibiotic therapy after endocarditis",
+      "g1_revision_source": "framework only",
+      "document_order": [
+        "N-E6BE",
+        "N-6735"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-E6BE",
+          "source_id": "G2-011",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 233
+        },
+        {
+          "blinded_id": "N-6735",
+          "source_id": "VAL-811",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 242
+        }
+      ]
+    },
+    {
+      "pair_id": "M-812",
+      "family": "Outpatient parenteral antibiotic therapy after endocarditis",
+      "g1_revision_source": "framework only",
+      "document_order": [
+        "N-61BC",
+        "N-DCB1"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-61BC",
+          "source_id": "G2-012",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 253
+        },
+        {
+          "blinded_id": "N-DCB1",
+          "source_id": "VAL-812",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 262
+        }
+      ]
+    },
+    {
+      "pair_id": "M-813",
+      "family": "Post-kidney-transplant infectious complication",
+      "g1_revision_source": "dual-review",
+      "document_order": [
+        "N-8AFF",
+        "N-ADA8"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-8AFF",
+          "source_id": "VAL-813",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 272
+        },
+        {
+          "blinded_id": "N-ADA8",
+          "source_id": "G2-013",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 287
+        }
+      ]
+    },
+    {
+      "pair_id": "M-814",
+      "family": "Post-kidney-transplant infectious complication",
+      "g1_revision_source": "framework only",
+      "document_order": [
+        "N-B906",
+        "N-ECE7"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-B906",
+          "source_id": "G2-014",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 299
+        },
+        {
+          "blinded_id": "N-ECE7",
+          "source_id": "VAL-814",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 311
+        }
+      ]
+    },
+    {
+      "pair_id": "M-815",
+      "family": "Post-kidney-transplant infectious complication",
+      "g1_revision_source": "framework only",
+      "document_order": [
+        "N-60EE",
+        "N-AF47"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-60EE",
+          "source_id": "G2-015",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 322
+        },
+        {
+          "blinded_id": "N-AF47",
+          "source_id": "VAL-815",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 336
+        }
+      ]
+    },
+    {
+      "pair_id": "M-816",
+      "family": "Post-kidney-transplant infectious complication",
+      "g1_revision_source": "framework only",
+      "document_order": [
+        "N-D2FC",
+        "N-F9F0"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-D2FC",
+          "source_id": "G2-016",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 347
+        },
+        {
+          "blinded_id": "N-F9F0",
+          "source_id": "VAL-816",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 358
+        }
+      ]
+    },
+    {
+      "pair_id": "M-817",
+      "family": "Postoperative anticoagulation after hip fracture",
+      "g1_revision_source": "framework only",
+      "document_order": [
+        "N-2ECA",
+        "N-6D42"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-2ECA",
+          "source_id": "VAL-817",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 368
+        },
+        {
+          "blinded_id": "N-6D42",
+          "source_id": "G2-017",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 378
+        }
+      ]
+    },
+    {
+      "pair_id": "M-818",
+      "family": "Postoperative anticoagulation after hip fracture",
+      "g1_revision_source": "framework only",
+      "document_order": [
+        "N-B5BE",
+        "N-F4E3"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-B5BE",
+          "source_id": "G2-018",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 389
+        },
+        {
+          "blinded_id": "N-F4E3",
+          "source_id": "VAL-818",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 400
+        }
+      ]
+    },
+    {
+      "pair_id": "M-819",
+      "family": "Postoperative anticoagulation after hip fracture",
+      "g1_revision_source": "framework only",
+      "document_order": [
+        "N-DD3B",
+        "N-C74E"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-DD3B",
+          "source_id": "VAL-819",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 410
+        },
+        {
+          "blinded_id": "N-C74E",
+          "source_id": "G2-019",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 419
+        }
+      ]
+    },
+    {
+      "pair_id": "M-820",
+      "family": "Postoperative anticoagulation after hip fracture",
+      "g1_revision_source": "framework only",
+      "document_order": [
+        "N-D4F7",
+        "N-3004"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-D4F7",
+          "source_id": "G2-020",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 430
+        },
+        {
+          "blinded_id": "N-3004",
+          "source_id": "VAL-820",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 442
+        }
+      ]
+    },
+    {
+      "pair_id": "M-821",
+      "family": "Gastrointestinal bleed with anticoagulation decisions",
+      "g1_revision_source": "framework only",
+      "document_order": [
+        "N-324E",
+        "N-3E63"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-324E",
+          "source_id": "G2-021",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 452
+        },
+        {
+          "blinded_id": "N-3E63",
+          "source_id": "VAL-821",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 461
+        }
+      ]
+    },
+    {
+      "pair_id": "M-822",
+      "family": "Gastrointestinal bleed with anticoagulation decisions",
+      "g1_revision_source": "framework only",
+      "document_order": [
+        "N-D198",
+        "N-0785"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-D198",
+          "source_id": "VAL-822",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 471
+        },
+        {
+          "blinded_id": "N-0785",
+          "source_id": "G2-022",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 480
+        }
+      ]
+    },
+    {
+      "pair_id": "M-823",
+      "family": "Gastrointestinal bleed with anticoagulation decisions",
+      "g1_revision_source": "framework only",
+      "document_order": [
+        "N-C7EB",
+        "N-DB6F"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-C7EB",
+          "source_id": "VAL-823",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 489
+        },
+        {
+          "blinded_id": "N-DB6F",
+          "source_id": "G2-023",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 499
+        }
+      ]
+    },
+    {
+      "pair_id": "M-824",
+      "family": "Gastrointestinal bleed with anticoagulation decisions",
+      "g1_revision_source": "framework only",
+      "document_order": [
+        "N-6617",
+        "N-0F27"
+      ],
+      "members": [
+        {
+          "blinded_id": "N-6617",
+          "source_id": "VAL-824",
+          "cohort": "generation_1",
+          "blinded_casebook_page": 508
+        },
+        {
+          "blinded_id": "N-0F27",
+          "source_id": "G2-024",
+          "cohort": "generation_2",
+          "blinded_casebook_page": 517
+        }
+      ]
+    }
+  ]
+}
