@@ -40,7 +40,7 @@ The working tree keeps one original seed-guided study set, one canonical clean b
 | Reviewer comparison | Normalized case-level comparison | [docs/clinical_feedback/reviewer_comparison.md](docs/clinical_feedback/reviewer_comparison.md) |
 | Validation instrument | Unchanged clinical coding form | [docs/validation/CliniProof_Clinical_Validation_Template.docx](docs/validation/CliniProof_Clinical_Validation_Template.docx) |
 | Methodology | Current iterative clinician-review method | [docs/methodology.md](docs/methodology.md) |
-| Second revision cases | VAL-801, VAL-805, VAL-809, VAL-813 | Revision pending. [exports/current/](exports/current/README.md) is empty until that revision exists |
+| Revised overlap cases | VAL-801, VAL-805, VAL-809, VAL-813, ready for the next clinician review and not clinically validated | [data/case_sets/seed_guided/REVISED/overlap_4/](data/case_sets/seed_guided/REVISED/overlap_4/) |
 
 The original freeze lives in [data/case_sets/seed_guided/](data/case_sets/seed_guided/) excluding [CLEAN_BASE/](data/case_sets/seed_guided/CLEAN_BASE/). `CLEAN_BASE` is stored inside that directory so the clean charts stay next to the freeze they were recovered from. It is a separate artifact. The freeze still contains the historical planted-error variants. The clean base does not.
 
@@ -561,11 +561,9 @@ Reviewer 2’s C2 through C5 and overall recommendation are blank on every case,
 
 ## Second-revision status
 
-The repository has been cleaned. The next revision has not been performed.
+VAL-801, VAL-805, VAL-809, and VAL-813 have been revised from [the clean base](data/case_sets/seed_guided/CLEAN_BASE/). The revised resident and evaluator files are in [data/case_sets/seed_guided/REVISED/overlap_4/](data/case_sets/seed_guided/REVISED/overlap_4/). The case-by-case record is [docs/revision/overlap_4_revision_log.md](docs/revision/overlap_4_revision_log.md). The next review uses the same C1–C5 instrument, in [docs/validation/CliniProof_Revised_Overlap4_Codebook.docx](docs/validation/CliniProof_Revised_Overlap4_Codebook.docx).
 
-The four second-revision candidates are VAL-801, VAL-805, VAL-809, and VAL-813. The revision will start from [data/case_sets/seed_guided/CLEAN_BASE/](data/case_sets/seed_guided/CLEAN_BASE/). The revised cases will be evaluated with the same codebook. These four cases are not validated. No revised files have been created for them. [exports/current/](exports/current/README.md) stays empty until that package exists.
-
-Reviewer-1-only comments on VAL-802 and VAL-803 remain documented in the comparison. They are not relabeled as agreement.
+These four cases are ready for the next clinician review. They are not clinically validated. The clean base and the original freeze were not edited. Reviewer-1-only comments on VAL-802 and VAL-803 remain documented in the comparison. They were not revised. [exports/current/](exports/current/README.md) remains empty because this revision is only the four-case overlap, not a new 24-case package.
 
 ## Provenance and immutability
 

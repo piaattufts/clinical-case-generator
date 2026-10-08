@@ -1,0 +1,605 @@
+{
+  "case_id_code": "VAL-809",
+  "ClinicalCase": {
+    "title": "infectious disease inpatient case VAL-809",
+    "case_id_code": "VAL-809",
+    "case_status": "review",
+    "generation_source": "synthetic",
+    "one_liner": "82-year-old man with fever, dental disease, and mitral-valve endocarditis",
+    "admission_dx": "Acute and subacute infective endocarditis",
+    "disposition_status": "home",
+    "chief_complaint": "Fever and fatigue",
+    "patient_name": "VAL Patient 809",
+    "patient_age": 82,
+    "patient_gender": "Male",
+    "ethnicity": null,
+    "weight_kg": "70.000",
+    "social_context": "Baseline living situation: lives at home",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "infectious disease",
+    "allergies": [],
+    "medical_history": [
+      "Essential (primary) hypertension",
+      "Mixed hyperlipidemia",
+      "Chronic periodontitis and several dental caries"
+    ],
+    "source_type": "authored_scenario",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Fever and fatigue",
+      "hpi": "An 82-year-old man is admitted with one week of fever and fatigue. He has no prosthetic valve. A dental examination shows several caries and periodontal disease. Home medicines are lisinopril 10 mg daily and atorvastatin 40 mg daily. Admission temperature is 38.8 C. Two blood-culture sets drawn before antibiotics grew Streptococcus mitis group, reported susceptible to penicillin. Ceftriaxone 2 g intravenously once daily was started after those cultures were drawn. Creatinine was 1.6 mg/dL on hospital day 1, above an outpatient baseline of 0.9 mg/dL, while he was febrile and eating poorly. Lisinopril was held that day. Repeat blood cultures on hospital day 3 showed no growth. A transesophageal echocardiogram shows an 8 mm mitral vegetation, mild mitral regurgitation, no abscess, and a left ventricular ejection fraction of 55 percent. Cardiac surgery found no current indication for an operation: he has no heart-failure symptoms from the valve lesion, no abscess, and the bacteremia has cleared. Ceftriaxone 2 g intravenously once daily is planned for four weeks counted from the first negative blood culture. Discharge creatinine is 0.8 mg/dL. Lisinopril 10 mg daily was restarted the day before discharge and the blood pressure remained in the 130s systolic. A peripherally inserted central catheter is in place for the remaining intravenous doses. Weekly blood count and creatinine are arranged.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "Fever",
+        "Fatigue"
+      ],
+      "symptom_duration": "one week",
+      "symptom_course": "fever resolved after antibiotics"
+    },
+    "social_support": {
+      "living_situation": "Baseline living situation: lives at home",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": false,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-VAL809-001",
+      "case_id": "VAL-809",
+      "diagnosis": "Acute and subacute infective endocarditis",
+      "diagnosis_type": "admission",
+      "status": "active",
+      "context": "inpatient",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL809-002",
+      "case_id": "VAL-809",
+      "diagnosis": "Essential (primary) hypertension",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL809-003",
+      "case_id": "VAL-809",
+      "diagnosis": "Mixed hyperlipidemia",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-VAL809-001",
+      "case_id": "VAL-809",
+      "note_type": "admission",
+      "note_text": "Admission note. Fever to 38.8 C and fatigue for one week. Poor dentition. No prosthetic valve. Blood cultures drawn before antibiotics. Outpatient creatinine 0.9 mg/dL. Lisinopril held.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "note_id": "NOTE-VAL809-002",
+      "case_id": "VAL-809",
+      "note_type": "hospital_course",
+      "note_text": "Streptococcus mitis group bacteremia, penicillin susceptible. Cleared on hospital day 3. Transesophageal echocardiogram with an 8 mm mitral vegetation and no abscess. Surgery is not indicated now. Ceftriaxone 2 g intravenously once daily for four weeks from the first negative culture. Lisinopril restarted after creatinine returned to 0.8 mg/dL.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-VAL809-001",
+      "case_id": "VAL-809",
+      "timepoint": "admission",
+      "temp_c": "38.80",
+      "bp_systolic": 127,
+      "bp_diastolic": 86,
+      "heart_rate": 102,
+      "resp_rate": 19,
+      "spo2_percent": "98.00",
+      "oxygen_support": null,
+      "source_reference": null
+    },
+    {
+      "vital_id": "VIT-VAL809-002",
+      "case_id": "VAL-809",
+      "timepoint": "discharge",
+      "temp_c": "36.70",
+      "bp_systolic": 132,
+      "bp_diastolic": 85,
+      "heart_rate": 78,
+      "resp_rate": 19,
+      "spo2_percent": "96.00",
+      "oxygen_support": null,
+      "source_reference": null
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-VAL809-001",
+      "case_id": "VAL-809",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.6,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL809-002",
+      "case_id": "VAL-809",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 0.8,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL809-003",
+      "case_id": "VAL-809",
+      "timepoint": "admission",
+      "test_name": "Hemoglobin [Mass/volume] in Blood by Oximetry",
+      "value": 13.1,
+      "value_text": null,
+      "unit": "g/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL809-004",
+      "case_id": "VAL-809",
+      "timepoint": "discharge",
+      "test_name": "Hemoglobin [Mass/volume] in Blood by Oximetry",
+      "value": 12.9,
+      "value_text": null,
+      "unit": "g/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL809-005",
+      "case_id": "VAL-809",
+      "timepoint": "outpatient_baseline",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 0.9,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL809-006",
+      "case_id": "VAL-809",
+      "timepoint": "admission",
+      "test_name": "Leukocytes [#/volume] in Blood",
+      "value": 14.2,
+      "value_text": null,
+      "unit": "10*3/uL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL809-007",
+      "case_id": "VAL-809",
+      "timepoint": "discharge",
+      "test_name": "Leukocytes [#/volume] in Blood",
+      "value": 7.4,
+      "value_text": null,
+      "unit": "10*3/uL",
+      "status": "final",
+      "source_reference": null
+    }
+  ],
+  "CaseImaging": [
+    {
+      "study_id": "STUDY-VAL809-001",
+      "case_id": "VAL-809",
+      "timepoint": "inpatient",
+      "study_type": "Transesophageal echocardiogram",
+      "body_site": "heart",
+      "finding": "8 mm mitral vegetation. Mild mitral regurgitation. No abscess. Left ventricular ejection fraction 55 percent.",
+      "source_reference": null
+    }
+  ],
+  "CaseConsult": [
+    {
+      "consult_id": "CON-VAL809-001",
+      "case_id": "VAL-809",
+      "service": "infectious disease",
+      "timepoint": "inpatient",
+      "assessment": "Penicillin-susceptible Streptococcus mitis group endocarditis on a native mitral valve. Bacteremia cleared on hospital day 3. No abscess.",
+      "recommendation": "Continue ceftriaxone 2 g intravenously once daily to complete four weeks from the first negative culture. Weekly complete blood count and creatinine. Infectious-diseases follow-up in 7 days.",
+      "source_reference": null
+    },
+    {
+      "consult_id": "CON-VAL809-002",
+      "case_id": "VAL-809",
+      "service": "cardiac surgery",
+      "timepoint": "inpatient",
+      "assessment": "Mitral vegetation without abscess, severe regurgitation, heart failure, or uncontrolled infection.",
+      "recommendation": "No indication for valve surgery during this admission.",
+      "source_reference": null
+    }
+  ],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-VAL809-004",
+      "case_id": "VAL-809",
+      "context": "home",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL809-005",
+      "case_id": "VAL-809",
+      "context": "home",
+      "drug": "lisinopril 10 MG Oral Tablet",
+      "reported_name": "lisinopril 10 MG Oral Tablet",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Essential (primary) hypertension",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL809-006",
+      "case_id": "VAL-809",
+      "context": "inpatient",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL809-007",
+      "case_id": "VAL-809",
+      "context": "inpatient",
+      "drug": "ceftriaxone 2000 MG Injection",
+      "reported_name": "ceftriaxone 2000 MG Injection",
+      "dose": "2000 MG",
+      "route": "intravenous",
+      "frequency": "once daily",
+      "indication": "Acute and subacute infective endocarditis",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": "2 g intravenously once daily. Four weeks counted from the first negative blood culture on hospital day 3. Continues after discharge through the catheter."
+    },
+    {
+      "medication_id": "MED-VAL809-008",
+      "case_id": "VAL-809",
+      "context": "inpatient",
+      "drug": "lisinopril 10 MG Oral Tablet",
+      "reported_name": "lisinopril 10 MG Oral Tablet",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Essential (primary) hypertension",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": "Held on hospital day 1 when creatinine was 1.6 mg/dL. Restarted the day before discharge after creatinine was 0.8 mg/dL."
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-VAL809-001",
+      "case_id": "VAL-809",
+      "item": "Infectious-disease follow-up with parenteral-therapy laboratory monitoring",
+      "timing": "7 days",
+      "with_service": "infectious disease",
+      "source_reference": null
+    },
+    {
+      "followup_id": "FU-VAL809-002",
+      "case_id": "VAL-809",
+      "item": "Dental follow-up for caries and periodontal disease",
+      "timing": "2 weeks",
+      "with_service": "dentistry",
+      "source_reference": null
+    }
+  ],
+  "CaseInstruction": [],
+  "CaseMonitoring": [
+    {
+      "monitoring_id": "MON-VAL809-001",
+      "case_id": "VAL-809",
+      "parameter": "weekly complete blood count and creatinine during parenteral therapy",
+      "frequency": "weekly",
+      "target": null,
+      "trigger_for_action": null,
+      "duration": null,
+      "responsible_service": "infectious disease",
+      "source_reference": null
+    }
+  ],
+  "CaseProblemList": [
+    {
+      "problem_id": "PROB-VAL809-001",
+      "case_id": "VAL-809",
+      "problem": "Essential (primary) hypertension",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL809-002",
+      "case_id": "VAL-809",
+      "problem": "Mixed hyperlipidemia",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL809-003",
+      "case_id": "VAL-809",
+      "problem": "Acute and subacute infective endocarditis",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "high",
+      "status": "active",
+      "source_reference": null
+    }
+  ],
+  "CaseProcedure": [],
+  "CaseTherapyRestriction": [],
+  "CaseReturnPrecaution": [
+    {
+      "precaution_id": "RP-VAL809-001",
+      "case_id": "VAL-809",
+      "symptom": "Fatigue",
+      "reason": "Worsening of the presenting symptom",
+      "action": "Seek urgent evaluation",
+      "severity": "urgent",
+      "patient_instruction": null,
+      "source_reference": null
+    }
+  ],
+  "CaseMedicationReconciliation": [
+    {
+      "medrec_id": "MR-VAL809-001",
+      "case_id": "VAL-809",
+      "bpmh_source": "patient_and_prior_records",
+      "bpmh_interviewer": null,
+      "bpmh_date": null,
+      "medrec_status": "complete",
+      "patient_able_to_participate": true,
+      "unverified_medications_present": null,
+      "reconciliation_admission": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "reconciliation_discharge": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "discrepancy_types": [],
+      "pharmacist_review": true,
+      "high_alert_meds_identified": [],
+      "notes": null,
+      "source_reference": null
+    }
+  ],
+  "CaseWeight": [
+    {
+      "weight_id": "WT-VAL809-001",
+      "case_id": "VAL-809",
+      "timepoint": "admission",
+      "weight_kg": "70.000",
+      "dry_weight_kg": null,
+      "source_reference": null
+    }
+  ],
+  "CaseIntakeOutput": [],
+  "CaseDevice": [
+    {
+      "device_id": "DEV-VAL809-001",
+      "case_id": "VAL-809",
+      "device_type": "peripherally inserted central catheter",
+      "site": "right arm",
+      "placement_timepoint": "inpatient",
+      "status": "in place",
+      "tip_location_or_confirmation": "Tip position confirmed. Site without erythema or drainage.",
+      "care_instructions": "Standard line care during the remaining ceftriaxone course.",
+      "removal_plan": "Remove when the four-week intravenous course is complete.",
+      "source_reference": null
+    }
+  ],
+  "CaseMicrobiology": [
+    {
+      "micro_id": "MICRO-VAL809-001",
+      "case_id": "VAL-809",
+      "timepoint": "admission",
+      "specimen": "blood",
+      "test": "blood culture",
+      "organism": "Streptococcus mitis group",
+      "result": "growth",
+      "quantity": "2 of 2 sets",
+      "status": "final",
+      "notes": "Drawn before antibiotics. Reported susceptible to penicillin.",
+      "source_reference": null
+    },
+    {
+      "micro_id": "MICRO-VAL809-002",
+      "case_id": "VAL-809",
+      "timepoint": "hospital_day_3",
+      "specimen": "blood",
+      "test": "blood culture",
+      "organism": null,
+      "result": "no growth",
+      "quantity": "2 of 2 sets",
+      "status": "final",
+      "notes": "First negative cultures. The four-week ceftriaxone course is counted from this day.",
+      "source_reference": null
+    }
+  ],
+  "reference_discharge_plan": {
+    "medications": [
+      {
+        "medication": "ceftriaxone 2000 MG Injection",
+        "action": "continue",
+        "dose": "2000 MG",
+        "route": "intravenous",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Native mitral-valve endocarditis due to penicillin-susceptible Streptococcus mitis group",
+        "rationale": "Started in the hospital after cultures were drawn. Infectious diseases recommends completing four weeks from the first negative culture on hospital day 3. The catheter is in place.",
+        "monitoring": "Weekly complete blood count and creatinine."
+      },
+      {
+        "medication": "lisinopril 10 MG Oral Tablet",
+        "action": "restart",
+        "dose": "10 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Essential (primary) hypertension",
+        "rationale": "Held when creatinine was 1.6 mg/dL. Restarted the day before discharge after creatinine was 0.8 mg/dL, and systolic blood pressure stayed in the 130s.",
+        "monitoring": null
+      },
+      {
+        "medication": "atorvastatin 40 MG Oral Tablet",
+        "action": "continue",
+        "dose": "40 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Mixed hyperlipidemia",
+        "rationale": "Home medicine continued through the admission. No new contraindication is described.",
+        "monitoring": null
+      }
+    ],
+    "monitoring_requirements": [
+      {
+        "parameter": "weekly complete blood count and creatinine during parenteral therapy",
+        "frequency": "weekly",
+        "target": null,
+        "duration": "for the remaining ceftriaxone course"
+      }
+    ],
+    "follow_up_requirements": [
+      {
+        "item": "Infectious-disease follow-up with parenteral-therapy laboratory monitoring",
+        "timing": "7 days",
+        "with_service": "infectious disease"
+      },
+      {
+        "item": "Dental follow-up for caries and periodontal disease",
+        "timing": "2 weeks",
+        "with_service": "dentistry"
+      }
+    ]
+  },
+  "revision_provenance": {
+    "status": "READY FOR NEXT CLINICIAN REVIEW",
+    "clinically_validated": false,
+    "baseline": "data/case_sets/seed_guided/CLEAN_BASE/VAL-809_resident.json",
+    "method": "Reviewer concerns were turned into missing clinical information. The hidden reference was written again from the revised chart.",
+    "synthetic_facts": [
+      {
+        "fact": "Fever of 38.8 C, periodontal disease and caries, and no prosthetic valve.",
+        "why": "The prior chart was afebrile and gave no predisposition for endocarditis.",
+        "evidence": "Baddour LM et al. Circulation. 2015;132:1435-1486. Fever and a predisposing condition are clinical features of infective endocarditis. Dental infection is a recognized source of viridans-group streptococcal bacteremia."
+      },
+      {
+        "fact": "Penicillin-susceptible Streptococcus mitis group in two blood-culture sets, clearance on hospital day 3, and a transesophageal echocardiogram showing an 8 mm mitral vegetation without abscess.",
+        "why": "The organism, the imaging, and the response to treatment were not specific enough to support a treatment duration or a surgical decision.",
+        "evidence": "Baddour LM et al. Circulation. 2015;132:1435-1486. Ceftriaxone 2 g intravenously every 24 hours for four weeks is an accepted regimen for native-valve endocarditis due to highly penicillin-susceptible viridans-group streptococci. Early surgery is recommended for valve dysfunction causing heart failure, uncontrolled infection, or an indication such as abscess; none of those is present on this chart."
+      },
+      {
+        "fact": "Creatinine 0.9 mg/dL at baseline, 1.6 mg/dL on hospital day 1, and 0.8 mg/dL at discharge, with lisinopril held and then restarted.",
+        "why": "The creatinine rise was unexplained and lisinopril appeared to continue through it.",
+        "evidence": "KDIGO AKI guideline. Kidney Int Suppl. 2012;2:1-138. Hemodynamically active drugs are reviewed when kidney function falls. The chart restarts lisinopril only after creatinine has returned to baseline."
+      }
+    ]
+  }
+}
