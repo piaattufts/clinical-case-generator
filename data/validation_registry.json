@@ -4,6 +4,17 @@
   ],
   "archived_validation_batches": [],
   "batches": {
+    "CLINIPROOF_SEEDCASES_V4": {
+      "status": "generated",
+      "generation_strategy": "resident_seed_guided",
+      "directory": "data/case_sets/seed_guided_v4",
+      "plan": "data/case_sets/seed_guided_v4/batch_plan.json",
+      "readable": "data/case_sets/seed_guided_v4/readable",
+      "public_id_first": "VAL-901",
+      "public_id_last": "VAL-924",
+      "case_count": 24,
+      "description": "Additional resident-seed-guided freeze for VAL-901 through VAL-924. It does not replace CLINIPROOF_SEEDCASES_V3 or the VAL-801–VAL-824 clean base."
+    },
     "CLINIPROOF_SEEDCASES_V3": {
       "status": "active",
       "generation_strategy": "resident_seed_guided",

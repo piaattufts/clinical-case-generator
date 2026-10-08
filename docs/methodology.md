@@ -83,6 +83,10 @@ The repository cleanup is complete. The second revision has not been performed. 
 
 Only after that acceptance would the project use a case in a later experiment that introduces an error or model-generated advice. Historical error-bearing variants remain in the original freeze and in Git history. They are not the starting point for the revision, and they are not evidence that this review stage has validated an error-evaluation experiment.
 
+## Additional batch
+
+The same method was run again to produce `CLINIPROOF_SEEDCASES_V4`, VAL-901 through VAL-924, in [data/case_sets/seed_guided_v4/](../data/case_sets/seed_guided_v4/README.md). The resident documents remain design inputs. The six archetypes and their four profiles each are the blueprint already verified against those documents. A new master seed draws new synthetic values. The batch plan pre-specifies four clean controls and twenty single discrepancies. Clean validation precedes injection. The resident export omits the answer key. This batch does not replace VAL-801–VAL-824, and machine validation does not accept either batch clinically. Provenance for the new freeze is in [provenance.md](../data/case_sets/seed_guided_v4/provenance.md).
+
 ## Provenance
 
 Original charts, clean charts, and the two completed review files are hashed in [source_integrity.md](source_integrity.md). Future revisions are new derivative artifacts. They are not written back into the freeze or into the clean base. Superseded packages that were removed from this working tree remain at Git tag `repo-before-clinical-cleanup-2026-10`.

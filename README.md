@@ -41,6 +41,7 @@ The working tree keeps one original seed-guided study set, one canonical clean b
 | Validation instrument | Unchanged clinical coding form | [docs/validation/CliniProof_Clinical_Validation_Template.docx](docs/validation/CliniProof_Clinical_Validation_Template.docx) |
 | Methodology | Current iterative clinician-review method | [docs/methodology.md](docs/methodology.md) |
 | Second revision cases | VAL-801, VAL-805, VAL-809, VAL-813 | Revision pending. [exports/current/](exports/current/README.md) is empty until that revision exists |
+| Additional seed-guided batch | New freeze from the same archetypes, VAL-901–VAL-924. It does not replace the rows above | [data/case_sets/seed_guided_v4/](data/case_sets/seed_guided_v4/README.md) |
 
 The original freeze lives in [data/case_sets/seed_guided/](data/case_sets/seed_guided/) excluding [CLEAN_BASE/](data/case_sets/seed_guided/CLEAN_BASE/). `CLEAN_BASE` is stored inside that directory so the clean charts stay next to the freeze they were recovered from. It is a separate artifact. The freeze still contains the historical planted-error variants. The clean base does not.
 
@@ -221,7 +222,35 @@ The batch plan is [data/case_sets/seed_guided/batch_plan.json](data/case_sets/se
 
 The current iterative revision does not start from the error-bearing version. It starts from [CLEAN_BASE](data/case_sets/seed_guided/CLEAN_BASE/). Those files are the pre-injection charts for all 24 slots, including the twenty that were later altered in the freeze. The original freeze also shows reference leakage on the four control exports; the clean-base resident files keep the reference plan off the resident chart.
 
-The optional injection step remains in the generator as an experimental flag, `--inject-error`, because the generation service still imports it. The default generation path builds a clean case. Injection is not the current review workflow.
+The optional injection step remains in the generator as an experimental flag, `--inject-error`, because the generation service still imports it. The default generation path builds a clean case. Injection is not the current review workflow for VAL-801–VAL-824.
+
+## Additional seed-guided batch
+
+[CLINIPROOF_SEEDCASES_V4](data/case_sets/seed_guided_v4/README.md) is a second execution of the same generation method. It is stored beside the original freeze, with its own plan, manifest, answer key, readable packet, worksheet, diversity report, and [provenance note](data/case_sets/seed_guided_v4/provenance.md). It uses VAL-901 through VAL-924. It does not rewrite VAL-801 through VAL-824, the clean base, or the completed reviews.
+
+The six resident documents were read again as design inputs. Each one supports the archetype already recorded in [archetypes.json](data/seed_cases/blueprints/archetypes.json): medication-history uncertainty, heart-failure decompensation, endocarditis with outpatient parenteral therapy, kidney transplant with cytomegalovirus treatment, hip fracture with anticoagulation interruption and resumption, and gastrointestinal bleeding with an anticoagulation hold and restart decision. The later febrile course in the gastrointestinal-bleeding source is still omitted. Source ages, sexes, exact laboratory series, exact vital signs, dates, narrative wording, and identifying details are not copied into the new charts.
+
+Each archetype contributes its four existing profiles. Those profiles differ in comorbidity, regimen, course, holds or starts, monitoring, and follow-up. A new master seed (`20261008`) draws new synthetic ages, vital signs, and laboratory numbers inside those profiles. The batch plan was fixed before generation: four controls and twenty cases with one pre-specified Family 1 or Family 2 category. Clean validation ran before injection. The requested category was not replaced when a case was frozen. OpenAI was off.
+
+```text
+resident source case
+        ↓
+reusable archetype
+        ↓
+four synthetic profiles
+        ↓
+synthetic encounter
+        ↓
+clean validation
+        ↓
+historical controlled assessment manipulation, where the plan assigns one
+        ↓
+freeze as VAL-901–VAL-924
+        ↓
+clinician validation materials
+```
+
+The resident JSON and the readable case pages do not contain the answer key. The investigator key does. Terminology codes in the freeze are the RxNorm, LOINC, ICD-10-CM, and UCUM identifiers the official sources returned. Passing those checks does not clinically validate the batch. No VAL-901–VAL-924 case has been accepted by a clinician.
 
 ## Data and knowledge sources
 
@@ -651,6 +680,7 @@ data/bootstrap/       scenarios, medication regimens, rule templates, manifest
 data/seed_cases/      resident-authored DOCX files and archetype blueprints
 data/case_sets/seed_guided/                 frozen CLINIPROOF_SEEDCASES_V3
 data/case_sets/seed_guided/CLEAN_BASE/      canonical clean charts for the revision
+data/case_sets/seed_guided_v4/              additional seed-guided freeze, VAL-901–VAL-924
 docs/clinical_feedback/                     both completed reviews and the comparison
 docs/validation/                            unchanged codebook and blank template
 docs/methodology.md                         manuscript-style method
