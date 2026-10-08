@@ -23,3 +23,7 @@ data/mimic/
 data/synthea/raw/
 /synthea/
 SYNTHEA_HOME/
+
+# Private study workbooks and completed reviewer forms.
+*.xlsx
+*_Casebook_Validation*.docx

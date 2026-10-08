@@ -45,6 +45,7 @@ Generation 2 is a separate Synthea-grounded pilot, `G2-001`–`G2-024`. It is te
 | Frozen revision framework | Clinician-informed investigator framework derived from the four overlap cases | [docs/revision/revision_framework.md](docs/revision/revision_framework.md) |
 | Framework-guided revision | Remaining 20 cases | [data/case_sets/seed_guided/REVISED/remaining_20/](data/case_sets/seed_guided/REVISED/remaining_20/) |
 | Reviewer comparison | De-identified review coverage and comparison | [docs/clinical_feedback/reviewer_comparison.md](docs/clinical_feedback/reviewer_comparison.md) |
+| Item-level reviewer ratings | De-identified long-format ratings, one row per case and item | [docs/clinical_feedback/reviewer_item_ratings.csv](docs/clinical_feedback/reviewer_item_ratings.csv) |
 | Validation instrument | Unchanged clinician review instrument | [docs/validation/CliniProof_Clinical_Validation_Template.docx](docs/validation/CliniProof_Clinical_Validation_Template.docx) |
 | Generation 1 methodology | Iterative clinical-validation method | [docs/methodology.md](docs/methodology.md) |
 | Generation 2 Synthea cohort | New synthetic generation approach | [data/case_sets/synthea_g2/](data/case_sets/synthea_g2/) |
@@ -57,7 +58,7 @@ The original freeze lives in [data/case_sets/seed_guided/](data/case_sets/seed_g
 
 ### Original source
 
-`CLINIPROOF_SEEDCASES_V3` is the historical first-round freeze, VAL-801 through VAL-824. It records the original study construction, including the historical planted-error variants. It is not the current resident cohort.
+`CLINIPROOF_SEEDCASES_V3` is the historical first-round freeze, VAL-801 through VAL-824. The reviewed casebooks label that same freeze `CLINIPROOF_SEEDCASES_FirstRound`. The freeze records the original study construction, including the historical planted-error variants. It is not the current resident cohort.
 
 ### Clean baseline
 
@@ -65,7 +66,7 @@ The canonical clean set contains the 24 pre-manipulation versions of VAL-801 thr
 
 ### Clinician review
 
-Two clinician reviews were received independently using the same validation instrument. Completed review forms are maintained as private study records. The public repository contains the de-identified case-level comparison and review coverage: [reviewer_comparison.md](docs/clinical_feedback/reviewer_comparison.md) and [reviewer_comparison.csv](docs/clinical_feedback/reviewer_comparison.csv).
+Two clinician reviews were received independently using the same validation instrument. Completed review forms are maintained as private study records. The public repository contains the de-identified case-level comparison and review coverage: [reviewer_comparison.md](docs/clinical_feedback/reviewer_comparison.md) and [reviewer_comparison.csv](docs/clinical_feedback/reviewer_comparison.csv). Item-level ratings are in [reviewer_item_ratings.csv](docs/clinical_feedback/reviewer_item_ratings.csv).
 
 ### Review coverage
 
@@ -82,21 +83,21 @@ On Reviewer 2’s four reviewed cases, C2 through C5 and the overall recommendat
 
 ### Case-level comparison
 
-The two reviews were compared with the same coding structure. The analysis is case-based. For each reviewed case the comparison keeps the recorded rating and the recorded comment, identifies areas of agreement, identifies complementary comments, and identifies reviewer-specific concerns. It does not force a consensus where the two forms disagree or where one form is silent. The de-identified comparison is [reviewer_comparison.md](docs/clinical_feedback/reviewer_comparison.md), with one row per case in [reviewer_comparison.csv](docs/clinical_feedback/reviewer_comparison.csv).
+The two reviews were compared with the same coding structure. The analysis is case-based. For each reviewed case the comparison keeps the recorded rating and the recorded comment, identifies areas of agreement, identifies complementary comments, and identifies reviewer-specific concerns. It does not force a consensus where the two forms disagree or where one form is silent. The de-identified comparison is [reviewer_comparison.md](docs/clinical_feedback/reviewer_comparison.md), with one row per case in [reviewer_comparison.csv](docs/clinical_feedback/reviewer_comparison.csv) and one row per case and item in [reviewer_item_ratings.csv](docs/clinical_feedback/reviewer_item_ratings.csv).
 
 Four cases had substantive feedback from both reviewers: VAL-801, VAL-805, VAL-809, and VAL-813. Those four were the direct-revision and calibration set. They were revised from [CLEAN_BASE](data/case_sets/seed_guided/CLEAN_BASE/). The revised charts are in [data/case_sets/seed_guided/REVISED/overlap_4/](data/case_sets/seed_guided/REVISED/overlap_4/), and the change log is [docs/revision/overlap_4_revision_log.md](docs/revision/overlap_4_revision_log.md). These are revised candidate cases pending clinician re-review.
 
-VAL-802 and VAL-803 have substantive feedback from Reviewer 1 only. They are not consensus cases. Their later revision used that Reviewer 1 feedback together with the frozen framework.
+VAL-802 and VAL-803 have substantive feedback from Reviewer 1 only. They are not consensus cases. Their later revision used that Reviewer 1 feedback together with the frozen framework. The comparison CSV records that track as `REVIEWER_1_PLUS_FRAMEWORK`.
 
 The recorded concerns, summarized from the comparison, are these.
 
 VAL-801. Both reviewers found the delirium story clinically insufficient. Reviewer 1 also found the cause unshown and the ibuprofen stop unexplained, and recommended revise. Reviewer 2 wrote that delirium has to be a change from baseline and that a precipitant should be interpretable. Reviewer 2’s later fields are blank.
 
-VAL-805. Both reviewers found the heart-failure hospitalization clinically incomplete. Reviewer 1 described an inpatient diuretic course that matches the home dose, a discharge weight that is not at dry weight, and heart-failure therapy that is not set up as a decision, and recommended revise. Reviewer 2 passed C1 and wrote that the chart does not investigate why heart failure decompensated. Later fields are blank.
+VAL-805. Both reviewers found the heart-failure hospitalization clinically incomplete. Reviewer 1 failed C1 and C3, described an inpatient diuretic course that matches the home dose, a discharge weight that is not at dry weight, and heart-failure therapy that is not set up as a decision, and recommended revise. The reviewers disagreed on C1. Reviewer 2 marked C1 Pass and wrote that the chart does not investigate why heart failure decompensated. That Pass conflicts with Reviewer 2’s own Fit between presentation and diagnosis score of 2, because the form rule is that any domain scored 1 or 2 makes C1 Fail. Later fields on Reviewer 2’s form are blank.
 
-VAL-809. Both reviewers found the endocarditis case too thin for the reasoning it asks. Reviewer 1 asked for fever and a predisposition, and questioned continuing lisinopril alongside a creatinine rise, and recommended revise. Reviewer 2 asked for source evaluation, laboratory changes, imaging, and consideration of surgery, and failed C1. Later fields are blank.
+VAL-809. Both reviewers found the endocarditis case too thin for the reasoning it asks. Reviewer 1 asked for fever and a predisposition, and questioned continuing lisinopril alongside the AKI, and recommended revise. Reviewer 2 asked for source evaluation, laboratory changes, imaging, and consideration of surgery, and failed C1. Later fields are blank.
 
-VAL-813. Both reviewers found the cytomegalovirus presentation clinically incoherent. Reviewer 1 noted that valganciclovir was already a home medicine, that the transplant regimen is too thin, and that a potassium change is unexplained, and recommended exclude. Reviewer 2 wrote that the patient should not present already labeled with CMV colitis, and that volume loss should be considered in the kidney function and potassium. C1 is Fail. Later fields are blank.
+VAL-813. Both reviewers found the cytomegalovirus presentation clinically incoherent. Reviewer 1 noted that valganciclovir was already a home medicine, that the transplant regimen is too thin, and that the potassium change was described as "with obvious cause or indication" (recorded wording; likely intended "without"), and recommended exclude. Reviewer 2 wrote that the patient should not present already labeled with CMV colitis, and that volume loss should be considered in the kidney function and potassium. C1 is Fail. Later fields are blank.
 
 | Case | Reviewer 1 | Reviewer 2 | Current status |
 | --- | --- | --- | --- |
