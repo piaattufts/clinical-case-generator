@@ -2,6 +2,14 @@
   "version": "g2-scenarios-v1",
   "purpose": "Scenario families for Synthea-grounded discharge reconciliation. These are not single scripted patients.",
   "phase": "clean cases only; no planted medication error",
+  "display_name_by_scenario_code": {
+    "MED_HISTORY_UNCERTAINTY": "Medication history uncertainty",
+    "HF_DECOMPENSATION": "Acute heart-failure decompensation",
+    "ENDOCARDITIS_OPAT": "Outpatient parenteral antibiotic therapy after endocarditis",
+    "TRANSPLANT_CMV": "Post-kidney-transplant infectious complication",
+    "HIP_FRACTURE_ANTICOAGULATION": "Postoperative anticoagulation after hip fracture",
+    "GI_BLEED_ANTICOAGULATION": "Gastrointestinal bleed with anticoagulation decisions"
+  },
   "round1_design_requirements": [
     "Show baseline and the acute change.",
     "Show a precipitant or a real evaluation that did not find one.",

@@ -1,7 +1,7 @@
 {
   "generation1_case_id": "VAL-805",
   "scenario_family": "HF_DECOMPENSATION",
-  "family_label": "Heart failure decompensation",
+  "family_label": "Acute heart-failure decompensation",
   "primary_reasoning_target": "Discharge heart-failure therapy after decompensation, diuresis, and renal review",
   "secondary_reasoning_targets": [
     "stop"

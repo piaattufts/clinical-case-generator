@@ -38,6 +38,12 @@ Overall C1 agrees on 3 of 4 overlapping cases. The disagreement is VAL-805: Revi
 
 These counts are descriptive only. They cover two raters, four overlapping cases, and C1 only. The comparison does not report kappa, and it does not apply a consensus threshold.
 
+## Recorded wording
+
+VAL-809. Reviewer 1 wrote "AKI", in the C1 comment "AKI was unexplained and lisinopril was continued despite AKI".
+
+VAL-813. Reviewer 1 wrote "change in potassium with obvious cause or indication". The word "unexplained" is an interpretation of that sentence; the recorded wording likely intended "without".
+
 ## Form-level data issues
 
 `form_flags` in [reviewer_comparison.csv](reviewer_comparison.csv) records these form problems. Other cases leave the field blank.

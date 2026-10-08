@@ -84,7 +84,7 @@ Do not add a domain, and do not relax one, because a later case is difficult.
 
 **Definition.** A resident can see why each discharge action would be continue, start, stop, hold, restart, or change.
 
-**Trigger.** VAL-801 stopped ibuprofen with no reason. VAL-805 did not set up a heart-failure therapy decision. VAL-809 left lisinopril running through an unexplained creatinine rise. VAL-813 did not show which transplant medicine was held.
+**Trigger.** VAL-801 stopped ibuprofen with no reason. VAL-805 did not set up a heart-failure therapy decision. VAL-809 left lisinopril running through an AKI that Reviewer 1 called unexplained. VAL-813 did not show which transplant medicine was held.
 
 **Failure.** The action has no chart sentence that defends it, or the chart contains no decision a resident could make.
 
@@ -108,7 +108,7 @@ Do not add a domain, and do not relax one, because a later case is difficult.
 
 **Definition.** The narrative, the medication rows, the laboratories, and the reference describe the same events.
 
-**Trigger.** VAL-813’s numbers contradicted volume loss. VAL-805’s dry weight contradicted the discharge weight. VAL-809’s reference continued lisinopril through a rise the review said was unexplained.
+**Trigger.** VAL-813’s numbers contradicted volume loss. VAL-805’s dry weight contradicted the discharge weight. VAL-809’s reference continued lisinopril through an AKI the review said was unexplained.
 
 **Failure.** Two parts of the chart disagree, or the reference disagrees with the chart.
 

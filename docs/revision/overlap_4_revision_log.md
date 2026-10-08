@@ -51,11 +51,11 @@ Recorded on the evaluator file under `revision_provenance.synthetic_facts`. The 
 
 ### Reviewer 1 concern
 
-The inpatient diuretic repeats the home oral dose, discharge weight is not at dry weight, and the chart does not give several days of intake and output or a cardiology or echocardiography finding that would let a trainee change the diuretic or add heart-failure therapy. The overall recommendation was revise.
+The inpatient diuretic repeats the home oral dose, discharge weight is not at dry weight, and the chart does not give several days of intake and output or a cardiology or echocardiography finding that would let a trainee change the diuretic or add heart-failure therapy. The heart-failure-therapy point is in the overall comments (GDMT: ACE/ARB, SGLT2i, MRA), not the C1 comment. C1 was Fail and C3 was Fail. Medication regimen was ticked both 2 and 3. The overall recommendation was revise.
 
 ### Reviewer 2 concern
 
-The chart does not investigate why heart failure decompensated. C1 was Pass. Later fields were blank and were not inferred.
+The chart does not investigate why heart failure decompensated. C1 was marked Pass. That Pass conflicts with Fit between presentation and diagnosis = 2, because any domain scored 1 or 2 makes C1 Fail. Later fields were blank and were not inferred.
 
 ### Combined interpretation
 
@@ -85,7 +85,7 @@ Recorded on the evaluator file. A higher oral furosemide dose was considered and
 
 ### Reviewer 1 concern
 
-The case should include fever and a predisposition such as a mechanical valve or poor dentition. The creatinine rise is unexplained, and lisinopril appears to continue through it. The overall recommendation was revise.
+The case should include fever and a predisposition such as a mechanical valve or poor dentition. Reviewer 1 wrote that "AKI was unexplained and lisinopril was continued despite AKI". The overall recommendation was revise. C2 was Fail, C3 was Pass, C4 was Fail, and C5 was Inappropriate / outlier.
 
 ### Reviewer 2 concern
 
@@ -119,7 +119,7 @@ Recorded on the evaluator file. Poor dentition was used instead of a prosthetic-
 
 ### Reviewer 1 concern
 
-Valganciclovir is already a home medicine even though the illness is presented as a new diagnosis. The transplant regimen is too thin. The potassium change has no cause. The overall recommendation was exclude.
+Valganciclovir is already a home medicine even though the illness is presented as a new diagnosis. The transplant regimen is too thin. Reviewer 1 wrote "change in potassium with obvious cause or indication". Calling that change "unexplained" or "without a cause" is an interpretation; the recorded wording likely intended "without". The overall recommendation was exclude.
 
 ### Reviewer 2 concern
 
