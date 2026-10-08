@@ -28,7 +28,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Fever and fatigue",
-      "hpi": "An 82-year-old man is admitted with one week of fever and fatigue. He has no prosthetic valve. A dental examination shows several caries and periodontal disease. Home medicines are lisinopril 10 mg daily and atorvastatin 40 mg daily. Admission temperature is 38.8 C. Two blood-culture sets drawn before antibiotics grew Streptococcus mitis group, reported susceptible to penicillin. Ceftriaxone 2 g intravenously once daily was started after those cultures were drawn. Creatinine was 1.6 mg/dL on hospital day 1, above an outpatient baseline of 0.9 mg/dL, while he was febrile and eating poorly. Lisinopril was held that day. Repeat blood cultures on hospital day 3 showed no growth. A transesophageal echocardiogram shows an 8 mm mitral vegetation, mild mitral regurgitation, no abscess, and a left ventricular ejection fraction of 55 percent. Cardiac surgery found no current indication for an operation: he has no heart-failure symptoms from the valve lesion, no abscess, and the bacteremia has cleared. Ceftriaxone 2 g intravenously once daily is planned for four weeks counted from the first negative blood culture. Discharge creatinine is 0.8 mg/dL. Lisinopril 10 mg daily was restarted the day before discharge and the blood pressure remained in the 130s systolic. A peripherally inserted central catheter is in place for the remaining intravenous doses. Weekly blood count and creatinine are arranged.",
+      "hpi": "An 82-year-old man is admitted with one week of fever and fatigue. He has no prosthetic valve. A dental examination shows several caries and periodontal disease. Home medicines are lisinopril 10 mg daily and atorvastatin 40 mg daily. Admission temperature is 38.8 C. Two blood-culture sets drawn before antibiotics grew Streptococcus mitis group, reported susceptible to penicillin. Ceftriaxone 2 g intravenously once daily was given after those cultures were drawn. Creatinine was 1.6 mg/dL on hospital day 1, above an outpatient baseline of 0.9 mg/dL, while he was febrile and eating poorly. Lisinopril was not administered that day. Repeat blood cultures on hospital day 3 showed no growth. A transesophageal echocardiogram shows an 8 mm mitral vegetation, mild mitral regurgitation, no abscess, and a left ventricular ejection fraction of 55 percent. Cardiac surgery found no current indication for an operation: he has no heart-failure symptoms from the valve lesion, no abscess, and the bacteremia has cleared. Discharge creatinine is 0.8 mg/dL. Lisinopril 10 mg was administered the day before discharge, and the blood pressure remained in the 130s systolic. A peripherally inserted central catheter is in place. Weekly blood count and creatinine are arranged.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "Fever",
@@ -96,7 +96,7 @@
       "note_id": "NOTE-VAL809-001",
       "case_id": "VAL-809",
       "note_type": "admission",
-      "note_text": "Admission note. Fever to 38.8 C and fatigue for one week. Poor dentition. No prosthetic valve. Blood cultures drawn before antibiotics. Outpatient creatinine 0.9 mg/dL. Lisinopril held.",
+      "note_text": "Admission note. Fever to 38.8 C and fatigue for one week. Poor dentition. No prosthetic valve. Blood cultures drawn before antibiotics. Outpatient creatinine 0.9 mg/dL.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -104,7 +104,7 @@
       "note_id": "NOTE-VAL809-002",
       "case_id": "VAL-809",
       "note_type": "hospital_course",
-      "note_text": "Streptococcus mitis group bacteremia, penicillin susceptible. Cleared on hospital day 3. Transesophageal echocardiogram with an 8 mm mitral vegetation and no abscess. Surgery is not indicated now. Ceftriaxone 2 g intravenously once daily for four weeks from the first negative culture. Lisinopril restarted after creatinine returned to 0.8 mg/dL.",
+      "note_text": "Streptococcus mitis group bacteremia, penicillin susceptible. Cleared on hospital day 3. Transesophageal echocardiogram with an 8 mm mitral vegetation and no abscess. Surgery is not indicated now. Ceftriaxone 2 g intravenously once daily has been given since the cultures were drawn. The first negative culture was on hospital day 3. Lisinopril was administered after creatinine returned to 0.8 mg/dL.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -234,7 +234,7 @@
       "service": "infectious disease",
       "timepoint": "inpatient",
       "assessment": "Penicillin-susceptible Streptococcus mitis group endocarditis on a native mitral valve. Bacteremia cleared on hospital day 3. No abscess.",
-      "recommendation": "Continue ceftriaxone 2 g intravenously once daily to complete four weeks from the first negative culture. Weekly complete blood count and creatinine. Infectious-diseases follow-up in 7 days.",
+      "recommendation": "Weekly complete blood count and creatinine. Infectious-diseases follow-up in 7 days.",
       "source_reference": null
     },
     {
@@ -338,7 +338,7 @@
       "source_type": "authored_scenario",
       "source_file": null,
       "source_reference": null,
-      "notes": "2 g intravenously once daily. Four weeks counted from the first negative blood culture on hospital day 3. Continues after discharge through the catheter."
+      "notes": "2 g intravenously once daily since the cultures were drawn. The first negative blood culture was on hospital day 3. A peripherally inserted central catheter is in place."
     },
     {
       "medication_id": "MED-VAL809-008",
@@ -361,7 +361,7 @@
       "source_type": "authored_scenario",
       "source_file": null,
       "source_reference": null,
-      "notes": "Held on hospital day 1 when creatinine was 1.6 mg/dL. Restarted the day before discharge after creatinine was 0.8 mg/dL."
+      "notes": "Not administered on hospital day 1 when creatinine was 1.6 mg/dL. Administered the day before discharge after creatinine was 0.8 mg/dL."
     }
   ],
   "CaseFollowup": [

@@ -308,6 +308,7 @@ def render_identified_casebook(
     filename_pattern: str,
     intro: list[str],
     show_revision_source: bool,
+    include_counterparts: bool = True,
 ) -> None:
     document = _new_document(footer)
     prepare_form_document(document)
@@ -333,7 +334,7 @@ def render_identified_casebook(
             case,
             shown_id=case.case_id,
             header_title=title,
-            counterpart=case.counterpart,
+            counterpart=case.counterpart if include_counterparts else None,
             blinded=False,
         )
     _save(document, destination, title=title)
@@ -588,6 +589,7 @@ def build_all(validation_dir: Path | None = None) -> dict[str, Path]:
             "Cases: VAL-801, VAL-805, VAL-809, and VAL-813.",
         ],
         show_revision_source=True,
+        include_counterparts=False,
     )
     render_identified_casebook(
         [case for case in generation1 if case.case_id not in overlap_ids],

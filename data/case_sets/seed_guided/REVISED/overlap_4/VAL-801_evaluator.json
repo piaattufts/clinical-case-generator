@@ -29,7 +29,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "New confusion, worse than baseline",
-      "hpi": "A 75-year-old man with mild major neurocognitive disorder is admitted because a family caregiver reports two days of new confusion. At baseline he recognizes family and converses at home. On arrival he was disoriented, and that change is the delirium. Oral intake had been poor. He had been taking ibuprofen for knee pain. After his attention improved, a collateral list from the caregiver and the pharmacy was verified: lisinopril 10 mg daily, atorvastatin 40 mg daily, and metformin 500 mg twice daily. Ibuprofen 400 mg orally every 8 hours as needed was on that list. Fever and a urinalysis with leukocyte esterase led to a urine culture that grew Escherichia coli. He completed seven days of ceftriaxone 1 g intravenously once daily before discharge and is not taking an antibiotic at discharge. Outpatient creatinine was 1.0 mg/dL. Admission creatinine was 1.5 mg/dL. Ibuprofen was stopped and was not restarted. Lisinopril and metformin were held while creatinine was above baseline and intake was poor, then restarted when creatinine returned to 1.0 mg/dL and he was eating. Atorvastatin was continued. Confusion returned to the caregiver's reported baseline.",
+      "hpi": "A 75-year-old man with mild major neurocognitive disorder is admitted because a family caregiver reports two days of new confusion. At baseline he recognizes family and converses at home. On arrival he was disoriented, and that change is the delirium. Oral intake had been poor. He had been taking ibuprofen for knee pain. After his attention improved, a collateral list from the caregiver and the pharmacy was verified: lisinopril 10 mg daily, atorvastatin 40 mg daily, and metformin 500 mg twice daily. Ibuprofen 400 mg orally every 8 hours as needed was on that list. Fever and a urinalysis with leukocyte esterase led to a urine culture that grew Escherichia coli. Ceftriaxone 1 g intravenously once daily was given for seven days, and the last dose was before discharge. Outpatient creatinine was 1.0 mg/dL. Admission creatinine was 1.5 mg/dL, and a later creatinine was 1.0 mg/dL when he was eating. Confusion returned to the caregiver's reported baseline.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "Confusion",
@@ -127,7 +127,7 @@
       "note_id": "NOTE-VAL801-001",
       "case_id": "VAL-801",
       "note_type": "admission",
-      "note_text": "Admission note. Acute confusion is a change from a known mild major neurocognitive disorder. Temperature 38.2 C. Urinalysis shows leukocyte esterase. Outpatient creatinine 1.0 mg/dL; admission creatinine 1.5 mg/dL. Ibuprofen, lisinopril, and metformin are held. Atorvastatin is continued.",
+      "note_text": "Admission note. Acute confusion is a change from a known mild major neurocognitive disorder. Temperature 38.2 C. Urinalysis shows leukocyte esterase. Outpatient creatinine 1.0 mg/dL; admission creatinine 1.5 mg/dL.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -135,7 +135,7 @@
       "note_id": "NOTE-VAL801-002",
       "case_id": "VAL-801",
       "note_type": "hospital_course",
-      "note_text": "Urine culture grew Escherichia coli. Ceftriaxone 1 g intravenously once daily was given for seven days and the course finished before discharge. Fever resolved and attention returned to the caregiver's reported baseline. Creatinine returned to 1.0 mg/dL. Lisinopril 10 mg daily and metformin 500 mg twice daily were restarted. Ibuprofen was not restarted. The collateral medication list was verified with the caregiver and the pharmacy. No antibiotic is planned after discharge.",
+      "note_text": "Urine culture grew Escherichia coli. Ceftriaxone 1 g intravenously once daily was given for seven days, and the last dose was before discharge. Fever resolved and attention returned to the caregiver's reported baseline. Creatinine returned to 1.0 mg/dL. The collateral medication list was verified with the caregiver and the pharmacy.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -244,7 +244,7 @@
       "service": "geriatrics",
       "timepoint": "inpatient",
       "assessment": "Acute delirium on a known mild major neurocognitive disorder. Attention has returned to the caregiver's reported baseline.",
-      "recommendation": "Use the verified collateral medication list. Do not restart ibuprofen. Lisinopril and metformin may be restarted now that creatinine is at the outpatient baseline and he is eating.",
+      "recommendation": "The collateral medication list has been verified. Creatinine is at the outpatient baseline and he is eating.",
       "source_reference": null
     }
   ],
@@ -283,7 +283,7 @@
       "frequency": "every 8 hours as needed",
       "indication": "symptomatic analgesia; not a treatment for the admission diagnosis",
       "status": "held",
-      "held_reason": "Stopped on admission because creatinine was above the outpatient baseline while he was taking an NSAID and eating poorly. Not restarted.",
+      "held_reason": "Creatinine was above the outpatient baseline while he was taking an NSAID and eating poorly.",
       "verification_status": "verified",
       "verification_source": "caregiver_and_pharmacy",
       "target_or_goal": null,
@@ -375,7 +375,7 @@
       "frequency": "every 8 hours as needed",
       "indication": "symptomatic analgesia; not a treatment for the admission diagnosis",
       "status": "discontinued",
-      "held_reason": "Stopped on admission because creatinine was above the outpatient baseline while he was taking an NSAID and eating poorly. Not restarted.",
+      "held_reason": "Creatinine was above the outpatient baseline while he was taking an NSAID and eating poorly.",
       "verification_status": "verified",
       "verification_source": "caregiver_and_pharmacy",
       "target_or_goal": null,
@@ -408,7 +408,7 @@
       "source_type": "authored_scenario",
       "source_file": null,
       "source_reference": null,
-      "notes": "Held on admission while creatinine was 1.5 mg/dL and intake was poor. Restarted after creatinine returned to 1.0 mg/dL and he was eating."
+      "notes": "Creatinine was 1.5 mg/dL and intake was poor on admission. A later creatinine was 1.0 mg/dL when he was eating."
     },
     {
       "medication_id": "MED-VAL801-011",
@@ -431,7 +431,7 @@
       "source_type": "authored_scenario",
       "source_file": null,
       "source_reference": null,
-      "notes": "Held on admission while creatinine was 1.5 mg/dL and intake was poor. Restarted after creatinine returned to 1.0 mg/dL and he was eating."
+      "notes": "Creatinine was 1.5 mg/dL and intake was poor on admission. A later creatinine was 1.0 mg/dL when he was eating."
     },
     {
       "medication_id": "MED-VAL801-009",
@@ -454,14 +454,14 @@
       "source_type": "authored_scenario",
       "source_file": null,
       "source_reference": null,
-      "notes": "Seven daily doses were completed before discharge. Not continued after discharge."
+      "notes": "Seven daily doses of 1 g intravenously were given, and the last dose was before discharge."
     }
   ],
   "CaseFollowup": [
     {
       "followup_id": "FU-VAL801-001",
       "case_id": "VAL-801",
-      "item": "Primary care follow-up, including a creatinine check after the ACE inhibitor restart",
+      "item": "Primary care follow-up, including a creatinine check",
       "timing": "7 days",
       "with_service": "primary care",
       "source_reference": null
@@ -562,7 +562,7 @@
       "discrepancy_types": [],
       "pharmacist_review": true,
       "high_alert_meds_identified": [],
-      "notes": "He could not give a medication history while delirious. A caregiver and pharmacy list was verified after his attention improved. Ibuprofen was confirmed and stopped. No unverified name was turned into a discharge medicine.",
+      "notes": "He could not give a medication history while delirious. A caregiver and pharmacy list was verified after his attention improved. Ibuprofen was on that list. Creatinine on admission was above the outpatient baseline while intake was poor.",
       "source_reference": null
     }
   ],

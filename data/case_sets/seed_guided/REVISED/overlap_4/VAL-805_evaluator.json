@@ -285,7 +285,7 @@
       "service": "cardiology",
       "timepoint": "inpatient",
       "assessment": "Congestion followed four missed days of oral furosemide. Ischemia is not supported by the history, electrocardiogram, or troponin. Ejection fraction is 30 percent. Dry weight of 78 kg was reached with intravenous furosemide.",
-      "recommendation": "Resume furosemide 40 mg orally once daily. The missed doses explain the accumulation, and the intravenous course has been stopped at dry weight. Start enalapril 5 mg orally twice daily for systolic heart failure. Creatinine is 0.9 mg/dL, potassium is 4.3 mmol/L, and systolic blood pressure is 110 mm Hg. Continue metoprolol succinate 25 mg daily and atorvastatin 40 mg daily. The ACE inhibitor has not yet been given.",
+      "recommendation": "The missed oral doses explain the fluid accumulation. Intravenous furosemide was given on hospital days 1 through 3. Weight reached the recorded dry weight of 78 kg. Creatinine is 0.9 mg/dL, potassium is 4.3 mmol/L, and systolic blood pressure is 110 mm Hg.",
       "source_reference": null
     }
   ],
@@ -426,7 +426,7 @@
       "source_type": "authored_scenario",
       "source_file": null,
       "source_reference": null,
-      "notes": "Hospital days 1 through 3 only. Stopped once weight reached the 78 kg dry weight. This is not the home oral dose."
+      "notes": "Given intravenously on hospital days 1 through 3. Weight on the last of those days was the recorded dry weight of 78 kg. The intravenous dose is not the home oral dose."
     }
   ],
   "CaseFollowup": [
@@ -510,7 +510,7 @@
       "discrepancy_types": [],
       "pharmacist_review": true,
       "high_alert_meds_identified": [],
-      "notes": "She missed four days of furosemide because the supply ran out. The other home medicines were continued. She has no ACE inhibitor, ARB, or ARNI at home.",
+      "notes": "She missed four days of furosemide because the supply ran out. Metoprolol succinate and atorvastatin were home medicines. She has no ACE inhibitor, ARB, or ARNI at home.",
       "source_reference": null
     }
   ],
