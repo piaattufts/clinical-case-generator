@@ -23,10 +23,7 @@
       "Lisinopril"
     ],
     "medical_history": [
-      "Received higher education (finding)",
-      "Transport problem (finding)",
-      "Asthma (disorder)",
-      "Lack of access to transportation (finding)"
+      "Asthma (disorder)"
     ],
     "source_type": "synthea_cliniproof_g2",
     "source_file": null,
@@ -66,30 +63,6 @@
   },
   "CaseDiagnosis": [
     {
-      "diagnosis_id": "DX-G2-009-001",
-      "case_id": "G2-009",
-      "diagnosis": "Received higher education (finding)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "224299000",
-      "code_provenance": "reference_terminology"
-    },
-    {
-      "diagnosis_id": "DX-G2-009-002",
-      "case_id": "G2-009",
-      "diagnosis": "Transport problem (finding)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "266934004",
-      "code_provenance": "reference_terminology"
-    },
-    {
       "diagnosis_id": "DX-G2-009-003",
       "case_id": "G2-009",
       "diagnosis": "Asthma (disorder)",
@@ -99,18 +72,6 @@
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
       "snomed_code": "195967001",
-      "code_provenance": "reference_terminology"
-    },
-    {
-      "diagnosis_id": "DX-G2-009-004",
-      "case_id": "G2-009",
-      "diagnosis": "Lack of access to transportation (finding)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "713458007",
       "code_provenance": "reference_terminology"
     },
     {
@@ -771,7 +732,8 @@
     "blinding": {
       "generation_method_hidden_from_narrative": true,
       "neutral_study_id": "M-809"
-    }
+    },
+    "chart_display_note": "Non-disease Synthea findings (education, housing, transport, and criminal-record flags) were omitted from the resident-visible problem list. The codes remain in source_snomed. This is a display filter, not a new clinical fact."
   },
   "ready_for_clinician_review": true,
   "clinically_validated": false

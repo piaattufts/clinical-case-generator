@@ -21,8 +21,6 @@
     "allergies": [],
     "medical_history": [
       "Chronic sinusitis (disorder)",
-      "Housing unsatisfactory (finding)",
-      "Educated to high school level (finding)",
       "Body mass index 30+ - obesity (finding)"
     ],
     "source_type": "synthea_cliniproof_g2",
@@ -72,30 +70,6 @@
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
       "snomed_code": "40055000",
-      "code_provenance": "reference_terminology"
-    },
-    {
-      "diagnosis_id": "DX-G2-005-002",
-      "case_id": "G2-005",
-      "diagnosis": "Housing unsatisfactory (finding)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "105531004",
-      "code_provenance": "reference_terminology"
-    },
-    {
-      "diagnosis_id": "DX-G2-005-003",
-      "case_id": "G2-005",
-      "diagnosis": "Educated to high school level (finding)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "473461003",
       "code_provenance": "reference_terminology"
     },
     {

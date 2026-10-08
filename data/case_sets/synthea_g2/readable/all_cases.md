@@ -17,11 +17,9 @@ Urinalysis showed pyuria. A urine culture later grew Escherichia coli. Blood cul
 
 ## Diagnoses
 
-- Received higher education (finding) (past_history)
-- Has a criminal record (finding) (past_history)
 - Osteoarthritis of knee (disorder) (past_history)
 - Essential hypertension (disorder) (past_history)
-- Delirium due to known physiological condition (hospital)
+- Acute delirium during a urinary tract infection (hospital)
 - Urinary tract infection, site not specified (hospital)
 - Acute kidney failure, unspecified (hospital)
 
@@ -242,8 +240,6 @@ The chest radiograph showed pulmonary edema. Natriuretic peptide B was elevated.
 ## Diagnoses
 
 - Chronic sinusitis (disorder) (past_history)
-- Housing unsatisfactory (finding) (past_history)
-- Educated to high school level (finding) (past_history)
 - Body mass index 30+ - obesity (finding) (past_history)
 - Acute systolic (congestive) heart failure (hospital)
 
@@ -460,10 +456,7 @@ Two sets of blood cultures were drawn before any antibiotic. They grew Streptoco
 
 ## Diagnoses
 
-- Received higher education (finding) (past_history)
-- Transport problem (finding) (past_history)
 - Asthma (disorder) (past_history)
-- Lack of access to transportation (finding) (past_history)
 - Fever and a new murmur (admission)
 - Acute and subacute infective endocarditis (hospital)
 
@@ -636,12 +629,11 @@ Plasma cytomegalovirus DNA was detected after the symptom evaluation. Flexible s
 
 ## Diagnoses
 
-- Educated to high school level (finding) (past_history)
 - Chronic intractable migraine without aura (disorder) (past_history)
 - Essential hypertension (disorder) (past_history)
 - Impacted molars (disorder) (past_history)
 - Kidney transplant status (past_history)
-- Other cytomegaloviral diseases (hospital)
+- Cytomegalovirus colitis (hospital)
 - Acute kidney failure, unspecified (hospital)
 - Hypokalemia (hospital)
 

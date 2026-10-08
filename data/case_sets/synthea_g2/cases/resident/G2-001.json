@@ -20,8 +20,6 @@
     "specialty": "internal medicine",
     "allergies": [],
     "medical_history": [
-      "Received higher education (finding)",
-      "Has a criminal record (finding)",
       "Osteoarthritis of knee (disorder)",
       "Essential hypertension (disorder)"
     ],
@@ -62,30 +60,6 @@
   },
   "CaseDiagnosis": [
     {
-      "diagnosis_id": "DX-G2-001-001",
-      "case_id": "G2-001",
-      "diagnosis": "Received higher education (finding)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "224299000",
-      "code_provenance": "reference_terminology"
-    },
-    {
-      "diagnosis_id": "DX-G2-001-002",
-      "case_id": "G2-001",
-      "diagnosis": "Has a criminal record (finding)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "266948004",
-      "code_provenance": "reference_terminology"
-    },
-    {
       "diagnosis_id": "DX-G2-001-003",
       "case_id": "G2-001",
       "diagnosis": "Osteoarthritis of knee (disorder)",
@@ -112,7 +86,7 @@
     {
       "diagnosis_id": "DX-G2-001-005",
       "case_id": "G2-001",
-      "diagnosis": "Delirium due to known physiological condition",
+      "diagnosis": "Acute delirium during a urinary tract infection",
       "diagnosis_type": "hospital",
       "status": "active",
       "context": "inpatient",

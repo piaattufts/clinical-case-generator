@@ -1,0 +1,95 @@
+{
+  "synthea": {
+    "repository": "https://github.com/synthetichealth/synthea.git",
+    "commit": "d9d07a6eef91ee5144293b42ab64224d84d124f8",
+    "version": "master-branch-latest",
+    "population_seed": "20261008",
+    "reference_date": "20261008",
+    "fhir_version": "R4",
+    "java_version": "OpenJDK 21.0.10",
+    "alive_patients_requested": 1000,
+    "fhir_bundles_parsed": 1162,
+    "deceased_excluded": 162
+  },
+  "screened": {
+    "MED_HISTORY_UNCERTAINTY": 32,
+    "HF_DECOMPENSATION": 261,
+    "HF_DECOMPENSATION_known_heart_failure": 4,
+    "HF_DECOMPENSATION_compatible_cardiovascular_history": 257,
+    "ENDOCARDITIS_OPAT": 787,
+    "TRANSPLANT_CMV": 11
+  },
+  "attempts_per_case": 4,
+  "cases": [
+    {
+      "case_id": "G2-001",
+      "synthea_patient_id": "035db839-25b9-cb92-8853-12152fc6b257",
+      "variant_id": "delirium_uti",
+      "eligibility_tier": "medication_complexity",
+      "genuine_synthea_longitudinal_facts": true,
+      "synthea_facts_used": [
+        "Age and sex from the Synthea patient",
+        "Essential hypertension and osteoarthritis of the knee",
+        "Outpatient products: metoprolol succinate 100 mg daily, metoprolol tartrate 25 mg twice daily, aspirin 81 mg, ibuprofen 400 mg as needed, lisinopril 10 mg daily"
+      ],
+      "cliniproof_augmentation": [
+        "Acute delirium, urinary tract infection, cultures, cephalexin course, and the creatinine trajectory are episode-generated"
+      ],
+      "not_attributed_to_synthea": [
+        "The delirium and the infection are not Synthea conditions"
+      ]
+    },
+    {
+      "case_id": "G2-005",
+      "synthea_patient_id": "023d2efe-5482-ee13-418f-729c0823db68",
+      "variant_id": "nonadherence_cost",
+      "eligibility_tier": "compatible_cardiovascular_history",
+      "genuine_synthea_longitudinal_facts": true,
+      "synthea_facts_used": [
+        "Age, sex, and a cardiovascular medication list",
+        "Metoprolol succinate, lisinopril, and amlodipine from the longitudinal extract",
+        "Most recent longitudinal weight"
+      ],
+      "cliniproof_augmentation": [
+        "The longitudinal record does not list heart failure. The acute decompensation, diuretic course, echocardiogram, and natriuretic peptide are episode-generated"
+      ],
+      "not_attributed_to_synthea": [
+        "Prior heart failure was not present in this patient's Synthea record. The living known-heart-failure pool in this export was 4 patients. This case uses compatible cardiovascular history instead."
+      ]
+    },
+    {
+      "case_id": "G2-009",
+      "synthea_patient_id": "0041e9d6-876a-25b9-d55d-96876882622a",
+      "variant_id": "dental_mitral",
+      "eligibility_tier": "baseline_context_only",
+      "genuine_synthea_longitudinal_facts": true,
+      "synthea_facts_used": [
+        "Age, sex, and Synthea conditions including asthma",
+        "No curated single-ingredient outpatient regimen matched this patient, so no home medication list was copied"
+      ],
+      "cliniproof_augmentation": [
+        "Fever, murmur, dental extraction, Streptococcus sanguinis bacteremia, mitral vegetation, ceftriaxone, and the surgery consult are episode-generated. Endocarditis was not in the Synthea record."
+      ],
+      "not_attributed_to_synthea": [
+        "The dental extraction was not copied from VAL-809. It is the episode variant's predisposition and is labeled episode-generated."
+      ]
+    },
+    {
+      "case_id": "G2-013",
+      "synthea_patient_id": "1d9427d1-dd59-3e23-541f-4faebc086080",
+      "variant_id": "cdiff_excluded",
+      "eligibility_tier": "synthea_renal_transplant",
+      "genuine_synthea_longitudinal_facts": true,
+      "synthea_facts_used": [
+        "Kidney transplant status from the Synthea record",
+        "Extended-release tacrolimus, hydrochlorothiazide, and amlodipine from the longitudinal extract"
+      ],
+      "cliniproof_augmentation": [
+        "Diarrheal illness, negative Clostridioides difficile testing, cytomegalovirus DNA, colitis, biopsy, valganciclovir induction, and the creatinine and potassium course are episode-generated"
+      ],
+      "not_attributed_to_synthea": [
+        "Valganciclovir was not a home medicine. Mycophenolate was not added, because it was not in the longitudinal record."
+      ]
+    }
+  ]
+}
