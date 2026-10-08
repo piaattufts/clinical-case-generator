@@ -6,6 +6,7 @@ Start with the project [README](../README.md). That file is the technical orient
 | --- | --- |
 | [methodology.md](methodology.md) | Manuscript-style method for the same sequence: seed-guided generation, clean-case review, both reviewers, the four-case overlap, and the unchanged codebook. |
 | [revision/overlap_4_revision_log.md](revision/overlap_4_revision_log.md) | How VAL-801, VAL-805, VAL-809, and VAL-813 were revised from the clean base. |
+| [revision/revision_framework.md](revision/revision_framework.md) | Frozen revision domains derived from those four reviews, before they are applied to any other case. |
 | [provenance.md](provenance.md) | What RxNorm, LOINC, UCUM, ICD-10-CM, and the curated tables do and do not establish. |
 | [source_integrity.md](source_integrity.md) | SHA-256 values for the original set, the clean base, and the review files. |
 | [repository_cleanup_inventory.md](repository_cleanup_inventory.md) | What was kept or removed from the working tree, and why. |
