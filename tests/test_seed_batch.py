@@ -16,7 +16,6 @@ from app.services.case_diversity import (
 from app.services.generation import generate_one_case, load_scenarios
 from app.services.seed_archetypes import (
     GENERATION_STRATEGY_SEED,
-    GENERATION_STRATEGY_TEMPLATE,
     SEED_SOURCE_DIR,
     load_seed_archetypes,
 )
@@ -28,15 +27,12 @@ from app.services.validation_batch import (
 from app.utils.jsonio import dumps_json
 from sqlalchemy.orm import Session
 
-from tests.test_case_diversity import EXPECTED_V1_HASHES, _fp
+from tests.test_case_diversity import _fp
 from tests.test_generation_pipeline import _seed_generation_refs, _test_scenario
 
 REPO = Path(__file__).resolve().parents[1]
-_ARCHIVE = REPO / "data" / "archive" / "validation_sets"
-SEED_PLAN = _ARCHIVE / "CLINIPROOF_SEEDCASES_V1" / "batch_plan.json"
-SEED_DIR = _ARCHIVE / "CLINIPROOF_SEEDCASES_V1"
-V1_DIR = _ARCHIVE / "CLINIPROOF_TAXONOMY_V1"
-V2_DIR = _ARCHIVE / "CLINIPROOF_BALANCED_V2"
+SEED_PLAN = REPO / "data" / "case_sets" / "seed_guided" / "batch_plan.json"
+SEED_DIR = REPO / "data" / "case_sets" / "seed_guided"
 EXPECTED_V2_HASHES = {
     "batch_plan.json": "7be72c20186284321e86e5a6246544d16094b51ccb688ab7c7fa9f754c8b19a7",
     "resident_validation_cases.json": (
@@ -108,18 +104,6 @@ def _assert_hashes(root: Path, expected: dict[str, str]) -> None:
         assert actual == digest, name
 
 
-def test_taxonomy_v1_frozen_files_remain_unchanged() -> None:
-    _assert_hashes(V1_DIR, EXPECTED_V1_HASHES)
-
-
-def test_balanced_v2_frozen_files_remain_unchanged() -> None:
-    _assert_hashes(V2_DIR, EXPECTED_V2_HASHES)
-
-
-def test_seed_batch_frozen_files_match_expected_hashes() -> None:
-    _assert_hashes(SEED_DIR, EXPECTED_SEED_HASHES)
-
-
 def test_seed_source_documents_are_present_and_docx() -> None:
     for name in SEED_DOCUMENTS:
         path = SEED_SOURCE_DIR / name
@@ -130,14 +114,14 @@ def test_seed_source_documents_are_present_and_docx() -> None:
 def test_seed_plan_uses_resident_seed_guided_strategy() -> None:
     plan = load_batch_plan(SEED_PLAN)
     assignments = parse_assignments(plan)
-    assert plan["batch_code"] == "CLINIPROOF_SEEDCASES_V1"
+    assert plan["batch_code"] == "CLINIPROOF_SEEDCASES_V3"
     assert plan["generation_strategy"] == GENERATION_STRATEGY_SEED
     assert len(assignments) == 24
     assert {item.generation_strategy for item in assignments} == {GENERATION_STRATEGY_SEED}
     assert all(item.clinical_profile for item in assignments)
     assert all(item.scenario for item in assignments)
     assert len({item.clinical_profile for item in assignments}) == 24
-    assert all(item.validation_case_id.startswith("VAL-4") for item in assignments)
+    assert all(item.validation_case_id.startswith("VAL-8") for item in assignments)
     families = {item.scenario: 0 for item in assignments}
     for item in assignments:
         families[item.scenario] += 1
@@ -152,11 +136,7 @@ def test_seed_plan_uses_resident_seed_guided_strategy() -> None:
     assert sum(1 for item in assignments if not item.inject_error) == 4
 
 
-def test_randomized_plans_are_not_relabeled_seed_guided() -> None:
-    v1 = parse_assignments(load_batch_plan(V1_DIR / "batch_plan.json"))
-    v2 = parse_assignments(load_batch_plan(V2_DIR / "batch_plan.json"))
-    assert {item.generation_strategy for item in v1} == {GENERATION_STRATEGY_TEMPLATE}
-    assert {item.generation_strategy for item in v2} == {GENERATION_STRATEGY_TEMPLATE}
+def test_template_scenarios_are_not_the_seed_archetypes() -> None:
     template_codes = {item.code for item in load_scenarios()}
     assert "MEDREC_UNCERTAIN_HISTORY" not in template_codes
     assert "HF_INPATIENT" in template_codes
@@ -339,28 +319,15 @@ def test_exported_seed_resident_json_does_not_leak_source_metadata() -> None:
     ):
         assert marker not in blob, marker
     key = json.loads(investigator.read_text(encoding="utf-8"))
-    assert key["batch_code"] == "CLINIPROOF_SEEDCASES_V1"
+    assert key["batch_code"] == "CLINIPROOF_SEEDCASES_V3"
     assert {item["generation_strategy"] for item in key["cases"]} == {GENERATION_STRATEGY_SEED}
     assert all(item.get("seed_archetype_id") for item in key["cases"])
     assert all(item.get("clinical_profile") for item in key["cases"])
 
 
-def test_seed_val_ids_do_not_overlap_prior_batches() -> None:
-    v1 = {
-        item.validation_case_id
-        for item in parse_assignments(load_batch_plan(V1_DIR / "batch_plan.json"))
-    }
-    v2 = {
-        item.validation_case_id
-        for item in parse_assignments(load_batch_plan(V2_DIR / "batch_plan.json"))
-    }
+def test_seed_val_ids_are_the_current_study_range() -> None:
     seed = {item.validation_case_id for item in parse_assignments(load_batch_plan(SEED_PLAN))}
-    assert v1 == {f"VAL-{n}" for n in range(201, 225)}
-    assert v2 == {f"VAL-{n}" for n in range(301, 325)}
-    assert seed == {f"VAL-{n}" for n in range(401, 425)}
-    assert seed.isdisjoint(v1)
-    assert seed.isdisjoint(v2)
-    assert v1.isdisjoint(v2)
+    assert seed == {f"VAL-{n}" for n in range(801, 825)}
 
 
 def test_age_sex_numbers_and_error_do_not_uniquify_seed_profiles() -> None:
@@ -427,7 +394,6 @@ def test_seed_guided_generation_is_reproducible(
 
 def test_seed_coverage_matrix_uses_archetypes_not_templates() -> None:
     matrix = (SEED_DIR / "scenario_coverage_matrix.md").read_text(encoding="utf-8")
-    v1 = (V1_DIR / "scenario_coverage_matrix.md").read_text(encoding="utf-8")
     for heading in (
         "## MEDREC_UNCERTAIN_HISTORY",
         "## HF_DECOMPENSATION",
@@ -440,8 +406,6 @@ def test_seed_coverage_matrix_uses_archetypes_not_templates() -> None:
     assert "## HF_INPATIENT" not in matrix
     assert "resident_seed_guided" in matrix
     assert "(unresolved)" not in matrix
-    assert "## HF_INPATIENT" in v1
-    assert "resident_seed_guided" not in v1
 
 
 def test_seed_one_stage_clinician_materials_are_separate() -> None:
@@ -449,8 +413,8 @@ def test_seed_one_stage_clinician_materials_are_separate() -> None:
     packet = (readable / "clinician_validation_packet.md").read_text(encoding="utf-8")
     all_cases = (readable / "all_cases.md").read_text(encoding="utf-8")
     worksheet = (readable / "clinical_validation_worksheet.csv").read_text(encoding="utf-8")
-    assert "CLINIPROOF_SEEDCASES_V1" in packet
-    assert "VAL-401 through VAL-424" in packet
+    assert "CLINIPROOF_SEEDCASES_V3" in packet
+    assert "VAL-801 through VAL-824" in packet
     assert "single review stage" in packet
     assert packet.count("### C1 Clinical plausibility") == 24
     assert packet.count("### C2 Intended assessment problem") == 24
@@ -463,7 +427,7 @@ def test_seed_one_stage_clinician_materials_are_separate() -> None:
     blinded = all_cases.casefold()
     for marker in (".docx", "seed_archetype", "answer_key", "bad_med_rec_case"):
         assert marker not in blinded
-    for case_id in (f"VAL-{n}" for n in range(401, 425)):
+    for case_id in (f"VAL-{n}" for n in range(801, 825)):
         assert f"# {case_id}" in all_cases
         page = (readable / "cases" / f"{case_id}.md").read_text(encoding="utf-8")
         assert page.startswith(f"# {case_id}")

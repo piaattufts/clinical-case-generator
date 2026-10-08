@@ -25,6 +25,4 @@ Age, sex, weight, vital signs, laboratory numbers, narrative wording, and the in
 
 A resolved RxNorm RXCUI does not mean the administered dose equals the product strength. A resolved ICD-10-CM code does not mean the hospitalization is clinically convincing. A curated regimen citation does not mean a clinician has accepted the chart. Passing the automated audit does not mean the case is clinically validated.
 
-The frozen source batches are `CLINIPROOF_BALANCED_V4` and `CLINIPROOF_SEEDCASES_V3`. A pre-validation QC pass edited those two batches in place because clinician ratings had not started. That pass did not create another batch code. Earlier frozen batches remain under `data/archive/validation_sets/` as historical provenance. They are not the current study set.
-
-Clinical Revision Cycle 2 did not create another freeze and did not overwrite those frozen files or `exports/clean_balanced_seed_set/`. For VAL-801–VAL-824 the path is: original frozen case, archived pre-injection source, clean-source recovery, Cycle 1 clinician feedback, Cycle 2 revision or pre-review repair, then separate resident and evaluator files for Cycle 2 clinician review. VAL-701–VAL-724 were not revised in that cycle.
+The current original freeze is `CLINIPROOF_SEEDCASES_V3` in `data/case_sets/seed_guided/`. The clean pre-injection charts for VAL-801 through VAL-824 are in `data/case_sets/seed_guided/CLEAN_BASE/`. Hashes are in `docs/source_integrity.md`. Older freezes and superseded revision exports were removed from this tree and remain in Git history.

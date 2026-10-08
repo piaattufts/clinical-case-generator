@@ -26,15 +26,6 @@ from app.services.clinical_coherence import (
 )
 from app.services.generation import Scenario, generate_one_case, resolve_profile
 from app.services.seed_archetypes import load_seed_archetypes
-from app.services.validation_registry import (
-    ARCHIVED_BATCH_CODE,
-    BALANCED_BATCH_CODE,
-    PRECLINICAL_BALANCED_CODE,
-    PRECLINICAL_SEED_CODE,
-    SEEDCASES_BATCH_CODE,
-    active_batch_codes,
-    archived_batch_codes,
-)
 from app.utils.provenance import build_provenance
 from sqlalchemy.orm import Session
 
@@ -419,15 +410,6 @@ def test_hold_reason_is_profile_specific() -> None:
     assert "creatinine" in hf.hold_reason.casefold()
 
 
-def test_active_batch_codes_are_corrected_revisions() -> None:
-    assert BALANCED_BATCH_CODE == "CLINIPROOF_BALANCED_V4"
-    assert SEEDCASES_BATCH_CODE == "CLINIPROOF_SEEDCASES_V3"
-    assert active_batch_codes() == (BALANCED_BATCH_CODE, SEEDCASES_BATCH_CODE)
-    assert ARCHIVED_BATCH_CODE in archived_batch_codes()
-    assert PRECLINICAL_BALANCED_CODE in archived_batch_codes()
-    assert PRECLINICAL_SEED_CODE in archived_batch_codes()
-
-
 def test_io_omitted_by_default_profile() -> None:
     profile = resolve_profile(
         Scenario(
@@ -509,26 +491,6 @@ def test_hospital_course_text_has_no_resident_leakage() -> None:
     assert "clean case" not in blob.casefold()
 
 
-def test_historical_taxonomy_v1_and_source_seeds_remain_on_disk() -> None:
-    from pathlib import Path
-
-    root = Path(__file__).resolve().parents[1]
-    archived = (
-        root
-        / "data"
-        / "archive"
-        / "validation_sets"
-        / "CLINIPROOF_TAXONOMY_V1"
-        / "resident_validation_cases.json"
-    )
-    assert archived.is_file()
-    v1 = json.loads(archived.read_text())
-    assert v1["batch_code"] == "CLINIPROOF_TAXONOMY_V1"
-    assert len(v1["cases"]) == 24
-    seeds = root / "data" / "seed_cases" / "resident_authored"
-    assert (seeds / "OPAT_Case.docx").is_file()
-
-
 def test_one_stage_c1_c5_form_is_used() -> None:
     from app.services.readable_packets import C1_TO_C5_FORM
 
@@ -575,36 +537,6 @@ def test_opat_consults_are_not_copied_from_antiviral_text() -> None:
     for profile in archetypes["OPAT_ENDOCARDITIS"].profiles:
         blob = json.dumps(profile.consults).casefold()
         assert "antiviral" not in blob, profile.code
-
-
-def test_balanced_v3_plan_declares_balanced_structured() -> None:
-    from pathlib import Path
-
-    plan = json.loads(
-        (
-            Path(__file__).resolve().parents[1]
-            / "data"
-            / "archive"
-            / "validation_sets"
-            / "CLINIPROOF_BALANCED_V3"
-            / "batch_plan.json"
-        ).read_text(encoding="utf-8")
-    )
-    assert plan["generation_strategy"] == "balanced_structured"
-    assert plan["batch_code"] == "CLINIPROOF_BALANCED_V3"
-    v4 = json.loads(
-        (
-            Path(__file__).resolve().parents[1]
-            / "data"
-            / "case_sets"
-            / "balanced"
-            / "batch_plan.json"
-        ).read_text(encoding="utf-8")
-    )
-    assert v4["batch_code"] == "CLINIPROOF_BALANCED_V4"
-    assert v4["cases"][0]["validation_case_id"] == "VAL-701"
-    assert v4["cases"][-1]["validation_case_id"] == "VAL-724"
-    assert len(plan["cases"]) == 24
 
 
 def test_low_dose_aspirin_maps_to_ischemic_problem() -> None:

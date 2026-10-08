@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -22,7 +21,6 @@ from app.services.case_diversity import (
 from app.services.generation import ClinicalProfile, generate_one_case, load_scenarios
 from app.services.validation_batch import (
     freeze_validation_batch,
-    load_batch_plan,
     parse_assignments,
 )
 from app.sources.exceptions import CaseValidationError, DuplicateClinicalCaseError
@@ -280,29 +278,6 @@ def test_generation_is_reproducible_with_the_same_seed(db_session: Session) -> N
     assert second.seed == first.seed
 
 
-def test_balanced_v2_plan_has_unique_profiles_and_families() -> None:
-    plan = load_batch_plan(V2_PLAN)
-    assignments = parse_assignments(plan)
-    assert plan["batch_code"] == "CLINIPROOF_BALANCED_V2"
-    assert len(assignments) == 24
-    families = {item.scenario: 0 for item in assignments}
-    for item in assignments:
-        families[item.scenario] += 1
-    assert families["HF_INPATIENT"] == 5
-    assert families["AF_ANTICOAGULATION"] == 5
-    assert families["HTN_INPATIENT"] == 5
-    assert families["T2DM_INPATIENT"] == 5
-    assert families["CAP_INPATIENT"] == 4
-    profiles = [item.clinical_profile for item in assignments]
-    assert None not in profiles
-    assert len(set(profiles)) == 24
-    controls = [item for item in assignments if not item.inject_error]
-    assert len(controls) == 4
-    categories = [item.error_category for item in assignments if item.inject_error]
-    assert len(set(categories)) >= 10
-    assert all(item.sequence >= 1001 for item in assignments)
-
-
 def test_clinical_profiles_are_defined_for_each_family() -> None:
     scenarios = {item.code: item for item in load_scenarios()}
     assert set(scenarios) == {
@@ -348,13 +323,6 @@ def test_concentrated_plan_is_rejected(tmp_path: Path) -> None:
     plan = json.loads(path.read_text(encoding="utf-8"))
     with pytest.raises(CaseValidationError, match="batch_balance"):
         _assert_scenario_balance(plan, parse_assignments(plan))
-
-
-def test_frozen_v1_files_were_not_altered() -> None:
-    root = REPO / "data" / "archive" / "validation_sets" / "CLINIPROOF_TAXONOMY_V1"
-    for name, expected in EXPECTED_V1_HASHES.items():
-        digest = hashlib.sha256((root / name).read_bytes()).hexdigest()
-        assert digest == expected, name
 
 
 def test_tablet_formulation_outranks_oral_solution() -> None:

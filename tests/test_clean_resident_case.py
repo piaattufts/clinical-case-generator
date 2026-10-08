@@ -88,7 +88,7 @@ def test_normal_generation_does_not_emit_an_error_bearing_twin(db_session: Sessi
 
 def test_active_exports_still_need_regeneration() -> None:
     audit = audit_active_validation_cases()
-    assert audit["needs_regeneration"] == 48
-    assert audit["counts"]["CONTAINS_INJECTED_ERROR"] == 40
-    assert audit["counts"]["REFERENCE_LEAKAGE"] == 8
+    assert audit["needs_regeneration"] == 24
+    assert audit["counts"]["CONTAINS_INJECTED_ERROR"] == 20
+    assert audit["counts"]["REFERENCE_LEAKAGE"] == 4
     assert audit["counts"].get("CLEAN_AND_USABLE", 0) == 0

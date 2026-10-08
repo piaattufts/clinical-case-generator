@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import inspect
 import json
 import random
 from pathlib import Path
@@ -47,8 +46,6 @@ from app.services.error_taxonomy import (
 from app.services.generation import GeneratedCaseResult, Scenario, generate_one_case
 from app.services.validation import require_valid, validate_case
 from app.services.validation_batch import (
-    DEFAULT_BATCH_CODE,
-    LEAK_MARKERS,
     _investigator_payload,
     _resident_payload,
     freeze_validation_batch,
@@ -573,74 +570,6 @@ def test_coprescription_never_appears_in_eligible_errors(db_session: Session) ->
     assert NONE in allowed
 
 
-def test_archived_validation_plan_is_cliniproof_taxonomy_v1() -> None:
-    plan = json.loads(
-        Path("data/archive/validation_sets/CLINIPROOF_TAXONOMY_V1/batch_plan.json").read_text(
-            encoding="utf-8"
-        )
-    )
-    assert plan["batch_code"] == "CLINIPROOF_TAXONOMY_V1"
-    assert plan["cases"][0]["validation_case_id"] == "VAL-201"
-    assert plan["cases"][0]["error_category"] == F1_OMISSION
-    assert plan["cases"][0]["error_family"] == "family_1"
-    assert plan["cases"][-1]["validation_case_id"] == "VAL-224"
-    assert len(plan["cases"]) == 24
-    assert [row["validation_case_id"] for row in plan["cases"]] == [
-        f"VAL-{index:03d}" for index in range(201, 225)
-    ]
-    assert [row["sequence"] for row in plan["cases"]] == list(range(801, 825))
-    categories = {row.get("error_category") for row in plan["cases"]}
-    assert "omission" not in categories
-    assert "incorrect_continuation" not in categories
-    assert not Path("data/validation/cliniproof_v1").exists()
-    assert not Path("data/validation/legacy_pre_taxonomy").exists()
-
-
-def test_committed_cliniproof_export_is_canonical_and_blinded() -> None:
-    validation_dir = Path("data/archive/validation_sets/CLINIPROOF_TAXONOMY_V1")
-    plan = json.loads((validation_dir / "batch_plan.json").read_text(encoding="utf-8"))
-    resident = json.loads(
-        (validation_dir / "resident_validation_cases.json").read_text(encoding="utf-8")
-    )
-    investigator = json.loads(
-        (validation_dir / "investigator_answer_key.json").read_text(encoding="utf-8")
-    )
-    worksheet = (validation_dir / "resident_review_worksheet.csv").read_text(encoding="utf-8")
-    assert resident["batch_code"] == DEFAULT_BATCH_CODE
-    assert investigator["batch_code"] == DEFAULT_BATCH_CODE
-    assert len(resident["cases"]) == 24
-    assert len(investigator["cases"]) == 24
-    resident_ids = [row["case_id_code"] for row in resident["cases"]]
-    investigator_ids = [row["validation_case_id"] for row in investigator["cases"]]
-    planned_ids = [row["validation_case_id"] for row in plan["cases"]]
-    assert resident_ids == planned_ids == investigator_ids
-    assert "VAL-001" not in resident_ids
-    blob = json.dumps(resident).casefold()
-    leaked = [marker for marker in ("caseanswerkey", "syn-000", *LEAK_MARKERS) if marker in blob]
-    assert leaked == []
-    assert _collect_test_identifiers(resident) == []
-    for planned, exported in zip(plan["cases"], investigator["cases"], strict=True):
-        planned_category = planned.get("error_category") or NONE
-        exported_category = exported["error"]["error_category"]
-        assert canonicalize_category(exported_category) == canonicalize_category(planned_category)
-        if planned.get("inject_error"):
-            assert exported["control_error_status"] == "error_bearing"
-            assert exported["error"]["error_family"] in {"family_1", "family_2"}
-            assert len(exported["error"].get("trigger_meds") or []) >= 1
-            injected_state = exported["error"].get("injected_state") or []
-            assert len(injected_state) == 1
-        else:
-            assert exported["control_error_status"] == "NO INTENTIONAL ERROR"
-            assert exported["error"]["error_category"] == NONE
-            assert exported["error"].get("injected_state") in (None, [], {})
-    assert worksheet.splitlines()[1].startswith("VAL-201,")
-    assert worksheet.splitlines()[-1].startswith("VAL-224,")
-    for line in worksheet.splitlines()[1:]:
-        fields = line.split(",")
-        assert fields[0].startswith("VAL-")
-        assert all(field == "" for field in fields[1:])
-
-
 def test_obsolete_error_category_is_rejected_by_generation(db_session: Session) -> None:
     _seed_taxonomy_refs(db_session)
     with pytest.raises(CaseValidationError, match="unknown error category"):
@@ -820,29 +749,3 @@ def test_clearing_dose_makes_dose_mismatch_ineligible(db_session: Session) -> No
         )
 
 
-def test_cli_does_not_default_to_archived_taxonomy_v1() -> None:
-    from app.cli import export_validation_batch_cmd, freeze_validation_batch_cmd
-    from app.services.validation_batch import DEFAULT_BATCH_PLAN_PATH
-    from app.services.validation_registry import (
-        ARCHIVED_BATCH_CODE,
-        active_batch_codes,
-        archived_batch_codes,
-    )
-
-    assert DEFAULT_BATCH_CODE == ARCHIVED_BATCH_CODE
-    assert DEFAULT_BATCH_CODE == "CLINIPROOF_TAXONOMY_V1"
-    assert DEFAULT_BATCH_PLAN_PATH == Path(
-        "data/archive/validation_sets/CLINIPROOF_TAXONOMY_V1/batch_plan.json"
-    ).resolve()
-    plan = json.loads(DEFAULT_BATCH_PLAN_PATH.read_text(encoding="utf-8"))
-    assert plan["batch_code"] == DEFAULT_BATCH_CODE
-    export_default = inspect.signature(export_validation_batch_cmd).parameters["batch_code"].default
-    assert export_default is None
-    freeze_default = inspect.signature(freeze_validation_batch_cmd).parameters["plan"].default
-    assert freeze_default is None
-    assert "CLINIPROOF_TAXONOMY_V1" not in active_batch_codes()
-    assert "CLINIPROOF_TAXONOMY_V1" in archived_batch_codes()
-    assert "CLINIPROOF_BALANCED_V4" in active_batch_codes()
-    assert "CLINIPROOF_SEEDCASES_V3" in active_batch_codes()
-    assert "CLINIPROOF_BALANCED_V2" in archived_batch_codes()
-    assert "CLINIPROOF_SEEDCASES_V1" in archived_batch_codes()
