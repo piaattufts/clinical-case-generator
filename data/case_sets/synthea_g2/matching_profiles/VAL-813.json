@@ -1,0 +1,39 @@
+{
+  "generation1_case_id": "VAL-813",
+  "scenario_family": "TRANSPLANT_CMV",
+  "family_label": "Transplant / CMV",
+  "primary_reasoning_target": "Start or adjust cytomegalovirus therapy and immunosuppression after a diagnostic work-up",
+  "secondary_reasoning_targets": [
+    "hold",
+    "new_start",
+    "stop"
+  ],
+  "number_of_home_medications": 5,
+  "number_of_clinically_relevant_medications": 7,
+  "number_of_major_discharge_decisions": 3,
+  "decision_types": [
+    "new_start",
+    "hold",
+    "stop"
+  ],
+  "important_monitoring_requirements": [
+    "tacrolimus trough, serum creatinine, complete blood count, and plasma cytomegalovirus DNA"
+  ],
+  "important_followup_requirements": [
+    "Transplant clinic to review antiviral induction and whether mycophenolate can restart"
+  ],
+  "major_diagnostic_workup": [
+    "Diarrhea after kidney transplant"
+  ],
+  "approximate_difficulty": "moderate",
+  "monitoring_complexity": "intensive",
+  "followup_count": 1,
+  "major_causal_dependencies": [
+    "baseline before the acute change",
+    "a precipitant or an evaluation for one",
+    "work-up before a newly established diagnosis",
+    "treatment before the recorded response"
+  ],
+  "disposition": "home",
+  "clinician_input_into_generation2_case": "none"
+}

@@ -1,0 +1,35 @@
+{
+  "generation1_case_id": "VAL-802",
+  "scenario_family": "MED_HISTORY_UNCERTAINTY",
+  "family_label": "Medication reconciliation",
+  "primary_reasoning_target": "Interpret an acute change and decide which outpatient medicines continue, stop, or restart",
+  "secondary_reasoning_targets": [
+    "stop"
+  ],
+  "number_of_home_medications": 2,
+  "number_of_clinically_relevant_medications": 3,
+  "number_of_major_discharge_decisions": 1,
+  "decision_types": [
+    "stop"
+  ],
+  "important_monitoring_requirements": [
+    "Primary care medication-list follow-up"
+  ],
+  "important_followup_requirements": [
+    "Primary care medication-list follow-up"
+  ],
+  "major_diagnostic_workup": [
+    "Acute delirium, a change from the caregiver-reported baseline"
+  ],
+  "approximate_difficulty": "low",
+  "monitoring_complexity": "limited",
+  "followup_count": 1,
+  "major_causal_dependencies": [
+    "baseline before the acute change",
+    "a precipitant or an evaluation for one",
+    "work-up before a newly established diagnosis",
+    "treatment before the recorded response"
+  ],
+  "disposition": "home",
+  "clinician_input_into_generation2_case": "none"
+}

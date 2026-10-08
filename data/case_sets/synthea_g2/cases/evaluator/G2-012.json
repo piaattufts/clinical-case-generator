@@ -1,35 +1,44 @@
 {
   "case_id_code": "G2-012",
   "ClinicalCase": {
-    "title": "ENDOCARDITIS_OPAT G2-012",
+    "title": "27-year-old Female with fever with endocarditis established only after cultures and echocardiography",
     "case_id_code": "G2-012",
     "case_status": "candidate",
     "generation_source": "synthetic",
-    "one_liner": "74-year-old Female with fever with endocarditis established only after cultures and echocardiography",
+    "one_liner": "27-year-old Female with fever with endocarditis established only after cultures and echocardiography",
     "admission_dx": "Fever and a new murmur",
     "disposition_status": "home",
     "chief_complaint": "Fever, fatigue, and a new murmur",
-    "patient_name": "G2-012",
-    "patient_age": 74,
+    "patient_name": "Synthetic patient",
+    "patient_age": 27,
     "patient_gender": "Female",
     "ethnicity": null,
-    "weight_kg": 65.6,
+    "weight_kg": 87.2,
     "social_context": "Longitudinal social history was not required for this episode.",
     "is_active": true,
     "difficulty": "standard",
     "specialty": "infectious disease",
-    "allergies": [],
+    "allergies": [
+      "Allergic disposition (finding)",
+      "Latex (substance)",
+      "Mold (organism)",
+      "House dust mite (organism)",
+      "Animal dander (substance)",
+      "Grass pollen (substance)",
+      "Aspirin",
+      "Eggs (edible) (substance)"
+    ],
     "medical_history": [
-      "Received higher education (finding)",
-      "Lack of access to transportation (finding)",
-      "Transport problem (finding)",
-      "History of tubal ligation (situation)"
+      "Risk activity involvement (finding)",
+      "Chronic pain (finding)",
+      "Chronic low back pain (finding)",
+      "Received higher education (finding)"
     ],
     "source_type": "synthea_cliniproof_g2",
     "source_file": null,
     "presentation": {
       "chief_complaint": "Fever, fatigue, and a new murmur",
-      "hpi": "The longitudinal extract does not list endocarditis. Outpatient products in the extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet. No pre-admission creatinine was present; the first value was 0.9 mg/dL. For ten days the patient had fever, sweats, and fatigue that were new. There was no chronic febrile illness in the history obtained on arrival. The echocardiogram identified a bicuspid aortic valve, which is the predisposition. No recent dental procedure was reported. Arrival temperature was 38.4 degrees Celsius. A murmur that the patient did not recognize was present. The working concern was bloodstream infection, not a finished diagnosis of endocarditis.",
+      "hpi": "The longitudinal extract does not list endocarditis. Outpatient products in the extract: no curated single-ingredient outpatient regimen. No pre-admission creatinine was present; the first value was 0.9 mg/dL. For ten days the patient had fever, sweats, and fatigue that were new. There was no chronic febrile illness in the history obtained on arrival. A dental cleaning occurred ten days before the fever. Home infusion nursing assessed the residence and found it suitable. Arrival temperature was 38.4 degrees Celsius. A murmur that the patient did not recognize was present. The working concern was bloodstream infection, not a finished diagnosis of endocarditis.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "fever",
@@ -65,6 +74,42 @@
     {
       "diagnosis_id": "DX-G2-012-001",
       "case_id": "G2-012",
+      "diagnosis": "Risk activity involvement (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "160968000",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-012-002",
+      "case_id": "G2-012",
+      "diagnosis": "Chronic pain (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "82423001",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-012-003",
+      "case_id": "G2-012",
+      "diagnosis": "Chronic low back pain (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "278860009",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-012-004",
+      "case_id": "G2-012",
       "diagnosis": "Received higher education (finding)",
       "diagnosis_type": "past_history",
       "status": "active",
@@ -72,42 +117,6 @@
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
       "snomed_code": "224299000",
-      "code_provenance": "reference_terminology"
-    },
-    {
-      "diagnosis_id": "DX-G2-012-002",
-      "case_id": "G2-012",
-      "diagnosis": "Lack of access to transportation (finding)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "713458007",
-      "code_provenance": "reference_terminology"
-    },
-    {
-      "diagnosis_id": "DX-G2-012-003",
-      "case_id": "G2-012",
-      "diagnosis": "Transport problem (finding)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "266934004",
-      "code_provenance": "reference_terminology"
-    },
-    {
-      "diagnosis_id": "DX-G2-012-004",
-      "case_id": "G2-012",
-      "diagnosis": "History of tubal ligation (situation)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "267020005",
       "code_provenance": "reference_terminology"
     },
     {
@@ -140,14 +149,14 @@
       "note_id": "NOTE-G2-012-001",
       "case_id": "G2-012",
       "note_type": "admission",
-      "note_text": "The longitudinal extract does not list endocarditis. Outpatient products in the extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet. No pre-admission creatinine was present; the first value was 0.9 mg/dL. For ten days the patient had fever, sweats, and fatigue that were new. There was no chronic febrile illness in the history obtained on arrival. The echocardiogram identified a bicuspid aortic valve, which is the predisposition. No recent dental procedure was reported. Arrival temperature was 38.4 degrees Celsius. A murmur that the patient did not recognize was present. The working concern was bloodstream infection, not a finished diagnosis of endocarditis.",
+      "note_text": "The longitudinal extract does not list endocarditis. Outpatient products in the extract: no curated single-ingredient outpatient regimen. No pre-admission creatinine was present; the first value was 0.9 mg/dL. For ten days the patient had fever, sweats, and fatigue that were new. There was no chronic febrile illness in the history obtained on arrival. A dental cleaning occurred ten days before the fever. Home infusion nursing assessed the residence and found it suitable. Arrival temperature was 38.4 degrees Celsius. A murmur that the patient did not recognize was present. The working concern was bloodstream infection, not a finished diagnosis of endocarditis.",
       "provenance": "cliniproof_episode_generated"
     },
     {
       "note_id": "NOTE-G2-012-002",
       "case_id": "G2-012",
       "note_type": "hospital_course",
-      "note_text": "Two sets of blood cultures were drawn before any antibiotic. They grew Streptococcus sanguinis. A transthoracic echocardiogram then showed a bicuspid aortic valve with a 5 mm vegetation and no abscess. Dental and skin examinations were recorded as part of the source evaluation. Endocarditis was diagnosed only after the organism and the echocardiogram were both available. The patient did not present with that label already assigned. Ceftriaxone 2 g intravenously once daily was started after the cultures were drawn and was continued once the organism was known to be treated by that regimen. Cardiac surgery saw the patient: there was no abscess, no severe valve failure, and no indication for urgent surgery. Creatinine stayed 0.9 mg/dL, which is the range in which the curated 2 g dose is used. Fever resolved by hospital day 3. A repeat blood culture showed no growth. Appetite and walking had returned. This was day 6 of intravenous ceftriaxone. Outpatient parenteral therapy is logistically feasible at home. The remaining duration has not been signed. Weekly laboratory monitoring and infectious-diseases follow-up are arranged. Infectious diseases follow-up within one week and a weekly chemistry panel were specified.",
+      "note_text": "Two sets of blood cultures were drawn before any antibiotic. They grew Streptococcus sanguinis. A transthoracic echocardiogram then showed a 5 mm mitral vegetation without abscess. Dental and skin examinations were recorded as part of the source evaluation. Endocarditis was diagnosed only after the organism and the echocardiogram were both available. The patient did not present with that label already assigned. Ceftriaxone 2 g intravenously once daily was started after the cultures were drawn and was continued once the organism was known to be treated by that regimen. Cardiac surgery saw the patient: there was no abscess, no severe valve failure, and no indication for urgent surgery. Creatinine stayed 0.9 mg/dL, which is the range in which the curated 2 g dose is used. Fever resolved by hospital day 3. A repeat blood culture showed no growth. Appetite and walking had returned. This was day 6 of intravenous ceftriaxone. Outpatient parenteral therapy is logistically feasible at home. The remaining duration has not been signed. Weekly laboratory monitoring and infectious-diseases follow-up are arranged. Infectious diseases follow-up within one week and a weekly chemistry panel were specified.",
       "provenance": "cliniproof_episode_generated"
     }
   ],
@@ -254,7 +263,7 @@
       "timepoint": "hospital_day_1",
       "study_type": "Transthoracic echocardiogram",
       "body_site": "",
-      "finding": "a bicuspid aortic valve with a 5 mm vegetation and no abscess",
+      "finding": "a 5 mm mitral vegetation without abscess",
       "provenance": "cliniproof_episode_generated"
     }
   ],
@@ -265,7 +274,7 @@
       "case_id": "G2-012",
       "service": "cardiac surgery",
       "timepoint": "inpatient",
-      "assessment": "a bicuspid aortic valve with a 5 mm vegetation and no abscess No abscess and no refractory heart failure.",
+      "assessment": "a 5 mm mitral vegetation without abscess No abscess and no refractory heart failure.",
       "recommendation": "Urgent surgery is not indicated. Reassess if heart failure or persistent bacteremia develops.",
       "provenance": "cliniproof_episode_generated"
     },
@@ -327,50 +336,6 @@
       "identity_provenance": "cliniproof_episode_generated",
       "regimen_provenance": "reference_terminology",
       "provenance": "cliniproof_episode_generated"
-    },
-    {
-      "medication_id": "MED-G2-012-002",
-      "case_id": "G2-012",
-      "context": "home",
-      "drug": "metoprolol",
-      "reported_name": "metoprolol",
-      "dose": "100 MG",
-      "route": "oral",
-      "frequency": "once daily",
-      "indication": "unchanged outpatient indication",
-      "status": "home",
-      "held_reason": null,
-      "verification_status": "verified",
-      "verification_source": "longitudinal_record_and_inpatient_course",
-      "monitoring": null,
-      "notes": "Given through the hospitalization from the verified outpatient list.",
-      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
-      "rxcui": "866412",
-      "identity_provenance": "synthea_longitudinal",
-      "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
-    },
-    {
-      "medication_id": "MED-G2-012-003",
-      "case_id": "G2-012",
-      "context": "inpatient",
-      "drug": "metoprolol",
-      "reported_name": "metoprolol",
-      "dose": "100 MG",
-      "route": "oral",
-      "frequency": "once daily",
-      "indication": "unchanged outpatient indication",
-      "status": "active",
-      "held_reason": null,
-      "verification_status": "verified",
-      "verification_source": "longitudinal_record_and_inpatient_course",
-      "monitoring": null,
-      "notes": "Given through the hospitalization from the verified outpatient list.",
-      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
-      "rxcui": "866412",
-      "identity_provenance": "synthea_longitudinal",
-      "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
     }
   ],
   "CaseMedicationReconciliation": [],
@@ -417,20 +382,20 @@
   "CaseIntakeOutput": [],
   "scenario_code": "ENDOCARDITIS_OPAT",
   "scenario_version": "g2-scenarios-v1",
-  "variant_id": "bicuspid_predisposition",
+  "variant_id": "opat_home_infusion",
   "eligibility_tier": "baseline_context_only",
-  "synthea_patient_id": "13df9020-de2c-4773-1e6d-b113e62b003a",
-  "episode_generation_seed": "20261008:13df9020-de2c-4773-1e6d-b113e62b003a:ENDOCARDITIS_OPAT:bicuspid_predisposition",
+  "synthea_patient_id": "00fe5d74-5117-5068-0098-68e4f375860c",
+  "episode_generation_seed": "20261008:00fe5d74-5117-5068-0098-68e4f375860c:ENDOCARDITIS_OPAT:opat_home_infusion",
   "fingerprint": {
     "scenario": "ENDOCARDITIS_OPAT",
-    "variant_id": "bicuspid_predisposition",
-    "precipitant": "bicuspid_aortic_valve",
-    "diagnostic_pathway": "cultures_and_echo_showing_bicuspid_valve",
+    "variant_id": "opat_home_infusion",
+    "precipitant": "dental_cleaning",
+    "diagnostic_pathway": "cultures_echo_home_infusion_assessment",
     "renal_pattern": "creatinine_stable",
     "procedure": "echocardiogram",
     "disposition": "home",
     "organism": "Streptococcus sanguinis",
-    "med_signature": "ceftriaxone:continue|metoprolol:continue"
+    "med_signature": "ceftriaxone:continue"
   },
   "physiology_expectations": [],
   "facts": [
@@ -439,7 +404,7 @@
       "domains": [
         "baseline"
       ],
-      "text": "The longitudinal extract does not list endocarditis. Outpatient products in the extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet. No pre-admission creatinine was present; the first value was 0.9 mg/dL.",
+      "text": "The longitudinal extract does not list endocarditis. Outpatient products in the extract: no curated single-ingredient outpatient regimen. No pre-admission creatinine was present; the first value was 0.9 mg/dL.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 10,
       "section": "hpi",
@@ -461,7 +426,7 @@
       "domains": [
         "precipitant"
       ],
-      "text": "The echocardiogram identified a bicuspid aortic valve, which is the predisposition. No recent dental procedure was reported.",
+      "text": "A dental cleaning occurred ten days before the fever. Home infusion nursing assessed the residence and found it suitable.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 30,
       "section": "hpi",
@@ -483,7 +448,7 @@
       "domains": [
         "workup"
       ],
-      "text": "Two sets of blood cultures were drawn before any antibiotic. They grew Streptococcus sanguinis. A transthoracic echocardiogram then showed a bicuspid aortic valve with a 5 mm vegetation and no abscess. Dental and skin examinations were recorded as part of the source evaluation.",
+      "text": "Two sets of blood cultures were drawn before any antibiotic. They grew Streptococcus sanguinis. A transthoracic echocardiogram then showed a 5 mm mitral vegetation without abscess. Dental and skin examinations were recorded as part of the source evaluation.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 50,
       "section": "course",
@@ -571,7 +536,7 @@
       "event_type": "precipitant",
       "time_order": 30,
       "provenance": "cliniproof_episode_generated",
-      "summary": "bicuspid_aortic_valve",
+      "summary": "dental_cleaning",
       "supporting_data": [],
       "empiric": false
     },
@@ -691,50 +656,6 @@
         }
       ],
       "hospital_only": false
-    },
-    {
-      "drug": "metoprolol",
-      "dose": "100 MG",
-      "route": "oral",
-      "frequency": "once daily",
-      "indication": "unchanged outpatient indication",
-      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
-      "identity_provenance": "synthea_longitudinal",
-      "regimen_provenance": "reference_terminology",
-      "rxcui": "866412",
-      "synthea_product": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet",
-      "states": [
-        {
-          "state": "home",
-          "time_order": 10,
-          "trigger": "recorded outpatient medication",
-          "evidence": [
-            "en-base"
-          ],
-          "provenance": "synthea_longitudinal"
-        },
-        {
-          "state": "continued_inpatient",
-          "time_order": 70,
-          "trigger": "indication still present and no new contraindication",
-          "evidence": [
-            "en-base",
-            "en-ready"
-          ],
-          "provenance": "cliniproof_episode_generated"
-        }
-      ],
-      "discharge_action": "continue",
-      "evidence_ids": [
-        "en-base",
-        "en-ready"
-      ],
-      "resident_note": "Given through the hospitalization from the verified outpatient list.",
-      "rationale": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
-      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
-      "follow_up": "Review at the scheduled follow-up visit.",
-      "acceptable_alternatives": [],
-      "hospital_only": false
     }
   ],
   "reference_discharge_plan": {
@@ -764,24 +685,6 @@
           }
         ],
         "provenance": "investigator_derived_reference"
-      },
-      {
-        "medication": "metoprolol",
-        "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
-        "action": "continue",
-        "dose": "100 MG",
-        "route": "oral",
-        "frequency": "once daily",
-        "indication": "unchanged outpatient indication",
-        "rationale": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
-        "resident_visible_evidence": [
-          "en-base",
-          "en-ready"
-        ],
-        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
-        "follow_up": "Review at the scheduled follow-up visit.",
-        "acceptable_alternatives": [],
-        "provenance": "investigator_derived_reference"
       }
     ],
     "provenance": "investigator_derived_reference"
@@ -799,59 +702,48 @@
     "en-work"
   ],
   "source_rxcuis": [
-    "1049625",
-    "309362",
-    "312961",
+    "1043400",
+    "1870230",
+    "209387",
     "313782",
-    "314231",
-    "705129",
-    "849574",
-    "856987",
-    "866412",
-    "966222"
+    "748856",
+    "748879",
+    "749762",
+    "751905",
+    "978950",
+    "997488"
   ],
   "source_snomed": [
+    "103697008",
     "10509002",
     "109570002",
-    "1121000119107",
+    "1260009003",
+    "1260010008",
     "160903007",
     "160904001",
-    "162864005",
+    "160968000",
     "195662009",
     "224299000",
-    "237602007",
-    "239873007",
-    "243063003",
-    "252482003",
-    "266934004",
-    "266948004",
-    "267020005",
-    "271737000",
-    "274531002",
-    "278558000",
+    "225362009",
+    "24079001",
+    "243085009",
+    "274788003",
     "278598003",
     "278860009",
-    "29303009",
-    "302761001",
-    "302870006",
-    "306706006",
-    "308283009",
     "314529007",
-    "399208008",
-    "399261000",
-    "414545008",
+    "34043003",
     "422650009",
-    "44054006",
-    "55822004",
+    "423315002",
+    "424393004",
+    "65363002",
     "66383009",
-    "713458007",
-    "714628002",
-    "71493000",
+    "68071007",
+    "706893006",
+    "72892002",
     "73438004",
     "73595000",
     "741062008",
-    "82423001",
-    "83664006"
+    "82423001"
   ],
   "control_error_status": "NO INTENTIONAL ERROR",
   "provenance": {
@@ -864,13 +756,13 @@
       "reference_date": "20261008",
       "fhir_version": "R4",
       "java_version": "OpenJDK 21.0.10",
-      "synthetic_patient_id": "13df9020-de2c-4773-1e6d-b113e62b003a"
+      "synthetic_patient_id": "00fe5d74-5117-5068-0098-68e4f375860c"
     },
     "scenario": {
       "code": "ENDOCARDITIS_OPAT",
       "version": "g2-scenarios-v1"
     },
-    "episode_generation_seed": "20261008:13df9020-de2c-4773-1e6d-b113e62b003a:ENDOCARDITIS_OPAT:bicuspid_predisposition",
+    "episode_generation_seed": "20261008:00fe5d74-5117-5068-0098-68e4f375860c:ENDOCARDITIS_OPAT:opat_home_infusion",
     "source_classes": [
       "synthea_longitudinal",
       "cliniproof_episode_generated",
@@ -879,7 +771,13 @@
     ],
     "generated_at": "2026-10-08T00:00:00Z",
     "narrative": "template rendering of structured facts; no language model",
-    "use_openai": false
+    "use_openai": false,
+    "matched_generation1_case_id": "VAL-812",
+    "neutral_study_id": "M-812",
+    "blinding": {
+      "generation_method_hidden_from_narrative": true,
+      "neutral_study_id": "M-812"
+    }
   },
   "ready_for_clinician_review": true,
   "clinically_validated": false

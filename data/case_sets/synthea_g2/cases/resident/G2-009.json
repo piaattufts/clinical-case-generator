@@ -1,38 +1,38 @@
 {
   "case_id_code": "G2-009",
   "ClinicalCase": {
-    "title": "ENDOCARDITIS_OPAT G2-009",
+    "title": "41-year-old Male with fever with endocarditis established only after cultures and echocardiography",
     "case_id_code": "G2-009",
     "case_status": "candidate",
     "generation_source": "synthetic",
-    "one_liner": "32-year-old Male with fever with endocarditis established only after cultures and echocardiography",
+    "one_liner": "41-year-old Male with fever with endocarditis established only after cultures and echocardiography",
     "admission_dx": "Fever and a new murmur",
     "disposition_status": "home",
     "chief_complaint": "Fever, fatigue, and a new murmur",
-    "patient_name": "G2-009",
-    "patient_age": 32,
+    "patient_name": "Synthetic patient",
+    "patient_age": 41,
     "patient_gender": "Male",
     "ethnicity": null,
-    "weight_kg": 83.7,
+    "weight_kg": 98.2,
     "social_context": "Longitudinal social history was not required for this episode.",
     "is_active": true,
     "difficulty": "standard",
     "specialty": "infectious disease",
     "allergies": [
       "Allergic disposition (finding)",
-      "Aspirin"
+      "Lisinopril"
     ],
     "medical_history": [
-      "Aortic valve stenosis (disorder)",
       "Received higher education (finding)",
-      "Has a criminal record (finding)",
-      "Chronic pain (finding)"
+      "Transport problem (finding)",
+      "Asthma (disorder)",
+      "Lack of access to transportation (finding)"
     ],
     "source_type": "synthea_cliniproof_g2",
     "source_file": null,
     "presentation": {
       "chief_complaint": "Fever, fatigue, and a new murmur",
-      "hpi": "The longitudinal extract does not list endocarditis. Outpatient products in the extract: no curated single-ingredient outpatient regimen. No pre-admission creatinine was present; the first value was 0.9 mg/dL. For ten days the patient had fever, sweats, and fatigue that were new. There was no chronic febrile illness in the history obtained on arrival. A dental extraction occurred two weeks earlier. Skin examination showed no abscess. The dental procedure is the predisposition recorded for this episode. Arrival temperature was 38.4 degrees Celsius. A murmur that the patient did not recognize was present. The working concern was bloodstream infection, not a finished diagnosis of endocarditis.",
+      "hpi": "The longitudinal extract does not list endocarditis. Outpatient products in the extract: no curated single-ingredient outpatient regimen. No pre-admission creatinine was present; the first value was 1.2 mg/dL. For ten days the patient had fever, sweats, and fatigue that were new. There was no chronic febrile illness in the history obtained on arrival. A dental extraction occurred two weeks earlier. Skin examination showed no abscess. The dental procedure is the predisposition recorded for this episode. Arrival temperature was 38.4 degrees Celsius. A murmur that the patient did not recognize was present. The working concern was bloodstream infection, not a finished diagnosis of endocarditis.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "fever",
@@ -68,18 +68,6 @@
     {
       "diagnosis_id": "DX-G2-009-001",
       "case_id": "G2-009",
-      "diagnosis": "Aortic valve stenosis (disorder)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "60573004",
-      "code_provenance": "reference_terminology"
-    },
-    {
-      "diagnosis_id": "DX-G2-009-002",
-      "case_id": "G2-009",
       "diagnosis": "Received higher education (finding)",
       "diagnosis_type": "past_history",
       "status": "active",
@@ -90,27 +78,39 @@
       "code_provenance": "reference_terminology"
     },
     {
-      "diagnosis_id": "DX-G2-009-003",
+      "diagnosis_id": "DX-G2-009-002",
       "case_id": "G2-009",
-      "diagnosis": "Has a criminal record (finding)",
+      "diagnosis": "Transport problem (finding)",
       "diagnosis_type": "past_history",
       "status": "active",
       "context": "history",
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
-      "snomed_code": "266948004",
+      "snomed_code": "266934004",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-009-003",
+      "case_id": "G2-009",
+      "diagnosis": "Asthma (disorder)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "195967001",
       "code_provenance": "reference_terminology"
     },
     {
       "diagnosis_id": "DX-G2-009-004",
       "case_id": "G2-009",
-      "diagnosis": "Chronic pain (finding)",
+      "diagnosis": "Lack of access to transportation (finding)",
       "diagnosis_type": "past_history",
       "status": "active",
       "context": "history",
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
-      "snomed_code": "82423001",
+      "snomed_code": "713458007",
       "code_provenance": "reference_terminology"
     },
     {
@@ -143,14 +143,14 @@
       "note_id": "NOTE-G2-009-001",
       "case_id": "G2-009",
       "note_type": "admission",
-      "note_text": "The longitudinal extract does not list endocarditis. Outpatient products in the extract: no curated single-ingredient outpatient regimen. No pre-admission creatinine was present; the first value was 0.9 mg/dL. For ten days the patient had fever, sweats, and fatigue that were new. There was no chronic febrile illness in the history obtained on arrival. A dental extraction occurred two weeks earlier. Skin examination showed no abscess. The dental procedure is the predisposition recorded for this episode. Arrival temperature was 38.4 degrees Celsius. A murmur that the patient did not recognize was present. The working concern was bloodstream infection, not a finished diagnosis of endocarditis.",
+      "note_text": "The longitudinal extract does not list endocarditis. Outpatient products in the extract: no curated single-ingredient outpatient regimen. No pre-admission creatinine was present; the first value was 1.2 mg/dL. For ten days the patient had fever, sweats, and fatigue that were new. There was no chronic febrile illness in the history obtained on arrival. A dental extraction occurred two weeks earlier. Skin examination showed no abscess. The dental procedure is the predisposition recorded for this episode. Arrival temperature was 38.4 degrees Celsius. A murmur that the patient did not recognize was present. The working concern was bloodstream infection, not a finished diagnosis of endocarditis.",
       "provenance": "cliniproof_episode_generated"
     },
     {
       "note_id": "NOTE-G2-009-002",
       "case_id": "G2-009",
       "note_type": "hospital_course",
-      "note_text": "Two sets of blood cultures were drawn before any antibiotic. They grew Streptococcus sanguinis. A transthoracic echocardiogram then showed an 8 mm mitral vegetation without abscess or severe regurgitation. Dental and skin examinations were recorded as part of the source evaluation. Endocarditis was diagnosed only after the organism and the echocardiogram were both available. The patient did not present with that label already assigned. Ceftriaxone 2 g intravenously once daily was started after the cultures were drawn and was continued once the organism was known to be treated by that regimen. Cardiac surgery saw the patient: there was no abscess, no severe valve failure, and no indication for urgent surgery. Creatinine stayed 0.9 mg/dL, which is the range in which the curated 2 g dose is used. Fever resolved by hospital day 3. A repeat blood culture showed no growth. Appetite and walking had returned. This was day 6 of intravenous ceftriaxone. Outpatient parenteral therapy is logistically feasible at home. The remaining duration has not been signed. Weekly laboratory monitoring and infectious-diseases follow-up are arranged. Infectious diseases follow-up within one week and a weekly chemistry panel were specified.",
+      "note_text": "Two sets of blood cultures were drawn before any antibiotic. They grew Streptococcus sanguinis. A transthoracic echocardiogram then showed an 8 mm mitral vegetation without abscess or severe regurgitation. Dental and skin examinations were recorded as part of the source evaluation. Endocarditis was diagnosed only after the organism and the echocardiogram were both available. The patient did not present with that label already assigned. Ceftriaxone 2 g intravenously once daily was started after the cultures were drawn and was continued once the organism was known to be treated by that regimen. Cardiac surgery saw the patient: there was no abscess, no severe valve failure, and no indication for urgent surgery. Creatinine stayed 1.2 mg/dL, which is the range in which the curated 2 g dose is used. Fever resolved by hospital day 3. A repeat blood culture showed no growth. Appetite and walking had returned. This was day 6 of intravenous ceftriaxone. Outpatient parenteral therapy is logistically feasible at home. The remaining duration has not been signed. Weekly laboratory monitoring and infectious-diseases follow-up are arranged. Infectious diseases follow-up within one week and a weekly chemistry panel were specified.",
       "provenance": "cliniproof_episode_generated"
     }
   ],
@@ -189,7 +189,7 @@
       "timepoint": "baseline",
       "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
       "loinc_code": "2160-0",
-      "value": 0.9,
+      "value": 1.2,
       "value_text": null,
       "unit": "mg/dL",
       "status": "final",
@@ -202,7 +202,7 @@
       "timepoint": "admission",
       "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
       "loinc_code": "2160-0",
-      "value": 0.9,
+      "value": 1.2,
       "value_text": null,
       "unit": "mg/dL",
       "status": "final",
@@ -215,7 +215,7 @@
       "timepoint": "discharge",
       "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
       "loinc_code": "2160-0",
-      "value": 0.9,
+      "value": 1.2,
       "value_text": null,
       "unit": "mg/dL",
       "status": "final",

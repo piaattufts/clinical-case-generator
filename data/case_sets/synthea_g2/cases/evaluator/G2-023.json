@@ -1,35 +1,35 @@
 {
   "case_id_code": "G2-023",
   "ClinicalCase": {
-    "title": "GI_BLEED_ANTICOAGULATION G2-023",
+    "title": "70-year-old Female with gastrointestinal bleeding with warfarin held and the source established by endoscopy",
     "case_id_code": "G2-023",
     "case_status": "candidate",
     "generation_source": "synthetic",
-    "one_liner": "72-year-old Male with gastrointestinal bleeding with warfarin held and the source established by endoscopy",
+    "one_liner": "70-year-old Female with gastrointestinal bleeding with warfarin held and the source established by endoscopy",
     "admission_dx": "Gastrointestinal hemorrhage, unspecified",
     "disposition_status": "home",
     "chief_complaint": "hematochezia",
-    "patient_name": "G2-023",
-    "patient_age": 72,
-    "patient_gender": "Male",
+    "patient_name": "Synthetic patient",
+    "patient_age": 70,
+    "patient_gender": "Female",
     "ethnicity": null,
-    "weight_kg": 80.6,
+    "weight_kg": 73.0,
     "social_context": "Longitudinal social history was not required for this episode.",
     "is_active": true,
     "difficulty": "standard",
     "specialty": "gastroenterology",
     "allergies": [],
     "medical_history": [
-      "Housing unsatisfactory (finding)",
+      "Risk activity involvement (finding)",
       "Educated to high school level (finding)",
-      "Body mass index 30+ - obesity (finding)",
-      "Hyperlipidemia (disorder)"
+      "Limited social contact (finding)",
+      "Past pregnancy history of miscarriage (situation)"
     ],
     "source_type": "synthea_cliniproof_g2",
     "source_file": null,
     "presentation": {
       "chief_complaint": "hematochezia",
-      "hpi": "The longitudinal extract includes warfarin (warfarin sodium 5 MG Oral Tablet) for a recorded indication. Other products: aspirin 81 MG Oral Tablet; warfarin sodium 5 MG Oral Tablet. There was no chronic daily bleeding at baseline. Overt bleeding began within the day before arrival and was not the patient's usual pattern. No new nonsteroidal drug was identified. The bleeding itself was the acute event on chronic anticoagulation. Heart rate was 114 and blood pressure was 96/58. Hemoglobin was 9.2 g/dL. INR was 2.7. Warfarin was held.",
+      "hpi": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) for a recorded indication. Other products: Warfarin Sodium 5 MG Oral Tablet. There was no chronic daily bleeding at baseline. Overt bleeding began within the day before arrival and was not the patient's usual pattern. No new nonsteroidal drug was identified. The bleeding itself was the acute event on chronic anticoagulation. Heart rate was 114 and blood pressure was 96/58. Hemoglobin was 9.2 g/dL. INR was 2.7. Warfarin was held.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "hematochezia"
@@ -63,13 +63,13 @@
     {
       "diagnosis_id": "DX-G2-023-001",
       "case_id": "G2-023",
-      "diagnosis": "Housing unsatisfactory (finding)",
+      "diagnosis": "Risk activity involvement (finding)",
       "diagnosis_type": "past_history",
       "status": "active",
       "context": "history",
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
-      "snomed_code": "105531004",
+      "snomed_code": "160968000",
       "code_provenance": "reference_terminology"
     },
     {
@@ -87,25 +87,25 @@
     {
       "diagnosis_id": "DX-G2-023-003",
       "case_id": "G2-023",
-      "diagnosis": "Body mass index 30+ - obesity (finding)",
+      "diagnosis": "Limited social contact (finding)",
       "diagnosis_type": "past_history",
       "status": "active",
       "context": "history",
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
-      "snomed_code": "162864005",
+      "snomed_code": "423315002",
       "code_provenance": "reference_terminology"
     },
     {
       "diagnosis_id": "DX-G2-023-004",
       "case_id": "G2-023",
-      "diagnosis": "Hyperlipidemia (disorder)",
+      "diagnosis": "Past pregnancy history of miscarriage (situation)",
       "diagnosis_type": "past_history",
       "status": "active",
       "context": "history",
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
-      "snomed_code": "55822004",
+      "snomed_code": "161744009",
       "code_provenance": "reference_terminology"
     },
     {
@@ -150,7 +150,7 @@
       "note_id": "NOTE-G2-023-001",
       "case_id": "G2-023",
       "note_type": "admission",
-      "note_text": "The longitudinal extract includes warfarin (warfarin sodium 5 MG Oral Tablet) for a recorded indication. Other products: aspirin 81 MG Oral Tablet; warfarin sodium 5 MG Oral Tablet. There was no chronic daily bleeding at baseline. Overt bleeding began within the day before arrival and was not the patient's usual pattern. No new nonsteroidal drug was identified. The bleeding itself was the acute event on chronic anticoagulation. Heart rate was 114 and blood pressure was 96/58. Hemoglobin was 9.2 g/dL. INR was 2.7. Warfarin was held.",
+      "note_text": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) for a recorded indication. Other products: Warfarin Sodium 5 MG Oral Tablet. There was no chronic daily bleeding at baseline. Overt bleeding began within the day before arrival and was not the patient's usual pattern. No new nonsteroidal drug was identified. The bleeding itself was the acute event on chronic anticoagulation. Heart rate was 114 and blood pressure was 96/58. Hemoglobin was 9.2 g/dL. INR was 2.7. Warfarin was held.",
       "provenance": "cliniproof_episode_generated"
     },
     {
@@ -304,9 +304,9 @@
       "notes": "Still held. Hemostasis is recent and the source was diverticular, so restart timing is explicitly unresolved.",
       "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
       "rxcui": "855332",
-      "identity_provenance": "synthea_longitudinal",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     },
     {
       "medication_id": "MED-G2-023-002",
@@ -326,53 +326,9 @@
       "notes": "Still held. Hemostasis is recent and the source was diverticular, so restart timing is explicitly unresolved.",
       "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
       "rxcui": "855332",
-      "identity_provenance": "synthea_longitudinal",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
-    },
-    {
-      "medication_id": "MED-G2-023-003",
-      "case_id": "G2-023",
-      "context": "home",
-      "drug": "aspirin",
-      "reported_name": "aspirin",
-      "dose": "81 MG",
-      "route": "oral",
-      "frequency": "once daily",
-      "indication": "unchanged outpatient indication",
-      "status": "home",
-      "held_reason": null,
-      "verification_status": "verified",
-      "verification_source": "longitudinal_record_and_inpatient_course",
-      "monitoring": null,
-      "notes": "Given through the hospitalization from the verified outpatient list.",
-      "regimen_id": "ASPIRIN_81_DAILY",
-      "rxcui": "243670",
-      "identity_provenance": "synthea_longitudinal",
-      "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
-    },
-    {
-      "medication_id": "MED-G2-023-004",
-      "case_id": "G2-023",
-      "context": "inpatient",
-      "drug": "aspirin",
-      "reported_name": "aspirin",
-      "dose": "81 MG",
-      "route": "oral",
-      "frequency": "once daily",
-      "indication": "unchanged outpatient indication",
-      "status": "active",
-      "held_reason": null,
-      "verification_status": "verified",
-      "verification_source": "longitudinal_record_and_inpatient_course",
-      "monitoring": null,
-      "notes": "Given through the hospitalization from the verified outpatient list.",
-      "regimen_id": "ASPIRIN_81_DAILY",
-      "rxcui": "243670",
-      "identity_provenance": "synthea_longitudinal",
-      "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     }
   ],
   "CaseMedicationReconciliation": [],
@@ -421,8 +377,8 @@
   "scenario_version": "g2-scenarios-v1",
   "variant_id": "diverticular_hold",
   "eligibility_tier": "warfarin_with_indication",
-  "synthea_patient_id": "1bd04148-6f83-32c1-6552-0d3020a582b6",
-  "episode_generation_seed": "20261008:1bd04148-6f83-32c1-6552-0d3020a582b6:GI_BLEED_ANTICOAGULATION:diverticular_hold",
+  "synthea_patient_id": "4d508c0d-ddaa-cb00-4d5c-f3b889b6f712",
+  "episode_generation_seed": "20261008:4d508c0d-ddaa-cb00-4d5c-f3b889b6f712:GI_BLEED_ANTICOAGULATION:diverticular_hold",
   "fingerprint": {
     "scenario": "GI_BLEED_ANTICOAGULATION",
     "variant_id": "diverticular_hold",
@@ -433,7 +389,7 @@
     "disposition": "home",
     "restart_decision": "hold",
     "source": "diverticulosis with stigmata of recent bleeding",
-    "med_signature": "aspirin:continue|warfarin:hold"
+    "med_signature": "warfarin:hold"
   },
   "physiology_expectations": [
     "bleed_hemoglobin",
@@ -445,7 +401,7 @@
       "domains": [
         "baseline"
       ],
-      "text": "The longitudinal extract includes warfarin (warfarin sodium 5 MG Oral Tablet) for a recorded indication. Other products: aspirin 81 MG Oral Tablet; warfarin sodium 5 MG Oral Tablet. There was no chronic daily bleeding at baseline.",
+      "text": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) for a recorded indication. Other products: Warfarin Sodium 5 MG Oral Tablet. There was no chronic daily bleeding at baseline.",
       "provenance": "synthea_longitudinal",
       "time_order": 10,
       "section": "hpi",
@@ -648,7 +604,7 @@
       "identity_provenance": "synthea_longitudinal",
       "regimen_provenance": "reference_terminology",
       "rxcui": "855332",
-      "synthea_product": "warfarin sodium 5 MG Oral Tablet",
+      "synthea_product": "Warfarin Sodium 5 MG Oral Tablet",
       "states": [
         {
           "state": "home",
@@ -688,50 +644,6 @@
         }
       ],
       "hospital_only": false
-    },
-    {
-      "drug": "aspirin",
-      "dose": "81 MG",
-      "route": "oral",
-      "frequency": "once daily",
-      "indication": "unchanged outpatient indication",
-      "regimen_id": "ASPIRIN_81_DAILY",
-      "identity_provenance": "synthea_longitudinal",
-      "regimen_provenance": "reference_terminology",
-      "rxcui": "243670",
-      "synthea_product": "aspirin 81 MG Oral Tablet",
-      "states": [
-        {
-          "state": "home",
-          "time_order": 10,
-          "trigger": "recorded outpatient medication",
-          "evidence": [
-            "gi-base"
-          ],
-          "provenance": "synthea_longitudinal"
-        },
-        {
-          "state": "continued_inpatient",
-          "time_order": 70,
-          "trigger": "indication still present and no new contraindication",
-          "evidence": [
-            "gi-base",
-            "gi-ready"
-          ],
-          "provenance": "cliniproof_episode_generated"
-        }
-      ],
-      "discharge_action": "continue",
-      "evidence_ids": [
-        "gi-base",
-        "gi-ready"
-      ],
-      "resident_note": "Given through the hospitalization from the verified outpatient list.",
-      "rationale": "aspirin 81 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
-      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
-      "follow_up": "Review at the scheduled follow-up visit.",
-      "acceptable_alternatives": [],
-      "hospital_only": false
     }
   ],
   "reference_discharge_plan": {
@@ -761,24 +673,6 @@
           }
         ],
         "provenance": "investigator_derived_reference"
-      },
-      {
-        "medication": "aspirin",
-        "regimen_id": "ASPIRIN_81_DAILY",
-        "action": "continue",
-        "dose": "81 MG",
-        "route": "oral",
-        "frequency": "once daily",
-        "indication": "unchanged outpatient indication",
-        "rationale": "aspirin 81 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
-        "resident_visible_evidence": [
-          "gi-base",
-          "gi-ready"
-        ],
-        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
-        "follow_up": "Review at the scheduled follow-up visit.",
-        "acceptable_alternatives": [],
-        "provenance": "investigator_derived_reference"
       }
     ],
     "provenance": "investigator_derived_reference"
@@ -796,54 +690,44 @@
     "gi-work"
   ],
   "source_rxcuis": [
-    "243670",
-    "261962",
-    "313782",
-    "314231",
-    "617314",
-    "834102",
+    "1043400",
+    "197604",
+    "849574",
     "855332",
-    "855812",
-    "896762"
+    "897685"
   ],
   "source_snomed": [
-    "105376000",
-    "105531004",
-    "1231000119100",
+    "10509002",
+    "109570002",
+    "109838007",
+    "1256042007",
+    "125605004",
+    "1260010008",
     "160903007",
     "160904001",
-    "162864005",
+    "160968000",
+    "16114001",
+    "161744009",
     "18718003",
-    "195662009",
-    "233553003",
+    "239873007",
+    "243085009",
     "266948004",
-    "271280005",
-    "271737000",
-    "278602001",
-    "284549007",
-    "301884003",
-    "306706006",
-    "308283009",
-    "312157006",
-    "312608009",
+    "274788003",
     "314529007",
-    "37320007",
-    "37729005",
-    "399211009",
-    "401303003",
+    "3802001",
     "422650009",
-    "43878008",
+    "423315002",
     "444814009",
-    "446654005",
+    "456191000124101",
     "473461003",
-    "55822004",
-    "58828004",
-    "60234000",
+    "49436004",
+    "64544008",
     "66383009",
-    "714628002",
+    "68496003",
+    "706893006",
     "73595000",
     "741062008",
-    "80583007"
+    "81733005"
   ],
   "control_error_status": "NO INTENTIONAL ERROR",
   "provenance": {
@@ -856,13 +740,13 @@
       "reference_date": "20261008",
       "fhir_version": "R4",
       "java_version": "OpenJDK 21.0.10",
-      "synthetic_patient_id": "1bd04148-6f83-32c1-6552-0d3020a582b6"
+      "synthetic_patient_id": "4d508c0d-ddaa-cb00-4d5c-f3b889b6f712"
     },
     "scenario": {
       "code": "GI_BLEED_ANTICOAGULATION",
       "version": "g2-scenarios-v1"
     },
-    "episode_generation_seed": "20261008:1bd04148-6f83-32c1-6552-0d3020a582b6:GI_BLEED_ANTICOAGULATION:diverticular_hold",
+    "episode_generation_seed": "20261008:4d508c0d-ddaa-cb00-4d5c-f3b889b6f712:GI_BLEED_ANTICOAGULATION:diverticular_hold",
     "source_classes": [
       "synthea_longitudinal",
       "cliniproof_episode_generated",
@@ -871,7 +755,13 @@
     ],
     "generated_at": "2026-10-08T00:00:00Z",
     "narrative": "template rendering of structured facts; no language model",
-    "use_openai": false
+    "use_openai": false,
+    "matched_generation1_case_id": "VAL-823",
+    "neutral_study_id": "M-823",
+    "blinding": {
+      "generation_method_hidden_from_narrative": true,
+      "neutral_study_id": "M-823"
+    }
   },
   "ready_for_clinician_review": true,
   "clinically_validated": false

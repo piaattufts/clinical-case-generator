@@ -1,0 +1,37 @@
+{
+  "generation1_case_id": "VAL-801",
+  "scenario_family": "MED_HISTORY_UNCERTAINTY",
+  "family_label": "Medication reconciliation",
+  "primary_reasoning_target": "Interpret an acute change and decide which outpatient medicines continue, stop, or restart",
+  "secondary_reasoning_targets": [
+    "stop"
+  ],
+  "number_of_home_medications": 4,
+  "number_of_clinically_relevant_medications": 5,
+  "number_of_major_discharge_decisions": 2,
+  "decision_types": [
+    "stop",
+    "stop"
+  ],
+  "important_monitoring_requirements": [
+    "Primary care follow-up, including a creatinine check after the ACE inhibitor restart"
+  ],
+  "important_followup_requirements": [
+    "Primary care follow-up, including a creatinine check after the ACE inhibitor restart"
+  ],
+  "major_diagnostic_workup": [
+    "Acute delirium, a change from baseline cognitive function",
+    "Urinary tract infection"
+  ],
+  "approximate_difficulty": "moderate",
+  "monitoring_complexity": "routine",
+  "followup_count": 1,
+  "major_causal_dependencies": [
+    "baseline before the acute change",
+    "a precipitant or an evaluation for one",
+    "work-up before a newly established diagnosis",
+    "treatment before the recorded response"
+  ],
+  "disposition": "home",
+  "clinician_input_into_generation2_case": "none"
+}

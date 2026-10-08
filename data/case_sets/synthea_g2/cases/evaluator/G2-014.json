@@ -1,15 +1,15 @@
 {
   "case_id_code": "G2-014",
   "ClinicalCase": {
-    "title": "TRANSPLANT_CMV G2-014",
+    "title": "107-year-old Male with cytomegalovirus disease established during the hospitalization, not as the presenting label",
     "case_id_code": "G2-014",
     "case_status": "candidate",
     "generation_source": "synthetic",
     "one_liner": "107-year-old Male with cytomegalovirus disease established during the hospitalization, not as the presenting label",
     "admission_dx": "cytomegalovirus disease established during the hospitalization, not as the presenting label",
     "disposition_status": "home",
-    "chief_complaint": "Fever and fatigue",
-    "patient_name": "G2-014",
+    "chief_complaint": "Diarrhea",
+    "patient_name": "Synthetic patient",
     "patient_age": 107,
     "patient_gender": "Male",
     "ethnicity": null,
@@ -29,12 +29,11 @@
     "source_type": "synthea_cliniproof_g2",
     "source_file": null,
     "presentation": {
-      "chief_complaint": "Fever and fatigue",
-      "hpi": "The longitudinal record includes renal transplant status and extended-release tacrolimus. Other outpatient products in the extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; 24 HR tacrolimus 1 MG Extended Release Oral Tablet [Envarsus]; lisinopril 10 MG Oral Tablet. A prior valganciclovir prophylaxis course, 900 MG once daily, is part of this scenario. It was not a product in the Synthea medication list. Fever and fatigue for six days were new. There was no chronic febrile illness at baseline. The transplant and the immunosuppression are the predisposition. Rejection, drug toxicity, and ordinary gastroenteritis were still on the differential at arrival. Arrival creatinine was 1.1 mg/dL. The presentation was the symptom above, not a preassigned cytomegalovirus diagnosis.",
+      "chief_complaint": "Diarrhea",
+      "hpi": "The longitudinal record includes renal transplant status and extended-release tacrolimus. Other outpatient products in the extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; 24 HR tacrolimus 1 MG Extended Release Oral Tablet [Envarsus]; lisinopril 10 MG Oral Tablet. Valganciclovir was not a home medicine. None was inferred from transplant status alone. Eight days of watery stool, up to ten movements a day, were new. The transplant and the immunosuppression are the predisposition. Rejection, drug toxicity, and ordinary gastroenteritis were still on the differential at arrival. Arrival creatinine was 1.7 mg/dL and potassium was 3.2 mmol/L. The mucous membranes were dry. The presentation was the symptom above, not a preassigned cytomegalovirus diagnosis.",
       "review_of_systems": null,
       "presenting_symptoms": [
-        "fever",
-        "fatigue"
+        "diarrhea"
       ],
       "symptom_duration": "eight days",
       "symptom_course": "stool frequency or fever improved after diagnosis and antiviral therapy"
@@ -125,12 +124,36 @@
     {
       "diagnosis_id": "DX-G2-014-006",
       "case_id": "G2-014",
-      "diagnosis": "Cytomegaloviral disease, unspecified",
+      "diagnosis": "Other cytomegaloviral diseases",
       "diagnosis_type": "hospital",
       "status": "active",
       "context": "inpatient",
       "provenance": "cliniproof_episode_generated",
-      "icd10cm": "B25.9",
+      "icd10cm": "B25.8",
+      "snomed_code": null,
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-014-007",
+      "case_id": "G2-014",
+      "diagnosis": "Acute kidney failure, unspecified",
+      "diagnosis_type": "hospital",
+      "status": "active",
+      "context": "inpatient",
+      "provenance": "cliniproof_episode_generated",
+      "icd10cm": "N17.9",
+      "snomed_code": null,
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-014-008",
+      "case_id": "G2-014",
+      "diagnosis": "Hypokalemia",
+      "diagnosis_type": "hospital",
+      "status": "active",
+      "context": "inpatient",
+      "provenance": "cliniproof_episode_generated",
+      "icd10cm": "E87.6",
       "snomed_code": null,
       "code_provenance": "reference_terminology"
     }
@@ -140,14 +163,14 @@
       "note_id": "NOTE-G2-014-001",
       "case_id": "G2-014",
       "note_type": "admission",
-      "note_text": "The longitudinal record includes renal transplant status and extended-release tacrolimus. Other outpatient products in the extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; 24 HR tacrolimus 1 MG Extended Release Oral Tablet [Envarsus]; lisinopril 10 MG Oral Tablet. A prior valganciclovir prophylaxis course, 900 MG once daily, is part of this scenario. It was not a product in the Synthea medication list. Fever and fatigue for six days were new. There was no chronic febrile illness at baseline. The transplant and the immunosuppression are the predisposition. Rejection, drug toxicity, and ordinary gastroenteritis were still on the differential at arrival. Arrival creatinine was 1.1 mg/dL. The presentation was the symptom above, not a preassigned cytomegalovirus diagnosis.",
+      "note_text": "The longitudinal record includes renal transplant status and extended-release tacrolimus. Other outpatient products in the extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; 24 HR tacrolimus 1 MG Extended Release Oral Tablet [Envarsus]; lisinopril 10 MG Oral Tablet. Valganciclovir was not a home medicine. None was inferred from transplant status alone. Eight days of watery stool, up to ten movements a day, were new. The transplant and the immunosuppression are the predisposition. Rejection, drug toxicity, and ordinary gastroenteritis were still on the differential at arrival. Arrival creatinine was 1.7 mg/dL and potassium was 3.2 mmol/L. The mucous membranes were dry. The presentation was the symptom above, not a preassigned cytomegalovirus diagnosis.",
       "provenance": "cliniproof_episode_generated"
     },
     {
       "note_id": "NOTE-G2-014-002",
       "case_id": "G2-014",
       "note_type": "hospital_course",
-      "note_text": "Plasma cytomegalovirus DNA was detected after the symptom evaluation. There was no colitis syndrome, so endoscopy was not required to name cytomegalovirus syndrome. The cytomegalovirus diagnosis followed that testing. It was not the admitting label. Valganciclovir induction, 900 MG twice daily, was started only after the diagnostic result. Tacrolimus was continued at the recorded once-daily extended-release dose. Mycophenolate was not added, because it was not in the longitudinal record. Creatinine at that point was 1.1 mg/dL and later 1.0 mg/dL, within the range for the full induction dose. Fever resolved and the patient was eating. Creatinine remained 1.0 mg/dL. Plasma cytomegalovirus DNA was still detected, which is expected this early. The patient was keeping fluids down and walking. Follow-up with infectious diseases was arranged. The induction course was not signed as a finished discharge list. Weekly laboratory monitoring and infectious diseases follow-up were specified.",
+      "note_text": "Plasma cytomegalovirus DNA was detected after the symptom evaluation. Flexible sigmoidoscopy then showed colitis, and the biopsy was consistent with cytomegalovirus colitis. The cytomegalovirus diagnosis followed that testing. It was not the admitting label. Valganciclovir induction, 900 MG twice daily, was started only after the diagnostic result. Tacrolimus was continued at the recorded once-daily extended-release dose. Mycophenolate was not added, because it was not in the longitudinal record. Creatinine at that point was 1.7 mg/dL and later 1.1 mg/dL, within the range for the full induction dose. Stool frequency fell to three movements a day and the patient was drinking. Potassium was 4.0 mmol/L after having been 3.2. Creatinine was 1.1 mg/dL. Plasma cytomegalovirus DNA was still detected, which is expected this early. The patient was keeping fluids down and walking. Follow-up with infectious diseases was arranged. The induction course was not signed as a finished discharge list. Weekly laboratory monitoring and infectious diseases follow-up were specified.",
       "provenance": "cliniproof_episode_generated"
     }
   ],
@@ -157,10 +180,10 @@
       "case_id": "G2-014",
       "timepoint": "admission",
       "time_rank": 1,
-      "temp_c": 38.2,
-      "bp_systolic": 132,
-      "bp_diastolic": 78,
-      "heart_rate": 84,
+      "temp_c": 37.1,
+      "bp_systolic": 108,
+      "bp_diastolic": 64,
+      "heart_rate": 112,
       "resp_rate": 16,
       "spo2_percent": 98,
       "provenance": "cliniproof_episode_generated"
@@ -199,7 +222,7 @@
       "timepoint": "admission",
       "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
       "loinc_code": "2160-0",
-      "value": 1.1,
+      "value": 1.7,
       "value_text": null,
       "unit": "mg/dL",
       "status": "final",
@@ -212,7 +235,7 @@
       "timepoint": "peak",
       "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
       "loinc_code": "2160-0",
-      "value": 1.1,
+      "value": 1.7,
       "value_text": null,
       "unit": "mg/dL",
       "status": "final",
@@ -225,7 +248,7 @@
       "timepoint": "discharge",
       "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
       "loinc_code": "2160-0",
-      "value": 1.0,
+      "value": 1.1,
       "value_text": null,
       "unit": "mg/dL",
       "status": "final",
@@ -238,7 +261,7 @@
       "timepoint": "admission",
       "test_name": "Potassium [Moles/volume] in Serum or Plasma",
       "loinc_code": "2823-3",
-      "value": 4.1,
+      "value": 3.2,
       "value_text": null,
       "unit": "mmol/L",
       "status": "final",
@@ -251,7 +274,7 @@
       "timepoint": "discharge",
       "test_name": "Potassium [Moles/volume] in Serum or Plasma",
       "loinc_code": "2823-3",
-      "value": 4.2,
+      "value": 4.0,
       "value_text": null,
       "unit": "mmol/L",
       "status": "final",
@@ -313,7 +336,18 @@
   ],
   "CaseWeight": [],
   "CaseImaging": [],
-  "CaseProcedure": [],
+  "CaseProcedure": [
+    {
+      "procedure_id": "PROC-G2-014-001",
+      "case_id": "G2-014",
+      "procedure_name": "Flexible sigmoidoscopy with biopsy",
+      "procedure_type": "inpatient",
+      "time": "hospital day 2",
+      "findings": "Colitis. Biopsy consistent with cytomegalovirus.",
+      "complications": "none",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
   "CaseConsult": [],
   "CaseMicrobiology": [],
   "CaseMedication": [
@@ -335,9 +369,9 @@
       "notes": "Extended-release tacrolimus was continued once daily. It was not converted to an every-12-hour product.",
       "regimen_id": "TACROLIMUS_ER_1MG_DAILY",
       "rxcui": "1664463",
-      "identity_provenance": "synthea_longitudinal",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     },
     {
       "medication_id": "MED-G2-014-002",
@@ -357,34 +391,12 @@
       "notes": "Extended-release tacrolimus was continued once daily. It was not converted to an every-12-hour product.",
       "regimen_id": "TACROLIMUS_ER_1MG_DAILY",
       "rxcui": "1664463",
-      "identity_provenance": "synthea_longitudinal",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     },
     {
       "medication_id": "MED-G2-014-003",
-      "case_id": "G2-014",
-      "context": "home",
-      "drug": "valganciclovir",
-      "reported_name": "valganciclovir",
-      "dose": "900 MG",
-      "route": "oral",
-      "frequency": "once daily",
-      "indication": "cytomegalovirus induction after laboratory or histologic confirmation",
-      "status": "home",
-      "held_reason": null,
-      "verification_status": "verified",
-      "verification_source": "longitudinal_record_and_inpatient_course",
-      "monitoring": null,
-      "notes": "Home scenario prophylaxis was 900 MG once daily. The inpatient dose after confirmation is 900 MG twice daily. Creatinine supports that induction dose.",
-      "regimen_id": "VALGANCICLOVIR_CMV_TREATMENT",
-      "rxcui": null,
-      "identity_provenance": "cliniproof_episode_generated",
-      "regimen_provenance": "reference_terminology",
-      "provenance": "cliniproof_episode_generated"
-    },
-    {
-      "medication_id": "MED-G2-014-004",
       "case_id": "G2-014",
       "context": "inpatient",
       "drug": "valganciclovir",
@@ -398,7 +410,7 @@
       "verification_status": "verified",
       "verification_source": "longitudinal_record_and_inpatient_course",
       "monitoring": null,
-      "notes": "Home scenario prophylaxis was 900 MG once daily. The inpatient dose after confirmation is 900 MG twice daily. Creatinine supports that induction dose.",
+      "notes": "Started after confirmation. Not a home medicine. Induction dose 900 MG twice daily.",
       "regimen_id": "VALGANCICLOVIR_CMV_TREATMENT",
       "rxcui": null,
       "identity_provenance": "cliniproof_episode_generated",
@@ -406,7 +418,7 @@
       "provenance": "cliniproof_episode_generated"
     },
     {
-      "medication_id": "MED-G2-014-005",
+      "medication_id": "MED-G2-014-004",
       "case_id": "G2-014",
       "context": "home",
       "drug": "metoprolol",
@@ -423,35 +435,35 @@
       "notes": "Given through the hospitalization from the verified outpatient list.",
       "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
       "rxcui": "866412",
-      "identity_provenance": "synthea_longitudinal",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-014-005",
+      "case_id": "G2-014",
+      "context": "inpatient",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "rxcui": "866412",
+      "identity_provenance": "_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "_longitudinal"
     },
     {
       "medication_id": "MED-G2-014-006",
       "case_id": "G2-014",
-      "context": "inpatient",
-      "drug": "metoprolol",
-      "reported_name": "metoprolol",
-      "dose": "100 MG",
-      "route": "oral",
-      "frequency": "once daily",
-      "indication": "unchanged outpatient indication",
-      "status": "active",
-      "held_reason": null,
-      "verification_status": "verified",
-      "verification_source": "longitudinal_record_and_inpatient_course",
-      "monitoring": null,
-      "notes": "Given through the hospitalization from the verified outpatient list.",
-      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
-      "rxcui": "866412",
-      "identity_provenance": "synthea_longitudinal",
-      "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
-    },
-    {
-      "medication_id": "MED-G2-014-007",
-      "case_id": "G2-014",
       "context": "home",
       "drug": "lisinopril",
       "reported_name": "lisinopril",
@@ -467,12 +479,12 @@
       "notes": "Given through the hospitalization from the verified outpatient list.",
       "regimen_id": "LISINOPRIL_10_DAILY",
       "rxcui": "314076",
-      "identity_provenance": "synthea_longitudinal",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     },
     {
-      "medication_id": "MED-G2-014-008",
+      "medication_id": "MED-G2-014-007",
       "case_id": "G2-014",
       "context": "inpatient",
       "drug": "lisinopril",
@@ -489,9 +501,9 @@
       "notes": "Given through the hospitalization from the verified outpatient list.",
       "regimen_id": "LISINOPRIL_10_DAILY",
       "rxcui": "314076",
-      "identity_provenance": "synthea_longitudinal",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     }
   ],
   "CaseMedicationReconciliation": [],
@@ -530,23 +542,25 @@
   "CaseIntakeOutput": [],
   "scenario_code": "TRANSPLANT_CMV",
   "scenario_version": "g2-scenarios-v1",
-  "variant_id": "prophylaxis_breakthrough",
+  "variant_id": "volume_loss",
   "eligibility_tier": "synthea_renal_transplant",
   "synthea_patient_id": "26cf4094-10af-ceb6-4d99-fd3fc0636dd7",
-  "episode_generation_seed": "20261008:26cf4094-10af-ceb6-4d99-fd3fc0636dd7:TRANSPLANT_CMV:prophylaxis_breakthrough",
+  "episode_generation_seed": "20261008:26cf4094-10af-ceb6-4d99-fd3fc0636dd7:TRANSPLANT_CMV:volume_loss",
   "fingerprint": {
     "scenario": "TRANSPLANT_CMV",
-    "variant_id": "prophylaxis_breakthrough",
-    "precipitant": "breakthrough_during_scenario_prophylaxis",
-    "diagnostic_pathway": "pcr_on_prophylaxis_then_induction",
-    "renal_pattern": "creatinine_stable",
-    "procedure": "none",
+    "variant_id": "volume_loss",
+    "precipitant": "high_volume_diarrhea",
+    "diagnostic_pathway": "volume_exam_chemistry_pcr_biopsy",
+    "renal_pattern": "aki_recovered",
+    "procedure": "flex_sig_biopsy",
     "disposition": "home",
-    "prophylaxis": "scenario_prophylaxis",
-    "disease_form": "syndrome",
-    "med_signature": "lisinopril:continue|metoprolol:continue|tacrolimus:continue|valganciclovir:dose_change"
+    "prophylaxis": "no_home_antiviral",
+    "disease_form": "colitis",
+    "med_signature": "lisinopril:continue|metoprolol:continue|tacrolimus:continue|valganciclovir:new_start"
   },
-  "physiology_expectations": [],
+  "physiology_expectations": [
+    "aki_recovered"
+  ],
   "facts": [
     {
       "fact_id": "tx-base",
@@ -560,12 +574,12 @@
       "resident_visible": true
     },
     {
-      "fact_id": "tx-prophylaxis",
+      "fact_id": "tx-no-antiviral",
       "domains": [
         "baseline",
         "medication_decision"
       ],
-      "text": "A prior valganciclovir prophylaxis course, 900 MG once daily, is part of this scenario. It was not a product in the Synthea medication list.",
+      "text": "Valganciclovir was not a home medicine. None was inferred from transplant status alone.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 14,
       "section": "hpi",
@@ -576,7 +590,7 @@
       "domains": [
         "acute_change"
       ],
-      "text": "Fever and fatigue for six days were new. There was no chronic febrile illness at baseline.",
+      "text": "Eight days of watery stool, up to ten movements a day, were new.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 20,
       "section": "hpi",
@@ -598,7 +612,7 @@
       "domains": [
         "presentation"
       ],
-      "text": "Arrival creatinine was 1.1 mg/dL. The presentation was the symptom above, not a preassigned cytomegalovirus diagnosis.",
+      "text": "Arrival creatinine was 1.7 mg/dL and potassium was 3.2 mmol/L. The mucous membranes were dry. The presentation was the symptom above, not a preassigned cytomegalovirus diagnosis.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 40,
       "section": "hpi",
@@ -609,7 +623,7 @@
       "domains": [
         "workup"
       ],
-      "text": "Plasma cytomegalovirus DNA was detected after the symptom evaluation. There was no colitis syndrome, so endoscopy was not required to name cytomegalovirus syndrome.",
+      "text": "Plasma cytomegalovirus DNA was detected after the symptom evaluation. Flexible sigmoidoscopy then showed colitis, and the biopsy was consistent with cytomegalovirus colitis.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 50,
       "section": "course",
@@ -632,7 +646,7 @@
         "treatment",
         "medication_decision"
       ],
-      "text": "Valganciclovir induction, 900 MG twice daily, was started only after the diagnostic result. Tacrolimus was continued at the recorded once-daily extended-release dose. Mycophenolate was not added, because it was not in the longitudinal record. Creatinine at that point was 1.1 mg/dL and later 1.0 mg/dL, within the range for the full induction dose.",
+      "text": "Valganciclovir induction, 900 MG twice daily, was started only after the diagnostic result. Tacrolimus was continued at the recorded once-daily extended-release dose. Mycophenolate was not added, because it was not in the longitudinal record. Creatinine at that point was 1.7 mg/dL and later 1.1 mg/dL, within the range for the full induction dose.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 70,
       "section": "course",
@@ -644,7 +658,7 @@
         "response",
         "physiology"
       ],
-      "text": "Fever resolved and the patient was eating. Creatinine remained 1.0 mg/dL. Plasma cytomegalovirus DNA was still detected, which is expected this early.",
+      "text": "Stool frequency fell to three movements a day and the patient was drinking. Potassium was 4.0 mmol/L after having been 3.2. Creatinine was 1.1 mg/dL. Plasma cytomegalovirus DNA was still detected, which is expected this early.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 80,
       "section": "course",
@@ -697,7 +711,7 @@
       "event_type": "precipitant",
       "time_order": 30,
       "provenance": "cliniproof_episode_generated",
-      "summary": "breakthrough_during_scenario_prophylaxis",
+      "summary": "high_volume_diarrhea",
       "supporting_data": [],
       "empiric": false
     },
@@ -814,30 +828,29 @@
       "synthea_product": null,
       "states": [
         {
-          "state": "home",
-          "time_order": 10,
-          "trigger": "scenario prophylaxis",
+          "state": "new_inpatient",
+          "time_order": 70,
+          "trigger": "started after the diagnostic result",
           "evidence": [
-            "tx-prophylaxis"
+            "tx-dx",
+            "tx-treat"
           ],
           "provenance": "cliniproof_episode_generated"
         }
       ],
-      "discharge_action": "dose_change",
+      "discharge_action": "new_start",
       "evidence_ids": [
         "tx-work",
         "tx-dx",
         "tx-treat",
         "tx-response"
       ],
-      "resident_note": "Home scenario prophylaxis was 900 MG once daily. The inpatient dose after confirmation is 900 MG twice daily. Creatinine supports that induction dose.",
-      "rationale": "A change from prophylaxis to induction is supported by confirmed disease, preserved renal function, and an incomplete treatment course.",
+      "resident_note": "Started after confirmation. Not a home medicine. Induction dose 900 MG twice daily.",
+      "rationale": "Starting induction is supported because the drug was absent at home, the diagnosis followed testing, and renal function allows the labeled induction dose.",
       "monitoring": "Weekly complete blood count, creatinine, and cytomegalovirus DNA.",
       "follow_up": "infectious diseases within 7 days.",
       "acceptable_alternatives": [],
-      "hospital_only": false,
-      "home_dose": "900 MG",
-      "home_frequency": "once daily"
+      "hospital_only": false
     },
     {
       "drug": "metoprolol",
@@ -952,12 +965,12 @@
       {
         "medication": "valganciclovir",
         "regimen_id": "VALGANCICLOVIR_CMV_TREATMENT",
-        "action": "dose_change",
+        "action": "new_start",
         "dose": "900 MG",
         "route": "oral",
         "frequency": "twice daily",
         "indication": "cytomegalovirus induction after laboratory or histologic confirmation",
-        "rationale": "A change from prophylaxis to induction is supported by confirmed disease, preserved renal function, and an incomplete treatment course.",
+        "rationale": "Starting induction is supported because the drug was absent at home, the diagnosis followed testing, and renal function allows the labeled induction dose.",
         "resident_visible_evidence": [
           "tx-work",
           "tx-dx",
@@ -1013,9 +1026,9 @@
     "tx-base",
     "tx-dx",
     "tx-follow",
+    "tx-no-antiviral",
     "tx-precip",
     "tx-present",
-    "tx-prophylaxis",
     "tx-ready",
     "tx-response",
     "tx-treat",
@@ -1090,7 +1103,7 @@
       "code": "TRANSPLANT_CMV",
       "version": "g2-scenarios-v1"
     },
-    "episode_generation_seed": "20261008:26cf4094-10af-ceb6-4d99-fd3fc0636dd7:TRANSPLANT_CMV:prophylaxis_breakthrough",
+    "episode_generation_seed": "20261008:26cf4094-10af-ceb6-4d99-fd3fc0636dd7:TRANSPLANT_CMV:volume_loss",
     "source_classes": [
       "synthea_longitudinal",
       "cliniproof_episode_generated",
@@ -1099,7 +1112,13 @@
     ],
     "generated_at": "2026-10-08T00:00:00Z",
     "narrative": "template rendering of structured facts; no language model",
-    "use_openai": false
+    "use_openai": false,
+    "matched_generation1_case_id": "VAL-814",
+    "neutral_study_id": "M-814",
+    "blinding": {
+      "generation_method_hidden_from_narrative": true,
+      "neutral_study_id": "M-814"
+    }
   },
   "ready_for_clinician_review": true,
   "clinically_validated": false

@@ -1,38 +1,38 @@
 {
   "case_id_code": "G2-022",
   "ClinicalCase": {
-    "title": "GI_BLEED_ANTICOAGULATION G2-022",
+    "title": "51-year-old Female with gastrointestinal bleeding with warfarin held and the source established by endoscopy",
     "case_id_code": "G2-022",
     "case_status": "candidate",
     "generation_source": "synthetic",
-    "one_liner": "64-year-old Female with gastrointestinal bleeding with warfarin held and the source established by endoscopy",
+    "one_liner": "51-year-old Female with gastrointestinal bleeding with warfarin held and the source established by endoscopy",
     "admission_dx": "Gastrointestinal hemorrhage, unspecified",
     "disposition_status": "home",
-    "chief_complaint": "hematemesis",
-    "patient_name": "G2-022",
-    "patient_age": 64,
+    "chief_complaint": "melena and reflux",
+    "patient_name": "Synthetic patient",
+    "patient_age": 51,
     "patient_gender": "Female",
     "ethnicity": null,
-    "weight_kg": 70.0,
+    "weight_kg": 97.3,
     "social_context": "Longitudinal social history was not required for this episode.",
     "is_active": true,
     "difficulty": "standard",
     "specialty": "gastroenterology",
     "allergies": [],
     "medical_history": [
-      "Only received primary school education (finding)",
-      "Body mass index 30+ - obesity (finding)",
-      "Past pregnancy history of miscarriage (situation)",
-      "Chronic sinusitis (disorder)"
+      "Received higher education (finding)",
+      "Prediabetes (finding)",
+      "Anemia (disorder)",
+      "Past pregnancy history of miscarriage (situation)"
     ],
     "source_type": "synthea_cliniproof_g2",
     "source_file": null,
     "presentation": {
-      "chief_complaint": "hematemesis",
-      "hpi": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) for a recorded indication. Other products: Warfarin Sodium 5 MG Oral Tablet. There was no chronic daily bleeding at baseline. Overt bleeding began within the day before arrival and was not the patient's usual pattern. No new nonsteroidal drug was identified. The bleeding itself was the acute event on chronic anticoagulation. Heart rate was 114 and blood pressure was 96/58. Hemoglobin was 9.2 g/dL. INR was 4.1. Warfarin was held.",
+      "chief_complaint": "melena and reflux",
+      "hpi": "The longitudinal extract includes warfarin (warfarin sodium 5 MG Oral Tablet) for a recorded indication. Other products: warfarin sodium 5 MG Oral Tablet. There was no chronic daily bleeding at baseline. Overt bleeding began within the day before arrival and was not the patient's usual pattern. No new nonsteroidal drug was identified. The bleeding itself was the acute event on chronic anticoagulation. Heart rate was 114 and blood pressure was 96/58. Hemoglobin was 9.2 g/dL. INR was 2.7. Warfarin was held.",
       "review_of_systems": null,
       "presenting_symptoms": [
-        "hematemesis"
+        "melena and reflux"
       ],
       "symptom_duration": "one day",
       "symptom_course": "bleeding stopped and the heart rate and hemoglobin stabilized"
@@ -63,29 +63,41 @@
     {
       "diagnosis_id": "DX-G2-022-001",
       "case_id": "G2-022",
-      "diagnosis": "Only received primary school education (finding)",
+      "diagnosis": "Received higher education (finding)",
       "diagnosis_type": "past_history",
       "status": "active",
       "context": "history",
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
-      "snomed_code": "224295006",
+      "snomed_code": "224299000",
       "code_provenance": "reference_terminology"
     },
     {
       "diagnosis_id": "DX-G2-022-002",
       "case_id": "G2-022",
-      "diagnosis": "Body mass index 30+ - obesity (finding)",
+      "diagnosis": "Prediabetes (finding)",
       "diagnosis_type": "past_history",
       "status": "active",
       "context": "history",
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
-      "snomed_code": "162864005",
+      "snomed_code": "714628002",
       "code_provenance": "reference_terminology"
     },
     {
       "diagnosis_id": "DX-G2-022-003",
+      "case_id": "G2-022",
+      "diagnosis": "Anemia (disorder)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "271737000",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-022-004",
       "case_id": "G2-022",
       "diagnosis": "Past pregnancy history of miscarriage (situation)",
       "diagnosis_type": "past_history",
@@ -94,18 +106,6 @@
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
       "snomed_code": "161744009",
-      "code_provenance": "reference_terminology"
-    },
-    {
-      "diagnosis_id": "DX-G2-022-004",
-      "case_id": "G2-022",
-      "diagnosis": "Chronic sinusitis (disorder)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "40055000",
       "code_provenance": "reference_terminology"
     },
     {
@@ -123,12 +123,12 @@
     {
       "diagnosis_id": "DX-G2-022-006",
       "case_id": "G2-022",
-      "diagnosis": "Chronic or unspecified gastric ulcer with hemorrhage",
+      "diagnosis": "Esophagitis, unspecified without bleeding",
       "diagnosis_type": "hospital",
       "status": "active",
       "context": "inpatient",
       "provenance": "cliniproof_episode_generated",
-      "icd10cm": "K25.4",
+      "icd10cm": "K20.90",
       "snomed_code": null,
       "code_provenance": "reference_terminology"
     },
@@ -150,14 +150,14 @@
       "note_id": "NOTE-G2-022-001",
       "case_id": "G2-022",
       "note_type": "admission",
-      "note_text": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) for a recorded indication. Other products: Warfarin Sodium 5 MG Oral Tablet. There was no chronic daily bleeding at baseline. Overt bleeding began within the day before arrival and was not the patient's usual pattern. No new nonsteroidal drug was identified. The bleeding itself was the acute event on chronic anticoagulation. Heart rate was 114 and blood pressure was 96/58. Hemoglobin was 9.2 g/dL. INR was 4.1. Warfarin was held.",
+      "note_text": "The longitudinal extract includes warfarin (warfarin sodium 5 MG Oral Tablet) for a recorded indication. Other products: warfarin sodium 5 MG Oral Tablet. There was no chronic daily bleeding at baseline. Overt bleeding began within the day before arrival and was not the patient's usual pattern. No new nonsteroidal drug was identified. The bleeding itself was the acute event on chronic anticoagulation. Heart rate was 114 and blood pressure was 96/58. Hemoglobin was 9.2 g/dL. INR was 2.7. Warfarin was held.",
       "provenance": "cliniproof_episode_generated"
     },
     {
       "note_id": "NOTE-G2-022-002",
       "case_id": "G2-022",
       "note_type": "hospital_course",
-      "note_text": "Esophagogastroduodenoscopy was performed after resuscitation and showed gastric ulcer with a clean base. Hemostasis was achieved or the lesion was already flat. The source above was assigned only after endoscopy. The admitting problem was bleeding, not that finished source. Warfarin remained held. One unit of red cells was given. Pantoprazole was started for the upper source. Hemoglobin nadir was 7.4 g/dL and the pre-discharge value was 9.0 g/dL. Heart rate fell to 78 and blood pressure was 122/70. INR fell to 1.6. No further melena or hematochezia occurred. The patient was eating and hemodynamically stable. The anticoagulation restart decision was still unsigned. Gastroenterology and anticoagulation follow-up were arranged, with a hemoglobin check.",
+      "note_text": "Esophagogastroduodenoscopy was performed after resuscitation and showed erosive esophagitis without a spurting vessel. Hemostasis was achieved or the lesion was already flat. The source above was assigned only after endoscopy. The admitting problem was bleeding, not that finished source. Warfarin remained held. No transfusion was required. Pantoprazole was started for the upper source. Hemoglobin nadir was 8.6 g/dL and the pre-discharge value was 8.8 g/dL. Heart rate fell to 78 and blood pressure was 122/70. INR fell to 1.6. No further melena or hematochezia occurred. The patient was eating and hemodynamically stable. The anticoagulation restart decision was still unsigned. Gastroenterology and anticoagulation follow-up were arranged, with a hemoglobin check.",
       "provenance": "cliniproof_episode_generated"
     }
   ],
@@ -222,7 +222,7 @@
       "timepoint": "nadir",
       "test_name": "Hemoglobin [Mass/volume] in Blood",
       "loinc_code": "718-7",
-      "value": 7.4,
+      "value": 8.6,
       "value_text": null,
       "unit": "g/dL",
       "status": "final",
@@ -235,7 +235,7 @@
       "timepoint": "discharge",
       "test_name": "Hemoglobin [Mass/volume] in Blood",
       "loinc_code": "718-7",
-      "value": 9.0,
+      "value": 8.8,
       "value_text": null,
       "unit": "g/dL",
       "status": "final",
@@ -248,7 +248,7 @@
       "timepoint": "admission",
       "test_name": "INR in Platelet poor plasma by Coagulation assay",
       "loinc_code": "6301-6",
-      "value": 4.1,
+      "value": 2.7,
       "value_text": null,
       "unit": "[INR]",
       "status": "final",
@@ -278,7 +278,7 @@
       "procedure_name": "Esophagogastroduodenoscopy",
       "procedure_type": "inpatient",
       "time": "after resuscitation",
-      "findings": "gastric ulcer with a clean base",
+      "findings": "erosive esophagitis without a spurting vessel",
       "complications": "none",
       "provenance": "cliniproof_episode_generated"
     }
@@ -304,9 +304,9 @@
       "notes": "Still held after hemostasis, a stable hemoglobin, and an INR of 1.6.",
       "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
       "rxcui": "855332",
-      "identity_provenance": "synthea_longitudinal",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     },
     {
       "medication_id": "MED-G2-022-002",
@@ -326,9 +326,9 @@
       "notes": "Still held after hemostasis, a stable hemoglobin, and an INR of 1.6.",
       "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
       "rxcui": "855332",
-      "identity_provenance": "synthea_longitudinal",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     },
     {
       "medication_id": "MED-G2-022-003",
@@ -339,7 +339,7 @@
       "dose": "40 MG",
       "route": "oral",
       "frequency": "once daily",
-      "indication": "gastric ulcer with a clean base",
+      "indication": "erosive esophagitis without a spurting vessel",
       "status": "active",
       "held_reason": null,
       "verification_status": "verified",
@@ -397,20 +397,20 @@
   "CaseIntakeOutput": [],
   "scenario_code": "GI_BLEED_ANTICOAGULATION",
   "scenario_version": "g2-scenarios-v1",
-  "variant_id": "gastric_ulcer_inr",
+  "variant_id": "esophagitis",
   "eligibility_tier": "warfarin_with_indication",
-  "synthea_patient_id": "08191fcd-7f29-41a2-efee-912506bd1658",
-  "episode_generation_seed": "20261008:08191fcd-7f29-41a2-efee-912506bd1658:GI_BLEED_ANTICOAGULATION:gastric_ulcer_inr",
+  "synthea_patient_id": "24381411-6009-47df-d0e6-68306ff4f627",
+  "episode_generation_seed": "20261008:24381411-6009-47df-d0e6-68306ff4f627:GI_BLEED_ANTICOAGULATION:esophagitis",
   "fingerprint": {
     "scenario": "GI_BLEED_ANTICOAGULATION",
-    "variant_id": "gastric_ulcer_inr",
-    "precipitant": "hematemesis",
-    "diagnostic_pathway": "egd_gastric_ulcer_supratherapeutic_inr",
+    "variant_id": "esophagitis",
+    "precipitant": "melena_and_reflux",
+    "diagnostic_pathway": "egd_esophagitis",
     "renal_pattern": "creatinine_stable",
     "procedure": "endoscopy",
     "disposition": "home",
     "restart_decision": "restart",
-    "source": "gastric ulcer with a clean base",
+    "source": "erosive esophagitis without a spurting vessel",
     "med_signature": "pantoprazole:new_start|warfarin:restart"
   },
   "physiology_expectations": [
@@ -423,7 +423,7 @@
       "domains": [
         "baseline"
       ],
-      "text": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) for a recorded indication. Other products: Warfarin Sodium 5 MG Oral Tablet. There was no chronic daily bleeding at baseline.",
+      "text": "The longitudinal extract includes warfarin (warfarin sodium 5 MG Oral Tablet) for a recorded indication. Other products: warfarin sodium 5 MG Oral Tablet. There was no chronic daily bleeding at baseline.",
       "provenance": "synthea_longitudinal",
       "time_order": 10,
       "section": "hpi",
@@ -457,7 +457,7 @@
         "presentation",
         "physiology"
       ],
-      "text": "Heart rate was 114 and blood pressure was 96/58. Hemoglobin was 9.2 g/dL. INR was 4.1. Warfarin was held.",
+      "text": "Heart rate was 114 and blood pressure was 96/58. Hemoglobin was 9.2 g/dL. INR was 2.7. Warfarin was held.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 40,
       "section": "hpi",
@@ -468,7 +468,7 @@
       "domains": [
         "workup"
       ],
-      "text": "Esophagogastroduodenoscopy was performed after resuscitation and showed gastric ulcer with a clean base. Hemostasis was achieved or the lesion was already flat.",
+      "text": "Esophagogastroduodenoscopy was performed after resuscitation and showed erosive esophagitis without a spurting vessel. Hemostasis was achieved or the lesion was already flat.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 50,
       "section": "course",
@@ -491,7 +491,7 @@
         "treatment",
         "medication_decision"
       ],
-      "text": "Warfarin remained held. One unit of red cells was given. Pantoprazole was started for the upper source. ",
+      "text": "Warfarin remained held. No transfusion was required. Pantoprazole was started for the upper source. ",
       "provenance": "cliniproof_episode_generated",
       "time_order": 70,
       "section": "course",
@@ -503,7 +503,7 @@
         "response",
         "physiology"
       ],
-      "text": "Hemoglobin nadir was 7.4 g/dL and the pre-discharge value was 9.0 g/dL. Heart rate fell to 78 and blood pressure was 122/70. INR fell to 1.6. No further melena or hematochezia occurred.",
+      "text": "Hemoglobin nadir was 8.6 g/dL and the pre-discharge value was 8.8 g/dL. Heart rate fell to 78 and blood pressure was 122/70. INR fell to 1.6. No further melena or hematochezia occurred.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 80,
       "section": "course",
@@ -556,7 +556,7 @@
       "event_type": "precipitant",
       "time_order": 30,
       "provenance": "cliniproof_episode_generated",
-      "summary": "hematemesis",
+      "summary": "melena_and_reflux",
       "supporting_data": [],
       "empiric": false
     },
@@ -583,7 +583,7 @@
       "event_type": "diagnosis",
       "time_order": 60,
       "provenance": "cliniproof_episode_generated",
-      "summary": "gastric ulcer with a clean base",
+      "summary": "erosive esophagitis without a spurting vessel",
       "supporting_data": [],
       "empiric": false
     },
@@ -626,7 +626,7 @@
       "identity_provenance": "synthea_longitudinal",
       "regimen_provenance": "reference_terminology",
       "rxcui": "855332",
-      "synthea_product": "Warfarin Sodium 5 MG Oral Tablet",
+      "synthea_product": "warfarin sodium 5 MG Oral Tablet",
       "states": [
         {
           "state": "home",
@@ -672,7 +672,7 @@
       "dose": "40 MG",
       "route": "oral",
       "frequency": "once daily",
-      "indication": "gastric ulcer with a clean base",
+      "indication": "erosive esophagitis without a spurting vessel",
       "regimen_id": "PANTOPRAZOLE_40_DAILY",
       "identity_provenance": "cliniproof_episode_generated",
       "regimen_provenance": "reference_terminology",
@@ -737,7 +737,7 @@
         "dose": "40 MG",
         "route": "oral",
         "frequency": "once daily",
-        "indication": "gastric ulcer with a clean base",
+        "indication": "erosive esophagitis without a spurting vessel",
         "rationale": "Acid suppression is supported by the upper endoscopic source and should continue at least through mucosal healing.",
         "resident_visible_evidence": [
           "gi-work",
@@ -764,48 +764,34 @@
     "gi-work"
   ],
   "source_rxcuis": [
-    "197604",
-    "313782",
-    "562251",
-    "855332",
-    "897685"
+    "855332"
   ],
   "source_snomed": [
-    "10509002",
-    "1255252008",
-    "1260009003",
-    "1260010008",
-    "128613002",
-    "1290882004",
+    "1231000119100",
     "160903007",
-    "160904001",
     "161744009",
     "162864005",
     "171207006",
     "195662009",
-    "224295006",
-    "241046008",
+    "224299000",
     "243085009",
-    "274788003",
-    "278588009",
+    "267020005",
+    "271737000",
     "278598003",
+    "312157006",
     "314529007",
-    "36971009",
-    "37320007",
-    "40055000",
-    "422650009",
-    "423315002",
     "424393004",
-    "427898007",
-    "444814009",
-    "49436004",
+    "428211000124100",
+    "430193006",
+    "60573004",
     "66383009",
     "706893006",
     "710824005",
-    "73438004",
+    "713106006",
+    "714628002",
     "73595000",
     "741062008",
-    "84757009"
+    "866148006"
   ],
   "control_error_status": "NO INTENTIONAL ERROR",
   "provenance": {
@@ -818,13 +804,13 @@
       "reference_date": "20261008",
       "fhir_version": "R4",
       "java_version": "OpenJDK 21.0.10",
-      "synthetic_patient_id": "08191fcd-7f29-41a2-efee-912506bd1658"
+      "synthetic_patient_id": "24381411-6009-47df-d0e6-68306ff4f627"
     },
     "scenario": {
       "code": "GI_BLEED_ANTICOAGULATION",
       "version": "g2-scenarios-v1"
     },
-    "episode_generation_seed": "20261008:08191fcd-7f29-41a2-efee-912506bd1658:GI_BLEED_ANTICOAGULATION:gastric_ulcer_inr",
+    "episode_generation_seed": "20261008:24381411-6009-47df-d0e6-68306ff4f627:GI_BLEED_ANTICOAGULATION:esophagitis",
     "source_classes": [
       "synthea_longitudinal",
       "cliniproof_episode_generated",
@@ -833,7 +819,13 @@
     ],
     "generated_at": "2026-10-08T00:00:00Z",
     "narrative": "template rendering of structured facts; no language model",
-    "use_openai": false
+    "use_openai": false,
+    "matched_generation1_case_id": "VAL-822",
+    "neutral_study_id": "M-822",
+    "blinding": {
+      "generation_method_hidden_from_narrative": true,
+      "neutral_study_id": "M-822"
+    }
   },
   "ready_for_clinician_review": true,
   "clinically_validated": false
