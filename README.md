@@ -660,6 +660,27 @@ exports/current/      empty until the second revision exists
 
 Empty placeholders `data/aggregates/`, `data/imports/`, and `data/exports/` contain no study cases. The documentation index is [docs/README.md](docs/README.md).
 
+## Generation 2 — Synthea-grounded discharge-reconciliation cases
+
+Generation 1 is preserved. The seed-guided freeze, the clean base, the revised overlap cases, the revised remaining cases, the reviewer comparison, and the clinical validation template are unchanged by this work.
+
+Generation 2 is a new experimental generation approach. It asks whether a longitudinal synthetic patient, plus an explicitly complete inpatient trajectory, produces a better medication-reconciliation and discharge-reasoning case than the resident-archetype method. It does not replace Generation 1, and it is not yet shown to be superior. Clinician validation will determine whether the change improves case quality.
+
+Generation 2 uses [Synthea](https://github.com/synthetichealth/synthea) for longitudinal synthetic patient context: age, sex, chronic conditions, and outpatient medication products. CliniProof constructs the inpatient reasoning episode: baseline, acute change, precipitant, presentation, work-up, diagnosis, treatment, physiologic response, and medication transitions. Synthea is not treated as an inpatient clinical-reasoning simulator.
+
+Round 1 clinician feedback was translated into explicit generation and sufficiency requirements. Those requirements are gates in the generator. They are not a claim that either reviewer approved Generation 2. Public Generation 2 text uses Reviewer 1 and Reviewer 2 only.
+
+The pilot is 24 clean cases, four in each of six families that correspond to the Generation 1 workflows. Resident charts do not contain a completed discharge medication list, an error label, or a scoring label. The hidden reference is derived after the chart is complete. Identifiers are `G2-001` through `G2-024`. They are candidate identifiers, not frozen VAL study identifiers.
+
+No planted errors are used in this phase. No language model selects diagnoses, medicines, doses, laboratories, or reference actions. MIMIC is not used.
+
+- [Generation 2 methodology](docs/methodology_synthea_g2.md)
+- [Generation 2 cohort](data/case_sets/synthea_g2/README.md)
+- [Generation 2 validation casebook](docs/validation/CliniProof_Synthea_G2_Clinical_Validation.docx)
+- [Generation 2 provenance report](data/case_sets/synthea_g2/reports/provenance_report.md)
+- [Round 1 concern audit](data/case_sets/synthea_g2/reports/round1_concern_audit.md)
+- [Diversity report](data/case_sets/synthea_g2/reports/diversity_report.md)
+
 ## Limitations
 
 The cases are synthetic. They are built to support a reasoning task, and they are not de-identified hospital encounters.

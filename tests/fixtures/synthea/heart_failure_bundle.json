@@ -1,0 +1,93 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "fixture-hf-1",
+        "gender": "female",
+        "birthDate": "1954-03-02"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "clinicalStatus": {"coding": [{"code": "active"}]},
+        "code": {
+          "coding": [{"system": "http://snomed.info/sct", "code": "88805009", "display": "Chronic congestive heart failure (disorder)"}],
+          "text": "Chronic congestive heart failure (disorder)"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "clinicalStatus": {"coding": [{"code": "active"}]},
+        "code": {"text": "Essential hypertension (disorder)", "coding": [{"system": "http://snomed.info/sct", "code": "59621000", "display": "Essential hypertension (disorder)"}]}
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [{"system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "314076", "display": "lisinopril 10 MG Oral Tablet"}],
+          "text": "lisinopril 10 MG Oral Tablet"
+        },
+        "dosageInstruction": [{"timing": {"repeat": {"frequency": 1, "period": 1, "periodUnit": "d"}}}]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [{"system": "http://www.nlm.nih.gov/research/umls/rxnorm", "code": "197361", "display": "furosemide 40 MG Oral Tablet"}],
+          "text": "furosemide 40 MG Oral Tablet"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "status": "final",
+        "code": {"coding": [{"system": "http://loinc.org", "code": "29463-7", "display": "Body weight"}], "text": "Body weight"},
+        "valueQuantity": {"value": 82.0, "unit": "kg"}
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "status": "final",
+        "code": {"coding": [{"system": "http://loinc.org", "code": "2160-0", "display": "Creatinine"}], "text": "Creatinine"},
+        "valueQuantity": {"value": 1.1, "unit": "mg/dL"},
+        "effectiveDateTime": "2026-09-01T00:00:00Z"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "status": "finished",
+        "class": {"code": "AMB"},
+        "type": [{"text": "General examination"}],
+        "period": {"start": "2026-09-01T00:00:00Z"}
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Procedure",
+        "status": "completed",
+        "code": {"text": "Medication reconciliation (procedure)", "coding": [{"system": "http://snomed.info/sct", "code": "430193006", "display": "Medication reconciliation (procedure)"}]},
+        "performedDateTime": "2026-09-01T00:00:00Z"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "CarePlan",
+        "status": "active",
+        "category": [{"text": "Heart failure care plan"}]
+      }
+    }
+  ]
+}

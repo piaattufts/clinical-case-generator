@@ -1,0 +1,1207 @@
+{
+  "case_id_code": "G2-003",
+  "ClinicalCase": {
+    "title": "MED_HISTORY_UNCERTAINTY G2-003",
+    "case_id_code": "G2-003",
+    "case_status": "candidate",
+    "generation_source": "synthetic",
+    "one_liner": "61-year-old Male with acute confusion with pneumonia found on the chest radiograph",
+    "admission_dx": "acute confusion with pneumonia found on the chest radiograph",
+    "disposition_status": "home",
+    "chief_complaint": "Acute confusion and cough",
+    "patient_name": "G2-003",
+    "patient_age": 61,
+    "patient_gender": "Male",
+    "ethnicity": null,
+    "weight_kg": 84.4,
+    "social_context": "Longitudinal social history was not required for this episode.",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "internal medicine",
+    "allergies": [],
+    "medical_history": [
+      "Received higher education (finding)",
+      "Prediabetes (finding)",
+      "Anemia (disorder)",
+      "Chronic pain (finding)"
+    ],
+    "source_type": "synthea_cliniproof_g2",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Acute confusion and cough",
+      "hpi": "The longitudinal record does not list dementia. Before this illness the patient handled daily activities and recognized family. Outpatient products in the longitudinal extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; Hydrochlorothiazide 25 MG Oral Tablet; lisinopril 10 MG Oral Tablet; amLODIPine 2.5 MG Oral Tablet. Confusion appeared over one day after three days of cough. The patient had been oriented at a visit the prior week. Purulent cough preceded the confusion. Temperature was 36.9 degrees Celsius, so the diagnosis did not depend on fever. Oxygen saturation was 94 percent. There were focal crackles at the right base and new inattention.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "confusion",
+        "cough"
+      ],
+      "symptom_duration": "three days",
+      "symptom_course": "the acute change reversed after the precipitant was treated"
+    },
+    "social_support": {
+      "living_situation": "community",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready for clinician review of the discharge medication plan",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": true,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-G2-003-001",
+      "case_id": "G2-003",
+      "diagnosis": "Received higher education (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "224299000",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-003-002",
+      "case_id": "G2-003",
+      "diagnosis": "Prediabetes (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "714628002",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-003-003",
+      "case_id": "G2-003",
+      "diagnosis": "Anemia (disorder)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "271737000",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-003-004",
+      "case_id": "G2-003",
+      "diagnosis": "Chronic pain (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "82423001",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-003-005",
+      "case_id": "G2-003",
+      "diagnosis": "Delirium due to known physiological condition",
+      "diagnosis_type": "hospital",
+      "status": "active",
+      "context": "inpatient",
+      "provenance": "cliniproof_episode_generated",
+      "icd10cm": "F05",
+      "snomed_code": null,
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-003-006",
+      "case_id": "G2-003",
+      "diagnosis": "Pneumonia, unspecified organism",
+      "diagnosis_type": "hospital",
+      "status": "active",
+      "context": "inpatient",
+      "provenance": "cliniproof_episode_generated",
+      "icd10cm": "J18.9",
+      "snomed_code": null,
+      "code_provenance": "reference_terminology"
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-G2-003-001",
+      "case_id": "G2-003",
+      "note_type": "admission",
+      "note_text": "The longitudinal record does not list dementia. Before this illness the patient handled daily activities and recognized family. Outpatient products in the longitudinal extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; Hydrochlorothiazide 25 MG Oral Tablet; lisinopril 10 MG Oral Tablet; amLODIPine 2.5 MG Oral Tablet. Confusion appeared over one day after three days of cough. The patient had been oriented at a visit the prior week. Purulent cough preceded the confusion. Temperature was 36.9 degrees Celsius, so the diagnosis did not depend on fever. Oxygen saturation was 94 percent. There were focal crackles at the right base and new inattention.",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "note_id": "NOTE-G2-003-002",
+      "case_id": "G2-003",
+      "note_type": "hospital_course",
+      "note_text": "The chest radiograph showed a right-lower-lobe infiltrate. Blood cultures showed no growth. Chemistry did not show a primary metabolic cause. Pneumonia, and delirium due to that infection, were diagnosed after the radiograph. Neither label was the presenting diagnosis. Azithromycin was given for the infiltrate and the course was completed before discharge planning. Oxygen was weaned to room air. Cough and inattention resolved. Creatinine was 1.2 mg/dL at discharge planning, admission 1.3, prior 1.2. The caregiver agreed this was the usual mental status. The antibiotic course is finished. The outpatient list was confirmed with the pharmacy and is not the same thing as a medicine that was deliberately stopped. Attention and intake had returned to the caregiver's account of baseline, and the outpatient medication history was no longer incomplete. The discharge medication list itself was still unsigned. Primary care follow-up and a chemistry panel were arranged.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-G2-003-001",
+      "case_id": "G2-003",
+      "timepoint": "admission",
+      "time_rank": 1,
+      "temp_c": 36.9,
+      "bp_systolic": 138,
+      "bp_diastolic": 78,
+      "heart_rate": 88,
+      "resp_rate": 18,
+      "spo2_percent": 96,
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "vital_id": "VIT-G2-003-002",
+      "case_id": "G2-003",
+      "timepoint": "discharge",
+      "time_rank": 7,
+      "temp_c": 36.7,
+      "bp_systolic": 128,
+      "bp_diastolic": 74,
+      "heart_rate": 76,
+      "resp_rate": 16,
+      "spo2_percent": 97,
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-G2-003-001",
+      "case_id": "G2-003",
+      "timepoint": "baseline",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.2,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-003-002",
+      "case_id": "G2-003",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.3,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-003-003",
+      "case_id": "G2-003",
+      "timepoint": "peak",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.3,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-003-004",
+      "case_id": "G2-003",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.2,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-003-005",
+      "case_id": "G2-003",
+      "timepoint": "admission",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "loinc_code": "2823-3",
+      "value": 4.2,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-003-006",
+      "case_id": "G2-003",
+      "timepoint": "discharge",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "loinc_code": "2823-3",
+      "value": 4.1,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-003-007",
+      "case_id": "G2-003",
+      "timepoint": "admission",
+      "test_name": "Sodium [Moles/volume] in Serum or Plasma",
+      "loinc_code": "2951-2",
+      "value": 141,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-003-008",
+      "case_id": "G2-003",
+      "timepoint": "discharge",
+      "test_name": "Sodium [Moles/volume] in Serum or Plasma",
+      "loinc_code": "2951-2",
+      "value": 139,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-003-009",
+      "case_id": "G2-003",
+      "timepoint": "admission",
+      "test_name": "Leukocytes [#/volume] in Blood by Automated count",
+      "loinc_code": "6690-2",
+      "value": 13.4,
+      "value_text": null,
+      "unit": "10*3/uL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-003-010",
+      "case_id": "G2-003",
+      "timepoint": "discharge",
+      "test_name": "Leukocytes [#/volume] in Blood by Automated count",
+      "loinc_code": "6690-2",
+      "value": 8.1,
+      "value_text": null,
+      "unit": "10*3/uL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    }
+  ],
+  "CaseWeight": [],
+  "CaseImaging": [],
+  "CaseProcedure": [],
+  "CaseConsult": [],
+  "CaseMicrobiology": [],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-G2-003-001",
+      "case_id": "G2-003",
+      "context": "inpatient",
+      "drug": "azithromycin",
+      "reported_name": "azithromycin",
+      "dose": "250 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "a lobar infiltrate with cough",
+      "status": "completed_inpatient_course",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "The finite course was completed. It is not an outpatient maintenance medicine.",
+      "regimen_id": "AZITHROMYCIN_CAP_CONTINUATION",
+      "rxcui": null,
+      "identity_provenance": "cliniproof_episode_generated",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "medication_id": "MED-G2-003-002",
+      "case_id": "G2-003",
+      "context": "home",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "confirmed outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "rxcui": "866412",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-003-003",
+      "case_id": "G2-003",
+      "context": "inpatient",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "confirmed outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "rxcui": "866412",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-003-004",
+      "case_id": "G2-003",
+      "context": "home",
+      "drug": "hydrochlorothiazide",
+      "reported_name": "hydrochlorothiazide",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "confirmed outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "HCTZ_25_DAILY",
+      "rxcui": "310798",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-003-005",
+      "case_id": "G2-003",
+      "context": "inpatient",
+      "drug": "hydrochlorothiazide",
+      "reported_name": "hydrochlorothiazide",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "confirmed outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "HCTZ_25_DAILY",
+      "rxcui": "310798",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-003-006",
+      "case_id": "G2-003",
+      "context": "home",
+      "drug": "lisinopril",
+      "reported_name": "lisinopril",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "confirmed outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "LISINOPRIL_10_DAILY",
+      "rxcui": "314076",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-003-007",
+      "case_id": "G2-003",
+      "context": "inpatient",
+      "drug": "lisinopril",
+      "reported_name": "lisinopril",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "confirmed outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "LISINOPRIL_10_DAILY",
+      "rxcui": "314076",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-003-008",
+      "case_id": "G2-003",
+      "context": "home",
+      "drug": "amlodipine",
+      "reported_name": "amlodipine",
+      "dose": "2.5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "confirmed outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "AMLODIPINE_2_5_DAILY",
+      "rxcui": "308136",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-003-009",
+      "case_id": "G2-003",
+      "context": "inpatient",
+      "drug": "amlodipine",
+      "reported_name": "amlodipine",
+      "dose": "2.5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "confirmed outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "AMLODIPINE_2_5_DAILY",
+      "rxcui": "308136",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    }
+  ],
+  "CaseMedicationReconciliation": [
+    {
+      "medrec_id": "REC-G2-003-001",
+      "case_id": "G2-003",
+      "drug": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet",
+      "bpmh_source": "pharmacy",
+      "medrec_status": "confirmed_after_initial_uncertainty",
+      "notes": "Not recalled on arrival. The pharmacy dispense record confirmed ongoing fills.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseMonitoring": [
+    {
+      "monitoring_id": "MON-G2-003-001",
+      "case_id": "G2-003",
+      "parameter": "chemistry panel",
+      "frequency": "within 7 days",
+      "target": "creatinine and electrolytes",
+      "trigger_for_action": "",
+      "duration": "until the first follow-up visit",
+      "responsible_service": "primary care",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-G2-003-001",
+      "case_id": "G2-003",
+      "item": "Primary care",
+      "timing": "within 7 days",
+      "with_service": "primary care",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseInstruction": [
+    {
+      "instruction_id": "INS-G2-003-001",
+      "case_id": "G2-003",
+      "category": "discharge medication task",
+      "instruction_text": "Determine the discharge medication plan from this hospitalization. A completed discharge medication list is not provided.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseIntakeOutput": [],
+  "scenario_code": "MED_HISTORY_UNCERTAINTY",
+  "scenario_version": "g2-scenarios-v1",
+  "variant_id": "delirium_pneumonia",
+  "eligibility_tier": "medication_complexity",
+  "synthea_patient_id": "33f45348-e0ae-5e62-9e8c-af3d602e357c",
+  "episode_generation_seed": "20261008:33f45348-e0ae-5e62-9e8c-af3d602e357c:MED_HISTORY_UNCERTAINTY:delirium_pneumonia",
+  "fingerprint": {
+    "scenario": "MED_HISTORY_UNCERTAINTY",
+    "variant_id": "delirium_pneumonia",
+    "precipitant": "lobar_pneumonia",
+    "diagnostic_pathway": "radiograph_then_antibiotic",
+    "renal_pattern": "creatinine_stable",
+    "procedure": "chest_radiograph",
+    "disposition": "home",
+    "history_resolution": "collateral_confirmed",
+    "med_signature": "amlodipine:continue|azithromycin:stop|hydrochlorothiazide:continue|lisinopril:continue|metoprolol:continue"
+  },
+  "physiology_expectations": [],
+  "facts": [
+    {
+      "fact_id": "mh-cognition",
+      "domains": [
+        "baseline"
+      ],
+      "text": "The longitudinal record does not list dementia. Before this illness the patient handled daily activities and recognized family.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 10,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-base",
+      "domains": [
+        "baseline"
+      ],
+      "text": "Outpatient products in the longitudinal extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; Hydrochlorothiazide 25 MG Oral Tablet; lisinopril 10 MG Oral Tablet; amLODIPine 2.5 MG Oral Tablet.",
+      "provenance": "synthea_longitudinal",
+      "time_order": 12,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-acute",
+      "domains": [
+        "acute_change"
+      ],
+      "text": "Confusion appeared over one day after three days of cough. The patient had been oriented at a visit the prior week.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 20,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-precip",
+      "domains": [
+        "precipitant"
+      ],
+      "text": "Purulent cough preceded the confusion. Temperature was 36.9 degrees Celsius, so the diagnosis did not depend on fever.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 30,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-present",
+      "domains": [
+        "presentation"
+      ],
+      "text": "Oxygen saturation was 94 percent. There were focal crackles at the right base and new inattention.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 40,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-work",
+      "domains": [
+        "workup"
+      ],
+      "text": "The chest radiograph showed a right-lower-lobe infiltrate. Blood cultures showed no growth. Chemistry did not show a primary metabolic cause.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 50,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-dx",
+      "domains": [
+        "diagnosis"
+      ],
+      "text": "Pneumonia, and delirium due to that infection, were diagnosed after the radiograph. Neither label was the presenting diagnosis.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 60,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-treat",
+      "domains": [
+        "treatment"
+      ],
+      "text": "Azithromycin was given for the infiltrate and the course was completed before discharge planning. Oxygen was weaned to room air.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 70,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-response",
+      "domains": [
+        "response",
+        "physiology"
+      ],
+      "text": "Cough and inattention resolved. Creatinine was 1.2 mg/dL at discharge planning, admission 1.3, prior 1.2. The caregiver agreed this was the usual mental status.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 80,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-meds",
+      "domains": [
+        "medication_decision"
+      ],
+      "text": "The antibiotic course is finished. The outpatient list was confirmed with the pharmacy and is not the same thing as a medicine that was deliberately stopped.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 85,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-ready",
+      "domains": [
+        "discharge_readiness"
+      ],
+      "text": "Attention and intake had returned to the caregiver's account of baseline, and the outpatient medication history was no longer incomplete. The discharge medication list itself was still unsigned.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 90,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-follow",
+      "domains": [
+        "followup"
+      ],
+      "text": "Primary care follow-up and a chemistry panel were arranged.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 95,
+      "section": "course",
+      "resident_visible": true
+    }
+  ],
+  "timeline": [
+    {
+      "event_id": "ev-baseline-10",
+      "event_type": "baseline",
+      "time_order": 10,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Baseline cognition and outpatient medicines",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-acute_change-20",
+      "event_type": "acute_change",
+      "time_order": 20,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Acute change from baseline",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-precipitant-30",
+      "event_type": "precipitant",
+      "time_order": 30,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "lobar_pneumonia",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-presentation-40",
+      "event_type": "presentation",
+      "time_order": 40,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Presentation",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-workup-50",
+      "event_type": "workup",
+      "time_order": 50,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Work-up",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-diagnosis-60",
+      "event_type": "diagnosis",
+      "time_order": 60,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Diagnosis after the work-up",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-treatment-70",
+      "event_type": "treatment",
+      "time_order": 70,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Treatment of the precipitant",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-response-80",
+      "event_type": "response",
+      "time_order": 80,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Return toward baseline",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-discharge-100",
+      "event_type": "discharge",
+      "time_order": 100,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "History resolved and discharge planning open",
+      "supporting_data": [],
+      "empiric": false
+    }
+  ],
+  "medication_decisions": [
+    {
+      "drug": "azithromycin",
+      "dose": "250 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "a lobar infiltrate with cough",
+      "regimen_id": "AZITHROMYCIN_CAP_CONTINUATION",
+      "identity_provenance": "cliniproof_episode_generated",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": null,
+      "synthea_product": null,
+      "states": [
+        {
+          "state": "hospital_only",
+          "time_order": 70,
+          "trigger": "a lobar infiltrate with cough",
+          "evidence": [
+            "mh-treat"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        },
+        {
+          "state": "discontinued",
+          "time_order": 90,
+          "trigger": "the finite course was completed before discharge planning",
+          "evidence": [
+            "mh-response"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "stop",
+      "evidence_ids": [
+        "mh-treat",
+        "mh-response"
+      ],
+      "resident_note": "The finite course was completed. It is not an outpatient maintenance medicine.",
+      "rationale": "The course is complete and the precipitant has responded, so the antibiotic stops.",
+      "monitoring": "No extended antibiotic monitoring.",
+      "follow_up": "Return for recurrent fever or urinary symptoms.",
+      "acceptable_alternatives": [],
+      "hospital_only": true
+    },
+    {
+      "drug": "metoprolol",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "confirmed outpatient indication",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "866412",
+      "synthea_product": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "mh-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "mh-base",
+            "mh-meds"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "mh-base",
+        "mh-meds"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    },
+    {
+      "drug": "hydrochlorothiazide",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "confirmed outpatient indication",
+      "regimen_id": "HCTZ_25_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "310798",
+      "synthea_product": "Hydrochlorothiazide 25 MG Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "mh-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "mh-base",
+            "mh-meds"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "mh-base",
+        "mh-meds"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "Hydrochlorothiazide 25 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    },
+    {
+      "drug": "lisinopril",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "confirmed outpatient indication",
+      "regimen_id": "LISINOPRIL_10_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "314076",
+      "synthea_product": "lisinopril 10 MG Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "mh-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "mh-base",
+            "mh-meds"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "mh-base",
+        "mh-meds"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "lisinopril 10 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    },
+    {
+      "drug": "amlodipine",
+      "dose": "2.5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "confirmed outpatient indication",
+      "regimen_id": "AMLODIPINE_2_5_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "308136",
+      "synthea_product": "amLODIPine 2.5 MG Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "mh-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "mh-base",
+            "mh-meds"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "mh-base",
+        "mh-meds"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "amLODIPine 2.5 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    }
+  ],
+  "reference_discharge_plan": {
+    "actions": [
+      {
+        "medication": "azithromycin",
+        "regimen_id": "AZITHROMYCIN_CAP_CONTINUATION",
+        "action": "stop",
+        "dose": "250 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "a lobar infiltrate with cough",
+        "rationale": "The course is complete and the precipitant has responded, so the antibiotic stops.",
+        "resident_visible_evidence": [
+          "mh-treat",
+          "mh-response"
+        ],
+        "monitoring": "No extended antibiotic monitoring.",
+        "follow_up": "Return for recurrent fever or urinary symptoms.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "metoprolol",
+        "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+        "action": "continue",
+        "dose": "100 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "confirmed outpatient indication",
+        "rationale": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "mh-base",
+          "mh-meds"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "hydrochlorothiazide",
+        "regimen_id": "HCTZ_25_DAILY",
+        "action": "continue",
+        "dose": "25 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "confirmed outpatient indication",
+        "rationale": "Hydrochlorothiazide 25 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "mh-base",
+          "mh-meds"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "lisinopril",
+        "regimen_id": "LISINOPRIL_10_DAILY",
+        "action": "continue",
+        "dose": "10 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "confirmed outpatient indication",
+        "rationale": "lisinopril 10 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "mh-base",
+          "mh-meds"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "amlodipine",
+        "regimen_id": "AMLODIPINE_2_5_DAILY",
+        "action": "continue",
+        "dose": "2.5 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "confirmed outpatient indication",
+        "rationale": "amLODIPine 2.5 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "mh-base",
+          "mh-meds"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      }
+    ],
+    "provenance": "investigator_derived_reference"
+  },
+  "visible_fact_ids": [
+    "mh-acute",
+    "mh-base",
+    "mh-cognition",
+    "mh-dx",
+    "mh-follow",
+    "mh-meds",
+    "mh-precip",
+    "mh-present",
+    "mh-ready",
+    "mh-response",
+    "mh-treat",
+    "mh-work"
+  ],
+  "source_rxcuis": [
+    "1043400",
+    "1860491",
+    "308136",
+    "309362",
+    "310798",
+    "312961",
+    "313782",
+    "314076",
+    "562251",
+    "705129",
+    "866412",
+    "993770"
+  ],
+  "source_snomed": [
+    "103697008",
+    "10509002",
+    "109570002",
+    "1121000119107",
+    "1260009003",
+    "1260010008",
+    "160903007",
+    "160904001",
+    "18718003",
+    "195662009",
+    "224299000",
+    "225362009",
+    "243085009",
+    "271737000",
+    "274531002",
+    "274788003",
+    "278860009",
+    "314529007",
+    "34043003",
+    "36971009",
+    "399261000",
+    "414545008",
+    "423315002",
+    "424393004",
+    "43878008",
+    "444814009",
+    "59621000",
+    "66383009",
+    "68071007",
+    "714628002",
+    "73595000",
+    "741062008",
+    "82423001"
+  ],
+  "control_error_status": "NO INTENTIONAL ERROR",
+  "provenance": {
+    "generation_method": "synthea_cliniproof_g2",
+    "synthea": {
+      "repository": "https://github.com/synthetichealth/synthea.git",
+      "commit": "d9d07a6eef91ee5144293b42ab64224d84d124f8",
+      "version": "master-branch-latest",
+      "population_seed": "20261008",
+      "reference_date": "20261008",
+      "fhir_version": "R4",
+      "java_version": "OpenJDK 21.0.10",
+      "synthetic_patient_id": "33f45348-e0ae-5e62-9e8c-af3d602e357c"
+    },
+    "scenario": {
+      "code": "MED_HISTORY_UNCERTAINTY",
+      "version": "g2-scenarios-v1"
+    },
+    "episode_generation_seed": "20261008:33f45348-e0ae-5e62-9e8c-af3d602e357c:MED_HISTORY_UNCERTAINTY:delirium_pneumonia",
+    "source_classes": [
+      "synthea_longitudinal",
+      "cliniproof_episode_generated",
+      "reference_terminology",
+      "investigator_derived_reference"
+    ],
+    "generated_at": "2026-10-08T00:00:00Z",
+    "narrative": "template rendering of structured facts; no language model",
+    "use_openai": false
+  },
+  "ready_for_clinician_review": true,
+  "clinically_validated": false
+}

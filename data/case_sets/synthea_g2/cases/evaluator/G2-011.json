@@ -1,0 +1,994 @@
+{
+  "case_id_code": "G2-011",
+  "ClinicalCase": {
+    "title": "ENDOCARDITIS_OPAT G2-011",
+    "case_id_code": "G2-011",
+    "case_status": "candidate",
+    "generation_source": "synthetic",
+    "one_liner": "59-year-old Male with fever with endocarditis established only after cultures and echocardiography",
+    "admission_dx": "Fever and a new murmur",
+    "disposition_status": "skilled nursing facility",
+    "chief_complaint": "Fever, fatigue, and a new murmur",
+    "patient_name": "G2-011",
+    "patient_age": 59,
+    "patient_gender": "Male",
+    "ethnicity": null,
+    "weight_kg": 84.9,
+    "social_context": "Longitudinal social history was not required for this episode.",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "infectious disease",
+    "allergies": [],
+    "medical_history": [
+      "Seizure disorder (disorder)",
+      "History of seizure (situation)",
+      "Received higher education (finding)",
+      "Prediabetes (finding)"
+    ],
+    "source_type": "synthea_cliniproof_g2",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Fever, fatigue, and a new murmur",
+      "hpi": "The longitudinal extract does not list endocarditis. Outpatient products in the extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; Hydrochlorothiazide 25 MG Oral Tablet. No pre-admission creatinine was present; the first value was 1.2 mg/dL. For ten days the patient had fever, sweats, and fatigue that were new. There was no chronic febrile illness in the history obtained on arrival. Because this organism is associated with colonic lesions, gastroenterology was consulted. A colonoscopy was scheduled after the acute infection, rather than claimed as already done. Arrival temperature was 38.4 degrees Celsius. A murmur that the patient did not recognize was present. The working concern was bloodstream infection, not a finished diagnosis of endocarditis.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "fever",
+        "fatigue",
+        "night sweats"
+      ],
+      "symptom_duration": "ten days",
+      "symptom_course": "fever resolved after antibiotics and clearance cultures were negative"
+    },
+    "social_support": {
+      "living_situation": "community",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "skilled nursing facility",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready for clinician review of the discharge medication plan",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": false,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-G2-011-001",
+      "case_id": "G2-011",
+      "diagnosis": "Seizure disorder (disorder)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "128613002",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-011-002",
+      "case_id": "G2-011",
+      "diagnosis": "History of seizure (situation)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "1290882004",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-011-003",
+      "case_id": "G2-011",
+      "diagnosis": "Received higher education (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "224299000",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-011-004",
+      "case_id": "G2-011",
+      "diagnosis": "Prediabetes (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "714628002",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-011-005",
+      "case_id": "G2-011",
+      "diagnosis": "Fever and a new murmur",
+      "diagnosis_type": "admission",
+      "status": "active",
+      "context": "inpatient",
+      "provenance": "cliniproof_episode_generated",
+      "icd10cm": null,
+      "snomed_code": null,
+      "code_provenance": null
+    },
+    {
+      "diagnosis_id": "DX-G2-011-006",
+      "case_id": "G2-011",
+      "diagnosis": "Acute and subacute infective endocarditis",
+      "diagnosis_type": "hospital",
+      "status": "active",
+      "context": "inpatient",
+      "provenance": "cliniproof_episode_generated",
+      "icd10cm": "I33.0",
+      "snomed_code": null,
+      "code_provenance": "reference_terminology"
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-G2-011-001",
+      "case_id": "G2-011",
+      "note_type": "admission",
+      "note_text": "The longitudinal extract does not list endocarditis. Outpatient products in the extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; Hydrochlorothiazide 25 MG Oral Tablet. No pre-admission creatinine was present; the first value was 1.2 mg/dL. For ten days the patient had fever, sweats, and fatigue that were new. There was no chronic febrile illness in the history obtained on arrival. Because this organism is associated with colonic lesions, gastroenterology was consulted. A colonoscopy was scheduled after the acute infection, rather than claimed as already done. Arrival temperature was 38.4 degrees Celsius. A murmur that the patient did not recognize was present. The working concern was bloodstream infection, not a finished diagnosis of endocarditis.",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "note_id": "NOTE-G2-011-002",
+      "case_id": "G2-011",
+      "note_type": "hospital_course",
+      "note_text": "Two sets of blood cultures were drawn before any antibiotic. They grew Streptococcus gallolyticus. A transthoracic echocardiogram then showed a 7 mm mitral vegetation without abscess. Dental and skin examinations were recorded as part of the source evaluation. Endocarditis was diagnosed only after the organism and the echocardiogram were both available. The patient did not present with that label already assigned. Ceftriaxone 2 g intravenously once daily was started after the cultures were drawn and was continued once the organism was known to be treated by that regimen. Cardiac surgery saw the patient: there was no abscess, no severe valve failure, and no indication for urgent surgery. Creatinine stayed 1.2 mg/dL, which is the range in which the curated 2 g dose is used. Fever resolved by hospital day 3. A repeat blood culture showed no growth. Appetite and walking had returned. This was day 6 of intravenous ceftriaxone. Outpatient parenteral therapy is logistically feasible at skilled nursing facility. The remaining duration has not been signed. Weekly laboratory monitoring and infectious-diseases follow-up are arranged. Infectious diseases follow-up within one week and a weekly chemistry panel were specified.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-G2-011-001",
+      "case_id": "G2-011",
+      "timepoint": "admission",
+      "time_rank": 1,
+      "temp_c": 38.4,
+      "bp_systolic": 118,
+      "bp_diastolic": 68,
+      "heart_rate": 104,
+      "resp_rate": 18,
+      "spo2_percent": 97,
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "vital_id": "VIT-G2-011-002",
+      "case_id": "G2-011",
+      "timepoint": "discharge",
+      "time_rank": 7,
+      "temp_c": 36.7,
+      "bp_systolic": 122,
+      "bp_diastolic": 70,
+      "heart_rate": 76,
+      "resp_rate": 16,
+      "spo2_percent": 98,
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-G2-011-001",
+      "case_id": "G2-011",
+      "timepoint": "baseline",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.2,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-011-002",
+      "case_id": "G2-011",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.2,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-011-003",
+      "case_id": "G2-011",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.2,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-011-004",
+      "case_id": "G2-011",
+      "timepoint": "admission",
+      "test_name": "Bacteria identified in Blood by Culture",
+      "loinc_code": "600-7",
+      "value": null,
+      "value_text": "Streptococcus gallolyticus",
+      "unit": "",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-011-005",
+      "case_id": "G2-011",
+      "timepoint": "pre_discharge",
+      "test_name": "Bacteria identified in Blood by Culture",
+      "loinc_code": "600-7",
+      "value": null,
+      "value_text": "no growth",
+      "unit": "",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    }
+  ],
+  "CaseWeight": [],
+  "CaseImaging": [
+    {
+      "study_id": "STUDY-G2-011-001",
+      "case_id": "G2-011",
+      "timepoint": "hospital_day_1",
+      "study_type": "Transthoracic echocardiogram",
+      "body_site": "",
+      "finding": "a 7 mm mitral vegetation without abscess",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseProcedure": [],
+  "CaseConsult": [
+    {
+      "consult_id": "CON-G2-011-001",
+      "case_id": "G2-011",
+      "service": "cardiac surgery",
+      "timepoint": "inpatient",
+      "assessment": "a 7 mm mitral vegetation without abscess No abscess and no refractory heart failure.",
+      "recommendation": "Urgent surgery is not indicated. Reassess if heart failure or persistent bacteremia develops.",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "consult_id": "CON-G2-011-002",
+      "case_id": "G2-011",
+      "service": "infectious diseases",
+      "timepoint": "inpatient",
+      "assessment": "Streptococcus gallolyticus endocarditis on the echocardiogram described above.",
+      "recommendation": "Ceftriaxone 2 g intravenously once daily is the inpatient regimen. The unsigned question is completing it after discharge.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseMicrobiology": [
+    {
+      "micro_id": "MICRO-G2-011-001",
+      "case_id": "G2-011",
+      "timepoint": "admission",
+      "specimen": "blood",
+      "test": "Blood culture",
+      "organism": "Streptococcus gallolyticus",
+      "result": "growth",
+      "status": "final",
+      "notes": "Drawn before the first antibiotic dose.",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "micro_id": "MICRO-G2-011-002",
+      "case_id": "G2-011",
+      "timepoint": "pre_discharge",
+      "specimen": "blood",
+      "test": "Blood culture",
+      "organism": "",
+      "result": "no growth",
+      "status": "final",
+      "notes": "Clearance culture after treatment had begun.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-G2-011-001",
+      "case_id": "G2-011",
+      "context": "inpatient",
+      "drug": "ceftriaxone",
+      "reported_name": "ceftriaxone",
+      "dose": "2000 MG",
+      "route": "intravenous",
+      "frequency": "once daily",
+      "indication": "streptococcal endocarditis after cultures and echocardiography",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Active inpatient therapy on day 6. Clearance cultures show no growth. A discharge duration order has not been signed.",
+      "regimen_id": "CEFTRIAXONE_ENDOCARDITIS_OPAT",
+      "rxcui": null,
+      "identity_provenance": "cliniproof_episode_generated",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "medication_id": "MED-G2-011-002",
+      "case_id": "G2-011",
+      "context": "home",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "rxcui": "866412",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-011-003",
+      "case_id": "G2-011",
+      "context": "inpatient",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "rxcui": "866412",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-011-004",
+      "case_id": "G2-011",
+      "context": "home",
+      "drug": "hydrochlorothiazide",
+      "reported_name": "hydrochlorothiazide",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "HCTZ_25_DAILY",
+      "rxcui": "310798",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-011-005",
+      "case_id": "G2-011",
+      "context": "inpatient",
+      "drug": "hydrochlorothiazide",
+      "reported_name": "hydrochlorothiazide",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "HCTZ_25_DAILY",
+      "rxcui": "310798",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    }
+  ],
+  "CaseMedicationReconciliation": [],
+  "CaseMonitoring": [
+    {
+      "monitoring_id": "MON-G2-011-001",
+      "case_id": "G2-011",
+      "parameter": "chemistry panel and blood count",
+      "frequency": "weekly",
+      "target": "while intravenous therapy continues",
+      "trigger_for_action": "",
+      "duration": "until the first follow-up visit",
+      "responsible_service": "infectious diseases",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-G2-011-001",
+      "case_id": "G2-011",
+      "item": "Infectious diseases",
+      "timing": "within 7 days",
+      "with_service": "infectious diseases",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "followup_id": "FU-G2-011-002",
+      "case_id": "G2-011",
+      "item": "Primary care",
+      "timing": "within 14 days",
+      "with_service": "primary care",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseInstruction": [
+    {
+      "instruction_id": "INS-G2-011-001",
+      "case_id": "G2-011",
+      "category": "discharge medication task",
+      "instruction_text": "Determine the discharge medication plan from this hospitalization. A completed discharge medication list is not provided.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseIntakeOutput": [],
+  "scenario_code": "ENDOCARDITIS_OPAT",
+  "scenario_version": "g2-scenarios-v1",
+  "variant_id": "gi_source_evaluated",
+  "eligibility_tier": "baseline_context_only",
+  "synthea_patient_id": "11774c22-f119-cf91-0df4-b0f18fa7390c",
+  "episode_generation_seed": "20261008:11774c22-f119-cf91-0df4-b0f18fa7390c:ENDOCARDITIS_OPAT:gi_source_evaluated",
+  "fingerprint": {
+    "scenario": "ENDOCARDITIS_OPAT",
+    "variant_id": "gi_source_evaluated",
+    "precipitant": "gastrointestinal_source_evaluation",
+    "diagnostic_pathway": "cultures_echo_and_gi_consultation",
+    "renal_pattern": "creatinine_stable",
+    "procedure": "echocardiogram",
+    "disposition": "skilled nursing facility",
+    "organism": "Streptococcus gallolyticus",
+    "med_signature": "ceftriaxone:continue|hydrochlorothiazide:continue|metoprolol:continue"
+  },
+  "physiology_expectations": [],
+  "facts": [
+    {
+      "fact_id": "en-base",
+      "domains": [
+        "baseline"
+      ],
+      "text": "The longitudinal extract does not list endocarditis. Outpatient products in the extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; Hydrochlorothiazide 25 MG Oral Tablet. No pre-admission creatinine was present; the first value was 1.2 mg/dL.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 10,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "en-acute",
+      "domains": [
+        "acute_change"
+      ],
+      "text": "For ten days the patient had fever, sweats, and fatigue that were new. There was no chronic febrile illness in the history obtained on arrival.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 20,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "en-precip",
+      "domains": [
+        "precipitant"
+      ],
+      "text": "Because this organism is associated with colonic lesions, gastroenterology was consulted. A colonoscopy was scheduled after the acute infection, rather than claimed as already done.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 30,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "en-present",
+      "domains": [
+        "presentation"
+      ],
+      "text": "Arrival temperature was 38.4 degrees Celsius. A murmur that the patient did not recognize was present. The working concern was bloodstream infection, not a finished diagnosis of endocarditis.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 40,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "en-work",
+      "domains": [
+        "workup"
+      ],
+      "text": "Two sets of blood cultures were drawn before any antibiotic. They grew Streptococcus gallolyticus. A transthoracic echocardiogram then showed a 7 mm mitral vegetation without abscess. Dental and skin examinations were recorded as part of the source evaluation.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 50,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "en-dx",
+      "domains": [
+        "diagnosis"
+      ],
+      "text": "Endocarditis was diagnosed only after the organism and the echocardiogram were both available. The patient did not present with that label already assigned.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 60,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "en-treat",
+      "domains": [
+        "treatment",
+        "medication_decision"
+      ],
+      "text": "Ceftriaxone 2 g intravenously once daily was started after the cultures were drawn and was continued once the organism was known to be treated by that regimen. Cardiac surgery saw the patient: there was no abscess, no severe valve failure, and no indication for urgent surgery. Creatinine stayed 1.2 mg/dL, which is the range in which the curated 2 g dose is used.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 70,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "en-response",
+      "domains": [
+        "response",
+        "physiology"
+      ],
+      "text": "Fever resolved by hospital day 3. A repeat blood culture showed no growth. Appetite and walking had returned. This was day 6 of intravenous ceftriaxone.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 80,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "en-ready",
+      "domains": [
+        "discharge_readiness"
+      ],
+      "text": "Outpatient parenteral therapy is logistically feasible at skilled nursing facility. The remaining duration has not been signed. Weekly laboratory monitoring and infectious-diseases follow-up are arranged.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 90,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "en-follow",
+      "domains": [
+        "followup"
+      ],
+      "text": "Infectious diseases follow-up within one week and a weekly chemistry panel were specified.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 95,
+      "section": "course",
+      "resident_visible": true
+    }
+  ],
+  "timeline": [
+    {
+      "event_id": "ev-baseline-10",
+      "event_type": "baseline",
+      "time_order": 10,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "No prior endocarditis",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-acute_change-20",
+      "event_type": "acute_change",
+      "time_order": 20,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "New fever",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-precipitant-30",
+      "event_type": "precipitant",
+      "time_order": 30,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "gastrointestinal_source_evaluation",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-presentation-40",
+      "event_type": "presentation",
+      "time_order": 40,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Fever and murmur",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-workup-48",
+      "event_type": "workup",
+      "time_order": 48,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Cultures drawn before antibiotics",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-treatment-55",
+      "event_type": "treatment",
+      "time_order": 55,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Empiric ceftriaxone after cultures",
+      "supporting_data": [],
+      "empiric": true
+    },
+    {
+      "event_id": "ev-diagnosis-60",
+      "event_type": "diagnosis",
+      "time_order": 60,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Organism and echocardiogram establish endocarditis",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-treatment-70",
+      "event_type": "treatment",
+      "time_order": 70,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Targeted ceftriaxone confirmed",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-response-80",
+      "event_type": "response",
+      "time_order": 80,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Defervescence and culture clearance",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-discharge-100",
+      "event_type": "discharge",
+      "time_order": 100,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "OPAT feasible, order unsigned",
+      "supporting_data": [],
+      "empiric": false
+    }
+  ],
+  "medication_decisions": [
+    {
+      "drug": "ceftriaxone",
+      "dose": "2000 MG",
+      "route": "intravenous",
+      "frequency": "once daily",
+      "indication": "streptococcal endocarditis after cultures and echocardiography",
+      "regimen_id": "CEFTRIAXONE_ENDOCARDITIS_OPAT",
+      "identity_provenance": "cliniproof_episode_generated",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": null,
+      "synthea_product": null,
+      "states": [
+        {
+          "state": "new_inpatient",
+          "time_order": 55,
+          "trigger": "blood cultures drawn, then empiric intravenous therapy",
+          "evidence": [
+            "en-treat"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "organism is treated with this curated regimen",
+          "evidence": [
+            "en-work",
+            "en-dx"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "en-work",
+        "en-treat",
+        "en-response",
+        "en-ready"
+      ],
+      "resident_note": "Active inpatient therapy on day 6. Clearance cultures show no growth. A discharge duration order has not been signed.",
+      "rationale": "Continuing ceftriaxone 2 g once daily to finish a four-week course is supported by the organism, the echocardiogram, preserved creatinine, clearance of bacteremia, and feasible outpatient parenteral therapy.",
+      "monitoring": "Weekly chemistry panel and complete blood count.",
+      "follow_up": "Infectious diseases within 7 days.",
+      "acceptable_alternatives": [
+        {
+          "alternative_action": "continue",
+          "conditions": "If skilled nursing facility infusion is declined, give the same regimen in the other supervised setting.",
+          "rationale": "The drug and dose do not change when only the infusion site changes."
+        }
+      ],
+      "hospital_only": false
+    },
+    {
+      "drug": "metoprolol",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "866412",
+      "synthea_product": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "en-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "en-base",
+            "en-ready"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "en-base",
+        "en-ready"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    },
+    {
+      "drug": "hydrochlorothiazide",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "regimen_id": "HCTZ_25_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "310798",
+      "synthea_product": "Hydrochlorothiazide 25 MG Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "en-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "en-base",
+            "en-ready"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "en-base",
+        "en-ready"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "Hydrochlorothiazide 25 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    }
+  ],
+  "reference_discharge_plan": {
+    "actions": [
+      {
+        "medication": "ceftriaxone",
+        "regimen_id": "CEFTRIAXONE_ENDOCARDITIS_OPAT",
+        "action": "continue",
+        "dose": "2000 MG",
+        "route": "intravenous",
+        "frequency": "once daily",
+        "indication": "streptococcal endocarditis after cultures and echocardiography",
+        "rationale": "Continuing ceftriaxone 2 g once daily to finish a four-week course is supported by the organism, the echocardiogram, preserved creatinine, clearance of bacteremia, and feasible outpatient parenteral therapy.",
+        "resident_visible_evidence": [
+          "en-work",
+          "en-treat",
+          "en-response",
+          "en-ready"
+        ],
+        "monitoring": "Weekly chemistry panel and complete blood count.",
+        "follow_up": "Infectious diseases within 7 days.",
+        "acceptable_alternatives": [
+          {
+            "alternative_action": "continue",
+            "conditions": "If skilled nursing facility infusion is declined, give the same regimen in the other supervised setting.",
+            "rationale": "The drug and dose do not change when only the infusion site changes."
+          }
+        ],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "metoprolol",
+        "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+        "action": "continue",
+        "dose": "100 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "unchanged outpatient indication",
+        "rationale": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "en-base",
+          "en-ready"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "hydrochlorothiazide",
+        "regimen_id": "HCTZ_25_DAILY",
+        "action": "continue",
+        "dose": "25 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "unchanged outpatient indication",
+        "rationale": "Hydrochlorothiazide 25 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "en-base",
+          "en-ready"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      }
+    ],
+    "provenance": "investigator_derived_reference"
+  },
+  "visible_fact_ids": [
+    "en-acute",
+    "en-base",
+    "en-dx",
+    "en-follow",
+    "en-precip",
+    "en-present",
+    "en-ready",
+    "en-response",
+    "en-treat",
+    "en-work"
+  ],
+  "source_rxcuis": [
+    "106892",
+    "309309",
+    "309362",
+    "310798",
+    "312961",
+    "705129",
+    "866412"
+  ],
+  "source_snomed": [
+    "109570002",
+    "127013003",
+    "128613002",
+    "1290882004",
+    "157141000119108",
+    "160903007",
+    "160904001",
+    "162864005",
+    "18718003",
+    "224299000",
+    "237602007",
+    "271737000",
+    "274531002",
+    "278558000",
+    "278598003",
+    "278602001",
+    "307426000",
+    "314529007",
+    "361055000",
+    "37320007",
+    "399261000",
+    "414545008",
+    "422650009",
+    "423315002",
+    "424393004",
+    "427898007",
+    "428211000124100",
+    "430193006",
+    "431855005",
+    "431856006",
+    "433144002",
+    "444814009",
+    "59621000",
+    "66383009",
+    "68496003",
+    "706893006",
+    "710824005",
+    "710841007",
+    "713197008",
+    "714628002",
+    "73595000",
+    "741062008",
+    "763302001",
+    "80583007",
+    "866148006",
+    "90781000119102"
+  ],
+  "control_error_status": "NO INTENTIONAL ERROR",
+  "provenance": {
+    "generation_method": "synthea_cliniproof_g2",
+    "synthea": {
+      "repository": "https://github.com/synthetichealth/synthea.git",
+      "commit": "d9d07a6eef91ee5144293b42ab64224d84d124f8",
+      "version": "master-branch-latest",
+      "population_seed": "20261008",
+      "reference_date": "20261008",
+      "fhir_version": "R4",
+      "java_version": "OpenJDK 21.0.10",
+      "synthetic_patient_id": "11774c22-f119-cf91-0df4-b0f18fa7390c"
+    },
+    "scenario": {
+      "code": "ENDOCARDITIS_OPAT",
+      "version": "g2-scenarios-v1"
+    },
+    "episode_generation_seed": "20261008:11774c22-f119-cf91-0df4-b0f18fa7390c:ENDOCARDITIS_OPAT:gi_source_evaluated",
+    "source_classes": [
+      "synthea_longitudinal",
+      "cliniproof_episode_generated",
+      "reference_terminology",
+      "investigator_derived_reference"
+    ],
+    "generated_at": "2026-10-08T00:00:00Z",
+    "narrative": "template rendering of structured facts; no language model",
+    "use_openai": false
+  },
+  "ready_for_clinician_review": true,
+  "clinically_validated": false
+}

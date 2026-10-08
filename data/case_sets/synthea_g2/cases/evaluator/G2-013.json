@@ -1,0 +1,1350 @@
+{
+  "case_id_code": "G2-013",
+  "ClinicalCase": {
+    "title": "TRANSPLANT_CMV G2-013",
+    "case_id_code": "G2-013",
+    "case_status": "candidate",
+    "generation_source": "synthetic",
+    "one_liner": "96-year-old Male with cytomegalovirus disease established during the hospitalization, not as the presenting label",
+    "admission_dx": "cytomegalovirus disease established during the hospitalization, not as the presenting label",
+    "disposition_status": "home",
+    "chief_complaint": "Diarrhea",
+    "patient_name": "G2-013",
+    "patient_age": 96,
+    "patient_gender": "Male",
+    "ethnicity": null,
+    "weight_kg": 82.9,
+    "social_context": "Longitudinal social history was not required for this episode.",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "transplant medicine",
+    "allergies": [],
+    "medical_history": [
+      "Chronic sinusitis (disorder)",
+      "Serving in military service (finding)",
+      "Received higher education (finding)",
+      "Has a criminal record (finding)",
+      "Kidney transplant status"
+    ],
+    "source_type": "synthea_cliniproof_g2",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Diarrhea",
+      "hpi": "The longitudinal record includes renal transplant status and extended-release tacrolimus. Other outpatient products in the extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; Hydrochlorothiazide 25 MG Oral Tablet; 24 HR tacrolimus 1 MG Extended Release Oral Tablet [Envarsus]; lisinopril 10 MG Oral Tablet; amLODIPine 2.5 MG Oral Tablet. Valganciclovir was not a home medicine. None was inferred from transplant status alone. Eight days of watery stool, up to ten movements a day, were new. The transplant and the immunosuppression are the predisposition. Rejection, drug toxicity, and ordinary gastroenteritis were still on the differential at arrival. Arrival creatinine was 1.8 mg/dL and potassium was 3.2 mmol/L. The mucous membranes were dry. The presentation was the symptom above, not a preassigned cytomegalovirus diagnosis.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "diarrhea"
+      ],
+      "symptom_duration": "eight days",
+      "symptom_course": "stool frequency or fever improved after diagnosis and antiviral therapy"
+    },
+    "social_support": {
+      "living_situation": "community",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready for clinician review of the discharge medication plan",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": true,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-G2-013-001",
+      "case_id": "G2-013",
+      "diagnosis": "Chronic sinusitis (disorder)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "40055000",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-013-002",
+      "case_id": "G2-013",
+      "diagnosis": "Serving in military service (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "1187604002",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-013-003",
+      "case_id": "G2-013",
+      "diagnosis": "Received higher education (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "224299000",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-013-004",
+      "case_id": "G2-013",
+      "diagnosis": "Has a criminal record (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "266948004",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-013-005",
+      "case_id": "G2-013",
+      "diagnosis": "Kidney transplant status",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": "Z94.0",
+      "snomed_code": null,
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-013-006",
+      "case_id": "G2-013",
+      "diagnosis": "Other cytomegaloviral diseases",
+      "diagnosis_type": "hospital",
+      "status": "active",
+      "context": "inpatient",
+      "provenance": "cliniproof_episode_generated",
+      "icd10cm": "B25.8",
+      "snomed_code": null,
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-013-007",
+      "case_id": "G2-013",
+      "diagnosis": "Acute kidney failure, unspecified",
+      "diagnosis_type": "hospital",
+      "status": "active",
+      "context": "inpatient",
+      "provenance": "cliniproof_episode_generated",
+      "icd10cm": "N17.9",
+      "snomed_code": null,
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-013-008",
+      "case_id": "G2-013",
+      "diagnosis": "Hypokalemia",
+      "diagnosis_type": "hospital",
+      "status": "active",
+      "context": "inpatient",
+      "provenance": "cliniproof_episode_generated",
+      "icd10cm": "E87.6",
+      "snomed_code": null,
+      "code_provenance": "reference_terminology"
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-G2-013-001",
+      "case_id": "G2-013",
+      "note_type": "admission",
+      "note_text": "The longitudinal record includes renal transplant status and extended-release tacrolimus. Other outpatient products in the extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; Hydrochlorothiazide 25 MG Oral Tablet; 24 HR tacrolimus 1 MG Extended Release Oral Tablet [Envarsus]; lisinopril 10 MG Oral Tablet; amLODIPine 2.5 MG Oral Tablet. Valganciclovir was not a home medicine. None was inferred from transplant status alone. Eight days of watery stool, up to ten movements a day, were new. The transplant and the immunosuppression are the predisposition. Rejection, drug toxicity, and ordinary gastroenteritis were still on the differential at arrival. Arrival creatinine was 1.8 mg/dL and potassium was 3.2 mmol/L. The mucous membranes were dry. The presentation was the symptom above, not a preassigned cytomegalovirus diagnosis.",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "note_id": "NOTE-G2-013-002",
+      "case_id": "G2-013",
+      "note_type": "hospital_course",
+      "note_text": "Plasma cytomegalovirus DNA was detected after the symptom evaluation. Flexible sigmoidoscopy then showed colitis, and the biopsy was consistent with cytomegalovirus colitis. The cytomegalovirus diagnosis followed that testing. It was not the admitting label. Valganciclovir induction, 900 MG twice daily, was started only after the diagnostic result. Tacrolimus was continued at the recorded once-daily extended-release dose. Mycophenolate was not added, because it was not in the longitudinal record. Creatinine at that point was 1.8 mg/dL and later 1.2 mg/dL, within the range for the full induction dose. Stool frequency fell to three movements a day and the patient was drinking. Potassium was 4.0 mmol/L after having been 3.2. Creatinine was 1.2 mg/dL. Plasma cytomegalovirus DNA was still detected, which is expected this early. The patient was keeping fluids down and walking. Follow-up with infectious diseases was arranged. The induction course was not signed as a finished discharge list. Weekly laboratory monitoring and infectious diseases follow-up were specified.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-G2-013-001",
+      "case_id": "G2-013",
+      "timepoint": "admission",
+      "time_rank": 1,
+      "temp_c": 37.1,
+      "bp_systolic": 108,
+      "bp_diastolic": 64,
+      "heart_rate": 112,
+      "resp_rate": 16,
+      "spo2_percent": 98,
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "vital_id": "VIT-G2-013-002",
+      "case_id": "G2-013",
+      "timepoint": "discharge",
+      "time_rank": 7,
+      "temp_c": 36.7,
+      "bp_systolic": 124,
+      "bp_diastolic": 74,
+      "heart_rate": 78,
+      "resp_rate": 16,
+      "spo2_percent": 98,
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-G2-013-001",
+      "case_id": "G2-013",
+      "timepoint": "baseline",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.1,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-013-002",
+      "case_id": "G2-013",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.8,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-013-003",
+      "case_id": "G2-013",
+      "timepoint": "peak",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.8,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-013-004",
+      "case_id": "G2-013",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.2,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-013-005",
+      "case_id": "G2-013",
+      "timepoint": "admission",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "loinc_code": "2823-3",
+      "value": 3.2,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-013-006",
+      "case_id": "G2-013",
+      "timepoint": "discharge",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "loinc_code": "2823-3",
+      "value": 4.0,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-013-007",
+      "case_id": "G2-013",
+      "timepoint": "intermediate",
+      "test_name": "Cytomegalovirus DNA [Presence] in Serum or Plasma by NAA with probe detection",
+      "loinc_code": "30246-3",
+      "value": null,
+      "value_text": "detected",
+      "unit": "",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-013-008",
+      "case_id": "G2-013",
+      "timepoint": "discharge",
+      "test_name": "Cytomegalovirus DNA [Presence] in Serum or Plasma by NAA with probe detection",
+      "loinc_code": "30246-3",
+      "value": null,
+      "value_text": "detected",
+      "unit": "",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-013-009",
+      "case_id": "G2-013",
+      "timepoint": "admission",
+      "test_name": "Leukocytes [#/volume] in Blood by Automated count",
+      "loinc_code": "6690-2",
+      "value": 6.2,
+      "value_text": null,
+      "unit": "10*3/uL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-013-010",
+      "case_id": "G2-013",
+      "timepoint": "discharge",
+      "test_name": "Leukocytes [#/volume] in Blood by Automated count",
+      "loinc_code": "6690-2",
+      "value": 5.8,
+      "value_text": null,
+      "unit": "10*3/uL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    }
+  ],
+  "CaseWeight": [],
+  "CaseImaging": [],
+  "CaseProcedure": [
+    {
+      "procedure_id": "PROC-G2-013-001",
+      "case_id": "G2-013",
+      "procedure_name": "Flexible sigmoidoscopy with biopsy",
+      "procedure_type": "inpatient",
+      "time": "hospital day 2",
+      "findings": "Colitis. Biopsy consistent with cytomegalovirus.",
+      "complications": "none",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseConsult": [],
+  "CaseMicrobiology": [],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-G2-013-001",
+      "case_id": "G2-013",
+      "context": "home",
+      "drug": "tacrolimus",
+      "reported_name": "tacrolimus",
+      "dose": "1 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "maintenance immunosuppression after kidney transplant",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Extended-release tacrolimus was continued once daily. It was not converted to an every-12-hour product.",
+      "regimen_id": "TACROLIMUS_ER_1MG_DAILY",
+      "rxcui": "1664463",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-013-002",
+      "case_id": "G2-013",
+      "context": "inpatient",
+      "drug": "tacrolimus",
+      "reported_name": "tacrolimus",
+      "dose": "1 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "maintenance immunosuppression after kidney transplant",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Extended-release tacrolimus was continued once daily. It was not converted to an every-12-hour product.",
+      "regimen_id": "TACROLIMUS_ER_1MG_DAILY",
+      "rxcui": "1664463",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-013-003",
+      "case_id": "G2-013",
+      "context": "inpatient",
+      "drug": "valganciclovir",
+      "reported_name": "valganciclovir",
+      "dose": "900 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "cytomegalovirus induction after laboratory or histologic confirmation",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Started after confirmation. Not a home medicine. Induction dose 900 MG twice daily.",
+      "regimen_id": "VALGANCICLOVIR_CMV_TREATMENT",
+      "rxcui": null,
+      "identity_provenance": "cliniproof_episode_generated",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "medication_id": "MED-G2-013-004",
+      "case_id": "G2-013",
+      "context": "home",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "rxcui": "866412",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-013-005",
+      "case_id": "G2-013",
+      "context": "inpatient",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "rxcui": "866412",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-013-006",
+      "case_id": "G2-013",
+      "context": "home",
+      "drug": "hydrochlorothiazide",
+      "reported_name": "hydrochlorothiazide",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "HCTZ_25_DAILY",
+      "rxcui": "310798",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-013-007",
+      "case_id": "G2-013",
+      "context": "inpatient",
+      "drug": "hydrochlorothiazide",
+      "reported_name": "hydrochlorothiazide",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "HCTZ_25_DAILY",
+      "rxcui": "310798",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-013-008",
+      "case_id": "G2-013",
+      "context": "home",
+      "drug": "lisinopril",
+      "reported_name": "lisinopril",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "LISINOPRIL_10_DAILY",
+      "rxcui": "314076",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-013-009",
+      "case_id": "G2-013",
+      "context": "inpatient",
+      "drug": "lisinopril",
+      "reported_name": "lisinopril",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "LISINOPRIL_10_DAILY",
+      "rxcui": "314076",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-013-010",
+      "case_id": "G2-013",
+      "context": "home",
+      "drug": "amlodipine",
+      "reported_name": "amlodipine",
+      "dose": "2.5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "AMLODIPINE_2_5_DAILY",
+      "rxcui": "308136",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-013-011",
+      "case_id": "G2-013",
+      "context": "inpatient",
+      "drug": "amlodipine",
+      "reported_name": "amlodipine",
+      "dose": "2.5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "AMLODIPINE_2_5_DAILY",
+      "rxcui": "308136",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    }
+  ],
+  "CaseMedicationReconciliation": [],
+  "CaseMonitoring": [
+    {
+      "monitoring_id": "MON-G2-013-001",
+      "case_id": "G2-013",
+      "parameter": "complete blood count, creatinine, and cytomegalovirus DNA",
+      "frequency": "weekly",
+      "target": "during induction",
+      "trigger_for_action": "",
+      "duration": "until the first follow-up visit",
+      "responsible_service": "infectious diseases",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-G2-013-001",
+      "case_id": "G2-013",
+      "item": "infectious diseases",
+      "timing": "within 7 days",
+      "with_service": "infectious diseases",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseInstruction": [
+    {
+      "instruction_id": "INS-G2-013-001",
+      "case_id": "G2-013",
+      "category": "discharge medication task",
+      "instruction_text": "Determine the discharge medication plan from this hospitalization. A completed discharge medication list is not provided.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseIntakeOutput": [],
+  "scenario_code": "TRANSPLANT_CMV",
+  "scenario_version": "g2-scenarios-v1",
+  "variant_id": "colitis_biopsy",
+  "eligibility_tier": "synthea_renal_transplant",
+  "synthea_patient_id": "1a3d2701-3ca4-7e38-8a63-0cf5c699c025",
+  "episode_generation_seed": "20261008:1a3d2701-3ca4-7e38-8a63-0cf5c699c025:TRANSPLANT_CMV:colitis_biopsy",
+  "fingerprint": {
+    "scenario": "TRANSPLANT_CMV",
+    "variant_id": "colitis_biopsy",
+    "precipitant": "diarrhea_without_prior_antiviral",
+    "diagnostic_pathway": "stool_studies_pcr_then_biopsy",
+    "renal_pattern": "aki_recovered",
+    "procedure": "flex_sig_biopsy",
+    "disposition": "home",
+    "prophylaxis": "no_home_antiviral",
+    "disease_form": "colitis",
+    "med_signature": "amlodipine:continue|hydrochlorothiazide:continue|lisinopril:continue|metoprolol:continue|tacrolimus:continue|valganciclovir:new_start"
+  },
+  "physiology_expectations": [
+    "aki_recovered"
+  ],
+  "facts": [
+    {
+      "fact_id": "tx-base",
+      "domains": [
+        "baseline"
+      ],
+      "text": "The longitudinal record includes renal transplant status and extended-release tacrolimus. Other outpatient products in the extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; Hydrochlorothiazide 25 MG Oral Tablet; 24 HR tacrolimus 1 MG Extended Release Oral Tablet [Envarsus]; lisinopril 10 MG Oral Tablet; amLODIPine 2.5 MG Oral Tablet.",
+      "provenance": "synthea_longitudinal",
+      "time_order": 10,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "tx-no-antiviral",
+      "domains": [
+        "baseline",
+        "medication_decision"
+      ],
+      "text": "Valganciclovir was not a home medicine. None was inferred from transplant status alone.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 14,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "tx-acute",
+      "domains": [
+        "acute_change"
+      ],
+      "text": "Eight days of watery stool, up to ten movements a day, were new.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 20,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "tx-precip",
+      "domains": [
+        "precipitant"
+      ],
+      "text": "The transplant and the immunosuppression are the predisposition. Rejection, drug toxicity, and ordinary gastroenteritis were still on the differential at arrival.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 30,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "tx-present",
+      "domains": [
+        "presentation"
+      ],
+      "text": "Arrival creatinine was 1.8 mg/dL and potassium was 3.2 mmol/L. The mucous membranes were dry. The presentation was the symptom above, not a preassigned cytomegalovirus diagnosis.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 40,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "tx-work",
+      "domains": [
+        "workup"
+      ],
+      "text": "Plasma cytomegalovirus DNA was detected after the symptom evaluation. Flexible sigmoidoscopy then showed colitis, and the biopsy was consistent with cytomegalovirus colitis.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 50,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "tx-dx",
+      "domains": [
+        "diagnosis"
+      ],
+      "text": "The cytomegalovirus diagnosis followed that testing. It was not the admitting label.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 60,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "tx-treat",
+      "domains": [
+        "treatment",
+        "medication_decision"
+      ],
+      "text": "Valganciclovir induction, 900 MG twice daily, was started only after the diagnostic result. Tacrolimus was continued at the recorded once-daily extended-release dose. Mycophenolate was not added, because it was not in the longitudinal record. Creatinine at that point was 1.8 mg/dL and later 1.2 mg/dL, within the range for the full induction dose.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 70,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "tx-response",
+      "domains": [
+        "response",
+        "physiology"
+      ],
+      "text": "Stool frequency fell to three movements a day and the patient was drinking. Potassium was 4.0 mmol/L after having been 3.2. Creatinine was 1.2 mg/dL. Plasma cytomegalovirus DNA was still detected, which is expected this early.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 80,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "tx-ready",
+      "domains": [
+        "discharge_readiness"
+      ],
+      "text": "The patient was keeping fluids down and walking. Follow-up with infectious diseases was arranged. The induction course was not signed as a finished discharge list.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 90,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "tx-follow",
+      "domains": [
+        "followup"
+      ],
+      "text": "Weekly laboratory monitoring and infectious diseases follow-up were specified.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 95,
+      "section": "course",
+      "resident_visible": true
+    }
+  ],
+  "timeline": [
+    {
+      "event_id": "ev-baseline-10",
+      "event_type": "baseline",
+      "time_order": 10,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Transplant and tacrolimus",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-acute_change-20",
+      "event_type": "acute_change",
+      "time_order": 20,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "New symptoms",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-precipitant-30",
+      "event_type": "precipitant",
+      "time_order": 30,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "diarrhea_without_prior_antiviral",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-presentation-40",
+      "event_type": "presentation",
+      "time_order": 40,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Symptom presentation",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-workup-50",
+      "event_type": "workup",
+      "time_order": 50,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Testing before antiviral induction",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-diagnosis-60",
+      "event_type": "diagnosis",
+      "time_order": 60,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Cytomegalovirus disease after testing",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-treatment-70",
+      "event_type": "treatment",
+      "time_order": 70,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Induction after the result",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-response-80",
+      "event_type": "response",
+      "time_order": 80,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Symptom and volume response",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-discharge-100",
+      "event_type": "discharge",
+      "time_order": 100,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Ready for an unsigned discharge plan",
+      "supporting_data": [],
+      "empiric": false
+    }
+  ],
+  "medication_decisions": [
+    {
+      "drug": "tacrolimus",
+      "dose": "1 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "maintenance immunosuppression after kidney transplant",
+      "regimen_id": "TACROLIMUS_ER_1MG_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "1664463",
+      "synthea_product": "24 HR tacrolimus 1 MG Extended Release Oral Tablet [Envarsus]",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "longitudinal outpatient product",
+          "evidence": [
+            "tx-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "transplant indication unchanged and no new contraindication",
+          "evidence": [
+            "tx-treat"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "tx-base",
+        "tx-treat",
+        "tx-response"
+      ],
+      "resident_note": "Extended-release tacrolimus was continued once daily. It was not converted to an every-12-hour product.",
+      "rationale": "Continuing the recorded extended-release dose is supported by ongoing transplant indication and the absence of a toxicity event that required a change.",
+      "monitoring": "Tacrolimus trough at the transplant visit.",
+      "follow_up": "infectious diseases",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    },
+    {
+      "drug": "valganciclovir",
+      "dose": "900 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "cytomegalovirus induction after laboratory or histologic confirmation",
+      "regimen_id": "VALGANCICLOVIR_CMV_TREATMENT",
+      "identity_provenance": "cliniproof_episode_generated",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": null,
+      "synthea_product": null,
+      "states": [
+        {
+          "state": "new_inpatient",
+          "time_order": 70,
+          "trigger": "started after the diagnostic result",
+          "evidence": [
+            "tx-dx",
+            "tx-treat"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "new_start",
+      "evidence_ids": [
+        "tx-work",
+        "tx-dx",
+        "tx-treat",
+        "tx-response"
+      ],
+      "resident_note": "Started after confirmation. Not a home medicine. Induction dose 900 MG twice daily.",
+      "rationale": "Starting induction is supported because the drug was absent at home, the diagnosis followed testing, and renal function allows the labeled induction dose.",
+      "monitoring": "Weekly complete blood count, creatinine, and cytomegalovirus DNA.",
+      "follow_up": "infectious diseases within 7 days.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    },
+    {
+      "drug": "metoprolol",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "866412",
+      "synthea_product": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "tx-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "tx-base",
+            "tx-ready"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "tx-base",
+        "tx-ready"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    },
+    {
+      "drug": "hydrochlorothiazide",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "regimen_id": "HCTZ_25_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "310798",
+      "synthea_product": "Hydrochlorothiazide 25 MG Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "tx-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "tx-base",
+            "tx-ready"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "tx-base",
+        "tx-ready"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "Hydrochlorothiazide 25 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    },
+    {
+      "drug": "lisinopril",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "regimen_id": "LISINOPRIL_10_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "314076",
+      "synthea_product": "lisinopril 10 MG Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "tx-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "tx-base",
+            "tx-ready"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "tx-base",
+        "tx-ready"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "lisinopril 10 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    },
+    {
+      "drug": "amlodipine",
+      "dose": "2.5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "regimen_id": "AMLODIPINE_2_5_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "308136",
+      "synthea_product": "amLODIPine 2.5 MG Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "tx-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "tx-base",
+            "tx-ready"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "tx-base",
+        "tx-ready"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "amLODIPine 2.5 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    }
+  ],
+  "reference_discharge_plan": {
+    "actions": [
+      {
+        "medication": "tacrolimus",
+        "regimen_id": "TACROLIMUS_ER_1MG_DAILY",
+        "action": "continue",
+        "dose": "1 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "maintenance immunosuppression after kidney transplant",
+        "rationale": "Continuing the recorded extended-release dose is supported by ongoing transplant indication and the absence of a toxicity event that required a change.",
+        "resident_visible_evidence": [
+          "tx-base",
+          "tx-treat",
+          "tx-response"
+        ],
+        "monitoring": "Tacrolimus trough at the transplant visit.",
+        "follow_up": "infectious diseases",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "valganciclovir",
+        "regimen_id": "VALGANCICLOVIR_CMV_TREATMENT",
+        "action": "new_start",
+        "dose": "900 MG",
+        "route": "oral",
+        "frequency": "twice daily",
+        "indication": "cytomegalovirus induction after laboratory or histologic confirmation",
+        "rationale": "Starting induction is supported because the drug was absent at home, the diagnosis followed testing, and renal function allows the labeled induction dose.",
+        "resident_visible_evidence": [
+          "tx-work",
+          "tx-dx",
+          "tx-treat",
+          "tx-response"
+        ],
+        "monitoring": "Weekly complete blood count, creatinine, and cytomegalovirus DNA.",
+        "follow_up": "infectious diseases within 7 days.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "metoprolol",
+        "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+        "action": "continue",
+        "dose": "100 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "unchanged outpatient indication",
+        "rationale": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "tx-base",
+          "tx-ready"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "hydrochlorothiazide",
+        "regimen_id": "HCTZ_25_DAILY",
+        "action": "continue",
+        "dose": "25 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "unchanged outpatient indication",
+        "rationale": "Hydrochlorothiazide 25 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "tx-base",
+          "tx-ready"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "lisinopril",
+        "regimen_id": "LISINOPRIL_10_DAILY",
+        "action": "continue",
+        "dose": "10 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "unchanged outpatient indication",
+        "rationale": "lisinopril 10 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "tx-base",
+          "tx-ready"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "amlodipine",
+        "regimen_id": "AMLODIPINE_2_5_DAILY",
+        "action": "continue",
+        "dose": "2.5 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "unchanged outpatient indication",
+        "rationale": "amLODIPine 2.5 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "tx-base",
+          "tx-ready"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      }
+    ],
+    "provenance": "investigator_derived_reference"
+  },
+  "visible_fact_ids": [
+    "tx-acute",
+    "tx-base",
+    "tx-dx",
+    "tx-follow",
+    "tx-no-antiviral",
+    "tx-precip",
+    "tx-present",
+    "tx-ready",
+    "tx-response",
+    "tx-treat",
+    "tx-work"
+  ],
+  "source_rxcuis": [
+    "106892",
+    "1599803",
+    "1664463",
+    "198031",
+    "308136",
+    "309362",
+    "310436",
+    "310798",
+    "312961",
+    "314076",
+    "314231",
+    "705129",
+    "856987",
+    "866412"
+  ],
+  "source_snomed": [
+    "109570002",
+    "1121000119107",
+    "1187604002",
+    "126906006",
+    "127013003",
+    "157141000119108",
+    "160903007",
+    "160904001",
+    "161665007",
+    "162864005",
+    "171207006",
+    "18718003",
+    "224299000",
+    "237602007",
+    "243085009",
+    "266948004",
+    "26929004",
+    "271737000",
+    "274531002",
+    "274788003",
+    "278860009",
+    "314529007",
+    "37320007",
+    "399261000",
+    "40055000",
+    "414545008",
+    "422650009",
+    "423315002",
+    "424393004",
+    "430193006",
+    "431855005",
+    "431856006",
+    "431857002",
+    "433144002",
+    "444814009",
+    "449868002",
+    "55822004",
+    "5602001",
+    "59621000",
+    "64859006",
+    "66383009",
+    "698306007",
+    "706893006",
+    "710824005",
+    "710841007",
+    "714628002",
+    "73595000",
+    "741062008",
+    "762993000",
+    "80583007",
+    "82423001",
+    "90781000119102",
+    "92691004"
+  ],
+  "control_error_status": "NO INTENTIONAL ERROR",
+  "provenance": {
+    "generation_method": "synthea_cliniproof_g2",
+    "synthea": {
+      "repository": "https://github.com/synthetichealth/synthea.git",
+      "commit": "d9d07a6eef91ee5144293b42ab64224d84d124f8",
+      "version": "master-branch-latest",
+      "population_seed": "20261008",
+      "reference_date": "20261008",
+      "fhir_version": "R4",
+      "java_version": "OpenJDK 21.0.10",
+      "synthetic_patient_id": "1a3d2701-3ca4-7e38-8a63-0cf5c699c025"
+    },
+    "scenario": {
+      "code": "TRANSPLANT_CMV",
+      "version": "g2-scenarios-v1"
+    },
+    "episode_generation_seed": "20261008:1a3d2701-3ca4-7e38-8a63-0cf5c699c025:TRANSPLANT_CMV:colitis_biopsy",
+    "source_classes": [
+      "synthea_longitudinal",
+      "cliniproof_episode_generated",
+      "reference_terminology",
+      "investigator_derived_reference"
+    ],
+    "generated_at": "2026-10-08T00:00:00Z",
+    "narrative": "template rendering of structured facts; no language model",
+    "use_openai": false
+  },
+  "ready_for_clinician_review": true,
+  "clinically_validated": false
+}

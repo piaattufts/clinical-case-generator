@@ -1,0 +1,578 @@
+{
+  "case_id_code": "G2-007",
+  "ClinicalCase": {
+    "title": "HF_DECOMPENSATION G2-007",
+    "case_id_code": "G2-007",
+    "case_status": "candidate",
+    "generation_source": "synthetic",
+    "one_liner": "67-year-old Male with new pulmonary edema with heart failure established during the stay",
+    "admission_dx": "new pulmonary edema with heart failure established during the stay",
+    "disposition_status": "home",
+    "chief_complaint": "Progressive dyspnea, orthopnea, and leg swelling",
+    "patient_name": "G2-007",
+    "patient_age": 67,
+    "patient_gender": "Male",
+    "ethnicity": null,
+    "weight_kg": 82.2,
+    "social_context": "Longitudinal social history was not required for this episode.",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "cardiology",
+    "allergies": [],
+    "medical_history": [
+      "Chronic sinusitis (disorder)",
+      "Housing unsatisfactory (finding)",
+      "Educated to high school level (finding)",
+      "Body mass index 30+ - obesity (finding)"
+    ],
+    "source_type": "synthea_cliniproof_g2",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Progressive dyspnea, orthopnea, and leg swelling",
+      "hpi": "The longitudinal record does not list heart failure. Cardiovascular disease and cardiac medication are present. Outpatient products in the longitudinal extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; lisinopril 10 MG Oral Tablet; amLODIPine 2.5 MG Oral Tablet. No pre-admission creatinine was in the extracted record. The first creatinine used as the pre-treatment baseline was 1.0 mg/dL. The most recent longitudinal weight was 82.2 kg. Over five days dyspnea progressed from exertion to conversation, orthopnea required three pillows, and both legs became swollen. Those symptoms were not the patient's usual state. Telemetry after arrival showed atrial fibrillation with a ventricular rate of 138. The longitudinal extract did not list atrial fibrillation, so this rhythm was new. On arrival the weight was 87.7 kg, oxygen saturation was 91 percent on room air, the respiratory rate was 26, the jugular venous pressure was elevated, and crackles were present halfway up both lung fields. There was pitting edema to the knees.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "dyspnea",
+        "orthopnea",
+        "leg edema"
+      ],
+      "symptom_duration": "five days",
+      "symptom_course": "worse until diuresis, then returned toward the pre-admission baseline"
+    },
+    "social_support": {
+      "living_situation": "community",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready for clinician review of the discharge medication plan",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": true,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-G2-007-001",
+      "case_id": "G2-007",
+      "diagnosis": "Chronic sinusitis (disorder)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "40055000",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-007-002",
+      "case_id": "G2-007",
+      "diagnosis": "Housing unsatisfactory (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "105531004",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-007-003",
+      "case_id": "G2-007",
+      "diagnosis": "Educated to high school level (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "473461003",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-007-004",
+      "case_id": "G2-007",
+      "diagnosis": "Body mass index 30+ - obesity (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "162864005",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-007-005",
+      "case_id": "G2-007",
+      "diagnosis": "Acute systolic (congestive) heart failure",
+      "diagnosis_type": "hospital",
+      "status": "active",
+      "context": "inpatient",
+      "provenance": "cliniproof_episode_generated",
+      "icd10cm": "I50.21",
+      "snomed_code": null,
+      "code_provenance": "reference_terminology"
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-G2-007-001",
+      "case_id": "G2-007",
+      "note_type": "admission",
+      "note_text": "The longitudinal record does not list heart failure. Cardiovascular disease and cardiac medication are present. Outpatient products in the longitudinal extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; lisinopril 10 MG Oral Tablet; amLODIPine 2.5 MG Oral Tablet. No pre-admission creatinine was in the extracted record. The first creatinine used as the pre-treatment baseline was 1.0 mg/dL. The most recent longitudinal weight was 82.2 kg. Over five days dyspnea progressed from exertion to conversation, orthopnea required three pillows, and both legs became swollen. Those symptoms were not the patient's usual state. Telemetry after arrival showed atrial fibrillation with a ventricular rate of 138. The longitudinal extract did not list atrial fibrillation, so this rhythm was new. On arrival the weight was 87.7 kg, oxygen saturation was 91 percent on room air, the respiratory rate was 26, the jugular venous pressure was elevated, and crackles were present halfway up both lung fields. There was pitting edema to the knees.",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "note_id": "NOTE-G2-007-002",
+      "case_id": "G2-007",
+      "note_type": "hospital_course",
+      "note_text": "The chest radiograph showed pulmonary edema. Natriuretic peptide B was elevated. Troponin I remained 0.01 ng/mL, arguing against an acute coronary occlusion as the cause. A transthoracic echocardiogram, obtained after the radiograph, showed reduced left-ventricular systolic function and a congested filling pattern. The numeric ejection fraction was estimated at 40 percent. Those findings established Acute systolic (congestive) heart failure. The diagnosis was not used as the presenting label before the examination, radiograph, natriuretic peptide, and echocardiogram. No loop diuretic was in the longitudinal extract. Intravenous furosemide was begun for congestion and then converted to oral furosemide 40 MG daily. Daily weights and net fluid output were recorded. No angiotensin-converting enzyme inhibitor or angiotensin-receptor blocker from a curated regimen was held. By hospital day 4 the weight was 83.0 kg, oxygen saturation was 96 percent on room air, the respiratory rate was 16, and the patient could lie flat. Creatinine was 1.0 mg/dL after a peak of 1.1. Potassium was 4.3 mmol/L. Dyspnea had returned to the pre-admission baseline rather than merely being called improved. The patient was walking on the ward, eating, and without resting dyspnea or new chest pain. The unsigned task is the discharge medication plan, not another day of intravenous diuresis. Heart-failure clinic follow-up and a chemistry panel were arranged. Home weight monitoring was requested.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-G2-007-001",
+      "case_id": "G2-007",
+      "timepoint": "admission",
+      "time_rank": 1,
+      "temp_c": 36.8,
+      "bp_systolic": 150,
+      "bp_diastolic": 90,
+      "heart_rate": 138,
+      "resp_rate": 26,
+      "spo2_percent": 91,
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "vital_id": "VIT-G2-007-002",
+      "case_id": "G2-007",
+      "timepoint": "discharge",
+      "time_rank": 7,
+      "temp_c": 36.7,
+      "bp_systolic": 124,
+      "bp_diastolic": 72,
+      "heart_rate": 74,
+      "resp_rate": 16,
+      "spo2_percent": 96,
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-G2-007-001",
+      "case_id": "G2-007",
+      "timepoint": "baseline",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.0,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-007-002",
+      "case_id": "G2-007",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.1,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-007-003",
+      "case_id": "G2-007",
+      "timepoint": "peak",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.1,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-007-004",
+      "case_id": "G2-007",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.0,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-007-005",
+      "case_id": "G2-007",
+      "timepoint": "admission",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "loinc_code": "2823-3",
+      "value": 4.6,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-007-006",
+      "case_id": "G2-007",
+      "timepoint": "discharge",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "loinc_code": "2823-3",
+      "value": 4.3,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-007-007",
+      "case_id": "G2-007",
+      "timepoint": "admission",
+      "test_name": "Natriuretic peptide B [Mass/volume] in Serum or Plasma",
+      "loinc_code": "30934-4",
+      "value": 1280,
+      "value_text": null,
+      "unit": "pg/mL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-007-008",
+      "case_id": "G2-007",
+      "timepoint": "discharge",
+      "test_name": "Natriuretic peptide B [Mass/volume] in Serum or Plasma",
+      "loinc_code": "30934-4",
+      "value": 410,
+      "value_text": null,
+      "unit": "pg/mL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-007-009",
+      "case_id": "G2-007",
+      "timepoint": "admission",
+      "test_name": "Troponin I.cardiac [Mass/volume] in Serum or Plasma",
+      "loinc_code": "10839-9",
+      "value": 0.01,
+      "value_text": null,
+      "unit": "ng/mL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-007-010",
+      "case_id": "G2-007",
+      "timepoint": "intermediate",
+      "test_name": "Troponin I.cardiac [Mass/volume] in Serum or Plasma",
+      "loinc_code": "10839-9",
+      "value": 0.01,
+      "value_text": null,
+      "unit": "ng/mL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    }
+  ],
+  "CaseWeight": [
+    {
+      "weight_id": "WT-G2-007-001",
+      "case_id": "G2-007",
+      "timepoint": "baseline",
+      "weight_kg": 82.2,
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "weight_id": "WT-G2-007-002",
+      "case_id": "G2-007",
+      "timepoint": "admission",
+      "weight_kg": 87.7,
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "weight_id": "WT-G2-007-003",
+      "case_id": "G2-007",
+      "timepoint": "discharge",
+      "weight_kg": 83.0,
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseImaging": [
+    {
+      "study_id": "STUDY-G2-007-001",
+      "case_id": "G2-007",
+      "timepoint": "admission",
+      "study_type": "Chest radiograph",
+      "body_site": "",
+      "finding": "Bilateral pulmonary edema without a focal lobar consolidation.",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "study_id": "STUDY-G2-007-002",
+      "case_id": "G2-007",
+      "timepoint": "hospital_day_1",
+      "study_type": "Transthoracic echocardiogram",
+      "body_site": "",
+      "finding": "Reduced left-ventricular systolic function, estimated ejection fraction 40 percent, congested filling.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseProcedure": [],
+  "CaseConsult": [
+    {
+      "consult_id": "CON-G2-007-001",
+      "case_id": "G2-007",
+      "service": "cardiology",
+      "timepoint": "inpatient",
+      "assessment": "Congestion responded to diuresis. Ischemic and arrhythmic evaluation was the one described in the course.",
+      "recommendation": "Primary team to complete the unsigned discharge medication reconciliation.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseMicrobiology": [],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-G2-007-001",
+      "case_id": "G2-007",
+      "context": "inpatient",
+      "drug": "furosemide",
+      "reported_name": "furosemide",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "new congestion from heart failure",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Oral furosemide 40 MG daily replaced intravenous furosemide once the weight was falling.",
+      "regimen_id": "FUROSEMIDE_40_DAILY",
+      "rxcui": null,
+      "identity_provenance": "cliniproof_episode_generated",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "medication_id": "MED-G2-007-002",
+      "case_id": "G2-007",
+      "context": "home",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "outpatient condition still present",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "rxcui": "866412",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-007-003",
+      "case_id": "G2-007",
+      "context": "inpatient",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "outpatient condition still present",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "rxcui": "866412",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-007-004",
+      "case_id": "G2-007",
+      "context": "home",
+      "drug": "lisinopril",
+      "reported_name": "lisinopril",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "outpatient condition still present",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "LISINOPRIL_10_DAILY",
+      "rxcui": "314076",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-007-005",
+      "case_id": "G2-007",
+      "context": "inpatient",
+      "drug": "lisinopril",
+      "reported_name": "lisinopril",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "outpatient condition still present",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "LISINOPRIL_10_DAILY",
+      "rxcui": "314076",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-007-006",
+      "case_id": "G2-007",
+      "context": "home",
+      "drug": "amlodipine",
+      "reported_name": "amlodipine",
+      "dose": "2.5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "outpatient condition still present",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "AMLODIPINE_2_5_DAILY",
+      "rxcui": "308136",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-007-007",
+      "case_id": "G2-007",
+      "context": "inpatient",
+      "drug": "amlodipine",
+      "reported_name": "amlodipine",
+      "dose": "2.5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "outpatient condition still present",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "AMLODIPINE_2_5_DAILY",
+      "rxcui": "308136",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    }
+  ],
+  "CaseMedicationReconciliation": [],
+  "CaseMonitoring": [
+    {
+      "monitoring_id": "MON-G2-007-001",
+      "case_id": "G2-007",
+      "parameter": "weight",
+      "frequency": "each morning",
+      "target": "call if more than 2 kg above the discharge weight",
+      "trigger_for_action": "",
+      "duration": "until the first follow-up visit",
+      "responsible_service": "patient",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "monitoring_id": "MON-G2-007-002",
+      "case_id": "G2-007",
+      "parameter": "chemistry panel",
+      "frequency": "within 7 days",
+      "target": "review creatinine and potassium",
+      "trigger_for_action": "",
+      "duration": "until the first follow-up visit",
+      "responsible_service": "primary care",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-G2-007-001",
+      "case_id": "G2-007",
+      "item": "Heart-failure clinic",
+      "timing": "within 7 days",
+      "with_service": "cardiology",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "followup_id": "FU-G2-007-002",
+      "case_id": "G2-007",
+      "item": "Primary care",
+      "timing": "within 7 days",
+      "with_service": "primary care",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseInstruction": [
+    {
+      "instruction_id": "INS-G2-007-001",
+      "case_id": "G2-007",
+      "category": "discharge medication task",
+      "instruction_text": "Determine the discharge medication plan from this hospitalization. A completed discharge medication list is not provided.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseIntakeOutput": [
+    {
+      "io_id": "IO-G2-007-001",
+      "case_id": "G2-007",
+      "timepoint": "diuresis",
+      "intake_ml": 8000,
+      "output_ml": 12700,
+      "net_ml": -4700,
+      "notes": "Net negative balance during the diuretic phase, in the same direction as the weight loss.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+# Generation 2 Synthea substrate. The checkout itself is external.
+# Bulk FHIR stays in data/synthea/raw/ and is gitignored.
+repository: https://github.com/synthetichealth/synthea.git
+commit: d9d07a6eef91ee5144293b42ab64224d84d124f8
+version: master-branch-latest
+java_version: OpenJDK 21.0.10
+fhir_version: R4
+us_core_version: 6.1.0
+population_size: 1000
+seed: 20261008
+reference_date: 20261008
+geography_state: Massachusetts
+geography_city:
+export_format: FHIR R4 transaction Bundle
+years_of_history: 10
+exporter_fhir: true
+exporter_hospital_fhir: false
+exporter_practitioner_fhir: false
+command: ./run_synthea -s 20261008 -p 1000 -r 20261008 Massachusetts --exporter.fhir.export=true --exporter.years_of_history=10 --exporter.baseDirectory=<local raw directory> --exporter.hospital.fhir.export=false --exporter.practitioner.fhir.export=false --exporter.metadata.export=false
+notes: >
+  Alive population size is the Synthea -p argument. Deceased patients are
+  exported in addition to that population and are excluded from eligibility.
+  The local raw directory is not recorded in case files.

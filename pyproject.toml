@@ -58,6 +58,12 @@ select = ["E", "F", "I", "UP", "B", "W"]
 "scripts/build_overlap4_revision.py" = ["E501"]
 "scripts/build_remaining20_revision.py" = ["E501"]
 "scripts/remaining20_later.py" = ["E501"]
+"app/services/g2_*.py" = ["E501"]
+"app/services/discharge_episode.py" = ["E501"]
+"app/services/synthea_*.py" = ["E501"]
+"app/sources/synthea.py" = ["E501"]
+"scripts/build_synthea_g2.py" = ["E501"]
+"tests/test_synthea_g2.py" = ["E501"]
 
 [tool.mypy]
 python_version = "3.12"
