@@ -35,26 +35,12 @@ The working tree keeps one original seed-guided study set, one canonical clean b
 | --- | --- | --- |
 | Original frozen seed-guided set | Historical first-round study source, batch `CLINIPROOF_SEEDCASES_V3`, VAL-801–VAL-824 | [data/case_sets/seed_guided/](data/case_sets/seed_guided/) |
 | Canonical clean base | Starting point for the current clinical revision: 24 clean cases and 48 resident/evaluator JSON files | [data/case_sets/seed_guided/CLEAN_BASE/](data/case_sets/seed_guided/CLEAN_BASE/) |
-| Reviewer 1 completed review | Original clinician feedback, preserved byte for byte | [docs/clinical_feedback/reviewer_1/KO_Casebook_Validation.docx](docs/clinical_feedback/reviewer_1/KO_Casebook_Validation.docx) |
-| Reviewer 2 completed review | Original clinician feedback, preserved byte for byte | [docs/clinical_feedback/reviewer_2/CliniProof_SeedGuided_Validation_Casebook_final_alex.docx](docs/clinical_feedback/reviewer_2/CliniProof_SeedGuided_Validation_Casebook_final_alex.docx) |
-| Reviewer comparison | Normalized case-level comparison | [docs/clinical_feedback/reviewer_comparison.md](docs/clinical_feedback/reviewer_comparison.md) |
+| Reviewer comparison | Normalized case-level comparison (2 reviewers) | [docs/clinical_feedback/reviewer_comparison.md](docs/clinical_feedback/reviewer_comparison.md) |
 | Validation instrument | Unchanged clinical coding form | [docs/validation/CliniProof_Clinical_Validation_Template.docx](docs/validation/CliniProof_Clinical_Validation_Template.docx) |
 | Methodology | Current iterative clinician-review method | [docs/methodology.md](docs/methodology.md) |
 | Revised overlap cases | VAL-801, VAL-805, VAL-809, VAL-813, ready for the next clinician review and not clinically validated | [data/case_sets/seed_guided/REVISED/overlap_4/](data/case_sets/seed_guided/REVISED/overlap_4/) |
 
 The original freeze lives in [data/case_sets/seed_guided/](data/case_sets/seed_guided/) excluding [CLEAN_BASE/](data/case_sets/seed_guided/CLEAN_BASE/). `CLEAN_BASE` is stored inside that directory so the clean charts stay next to the freeze they were recovered from. It is a separate artifact. The freeze still contains the historical planted-error variants. The clean base does not.
-
-## Clinician review source documents
-
-Two completed clinician-review documents were received independently. Each reviewer used the seed-guided validation casebook. The completed forms are preserved byte for byte as source material. This README does not rewrite their comments, and it does not fill in ratings that the forms left blank.
-
-Reviewer 1 completed casebook: [KO_Casebook_Validation.docx](docs/clinical_feedback/reviewer_1/KO_Casebook_Validation.docx).
-
-Reviewer 2 completed casebook: [CliniProof_SeedGuided_Validation_Casebook_final_alex.docx](docs/clinical_feedback/reviewer_2/CliniProof_SeedGuided_Validation_Casebook_final_alex.docx).
-
-The blank instrument those reviews used, with every checkbox unchecked, is the [clinical validation template](docs/validation/CliniProof_Clinical_Validation_Template.docx). Field definitions are in [CODEBOOK.md](docs/validation/CODEBOOK.md). The normalized extraction is a reading aid. It does not replace either Word file.
-
-The validation casebooks are fillable Microsoft Word documents. Click the checkboxes to select ratings and type comments directly into the provided fields. Select one response per rating item. Open the file in desktop Microsoft Word.
 
 ## Review coverage
 
