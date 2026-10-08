@@ -71,46 +71,102 @@ On Reviewer 2’s four reviewed cases, C2 through C5 and the overall recommendat
 
 ## Case-level comparison of the two reviews
 
-The two reviews were compared with the same coding structure. The analysis is case-based. For each reviewed case the comparison preserves the original rating, preserves the free-text comment, identifies areas of agreement, identifies complementary comments, and identifies reviewer-specific concerns. It does not force a consensus where the two forms disagree or where one form is silent.
+The two reviews were compared with the same coding structure. The analysis is case-based. For each reviewed case the comparison keeps the recorded rating and the recorded comment, then states what the two reviews share and what only one review raised. It does not force a consensus where the two forms disagree or where one form is silent. Blank fields stay blank.
 
-The full normalized table is [reviewer_comparison.md](docs/clinical_feedback/reviewer_comparison.md), with one row per case in [reviewer_comparison.csv](docs/clinical_feedback/reviewer_comparison.csv). Original wording remains in the two Word files linked above.
+The same rows are stored in [reviewer_comparison.csv](docs/clinical_feedback/reviewer_comparison.csv). A shorter coverage table is in [reviewer_comparison.md](docs/clinical_feedback/reviewer_comparison.md).
 
-Four cases had substantive feedback from both reviewers:
-
-- VAL-801
-- VAL-805
-- VAL-809
-- VAL-813
-
-Those four form the next iterative revision set because both clinicians wrote on them. They are marked `SECOND_REVISION_CANDIDATE` in the comparison file. They have not been revised.
-
-Two further cases have substantive feedback from Reviewer 1 only:
-
-- VAL-802
-- VAL-803
-
-They stay in the comparison. They are not treated as consensus cases, and they are not the cases selected for this revision round.
-
-The overlapping concerns, stated at the level of the comparison and without replacing the original sentences, are these.
-
-VAL-801. Both reviewers found the delirium story clinically insufficient. Reviewer 1 also found the cause unshown and the ibuprofen stop unexplained, and recommended revise. Reviewer 2 wrote that delirium has to be a change from baseline and that a precipitant should be interpretable. Reviewer 2’s later fields are blank.
-
-VAL-805. Both reviewers found the heart-failure hospitalization clinically incomplete. Reviewer 1 described an inpatient diuretic course that matches the home dose, a discharge weight that is not at dry weight, and heart-failure therapy that is not set up as a decision, and recommended revise. Reviewer 2 passed C1 and wrote that the chart does not investigate why heart failure decompensated. Later fields are blank.
-
-VAL-809. Both reviewers found the endocarditis case too thin for the reasoning it asks. Reviewer 1 asked for fever and a predisposition, and questioned continuing lisinopril alongside a creatinine rise, and recommended revise. Reviewer 2 asked for source evaluation, laboratory changes, imaging, and consideration of surgery, and failed C1. Later fields are blank.
-
-VAL-813. Both reviewers found the cytomegalovirus presentation clinically incoherent. Reviewer 1 noted that valganciclovir was already a home medicine, that the transplant regimen is too thin, and that a potassium change is unexplained, and recommended exclude. Reviewer 2 wrote that the patient should not present already labeled with CMV colitis, and that volume loss should be considered in the kidney function and potassium. C1 is Fail. Later fields are blank.
-
-| Case | Reviewer 1 | Reviewer 2 | Current status |
+| Case | Reviewer 1 | Reviewer 2 | Comparison |
 | --- | --- | --- | --- |
-| VAL-801 | Reviewed | Reviewed | Second revision |
-| VAL-802 | Reviewed | No substantive feedback | Retained as Reviewer-1-only |
-| VAL-803 | Reviewed | No substantive feedback | Retained as Reviewer-1-only |
-| VAL-805 | Reviewed | Reviewed | Second revision |
-| VAL-809 | Reviewed | Reviewed | Second revision |
-| VAL-813 | Reviewed | Reviewed | Second revision |
+| VAL-801 | C1 Fail. Overall: Revise. | C1 Fail. Overall blank. | Both reviewed |
+| VAL-802 | C1 Fail. Overall: Exclude. | No substantive feedback | Reviewer 1 only |
+| VAL-803 | C1 Fail. Later items and overall blank. | No substantive feedback | Reviewer 1 only |
+| VAL-804 | No substantive feedback | No substantive feedback | Neither |
+| VAL-805 | C1 Fail. Overall: Revise. | C1 Pass. Overall blank. | Both reviewed |
+| VAL-806 | No substantive feedback | No substantive feedback | Neither |
+| VAL-807 | No substantive feedback | No substantive feedback | Neither |
+| VAL-808 | No substantive feedback | No substantive feedback | Neither |
+| VAL-809 | C1 Fail. Overall: Revise. | C1 Fail. Overall blank. | Both reviewed |
+| VAL-810 | No substantive feedback | No substantive feedback | Neither |
+| VAL-811 | No substantive feedback | No substantive feedback | Neither |
+| VAL-812 | No substantive feedback | No substantive feedback | Neither |
+| VAL-813 | C1 Fail. Overall: Exclude. | C1 Fail. Overall blank. | Both reviewed |
+| VAL-814 | No substantive feedback | No substantive feedback | Neither |
+| VAL-815 | No substantive feedback | No substantive feedback | Neither |
+| VAL-816 | No substantive feedback | No substantive feedback | Neither |
+| VAL-817 | No substantive feedback | No substantive feedback | Neither |
+| VAL-818 | No substantive feedback | No substantive feedback | Neither |
+| VAL-819 | No substantive feedback | No substantive feedback | Neither |
+| VAL-820 | No substantive feedback | No substantive feedback | Neither |
+| VAL-821 | No substantive feedback | No substantive feedback | Neither |
+| VAL-822 | No substantive feedback | No substantive feedback | Neither |
+| VAL-823 | No substantive feedback | No substantive feedback | Neither |
+| VAL-824 | No substantive feedback | No substantive feedback | Neither |
 
-Eighteen other cases had no substantive Reviewer 1 feedback. Twenty cases in total had no substantive Reviewer 2 feedback. Those eighteen are omitted from the table above because both forms are silent on them; they remain in the comparison CSV.
+### VAL-801
+
+Reviewer 1, C1 Fail, overall Revise:
+
+> This case is lacking clinical complexity. The patient presents with delirium, but the cause is not revealed during the hospital course, we just learn that the delirium improves with treatment. There are no further details on why the patient was delirious or why he improved. It is also not clear why the ibuprofen was stopped. I would add that he is discovered to have an infection or GI bleed or something that would explain this better.
+
+Reviewer 2, C1 Fail, C2–C5 and overall blank:
+
+> Overall the premise of the case doesn’t really make sense – baseline delirium doesn’t exist as it is, by definitition, a change from baseline. I think we are getting at a history of dementia with acute onset delirium but it might make more sense if there was a reason for the decompensation like a UTI or something simple.
+
+Both reviewers found the delirium story clinically insufficient. Reviewer 1 also wrote that the cause is not shown and that the ibuprofen stop is unexplained. Reviewer 2 wrote that delirium has to be a change from baseline and that a precipitant should be interpretable.
+
+### VAL-802
+
+Reviewer 1, C1 Fail, overall Exclude:
+
+> Several issues with this – delirium cause is not revealed (delirium due to known physiologic condition doesn’t make sense), it doesn’t appear that anything happened in the hospital course, creatinine was the only lab value and changed slightly, but it was not clear what the baseline creatinine was, lots of mention of the statin and it said that she was taking the statin, but this was not continued at discharge for no obvious reason
+
+Reviewer 2 recorded no rating and no comment. The comparison does not treat that silence as agreement. Reviewer 1’s recorded concerns are an unshown cause of delirium, a missing baseline creatinine, and an unclear statin plan.
+
+### VAL-803
+
+Reviewer 1, C1 Fail, later ratings and overall blank:
+
+> Several issues – delirium diagnosis is unclear (delirium due to known physiologic condition), cause is not revealed during the hospital course. Medication list is fine but no changes that need to be made at discharge. Her creatinine changes so this might be considered clinically relevant or why the patient receives only 7 days of lisinopril.
+
+Reviewer 2 recorded no rating and no comment. The blank later ratings were not filled in. Reviewer 1 questioned the delirium story and the lisinopril supply.
+
+### VAL-805
+
+Reviewer 1, C1 Fail, overall Revise:
+
+> Clinical presentation was mostly clear and understandable. The vitals and lab trends make sense. The weight should be closer to dry weight at the time of discharge. The medications during hospitalization would not be the same as the home regimen - the lasix would be given IV and increased. Additionally, it would be more realistic to have several days of input and output data, as well as data on what medications the patient received during the hospitalization. It would be helpful to have either notes from cardiology or echocardiogram data and require the trainee to add additional medications to the patient’s regimen or adjust their dose of lasix.
+
+Reviewer 2, C1 Pass, C2–C5 and overall blank:
+
+> This case makes sense at face value but doesn’t really seem complete clinically. It does not discuss the investigation into reasons for decompensation (missed meds, new arrythmia, ischemia, etc.) Overall it needs more clinical detail before it could be effective.
+
+Both reviewers found the heart-failure hospitalization clinically incomplete. Reviewer 1 wrote that the inpatient diuretic course matches the home dose, that the discharge weight is not at dry weight, and that heart-failure therapy is not set up as a decision. Reviewer 2 wrote that the chart does not investigate why the heart failure decompensated.
+
+### VAL-809
+
+Reviewer 1, C1 Fail, overall Revise:
+
+> Presentation – requires more details, should present with fevers, have a history of mechanical valve or poor dentition that would predispose to endocarditis. Labs/meds – AKI was unexplained and lisinopril was continued despite AKI.
+
+Reviewer 2, C1 Fail, C2–C5 and overall blank:
+
+> Similar issue, the case makes sense objectively but is lacking in any clinical detail that would influence decision making. Notable things are workup for source of the infection, lab changes, imaging to evaluate, consideration of need for surgical intervention, etc.
+
+Both reviewers found the endocarditis case too thin for meaningful clinical reasoning. Reviewer 1 asked for fever and a predisposition such as a mechanical valve or poor dentition, and questioned continuing lisinopril with the creatinine rise. Reviewer 2 asked for source evaluation, laboratory changes, imaging, and consideration of surgery.
+
+### VAL-813
+
+Reviewer 1, C1 Fail, overall Exclude:
+
+> Patient is admitted for new diagnosis of CMV colitis, but was already on treatment for this (valganciclovir) prior to admission, which does not make sense. This medication would be started after diagnosis during the hospitalization. The medications are much too simplified for a post transplant patient. The labs are incomplete and the patient has a change in potassium with obvious cause or indication.
+
+Reviewer 2, C1 Fail, C2–C5 and overall blank:
+
+> This case doesn’t make sense. The patient would not present with CMV colitis, that is something that would haved to be worked up and discovered (while also ruling out myriad other potential causes). The labs also don’t fit, if anything you’d expect to see an AKI and low potassium on presentation from fluid lossess and limited intake.
+
+Both reviewers found the cytomegalovirus presentation clinically incoherent. Reviewer 1 wrote that valganciclovir was already a home medicine, that the transplant regimen is too thin, and that the potassium change is unexplained. Reviewer 2 wrote that the patient should not present already labeled with CMV colitis, and that volume loss should show in the kidney function and potassium.
+
+VAL-801, VAL-805, VAL-809, and VAL-813 are the cases both reviewers wrote on. They are marked `SECOND_REVISION_CANDIDATE` in the comparison file. VAL-802 and VAL-803 remain Reviewer-1-only cases. They are not treated as consensus.
 
 ## Structured iterative clinician review
 
