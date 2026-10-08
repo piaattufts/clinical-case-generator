@@ -1,0 +1,531 @@
+{
+  "case_id_code": "VAL-821",
+  "ClinicalCase": {
+    "title": "general medicine inpatient case VAL-821",
+    "case_id_code": "VAL-821",
+    "case_status": "review",
+    "generation_source": "synthetic",
+    "one_liner": "Gastrointestinal bleeding that has stopped, with a stated anticoagulation plan",
+    "admission_dx": "Gastrointestinal bleeding",
+    "disposition_status": "home",
+    "chief_complaint": "Black stools and fatigue",
+    "patient_name": "VAL Patient 821",
+    "patient_age": 78,
+    "patient_gender": "Female",
+    "ethnicity": null,
+    "weight_kg": "83.000",
+    "social_context": "Baseline living situation: lives at home",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "general medicine",
+    "allergies": [],
+    "medical_history": [
+      "Paroxysmal atrial fibrillation",
+      "Mixed hyperlipidemia",
+      "Essential (primary) hypertension"
+    ],
+    "source_type": "authored_scenario",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Black stools and fatigue",
+      "hpi": "A 78-year-old woman with atrial fibrillation is admitted after two days of melena and fatigue. She is not in shock. Blood pressure is stable. Apixaban 5 mg twice daily is held. Hemoglobin is 8.7 g/dL on arrival and 10.9 g/dL at discharge, and there is no further melena. Creatinine moves from 0.9 to 1.2 mg/dL. She is under 80 years old and weighs 83 kg, so the home apixaban dose remains the standard 5 mg dose when it is eventually appropriate. Gastroenterology says not to restart it today and to reassess at the visit in 7 days. Lisinopril and atorvastatin continue. No endoscopy has been done.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "Fatigue"
+      ],
+      "symptom_duration": "two days",
+      "symptom_course": "improving after treatment"
+    },
+    "social_support": {
+      "living_situation": "Baseline living situation: lives at home",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": false,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-VAL821-001",
+      "case_id": "VAL-821",
+      "diagnosis": "Gastrointestinal hemorrhage, unspecified",
+      "diagnosis_type": "admission",
+      "status": "active",
+      "context": "inpatient",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL821-002",
+      "case_id": "VAL-821",
+      "diagnosis": "Paroxysmal atrial fibrillation",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL821-003",
+      "case_id": "VAL-821",
+      "diagnosis": "Mixed hyperlipidemia",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL821-004",
+      "case_id": "VAL-821",
+      "diagnosis": "Essential (primary) hypertension",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-VAL821-001",
+      "case_id": "VAL-821",
+      "note_type": "admission",
+      "note_text": "Melena. Apixaban held. Hemoglobin 8.7 g/dL. Not in shock.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "note_id": "NOTE-VAL821-002",
+      "case_id": "VAL-821",
+      "note_type": "hospital_course",
+      "note_text": "No further melena. Hemoglobin rose. Apixaban remains held for the gastroenterology visit.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-VAL821-001",
+      "case_id": "VAL-821",
+      "timepoint": "admission",
+      "temp_c": "36.80",
+      "bp_systolic": 138,
+      "bp_diastolic": 70,
+      "heart_rate": 69,
+      "resp_rate": 19,
+      "spo2_percent": "95.00",
+      "oxygen_support": null,
+      "source_reference": null
+    },
+    {
+      "vital_id": "VIT-VAL821-002",
+      "case_id": "VAL-821",
+      "timepoint": "discharge",
+      "temp_c": "36.80",
+      "bp_systolic": 140,
+      "bp_diastolic": 79,
+      "heart_rate": 88,
+      "resp_rate": 19,
+      "spo2_percent": "95.00",
+      "oxygen_support": null,
+      "source_reference": null
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-VAL821-001",
+      "case_id": "VAL-821",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 0.9,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL821-002",
+      "case_id": "VAL-821",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.2,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL821-003",
+      "case_id": "VAL-821",
+      "timepoint": "admission",
+      "test_name": "Hemoglobin [Mass/volume] in Blood by Oximetry",
+      "value": 8.7,
+      "value_text": null,
+      "unit": "g/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL821-004",
+      "case_id": "VAL-821",
+      "timepoint": "discharge",
+      "test_name": "Hemoglobin [Mass/volume] in Blood by Oximetry",
+      "value": 10.9,
+      "value_text": null,
+      "unit": "g/dL",
+      "status": "final",
+      "source_reference": null
+    }
+  ],
+  "CaseImaging": [],
+  "CaseConsult": [
+    {
+      "consult_id": "CON-VAL821-001",
+      "case_id": "VAL-821",
+      "service": "gastroenterology",
+      "timepoint": "inpatient",
+      "assessment": "Melena has stopped and the patient is hemodynamically stable. Endoscopy is not done during this stay.",
+      "recommendation": "Do not restart apixaban at discharge. Reassess in 7 days. The home dose, when restarted, is 5 mg twice daily.",
+      "source_reference": null
+    }
+  ],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-VAL821-004",
+      "case_id": "VAL-821",
+      "context": "home",
+      "drug": "apixaban 5 MG Oral Tablet",
+      "reported_name": "apixaban 5 MG Oral Tablet",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "Paroxysmal atrial fibrillation",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": "Resume apixaban if hemoglobin remains stable for 48 hours and bleeding has not recurred.",
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:1364445",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL821-005",
+      "case_id": "VAL-821",
+      "context": "home",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:617311",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL821-006",
+      "case_id": "VAL-821",
+      "context": "home",
+      "drug": "lisinopril 10 MG Oral Tablet",
+      "reported_name": "lisinopril 10 MG Oral Tablet",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Essential (primary) hypertension",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:314076",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL821-007",
+      "case_id": "VAL-821",
+      "context": "inpatient",
+      "drug": "apixaban 5 MG Oral Tablet",
+      "reported_name": "apixaban 5 MG Oral Tablet",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "Paroxysmal atrial fibrillation",
+      "status": "held",
+      "held_reason": "Held for gastrointestinal bleeding; intended to restart after hemoglobin stability.",
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": "Resume apixaban if hemoglobin remains stable for 48 hours and bleeding has not recurred.",
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:1364445",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL821-008",
+      "case_id": "VAL-821",
+      "context": "inpatient",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:617311",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL821-009",
+      "case_id": "VAL-821",
+      "context": "inpatient",
+      "drug": "lisinopril 10 MG Oral Tablet",
+      "reported_name": "lisinopril 10 MG Oral Tablet",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Essential (primary) hypertension",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:314076",
+      "notes": null
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-VAL821-001",
+      "case_id": "VAL-821",
+      "item": "Gastroenterology follow-up after held anticoagulation",
+      "timing": "7 days",
+      "with_service": "gastroenterology",
+      "source_reference": null
+    }
+  ],
+  "CaseInstruction": [
+    {
+      "instruction_id": null,
+      "case_id": "VAL-821",
+      "category": "medications",
+      "instruction_text": "Resume when holding apixaban 5 MG Oral Tablet: Resume apixaban if hemoglobin remains stable for 48 hours and bleeding has not recurred.",
+      "source_type": "recovered_clean_chart",
+      "source_reference": null
+    }
+  ],
+  "CaseMonitoring": [],
+  "CaseProblemList": [
+    {
+      "problem_id": "PROB-VAL821-001",
+      "case_id": "VAL-821",
+      "problem": "Paroxysmal atrial fibrillation",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL821-002",
+      "case_id": "VAL-821",
+      "problem": "Mixed hyperlipidemia",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL821-003",
+      "case_id": "VAL-821",
+      "problem": "Essential (primary) hypertension",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL821-004",
+      "case_id": "VAL-821",
+      "problem": "Gastrointestinal hemorrhage, unspecified",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "high",
+      "status": "active",
+      "source_reference": null
+    }
+  ],
+  "CaseProcedure": [],
+  "CaseTherapyRestriction": [],
+  "CaseReturnPrecaution": [
+    {
+      "precaution_id": "RP-VAL821-001",
+      "case_id": "VAL-821",
+      "symptom": "Fatigue",
+      "reason": "Worsening of the presenting symptom",
+      "action": "Seek urgent evaluation",
+      "severity": "urgent",
+      "patient_instruction": null,
+      "source_reference": null
+    }
+  ],
+  "CaseMedicationReconciliation": [
+    {
+      "medrec_id": "MR-VAL821-001",
+      "case_id": "VAL-821",
+      "bpmh_source": "patient_and_prior_records",
+      "bpmh_interviewer": null,
+      "bpmh_date": null,
+      "medrec_status": "complete",
+      "patient_able_to_participate": true,
+      "unverified_medications_present": null,
+      "reconciliation_admission": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "reconciliation_discharge": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "discrepancy_types": [],
+      "pharmacist_review": true,
+      "high_alert_meds_identified": [],
+      "notes": null,
+      "source_reference": null
+    }
+  ],
+  "CaseWeight": [
+    {
+      "weight_id": "WT-VAL821-001",
+      "case_id": "VAL-821",
+      "timepoint": "admission",
+      "weight_kg": "83.000",
+      "dry_weight_kg": null,
+      "source_reference": null
+    }
+  ],
+  "CaseIntakeOutput": [],
+  "CaseDevice": [],
+  "CaseMicrobiology": [],
+  "reference_discharge_plan": {
+    "medications": [
+      {
+        "medication": "apixaban 5 MG Oral Tablet",
+        "action": "hold",
+        "dose": "5 MG",
+        "route": "oral",
+        "frequency": "twice daily",
+        "duration": null,
+        "indication": "Atrial fibrillation",
+        "rationale": "Gastroenterology says not to restart today. The 5 mg dose remains appropriate for her age, weight, and creatinine when the hold ends. Restart after documented hemostasis is the alternative not taken today.",
+        "monitoring": null
+      },
+      {
+        "medication": "lisinopril 10 MG Oral Tablet",
+        "action": "continue",
+        "dose": "10 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Hypertension",
+        "rationale": "Blood pressure is stable.",
+        "monitoring": null
+      },
+      {
+        "medication": "atorvastatin 40 MG Oral Tablet",
+        "action": "continue",
+        "dose": "40 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Hyperlipidemia",
+        "rationale": "Continued.",
+        "monitoring": null
+      }
+    ],
+    "monitoring_requirements": [
+      {
+        "parameter": "hemoglobin and any recurrent melena",
+        "frequency": "sooner than 7 days if bleeding returns",
+        "target": null,
+        "duration": null
+      }
+    ],
+    "follow_up_requirements": [
+      {
+        "item": "Gastroenterology visit to decide when apixaban restarts",
+        "timing": "7 days",
+        "with_service": "gastroenterology"
+      }
+    ]
+  },
+  "revision_provenance": {
+    "status": "FRAMEWORK-REVISED AND READY FOR CLINICIAN REVIEW",
+    "clinically_validated": false,
+    "framework": "docs/revision/revision_framework.md",
+    "baseline": "data/case_sets/seed_guided/CLEAN_BASE/VAL-821_resident.json",
+    "statement": "Framework-guided investigator revision; no case-specific clinician feedback.",
+    "reviewer_1_comment": null,
+    "synthetic_facts": [
+      {
+        "fact": "Melena, no in-hospital endoscopy, and an explicit decision not to restart apixaban today.",
+        "why": "The clean reference restarted apixaban while gastroenterology had only said to reassess.",
+        "evidence": "The chart's age, weight, and creatinine do not meet two of the three labeled criteria for apixaban 2.5 mg twice daily. That dose question is separate from today's hold."
+      }
+    ]
+  }
+}

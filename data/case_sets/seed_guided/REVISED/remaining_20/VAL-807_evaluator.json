@@ -1,0 +1,647 @@
+{
+  "case_id_code": "VAL-807",
+  "ClinicalCase": {
+    "title": "cardiology inpatient case VAL-807",
+    "case_id_code": "VAL-807",
+    "case_status": "review",
+    "generation_source": "synthetic",
+    "one_liner": "60-year-old man with heart-failure diuresis and a transient fall in potassium",
+    "admission_dx": "Acute systolic heart failure",
+    "disposition_status": "home",
+    "chief_complaint": "Dyspnea and orthopnea",
+    "patient_name": "VAL Patient 807",
+    "patient_age": 60,
+    "patient_gender": "Male",
+    "ethnicity": null,
+    "weight_kg": "99.000",
+    "social_context": "Baseline living situation: lives at home",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "cardiology",
+    "allergies": [],
+    "medical_history": [
+      "Essential (primary) hypertension",
+      "Mixed hyperlipidemia"
+    ],
+    "source_type": "authored_scenario",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Dyspnea and orthopnea",
+      "hpi": "A 60-year-old man with systolic heart failure is admitted with two days of dyspnea and orthopnea after missing two doses of furosemide. There is no chest pain. Troponin does not rise. Ejection fraction is 30 percent. Weight is 99 kg on admission and the dry weight is 95 kg. Furosemide 40 mg intravenously twice daily is given until the weight is 95 kg, then stopped. Potassium is 3.5 mmol/L on admission, 3.2 mmol/L on hospital day 2, and 3.8 mmol/L at discharge after one 40 mEq oral potassium chloride dose. That dose is not continued. Creatinine stays 1.2 mg/dL. Resume furosemide 40 mg orally once daily. Continue metoprolol succinate and atorvastatin. He is on room air at discharge.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "Dyspnea",
+        "Orthopnea"
+      ],
+      "symptom_duration": "two days",
+      "symptom_course": "acutely worsening"
+    },
+    "social_support": {
+      "living_situation": "Baseline living situation: lives at home",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": false,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-VAL807-001",
+      "case_id": "VAL-807",
+      "diagnosis": "Acute systolic (congestive) heart failure",
+      "diagnosis_type": "admission",
+      "status": "active",
+      "context": "inpatient",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL807-002",
+      "case_id": "VAL-807",
+      "diagnosis": "Essential (primary) hypertension",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL807-003",
+      "case_id": "VAL-807",
+      "diagnosis": "Mixed hyperlipidemia",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-VAL807-001",
+      "case_id": "VAL-807",
+      "note_type": "admission",
+      "note_text": "Congestion after two missed diuretic doses. Weight 99 kg, dry weight 95 kg. Potassium 3.5 mmol/L.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "note_id": "NOTE-VAL807-002",
+      "case_id": "VAL-807",
+      "note_type": "hospital_course",
+      "note_text": "Intravenous diuresis reached dry weight. One potassium replacement was given for 3.2 mmol/L. Discharge potassium is 3.8 mmol/L.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-VAL807-001",
+      "case_id": "VAL-807",
+      "timepoint": "admission",
+      "temp_c": "36.80",
+      "bp_systolic": 119,
+      "bp_diastolic": 70,
+      "heart_rate": 102,
+      "resp_rate": 26,
+      "spo2_percent": "94.00",
+      "oxygen_support": "2 L/min nasal cannula",
+      "source_reference": null
+    },
+    {
+      "vital_id": "VIT-VAL807-002",
+      "case_id": "VAL-807",
+      "timepoint": "discharge",
+      "temp_c": "36.80",
+      "bp_systolic": 137,
+      "bp_diastolic": 77,
+      "heart_rate": 62,
+      "resp_rate": 15,
+      "spo2_percent": "98.00",
+      "oxygen_support": "room air",
+      "source_reference": null
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-VAL807-001",
+      "case_id": "VAL-807",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.2,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL807-002",
+      "case_id": "VAL-807",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.2,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL807-003",
+      "case_id": "VAL-807",
+      "timepoint": "admission",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 3.5,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL807-004",
+      "case_id": "VAL-807",
+      "timepoint": "discharge",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 3.8,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL807-005",
+      "case_id": "VAL-807",
+      "timepoint": "admission",
+      "test_name": "Natriuretic peptide B [Mass/volume] in Serum or Plasma",
+      "value": 836.0,
+      "value_text": null,
+      "unit": "pg/mL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL807-006",
+      "case_id": "VAL-807",
+      "timepoint": "discharge",
+      "test_name": "Natriuretic peptide B [Mass/volume] in Serum or Plasma",
+      "value": 585.0,
+      "value_text": null,
+      "unit": "pg/mL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL807-T1",
+      "case_id": "VAL-807",
+      "timepoint": "admission",
+      "test_name": "Troponin I.cardiac [Mass/volume] in Serum or Plasma",
+      "value": 14.0,
+      "value_text": null,
+      "unit": "ng/L",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL807-T2",
+      "case_id": "VAL-807",
+      "timepoint": "six_hours_later",
+      "test_name": "Troponin I.cardiac [Mass/volume] in Serum or Plasma",
+      "value": 12.0,
+      "value_text": null,
+      "unit": "ng/L",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL807-007",
+      "case_id": "VAL-807",
+      "timepoint": "hospital_day_2",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 3.2,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "source_reference": null
+    }
+  ],
+  "CaseImaging": [
+    {
+      "study_id": "STUDY-VAL807-001",
+      "case_id": "VAL-807",
+      "timepoint": "admission",
+      "study_type": "Chest radiograph",
+      "body_site": "chest",
+      "finding": "Pulmonary vascular congestion and interstitial edema.",
+      "source_reference": null
+    },
+    {
+      "study_id": "STUDY-VAL807-002",
+      "case_id": "VAL-807",
+      "timepoint": "discharge",
+      "study_type": "Chest radiograph",
+      "body_site": "chest",
+      "finding": "Improved pulmonary edema compared with admission.",
+      "source_reference": null
+    },
+    {
+      "study_id": "STUDY-VAL807-ECG",
+      "case_id": "VAL-807",
+      "timepoint": "admission",
+      "study_type": "Electrocardiogram",
+      "body_site": "heart",
+      "finding": "Sinus rhythm. No ischemic ST-segment change.",
+      "source_reference": null
+    },
+    {
+      "study_id": "STUDY-VAL807-ECHO",
+      "case_id": "VAL-807",
+      "timepoint": "inpatient",
+      "study_type": "Transthoracic echocardiogram",
+      "body_site": "heart",
+      "finding": "Left ventricular ejection fraction 30 percent. No new severe valvular lesion.",
+      "source_reference": null
+    }
+  ],
+  "CaseConsult": [
+    {
+      "consult_id": "CON-VAL807-001",
+      "case_id": "VAL-807",
+      "service": "cardiology",
+      "timepoint": "inpatient",
+      "assessment": "Diuresis reached dry weight. The low potassium was replaced once.",
+      "recommendation": "Resume furosemide 40 mg orally once daily. Do not continue standing potassium. Continue metoprolol succinate and atorvastatin.",
+      "source_reference": null
+    }
+  ],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-VAL807-004",
+      "case_id": "VAL-807",
+      "context": "home",
+      "drug": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+      "reported_name": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:866427",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL807-005",
+      "case_id": "VAL-807",
+      "context": "home",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:617311",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL807-006",
+      "case_id": "VAL-807",
+      "context": "home",
+      "drug": "furosemide 40 MG Oral Tablet",
+      "reported_name": "furosemide 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:313988",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL807-007",
+      "case_id": "VAL-807",
+      "context": "inpatient",
+      "drug": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+      "reported_name": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:866427",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL807-008",
+      "case_id": "VAL-807",
+      "context": "inpatient",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:617311",
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL807-009",
+      "case_id": "VAL-807",
+      "context": "inpatient",
+      "drug": "furosemide 40 MG Injection",
+      "reported_name": "furosemide 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "intravenous",
+      "frequency": "twice daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "discontinued",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:313988",
+      "notes": "Stopped at the 95 kg dry weight."
+    },
+    {
+      "medication_id": "MED-VAL807-008",
+      "case_id": "VAL-807",
+      "context": "inpatient",
+      "drug": "potassium chloride",
+      "reported_name": "potassium chloride",
+      "dose": "40 MEQ",
+      "route": "oral",
+      "frequency": "once",
+      "indication": "Potassium 3.2 mmol/L",
+      "status": "discontinued",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": "RXCUI:313988",
+      "notes": "Single replacement. Not continued after potassium was 3.8 mmol/L."
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-VAL807-001",
+      "case_id": "VAL-807",
+      "item": "Electrolyte and heart-failure follow-up",
+      "timing": "5 days",
+      "with_service": "primary care",
+      "source_reference": null
+    }
+  ],
+  "CaseInstruction": [],
+  "CaseMonitoring": [],
+  "CaseProblemList": [
+    {
+      "problem_id": "PROB-VAL807-001",
+      "case_id": "VAL-807",
+      "problem": "Essential (primary) hypertension",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL807-002",
+      "case_id": "VAL-807",
+      "problem": "Mixed hyperlipidemia",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL807-003",
+      "case_id": "VAL-807",
+      "problem": "Acute systolic (congestive) heart failure",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "high",
+      "status": "active",
+      "source_reference": null
+    }
+  ],
+  "CaseProcedure": [],
+  "CaseTherapyRestriction": [],
+  "CaseReturnPrecaution": [
+    {
+      "precaution_id": "RP-VAL807-001",
+      "case_id": "VAL-807",
+      "symptom": "Dyspnea",
+      "reason": "Worsening of the presenting symptom",
+      "action": "Seek urgent evaluation",
+      "severity": "urgent",
+      "patient_instruction": null,
+      "source_reference": null
+    }
+  ],
+  "CaseMedicationReconciliation": [
+    {
+      "medrec_id": "MR-VAL807-001",
+      "case_id": "VAL-807",
+      "bpmh_source": "patient_and_prior_records",
+      "bpmh_interviewer": null,
+      "bpmh_date": null,
+      "medrec_status": "complete",
+      "patient_able_to_participate": true,
+      "unverified_medications_present": null,
+      "reconciliation_admission": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "reconciliation_discharge": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "discrepancy_types": [],
+      "pharmacist_review": true,
+      "high_alert_meds_identified": [],
+      "notes": null,
+      "source_reference": null
+    }
+  ],
+  "CaseWeight": [
+    {
+      "weight_id": "WT-VAL807-001",
+      "case_id": "VAL-807",
+      "timepoint": "admission",
+      "weight_kg": "99.000",
+      "dry_weight_kg": null,
+      "source_reference": null
+    },
+    {
+      "weight_id": "WT-VAL807-002",
+      "case_id": "VAL-807",
+      "timepoint": "discharge",
+      "weight_kg": "95.000",
+      "dry_weight_kg": "95.000",
+      "source_reference": null
+    }
+  ],
+  "CaseIntakeOutput": [
+    {
+      "io_id": "IO-VAL807-001",
+      "case_id": "VAL-807",
+      "timepoint": "hospital_day_3",
+      "intake_ml": 1325,
+      "output_ml": 2417,
+      "net_ml": -1092,
+      "notes": null,
+      "source_reference": null
+    }
+  ],
+  "CaseDevice": [],
+  "CaseMicrobiology": [],
+  "reference_discharge_plan": {
+    "medications": [
+      {
+        "medication": "furosemide 40 MG Oral Tablet",
+        "action": "continue",
+        "dose": "40 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Systolic heart failure",
+        "rationale": "Missed doses precipitated the stay. Intravenous therapy has stopped at dry weight. Cardiology says to resume 40 mg orally once daily.",
+        "monitoring": null
+      },
+      {
+        "medication": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+        "action": "continue",
+        "dose": "25 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Systolic heart failure",
+        "rationale": "Continued. Discharge heart rate is 62.",
+        "monitoring": null
+      },
+      {
+        "medication": "atorvastatin 40 MG Oral Tablet",
+        "action": "continue",
+        "dose": "40 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Hyperlipidemia",
+        "rationale": "Continued. No adverse effect is described.",
+        "monitoring": null
+      },
+      {
+        "medication": "potassium chloride",
+        "action": "stop",
+        "dose": "40 MEQ",
+        "route": "oral",
+        "frequency": "once",
+        "duration": null,
+        "indication": "Transient potassium of 3.2 mmol/L",
+        "rationale": "One dose was given. Discharge potassium is 3.8 mmol/L.",
+        "monitoring": null
+      }
+    ],
+    "monitoring_requirements": [
+      {
+        "parameter": "potassium and weight",
+        "frequency": "at primary care in 5 days",
+        "target": null,
+        "duration": null
+      }
+    ],
+    "follow_up_requirements": [
+      {
+        "item": "Electrolyte and heart-failure follow-up",
+        "timing": "5 days",
+        "with_service": "primary care"
+      }
+    ]
+  },
+  "revision_provenance": {
+    "status": "FRAMEWORK-REVISED AND READY FOR CLINICIAN REVIEW",
+    "clinically_validated": false,
+    "framework": "docs/revision/revision_framework.md",
+    "baseline": "data/case_sets/seed_guided/CLEAN_BASE/VAL-807_resident.json",
+    "statement": "Framework-guided investigator revision; no case-specific clinician feedback.",
+    "reviewer_1_comment": null,
+    "synthetic_facts": [
+      {
+        "fact": "Missed diuretic doses, intravenous diuresis to a 95 kg dry weight, potassium 3.2 mmol/L, and one 40 mEq replacement.",
+        "why": "The clean chart asserted hypokalemia and a diuretic plan without the values or the order.",
+        "evidence": "Heidenreich PA et al. Circulation. 2022;145:e895-e1032. A single replacement is not continued after the potassium is 3.8 mmol/L."
+      }
+    ]
+  }
+}
