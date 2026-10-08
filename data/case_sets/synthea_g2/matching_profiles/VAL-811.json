@@ -1,0 +1,35 @@
+{
+  "generation1_case_id": "VAL-811",
+  "scenario_family": "ENDOCARDITIS_OPAT",
+  "family_label": "Endocarditis / OPAT",
+  "primary_reasoning_target": "Choose outpatient parenteral antibiotic therapy after endocarditis is established in hospital",
+  "secondary_reasoning_targets": [
+    "new_start"
+  ],
+  "number_of_home_medications": 3,
+  "number_of_clinically_relevant_medications": 4,
+  "number_of_major_discharge_decisions": 1,
+  "decision_types": [
+    "new_start"
+  ],
+  "important_monitoring_requirements": [
+    "weekly complete blood count and creatinine during parenteral therapy"
+  ],
+  "important_followup_requirements": [
+    "Infectious-disease follow-up for remaining antibiotic duration"
+  ],
+  "major_diagnostic_workup": [
+    "Acute and subacute infective endocarditis"
+  ],
+  "approximate_difficulty": "moderate",
+  "monitoring_complexity": "intensive",
+  "followup_count": 1,
+  "major_causal_dependencies": [
+    "baseline before the acute change",
+    "a precipitant or an evaluation for one",
+    "work-up before a newly established diagnosis",
+    "treatment before the recorded response"
+  ],
+  "disposition": "home",
+  "clinician_input_into_generation2_case": "none"
+}

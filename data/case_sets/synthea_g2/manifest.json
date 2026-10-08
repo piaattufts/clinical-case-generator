@@ -53,15 +53,8 @@
       "alive": 1000,
       "deceased": 162
     },
-    "scenario_counts_used_by_selector": {
-      "MED_HISTORY_UNCERTAINTY": 32,
-      "HF_DECOMPENSATION": 261,
-      "ENDOCARDITIS_OPAT": 787,
-      "TRANSPLANT_CMV": 11,
-      "HIP_FRACTURE_ANTICOAGULATION": 13,
-      "GI_BLEED_ANTICOAGULATION": 15,
-      "synthea_endocarditis_conditions": 0
-    }
+    "matched_pairs": 24,
+    "candidate_attempts": 96
   },
   "cases": [
     "G2-001",

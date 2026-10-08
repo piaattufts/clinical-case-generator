@@ -1,0 +1,35 @@
+{
+  "generation1_case_id": "VAL-817",
+  "scenario_family": "HIP_FRACTURE_ANTICOAGULATION",
+  "family_label": "Hip fracture / anticoagulation",
+  "primary_reasoning_target": "Time anticoagulation around hip-fracture repair and decide the postoperative restart",
+  "secondary_reasoning_targets": [
+    "stop"
+  ],
+  "number_of_home_medications": 3,
+  "number_of_clinically_relevant_medications": 4,
+  "number_of_major_discharge_decisions": 1,
+  "decision_types": [
+    "stop"
+  ],
+  "important_monitoring_requirements": [
+    "INR in Platelet poor plasma or blood by Coagulation assay"
+  ],
+  "important_followup_requirements": [
+    "Anticoagulation clinic INR follow-up after warfarin resumption"
+  ],
+  "major_diagnostic_workup": [
+    "Fracture of unspecified part of neck of right femur, initial encounter for closed fracture"
+  ],
+  "approximate_difficulty": "moderate",
+  "monitoring_complexity": "intensive",
+  "followup_count": 1,
+  "major_causal_dependencies": [
+    "baseline before the acute change",
+    "a precipitant or an evaluation for one",
+    "work-up before a newly established diagnosis",
+    "treatment before the recorded response"
+  ],
+  "disposition": "rehab",
+  "clinician_input_into_generation2_case": "none"
+}

@@ -1,35 +1,35 @@
 {
   "case_id_code": "G2-006",
   "ClinicalCase": {
-    "title": "HF_DECOMPENSATION G2-006",
+    "title": "78-year-old Male with new pulmonary edema with heart failure established during the stay",
     "case_id_code": "G2-006",
     "case_status": "candidate",
     "generation_source": "synthetic",
-    "one_liner": "61-year-old Female with acute on chronic heart failure",
-    "admission_dx": "acute on chronic heart failure",
+    "one_liner": "78-year-old Male with new pulmonary edema with heart failure established during the stay",
+    "admission_dx": "new pulmonary edema with heart failure established during the stay",
     "disposition_status": "home",
     "chief_complaint": "Progressive dyspnea, orthopnea, and leg swelling",
-    "patient_name": "G2-006",
-    "patient_age": 61,
-    "patient_gender": "Female",
+    "patient_name": "Synthetic patient",
+    "patient_age": 78,
+    "patient_gender": "Male",
     "ethnicity": null,
-    "weight_kg": 77.5,
+    "weight_kg": 76.5,
     "social_context": "Longitudinal social history was not required for this episode.",
     "is_active": true,
     "difficulty": "standard",
     "specialty": "cardiology",
     "allergies": [],
     "medical_history": [
-      "Chronic sinusitis (disorder)",
-      "Housing unsatisfactory (finding)",
       "Received higher education (finding)",
-      "Body mass index 30+ - obesity (finding)"
+      "Sleep disorder (disorder)",
+      "Sleep apnea (disorder)",
+      "Essential hypertension (disorder)"
     ],
     "source_type": "synthea_cliniproof_g2",
     "source_file": null,
     "presentation": {
       "chief_complaint": "Progressive dyspnea, orthopnea, and leg swelling",
-      "hpi": "The longitudinal record already lists heart failure. Outpatient products in the longitudinal extract: Ibuprofen 400 MG Oral Tablet [Ibu]. The most recent longitudinal creatinine was 1.1 mg/dL. The most recent longitudinal weight was 77.5 kg. Over five days dyspnea progressed from exertion to conversation, orthopnea required three pillows, and both legs became swollen. Those symptoms were not the patient's usual state. The patient stopped several home cardiovascular medicines ten days ago because the pharmacy refill was unaffordable. Diet and cardiac rhythm were unchanged. On arrival the weight was 83.0 kg, oxygen saturation was 91 percent on room air, the respiratory rate was 26, the jugular venous pressure was elevated, and crackles were present halfway up both lung fields. There was pitting edema to the knees.",
+      "hpi": "The longitudinal record does not list heart failure. Cardiovascular disease and cardiac medication are present. Outpatient products in the longitudinal extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; warfarin sodium 5 MG Oral Tablet; lisinopril 10 MG Oral Tablet. No pre-admission creatinine was in the extracted record. The first creatinine used as the pre-treatment baseline was 0.8 mg/dL. The most recent longitudinal weight was 76.5 kg. Over five days dyspnea progressed from exertion to conversation, orthopnea required three pillows, and both legs became swollen. Those symptoms were not the patient's usual state. The patient described three days of restaurant meals and missed the oral diuretic on those days. There was no fever, chest pain, or new palpitation. On arrival the weight was 82.0 kg, oxygen saturation was 91 percent on room air, the respiratory rate was 26, the jugular venous pressure was elevated, and crackles were present halfway up both lung fields. There was pitting edema to the knees.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "dyspnea",
@@ -65,30 +65,6 @@
     {
       "diagnosis_id": "DX-G2-006-001",
       "case_id": "G2-006",
-      "diagnosis": "Chronic sinusitis (disorder)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "40055000",
-      "code_provenance": "reference_terminology"
-    },
-    {
-      "diagnosis_id": "DX-G2-006-002",
-      "case_id": "G2-006",
-      "diagnosis": "Housing unsatisfactory (finding)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "105531004",
-      "code_provenance": "reference_terminology"
-    },
-    {
-      "diagnosis_id": "DX-G2-006-003",
-      "case_id": "G2-006",
       "diagnosis": "Received higher education (finding)",
       "diagnosis_type": "past_history",
       "status": "active",
@@ -99,26 +75,50 @@
       "code_provenance": "reference_terminology"
     },
     {
-      "diagnosis_id": "DX-G2-006-004",
+      "diagnosis_id": "DX-G2-006-002",
       "case_id": "G2-006",
-      "diagnosis": "Body mass index 30+ - obesity (finding)",
+      "diagnosis": "Sleep disorder (disorder)",
       "diagnosis_type": "past_history",
       "status": "active",
       "context": "history",
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
-      "snomed_code": "162864005",
+      "snomed_code": "39898005",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-006-003",
+      "case_id": "G2-006",
+      "diagnosis": "Sleep apnea (disorder)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "73430006",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-006-004",
+      "case_id": "G2-006",
+      "diagnosis": "Essential hypertension (disorder)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "59621000",
       "code_provenance": "reference_terminology"
     },
     {
       "diagnosis_id": "DX-G2-006-005",
       "case_id": "G2-006",
-      "diagnosis": "Acute on chronic systolic (congestive) heart failure",
+      "diagnosis": "Acute systolic (congestive) heart failure",
       "diagnosis_type": "hospital",
       "status": "active",
       "context": "inpatient",
       "provenance": "cliniproof_episode_generated",
-      "icd10cm": "I50.23",
+      "icd10cm": "I50.21",
       "snomed_code": null,
       "code_provenance": "reference_terminology"
     }
@@ -128,14 +128,14 @@
       "note_id": "NOTE-G2-006-001",
       "case_id": "G2-006",
       "note_type": "admission",
-      "note_text": "The longitudinal record already lists heart failure. Outpatient products in the longitudinal extract: Ibuprofen 400 MG Oral Tablet [Ibu]. The most recent longitudinal creatinine was 1.1 mg/dL. The most recent longitudinal weight was 77.5 kg. Over five days dyspnea progressed from exertion to conversation, orthopnea required three pillows, and both legs became swollen. Those symptoms were not the patient's usual state. The patient stopped several home cardiovascular medicines ten days ago because the pharmacy refill was unaffordable. Diet and cardiac rhythm were unchanged. On arrival the weight was 83.0 kg, oxygen saturation was 91 percent on room air, the respiratory rate was 26, the jugular venous pressure was elevated, and crackles were present halfway up both lung fields. There was pitting edema to the knees.",
+      "note_text": "The longitudinal record does not list heart failure. Cardiovascular disease and cardiac medication are present. Outpatient products in the longitudinal extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; warfarin sodium 5 MG Oral Tablet; lisinopril 10 MG Oral Tablet. No pre-admission creatinine was in the extracted record. The first creatinine used as the pre-treatment baseline was 0.8 mg/dL. The most recent longitudinal weight was 76.5 kg. Over five days dyspnea progressed from exertion to conversation, orthopnea required three pillows, and both legs became swollen. Those symptoms were not the patient's usual state. The patient described three days of restaurant meals and missed the oral diuretic on those days. There was no fever, chest pain, or new palpitation. On arrival the weight was 82.0 kg, oxygen saturation was 91 percent on room air, the respiratory rate was 26, the jugular venous pressure was elevated, and crackles were present halfway up both lung fields. There was pitting edema to the knees.",
       "provenance": "cliniproof_episode_generated"
     },
     {
       "note_id": "NOTE-G2-006-002",
       "case_id": "G2-006",
       "note_type": "hospital_course",
-      "note_text": "The chest radiograph showed pulmonary edema. Natriuretic peptide B was elevated. Troponin I remained 0.01 ng/mL. There was no focal infiltrate. A transthoracic echocardiogram, obtained after the radiograph, showed reduced left-ventricular systolic function and a congested filling pattern. The numeric ejection fraction was estimated at 30 percent. Those findings established Acute on chronic systolic (congestive) heart failure. The diagnosis was not used as the presenting label before the examination, radiograph, natriuretic peptide, and echocardiogram. No loop diuretic was in the longitudinal extract. Intravenous furosemide was begun for congestion and then converted to oral furosemide 40 MG daily. Daily weights and net fluid output were recorded. No angiotensin-converting enzyme inhibitor or angiotensin-receptor blocker from a curated regimen was held. By hospital day 4 the weight was 78.3 kg, oxygen saturation was 96 percent on room air, the respiratory rate was 16, and the patient could lie flat. Creatinine was 1.1 mg/dL after a peak of 1.2. Potassium was 4.3 mmol/L. Dyspnea had returned to the pre-admission baseline rather than merely being called improved. The patient was walking on the ward, eating, and without resting dyspnea or new chest pain. The unsigned task is the discharge medication plan, not another day of intravenous diuresis. Heart-failure clinic follow-up and a chemistry panel were arranged. Home weight monitoring was requested.",
+      "note_text": "The chest radiograph showed pulmonary edema. Natriuretic peptide B was elevated. Troponin I remained 0.01 ng/mL and the electrocardiogram was sinus rhythm without ST-segment elevation. A transthoracic echocardiogram, obtained after the radiograph, showed reduced left-ventricular systolic function and a congested filling pattern. The numeric ejection fraction was estimated at 35 percent. Those findings established Acute systolic (congestive) heart failure. The diagnosis was not used as the presenting label before the examination, radiograph, natriuretic peptide, and echocardiogram. No loop diuretic was in the longitudinal extract. Intravenous furosemide was begun for congestion and then converted to oral furosemide 40 MG daily. Daily weights and net fluid output were recorded. Home lisinopril 10 MG Oral Tablet was held on hospital day 1 because creatinine rose from 0.8 to 1.5 mg/dL. It had not been given again when discharge planning began. By hospital day 4 the weight was 77.3 kg, oxygen saturation was 96 percent on room air, the respiratory rate was 16, and the patient could lie flat. Creatinine was 0.9 mg/dL after a peak of 1.7. Potassium was 4.3 mmol/L. Dyspnea had returned to the pre-admission baseline rather than merely being called improved. The patient was walking on the ward, eating, and without resting dyspnea or new chest pain. The unsigned task is the discharge medication plan, not another day of intravenous diuresis. Heart-failure clinic follow-up and a chemistry panel were arranged. Home weight monitoring was requested.",
       "provenance": "cliniproof_episode_generated"
     }
   ],
@@ -174,11 +174,11 @@
       "timepoint": "baseline",
       "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
       "loinc_code": "2160-0",
-      "value": 1.1,
+      "value": 0.8,
       "value_text": null,
       "unit": "mg/dL",
       "status": "final",
-      "provenance": "synthea_longitudinal",
+      "provenance": "cliniproof_episode_generated",
       "code_provenance": "reference_terminology"
     },
     {
@@ -187,7 +187,7 @@
       "timepoint": "admission",
       "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
       "loinc_code": "2160-0",
-      "value": 1.2,
+      "value": 1.5,
       "value_text": null,
       "unit": "mg/dL",
       "status": "final",
@@ -200,7 +200,7 @@
       "timepoint": "peak",
       "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
       "loinc_code": "2160-0",
-      "value": 1.2,
+      "value": 1.7,
       "value_text": null,
       "unit": "mg/dL",
       "status": "final",
@@ -213,7 +213,7 @@
       "timepoint": "discharge",
       "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
       "loinc_code": "2160-0",
-      "value": 1.1,
+      "value": 0.9,
       "value_text": null,
       "unit": "mg/dL",
       "status": "final",
@@ -304,21 +304,21 @@
       "weight_id": "WT-G2-006-001",
       "case_id": "G2-006",
       "timepoint": "baseline",
-      "weight_kg": 77.5,
+      "weight_kg": 76.5,
       "provenance": "synthea_longitudinal"
     },
     {
       "weight_id": "WT-G2-006-002",
       "case_id": "G2-006",
       "timepoint": "admission",
-      "weight_kg": 83.0,
+      "weight_kg": 82.0,
       "provenance": "cliniproof_episode_generated"
     },
     {
       "weight_id": "WT-G2-006-003",
       "case_id": "G2-006",
       "timepoint": "discharge",
-      "weight_kg": 78.3,
+      "weight_kg": 77.3,
       "provenance": "cliniproof_episode_generated"
     }
   ],
@@ -338,7 +338,7 @@
       "timepoint": "hospital_day_1",
       "study_type": "Transthoracic echocardiogram",
       "body_site": "",
-      "finding": "Reduced left-ventricular systolic function, estimated ejection fraction 30 percent, congested filling.",
+      "finding": "Reduced left-ventricular systolic function, estimated ejection fraction 35 percent, congested filling.",
       "provenance": "cliniproof_episode_generated"
     }
   ],
@@ -358,6 +358,50 @@
   "CaseMedication": [
     {
       "medication_id": "MED-G2-006-001",
+      "case_id": "G2-006",
+      "context": "home",
+      "drug": "lisinopril",
+      "reported_name": "lisinopril",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "chronic cardiovascular therapy recorded before this admission",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Held after the creatinine rise. Still held at discharge planning, when creatinine was 0.9 mg/dL, potassium was 4.3 mmol/L, and blood pressure was 124/72.",
+      "regimen_id": "LISINOPRIL_10_DAILY",
+      "rxcui": "314076",
+      "identity_provenance": "_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-006-002",
+      "case_id": "G2-006",
+      "context": "inpatient",
+      "drug": "lisinopril",
+      "reported_name": "lisinopril",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "chronic cardiovascular therapy recorded before this admission",
+      "status": "held",
+      "held_reason": "Held after the creatinine rise. Still held at discharge planning, when creatinine was 0.9 mg/dL, potassium was 4.3 mmol/L, and blood pressure was 124/72.",
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Held after the creatinine rise. Still held at discharge planning, when creatinine was 0.9 mg/dL, potassium was 4.3 mmol/L, and blood pressure was 124/72.",
+      "regimen_id": "LISINOPRIL_10_DAILY",
+      "rxcui": "314076",
+      "identity_provenance": "_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-006-003",
       "case_id": "G2-006",
       "context": "inpatient",
       "drug": "furosemide",
@@ -379,14 +423,14 @@
       "provenance": "cliniproof_episode_generated"
     },
     {
-      "medication_id": "MED-G2-006-002",
+      "medication_id": "MED-G2-006-004",
       "case_id": "G2-006",
       "context": "home",
-      "drug": "ibuprofen",
-      "reported_name": "ibuprofen",
-      "dose": "400 MG",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "100 MG",
       "route": "oral",
-      "frequency": "every 8 hours as needed",
+      "frequency": "once daily",
       "indication": "outpatient condition still present",
       "status": "home",
       "held_reason": null,
@@ -394,21 +438,21 @@
       "verification_source": "longitudinal_record_and_inpatient_course",
       "monitoring": null,
       "notes": "Given through the hospitalization from the verified outpatient list.",
-      "regimen_id": "IBUPROFEN_400_PRN",
-      "rxcui": "206905",
-      "identity_provenance": "synthea_longitudinal",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "rxcui": "866412",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     },
     {
-      "medication_id": "MED-G2-006-003",
+      "medication_id": "MED-G2-006-005",
       "case_id": "G2-006",
       "context": "inpatient",
-      "drug": "ibuprofen",
-      "reported_name": "ibuprofen",
-      "dose": "400 MG",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "100 MG",
       "route": "oral",
-      "frequency": "every 8 hours as needed",
+      "frequency": "once daily",
       "indication": "outpatient condition still present",
       "status": "active",
       "held_reason": null,
@@ -416,11 +460,55 @@
       "verification_source": "longitudinal_record_and_inpatient_course",
       "monitoring": null,
       "notes": "Given through the hospitalization from the verified outpatient list.",
-      "regimen_id": "IBUPROFEN_400_PRN",
-      "rxcui": "206905",
-      "identity_provenance": "synthea_longitudinal",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "rxcui": "866412",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-006-006",
+      "case_id": "G2-006",
+      "context": "home",
+      "drug": "warfarin",
+      "reported_name": "warfarin",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "outpatient condition still present",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
+      "rxcui": "855332",
+      "identity_provenance": "_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-006-007",
+      "case_id": "G2-006",
+      "context": "inpatient",
+      "drug": "warfarin",
+      "reported_name": "warfarin",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "outpatient condition still present",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
+      "rxcui": "855332",
+      "identity_provenance": "_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "_longitudinal"
     }
   ],
   "CaseMedicationReconciliation": [],
@@ -489,24 +577,25 @@
   ],
   "scenario_code": "HF_DECOMPENSATION",
   "scenario_version": "g2-scenarios-v1",
-  "variant_id": "nonadherence_cost",
-  "eligibility_tier": "known_heart_failure",
-  "synthea_patient_id": "f2161493-a524-fe0b-f823-0490b7737552",
-  "episode_generation_seed": "20261008:f2161493-a524-fe0b-f823-0490b7737552:HF_DECOMPENSATION:nonadherence_cost",
+  "variant_id": "dietary_sodium_missed_diuretic",
+  "eligibility_tier": "compatible_cardiovascular_history",
+  "synthea_patient_id": "0606a5e1-08dc-256b-6bc5-004976a020fd",
+  "episode_generation_seed": "20261008:0606a5e1-08dc-256b-6bc5-004976a020fd:HF_DECOMPENSATION:dietary_sodium_missed_diuretic",
   "fingerprint": {
     "scenario": "HF_DECOMPENSATION",
-    "variant_id": "nonadherence_cost",
-    "precipitant": "medication_nonadherence",
-    "diagnostic_pathway": "radiograph_bnp_echo_adherence_history",
-    "renal_pattern": "creatinine_stable",
+    "variant_id": "dietary_sodium_missed_diuretic",
+    "precipitant": "dietary_sodium_and_missed_diuretic",
+    "diagnostic_pathway": "radiograph_bnp_echo_troponin",
+    "renal_pattern": "aki_recovered",
     "procedure": "transthoracic_echocardiogram",
     "disposition": "home",
-    "known_hf": "yes",
-    "raas": "no_raas_hold",
-    "med_signature": "furosemide:new_start|ibuprofen:continue"
+    "known_hf": "no",
+    "raas": "hold_open",
+    "med_signature": "furosemide:new_start|lisinopril:restart|metoprolol:continue|warfarin:continue"
   },
   "physiology_expectations": [
-    "diuresis_weight_down"
+    "diuresis_weight_down",
+    "aki_recovered"
   ],
   "facts": [
     {
@@ -514,7 +603,7 @@
       "domains": [
         "baseline"
       ],
-      "text": "The longitudinal record already lists heart failure. Outpatient products in the longitudinal extract: Ibuprofen 400 MG Oral Tablet [Ibu].",
+      "text": "The longitudinal record does not list heart failure. Cardiovascular disease and cardiac medication are present. Outpatient products in the longitudinal extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; warfarin sodium 5 MG Oral Tablet; lisinopril 10 MG Oral Tablet.",
       "provenance": "synthea_longitudinal",
       "time_order": 10,
       "section": "hpi",
@@ -526,8 +615,8 @@
         "baseline",
         "physiology"
       ],
-      "text": "The most recent longitudinal creatinine was 1.1 mg/dL. The most recent longitudinal weight was 77.5 kg.",
-      "provenance": "synthea_longitudinal",
+      "text": "No pre-admission creatinine was in the extracted record. The first creatinine used as the pre-treatment baseline was 0.8 mg/dL. The most recent longitudinal weight was 76.5 kg.",
+      "provenance": "cliniproof_episode_generated",
       "time_order": 12,
       "section": "hpi",
       "resident_visible": true
@@ -548,7 +637,7 @@
       "domains": [
         "precipitant"
       ],
-      "text": "The patient stopped several home cardiovascular medicines ten days ago because the pharmacy refill was unaffordable. Diet and cardiac rhythm were unchanged.",
+      "text": "The patient described three days of restaurant meals and missed the oral diuretic on those days. There was no fever, chest pain, or new palpitation.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 30,
       "section": "hpi",
@@ -559,7 +648,7 @@
       "domains": [
         "presentation"
       ],
-      "text": "On arrival the weight was 83.0 kg, oxygen saturation was 91 percent on room air, the respiratory rate was 26, the jugular venous pressure was elevated, and crackles were present halfway up both lung fields. There was pitting edema to the knees.",
+      "text": "On arrival the weight was 82.0 kg, oxygen saturation was 91 percent on room air, the respiratory rate was 26, the jugular venous pressure was elevated, and crackles were present halfway up both lung fields. There was pitting edema to the knees.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 40,
       "section": "hpi",
@@ -570,7 +659,7 @@
       "domains": [
         "workup"
       ],
-      "text": "The chest radiograph showed pulmonary edema. Natriuretic peptide B was elevated. Troponin I remained 0.01 ng/mL. There was no focal infiltrate. A transthoracic echocardiogram, obtained after the radiograph, showed reduced left-ventricular systolic function and a congested filling pattern. The numeric ejection fraction was estimated at 30 percent.",
+      "text": "The chest radiograph showed pulmonary edema. Natriuretic peptide B was elevated. Troponin I remained 0.01 ng/mL and the electrocardiogram was sinus rhythm without ST-segment elevation. A transthoracic echocardiogram, obtained after the radiograph, showed reduced left-ventricular systolic function and a congested filling pattern. The numeric ejection fraction was estimated at 35 percent.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 50,
       "section": "course",
@@ -581,7 +670,7 @@
       "domains": [
         "diagnosis"
       ],
-      "text": "Those findings established Acute on chronic systolic (congestive) heart failure. The diagnosis was not used as the presenting label before the examination, radiograph, natriuretic peptide, and echocardiogram.",
+      "text": "Those findings established Acute systolic (congestive) heart failure. The diagnosis was not used as the presenting label before the examination, radiograph, natriuretic peptide, and echocardiogram.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 60,
       "section": "course",
@@ -593,7 +682,7 @@
         "treatment",
         "medication_decision"
       ],
-      "text": "No loop diuretic was in the longitudinal extract. Intravenous furosemide was begun for congestion and then converted to oral furosemide 40 MG daily. Daily weights and net fluid output were recorded. No angiotensin-converting enzyme inhibitor or angiotensin-receptor blocker from a curated regimen was held.",
+      "text": "No loop diuretic was in the longitudinal extract. Intravenous furosemide was begun for congestion and then converted to oral furosemide 40 MG daily. Daily weights and net fluid output were recorded. Home lisinopril 10 MG Oral Tablet was held on hospital day 1 because creatinine rose from 0.8 to 1.5 mg/dL. It had not been given again when discharge planning began.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 70,
       "section": "course",
@@ -605,7 +694,7 @@
         "response",
         "physiology"
       ],
-      "text": "By hospital day 4 the weight was 78.3 kg, oxygen saturation was 96 percent on room air, the respiratory rate was 16, and the patient could lie flat. Creatinine was 1.1 mg/dL after a peak of 1.2. Potassium was 4.3 mmol/L. Dyspnea had returned to the pre-admission baseline rather than merely being called improved.",
+      "text": "By hospital day 4 the weight was 77.3 kg, oxygen saturation was 96 percent on room air, the respiratory rate was 16, and the patient could lie flat. Creatinine was 0.9 mg/dL after a peak of 1.7. Potassium was 4.3 mmol/L. Dyspnea had returned to the pre-admission baseline rather than merely being called improved.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 80,
       "section": "course",
@@ -658,7 +747,7 @@
       "event_type": "precipitant",
       "time_order": 30,
       "provenance": "cliniproof_episode_generated",
-      "summary": "medication_nonadherence",
+      "summary": "dietary_sodium_and_missed_diuretic",
       "supporting_data": [],
       "empiric": false
     },
@@ -685,7 +774,7 @@
       "event_type": "diagnosis",
       "time_order": 60,
       "provenance": "cliniproof_episode_generated",
-      "summary": "Acute on chronic systolic (congestive) heart failure",
+      "summary": "Acute systolic (congestive) heart failure",
       "supporting_data": [],
       "empiric": false
     },
@@ -718,6 +807,56 @@
     }
   ],
   "medication_decisions": [
+    {
+      "drug": "lisinopril",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "chronic cardiovascular therapy recorded before this admission",
+      "regimen_id": "LISINOPRIL_10_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "314076",
+      "synthea_product": "lisinopril 10 MG Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "outpatient product in the longitudinal record",
+          "evidence": [
+            "hf-baseline"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "held",
+          "time_order": 70,
+          "trigger": "creatinine rose from 0.8 to 1.5 mg/dL",
+          "evidence": [
+            "hf-treat"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "restart",
+      "evidence_ids": [
+        "hf-baseline",
+        "hf-treat",
+        "hf-response"
+      ],
+      "resident_note": "Held after the creatinine rise. Still held at discharge planning, when creatinine was 0.9 mg/dL, potassium was 4.3 mmol/L, and blood pressure was 124/72.",
+      "rationale": "Restart is supported by the home indication, recovery of creatinine from its peak, an acceptable potassium, and a stable blood pressure. The chart does not show a signed restart.",
+      "monitoring": "Chemistry panel within 7 days.",
+      "follow_up": "Heart-failure clinic within 7 days.",
+      "acceptable_alternatives": [
+        {
+          "alternative_action": "hold",
+          "conditions": "If the clinician wants one more outpatient chemistry before the first dose.",
+          "rationale": "A short additional hold is defensible because the drug is currently held and follow-up is already arranged."
+        }
+      ],
+      "hospital_only": false
+    },
     {
       "drug": "furosemide",
       "dose": "40 MG",
@@ -759,16 +898,16 @@
       "hospital_only": false
     },
     {
-      "drug": "ibuprofen",
-      "dose": "400 MG",
+      "drug": "metoprolol",
+      "dose": "100 MG",
       "route": "oral",
-      "frequency": "every 8 hours as needed",
+      "frequency": "once daily",
       "indication": "outpatient condition still present",
-      "regimen_id": "IBUPROFEN_400_PRN",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
       "identity_provenance": "synthea_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "rxcui": "206905",
-      "synthea_product": "Ibuprofen 400 MG Oral Tablet [Ibu]",
+      "rxcui": "866412",
+      "synthea_product": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet",
       "states": [
         {
           "state": "home",
@@ -798,7 +937,53 @@
         "hf-ready"
       ],
       "resident_note": "Given through the hospitalization from the verified outpatient list.",
-      "rationale": "Ibuprofen 400 MG Oral Tablet [Ibu] remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "rationale": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    },
+    {
+      "drug": "warfarin",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "outpatient condition still present",
+      "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "855332",
+      "synthea_product": "warfarin sodium 5 MG Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "hf-baseline"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "hf-baseline",
+            "hf-response",
+            "hf-ready"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "hf-baseline",
+        "hf-response",
+        "hf-ready"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "warfarin sodium 5 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
       "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
       "follow_up": "Review at the scheduled follow-up visit.",
       "acceptable_alternatives": [],
@@ -807,6 +992,31 @@
   ],
   "reference_discharge_plan": {
     "actions": [
+      {
+        "medication": "lisinopril",
+        "regimen_id": "LISINOPRIL_10_DAILY",
+        "action": "restart",
+        "dose": "10 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "chronic cardiovascular therapy recorded before this admission",
+        "rationale": "Restart is supported by the home indication, recovery of creatinine from its peak, an acceptable potassium, and a stable blood pressure. The chart does not show a signed restart.",
+        "resident_visible_evidence": [
+          "hf-baseline",
+          "hf-treat",
+          "hf-response"
+        ],
+        "monitoring": "Chemistry panel within 7 days.",
+        "follow_up": "Heart-failure clinic within 7 days.",
+        "acceptable_alternatives": [
+          {
+            "alternative_action": "hold",
+            "conditions": "If the clinician wants one more outpatient chemistry before the first dose.",
+            "rationale": "A short additional hold is defensible because the drug is currently held and follow-up is already arranged."
+          }
+        ],
+        "provenance": "investigator_derived_reference"
+      },
       {
         "medication": "furosemide",
         "regimen_id": "FUROSEMIDE_40_DAILY",
@@ -832,14 +1042,33 @@
         "provenance": "investigator_derived_reference"
       },
       {
-        "medication": "ibuprofen",
-        "regimen_id": "IBUPROFEN_400_PRN",
+        "medication": "metoprolol",
+        "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
         "action": "continue",
-        "dose": "400 MG",
+        "dose": "100 MG",
         "route": "oral",
-        "frequency": "every 8 hours as needed",
+        "frequency": "once daily",
         "indication": "outpatient condition still present",
-        "rationale": "Ibuprofen 400 MG Oral Tablet [Ibu] remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "rationale": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "hf-baseline",
+          "hf-response",
+          "hf-ready"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "warfarin",
+        "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
+        "action": "continue",
+        "dose": "5 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "outpatient condition still present",
+        "rationale": "warfarin sodium 5 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
         "resident_visible_evidence": [
           "hf-baseline",
           "hf-response",
@@ -867,48 +1096,48 @@
     "hf-workup"
   ],
   "source_rxcuis": [
-    "1043400",
-    "1049625",
-    "206905",
-    "209387",
-    "310965",
-    "856987"
+    "309362",
+    "312961",
+    "314076",
+    "314231",
+    "705129",
+    "855332",
+    "866412",
+    "904419"
   ],
   "source_snomed": [
-    "10509002",
-    "105531004",
+    "103750000",
     "109570002",
-    "1121000119107",
-    "1256042007",
-    "1260010008",
+    "1231000119100",
+    "127013003",
     "160903007",
     "160904001",
-    "162864005",
-    "18718003",
+    "171207006",
     "224299000",
-    "243085009",
-    "267020005",
-    "274788003",
-    "278602001",
-    "278860009",
+    "271280005",
+    "274531002",
+    "306706006",
+    "308283009",
+    "312157006",
     "314529007",
-    "3802001",
-    "384709000",
-    "40055000",
+    "37320007",
+    "39898005",
+    "414545008",
     "422650009",
-    "423315002",
-    "427898007",
-    "44465007",
+    "424393004",
+    "431855005",
     "444814009",
-    "456191000124101",
-    "64544008",
+    "55822004",
+    "59621000",
+    "60234000",
+    "64859006",
     "66383009",
     "706893006",
-    "73438004",
+    "710824005",
+    "73430006",
     "73595000",
-    "81733005",
-    "82423001",
-    "88805009"
+    "741062008",
+    "762993000"
   ],
   "control_error_status": "NO INTENTIONAL ERROR",
   "provenance": {
@@ -921,13 +1150,13 @@
       "reference_date": "20261008",
       "fhir_version": "R4",
       "java_version": "OpenJDK 21.0.10",
-      "synthetic_patient_id": "f2161493-a524-fe0b-f823-0490b7737552"
+      "synthetic_patient_id": "0606a5e1-08dc-256b-6bc5-004976a020fd"
     },
     "scenario": {
       "code": "HF_DECOMPENSATION",
       "version": "g2-scenarios-v1"
     },
-    "episode_generation_seed": "20261008:f2161493-a524-fe0b-f823-0490b7737552:HF_DECOMPENSATION:nonadherence_cost",
+    "episode_generation_seed": "20261008:0606a5e1-08dc-256b-6bc5-004976a020fd:HF_DECOMPENSATION:dietary_sodium_missed_diuretic",
     "source_classes": [
       "synthea_longitudinal",
       "cliniproof_episode_generated",
@@ -936,7 +1165,13 @@
     ],
     "generated_at": "2026-10-08T00:00:00Z",
     "narrative": "template rendering of structured facts; no language model",
-    "use_openai": false
+    "use_openai": false,
+    "matched_generation1_case_id": "VAL-806",
+    "neutral_study_id": "M-806",
+    "blinding": {
+      "generation_method_hidden_from_narrative": true,
+      "neutral_study_id": "M-806"
+    }
   },
   "ready_for_clinician_review": true,
   "clinically_validated": false

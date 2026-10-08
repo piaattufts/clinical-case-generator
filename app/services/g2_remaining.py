@@ -349,7 +349,7 @@ def build_transplant(
             ["baseline", "medication_decision"],
             (
                 "A prior valganciclovir prophylaxis course, 900 MG once daily, is part of this "
-                "scenario. It was not a product in the Synthea medication list."
+                "scenario. It was not on the pre-admission medication list."
             ),
             EPISODE,
             14,

@@ -1,0 +1,37 @@
+{
+  "generation1_case_id": "VAL-814",
+  "scenario_family": "TRANSPLANT_CMV",
+  "family_label": "Transplant / CMV",
+  "primary_reasoning_target": "Start or adjust cytomegalovirus therapy and immunosuppression after a diagnostic work-up",
+  "secondary_reasoning_targets": [
+    "new_start",
+    "restart"
+  ],
+  "number_of_home_medications": 3,
+  "number_of_clinically_relevant_medications": 4,
+  "number_of_major_discharge_decisions": 2,
+  "decision_types": [
+    "restart",
+    "new_start"
+  ],
+  "important_monitoring_requirements": [
+    "tacrolimus trough and serum creatinine"
+  ],
+  "important_followup_requirements": [
+    "Transplant follow-up to reassess held immunosuppression"
+  ],
+  "major_diagnostic_workup": [
+    "Other cytomegaloviral diseases"
+  ],
+  "approximate_difficulty": "moderate",
+  "monitoring_complexity": "intensive",
+  "followup_count": 1,
+  "major_causal_dependencies": [
+    "baseline before the acute change",
+    "a precipitant or an evaluation for one",
+    "work-up before a newly established diagnosis",
+    "treatment before the recorded response"
+  ],
+  "disposition": "home",
+  "clinician_input_into_generation2_case": "none"
+}

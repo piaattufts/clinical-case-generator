@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import csv
 import hashlib
 import json
 import subprocess
@@ -9,7 +10,6 @@ from pathlib import Path
 
 from app.services.discharge_episode import SCENARIO_ORDER, build_episode, variants_for
 from app.services.g2_audit import chronology_errors, round1_row
-from app.services.g2_cohort import jaccard
 from app.services.g2_terminology import ICD10, LOINC
 from app.services.synthea_eligibility import evaluate_patient
 from app.sources.synthea import parse_bundle
@@ -72,6 +72,7 @@ def test_final_cohort_shape() -> None:
     assert [path.name for path in residents] == [path.name for path in evaluators]
     counts: dict[str, int] = {code: 0 for code in SCENARIO_ORDER}
     fingerprints = []
+    patient_ids = []
     for path in evaluators:
         episode = json.loads(path.read_text(encoding="utf-8"))
         resident = json.loads((COHORT / "cases" / "resident" / path.name).read_text())
@@ -88,6 +89,7 @@ def test_final_cohort_shape() -> None:
         assert row["overall_pass"], row["notes"]
         counts[str(episode["scenario_code"])] += 1
         fingerprints.append(episode["fingerprint"])
+        patient_ids.append(episode["synthea_patient_id"])
         for action in episode["reference_discharge_plan"]["actions"]:
             assert action["resident_visible_evidence"]
             assert set(action["resident_visible_evidence"]) <= set(episode["visible_fact_ids"])
@@ -104,11 +106,26 @@ def test_final_cohort_shape() -> None:
         for diagnosis in episode["CaseDiagnosis"]:
             if diagnosis.get("icd10cm"):
                 assert diagnosis["icd10cm"] in ICD10
+        narrative = " ".join(
+            [
+                str((episode.get("ClinicalCase") or {}).get("one_liner") or ""),
+                str(((episode.get("ClinicalCase") or {}).get("presentation") or {}).get("hpi") or ""),
+            ]
+        ).casefold()
+        for token in ("synthea", "generation 1", "generation 2"):
+            assert token not in narrative
+    pairs = list(csv.DictReader((COHORT / "matched_pairs.csv").open(encoding="utf-8")))
+    assert [row["generation1_case_id"] for row in pairs] == [f"VAL-{index}" for index in range(801, 825)]
+    assert [row["generation2_case_id"] for row in pairs] == [f"G2-{index:03d}" for index in range(1, 25)]
+    audit = list(csv.DictReader((COHORT / "reports" / "matched_pair_audit.csv").open(encoding="utf-8")))
+    assert len(audit) == 24
+    assert all(row["core_pass"] == "YES" for row in audit)
+    assert all(row["patient_specific_facts_copied_from_g1"] == "NO" for row in audit)
+    assert all(row["hidden_reference_copied_from_g1"] == "NO" for row in audit)
     assert counts == {code: 4 for code in SCENARIO_ORDER}
+    assert len(set(patient_ids)) == 24
     for left, right in zip(fingerprints, fingerprints[1:], strict=False):
-        if left["scenario"] == right["scenario"]:
-            assert left["variant_id"] != right["variant_id"]
-            assert jaccard(left, right) < 0.85
+        assert left != right
 
 
 def test_generation1_sources_are_unchanged() -> None:

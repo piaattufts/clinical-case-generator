@@ -1,27 +1,27 @@
 {
   "case_id_code": "G2-018",
   "ClinicalCase": {
-    "title": "HIP_FRACTURE_ANTICOAGULATION G2-018",
+    "title": "72-year-old Male with a right femoral-neck fracture treated after the INR fell",
     "case_id_code": "G2-018",
     "case_status": "candidate",
     "generation_source": "synthetic",
-    "one_liner": "75-year-old Male with a right femoral-neck fracture treated after the INR fell",
+    "one_liner": "72-year-old Male with a right femoral-neck fracture treated after the INR fell",
     "admission_dx": "a right femoral-neck fracture treated after the INR fell",
     "disposition_status": "skilled nursing facility",
     "chief_complaint": "Right hip pain after a fall",
-    "patient_name": "G2-018",
-    "patient_age": 75,
+    "patient_name": "Synthetic patient",
+    "patient_age": 72,
     "patient_gender": "Male",
     "ethnicity": null,
-    "weight_kg": 84.6,
+    "weight_kg": 80.6,
     "social_context": "Longitudinal social history was not required for this episode.",
     "is_active": true,
     "difficulty": "standard",
     "specialty": "internal medicine",
     "allergies": [],
     "medical_history": [
+      "Housing unsatisfactory (finding)",
       "Educated to high school level (finding)",
-      "Has a criminal record (finding)",
       "Body mass index 30+ - obesity (finding)",
       "Hyperlipidemia (disorder)"
     ],
@@ -29,7 +29,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Right hip pain after a fall",
-      "hpi": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) and an anticoagulation indication among the active conditions. Other products: Warfarin Sodium 5 MG Oral Tablet; 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet. A ground-level fall was followed immediately by right hip pain and inability to bear weight. That was not the prior mobility. fall from standing. No chest pain or syncope was described. The right leg was shortened and externally rotated. Arrival INR was 2.6. Warfarin was held on arrival.",
+      "hpi": "The longitudinal extract includes warfarin (warfarin sodium 5 MG Oral Tablet) and an anticoagulation indication among the active conditions. Other products: aspirin 81 MG Oral Tablet; warfarin sodium 5 MG Oral Tablet. A ground-level fall was followed immediately by right hip pain and inability to bear weight. That was not the prior mobility. fall with slow mobilization. No chest pain or syncope was described. The right leg was shortened and externally rotated. Arrival INR was 2.6. Warfarin was held on arrival.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "hip pain",
@@ -64,6 +64,18 @@
     {
       "diagnosis_id": "DX-G2-018-001",
       "case_id": "G2-018",
+      "diagnosis": "Housing unsatisfactory (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "105531004",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-018-002",
+      "case_id": "G2-018",
       "diagnosis": "Educated to high school level (finding)",
       "diagnosis_type": "past_history",
       "status": "active",
@@ -71,18 +83,6 @@
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
       "snomed_code": "473461003",
-      "code_provenance": "reference_terminology"
-    },
-    {
-      "diagnosis_id": "DX-G2-018-002",
-      "case_id": "G2-018",
-      "diagnosis": "Has a criminal record (finding)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "266948004",
       "code_provenance": "reference_terminology"
     },
     {
@@ -127,14 +127,14 @@
       "note_id": "NOTE-G2-018-001",
       "case_id": "G2-018",
       "note_type": "admission",
-      "note_text": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) and an anticoagulation indication among the active conditions. Other products: Warfarin Sodium 5 MG Oral Tablet; 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet. A ground-level fall was followed immediately by right hip pain and inability to bear weight. That was not the prior mobility. fall from standing. No chest pain or syncope was described. The right leg was shortened and externally rotated. Arrival INR was 2.6. Warfarin was held on arrival.",
+      "note_text": "The longitudinal extract includes warfarin (warfarin sodium 5 MG Oral Tablet) and an anticoagulation indication among the active conditions. Other products: aspirin 81 MG Oral Tablet; warfarin sodium 5 MG Oral Tablet. A ground-level fall was followed immediately by right hip pain and inability to bear weight. That was not the prior mobility. fall with slow mobilization. No chest pain or syncope was described. The right leg was shortened and externally rotated. Arrival INR was 2.6. Warfarin was held on arrival.",
       "provenance": "cliniproof_episode_generated"
     },
     {
       "note_id": "NOTE-G2-018-002",
       "case_id": "G2-018",
       "note_type": "hospital_course",
-      "note_text": "A radiograph, not the history alone, showed a right femoral-neck fracture. The INR was repeated before the operating room. The fracture diagnosis followed the radiograph. Anticoagulation management was then planned around that injury. Surgery waited until the INR was 1.3. No separate reversal drug was charted. Open reduction and internal fixation was then performed. The wound was dry and hemoglobin was stable after surgery. Enoxaparin 40 MG subcutaneously once daily was used for postoperative prophylaxis while warfarin remained held. INR fell from 2.6 to 1.3. Creatinine stayed near 0.9 mg/dL. Pain was controlled with non-opioid measures and the patient could sit and transfer with therapy. Therapy recommended skilled nursing facility. The wound assessment is the one above. Warfarin and the prophylactic anticoagulant do not yet have a signed discharge order. Orthopedics, the anticoagulation indication's clinician, and a wound check were arranged.",
+      "note_text": "A radiograph, not the history alone, showed a right femoral-neck fracture. The INR was repeated before the operating room. The fracture diagnosis followed the radiograph. Anticoagulation management was then planned around that injury. Surgery waited until the INR was 1.3. No separate reversal drug was charted. Open reduction and internal fixation was then performed. The wound was dry and hemoglobin was stable after surgery. Enoxaparin 40 MG subcutaneously once daily was used for postoperative prophylaxis while warfarin remained held. INR fell from 2.6 to 1.3. Creatinine stayed near 1.1 mg/dL. Pain was controlled with non-opioid measures and the patient could sit and transfer with therapy. Therapy recommended skilled nursing facility. The wound assessment is the one above. Warfarin and the prophylactic anticoagulant do not yet have a signed discharge order. Orthopedics, the anticoagulation indication's clinician, and a wound check were arranged.",
       "provenance": "cliniproof_episode_generated"
     }
   ],
@@ -238,7 +238,7 @@
       "timepoint": "admission",
       "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
       "loinc_code": "2160-0",
-      "value": 0.9,
+      "value": 1.1,
       "value_text": null,
       "unit": "mg/dL",
       "status": "final",
@@ -251,7 +251,7 @@
       "timepoint": "discharge",
       "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
       "loinc_code": "2160-0",
-      "value": 0.9,
+      "value": 1.1,
       "value_text": null,
       "unit": "mg/dL",
       "status": "final",
@@ -304,9 +304,9 @@
       "notes": "Still held. INR is 1.3 and the wound is dry.",
       "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
       "rxcui": "855332",
-      "identity_provenance": "synthea_longitudinal",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     },
     {
       "medication_id": "MED-G2-018-002",
@@ -326,9 +326,9 @@
       "notes": "Still held. INR is 1.3 and the wound is dry.",
       "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
       "rxcui": "855332",
-      "identity_provenance": "synthea_longitudinal",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     },
     {
       "medication_id": "MED-G2-018-003",
@@ -356,9 +356,9 @@
       "medication_id": "MED-G2-018-004",
       "case_id": "G2-018",
       "context": "home",
-      "drug": "metoprolol",
-      "reported_name": "metoprolol",
-      "dose": "100 MG",
+      "drug": "aspirin",
+      "reported_name": "aspirin",
+      "dose": "81 MG",
       "route": "oral",
       "frequency": "once daily",
       "indication": "unchanged outpatient indication",
@@ -368,19 +368,19 @@
       "verification_source": "longitudinal_record_and_inpatient_course",
       "monitoring": null,
       "notes": "Given through the hospitalization from the verified outpatient list.",
-      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
-      "rxcui": "866412",
-      "identity_provenance": "synthea_longitudinal",
+      "regimen_id": "ASPIRIN_81_DAILY",
+      "rxcui": "243670",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     },
     {
       "medication_id": "MED-G2-018-005",
       "case_id": "G2-018",
       "context": "inpatient",
-      "drug": "metoprolol",
-      "reported_name": "metoprolol",
-      "dose": "100 MG",
+      "drug": "aspirin",
+      "reported_name": "aspirin",
+      "dose": "81 MG",
       "route": "oral",
       "frequency": "once daily",
       "indication": "unchanged outpatient indication",
@@ -390,11 +390,11 @@
       "verification_source": "longitudinal_record_and_inpatient_course",
       "monitoring": null,
       "notes": "Given through the hospitalization from the verified outpatient list.",
-      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
-      "rxcui": "866412",
-      "identity_provenance": "synthea_longitudinal",
+      "regimen_id": "ASPIRIN_81_DAILY",
+      "rxcui": "243670",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     }
   ],
   "CaseMedicationReconciliation": [],
@@ -441,21 +441,21 @@
   "CaseIntakeOutput": [],
   "scenario_code": "HIP_FRACTURE_ANTICOAGULATION",
   "scenario_version": "g2-scenarios-v1",
-  "variant_id": "snf_after_orif",
+  "variant_id": "delayed_mobilization_snf",
   "eligibility_tier": "older_adult_warfarin",
-  "synthea_patient_id": "3a42e936-96d8-9e37-21f8-da2288f10166",
-  "episode_generation_seed": "20261008:3a42e936-96d8-9e37-21f8-da2288f10166:HIP_FRACTURE_ANTICOAGULATION:snf_after_orif",
+  "synthea_patient_id": "1bd04148-6f83-32c1-6552-0d3020a582b6",
+  "episode_generation_seed": "20261008:1bd04148-6f83-32c1-6552-0d3020a582b6:HIP_FRACTURE_ANTICOAGULATION:delayed_mobilization_snf",
   "fingerprint": {
     "scenario": "HIP_FRACTURE_ANTICOAGULATION",
-    "variant_id": "snf_after_orif",
-    "precipitant": "fall_from_standing",
-    "diagnostic_pathway": "xray_inr_orif_therapy_recommendation",
+    "variant_id": "delayed_mobilization_snf",
+    "precipitant": "fall_with_slow_mobilization",
+    "diagnostic_pathway": "xray_orif_physical_therapy",
     "renal_pattern": "creatinine_stable",
     "procedure": "orif_right_femoral_neck",
     "disposition": "skilled nursing facility",
     "restart_decision": "restart",
     "bleeding": "hemostasis",
-    "med_signature": "enoxaparin:stop|metoprolol:continue|warfarin:restart"
+    "med_signature": "aspirin:continue|enoxaparin:stop|warfarin:restart"
   },
   "physiology_expectations": [
     "inr_down"
@@ -466,7 +466,7 @@
       "domains": [
         "baseline"
       ],
-      "text": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) and an anticoagulation indication among the active conditions. Other products: Warfarin Sodium 5 MG Oral Tablet; 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet.",
+      "text": "The longitudinal extract includes warfarin (warfarin sodium 5 MG Oral Tablet) and an anticoagulation indication among the active conditions. Other products: aspirin 81 MG Oral Tablet; warfarin sodium 5 MG Oral Tablet.",
       "provenance": "synthea_longitudinal",
       "time_order": 10,
       "section": "hpi",
@@ -488,7 +488,7 @@
       "domains": [
         "precipitant"
       ],
-      "text": "fall from standing. No chest pain or syncope was described.",
+      "text": "fall with slow mobilization. No chest pain or syncope was described.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 30,
       "section": "hpi",
@@ -545,7 +545,7 @@
         "response",
         "physiology"
       ],
-      "text": "INR fell from 2.6 to 1.3. Creatinine stayed near 0.9 mg/dL. Pain was controlled with non-opioid measures and the patient could sit and transfer with therapy.",
+      "text": "INR fell from 2.6 to 1.3. Creatinine stayed near 1.1 mg/dL. Pain was controlled with non-opioid measures and the patient could sit and transfer with therapy.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 80,
       "section": "course",
@@ -668,7 +668,7 @@
       "identity_provenance": "synthea_longitudinal",
       "regimen_provenance": "reference_terminology",
       "rxcui": "855332",
-      "synthea_product": "Warfarin Sodium 5 MG Oral Tablet",
+      "synthea_product": "warfarin sodium 5 MG Oral Tablet",
       "states": [
         {
           "state": "home",
@@ -754,16 +754,16 @@
       "hospital_only": true
     },
     {
-      "drug": "metoprolol",
-      "dose": "100 MG",
+      "drug": "aspirin",
+      "dose": "81 MG",
       "route": "oral",
       "frequency": "once daily",
       "indication": "unchanged outpatient indication",
-      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "regimen_id": "ASPIRIN_81_DAILY",
       "identity_provenance": "synthea_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "rxcui": "866412",
-      "synthea_product": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet",
+      "rxcui": "243670",
+      "synthea_product": "aspirin 81 MG Oral Tablet",
       "states": [
         {
           "state": "home",
@@ -791,7 +791,7 @@
         "hip-ready"
       ],
       "resident_note": "Given through the hospitalization from the verified outpatient list.",
-      "rationale": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "rationale": "aspirin 81 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
       "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
       "follow_up": "Review at the scheduled follow-up visit.",
       "acceptable_alternatives": [],
@@ -845,14 +845,14 @@
         "provenance": "investigator_derived_reference"
       },
       {
-        "medication": "metoprolol",
-        "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+        "medication": "aspirin",
+        "regimen_id": "ASPIRIN_81_DAILY",
         "action": "continue",
-        "dose": "100 MG",
+        "dose": "81 MG",
         "route": "oral",
         "frequency": "once daily",
         "indication": "unchanged outpatient indication",
-        "rationale": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "rationale": "aspirin 81 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
         "resident_visible_evidence": [
           "hip-base",
           "hip-ready"
@@ -878,42 +878,54 @@
     "hip-work"
   ],
   "source_rxcuis": [
-    "197604",
-    "309362",
-    "312961",
+    "243670",
+    "261962",
+    "313782",
     "314231",
-    "705129",
+    "617314",
+    "834102",
     "855332",
-    "866412",
-    "897685"
+    "855812",
+    "896762"
   ],
   "source_snomed": [
+    "105376000",
+    "105531004",
+    "1231000119100",
     "160903007",
     "160904001",
     "162864005",
-    "185087000",
     "18718003",
     "195662009",
-    "243085009",
+    "233553003",
     "266948004",
-    "274531002",
-    "310417005",
+    "271280005",
+    "271737000",
+    "278602001",
+    "284549007",
+    "301884003",
+    "306706006",
+    "308283009",
+    "312157006",
+    "312608009",
     "314529007",
-    "315639002",
-    "370789001",
-    "385763009",
-    "414545008",
+    "37320007",
+    "37729005",
+    "399211009",
+    "401303003",
     "422650009",
-    "423315002",
+    "43878008",
     "444814009",
+    "446654005",
     "473461003",
-    "49436004",
     "55822004",
-    "58000006",
+    "58828004",
+    "60234000",
     "66383009",
-    "73438004",
+    "714628002",
     "73595000",
-    "741062008"
+    "741062008",
+    "80583007"
   ],
   "control_error_status": "NO INTENTIONAL ERROR",
   "provenance": {
@@ -926,13 +938,13 @@
       "reference_date": "20261008",
       "fhir_version": "R4",
       "java_version": "OpenJDK 21.0.10",
-      "synthetic_patient_id": "3a42e936-96d8-9e37-21f8-da2288f10166"
+      "synthetic_patient_id": "1bd04148-6f83-32c1-6552-0d3020a582b6"
     },
     "scenario": {
       "code": "HIP_FRACTURE_ANTICOAGULATION",
       "version": "g2-scenarios-v1"
     },
-    "episode_generation_seed": "20261008:3a42e936-96d8-9e37-21f8-da2288f10166:HIP_FRACTURE_ANTICOAGULATION:snf_after_orif",
+    "episode_generation_seed": "20261008:1bd04148-6f83-32c1-6552-0d3020a582b6:HIP_FRACTURE_ANTICOAGULATION:delayed_mobilization_snf",
     "source_classes": [
       "synthea_longitudinal",
       "cliniproof_episode_generated",
@@ -941,7 +953,13 @@
     ],
     "generated_at": "2026-10-08T00:00:00Z",
     "narrative": "template rendering of structured facts; no language model",
-    "use_openai": false
+    "use_openai": false,
+    "matched_generation1_case_id": "VAL-818",
+    "neutral_study_id": "M-818",
+    "blinding": {
+      "generation_method_hidden_from_narrative": true,
+      "neutral_study_id": "M-818"
+    }
   },
   "ready_for_clinician_review": true,
   "clinically_validated": false

@@ -1,0 +1,35 @@
+{
+  "generation1_case_id": "VAL-824",
+  "scenario_family": "GI_BLEED_ANTICOAGULATION",
+  "family_label": "GI bleed / anticoagulation",
+  "primary_reasoning_target": "Hold antithrombotic therapy for bleeding and decide restart, stop, or acid suppression",
+  "secondary_reasoning_targets": [
+    "hold"
+  ],
+  "number_of_home_medications": 4,
+  "number_of_clinically_relevant_medications": 4,
+  "number_of_major_discharge_decisions": 1,
+  "decision_types": [
+    "hold"
+  ],
+  "important_monitoring_requirements": [
+    "Primary care follow-up"
+  ],
+  "important_followup_requirements": [
+    "Primary care follow-up"
+  ],
+  "major_diagnostic_workup": [
+    "Gastrointestinal hemorrhage, unspecified"
+  ],
+  "approximate_difficulty": "low",
+  "monitoring_complexity": "limited",
+  "followup_count": 1,
+  "major_causal_dependencies": [
+    "baseline before the acute change",
+    "a precipitant or an evaluation for one",
+    "work-up before a newly established diagnosis",
+    "treatment before the recorded response"
+  ],
+  "disposition": "home",
+  "clinician_input_into_generation2_case": "none"
+}

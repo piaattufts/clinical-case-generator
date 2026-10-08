@@ -1,27 +1,27 @@
 {
   "G2-001": {
     "scenario_code": "MED_HISTORY_UNCERTAINTY",
-    "variant_id": "delirium_dehydration"
+    "variant_id": "delirium_uti"
   },
   "G2-002": {
     "scenario_code": "MED_HISTORY_UNCERTAINTY",
-    "variant_id": "delirium_uti"
+    "variant_id": "delirium_dehydration"
   },
   "G2-003": {
     "scenario_code": "MED_HISTORY_UNCERTAINTY",
-    "variant_id": "delirium_pneumonia"
+    "variant_id": "hyponatremia_hctz"
   },
   "G2-004": {
     "scenario_code": "MED_HISTORY_UNCERTAINTY",
-    "variant_id": "hyponatremia_hctz"
+    "variant_id": "delirium_pneumonia"
   },
   "G2-005": {
     "scenario_code": "HF_DECOMPENSATION",
-    "variant_id": "dietary_sodium_missed_diuretic"
+    "variant_id": "nonadherence_cost"
   },
   "G2-006": {
     "scenario_code": "HF_DECOMPENSATION",
-    "variant_id": "nonadherence_cost"
+    "variant_id": "dietary_sodium_missed_diuretic"
   },
   "G2-007": {
     "scenario_code": "HF_DECOMPENSATION",
@@ -29,7 +29,7 @@
   },
   "G2-008": {
     "scenario_code": "HF_DECOMPENSATION",
-    "variant_id": "pulmonary_infection"
+    "variant_id": "hypertensive_surge"
   },
   "G2-009": {
     "scenario_code": "ENDOCARDITIS_OPAT",
@@ -41,43 +41,43 @@
   },
   "G2-011": {
     "scenario_code": "ENDOCARDITIS_OPAT",
-    "variant_id": "gi_source_evaluated"
+    "variant_id": "bicuspid_predisposition"
   },
   "G2-012": {
     "scenario_code": "ENDOCARDITIS_OPAT",
-    "variant_id": "bicuspid_predisposition"
+    "variant_id": "opat_home_infusion"
   },
   "G2-013": {
     "scenario_code": "TRANSPLANT_CMV",
-    "variant_id": "colitis_biopsy"
+    "variant_id": "cdiff_excluded"
   },
   "G2-014": {
     "scenario_code": "TRANSPLANT_CMV",
-    "variant_id": "prophylaxis_breakthrough"
+    "variant_id": "volume_loss"
   },
   "G2-015": {
     "scenario_code": "TRANSPLANT_CMV",
-    "variant_id": "pcr_syndrome"
+    "variant_id": "prophylaxis_breakthrough"
   },
   "G2-016": {
     "scenario_code": "TRANSPLANT_CMV",
-    "variant_id": "cdiff_excluded"
+    "variant_id": "transplant_clinic_followup"
   },
   "G2-017": {
     "scenario_code": "HIP_FRACTURE_ANTICOAGULATION",
-    "variant_id": "inr_delay_home"
+    "variant_id": "snf_after_orif"
   },
   "G2-018": {
     "scenario_code": "HIP_FRACTURE_ANTICOAGULATION",
-    "variant_id": "snf_after_orif"
+    "variant_id": "delayed_mobilization_snf"
   },
   "G2-019": {
     "scenario_code": "HIP_FRACTURE_ANTICOAGULATION",
-    "variant_id": "wound_hematoma_hold"
+    "variant_id": "af_early_hemostasis"
   },
   "G2-020": {
     "scenario_code": "HIP_FRACTURE_ANTICOAGULATION",
-    "variant_id": "mechanical_valve_context"
+    "variant_id": "inr_delay_home"
   },
   "G2-021": {
     "scenario_code": "GI_BLEED_ANTICOAGULATION",
@@ -85,7 +85,7 @@
   },
   "G2-022": {
     "scenario_code": "GI_BLEED_ANTICOAGULATION",
-    "variant_id": "gastric_ulcer_inr"
+    "variant_id": "esophagitis"
   },
   "G2-023": {
     "scenario_code": "GI_BLEED_ANTICOAGULATION",
@@ -93,6 +93,6 @@
   },
   "G2-024": {
     "scenario_code": "GI_BLEED_ANTICOAGULATION",
-    "variant_id": "esophagitis"
+    "variant_id": "defer_restart"
   }
 }

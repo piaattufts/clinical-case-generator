@@ -17,10 +17,9 @@ if str(ROOT) not in sys.path:
 from app.services.g2_audit import round1_row  # noqa: E402
 from app.services.g2_cohort import (  # noqa: E402
     eligibility_summary,
-    generate_candidates,
-    select_final,
     write_cohort,
 )
+from app.services.g2_match import build_matched_cohort, write_matching_artifacts  # noqa: E402
 from app.services.g2_render import write_casebook, write_readable  # noqa: E402
 from app.services.synthea_import import load_population  # noqa: E402
 
@@ -60,10 +59,11 @@ def build() -> None:
     summary = eligibility_summary(patients)
     summary["files"] = file_counts
     meta = meta_from_config(config)
-    kept, rejected, counts = generate_candidates(patients, meta)
-    summary["scenario_counts_used_by_selector"] = counts
-    selected = select_final(kept)
-    write_cohort(OUT, selected, rejected, summary, meta, kept)
+    selected, rejected, attempts = build_matched_cohort(patients, meta)
+    summary["matched_pairs"] = len(selected)
+    summary["candidate_attempts"] = len(attempts)
+    write_cohort(OUT, selected, rejected, summary, meta, {"matched": selected})
+    write_matching_artifacts(OUT, selected, attempts)
     write_readable(OUT)
     write_casebook(OUT, CASEBOOK)
     print(json.dumps({"eligible": summary["eligible"], "files": file_counts, "rejected": len(rejected), "final": len(selected)}, indent=2))

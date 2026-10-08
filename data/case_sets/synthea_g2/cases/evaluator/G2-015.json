@@ -1,36 +1,36 @@
 {
   "case_id_code": "G2-015",
   "ClinicalCase": {
-    "title": "TRANSPLANT_CMV G2-015",
+    "title": "54-year-old Male with cytomegalovirus disease established during the hospitalization, not as the presenting label",
     "case_id_code": "G2-015",
     "case_status": "candidate",
     "generation_source": "synthetic",
-    "one_liner": "66-year-old Female with cytomegalovirus disease established during the hospitalization, not as the presenting label",
+    "one_liner": "54-year-old Male with cytomegalovirus disease established during the hospitalization, not as the presenting label",
     "admission_dx": "cytomegalovirus disease established during the hospitalization, not as the presenting label",
     "disposition_status": "home",
     "chief_complaint": "Fever and fatigue",
-    "patient_name": "G2-015",
-    "patient_age": 66,
-    "patient_gender": "Female",
+    "patient_name": "Synthetic patient",
+    "patient_age": 54,
+    "patient_gender": "Male",
     "ethnicity": null,
-    "weight_kg": 69.9,
+    "weight_kg": 84.2,
     "social_context": "Longitudinal social history was not required for this episode.",
     "is_active": true,
     "difficulty": "standard",
     "specialty": "transplant medicine",
     "allergies": [],
     "medical_history": [
-      "Recurrent urinary tract infection (disorder)",
-      "Educated to high school level (finding)",
-      "Prediabetes (finding)",
-      "Anemia (disorder)",
+      "Risk activity involvement (finding)",
+      "Received higher education (finding)",
+      "Lack of access to transportation (finding)",
+      "Transport problem (finding)",
       "Kidney transplant status"
     ],
     "source_type": "synthea_cliniproof_g2",
     "source_file": null,
     "presentation": {
       "chief_complaint": "Fever and fatigue",
-      "hpi": "The longitudinal record includes renal transplant status and extended-release tacrolimus. Other outpatient products in the extract: aspirin 81 MG Oral Tablet; atorvastatin 20 MG Oral Tablet; 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; 24 HR tacrolimus 1 MG Extended Release Oral Tablet [Envarsus]. Valganciclovir was not a home medicine. None was inferred from transplant status alone. Fever and fatigue for six days were new. There was no chronic febrile illness at baseline. The transplant and the immunosuppression are the predisposition. Rejection, drug toxicity, and ordinary gastroenteritis were still on the differential at arrival. Arrival creatinine was 0.9 mg/dL. The presentation was the symptom above, not a preassigned cytomegalovirus diagnosis.",
+      "hpi": "The longitudinal record includes renal transplant status and extended-release tacrolimus. Other outpatient products in the extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; Hydrochlorothiazide 25 MG Oral Tablet; 24 HR tacrolimus 1 MG Extended Release Oral Tablet [Envarsus]; amLODIPine 2.5 MG Oral Tablet. A prior valganciclovir prophylaxis course, 900 MG once daily, is part of this scenario. It was not on the pre-admission medication list. Fever and fatigue for six days were new. There was no chronic febrile illness at baseline. The transplant and the immunosuppression are the predisposition. Rejection, drug toxicity, and ordinary gastroenteritis were still on the differential at arrival. Arrival creatinine was 0.9 mg/dL. The presentation was the symptom above, not a preassigned cytomegalovirus diagnosis.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "fever",
@@ -65,49 +65,49 @@
     {
       "diagnosis_id": "DX-G2-015-001",
       "case_id": "G2-015",
-      "diagnosis": "Recurrent urinary tract infection (disorder)",
+      "diagnosis": "Risk activity involvement (finding)",
       "diagnosis_type": "past_history",
       "status": "active",
       "context": "history",
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
-      "snomed_code": "197927001",
+      "snomed_code": "160968000",
       "code_provenance": "reference_terminology"
     },
     {
       "diagnosis_id": "DX-G2-015-002",
       "case_id": "G2-015",
-      "diagnosis": "Educated to high school level (finding)",
+      "diagnosis": "Received higher education (finding)",
       "diagnosis_type": "past_history",
       "status": "active",
       "context": "history",
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
-      "snomed_code": "473461003",
+      "snomed_code": "224299000",
       "code_provenance": "reference_terminology"
     },
     {
       "diagnosis_id": "DX-G2-015-003",
       "case_id": "G2-015",
-      "diagnosis": "Prediabetes (finding)",
+      "diagnosis": "Lack of access to transportation (finding)",
       "diagnosis_type": "past_history",
       "status": "active",
       "context": "history",
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
-      "snomed_code": "714628002",
+      "snomed_code": "713458007",
       "code_provenance": "reference_terminology"
     },
     {
       "diagnosis_id": "DX-G2-015-004",
       "case_id": "G2-015",
-      "diagnosis": "Anemia (disorder)",
+      "diagnosis": "Transport problem (finding)",
       "diagnosis_type": "past_history",
       "status": "active",
       "context": "history",
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
-      "snomed_code": "271737000",
+      "snomed_code": "266934004",
       "code_provenance": "reference_terminology"
     },
     {
@@ -140,7 +140,7 @@
       "note_id": "NOTE-G2-015-001",
       "case_id": "G2-015",
       "note_type": "admission",
-      "note_text": "The longitudinal record includes renal transplant status and extended-release tacrolimus. Other outpatient products in the extract: aspirin 81 MG Oral Tablet; atorvastatin 20 MG Oral Tablet; 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; 24 HR tacrolimus 1 MG Extended Release Oral Tablet [Envarsus]. Valganciclovir was not a home medicine. None was inferred from transplant status alone. Fever and fatigue for six days were new. There was no chronic febrile illness at baseline. The transplant and the immunosuppression are the predisposition. Rejection, drug toxicity, and ordinary gastroenteritis were still on the differential at arrival. Arrival creatinine was 0.9 mg/dL. The presentation was the symptom above, not a preassigned cytomegalovirus diagnosis.",
+      "note_text": "The longitudinal record includes renal transplant status and extended-release tacrolimus. Other outpatient products in the extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; Hydrochlorothiazide 25 MG Oral Tablet; 24 HR tacrolimus 1 MG Extended Release Oral Tablet [Envarsus]; amLODIPine 2.5 MG Oral Tablet. A prior valganciclovir prophylaxis course, 900 MG once daily, is part of this scenario. It was not on the pre-admission medication list. Fever and fatigue for six days were new. There was no chronic febrile illness at baseline. The transplant and the immunosuppression are the predisposition. Rejection, drug toxicity, and ordinary gastroenteritis were still on the differential at arrival. Arrival creatinine was 0.9 mg/dL. The presentation was the symptom above, not a preassigned cytomegalovirus diagnosis.",
       "provenance": "cliniproof_episode_generated"
     },
     {
@@ -335,9 +335,9 @@
       "notes": "Extended-release tacrolimus was continued once daily. It was not converted to an every-12-hour product.",
       "regimen_id": "TACROLIMUS_ER_1MG_DAILY",
       "rxcui": "1664463",
-      "identity_provenance": "synthea_longitudinal",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     },
     {
       "medication_id": "MED-G2-015-002",
@@ -357,12 +357,34 @@
       "notes": "Extended-release tacrolimus was continued once daily. It was not converted to an every-12-hour product.",
       "regimen_id": "TACROLIMUS_ER_1MG_DAILY",
       "rxcui": "1664463",
-      "identity_provenance": "synthea_longitudinal",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     },
     {
       "medication_id": "MED-G2-015-003",
+      "case_id": "G2-015",
+      "context": "home",
+      "drug": "valganciclovir",
+      "reported_name": "valganciclovir",
+      "dose": "900 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "cytomegalovirus induction after laboratory or histologic confirmation",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Home scenario prophylaxis was 900 MG once daily. The inpatient dose after confirmation is 900 MG twice daily. Creatinine supports that induction dose.",
+      "regimen_id": "VALGANCICLOVIR_CMV_TREATMENT",
+      "rxcui": null,
+      "identity_provenance": "cliniproof_episode_generated",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "medication_id": "MED-G2-015-004",
       "case_id": "G2-015",
       "context": "inpatient",
       "drug": "valganciclovir",
@@ -376,7 +398,7 @@
       "verification_status": "verified",
       "verification_source": "longitudinal_record_and_inpatient_course",
       "monitoring": null,
-      "notes": "Started after confirmation. Not a home medicine. Induction dose 900 MG twice daily.",
+      "notes": "Home scenario prophylaxis was 900 MG once daily. The inpatient dose after confirmation is 900 MG twice daily. Creatinine supports that induction dose.",
       "regimen_id": "VALGANCICLOVIR_CMV_TREATMENT",
       "rxcui": null,
       "identity_provenance": "cliniproof_episode_generated",
@@ -384,12 +406,12 @@
       "provenance": "cliniproof_episode_generated"
     },
     {
-      "medication_id": "MED-G2-015-004",
+      "medication_id": "MED-G2-015-005",
       "case_id": "G2-015",
       "context": "home",
-      "drug": "aspirin",
-      "reported_name": "aspirin",
-      "dose": "81 MG",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "100 MG",
       "route": "oral",
       "frequency": "once daily",
       "indication": "unchanged outpatient indication",
@@ -399,85 +421,41 @@
       "verification_source": "longitudinal_record_and_inpatient_course",
       "monitoring": null,
       "notes": "Given through the hospitalization from the verified outpatient list.",
-      "regimen_id": "ASPIRIN_81_DAILY",
-      "rxcui": "243670",
-      "identity_provenance": "synthea_longitudinal",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "rxcui": "866412",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
-    },
-    {
-      "medication_id": "MED-G2-015-005",
-      "case_id": "G2-015",
-      "context": "inpatient",
-      "drug": "aspirin",
-      "reported_name": "aspirin",
-      "dose": "81 MG",
-      "route": "oral",
-      "frequency": "once daily",
-      "indication": "unchanged outpatient indication",
-      "status": "active",
-      "held_reason": null,
-      "verification_status": "verified",
-      "verification_source": "longitudinal_record_and_inpatient_course",
-      "monitoring": null,
-      "notes": "Given through the hospitalization from the verified outpatient list.",
-      "regimen_id": "ASPIRIN_81_DAILY",
-      "rxcui": "243670",
-      "identity_provenance": "synthea_longitudinal",
-      "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     },
     {
       "medication_id": "MED-G2-015-006",
       "case_id": "G2-015",
-      "context": "home",
-      "drug": "atorvastatin",
-      "reported_name": "atorvastatin",
-      "dose": "20 MG",
+      "context": "inpatient",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "100 MG",
       "route": "oral",
       "frequency": "once daily",
       "indication": "unchanged outpatient indication",
-      "status": "home",
+      "status": "active",
       "held_reason": null,
       "verification_status": "verified",
       "verification_source": "longitudinal_record_and_inpatient_course",
       "monitoring": null,
       "notes": "Given through the hospitalization from the verified outpatient list.",
-      "regimen_id": "ATORVASTATIN_20_DAILY",
-      "rxcui": "617310",
-      "identity_provenance": "synthea_longitudinal",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "rxcui": "866412",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     },
     {
       "medication_id": "MED-G2-015-007",
       "case_id": "G2-015",
-      "context": "inpatient",
-      "drug": "atorvastatin",
-      "reported_name": "atorvastatin",
-      "dose": "20 MG",
-      "route": "oral",
-      "frequency": "once daily",
-      "indication": "unchanged outpatient indication",
-      "status": "active",
-      "held_reason": null,
-      "verification_status": "verified",
-      "verification_source": "longitudinal_record_and_inpatient_course",
-      "monitoring": null,
-      "notes": "Given through the hospitalization from the verified outpatient list.",
-      "regimen_id": "ATORVASTATIN_20_DAILY",
-      "rxcui": "617310",
-      "identity_provenance": "synthea_longitudinal",
-      "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
-    },
-    {
-      "medication_id": "MED-G2-015-008",
-      "case_id": "G2-015",
       "context": "home",
-      "drug": "metoprolol",
-      "reported_name": "metoprolol",
-      "dose": "100 MG",
+      "drug": "hydrochlorothiazide",
+      "reported_name": "hydrochlorothiazide",
+      "dose": "25 MG",
       "route": "oral",
       "frequency": "once daily",
       "indication": "unchanged outpatient indication",
@@ -487,19 +465,19 @@
       "verification_source": "longitudinal_record_and_inpatient_course",
       "monitoring": null,
       "notes": "Given through the hospitalization from the verified outpatient list.",
-      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
-      "rxcui": "866412",
-      "identity_provenance": "synthea_longitudinal",
+      "regimen_id": "HCTZ_25_DAILY",
+      "rxcui": "310798",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     },
     {
-      "medication_id": "MED-G2-015-009",
+      "medication_id": "MED-G2-015-008",
       "case_id": "G2-015",
       "context": "inpatient",
-      "drug": "metoprolol",
-      "reported_name": "metoprolol",
-      "dose": "100 MG",
+      "drug": "hydrochlorothiazide",
+      "reported_name": "hydrochlorothiazide",
+      "dose": "25 MG",
       "route": "oral",
       "frequency": "once daily",
       "indication": "unchanged outpatient indication",
@@ -509,11 +487,55 @@
       "verification_source": "longitudinal_record_and_inpatient_course",
       "monitoring": null,
       "notes": "Given through the hospitalization from the verified outpatient list.",
-      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
-      "rxcui": "866412",
-      "identity_provenance": "synthea_longitudinal",
+      "regimen_id": "HCTZ_25_DAILY",
+      "rxcui": "310798",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-015-009",
+      "case_id": "G2-015",
+      "context": "home",
+      "drug": "amlodipine",
+      "reported_name": "amlodipine",
+      "dose": "2.5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "AMLODIPINE_2_5_DAILY",
+      "rxcui": "308136",
+      "identity_provenance": "_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-015-010",
+      "case_id": "G2-015",
+      "context": "inpatient",
+      "drug": "amlodipine",
+      "reported_name": "amlodipine",
+      "dose": "2.5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "AMLODIPINE_2_5_DAILY",
+      "rxcui": "308136",
+      "identity_provenance": "_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "_longitudinal"
     }
   ],
   "CaseMedicationReconciliation": [],
@@ -552,21 +574,21 @@
   "CaseIntakeOutput": [],
   "scenario_code": "TRANSPLANT_CMV",
   "scenario_version": "g2-scenarios-v1",
-  "variant_id": "pcr_syndrome",
+  "variant_id": "prophylaxis_breakthrough",
   "eligibility_tier": "synthea_renal_transplant",
-  "synthea_patient_id": "8526efe0-aef1-0474-0971-fcb5730d34c7",
-  "episode_generation_seed": "20261008:8526efe0-aef1-0474-0971-fcb5730d34c7:TRANSPLANT_CMV:pcr_syndrome",
+  "synthea_patient_id": "3f576c7c-8862-f6de-cc8e-b8afd92b57cd",
+  "episode_generation_seed": "20261008:3f576c7c-8862-f6de-cc8e-b8afd92b57cd:TRANSPLANT_CMV:prophylaxis_breakthrough",
   "fingerprint": {
     "scenario": "TRANSPLANT_CMV",
-    "variant_id": "pcr_syndrome",
-    "precipitant": "fever_and_leukopenia",
-    "diagnostic_pathway": "pcr_without_colitis",
+    "variant_id": "prophylaxis_breakthrough",
+    "precipitant": "breakthrough_during_scenario_prophylaxis",
+    "diagnostic_pathway": "pcr_on_prophylaxis_then_induction",
     "renal_pattern": "creatinine_stable",
     "procedure": "none",
     "disposition": "home",
-    "prophylaxis": "no_home_antiviral",
+    "prophylaxis": "scenario_prophylaxis",
     "disease_form": "syndrome",
-    "med_signature": "aspirin:continue|atorvastatin:continue|metoprolol:continue|tacrolimus:continue|valganciclovir:new_start"
+    "med_signature": "amlodipine:continue|hydrochlorothiazide:continue|metoprolol:continue|tacrolimus:continue|valganciclovir:dose_change"
   },
   "physiology_expectations": [],
   "facts": [
@@ -575,19 +597,19 @@
       "domains": [
         "baseline"
       ],
-      "text": "The longitudinal record includes renal transplant status and extended-release tacrolimus. Other outpatient products in the extract: aspirin 81 MG Oral Tablet; atorvastatin 20 MG Oral Tablet; 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; 24 HR tacrolimus 1 MG Extended Release Oral Tablet [Envarsus].",
+      "text": "The longitudinal record includes renal transplant status and extended-release tacrolimus. Other outpatient products in the extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; Hydrochlorothiazide 25 MG Oral Tablet; 24 HR tacrolimus 1 MG Extended Release Oral Tablet [Envarsus]; amLODIPine 2.5 MG Oral Tablet.",
       "provenance": "synthea_longitudinal",
       "time_order": 10,
       "section": "hpi",
       "resident_visible": true
     },
     {
-      "fact_id": "tx-no-antiviral",
+      "fact_id": "tx-prophylaxis",
       "domains": [
         "baseline",
         "medication_decision"
       ],
-      "text": "Valganciclovir was not a home medicine. None was inferred from transplant status alone.",
+      "text": "A prior valganciclovir prophylaxis course, 900 MG once daily, is part of this scenario. It was not on the pre-admission medication list.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 14,
       "section": "hpi",
@@ -719,7 +741,7 @@
       "event_type": "precipitant",
       "time_order": 30,
       "provenance": "cliniproof_episode_generated",
-      "summary": "fever_and_leukopenia",
+      "summary": "breakthrough_during_scenario_prophylaxis",
       "supporting_data": [],
       "empiric": false
     },
@@ -836,117 +858,30 @@
       "synthea_product": null,
       "states": [
         {
-          "state": "new_inpatient",
-          "time_order": 70,
-          "trigger": "started after the diagnostic result",
+          "state": "home",
+          "time_order": 10,
+          "trigger": "scenario prophylaxis",
           "evidence": [
-            "tx-dx",
-            "tx-treat"
+            "tx-prophylaxis"
           ],
           "provenance": "cliniproof_episode_generated"
         }
       ],
-      "discharge_action": "new_start",
+      "discharge_action": "dose_change",
       "evidence_ids": [
         "tx-work",
         "tx-dx",
         "tx-treat",
         "tx-response"
       ],
-      "resident_note": "Started after confirmation. Not a home medicine. Induction dose 900 MG twice daily.",
-      "rationale": "Starting induction is supported because the drug was absent at home, the diagnosis followed testing, and renal function allows the labeled induction dose.",
+      "resident_note": "Home scenario prophylaxis was 900 MG once daily. The inpatient dose after confirmation is 900 MG twice daily. Creatinine supports that induction dose.",
+      "rationale": "A change from prophylaxis to induction is supported by confirmed disease, preserved renal function, and an incomplete treatment course.",
       "monitoring": "Weekly complete blood count, creatinine, and cytomegalovirus DNA.",
       "follow_up": "infectious diseases within 7 days.",
       "acceptable_alternatives": [],
-      "hospital_only": false
-    },
-    {
-      "drug": "aspirin",
-      "dose": "81 MG",
-      "route": "oral",
-      "frequency": "once daily",
-      "indication": "unchanged outpatient indication",
-      "regimen_id": "ASPIRIN_81_DAILY",
-      "identity_provenance": "synthea_longitudinal",
-      "regimen_provenance": "reference_terminology",
-      "rxcui": "243670",
-      "synthea_product": "aspirin 81 MG Oral Tablet",
-      "states": [
-        {
-          "state": "home",
-          "time_order": 10,
-          "trigger": "recorded outpatient medication",
-          "evidence": [
-            "tx-base"
-          ],
-          "provenance": "synthea_longitudinal"
-        },
-        {
-          "state": "continued_inpatient",
-          "time_order": 70,
-          "trigger": "indication still present and no new contraindication",
-          "evidence": [
-            "tx-base",
-            "tx-ready"
-          ],
-          "provenance": "cliniproof_episode_generated"
-        }
-      ],
-      "discharge_action": "continue",
-      "evidence_ids": [
-        "tx-base",
-        "tx-ready"
-      ],
-      "resident_note": "Given through the hospitalization from the verified outpatient list.",
-      "rationale": "aspirin 81 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
-      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
-      "follow_up": "Review at the scheduled follow-up visit.",
-      "acceptable_alternatives": [],
-      "hospital_only": false
-    },
-    {
-      "drug": "atorvastatin",
-      "dose": "20 MG",
-      "route": "oral",
-      "frequency": "once daily",
-      "indication": "unchanged outpatient indication",
-      "regimen_id": "ATORVASTATIN_20_DAILY",
-      "identity_provenance": "synthea_longitudinal",
-      "regimen_provenance": "reference_terminology",
-      "rxcui": "617310",
-      "synthea_product": "atorvastatin 20 MG Oral Tablet",
-      "states": [
-        {
-          "state": "home",
-          "time_order": 10,
-          "trigger": "recorded outpatient medication",
-          "evidence": [
-            "tx-base"
-          ],
-          "provenance": "synthea_longitudinal"
-        },
-        {
-          "state": "continued_inpatient",
-          "time_order": 70,
-          "trigger": "indication still present and no new contraindication",
-          "evidence": [
-            "tx-base",
-            "tx-ready"
-          ],
-          "provenance": "cliniproof_episode_generated"
-        }
-      ],
-      "discharge_action": "continue",
-      "evidence_ids": [
-        "tx-base",
-        "tx-ready"
-      ],
-      "resident_note": "Given through the hospitalization from the verified outpatient list.",
-      "rationale": "atorvastatin 20 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
-      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
-      "follow_up": "Review at the scheduled follow-up visit.",
-      "acceptable_alternatives": [],
-      "hospital_only": false
+      "hospital_only": false,
+      "home_dose": "900 MG",
+      "home_frequency": "once daily"
     },
     {
       "drug": "metoprolol",
@@ -991,6 +926,94 @@
       "follow_up": "Review at the scheduled follow-up visit.",
       "acceptable_alternatives": [],
       "hospital_only": false
+    },
+    {
+      "drug": "hydrochlorothiazide",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "regimen_id": "HCTZ_25_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "310798",
+      "synthea_product": "Hydrochlorothiazide 25 MG Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "tx-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "tx-base",
+            "tx-ready"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "tx-base",
+        "tx-ready"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "Hydrochlorothiazide 25 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    },
+    {
+      "drug": "amlodipine",
+      "dose": "2.5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "regimen_id": "AMLODIPINE_2_5_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "308136",
+      "synthea_product": "amLODIPine 2.5 MG Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "tx-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "tx-base",
+            "tx-ready"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "tx-base",
+        "tx-ready"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "amLODIPine 2.5 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
     }
   ],
   "reference_discharge_plan": {
@@ -1017,12 +1040,12 @@
       {
         "medication": "valganciclovir",
         "regimen_id": "VALGANCICLOVIR_CMV_TREATMENT",
-        "action": "new_start",
+        "action": "dose_change",
         "dose": "900 MG",
         "route": "oral",
         "frequency": "twice daily",
         "indication": "cytomegalovirus induction after laboratory or histologic confirmation",
-        "rationale": "Starting induction is supported because the drug was absent at home, the diagnosis followed testing, and renal function allows the labeled induction dose.",
+        "rationale": "A change from prophylaxis to induction is supported by confirmed disease, preserved renal function, and an incomplete treatment course.",
         "resident_visible_evidence": [
           "tx-work",
           "tx-dx",
@@ -1031,42 +1054,6 @@
         ],
         "monitoring": "Weekly complete blood count, creatinine, and cytomegalovirus DNA.",
         "follow_up": "infectious diseases within 7 days.",
-        "acceptable_alternatives": [],
-        "provenance": "investigator_derived_reference"
-      },
-      {
-        "medication": "aspirin",
-        "regimen_id": "ASPIRIN_81_DAILY",
-        "action": "continue",
-        "dose": "81 MG",
-        "route": "oral",
-        "frequency": "once daily",
-        "indication": "unchanged outpatient indication",
-        "rationale": "aspirin 81 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
-        "resident_visible_evidence": [
-          "tx-base",
-          "tx-ready"
-        ],
-        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
-        "follow_up": "Review at the scheduled follow-up visit.",
-        "acceptable_alternatives": [],
-        "provenance": "investigator_derived_reference"
-      },
-      {
-        "medication": "atorvastatin",
-        "regimen_id": "ATORVASTATIN_20_DAILY",
-        "action": "continue",
-        "dose": "20 MG",
-        "route": "oral",
-        "frequency": "once daily",
-        "indication": "unchanged outpatient indication",
-        "rationale": "atorvastatin 20 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
-        "resident_visible_evidence": [
-          "tx-base",
-          "tx-ready"
-        ],
-        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
-        "follow_up": "Review at the scheduled follow-up visit.",
         "acceptable_alternatives": [],
         "provenance": "investigator_derived_reference"
       },
@@ -1087,6 +1074,42 @@
         "follow_up": "Review at the scheduled follow-up visit.",
         "acceptable_alternatives": [],
         "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "hydrochlorothiazide",
+        "regimen_id": "HCTZ_25_DAILY",
+        "action": "continue",
+        "dose": "25 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "unchanged outpatient indication",
+        "rationale": "Hydrochlorothiazide 25 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "tx-base",
+          "tx-ready"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "amlodipine",
+        "regimen_id": "AMLODIPINE_2_5_DAILY",
+        "action": "continue",
+        "dose": "2.5 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "unchanged outpatient indication",
+        "rationale": "amLODIPine 2.5 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "tx-base",
+          "tx-ready"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
       }
     ],
     "provenance": "investigator_derived_reference"
@@ -1096,84 +1119,74 @@
     "tx-base",
     "tx-dx",
     "tx-follow",
-    "tx-no-antiviral",
     "tx-precip",
     "tx-present",
+    "tx-prophylaxis",
     "tx-ready",
     "tx-response",
     "tx-treat",
     "tx-work"
   ],
   "source_rxcuis": [
-    "1043400",
     "106892",
     "1664463",
-    "197591",
     "2001499",
-    "243670",
+    "308136",
     "309362",
+    "310798",
     "312961",
+    "313782",
     "314231",
-    "617310",
+    "562251",
     "705129",
-    "849574",
-    "854905",
-    "858817",
+    "834102",
     "866412"
   ],
   "source_snomed": [
+    "103697008",
     "10509002",
     "109570002",
     "1260009003",
     "1260010008",
     "127013003",
-    "128613002",
-    "1290882004",
     "157141000119108",
     "160903007",
     "160904001",
+    "160968000",
     "161665007",
-    "161744009",
+    "162864005",
     "18718003",
-    "195662009",
-    "197927001",
-    "22298006",
+    "224299000",
     "225362009",
     "237602007",
-    "239873007",
     "241046008",
     "243085009",
+    "266934004",
     "266948004",
     "271737000",
     "274531002",
     "274788003",
-    "278588009",
-    "302870006",
+    "278602001",
     "314529007",
     "34043003",
-    "368581000119106",
-    "399211009",
-    "401314000",
     "414545008",
     "422650009",
     "423315002",
-    "424393004",
-    "428251008",
+    "431855005",
     "431856006",
     "431857002",
     "433144002",
-    "44054006",
-    "473461003",
+    "43878008",
+    "444814009",
     "55822004",
+    "59621000",
     "66383009",
-    "68071007",
     "698306007",
     "706893006",
+    "713458007",
     "714628002",
     "73595000",
     "741062008",
-    "74400008",
-    "84757009",
     "90781000119102"
   ],
   "control_error_status": "NO INTENTIONAL ERROR",
@@ -1187,13 +1200,13 @@
       "reference_date": "20261008",
       "fhir_version": "R4",
       "java_version": "OpenJDK 21.0.10",
-      "synthetic_patient_id": "8526efe0-aef1-0474-0971-fcb5730d34c7"
+      "synthetic_patient_id": "3f576c7c-8862-f6de-cc8e-b8afd92b57cd"
     },
     "scenario": {
       "code": "TRANSPLANT_CMV",
       "version": "g2-scenarios-v1"
     },
-    "episode_generation_seed": "20261008:8526efe0-aef1-0474-0971-fcb5730d34c7:TRANSPLANT_CMV:pcr_syndrome",
+    "episode_generation_seed": "20261008:3f576c7c-8862-f6de-cc8e-b8afd92b57cd:TRANSPLANT_CMV:prophylaxis_breakthrough",
     "source_classes": [
       "synthea_longitudinal",
       "cliniproof_episode_generated",
@@ -1202,7 +1215,13 @@
     ],
     "generated_at": "2026-10-08T00:00:00Z",
     "narrative": "template rendering of structured facts; no language model",
-    "use_openai": false
+    "use_openai": false,
+    "matched_generation1_case_id": "VAL-815",
+    "neutral_study_id": "M-815",
+    "blinding": {
+      "generation_method_hidden_from_narrative": true,
+      "neutral_study_id": "M-815"
+    }
   },
   "ready_for_clinician_review": true,
   "clinically_validated": false

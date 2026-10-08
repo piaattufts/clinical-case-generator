@@ -1,0 +1,36 @@
+{
+  "generation1_case_id": "VAL-807",
+  "scenario_family": "HF_DECOMPENSATION",
+  "family_label": "Heart failure decompensation",
+  "primary_reasoning_target": "Discharge heart-failure therapy after decompensation, diuresis, and renal review",
+  "secondary_reasoning_targets": [
+    "stop"
+  ],
+  "number_of_home_medications": 3,
+  "number_of_clinically_relevant_medications": 4,
+  "number_of_major_discharge_decisions": 2,
+  "decision_types": [
+    "stop",
+    "stop"
+  ],
+  "important_monitoring_requirements": [
+    "Electrolyte and heart-failure follow-up"
+  ],
+  "important_followup_requirements": [
+    "Electrolyte and heart-failure follow-up"
+  ],
+  "major_diagnostic_workup": [
+    "Acute systolic (congestive) heart failure"
+  ],
+  "approximate_difficulty": "moderate",
+  "monitoring_complexity": "routine",
+  "followup_count": 1,
+  "major_causal_dependencies": [
+    "baseline before the acute change",
+    "a precipitant or an evaluation for one",
+    "work-up before a newly established diagnosis",
+    "treatment before the recorded response"
+  ],
+  "disposition": "home",
+  "clinician_input_into_generation2_case": "none"
+}

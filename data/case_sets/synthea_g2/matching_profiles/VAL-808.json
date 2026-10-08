@@ -1,0 +1,35 @@
+{
+  "generation1_case_id": "VAL-808",
+  "scenario_family": "HF_DECOMPENSATION",
+  "family_label": "Heart failure decompensation",
+  "primary_reasoning_target": "Discharge heart-failure therapy after decompensation, diuresis, and renal review",
+  "secondary_reasoning_targets": [
+    "stop"
+  ],
+  "number_of_home_medications": 4,
+  "number_of_clinically_relevant_medications": 4,
+  "number_of_major_discharge_decisions": 1,
+  "decision_types": [
+    "stop"
+  ],
+  "important_monitoring_requirements": [
+    "Primary care volume follow-up after diuretic adjustment"
+  ],
+  "important_followup_requirements": [
+    "Primary care volume follow-up after diuretic adjustment"
+  ],
+  "major_diagnostic_workup": [
+    "Acute systolic (congestive) heart failure"
+  ],
+  "approximate_difficulty": "low",
+  "monitoring_complexity": "limited",
+  "followup_count": 1,
+  "major_causal_dependencies": [
+    "baseline before the acute change",
+    "a precipitant or an evaluation for one",
+    "work-up before a newly established diagnosis",
+    "treatment before the recorded response"
+  ],
+  "disposition": "home",
+  "clinician_input_into_generation2_case": "none"
+}

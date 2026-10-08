@@ -37,55 +37,10 @@
       "alive": 1000,
       "deceased": 162
     },
-    "scenario_counts_used_by_selector": {
-      "MED_HISTORY_UNCERTAINTY": 32,
-      "HF_DECOMPENSATION": 261,
-      "ENDOCARDITIS_OPAT": 787,
-      "TRANSPLANT_CMV": 11,
-      "HIP_FRACTURE_ANTICOAGULATION": 13,
-      "GI_BLEED_ANTICOAGULATION": 15,
-      "synthea_endocarditis_conditions": 0
-    }
+    "matched_pairs": 24,
+    "candidate_attempts": 96
   },
   "rejection_reasons": {
-    "high_similarity_to_delirium_dehydration": 1,
-    "high_similarity_to_delirium_uti": 1,
-    "high_similarity_to_delirium_pneumonia": 1,
-    "high_similarity_to_hyponatremia_hctz": 1,
-    "high_similarity_to_pharmacy_confirmation": 1,
-    "high_similarity_to_lisinopril_hold_aki": 1,
-    "high_similarity_to_orthostasis_hctz": 1,
-    "high_similarity_to_nsaid_dyspepsia": 1,
-    "high_similarity_to_nonadherence_cost": 1,
-    "high_similarity_to_new_atrial_fibrillation": 1,
-    "high_similarity_to_no_clear_precipitant": 1,
-    "high_similarity_to_ischemia_evaluated_negative": 1,
-    "high_similarity_to_recent_nsaid": 1,
-    "high_similarity_to_hypertensive_surge": 1,
-    "high_similarity_to_dental_mitral": 1,
-    "high_similarity_to_no_source_aortic": 1,
-    "high_similarity_to_gi_source_evaluated": 1,
-    "high_similarity_to_bicuspid_predisposition": 1,
-    "high_similarity_to_skin_source": 1,
-    "high_similarity_to_surgery_consult_no_indication": 1,
-    "high_similarity_to_opat_home_infusion": 1,
-    "high_similarity_to_opat_skilled_nursing": 1,
-    "high_similarity_to_colitis_biopsy": 1,
-    "high_similarity_to_prophylaxis_breakthrough": 1,
-    "high_similarity_to_pcr_syndrome": 1,
-    "high_similarity_to_cdiff_excluded": 1,
-    "high_similarity_to_leukopenia_recovered": 1,
-    "high_similarity_to_inr_delay_home": 1,
-    "high_similarity_to_snf_after_orif": 1,
-    "high_similarity_to_wound_hematoma_hold": 1,
-    "high_similarity_to_af_early_hemostasis": 1,
-    "high_similarity_to_delayed_mobilization_snf": 1,
-    "high_similarity_to_duodenal_ulcer_restart": 1,
-    "high_similarity_to_gastric_ulcer_inr": 1,
-    "high_similarity_to_diverticular_hold": 1,
-    "high_similarity_to_esophagitis": 1,
-    "high_similarity_to_nsaid_and_warfarin": 1,
-    "high_similarity_to_transfused_stable": 1,
-    "high_similarity_to_defer_restart": 1
+    "copied_or_failed": 1
   }
 }

@@ -1,35 +1,35 @@
 {
   "case_id_code": "G2-019",
   "ClinicalCase": {
-    "title": "HIP_FRACTURE_ANTICOAGULATION G2-019",
+    "title": "75-year-old Male with a right femoral-neck fracture treated after the INR fell",
     "case_id_code": "G2-019",
     "case_status": "candidate",
     "generation_source": "synthetic",
-    "one_liner": "70-year-old Female with a right femoral-neck fracture treated after the INR fell",
+    "one_liner": "75-year-old Male with a right femoral-neck fracture treated after the INR fell",
     "admission_dx": "a right femoral-neck fracture treated after the INR fell",
     "disposition_status": "home",
     "chief_complaint": "Right hip pain after a fall",
-    "patient_name": "G2-019",
-    "patient_age": 70,
-    "patient_gender": "Female",
+    "patient_name": "Synthetic patient",
+    "patient_age": 75,
+    "patient_gender": "Male",
     "ethnicity": null,
-    "weight_kg": 73.0,
+    "weight_kg": 84.6,
     "social_context": "Longitudinal social history was not required for this episode.",
     "is_active": true,
     "difficulty": "standard",
     "specialty": "internal medicine",
     "allergies": [],
     "medical_history": [
-      "Risk activity involvement (finding)",
       "Educated to high school level (finding)",
-      "Limited social contact (finding)",
-      "Past pregnancy history of miscarriage (situation)"
+      "Has a criminal record (finding)",
+      "Body mass index 30+ - obesity (finding)",
+      "Hyperlipidemia (disorder)"
     ],
     "source_type": "synthea_cliniproof_g2",
     "source_file": null,
     "presentation": {
       "chief_complaint": "Right hip pain after a fall",
-      "hpi": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) and an anticoagulation indication among the active conditions. Other products: Warfarin Sodium 5 MG Oral Tablet. A ground-level fall was followed immediately by right hip pain and inability to bear weight. That was not the prior mobility. fall with postoperative oozing. No chest pain or syncope was described. The right leg was shortened and externally rotated. Arrival INR was 2.6. Warfarin was held on arrival.",
+      "hpi": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) and an anticoagulation indication among the active conditions. Other products: Warfarin Sodium 5 MG Oral Tablet; 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet. A ground-level fall was followed immediately by right hip pain and inability to bear weight. That was not the prior mobility. fall with prompt hemostasis. No chest pain or syncope was described. The right leg was shortened and externally rotated. Arrival INR was 2.6. Warfarin was held on arrival.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "hip pain",
@@ -64,18 +64,6 @@
     {
       "diagnosis_id": "DX-G2-019-001",
       "case_id": "G2-019",
-      "diagnosis": "Risk activity involvement (finding)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "160968000",
-      "code_provenance": "reference_terminology"
-    },
-    {
-      "diagnosis_id": "DX-G2-019-002",
-      "case_id": "G2-019",
       "diagnosis": "Educated to high school level (finding)",
       "diagnosis_type": "past_history",
       "status": "active",
@@ -86,27 +74,39 @@
       "code_provenance": "reference_terminology"
     },
     {
-      "diagnosis_id": "DX-G2-019-003",
+      "diagnosis_id": "DX-G2-019-002",
       "case_id": "G2-019",
-      "diagnosis": "Limited social contact (finding)",
+      "diagnosis": "Has a criminal record (finding)",
       "diagnosis_type": "past_history",
       "status": "active",
       "context": "history",
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
-      "snomed_code": "423315002",
+      "snomed_code": "266948004",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-019-003",
+      "case_id": "G2-019",
+      "diagnosis": "Body mass index 30+ - obesity (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "162864005",
       "code_provenance": "reference_terminology"
     },
     {
       "diagnosis_id": "DX-G2-019-004",
       "case_id": "G2-019",
-      "diagnosis": "Past pregnancy history of miscarriage (situation)",
+      "diagnosis": "Hyperlipidemia (disorder)",
       "diagnosis_type": "past_history",
       "status": "active",
       "context": "history",
       "provenance": "synthea_longitudinal",
       "icd10cm": null,
-      "snomed_code": "161744009",
+      "snomed_code": "55822004",
       "code_provenance": "reference_terminology"
     },
     {
@@ -127,14 +127,14 @@
       "note_id": "NOTE-G2-019-001",
       "case_id": "G2-019",
       "note_type": "admission",
-      "note_text": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) and an anticoagulation indication among the active conditions. Other products: Warfarin Sodium 5 MG Oral Tablet. A ground-level fall was followed immediately by right hip pain and inability to bear weight. That was not the prior mobility. fall with postoperative oozing. No chest pain or syncope was described. The right leg was shortened and externally rotated. Arrival INR was 2.6. Warfarin was held on arrival.",
+      "note_text": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) and an anticoagulation indication among the active conditions. Other products: Warfarin Sodium 5 MG Oral Tablet; 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet. A ground-level fall was followed immediately by right hip pain and inability to bear weight. That was not the prior mobility. fall with prompt hemostasis. No chest pain or syncope was described. The right leg was shortened and externally rotated. Arrival INR was 2.6. Warfarin was held on arrival.",
       "provenance": "cliniproof_episode_generated"
     },
     {
       "note_id": "NOTE-G2-019-002",
       "case_id": "G2-019",
       "note_type": "hospital_course",
-      "note_text": "A radiograph, not the history alone, showed a right femoral-neck fracture. The INR was repeated before the operating room. The fracture diagnosis followed the radiograph. Anticoagulation management was then planned around that injury. Surgery waited until the INR was 1.3. No separate reversal drug was charted. Open reduction and internal fixation was then performed. A wound hematoma was present on postoperative day 1 and was not expanding. Hemoglobin was stable. Enoxaparin 40 MG subcutaneously once daily was used for postoperative prophylaxis while warfarin remained held. INR fell from 2.6 to 1.3. Creatinine stayed near 1.2 mg/dL. Pain was controlled with non-opioid measures and the patient could sit and transfer with therapy. Therapy recommended home. The wound assessment is the one above. Warfarin and the prophylactic anticoagulant do not yet have a signed discharge order. Orthopedics, the anticoagulation indication's clinician, and a wound check were arranged.",
+      "note_text": "A radiograph, not the history alone, showed a right femoral-neck fracture. The INR was repeated before the operating room. The fracture diagnosis followed the radiograph. Anticoagulation management was then planned around that injury. Surgery waited until the INR was 1.3. No separate reversal drug was charted. Open reduction and internal fixation was then performed. The wound was dry and hemoglobin was stable after surgery. Enoxaparin 40 MG subcutaneously once daily was used for postoperative prophylaxis while warfarin remained held. INR fell from 2.6 to 1.3. Creatinine stayed near 0.9 mg/dL. Pain was controlled with non-opioid measures and the patient could sit and transfer with therapy. Therapy recommended home. The wound assessment is the one above. Warfarin and the prophylactic anticoagulant do not yet have a signed discharge order. Orthopedics, the anticoagulation indication's clinician, and a wound check were arranged.",
       "provenance": "cliniproof_episode_generated"
     }
   ],
@@ -225,7 +225,7 @@
       "timepoint": "discharge",
       "test_name": "Hemoglobin [Mass/volume] in Blood",
       "loinc_code": "718-7",
-      "value": 11.2,
+      "value": 11.8,
       "value_text": null,
       "unit": "g/dL",
       "status": "final",
@@ -238,7 +238,7 @@
       "timepoint": "admission",
       "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
       "loinc_code": "2160-0",
-      "value": 1.2,
+      "value": 0.9,
       "value_text": null,
       "unit": "mg/dL",
       "status": "final",
@@ -251,7 +251,7 @@
       "timepoint": "discharge",
       "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
       "loinc_code": "2160-0",
-      "value": 1.2,
+      "value": 0.9,
       "value_text": null,
       "unit": "mg/dL",
       "status": "final",
@@ -279,7 +279,7 @@
       "procedure_type": "inpatient",
       "time": "after INR 1.3",
       "findings": "Fixation completed.",
-      "complications": "wound hematoma",
+      "complications": "none",
       "provenance": "cliniproof_episode_generated"
     }
   ],
@@ -301,12 +301,12 @@
       "verification_status": "verified",
       "verification_source": "longitudinal_record_and_inpatient_course",
       "monitoring": null,
-      "notes": "Still held. A wound hematoma is present and not expanding, and hemoglobin is stable.",
+      "notes": "Still held. INR is 1.3 and the wound is dry.",
       "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
       "rxcui": "855332",
-      "identity_provenance": "synthea_longitudinal",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     },
     {
       "medication_id": "MED-G2-019-002",
@@ -319,16 +319,16 @@
       "frequency": "once daily",
       "indication": "longitudinal anticoagulation indication",
       "status": "held",
-      "held_reason": "Still held. A wound hematoma is present and not expanding, and hemoglobin is stable.",
+      "held_reason": "Still held. INR is 1.3 and the wound is dry.",
       "verification_status": "verified",
       "verification_source": "longitudinal_record_and_inpatient_course",
       "monitoring": null,
-      "notes": "Still held. A wound hematoma is present and not expanding, and hemoglobin is stable.",
+      "notes": "Still held. INR is 1.3 and the wound is dry.",
       "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
       "rxcui": "855332",
-      "identity_provenance": "synthea_longitudinal",
+      "identity_provenance": "_longitudinal",
       "regimen_provenance": "reference_terminology",
-      "provenance": "synthea_longitudinal"
+      "provenance": "_longitudinal"
     },
     {
       "medication_id": "MED-G2-019-003",
@@ -351,6 +351,50 @@
       "identity_provenance": "cliniproof_episode_generated",
       "regimen_provenance": "reference_terminology",
       "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "medication_id": "MED-G2-019-004",
+      "case_id": "G2-019",
+      "context": "home",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "rxcui": "866412",
+      "identity_provenance": "_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-019-005",
+      "case_id": "G2-019",
+      "context": "inpatient",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "rxcui": "866412",
+      "identity_provenance": "_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "_longitudinal"
     }
   ],
   "CaseMedicationReconciliation": [],
@@ -397,21 +441,21 @@
   "CaseIntakeOutput": [],
   "scenario_code": "HIP_FRACTURE_ANTICOAGULATION",
   "scenario_version": "g2-scenarios-v1",
-  "variant_id": "wound_hematoma_hold",
+  "variant_id": "af_early_hemostasis",
   "eligibility_tier": "older_adult_warfarin",
-  "synthea_patient_id": "4d508c0d-ddaa-cb00-4d5c-f3b889b6f712",
-  "episode_generation_seed": "20261008:4d508c0d-ddaa-cb00-4d5c-f3b889b6f712:HIP_FRACTURE_ANTICOAGULATION:wound_hematoma_hold",
+  "synthea_patient_id": "3a42e936-96d8-9e37-21f8-da2288f10166",
+  "episode_generation_seed": "20261008:3a42e936-96d8-9e37-21f8-da2288f10166:HIP_FRACTURE_ANTICOAGULATION:af_early_hemostasis",
   "fingerprint": {
     "scenario": "HIP_FRACTURE_ANTICOAGULATION",
-    "variant_id": "wound_hematoma_hold",
-    "precipitant": "fall_with_postoperative_oozing",
-    "diagnostic_pathway": "xray_orif_then_hematoma",
+    "variant_id": "af_early_hemostasis",
+    "precipitant": "fall_with_prompt_hemostasis",
+    "diagnostic_pathway": "xray_orif_day2_hemostasis",
     "renal_pattern": "creatinine_stable",
     "procedure": "orif_right_femoral_neck",
     "disposition": "home",
-    "restart_decision": "hold",
-    "bleeding": "wound_hematoma",
-    "med_signature": "enoxaparin:stop|warfarin:hold"
+    "restart_decision": "restart",
+    "bleeding": "hemostasis",
+    "med_signature": "enoxaparin:stop|metoprolol:continue|warfarin:restart"
   },
   "physiology_expectations": [
     "inr_down"
@@ -422,7 +466,7 @@
       "domains": [
         "baseline"
       ],
-      "text": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) and an anticoagulation indication among the active conditions. Other products: Warfarin Sodium 5 MG Oral Tablet.",
+      "text": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) and an anticoagulation indication among the active conditions. Other products: Warfarin Sodium 5 MG Oral Tablet; 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet.",
       "provenance": "synthea_longitudinal",
       "time_order": 10,
       "section": "hpi",
@@ -444,7 +488,7 @@
       "domains": [
         "precipitant"
       ],
-      "text": "fall with postoperative oozing. No chest pain or syncope was described.",
+      "text": "fall with prompt hemostasis. No chest pain or syncope was described.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 30,
       "section": "hpi",
@@ -489,7 +533,7 @@
         "treatment",
         "medication_decision"
       ],
-      "text": "Surgery waited until the INR was 1.3. No separate reversal drug was charted. Open reduction and internal fixation was then performed. A wound hematoma was present on postoperative day 1 and was not expanding. Hemoglobin was stable. Enoxaparin 40 MG subcutaneously once daily was used for postoperative prophylaxis while warfarin remained held.",
+      "text": "Surgery waited until the INR was 1.3. No separate reversal drug was charted. Open reduction and internal fixation was then performed. The wound was dry and hemoglobin was stable after surgery. Enoxaparin 40 MG subcutaneously once daily was used for postoperative prophylaxis while warfarin remained held.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 70,
       "section": "course",
@@ -501,7 +545,7 @@
         "response",
         "physiology"
       ],
-      "text": "INR fell from 2.6 to 1.3. Creatinine stayed near 1.2 mg/dL. Pain was controlled with non-opioid measures and the patient could sit and transfer with therapy.",
+      "text": "INR fell from 2.6 to 1.3. Creatinine stayed near 0.9 mg/dL. Pain was controlled with non-opioid measures and the patient could sit and transfer with therapy.",
       "provenance": "cliniproof_episode_generated",
       "time_order": 80,
       "section": "course",
@@ -646,20 +690,20 @@
           "provenance": "cliniproof_episode_generated"
         }
       ],
-      "discharge_action": "hold",
+      "discharge_action": "restart",
       "evidence_ids": [
         "hip-base",
         "hip-treat",
         "hip-response",
         "hip-ready"
       ],
-      "resident_note": "Still held. A wound hematoma is present and not expanding, and hemoglobin is stable.",
-      "rationale": "Continued hold is supported by the wound hematoma. The indication is still present, so the hold is temporary.",
+      "resident_note": "Still held. INR is 1.3 and the wound is dry.",
+      "rationale": "Restart is supported by a persistent anticoagulation indication, an INR that has fallen, hemostasis, and completed fixation.",
       "monitoring": "INR within 3 days if warfarin is resumed, and sooner for wound bleeding.",
       "follow_up": "Orthopedics and the clinician who manages anticoagulation within 7 days.",
       "acceptable_alternatives": [
         {
-          "alternative_action": "restart",
+          "alternative_action": "hold",
           "conditions": "If the wound assessment is weighed differently at the moment of the order.",
           "rationale": "Hemostasis is recent. Either a restart now or a short further hold can be defended from the same wound and INR facts."
         }
@@ -708,6 +752,50 @@
       "follow_up": "No enoxaparin follow-up.",
       "acceptable_alternatives": [],
       "hospital_only": true
+    },
+    {
+      "drug": "metoprolol",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "866412",
+      "synthea_product": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "hip-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "hip-base",
+            "hip-ready"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "hip-base",
+        "hip-ready"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
     }
   ],
   "reference_discharge_plan": {
@@ -715,12 +803,12 @@
       {
         "medication": "warfarin",
         "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
-        "action": "hold",
+        "action": "restart",
         "dose": "5 MG",
         "route": "oral",
         "frequency": "once daily",
         "indication": "longitudinal anticoagulation indication",
-        "rationale": "Continued hold is supported by the wound hematoma. The indication is still present, so the hold is temporary.",
+        "rationale": "Restart is supported by a persistent anticoagulation indication, an INR that has fallen, hemostasis, and completed fixation.",
         "resident_visible_evidence": [
           "hip-base",
           "hip-treat",
@@ -731,7 +819,7 @@
         "follow_up": "Orthopedics and the clinician who manages anticoagulation within 7 days.",
         "acceptable_alternatives": [
           {
-            "alternative_action": "restart",
+            "alternative_action": "hold",
             "conditions": "If the wound assessment is weighed differently at the moment of the order.",
             "rationale": "Hemostasis is recent. Either a restart now or a short further hold can be defended from the same wound and INR facts."
           }
@@ -755,6 +843,24 @@
         "follow_up": "No enoxaparin follow-up.",
         "acceptable_alternatives": [],
         "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "metoprolol",
+        "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+        "action": "continue",
+        "dose": "100 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "unchanged outpatient indication",
+        "rationale": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "hip-base",
+          "hip-ready"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
       }
     ],
     "provenance": "investigator_derived_reference"
@@ -772,44 +878,42 @@
     "hip-work"
   ],
   "source_rxcuis": [
-    "1043400",
     "197604",
-    "849574",
+    "309362",
+    "312961",
+    "314231",
+    "705129",
     "855332",
+    "866412",
     "897685"
   ],
   "source_snomed": [
-    "10509002",
-    "109570002",
-    "109838007",
-    "1256042007",
-    "125605004",
-    "1260010008",
     "160903007",
     "160904001",
-    "160968000",
-    "16114001",
-    "161744009",
+    "162864005",
+    "185087000",
     "18718003",
-    "239873007",
+    "195662009",
     "243085009",
     "266948004",
-    "274788003",
+    "274531002",
+    "310417005",
     "314529007",
-    "3802001",
+    "315639002",
+    "370789001",
+    "385763009",
+    "414545008",
     "422650009",
     "423315002",
     "444814009",
-    "456191000124101",
     "473461003",
     "49436004",
-    "64544008",
+    "55822004",
+    "58000006",
     "66383009",
-    "68496003",
-    "706893006",
+    "73438004",
     "73595000",
-    "741062008",
-    "81733005"
+    "741062008"
   ],
   "control_error_status": "NO INTENTIONAL ERROR",
   "provenance": {
@@ -822,13 +926,13 @@
       "reference_date": "20261008",
       "fhir_version": "R4",
       "java_version": "OpenJDK 21.0.10",
-      "synthetic_patient_id": "4d508c0d-ddaa-cb00-4d5c-f3b889b6f712"
+      "synthetic_patient_id": "3a42e936-96d8-9e37-21f8-da2288f10166"
     },
     "scenario": {
       "code": "HIP_FRACTURE_ANTICOAGULATION",
       "version": "g2-scenarios-v1"
     },
-    "episode_generation_seed": "20261008:4d508c0d-ddaa-cb00-4d5c-f3b889b6f712:HIP_FRACTURE_ANTICOAGULATION:wound_hematoma_hold",
+    "episode_generation_seed": "20261008:3a42e936-96d8-9e37-21f8-da2288f10166:HIP_FRACTURE_ANTICOAGULATION:af_early_hemostasis",
     "source_classes": [
       "synthea_longitudinal",
       "cliniproof_episode_generated",
@@ -837,7 +941,13 @@
     ],
     "generated_at": "2026-10-08T00:00:00Z",
     "narrative": "template rendering of structured facts; no language model",
-    "use_openai": false
+    "use_openai": false,
+    "matched_generation1_case_id": "VAL-819",
+    "neutral_study_id": "M-819",
+    "blinding": {
+      "generation_method_hidden_from_narrative": true,
+      "neutral_study_id": "M-819"
+    }
   },
   "ready_for_clinician_review": true,
   "clinically_validated": false

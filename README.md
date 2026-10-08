@@ -245,7 +245,40 @@ The committed pilot is 24 clean cases, four in each family:
 | `HIP_FRACTURE_ANTICOAGULATION` | G2-017–G2-020 |
 | `GI_BLEED_ANTICOAGULATION` | G2-021–G2-024 |
 
-`G2-001` through `G2-024` are candidate identifiers. They are not VAL identifiers. The resident charts have no planted medication error and no completed discharge medication list. The hidden reference is only on the evaluator record. The cohort does not use MIMIC. No language model selects a diagnosis, medication, dose, laboratory value, or reference action. Status: technically generated and audited, and pending clinician validation.
+`G2-001` through `G2-024` are candidate identifiers. They are not VAL identifiers. Each one is the matched counterpart of one revised Generation 1 case: VAL-801 is G2-001, and the numbering continues through VAL-824 and G2-024. The match is the clinical reasoning family and the approximate discharge-decision complexity. It is not a copied patient, hospitalization, or reference plan.
+
+Generation 2 does not replace Generation 1, and it does not modify Generation 1. Both cohorts stay in the tree so the generation method can be compared. The question a later study can ask, and which this repository does not answer, is whether a Synthea-grounded trajectory produces clinically stronger discharge-reconciliation cases than the revised archetype method when the cases are matched on reasoning task and read with the same instrument.
+
+| Generation 1 | Generation 2 | Family |
+| --- | --- | --- |
+| VAL-801 | G2-001 | Medication reconciliation |
+| VAL-802 | G2-002 | Medication reconciliation |
+| VAL-803 | G2-003 | Medication reconciliation |
+| VAL-804 | G2-004 | Medication reconciliation |
+| VAL-805 | G2-005 | Heart failure decompensation |
+| VAL-806 | G2-006 | Heart failure decompensation |
+| VAL-807 | G2-007 | Heart failure decompensation |
+| VAL-808 | G2-008 | Heart failure decompensation |
+| VAL-809 | G2-009 | Endocarditis / OPAT |
+| VAL-810 | G2-010 | Endocarditis / OPAT |
+| VAL-811 | G2-011 | Endocarditis / OPAT |
+| VAL-812 | G2-012 | Endocarditis / OPAT |
+| VAL-813 | G2-013 | Transplant / CMV |
+| VAL-814 | G2-014 | Transplant / CMV |
+| VAL-815 | G2-015 | Transplant / CMV |
+| VAL-816 | G2-016 | Transplant / CMV |
+| VAL-817 | G2-017 | Hip fracture / anticoagulation |
+| VAL-818 | G2-018 | Hip fracture / anticoagulation |
+| VAL-819 | G2-019 | Hip fracture / anticoagulation |
+| VAL-820 | G2-020 | Hip fracture / anticoagulation |
+| VAL-821 | G2-021 | GI bleed / anticoagulation |
+| VAL-822 | G2-022 | GI bleed / anticoagulation |
+| VAL-823 | G2-023 | GI bleed / anticoagulation |
+| VAL-824 | G2-024 | GI bleed / anticoagulation |
+
+The pair table with decision and monitoring notes is [matched_pairs.csv](data/case_sets/synthea_g2/matched_pairs.csv). The pair audit is [matched_pair_audit.md](data/case_sets/synthea_g2/reports/matched_pair_audit.md). Generation 1 matching profiles, which are research-design abstractions and not copies of the charts, are in [matching_profiles](data/case_sets/synthea_g2/matching_profiles/). A later blinded comparison can use the neutral pair identifiers in [blinding_map.json](data/case_sets/synthea_g2/blinding_map.json). That comparison has not been run. Resident narratives do not name the generation method.
+
+The resident charts have no planted medication error and no completed discharge medication list. The hidden reference is only on the evaluator record. The cohort does not use MIMIC. No language model selects a diagnosis, medication, dose, laboratory value, or reference action. Status: technically generated and audited, and pending clinician validation.
 
 ### Generation 2 artifacts
 
@@ -257,6 +290,8 @@ The committed pilot is 24 clean cases, four in each family:
 - [Diversity report](data/case_sets/synthea_g2/reports/diversity_report.md)
 - [Clinical sufficiency report](data/case_sets/synthea_g2/reports/clinical_sufficiency_report.md)
 - [Reference support report](data/case_sets/synthea_g2/reports/reference_support_report.md)
+- [Matched pairs](data/case_sets/synthea_g2/matched_pairs.csv)
+- [Matched pair audit](data/case_sets/synthea_g2/reports/matched_pair_audit.md)
 
 The pinned Synthea commit, seed, and export command are in [config/synthea.yml](config/synthea.yml).
 
