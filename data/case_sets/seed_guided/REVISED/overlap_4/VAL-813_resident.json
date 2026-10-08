@@ -28,7 +28,7 @@
     "source_file": null,
     "presentation": {
       "chief_complaint": "Diarrhea and poor intake",
-      "hpi": "A 64-year-old woman with a remote kidney transplant is admitted for several days of watery diarrhea and poor intake. She is not admitted with a diagnosis of cytomegalovirus colitis. Home immunosuppression is tacrolimus 1 mg orally every 12 hours, mycophenolate mofetil 1000 mg orally twice daily, and prednisone 5 mg orally once daily. She also takes amlodipine 5 mg daily and atorvastatin 40 mg daily. Valganciclovir is not a home medicine. Admission weight is 64 kg. Blood pressure is 100/62 mm Hg and heart rate is 110 beats per minute. Creatinine is 1.8 mg/dL, above an outpatient baseline of 1.0 mg/dL. Potassium is 3.2 mmol/L. Stool culture did not grow a bacterial pathogen, and Clostridioides difficile toxin is negative. On hospital day 2, colonoscopy shows colitis and the biopsy immunohistochemistry is positive for cytomegalovirus. Plasma cytomegalovirus DNA is 8500 IU/mL. Mycophenolate is held. Ganciclovir 5 mg/kg intravenously every 12 hours is started after the biopsy; at 66 kg that dose is 330 mg. Potassium chloride, 40 mEq orally, is given for the admission potassium. Diarrhea slows to one or two formed stools a day. Discharge weight is 66 kg, creatinine is 0.9 mg/dL, and potassium is 4.0 mmol/L. The transplant pharmacist records creatinine clearance above 60 mL/min from the discharge age, weight, and creatinine. Intravenous ganciclovir is stopped and valganciclovir 900 mg orally twice daily, given as 450 mg tablets, is started. Tacrolimus 1 mg every 12 hours continues; a discharge trough is 6.5 ng/mL and the transplant target on the chart is 5 to 8 ng/mL. Prednisone 5 mg daily continues. Mycophenolate stays held. Transplant clinic in 7 days will decide whether to restart it. No standing potassium is prescribed because the potassium is 4.0 mmol/L and the diarrhea has slowed.",
+      "hpi": "A 64-year-old woman with a remote kidney transplant is admitted for several days of watery diarrhea and poor intake. She is not admitted with a diagnosis of cytomegalovirus colitis. Home immunosuppression is tacrolimus 1 mg orally every 12 hours, mycophenolate mofetil 1000 mg orally twice daily, and prednisone 5 mg orally once daily. She also takes amlodipine 5 mg daily and atorvastatin 40 mg daily. Valganciclovir is not a home medicine. Admission weight is 64 kg. Blood pressure is 100/62 mm Hg and heart rate is 110 beats per minute. Creatinine is 1.8 mg/dL, above an outpatient baseline of 1.0 mg/dL. Potassium is 3.2 mmol/L. Stool culture did not grow a bacterial pathogen, and Clostridioides difficile toxin is negative. On hospital day 2, colonoscopy shows colitis and the biopsy immunohistochemistry is positive for cytomegalovirus. Plasma cytomegalovirus DNA is 8500 IU/mL. Mycophenolate was not administered after that biopsy. Ganciclovir 5 mg/kg intravenously every 12 hours was given after the biopsy; at 66 kg that dose is 330 mg. Potassium chloride, 40 mEq orally, was given for the admission potassium. Diarrhea slows to one or two formed stools a day. Discharge weight is 66 kg, creatinine is 0.9 mg/dL, and potassium is 4.0 mmol/L. The transplant pharmacist records creatinine clearance above 60 mL/min from the discharge age, weight, and creatinine. Valganciclovir 900 mg orally twice daily, given as 450 mg tablets, was given after the intravenous ganciclovir once creatinine clearance was above 60 mL/min. Tacrolimus 1 mg every 12 hours was given through the stay; a trough is 6.5 ng/mL and the transplant target on the chart is 5 to 8 ng/mL. Prednisone 5 mg daily was given through the stay. Transplant clinic is in 7 days.",
       "review_of_systems": null,
       "presenting_symptoms": [
         "Diarrhea"
@@ -115,7 +115,7 @@
       "note_id": "NOTE-VAL813-001",
       "case_id": "VAL-813",
       "note_type": "admission",
-      "note_text": "Admission note for diarrhea and poor intake after kidney transplant. The cause is not yet known. Creatinine 1.8 mg/dL, potassium 3.2 mmol/L, baseline creatinine 1.0 mg/dL. Mycophenolate is held. Valganciclovir is not a home medicine.",
+      "note_text": "Admission note for diarrhea and poor intake after kidney transplant. The cause is not yet known. Creatinine 1.8 mg/dL, potassium 3.2 mmol/L, baseline creatinine 1.0 mg/dL. Valganciclovir is not a home medicine.",
       "source_type": "authored_scenario",
       "source_reference": null
     },
@@ -123,7 +123,7 @@
       "note_id": "NOTE-VAL813-002",
       "case_id": "VAL-813",
       "note_type": "hospital_course",
-      "note_text": "Bacterial stool studies and Clostridioides difficile toxin are negative. Colonoscopic biopsy is positive for cytomegalovirus. Plasma cytomegalovirus DNA is 8500 IU/mL. Ganciclovir was given intravenously, then changed to valganciclovir 900 mg orally twice daily after creatinine clearance was above 60 mL/min. Mycophenolate remains held for the transplant visit.",
+      "note_text": "Bacterial stool studies and Clostridioides difficile toxin are negative. Colonoscopic biopsy is positive for cytomegalovirus. Plasma cytomegalovirus DNA is 8500 IU/mL. Ganciclovir was given intravenously. Valganciclovir 900 mg orally twice daily was given after creatinine clearance was above 60 mL/min. Mycophenolate was not administered after cytomegalovirus colitis was established.",
       "source_type": "authored_scenario",
       "source_reference": null
     }
@@ -232,7 +232,7 @@
       "service": "transplant",
       "timepoint": "inpatient",
       "assessment": "Cytomegalovirus colitis after the biopsy. Volume depletion on admission has improved. Tacrolimus trough is in the stated target range.",
-      "recommendation": "Continue tacrolimus 1 mg every 12 hours and prednisone 5 mg daily. Do not restart mycophenolate at discharge. Reassess that hold in clinic in 7 days.",
+      "recommendation": "The tacrolimus trough is in the stated target range. Recheck the viral load, blood count, and creatinine in clinic in 7 days.",
       "source_reference": null
     },
     {
@@ -241,7 +241,7 @@
       "service": "infectious disease",
       "timepoint": "inpatient",
       "assessment": "Tissue-proven cytomegalovirus colitis. Bacterial stool studies and Clostridioides difficile toxin are negative.",
-      "recommendation": "Induction valganciclovir 900 mg orally twice daily now that creatinine clearance is above 60 mL/min. Recheck the viral load, blood count, and creatinine. Duration extends at least through the early follow-up and depends on symptom resolution and the viral load.",
+      "recommendation": "Creatinine clearance is above 60 mL/min. The oral valganciclovir dose recorded during the stay is 900 mg twice daily. Recheck the viral load, blood count, and creatinine.",
       "source_reference": null
     }
   ],
@@ -405,7 +405,7 @@
       "source_type": "authored_scenario",
       "source_file": null,
       "source_reference": null,
-      "notes": "Not a home medicine. Started after intravenous ganciclovir, once creatinine clearance was above 60 mL/min. Induction dose 900 mg orally twice daily, given as 450 mg tablets."
+      "notes": "Not a home medicine. Given after intravenous ganciclovir, once creatinine clearance was above 60 mL/min. The dose recorded during the stay is 900 mg orally twice daily, as 450 mg tablets."
     },
     {
       "medication_id": "MED-VAL813-009",
@@ -464,7 +464,7 @@
       "frequency": "twice daily",
       "indication": "Kidney transplant status",
       "status": "held",
-      "held_reason": "Held after cytomegalovirus colitis was established. Transplant says not to restart it at discharge. Reassess at the visit in 7 days.",
+      "held_reason": "Not administered after cytomegalovirus colitis was established. The transplant visit is in 7 days.",
       "verification_status": "verified",
       "verification_source": "patient_and_prior_records",
       "target_or_goal": null,
@@ -497,7 +497,7 @@
       "source_type": "authored_scenario",
       "source_file": null,
       "source_reference": null,
-      "notes": "Maintenance corticosteroid continued."
+      "notes": "Maintenance corticosteroid, given through the stay."
     },
     {
       "medication_id": "MED-VAL813-013",
@@ -520,14 +520,14 @@
       "source_type": "authored_scenario",
       "source_file": null,
       "source_reference": null,
-      "notes": "5 mg/kg at 66 kg, started after the biopsy. Stopped when oral valganciclovir was begun. Not a discharge medicine."
+      "notes": "5 mg/kg at 66 kg, given after the biopsy. Oral valganciclovir was given once creatinine clearance was above 60 mL/min."
     }
   ],
   "CaseFollowup": [
     {
       "followup_id": "FU-VAL813-001",
       "case_id": "VAL-813",
-      "item": "Transplant clinic to review antiviral induction and whether mycophenolate can restart",
+      "item": "Transplant clinic to review the antiviral course and mycophenolate",
       "timing": "7 days",
       "with_service": "transplant",
       "source_reference": null
@@ -570,7 +570,7 @@
       "status": "active",
       "source_reference": null,
       "assessment": "Established on hospital day 2. It was not known at admission.",
-      "plan": "Antiviral induction. Mycophenolate remains held."
+      "plan": "Cytomegalovirus colitis after the biopsy. The transplant visit is in 7 days."
     },
     {
       "problem_id": "PROB-VAL813-001",

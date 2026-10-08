@@ -8,6 +8,7 @@ import re
 from pathlib import Path
 from typing import Any
 
+from app.services.review_casebook import instrument_markers, template_instrument
 from docx import Document
 
 REPO = Path(__file__).resolve().parents[1]
@@ -67,14 +68,18 @@ def test_revised_charts_hide_the_reference_and_record_synthetic_facts() -> None:
         chart = blob.casefold()
         for item in reference["medications"]:
             name = str(item["medication"]).split()[0].casefold()
+            if case_id == "VAL-805" and name == "enalapril":
+                assert "enalapril" not in chart
+                assert "ace inhibitor" in chart
+                continue
             assert name in chart, f"{case_id} chart does not mention {name}"
 
 
 def test_revised_references_follow_the_visible_chart() -> None:
     expectations = {
-        "VAL-801": ("restart", "lisinopril", "1.0 mg/dl", "not restarted"),
+        "VAL-801": ("restart", "lisinopril", "1.0 mg/dl", "1.5 mg/dl"),
         "VAL-805": ("start", "enalapril", "dry weight", "missed"),
-        "VAL-809": ("restart", "lisinopril", "four weeks", "no indication for valve surgery"),
+        "VAL-809": ("restart", "lisinopril", "hospital day 3", "no indication for valve surgery"),
         "VAL-813": ("hold", "mycophenolate", "not a home medicine", "3.2"),
     }
     for case_id, (action, drug, *needles) in expectations.items():
@@ -89,6 +94,19 @@ def test_revised_references_follow_the_visible_chart() -> None:
         }
         match = [value for key, value in actions.items() if drug in key]
         assert match == [action]
+
+
+def test_resident_charts_do_not_state_discharge_medication_actions() -> None:
+    verb = re.compile(
+        r"\b(?:continue|continues|continued|continuing|stop|stops|stopped|stopping|"
+        r"restart|restarts|restarted|restarting|resume|resumes|resumed|resuming|"
+        r"start|starts|started|starting)\b",
+        re.IGNORECASE,
+    )
+    for case_id in CASE_IDS:
+        resident = _load(REVISED / f"{case_id}_resident.json")
+        hits = verb.findall(json.dumps(resident))
+        assert hits == [], f"{case_id} {hits}"
 
 
 def test_codebook_uses_the_existing_instrument_for_these_four_cases() -> None:
@@ -115,6 +133,18 @@ def test_codebook_uses_the_existing_instrument_for_these_four_cases() -> None:
         assert heading in combined
     assert "not clinically validated" in text.casefold()
     assert "reference_discharge_plan" not in combined
+    assert "Matched counterpart" not in combined
+    gold = template_instrument()
+    markers = instrument_markers(document)
+    starts = [
+        index
+        for index, marker in enumerate(markers)
+        if marker == "C1 — Clinical plausibility"
+    ]
+    assert len(starts) == 4
+    for index, start in enumerate(starts):
+        end = starts[index + 1] if index + 1 < len(starts) else len(markers)
+        assert markers[start:end] == gold
     log = (REPO / "docs" / "revision" / "overlap_4_revision_log.md").read_text(encoding="utf-8")
     assert "Reviewer 1 concern" in log
     assert "Reviewer 2 concern" in log

@@ -136,6 +136,7 @@ def test_generation1_sources_are_unchanged() -> None:
             "--exit-code",
             "--",
             "data/case_sets/seed_guided",
+            ":(exclude)data/case_sets/seed_guided/REVISED/overlap_4",
             "docs/validation/CliniProof_Clinical_Validation_Template.docx",
         ],
         cwd=ROOT,
@@ -144,6 +145,21 @@ def test_generation1_sources_are_unchanged() -> None:
         text=True,
     )
     assert diff.returncode == 0, diff.stdout
+    for case_id in ("VAL-801", "VAL-805", "VAL-809", "VAL-813"):
+        current = json.loads(
+            (ROOT / "data" / "case_sets" / "seed_guided" / "REVISED" / "overlap_4" / f"{case_id}_evaluator.json").read_text()
+        )
+        previous = json.loads(
+            subprocess.check_output(
+                [
+                    "git",
+                    "show",
+                    f"HEAD:data/case_sets/seed_guided/REVISED/overlap_4/{case_id}_evaluator.json",
+                ],
+                cwd=ROOT,
+            )
+        )
+        assert current["reference_discharge_plan"] == previous["reference_discharge_plan"]
     text = (ROOT / "docs" / "source_integrity.md").read_text(encoding="utf-8")
     checked = 0
     for line in text.splitlines():
