@@ -1,82 +1,9 @@
 {
   "active_validation_batches": [
-    "CLINIPROOF_BALANCED_V4",
     "CLINIPROOF_SEEDCASES_V3"
   ],
-  "archived_validation_batches": [
-    "CLINIPROOF_TAXONOMY_V1",
-    "CLINIPROOF_BALANCED_V2",
-    "CLINIPROOF_SEEDCASES_V1",
-    "CLINIPROOF_BALANCED_V3",
-    "CLINIPROOF_SEEDCASES_V2"
-  ],
+  "archived_validation_batches": [],
   "batches": {
-    "CLINIPROOF_BALANCED_V3": {
-      "status": "archived",
-      "generation_strategy": "balanced_structured",
-      "directory": "data/archive/validation_sets/CLINIPROOF_BALANCED_V3",
-      "plan": "data/archive/validation_sets/CLINIPROOF_BALANCED_V3/batch_plan.json",
-      "readable": "data/archive/validation_sets/CLINIPROOF_BALANCED_V3/readable",
-      "public_id_first": "VAL-501",
-      "public_id_last": "VAL-524",
-      "case_count": 24,
-      "description": "Pre-final-QC balanced structured generation. Superseded by CLINIPROOF_BALANCED_V4. Not an active prospective set."
-    },
-    "CLINIPROOF_SEEDCASES_V2": {
-      "status": "archived",
-      "generation_strategy": "resident_seed_guided",
-      "directory": "data/archive/validation_sets/CLINIPROOF_SEEDCASES_V2",
-      "plan": "data/archive/validation_sets/CLINIPROOF_SEEDCASES_V2/batch_plan.json",
-      "readable": "data/archive/validation_sets/CLINIPROOF_SEEDCASES_V2/readable",
-      "public_id_first": "VAL-601",
-      "public_id_last": "VAL-624",
-      "case_count": 24,
-      "description": "Pre-final-QC resident-seed-guided generation. Superseded by CLINIPROOF_SEEDCASES_V3. Not an active prospective set."
-    },
-    "CLINIPROOF_BALANCED_V2": {
-      "status": "archived",
-      "generation_strategy": "balanced_structured",
-      "directory": "data/archive/validation_sets/CLINIPROOF_BALANCED_V2",
-      "plan": "data/archive/validation_sets/CLINIPROOF_BALANCED_V2/batch_plan.json",
-      "readable": "data/archive/validation_sets/CLINIPROOF_BALANCED_V2/readable",
-      "public_id_first": "VAL-301",
-      "public_id_last": "VAL-324",
-      "case_count": 24,
-      "description": "Preclinical-QC version of balanced structured generation. Superseded by CLINIPROOF_BALANCED_V3. Not an active prospective set."
-    },
-    "CLINIPROOF_SEEDCASES_V1": {
-      "status": "archived",
-      "generation_strategy": "resident_seed_guided",
-      "directory": "data/archive/validation_sets/CLINIPROOF_SEEDCASES_V1",
-      "plan": "data/archive/validation_sets/CLINIPROOF_SEEDCASES_V1/batch_plan.json",
-      "readable": "data/archive/validation_sets/CLINIPROOF_SEEDCASES_V1/readable",
-      "public_id_first": "VAL-401",
-      "public_id_last": "VAL-424",
-      "case_count": 24,
-      "description": "Preclinical-QC version of resident-seed-guided generation. Superseded by CLINIPROOF_SEEDCASES_V2. Not an active prospective set."
-    },
-    "CLINIPROOF_TAXONOMY_V1": {
-      "status": "archived",
-      "generation_strategy": "original_template_randomized",
-      "directory": "data/archive/validation_sets/CLINIPROOF_TAXONOMY_V1",
-      "plan": "data/archive/validation_sets/CLINIPROOF_TAXONOMY_V1/batch_plan.json",
-      "readable": "data/archive/validation_sets/CLINIPROOF_TAXONOMY_V1/readable",
-      "public_id_first": "VAL-201",
-      "public_id_last": "VAL-224",
-      "case_count": 24,
-      "description": "Original template/randomized freeze preserved for provenance. Not an active prospective set."
-    },
-    "CLINIPROOF_BALANCED_V4": {
-      "status": "active",
-      "generation_strategy": "balanced_structured",
-      "directory": "data/case_sets/balanced",
-      "plan": "data/case_sets/balanced/batch_plan.json",
-      "readable": "data/case_sets/balanced/readable",
-      "public_id_first": "VAL-701",
-      "public_id_last": "VAL-724",
-      "case_count": 24,
-      "description": "Final clinical-regimen QC revision of balanced structured generation. Pending clinician validation."
-    },
     "CLINIPROOF_SEEDCASES_V3": {
       "status": "active",
       "generation_strategy": "resident_seed_guided",
@@ -86,7 +13,7 @@
       "public_id_first": "VAL-801",
       "public_id_last": "VAL-824",
       "case_count": 24,
-      "description": "Final clinical-regimen QC revision of resident-seed-guided generation. Pending clinician validation."
+      "description": "Original resident-seed-guided freeze for VAL-801 through VAL-824. The planted-error variants remain in this freeze. Clean pre-injection charts for clinician review are in CLEAN_BASE and are not a new batch code."
     }
   }
 }
