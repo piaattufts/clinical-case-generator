@@ -1,0 +1,35 @@
+{
+  "purpose": "Four Synthea-grounded cases matched to the Generation 1 overlap revisions. Canonical charts stay in cases/resident and cases/evaluator. This directory does not copy those JSON files.",
+  "clinically_validated": false,
+  "planted_errors": 0,
+  "ready_for_clinician_review": true,
+  "pairs": [
+    {
+      "generation1_case_id": "VAL-801",
+      "generation2_case_id": "G2-001",
+      "resident": "data/case_sets/synthea_g2/cases/resident/G2-001.json",
+      "evaluator": "data/case_sets/synthea_g2/cases/evaluator/G2-001.json"
+    },
+    {
+      "generation1_case_id": "VAL-805",
+      "generation2_case_id": "G2-005",
+      "resident": "data/case_sets/synthea_g2/cases/resident/G2-005.json",
+      "evaluator": "data/case_sets/synthea_g2/cases/evaluator/G2-005.json"
+    },
+    {
+      "generation1_case_id": "VAL-809",
+      "generation2_case_id": "G2-009",
+      "resident": "data/case_sets/synthea_g2/cases/resident/G2-009.json",
+      "evaluator": "data/case_sets/synthea_g2/cases/evaluator/G2-009.json"
+    },
+    {
+      "generation1_case_id": "VAL-813",
+      "generation2_case_id": "G2-013",
+      "resident": "data/case_sets/synthea_g2/cases/resident/G2-013.json",
+      "evaluator": "data/case_sets/synthea_g2/cases/evaluator/G2-013.json"
+    }
+  ],
+  "codebook": "docs/validation/CliniProof_Synthea_Matched_Overlap4_Codebook.docx",
+  "matching_report": "docs/validation/CliniProof_G1_G2_Overlap4_Matching_Report.md",
+  "audit": "data/case_sets/synthea_g2/matched_overlap_4/clinical_validation_audit.md"
+}

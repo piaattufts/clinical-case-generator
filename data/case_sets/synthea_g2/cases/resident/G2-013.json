@@ -20,7 +20,6 @@
     "specialty": "transplant medicine",
     "allergies": [],
     "medical_history": [
-      "Educated to high school level (finding)",
       "Chronic intractable migraine without aura (disorder)",
       "Essential hypertension (disorder)",
       "Impacted molars (disorder)",
@@ -61,18 +60,6 @@
     }
   },
   "CaseDiagnosis": [
-    {
-      "diagnosis_id": "DX-G2-013-001",
-      "case_id": "G2-013",
-      "diagnosis": "Educated to high school level (finding)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "473461003",
-      "code_provenance": "reference_terminology"
-    },
     {
       "diagnosis_id": "DX-G2-013-002",
       "case_id": "G2-013",
@@ -124,7 +111,7 @@
     {
       "diagnosis_id": "DX-G2-013-006",
       "case_id": "G2-013",
-      "diagnosis": "Other cytomegaloviral diseases",
+      "diagnosis": "Cytomegalovirus colitis",
       "diagnosis_type": "hospital",
       "status": "active",
       "context": "inpatient",

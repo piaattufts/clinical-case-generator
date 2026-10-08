@@ -284,6 +284,20 @@ Generation 2 does not replace Generation 1, and it does not modify Generation 1.
 | VAL-823 | G2-023 | Gastrointestinal bleed with anticoagulation decisions |
 | VAL-824 | G2-024 | Gastrointestinal bleed with anticoagulation decisions |
 
+### Four matched cases: original generation method versus Synthea
+
+Four Generation 1 cases were revised from substantive comments by both clinicians: VAL-801, VAL-805, VAL-809, and VAL-813. Four Generation 2 cases are independently generated Synthea-grounded counterparts: G2-001, G2-005, G2-009, and G2-013. The match is the reasoning problem. The Generation 2 charts do not copy the Generation 1 patients, doses, laboratories, or hidden references. Both sets still require clinician review. No superiority of either generation method has been established, and Generation 2 is not clinically validated.
+
+| Artifact | Path |
+| --- | --- |
+| Revised Generation 1 four-case codebook | [CliniProof_Revised_Overlap4_Codebook.docx](docs/validation/CliniProof_Revised_Overlap4_Codebook.docx) |
+| Synthea Generation 2 four-case codebook | [CliniProof_Synthea_Matched_Overlap4_Codebook.docx](docs/validation/CliniProof_Synthea_Matched_Overlap4_Codebook.docx) |
+| Generation 1 revised JSON | [REVISED/overlap_4/](data/case_sets/seed_guided/REVISED/overlap_4/) |
+| Generation 2 matched JSON | [cases/resident](data/case_sets/synthea_g2/cases/resident/) and [cases/evaluator](data/case_sets/synthea_g2/cases/evaluator/) |
+| Matching report | [CliniProof_G1_G2_Overlap4_Matching_Report.md](docs/validation/CliniProof_G1_G2_Overlap4_Matching_Report.md) |
+| Generation 2 methodology | [methodology_synthea_g2.md](docs/methodology_synthea_g2.md) |
+| Synthea provenance and clinical audit | [matched_overlap_4/](data/case_sets/synthea_g2/matched_overlap_4/) |
+
 The display name is the archetype name in [archetypes.json](data/seed_cases/blueprints/archetypes.json). Generation 1 and Generation 2 keep their own codes.
 
 | Display name | Generation 1 code | Generation 2 code |

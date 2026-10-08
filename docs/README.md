@@ -14,5 +14,6 @@ Start with the project [README](../README.md). That file is the technical orient
 | [clinical_feedback/reviewer_item_ratings.csv](clinical_feedback/reviewer_item_ratings.csv) | De-identified item-level ratings, one row per case and item. |
 | [audit/consistency_audit.md](audit/consistency_audit.md) | Consistency audit of the reviewer record, labels, case files, and instrument. |
 | [validation/case_links.csv](validation/case_links.csv) | Investigator table linking each revised Generation 1 case to its Generation 2 counterpart. |
+| [validation/CliniProof_G1_G2_Overlap4_Matching_Report.md](validation/CliniProof_G1_G2_Overlap4_Matching_Report.md) | Investigator comparison of the four overlap cases with G2-001, G2-005, G2-009, and G2-013. |
 | [validation/CODEBOOK.md](validation/CODEBOOK.md) | The unchanged clinician-review instrument. |
 | [methodology_synthea_g2.md](methodology_synthea_g2.md) | Generation 2 method: Synthea longitudinal patients plus CliniProof inpatient episodes. Generation 1 is unchanged. |

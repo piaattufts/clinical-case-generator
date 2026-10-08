@@ -20,8 +20,6 @@
     "specialty": "internal medicine",
     "allergies": [],
     "medical_history": [
-      "Received higher education (finding)",
-      "Has a criminal record (finding)",
       "Osteoarthritis of knee (disorder)",
       "Essential hypertension (disorder)"
     ],
@@ -62,30 +60,6 @@
   },
   "CaseDiagnosis": [
     {
-      "diagnosis_id": "DX-G2-001-001",
-      "case_id": "G2-001",
-      "diagnosis": "Received higher education (finding)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "224299000",
-      "code_provenance": "reference_terminology"
-    },
-    {
-      "diagnosis_id": "DX-G2-001-002",
-      "case_id": "G2-001",
-      "diagnosis": "Has a criminal record (finding)",
-      "diagnosis_type": "past_history",
-      "status": "active",
-      "context": "history",
-      "provenance": "synthea_longitudinal",
-      "icd10cm": null,
-      "snomed_code": "266948004",
-      "code_provenance": "reference_terminology"
-    },
-    {
       "diagnosis_id": "DX-G2-001-003",
       "case_id": "G2-001",
       "diagnosis": "Osteoarthritis of knee (disorder)",
@@ -112,7 +86,7 @@
     {
       "diagnosis_id": "DX-G2-001-005",
       "case_id": "G2-001",
-      "diagnosis": "Delirium due to known physiological condition",
+      "diagnosis": "Acute delirium during a urinary tract infection",
       "diagnosis_type": "hospital",
       "status": "active",
       "context": "inpatient",
@@ -990,7 +964,7 @@
       "dose": "25 MG",
       "route": "oral",
       "frequency": "twice daily",
-      "indication": "confirmed outpatient indication",
+      "indication": "Duplicate beta-blocker salt on the outpatient list",
       "regimen_id": "METOPROLOL_TARTRATE_BID",
       "identity_provenance": "synthea_longitudinal",
       "regimen_provenance": "reference_terminology",
@@ -1017,16 +991,22 @@
           "provenance": "cliniproof_episode_generated"
         }
       ],
-      "discharge_action": "continue",
+      "discharge_action": "stop",
       "evidence_ids": [
         "mh-base",
         "mh-meds"
       ],
       "resident_note": "Given through the hospitalization from the verified outpatient list.",
-      "rationale": "metoprolol tartrate 25 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
-      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
-      "follow_up": "Review at the scheduled follow-up visit.",
-      "acceptable_alternatives": [],
+      "rationale": "The longitudinal list contains both metoprolol succinate 100 mg once daily and metoprolol tartrate 25 mg twice daily. Discharging both would be duplicate beta-blocker therapy. The once-daily succinate product continues. The tartrate product stops.",
+      "monitoring": "Heart rate and blood pressure at the primary-care visit.",
+      "follow_up": "Primary care within 7 days.",
+      "acceptable_alternatives": [
+        {
+          "alternative_action": "stop",
+          "conditions": "Pharmacy records show the patient was taking only the tartrate tablets.",
+          "rationale": "Stop the succinate product instead and continue metoprolol tartrate 25 mg twice daily."
+        }
+      ],
       "hospital_only": false
     },
     {
@@ -1034,7 +1014,7 @@
       "dose": "400 MG",
       "route": "oral",
       "frequency": "every 8 hours as needed",
-      "indication": "confirmed outpatient indication",
+      "indication": "As-needed analgesia during a creatinine rise",
       "regimen_id": "IBUPROFEN_400_PRN",
       "identity_provenance": "synthea_longitudinal",
       "regimen_provenance": "reference_terminology",
@@ -1061,16 +1041,22 @@
           "provenance": "cliniproof_episode_generated"
         }
       ],
-      "discharge_action": "continue",
+      "discharge_action": "stop",
       "evidence_ids": [
-        "mh-base",
+        "mh-response",
         "mh-meds"
       ],
       "resident_note": "Given through the hospitalization from the verified outpatient list.",
-      "rationale": "Ibuprofen 400 MG Oral Tablet [Ibu] remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
-      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
-      "follow_up": "Review at the scheduled follow-up visit.",
-      "acceptable_alternatives": [],
+      "rationale": "Creatinine rose from a prior value of 1.0 mg/dL to 1.6 mg/dL while ibuprofen was on the outpatient list and oral intake was poor, then returned to 1.1 mg/dL. The NSAID is not restarted.",
+      "monitoring": "Creatinine at the primary-care visit.",
+      "follow_up": "Primary care within 7 days.",
+      "acceptable_alternatives": [
+        {
+          "alternative_action": "continue",
+          "conditions": "A clinician judges the recovered creatinine of 1.1 mg/dL and the as-needed indication sufficient.",
+          "rationale": "Continue ibuprofen 400 mg as needed. That alternative is not the reference action."
+        }
+      ],
       "hospital_only": false
     },
     {
@@ -1078,7 +1064,7 @@
       "dose": "10 MG",
       "route": "oral",
       "frequency": "once daily",
-      "indication": "confirmed outpatient indication",
+      "indication": "Essential hypertension after a transient creatinine rise",
       "regimen_id": "LISINOPRIL_10_DAILY",
       "identity_provenance": "synthea_longitudinal",
       "regimen_provenance": "reference_terminology",
@@ -1107,14 +1093,20 @@
       ],
       "discharge_action": "continue",
       "evidence_ids": [
-        "mh-base",
-        "mh-meds"
+        "mh-response",
+        "mh-ready"
       ],
       "resident_note": "Given through the hospitalization from the verified outpatient list.",
-      "rationale": "lisinopril 10 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
-      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
-      "follow_up": "Review at the scheduled follow-up visit.",
-      "acceptable_alternatives": [],
+      "rationale": "Creatinine rose from 1.0 mg/dL to 1.6 mg/dL and returned to 1.1 mg/dL. Discharge blood pressure is 128/74 mm Hg. The ACE inhibitor can continue, with a chemistry panel because of the recent rise.",
+      "monitoring": "Chemistry panel within 7 days.",
+      "follow_up": "Primary care within 7 days.",
+      "acceptable_alternatives": [
+        {
+          "alternative_action": "hold",
+          "conditions": "Creatinine rises again or systolic blood pressure is low at discharge.",
+          "rationale": "Hold lisinopril and recheck creatinine before restarting."
+        }
+      ],
       "hospital_only": false
     }
   ],
@@ -1177,37 +1169,49 @@
       {
         "medication": "metoprolol",
         "regimen_id": "METOPROLOL_TARTRATE_BID",
-        "action": "continue",
+        "action": "stop",
         "dose": "25 MG",
         "route": "oral",
         "frequency": "twice daily",
-        "indication": "confirmed outpatient indication",
-        "rationale": "metoprolol tartrate 25 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "indication": "Duplicate beta-blocker salt on the outpatient list",
+        "rationale": "The longitudinal list contains both metoprolol succinate 100 mg once daily and metoprolol tartrate 25 mg twice daily. Discharging both would be duplicate beta-blocker therapy. The once-daily succinate product continues. The tartrate product stops.",
         "resident_visible_evidence": [
           "mh-base",
           "mh-meds"
         ],
-        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
-        "follow_up": "Review at the scheduled follow-up visit.",
-        "acceptable_alternatives": [],
+        "monitoring": "Heart rate and blood pressure at the primary-care visit.",
+        "follow_up": "Primary care within 7 days.",
+        "acceptable_alternatives": [
+          {
+            "alternative_action": "stop",
+            "conditions": "Pharmacy records show the patient was taking only the tartrate tablets.",
+            "rationale": "Stop the succinate product instead and continue metoprolol tartrate 25 mg twice daily."
+          }
+        ],
         "provenance": "investigator_derived_reference"
       },
       {
         "medication": "ibuprofen",
         "regimen_id": "IBUPROFEN_400_PRN",
-        "action": "continue",
+        "action": "stop",
         "dose": "400 MG",
         "route": "oral",
         "frequency": "every 8 hours as needed",
-        "indication": "confirmed outpatient indication",
-        "rationale": "Ibuprofen 400 MG Oral Tablet [Ibu] remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "indication": "As-needed analgesia during a creatinine rise",
+        "rationale": "Creatinine rose from a prior value of 1.0 mg/dL to 1.6 mg/dL while ibuprofen was on the outpatient list and oral intake was poor, then returned to 1.1 mg/dL. The NSAID is not restarted.",
         "resident_visible_evidence": [
-          "mh-base",
+          "mh-response",
           "mh-meds"
         ],
-        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
-        "follow_up": "Review at the scheduled follow-up visit.",
-        "acceptable_alternatives": [],
+        "monitoring": "Creatinine at the primary-care visit.",
+        "follow_up": "Primary care within 7 days.",
+        "acceptable_alternatives": [
+          {
+            "alternative_action": "continue",
+            "conditions": "A clinician judges the recovered creatinine of 1.1 mg/dL and the as-needed indication sufficient.",
+            "rationale": "Continue ibuprofen 400 mg as needed. That alternative is not the reference action."
+          }
+        ],
         "provenance": "investigator_derived_reference"
       },
       {
@@ -1217,15 +1221,21 @@
         "dose": "10 MG",
         "route": "oral",
         "frequency": "once daily",
-        "indication": "confirmed outpatient indication",
-        "rationale": "lisinopril 10 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "indication": "Essential hypertension after a transient creatinine rise",
+        "rationale": "Creatinine rose from 1.0 mg/dL to 1.6 mg/dL and returned to 1.1 mg/dL. Discharge blood pressure is 128/74 mm Hg. The ACE inhibitor can continue, with a chemistry panel because of the recent rise.",
         "resident_visible_evidence": [
-          "mh-base",
-          "mh-meds"
+          "mh-response",
+          "mh-ready"
         ],
-        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
-        "follow_up": "Review at the scheduled follow-up visit.",
-        "acceptable_alternatives": [],
+        "monitoring": "Chemistry panel within 7 days.",
+        "follow_up": "Primary care within 7 days.",
+        "acceptable_alternatives": [
+          {
+            "alternative_action": "hold",
+            "conditions": "Creatinine rises again or systolic blood pressure is low at discharge.",
+            "rationale": "Hold lisinopril and recheck creatinine before restarting."
+          }
+        ],
         "provenance": "investigator_derived_reference"
       }
     ],
@@ -1334,7 +1344,8 @@
     "blinding": {
       "generation_method_hidden_from_narrative": true,
       "neutral_study_id": "M-801"
-    }
+    },
+    "chart_display_note": "Non-disease Synthea findings (education, housing, transport, and criminal-record flags) were omitted from the resident-visible problem list. The codes remain in source_snomed. This is a display filter, not a new clinical fact."
   },
   "ready_for_clinician_review": true,
   "clinically_validated": false

@@ -1,0 +1,5 @@
+generation1_case_id,generation2_case_id,synthea_patient_id,variant_id,scenario_family,matching_passed,automated_clinical_audit_passed,clinically_validated
+VAL-801,G2-001,035db839-25b9-cb92-8853-12152fc6b257,delirium_uti,MED_HISTORY_UNCERTAINTY,yes,yes,no
+VAL-805,G2-005,023d2efe-5482-ee13-418f-729c0823db68,nonadherence_cost,HF_DECOMPENSATION,yes,yes,no
+VAL-809,G2-009,0041e9d6-876a-25b9-d55d-96876882622a,dental_mitral,ENDOCARDITIS_OPAT,yes,yes,no
+VAL-813,G2-013,1d9427d1-dd59-3e23-541f-4faebc086080,cdiff_excluded,TRANSPLANT_CMV,yes,yes,no
