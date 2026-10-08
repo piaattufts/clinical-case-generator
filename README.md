@@ -27,22 +27,47 @@ The methodological principle is that the base case is validated first. Clinical-
 
 No case in the current tree has completed that validation. Automated checks can show that a chart is internally consistent with the project’s rules. They do not establish clinical acceptance.
 
+## Current project status
+
+Two generation methods are in the tree. Neither cohort has completed clinician acceptance.
+
+Generation 1 is the resident-seed-guided series, VAL-801–VAL-824. The historical freeze is `CLINIPROOF_SEEDCASES_V3`. The canonical clean baseline is the pre-manipulation set of all 24 cases. The current revised candidate cohort is the four overlap cases revised directly from dual-clinician feedback, plus the remaining twenty cases revised with the frozen clinician-informed framework. Those 24 revised cases are prepared for the next clinician review.
+
+Generation 2 is a separate Synthea-grounded pilot, `G2-001`–`G2-024`. It is technically generated and audited, and it is pending clinician validation. It does not replace Generation 1.
+
 ## Current source of truth
 
-The working tree keeps one original seed-guided study set, one canonical clean base, two completed clinician reviews, one normalized comparison, and one unchanged coding instrument. The second revision of the overlapping cases has not been written.
-
-| Artifact | Purpose | Current source |
+| Artifact | Role | Current source |
 | --- | --- | --- |
-| Original frozen seed-guided set | Historical first-round study source, batch `CLINIPROOF_SEEDCASES_V3`, VAL-801–VAL-824 | [data/case_sets/seed_guided/](data/case_sets/seed_guided/) |
-| Canonical clean base | Starting point for the current clinical revision: 24 clean cases and 48 resident/evaluator JSON files | [data/case_sets/seed_guided/CLEAN_BASE/](data/case_sets/seed_guided/CLEAN_BASE/) |
-| Reviewer comparison | Normalized case-level comparison (2 reviewers) | [docs/clinical_feedback/reviewer_comparison.md](docs/clinical_feedback/reviewer_comparison.md) |
-| Validation instrument | Unchanged clinical coding form | [docs/validation/CliniProof_Clinical_Validation_Template.docx](docs/validation/CliniProof_Clinical_Validation_Template.docx) |
-| Methodology | Current iterative clinician-review method | [docs/methodology.md](docs/methodology.md) |
-| Revised overlap cases | VAL-801, VAL-805, VAL-809, VAL-813, ready for the next clinician review and not clinically validated | [data/case_sets/seed_guided/REVISED/overlap_4/](data/case_sets/seed_guided/REVISED/overlap_4/) |
+| Original frozen Generation 1 set | Historical first-round source, `CLINIPROOF_SEEDCASES_V3`, VAL-801–824 | [data/case_sets/seed_guided/](data/case_sets/seed_guided/) |
+| Canonical clean Generation 1 base | Pre-manipulation source for all 24 cases | [data/case_sets/seed_guided/CLEAN_BASE/](data/case_sets/seed_guided/CLEAN_BASE/) |
+| Direct dual-review revision | VAL-801, VAL-805, VAL-809, VAL-813 | [data/case_sets/seed_guided/REVISED/overlap_4/](data/case_sets/seed_guided/REVISED/overlap_4/) |
+| Frozen revision framework | Clinician-informed investigator framework derived from the four overlap cases | [docs/revision/revision_framework.md](docs/revision/revision_framework.md) |
+| Framework-guided revision | Remaining 20 cases | [data/case_sets/seed_guided/REVISED/remaining_20/](data/case_sets/seed_guided/REVISED/remaining_20/) |
+| Reviewer comparison | De-identified review coverage and comparison | [docs/clinical_feedback/reviewer_comparison.md](docs/clinical_feedback/reviewer_comparison.md) |
+| Validation instrument | Unchanged clinician review instrument | [docs/validation/CliniProof_Clinical_Validation_Template.docx](docs/validation/CliniProof_Clinical_Validation_Template.docx) |
+| Generation 1 methodology | Iterative clinical-validation method | [docs/methodology.md](docs/methodology.md) |
+| Generation 2 Synthea cohort | New synthetic generation approach | [data/case_sets/synthea_g2/](data/case_sets/synthea_g2/) |
+| Generation 2 methodology | Synthea plus CliniProof generation method | [docs/methodology_synthea_g2.md](docs/methodology_synthea_g2.md) |
+| Generation 2 clinician review package | Current Generation 2 review artifact | [docs/validation/CliniProof_Synthea_G2_Clinical_Validation.docx](docs/validation/CliniProof_Synthea_G2_Clinical_Validation.docx) |
 
-The original freeze lives in [data/case_sets/seed_guided/](data/case_sets/seed_guided/) excluding [CLEAN_BASE/](data/case_sets/seed_guided/CLEAN_BASE/). `CLEAN_BASE` is stored inside that directory so the clean charts stay next to the freeze they were recovered from. It is a separate artifact. The freeze still contains the historical planted-error variants. The clean base does not.
+The original freeze lives in [data/case_sets/seed_guided/](data/case_sets/seed_guided/) excluding [CLEAN_BASE/](data/case_sets/seed_guided/CLEAN_BASE/) and [REVISED/](data/case_sets/seed_guided/REVISED/). `CLEAN_BASE` and `REVISED` sit beside that freeze. The freeze still contains the historical planted-error variants. The clean base and the revised candidates do not.
 
-## Review coverage
+## Generation 1 — current status
+
+### Original source
+
+`CLINIPROOF_SEEDCASES_V3` is the historical first-round freeze, VAL-801 through VAL-824. It records the original study construction, including the historical planted-error variants. It is not the current resident cohort.
+
+### Clean baseline
+
+The canonical clean set contains the 24 pre-manipulation versions of VAL-801 through VAL-824. Each case has a resident-facing representation and a corresponding evaluator representation containing the hidden reference discharge plan. These clean cases form the baseline for iterative revision. Revised cases are stored as derivative artifacts so that changes across review rounds remain traceable while the baseline is preserved. Technical file-integrity details are in [docs/source_integrity.md](docs/source_integrity.md).
+
+### Clinician review
+
+Two clinician reviews were received independently using the same validation instrument. Completed review forms are maintained as private study records. The public repository contains the de-identified case-level comparison and review coverage: [reviewer_comparison.md](docs/clinical_feedback/reviewer_comparison.md) and [reviewer_comparison.csv](docs/clinical_feedback/reviewer_comparison.csv).
+
+### Review coverage
 
 Both reviewers provided clinical feedback. The comparison does not assign them different scientific roles. Coverage is incomplete, and the incompleteness is part of the record.
 
@@ -55,29 +80,15 @@ On Reviewer 2’s four reviewed cases, C2 through C5 and the overall recommendat
 
 “No substantive completed feedback was recorded” means the form has no selected rating and no comment for that case. It is a property of the returned document.
 
-## Case-level comparison of the two reviews
+### Case-level comparison
 
-The two reviews were compared with the same coding structure. The analysis is case-based. For each reviewed case the comparison preserves the original rating, preserves the free-text comment, identifies areas of agreement, identifies complementary comments, and identifies reviewer-specific concerns. It does not force a consensus where the two forms disagree or where one form is silent.
+The two reviews were compared with the same coding structure. The analysis is case-based. For each reviewed case the comparison keeps the recorded rating and the recorded comment, identifies areas of agreement, identifies complementary comments, and identifies reviewer-specific concerns. It does not force a consensus where the two forms disagree or where one form is silent. The de-identified comparison is [reviewer_comparison.md](docs/clinical_feedback/reviewer_comparison.md), with one row per case in [reviewer_comparison.csv](docs/clinical_feedback/reviewer_comparison.csv).
 
-The full normalized table is [reviewer_comparison.md](docs/clinical_feedback/reviewer_comparison.md), with one row per case in [reviewer_comparison.csv](docs/clinical_feedback/reviewer_comparison.csv). Original wording remains in the two Word files linked above.
+Four cases had substantive feedback from both reviewers: VAL-801, VAL-805, VAL-809, and VAL-813. Those four were the direct-revision and calibration set. They were revised from [CLEAN_BASE](data/case_sets/seed_guided/CLEAN_BASE/). The revised charts are in [data/case_sets/seed_guided/REVISED/overlap_4/](data/case_sets/seed_guided/REVISED/overlap_4/), and the change log is [docs/revision/overlap_4_revision_log.md](docs/revision/overlap_4_revision_log.md). These are revised candidate cases pending clinician re-review.
 
-Four cases had substantive feedback from both reviewers:
+VAL-802 and VAL-803 have substantive feedback from Reviewer 1 only. They are not consensus cases. Their later revision used that Reviewer 1 feedback together with the frozen framework.
 
-- VAL-801
-- VAL-805
-- VAL-809
-- VAL-813
-
-Those four form the next iterative revision set because both clinicians wrote on them. They are marked `SECOND_REVISION_CANDIDATE` in the comparison file. They have not been revised.
-
-Two further cases have substantive feedback from Reviewer 1 only:
-
-- VAL-802
-- VAL-803
-
-They stay in the comparison. They are not treated as consensus cases, and they are not the cases selected for this revision round.
-
-The overlapping concerns, stated at the level of the comparison and without replacing the original sentences, are these.
+The recorded concerns, summarized from the comparison, are these.
 
 VAL-801. Both reviewers found the delirium story clinically insufficient. Reviewer 1 also found the cause unshown and the ibuprofen stop unexplained, and recommended revise. Reviewer 2 wrote that delirium has to be a change from baseline and that a precipitant should be interpretable. Reviewer 2’s later fields are blank.
 
@@ -89,44 +100,165 @@ VAL-813. Both reviewers found the cytomegalovirus presentation clinically incohe
 
 | Case | Reviewer 1 | Reviewer 2 | Current status |
 | --- | --- | --- | --- |
-| VAL-801 | Reviewed | Reviewed | Second revision |
-| VAL-802 | Reviewed | No substantive feedback | Retained as Reviewer-1-only |
-| VAL-803 | Reviewed | No substantive feedback | Retained as Reviewer-1-only |
-| VAL-805 | Reviewed | Reviewed | Second revision |
-| VAL-809 | Reviewed | Reviewed | Second revision |
-| VAL-813 | Reviewed | Reviewed | Second revision |
+| VAL-801 | Reviewed | Reviewed | Revised from dual-clinician feedback; pending clinician re-review |
+| VAL-802 | Reviewed | No substantive feedback | Revised from Reviewer-1-specific feedback plus the frozen framework; pending clinician review |
+| VAL-803 | Reviewed | No substantive feedback | Revised from Reviewer-1-specific feedback plus the frozen framework; pending clinician review |
+| VAL-805 | Reviewed | Reviewed | Revised from dual-clinician feedback; pending clinician re-review |
+| VAL-809 | Reviewed | Reviewed | Revised from dual-clinician feedback; pending clinician re-review |
+| VAL-813 | Reviewed | Reviewed | Revised from dual-clinician feedback; pending clinician re-review |
 
-Eighteen other cases had no substantive Reviewer 1 feedback. Twenty cases in total had no substantive Reviewer 2 feedback. Those eighteen are omitted from the table above because both forms are silent on them; they remain in the comparison CSV.
+Eighteen other cases had no substantive Reviewer 1 feedback. Twenty cases in total had no substantive Reviewer 2 feedback. Those eighteen remain in the comparison CSV. Their current charts are framework-guided investigator revisions, pending clinician review.
 
-## Structured iterative clinician review
+The review method is a structured iterative clinician review. It can also be called Delphi-informed iterative clinician review, because independent clinicians respond to a shared instrument, their responses are compared, and a later round uses that same instrument after revision.
 
-The current method is a structured iterative clinician review. It can also be called Delphi-informed iterative clinician review, because independent clinicians respond to a shared instrument, their responses are compared, and a later round is expected to use that same instrument after targeted revision.
-
-It is not a classical Delphi study. A classical Delphi study would convene a larger panel and would declare consensus with a formal, predefined statistical threshold. The current process has two clinician reviewers, incomplete coverage of the 24 cases, and no such threshold. Agreement is described case by case. Silence is not converted into agreement.
-
-What the process does include is the following. Independent clinician responses were collected. Responses were structured with a common codebook. Responses were compared. Overlapping cases and concerns were identified, and reviewer-specific concerns were retained alongside the shared ones. The cases read by both reviewers were selected for iterative revision. The same codebook will be used again in the next round, so a later rating can be compared with the rating already recorded.
-
-```text
-clean case
-        ↓
-Reviewer 1 assessment
-        +
-Reviewer 2 assessment
-        ↓
-structured case-level comparison
-        ↓
-shared concerns and reviewer-specific concerns retained
-        ↓
-cases reviewed by both selected for iterative revision
-        ↓
-clinical revision
-        ↓
-same validation codebook
-        ↓
-next clinician review
-```
+It is not a classical Delphi study. A classical Delphi study would convene a larger panel and would declare consensus with a formal, predefined statistical threshold. This process has two clinician reviewers, incomplete coverage of the 24 cases, and no such threshold. Agreement is described case by case. Silence is not consensus.
 
 The manuscript form of this method is [docs/methodology.md](docs/methodology.md).
+
+### Four-case direct revision
+
+VAL-801, VAL-805, VAL-809, and VAL-813 were revised from the clean base using both reviewers’ recorded comments. Status: revised from dual-clinician feedback; pending clinician re-review. The next review of these four uses the same C1–C5 instrument, in [docs/validation/CliniProof_Revised_Overlap4_Codebook.docx](docs/validation/CliniProof_Revised_Overlap4_Codebook.docx).
+
+### From direct clinician feedback to the frozen revision framework
+
+```text
+24 clean Generation 1 cases
+        ↓
+Reviewer 1 + Reviewer 2 feedback
+        ↓
+4 overlapping cases
+        ↓
+direct revision of those 4
+        ↓
+derive recurring clinical-sufficiency requirements
+        ↓
+freeze revision framework
+        ↓
+apply unchanged framework to remaining 20
+        ↓
+24 revised Generation 1 cases
+        ↓
+next clinician review using the same instrument
+```
+
+The frozen framework is [docs/revision/revision_framework.md](docs/revision/revision_framework.md). It was written from the defects found while revising the four overlap cases, and it was frozen before it was applied to any other case.
+
+### Remaining-20 framework application
+
+The other twenty clean charts are in [data/case_sets/seed_guided/REVISED/remaining_20/](data/case_sets/seed_guided/REVISED/remaining_20/). The application record is [docs/revision/revision_framework_application.csv](docs/revision/revision_framework_application.csv), and the case log is [docs/revision/remaining_20_revision_log.md](docs/revision/remaining_20_revision_log.md). The review form for this set is [docs/validation/CliniProof_Revised_Remaining20_Codebook.docx](docs/validation/CliniProof_Revised_Remaining20_Codebook.docx).
+
+VAL-802 and VAL-803: Reviewer-1-specific feedback plus the frozen framework. Status: revised from Reviewer-1-specific feedback plus frozen framework; pending clinician review.
+
+The other eighteen: frozen framework only, with no case-specific clinician attribution. Status: framework-guided investigator revision; pending clinician review.
+
+This pass was investigator quality control informed by clinician review. It was not additional clinician validation.
+
+### Current Generation 1 validation status
+
+The revised candidate cohort is overlap_4 plus remaining_20. None of these cases is clinically validated. They are prepared for the next clinician review on the unchanged instrument.
+
+## Generation 2 — Synthea-grounded discharge-reconciliation cases
+
+Generation 1 builds a hospitalization from a resident-derived archetype. Generation 2 starts from a longitudinal synthetic patient and then builds the hospitalization:
+
+```text
+Generation 1:
+resident-derived archetype
+        ↓
+structured synthetic case
+
+Generation 2:
+Synthea longitudinal synthetic patient
+        +
+CliniProof controlled inpatient episode
+        ↓
+clean discharge-reconciliation case
+```
+
+Generation 2 exists because the first clinician review showed that a recognizable diagnosis, a valid terminology code, and a structurally consistent chart could still be too thin for a discharge decision. The new generator therefore requires, as generation rules informed by that feedback:
+
+- baseline state
+- acute change
+- precipitating context
+- diagnostic work-up
+- treatment
+- physiologic response
+- medication consequences
+- discharge readiness
+- monitoring and follow-up
+
+Those are generation requirements. They are not a statement that the reviewers approved Generation 2.
+
+### Why Synthea was added
+
+Generation 1 starts from clinical archetypes. Generation 2 additionally begins from a longitudinal synthetic patient. Synthea contributes age, sex, longitudinal conditions, outpatient medication context, and prior synthetic encounters. CliniProof contributes the controlled hospitalization: the causal inpatient trajectory, diagnostic work-up, treatment response, medication transitions, the discharge-reasoning task, and the hidden reference. Synthea alone does not generate the complete clinical case.
+
+### How Round 1 feedback changed generation
+
+| Round 1 concern | Generation 2 design response |
+| --- | --- |
+| Baseline vs acute change unclear | Require explicit baseline and acute deviation |
+| Precipitating reason missing | Require precipitant or documented evaluation for one |
+| Diagnosis appeared without work-up | Require temporally ordered diagnostic pathway |
+| Hospital course too thin | Require treatment and measurable response trajectory |
+| Physiologic consequences absent | Require scenario-relevant lab/vital trajectories |
+| Medication changes unsupported | Require resident-visible evidence for each relevant discharge action |
+| Chronology backwards | Explicit event timeline validator |
+| Chart insufficient for decision | Clinical-sufficiency gate before candidate selection |
+
+### Generation 2 pipeline
+
+```text
+Synthea synthetic population
+        ↓
+scenario eligibility
+        ↓
+longitudinal synthetic patient
+        ↓
+CliniProof inpatient scenario
+        ↓
+causal clinical trajectory
+        ↓
+Round-1-informed sufficiency audit
+        ↓
+medication-decision support audit
+        ↓
+clean resident-facing case
+        ↓
+hidden evidence-backed reference
+        ↓
+candidate selection
+        ↓
+clinician validation
+```
+
+### Generation 2 pilot
+
+The committed pilot is 24 clean cases, four in each family:
+
+| Family | Cases |
+| --- | --- |
+| `MED_HISTORY_UNCERTAINTY` | G2-001–G2-004 |
+| `HF_DECOMPENSATION` | G2-005–G2-008 |
+| `ENDOCARDITIS_OPAT` | G2-009–G2-012 |
+| `TRANSPLANT_CMV` | G2-013–G2-016 |
+| `HIP_FRACTURE_ANTICOAGULATION` | G2-017–G2-020 |
+| `GI_BLEED_ANTICOAGULATION` | G2-021–G2-024 |
+
+`G2-001` through `G2-024` are candidate identifiers. They are not VAL identifiers. The resident charts have no planted medication error and no completed discharge medication list. The hidden reference is only on the evaluator record. The cohort does not use MIMIC. No language model selects a diagnosis, medication, dose, laboratory value, or reference action. Status: technically generated and audited, and pending clinician validation.
+
+### Generation 2 artifacts
+
+- [Generation 2 methodology](docs/methodology_synthea_g2.md)
+- [Generation 2 cohort](data/case_sets/synthea_g2/README.md)
+- [Generation 2 clinician validation casebook](docs/validation/CliniProof_Synthea_G2_Clinical_Validation.docx)
+- [Generation 2 provenance report](data/case_sets/synthea_g2/reports/provenance_report.md)
+- [Round 1 concern audit](data/case_sets/synthea_g2/reports/round1_concern_audit.md)
+- [Diversity report](data/case_sets/synthea_g2/reports/diversity_report.md)
+- [Clinical sufficiency report](data/case_sets/synthea_g2/reports/clinical_sufficiency_report.md)
+- [Reference support report](data/case_sets/synthea_g2/reports/reference_support_report.md)
+
+The pinned Synthea commit, seed, and export command are in [config/synthea.yml](config/synthea.yml).
 
 ## Why clean cases are the unit of validation
 
@@ -134,9 +266,7 @@ The clinical case itself has to be credible and sufficiently informative before 
 
 Base-case validation therefore precedes error evaluation and recommendation evaluation. The charts under review are clean hospitalizations. The resident is not shown a completed discharge list and is not asked to find a planted discrepancy. The research team holds a separate reference plan, on the evaluator file, for comparison after clinicians have accepted it.
 
-Historical error-bearing variants remain part of provenance. They are the original frozen files in [data/case_sets/seed_guided/](data/case_sets/seed_guided/), and they can be recovered from Git history. They are not the starting point for the current revision. The current revision begins from [data/case_sets/seed_guided/CLEAN_BASE/](data/case_sets/seed_guided/CLEAN_BASE/).
-
-Each file in that directory is a byte-identical copy of the recovered pre-injection chart. There are 24 resident JSON files and 24 evaluator JSON files. The resident file carries the chart. The evaluator file carries the same chart plus `reference_discharge_plan`. SHA-256 values are in [docs/source_integrity.md](docs/source_integrity.md). The clean base is preserved so that a revision can be compared with a known chart. It should be read and, when the revision is written, copied forward. It should not be regenerated in place in order to “improve” it.
+Historical error-bearing variants remain part of provenance. They are the original frozen files in [data/case_sets/seed_guided/](data/case_sets/seed_guided/), and they can be recovered from Git history. The revised Generation 1 candidates were written from [CLEAN_BASE](data/case_sets/seed_guided/CLEAN_BASE/), not from those error-bearing files.
 
 ## How the original seed-guided set was generated
 
@@ -203,9 +333,9 @@ frozen VAL identifier
 clinician review of the materials sent to reviewers
 ```
 
-The batch plan is [data/case_sets/seed_guided/batch_plan.json](data/case_sets/seed_guided/batch_plan.json). Its master seed is `20260926`. The plan sets `inject_error` to false for four assignments and to true for the other twenty. The four historical clean controls are VAL-801, VAL-805, VAL-809, and VAL-813. The other twenty frozen charts are error-bearing variants. That 20-and-4 split is historical provenance of the original freeze. The same four identifiers later received substantive comments from both reviewers. The reason they are the second-revision set is that dual review, recorded in the comparison file, not a decision to revise only the historical controls.
+The batch plan is [data/case_sets/seed_guided/batch_plan.json](data/case_sets/seed_guided/batch_plan.json). Its master seed is `20260926`. The plan sets `inject_error` to false for four assignments and to true for the other twenty. The four historical clean controls are VAL-801, VAL-805, VAL-809, and VAL-813. The other twenty frozen charts are error-bearing variants. That 20-and-4 split is historical provenance of the original freeze. The same four identifiers later received substantive comments from both reviewers, and that dual review is why they became the direct-revision set now stored in [REVISED/overlap_4](data/case_sets/seed_guided/REVISED/overlap_4/).
 
-The current iterative revision does not start from the error-bearing version. It starts from [CLEAN_BASE](data/case_sets/seed_guided/CLEAN_BASE/). Those files are the pre-injection charts for all 24 slots, including the twenty that were later altered in the freeze. The original freeze also shows reference leakage on the four control exports; the clean-base resident files keep the reference plan off the resident chart.
+The revised candidates start from [CLEAN_BASE](data/case_sets/seed_guided/CLEAN_BASE/). Those files are the pre-injection charts for all 24 slots, including the twenty that were later altered in the freeze. The original freeze also shows reference leakage on the four control exports; the clean-base resident files keep the reference plan off the resident chart.
 
 The optional injection step remains in the generator as an experimental flag, `--inject-error`, because the generation service still imports it. The default generation path builds a clean case. Injection is not the current review workflow.
 
@@ -227,7 +357,7 @@ Those five codes are not the six seed archetypes. The seed-guided batch resolves
 
 ### Medication regimens
 
-[data/bootstrap/medication_regimens.json](data/bootstrap/medication_regimens.json) holds 24 curated regimens. Each entry binds a human-readable drug query to an administered dose, route, frequency, and temporal role, and it stores a citation. Product strength in RxNorm is not treated as the administered dose. “Once daily” is not a default frequency invented when a citation is missing. Profile restrictions on an entry, such as the apixaban dose criteria, are constraints the generator keeps the synthetic patient inside.
+[data/bootstrap/medication_regimens.json](data/bootstrap/medication_regimens.json) holds the curated regimens, 31 entries in the current file. Each entry binds a human-readable drug query to an administered dose, route, frequency, and temporal role, and it stores a citation. Product strength in RxNorm is not treated as the administered dose. “Once daily” is not a default frequency invented when a citation is missing. Profile restrictions on an entry, such as the apixaban dose criteria, are constraints the generator keeps the synthetic patient inside.
 
 ### Rule templates
 
@@ -278,7 +408,7 @@ The repository keeps three kinds of information apart.
 
 **Synthetic patient data** lives in `clinical_cases` and its child tables, and in the frozen JSON that mirrors those tables. Ages, vital signs, laboratory numbers, weights, and narrative sentences are synthetic draws or template sentences inside a profile. They are not records from a hospital system.
 
-**Review and study metadata** includes the VAL identifiers, the batch plan, the two reviewer Word files, the codebook responses, the comparison table, and the clean-base versus revision provenance. A VAL identifier assigns a synthetic case to a study slot. A reviewer comment is an observation about that slot. Neither one is a clinical fact about a real patient.
+**Review and study metadata** includes the VAL identifiers, the batch plan, the de-identified comparison, the codebook responses, and the clean-base versus revision provenance. Completed reviewer forms are private study records. A VAL identifier assigns a synthetic case to a study slot. A reviewer comment is an observation about that slot. Neither one is a clinical fact about a real patient.
 
 ## OpenAI and narrative wording
 
@@ -292,7 +422,7 @@ The committed seed-guided study cases used template wording. [batch_plan.json](d
 
 ## Architecture
 
-The implemented path from design input to the current revision queue is:
+The implemented Generation 1 path is:
 
 ```mermaid
 flowchart TD
@@ -307,11 +437,53 @@ flowchart TD
     I --> J["Frozen seed-guided study set"]
     J --> K["Canonical clean base"]
     K --> L["Clinician review"]
-    L --> M["Case-level reviewer comparison"]
-    M --> N["Iterative revision, not yet written"]
+    L --> M["Case-level comparison"]
+    M --> N["Four-case direct revision"]
+    N --> O["Frozen revision framework"]
+    O --> P["Remaining-20 framework application"]
+    P --> Q["Revised Generation 1 cohort"]
+    Q --> R["Next clinician review"]
 ```
 
-Machine validation checks source-backed identifiers, regimen constraints, and internal consistency. Clinician review asks whether the chart is a believable hospitalization. The second revision is the box that has not been filled in.
+```text
+Frozen seed-guided set
+        ↓
+canonical clean base
+        ↓
+clinician review
+        ↓
+case-level comparison
+        ↓
+4-case direct revision
+        ↓
+frozen revision framework
+        ↓
+remaining-20 framework application
+        ↓
+revised Generation 1 cohort
+        ↓
+next clinician review
+```
+
+Machine validation checks source-backed identifiers, regimen constraints, and internal consistency. Clinician review asks whether the chart is a believable hospitalization. The revised Generation 1 cohort is the current candidate set for that next review.
+
+Generation 2 is a separate path:
+
+```text
+Synthea longitudinal population
+        ↓
+scenario eligibility
+        ↓
+CliniProof inpatient episode
+        ↓
+sufficiency and medication-decision audits
+        ↓
+clean resident chart and hidden reference
+        ↓
+G2-001–G2-024
+        ↓
+clinician validation on the same instrument
+```
 
 ## Database schema and UML
 
@@ -440,6 +612,7 @@ Several identifiers appear on one case, and they answer different questions.
 | Official code | RXCUI, LOINC, ICD-10-CM, UCUM | A concept in an external terminology. Stored on the reference row, and copied as a string where the schema says so |
 | Synthetic case identifier | `SYN-000001` | `clinical_cases.case_id_code`, produced by `format_case_id_code`. Six digits. This is the code `validate-cases --case-id` expects |
 | Study identifier | `VAL-801` | `validation_batch_cases.validation_case_id`. Three digits, pattern `VAL-` plus three numbers. Assigned by a batch plan and not overwritten |
+| Generation 2 candidate identifier | `G2-001` | Pilot identifier for the Synthea cohort. Not a VAL study identifier and not a frozen assignment |
 | Child business identifier | `DX-SYN000001-001` in the database, `DX-VAL801-001` on a frozen export | A row inside one case. Prefixes include `DX`, `SYM`, `LAB`, `MED`, `VIT`, `PROB`, `NOTE`, `WT`, `MR`, `MON`, `FU`, `INS`, `RP`, `CON`, `STUDY`, `DEV`, `MICRO`, `PLAN`, and `AK` |
 | Blueprint and run identifiers | `BP-…`, `RUN-…` | The profile definition and the generation run, separate from the case |
 | Archetype and profile codes | `HF_DECOMPENSATION`, `HF_VOLUME_OVERLOAD` | Design labels in JSON. They are not patient identifiers |
@@ -464,7 +637,7 @@ clinician review DOCX
 
 [app/services/word_export.py](app/services/word_export.py) reads resident-facing JSON and writes chart sections with python-docx. It does not call a language model. [app/services/validation_casebook.py](app/services/validation_casebook.py) places the fixed codebook after each chart and adds the checkbox content controls. Rendering is required to copy the structured facts. It must not invent a patient fact, change a medication dose, change a laboratory value, add a diagnosis, infer a missing treatment, or alter reviewer feedback.
 
-The two completed reviews and the blank template in `docs/` are the received and archived documents. They are not regenerated from the renderer as part of ordinary use. The renderer’s batch loader still expects two active generation strategies in the registry. The registry now lists only `CLINIPROOF_SEEDCASES_V3`, so that loader is not a way to rebuild the preserved review files. The next revision should render from the clean-base JSON, or from a new derivative of it, and should keep the same codebook.
+The blank template in [docs/validation/](docs/validation/) is the public instrument. Completed reviewer forms are private study records and are not rebuilt by the renderer. The renderer’s batch loader still expects two active generation strategies in the registry. The registry now lists only `CLINIPROOF_SEEDCASES_V3`, so that loader is not how the revised candidate casebooks are produced. Those casebooks are rendered from the revised JSON and keep the same codebook.
 
 ## How a synthetic case is built
 
@@ -514,9 +687,21 @@ Before any resident sits the case, a clinician reads the same chart and complete
 
 Only after the clinical case is accepted would the project introduce a medication error or an AI-generated recommendation and ask how a resident responds. That layer is outside the current review. The historical freeze already contains planted discrepancies for twenty slots. Those files document the earlier experiment. They are not evidence that the base cases have been clinically accepted, and they are not the files the revision starts from.
 
+The walkthrough above is the Generation 1 construction:
+
+```text
+archetype
+        ↓
+structured profile
+        ↓
+synthetic hospitalization
+```
+
+A Generation 2 case takes a different route. A Synthea longitudinal patient is selected by scenario eligibility, CliniProof builds a causal inpatient episode, a sufficiency gate checks that episode, and the result is a clean discharge-reconciliation case. The Generation 1 walkthrough remains the account of how VAL-801–VAL-824 were built.
+
 ## The clinical validation codebook
 
-The cases change between iterative rounds. The coding instrument does not. That stability is what makes a rating in the next round comparable with a rating already in hand.
+The cases change between iterative rounds, and the generation method can change. The coding instrument does not. Generation 2 is reviewed with this same instrument so a later comparison between generation methods uses one rubric. That stability is what makes a rating in the next round comparable with a rating already in hand.
 
 The blank form is [CliniProof_Clinical_Validation_Template.docx](docs/validation/CliniProof_Clinical_Validation_Template.docx). Field definitions, matching the form, are in [CODEBOOK.md](docs/validation/CODEBOOK.md). The template contains VAL-801 through VAL-824. For each case the reviewer sees the chart and then the items below. No additional C6 dimension has been added.
 
@@ -533,7 +718,7 @@ The blank form is [CliniProof_Clinical_Validation_Template.docx](docs/validation
 
 C1 then has an overall Pass or Fail, and a comment.
 
-**C2 — Intended assessment problem.** Pass or Fail, plus a comment. On the completed reviews this item asked whether the case appropriately contained, or did not contain, a deliberately introduced medication-reconciliation problem.
+**C2 — Intended assessment problem.** Pass or Fail, plus a comment. On a clean case this item asks whether the chart appropriately contains no deliberately introduced medication-reconciliation problem.
 
 **C3 — Detectability.** Pass or Fail, plus a comment.
 
@@ -545,17 +730,15 @@ C1 then has an overall Pass or Fail, and a comment.
 
 Reviewer 2’s C2 through C5 and overall recommendation are blank on every case, including the four cases with a C1 rating. Those blanks were not filled by inference.
 
-## Second-revision status
+## Revised Generation 1 cohort
 
-VAL-801, VAL-805, VAL-809, and VAL-813 have been revised from [the clean base](data/case_sets/seed_guided/CLEAN_BASE/). The revised resident and evaluator files are in [data/case_sets/seed_guided/REVISED/overlap_4/](data/case_sets/seed_guided/REVISED/overlap_4/). The case-by-case record is [docs/revision/overlap_4_revision_log.md](docs/revision/overlap_4_revision_log.md). The next review uses the same C1–C5 instrument, in [docs/validation/CliniProof_Revised_Overlap4_Codebook.docx](docs/validation/CliniProof_Revised_Overlap4_Codebook.docx).
-
-These four cases are ready for the next clinician review. They are not clinically validated. The same frozen framework was then applied to the other twenty clean charts. Those files are in [data/case_sets/seed_guided/REVISED/remaining_20/](data/case_sets/seed_guided/REVISED/remaining_20/). The framework is [docs/revision/revision_framework.md](docs/revision/revision_framework.md), and the case log is [docs/revision/remaining_20_revision_log.md](docs/revision/remaining_20_revision_log.md). That pass is investigator quality control, not another clinician review. Those twenty cases are also not clinically validated. Reviewer 1's comments on VAL-802 and VAL-803 were used. The other eighteen had no case-specific clinician comments. [exports/current/](exports/current/README.md) remains empty because these revisions are not a replacement 24-case export package.
+The current revised Generation 1 candidates are [overlap_4](data/case_sets/seed_guided/REVISED/overlap_4/) and [remaining_20](data/case_sets/seed_guided/REVISED/remaining_20/). Their status, the framework, and the VAL-802/VAL-803 distinction are in the Generation 1 sections above. [exports/current/](exports/current/README.md) is not that cohort. The revised JSON is the source for the next clinician review.
 
 ## Provenance and immutability
 
-The original seed set is frozen. Its batch code, plan, manifest, readable charts, and investigator key stay in [data/case_sets/seed_guided/](data/case_sets/seed_guided/). The clean base is preserved separately, as byte-identical pre-injection charts, so a later derivative can be diffed against a known file. The two reviewer Word files are immutable source documents. The CSV and Markdown comparison are a normalization of those documents. They do not replace the originals. Future revisions will be new derivative artifacts. They will not be written back into the freeze or into `CLEAN_BASE`.
+The original seed set is frozen. Its batch code, plan, manifest, readable charts, and investigator key stay in [data/case_sets/seed_guided/](data/case_sets/seed_guided/). The clean base is preserved separately, so a later derivative can be compared with a known chart. Revised cases are new derivative artifacts. They are not written back into the freeze or into `CLEAN_BASE`. The public comparison is the de-identified table in [docs/clinical_feedback/](docs/clinical_feedback/). Completed reviewer forms are private study records.
 
-Hashes for the original set, the clean base, and both review files are in [docs/source_integrity.md](docs/source_integrity.md). The cleanup inventory, which records what was kept in this working tree, is [docs/repository_cleanup_inventory.md](docs/repository_cleanup_inventory.md).
+Technical hashes for the preserved sources are in [docs/source_integrity.md](docs/source_integrity.md). The cleanup inventory, which records what was kept in this working tree, is [docs/repository_cleanup_inventory.md](docs/repository_cleanup_inventory.md).
 
 Superseded revision packages and older frozen batches were removed from this working tree. They remain available for historical reconstruction at the Git tag [repo-before-clinical-cleanup-2026-10](https://github.com/piaattufts/clinical-case-generator/tree/repo-before-clinical-cleanup-2026-10), commit [a6ac152](https://github.com/piaattufts/clinical-case-generator/commit/a6ac152873a78619944314adb9809a50cd741192). That tag is the pre-cleanup historical snapshot. It is the place to recover a superseded validation package if a reconstruction needs it. Those packages are not restored into the current tree, and this README does not treat them as the current study set.
 
@@ -569,7 +752,7 @@ Three activities are easy to confuse, and they are different.
 
 **B. Inspect the frozen seed-guided set.** Read [data/case_sets/seed_guided/](data/case_sets/seed_guided/). The plan, the manifest, the readable charts, and the investigator key are already on disk. Do not re-freeze this batch to refresh it. VAL identifiers are immutable, and the freeze command will not overwrite them.
 
-**C. Use the clean base for the current iterative review.** Read [data/case_sets/seed_guided/CLEAN_BASE/](data/case_sets/seed_guided/CLEAN_BASE/). The next revision starts by copying from these files. Regenerating `CLEAN_BASE` to improve it would destroy the byte-identity that the hashes record.
+**C. Read the clean baseline and the revised candidates.** The baseline is [data/case_sets/seed_guided/CLEAN_BASE/](data/case_sets/seed_guided/CLEAN_BASE/). The current revised charts are [overlap_4](data/case_sets/seed_guided/REVISED/overlap_4/) and [remaining_20](data/case_sets/seed_guided/REVISED/remaining_20/). Regenerating `CLEAN_BASE` would replace the preserved baseline.
 
 ### Environment
 
@@ -607,9 +790,39 @@ clinical-case-generator validate-cases --case-id SYN-000001
 
 The batch code is `CLINIPROOF_SEEDCASES_V3`. The registry entry is [data/validation_registry.json](data/validation_registry.json). Readable charts are under `data/case_sets/seed_guided/readable/cases/`. The machine-readable plan and manifest are [batch_plan.json](data/case_sets/seed_guided/batch_plan.json) and [validation_manifest.json](data/case_sets/seed_guided/validation_manifest.json). `export-validation-batch --batch-code CLINIPROOF_SEEDCASES_V3` can rewrite an export from a database that already holds the frozen rows. It is not required to read the files that are already in the tree, and it is not a revision step.
 
-### C. Current review materials
+### C. Current Generation 1 review materials
 
-Use the clean-base JSON, the two completed casebooks, the [comparison](docs/clinical_feedback/reviewer_comparison.md), and the [codebook](docs/validation/CODEBOOK.md). The method write-up is [docs/methodology.md](docs/methodology.md).
+Use the revised JSON under [REVISED/](data/case_sets/seed_guided/REVISED/), the [comparison](docs/clinical_feedback/reviewer_comparison.md), and the [codebook](docs/validation/CODEBOOK.md). The method write-up is [docs/methodology.md](docs/methodology.md). The blank instrument is [CliniProof_Clinical_Validation_Template.docx](docs/validation/CliniProof_Clinical_Validation_Template.docx).
+
+### D. Generate or inspect Generation 2
+
+The committed cohort can be read without running Synthea. It is [data/case_sets/synthea_g2/](data/case_sets/synthea_g2/). The clinician casebook is [CliniProof_Synthea_G2_Clinical_Validation.docx](docs/validation/CliniProof_Synthea_G2_Clinical_Validation.docx).
+
+To audit the committed cases:
+
+```bash
+python scripts/build_synthea_g2.py audit
+```
+
+Rebuilding the cohort requires an external Synthea checkout, not a copy inside this repository. Java 17 or newer is required. The recorded run used OpenJDK 21.0.10. The pinned upstream commit is `d9d07a6eef91ee5144293b42ab64224d84d124f8` of <https://github.com/synthetichealth/synthea.git>, recorded in [config/synthea.yml](config/synthea.yml). From that checkout:
+
+```bash
+./run_synthea -s 20261008 -p 1000 -r 20261008 Massachusetts \
+  --exporter.fhir.export=true \
+  --exporter.years_of_history=10 \
+  --exporter.baseDirectory=<local raw directory> \
+  --exporter.hospital.fhir.export=false \
+  --exporter.practitioner.fhir.export=false \
+  --exporter.metadata.export=false
+```
+
+Place the FHIR bundles where the builder reads them, `data/synthea/raw/fhir/`. That directory is gitignored. Then:
+
+```bash
+python scripts/build_synthea_g2.py
+```
+
+That command rewrites the committed Generation 2 cohort, the reports, and the Generation 2 casebook. It does not modify Generation 1.
 
 ### Tests
 
@@ -627,60 +840,45 @@ python scripts/check_docs.py
 ```text
 app/                  SQLAlchemy models, generation, validation, terminology clients, CLI
   models/             clinical_cases, child tables, reference tables, generation tables
-  services/           generation, bootstrap, rules, validation, Word rendering
+  services/           generation, bootstrap, rules, validation, Word rendering, Generation 2 episode
   openai/             optional narrative rewording
   cli/                clinical-case-generator commands
 alembic/              PostgreSQL migrations
-data/bootstrap/       scenarios, medication regimens, rule templates, manifest
+config/synthea.yml    pinned Synthea commit, seed, and export settings
+data/bootstrap/       scenarios, medication regimens, rule templates, manifest, Generation 2 scenario spec
 data/seed_cases/      resident-authored DOCX files and archetype blueprints
-data/case_sets/seed_guided/                 frozen CLINIPROOF_SEEDCASES_V3
-data/case_sets/seed_guided/CLEAN_BASE/      canonical clean charts for the revision
-docs/clinical_feedback/                     both completed reviews and the comparison
-docs/validation/                            unchanged codebook and blank template
-docs/methodology.md                         manuscript-style method
-docs/provenance.md                          what terminology identifiers establish
-docs/source_integrity.md                    SHA-256 of the frozen sources
-tests/                automated checks
-exports/current/      empty until the second revision exists
+data/case_sets/seed_guided/                         frozen CLINIPROOF_SEEDCASES_V3
+data/case_sets/seed_guided/CLEAN_BASE/              canonical clean Generation 1 baseline
+data/case_sets/seed_guided/REVISED/overlap_4/       direct dual-review revision
+data/case_sets/seed_guided/REVISED/remaining_20/    framework-guided revision
+data/case_sets/synthea_g2/                          Generation 2 pilot cohort
+docs/revision/            frozen framework, application record, and revision logs
+docs/clinical_feedback/   de-identified review comparison
+docs/validation/          unchanged instrument, revised casebooks, Generation 2 casebook
+docs/methodology.md       Generation 1 method
+docs/methodology_synthea_g2.md
+                          Generation 2 method
+docs/provenance.md        what terminology identifiers establish
+docs/source_integrity.md  SHA-256 of preserved Generation 1 sources
+tests/                    automated checks
 ```
 
-Empty placeholders `data/aggregates/`, `data/imports/`, and `data/exports/` contain no study cases. The documentation index is [docs/README.md](docs/README.md).
-
-## Generation 2 — Synthea-grounded discharge-reconciliation cases
-
-Generation 1 is preserved. The seed-guided freeze, the clean base, the revised overlap cases, the revised remaining cases, the reviewer comparison, and the clinical validation template are unchanged by this work.
-
-Generation 2 is a new experimental generation approach. It asks whether a longitudinal synthetic patient, plus an explicitly complete inpatient trajectory, produces a better medication-reconciliation and discharge-reasoning case than the resident-archetype method. It does not replace Generation 1, and it is not yet shown to be superior. Clinician validation will determine whether the change improves case quality.
-
-Generation 2 uses [Synthea](https://github.com/synthetichealth/synthea) for longitudinal synthetic patient context: age, sex, chronic conditions, and outpatient medication products. CliniProof constructs the inpatient reasoning episode: baseline, acute change, precipitant, presentation, work-up, diagnosis, treatment, physiologic response, and medication transitions. Synthea is not treated as an inpatient clinical-reasoning simulator.
-
-Round 1 clinician feedback was translated into explicit generation and sufficiency requirements. Those requirements are gates in the generator. They are not a claim that either reviewer approved Generation 2. Public Generation 2 text uses Reviewer 1 and Reviewer 2 only.
-
-The pilot is 24 clean cases, four in each of six families that correspond to the Generation 1 workflows. Resident charts do not contain a completed discharge medication list, an error label, or a scoring label. The hidden reference is derived after the chart is complete. Identifiers are `G2-001` through `G2-024`. They are candidate identifiers, not frozen VAL study identifiers.
-
-No planted errors are used in this phase. No language model selects diagnoses, medicines, doses, laboratories, or reference actions. MIMIC is not used.
-
-- [Generation 2 methodology](docs/methodology_synthea_g2.md)
-- [Generation 2 cohort](data/case_sets/synthea_g2/README.md)
-- [Generation 2 validation casebook](docs/validation/CliniProof_Synthea_G2_Clinical_Validation.docx)
-- [Generation 2 provenance report](data/case_sets/synthea_g2/reports/provenance_report.md)
-- [Round 1 concern audit](data/case_sets/synthea_g2/reports/round1_concern_audit.md)
-- [Diversity report](data/case_sets/synthea_g2/reports/diversity_report.md)
+`docs/clinical_feedback/` holds the de-identified review comparison and the public review-method artifacts. Completed reviewer forms are private study records. Empty placeholders `data/aggregates/`, `data/imports/`, and `data/exports/` contain no study cases. The documentation index is [docs/README.md](docs/README.md).
 
 ## Limitations
 
 The cases are synthetic. They are built to support a reasoning task, and they are not de-identified hospital encounters.
 
-The archetype set is bounded. Six resident examples, abstracted into six families, plus a five-scenario development grid, do not cover the range of discharge problems on a medicine service.
-
-The sample is not prevalence-weighted. Four profiles per family, and the historical choice of twenty error-bearing variants and four controls, reflect the study plan. They do not estimate how often these problems occur.
-
 A valid terminology code does not establish clinical appropriateness. Machine validation does not establish clinician acceptance.
 
-Clinician validation is incomplete. Two reviewers have contributed at this stage. Reviewer 1 recorded substantive feedback on 6 of 24 cases. Reviewer 2 recorded substantive feedback on 4 of 24 cases, and left C2 through C5 and the overall recommendation blank. Eighteen cases have no substantive completed feedback from either reviewer.
+Generation 1 now has 24 revised candidate cases. None has completed the next clinician review. Four, VAL-801, VAL-805, VAL-809, and VAL-813, were revised directly from dual-clinician feedback and are pending clinician re-review. VAL-802 and VAL-803 incorporate Reviewer-1-specific feedback plus the frozen framework and are pending clinician review. The other eighteen were revised through that frozen investigator framework, informed by the earlier clinician review, and are pending clinician review. Framework-guided revision is not clinician validation.
 
-Four overlapping cases drive the next iterative revision. That selection is a coverage decision. It is not a finding that the other twenty charts are acceptable, and it is not a finding that the four have been validated.
+Review coverage of the original charts remains incomplete. Reviewer 1 recorded substantive feedback on 6 of 24 cases. Reviewer 2 recorded substantive feedback on 4 of 24 cases and left C2 through C5 and the overall recommendation blank. Eighteen cases had no substantive feedback from either reviewer.
 
-The process is Delphi-informed. It is not a formal Delphi consensus study. There is no larger panel and no predefined statistical consensus threshold.
+The archetype set is bounded. Six resident examples, abstracted into six families, plus a five-scenario development grid, do not cover the range of discharge problems on a medicine service. The sample is not prevalence-weighted.
+
+Generation 2 is synthetic and still scenario-constrained. It is not prevalence-weighted. It covers the same six reasoning families. Automated sufficiency gates are not clinician validation. There is no evidence yet that Generation 2 is superior to Generation 1. A plausible Synthea longitudinal history does not establish that the inpatient episode is clinically valid. A comparison of the two methods requires blinded clinician review on the same instrument.
+
+The process is Delphi-informed. It is not a formal Delphi consensus study. There is no larger panel and no predefined statistical consensus threshold. Agreement is described case by case. Silence is not consensus.
 
 Later evaluation of planted errors or of AI-generated recommendations has not been validated by this clinical-review stage. Those experiments wait until the base case itself has been accepted on the unchanged codebook.
