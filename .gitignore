@@ -18,3 +18,8 @@ data/exports/**
 !data/exports/.gitkeep
 data/mimic/
 **/*mimic*
+
+# Local Synthea checkout and bulk FHIR. Provenance and selected cases stay tracked.
+data/synthea/raw/
+/synthea/
+SYNTHEA_HOME/

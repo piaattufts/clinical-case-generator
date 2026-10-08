@@ -1,0 +1,398 @@
+{
+  "case_id_code": "G2-019",
+  "ClinicalCase": {
+    "title": "HIP_FRACTURE_ANTICOAGULATION G2-019",
+    "case_id_code": "G2-019",
+    "case_status": "candidate",
+    "generation_source": "synthetic",
+    "one_liner": "70-year-old Female with a right femoral-neck fracture treated after the INR fell",
+    "admission_dx": "a right femoral-neck fracture treated after the INR fell",
+    "disposition_status": "home",
+    "chief_complaint": "Right hip pain after a fall",
+    "patient_name": "G2-019",
+    "patient_age": 70,
+    "patient_gender": "Female",
+    "ethnicity": null,
+    "weight_kg": 73.0,
+    "social_context": "Longitudinal social history was not required for this episode.",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "internal medicine",
+    "allergies": [],
+    "medical_history": [
+      "Risk activity involvement (finding)",
+      "Educated to high school level (finding)",
+      "Limited social contact (finding)",
+      "Past pregnancy history of miscarriage (situation)"
+    ],
+    "source_type": "synthea_cliniproof_g2",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Right hip pain after a fall",
+      "hpi": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) and an anticoagulation indication among the active conditions. Other products: Warfarin Sodium 5 MG Oral Tablet. A ground-level fall was followed immediately by right hip pain and inability to bear weight. That was not the prior mobility. fall with postoperative oozing. No chest pain or syncope was described. The right leg was shortened and externally rotated. Arrival INR was 2.6. Warfarin was held on arrival.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "hip pain",
+        "inability to bear weight"
+      ],
+      "symptom_duration": "hours",
+      "symptom_course": "pain controlled and the wound reviewed before discharge planning"
+    },
+    "social_support": {
+      "living_situation": "community",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready for clinician review of the discharge medication plan",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": true,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-G2-019-001",
+      "case_id": "G2-019",
+      "diagnosis": "Risk activity involvement (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "160968000",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-019-002",
+      "case_id": "G2-019",
+      "diagnosis": "Educated to high school level (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "473461003",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-019-003",
+      "case_id": "G2-019",
+      "diagnosis": "Limited social contact (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "423315002",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-019-004",
+      "case_id": "G2-019",
+      "diagnosis": "Past pregnancy history of miscarriage (situation)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "161744009",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-019-005",
+      "case_id": "G2-019",
+      "diagnosis": "Fracture of unspecified part of neck of right femur, initial encounter for closed fracture",
+      "diagnosis_type": "hospital",
+      "status": "active",
+      "context": "inpatient",
+      "provenance": "cliniproof_episode_generated",
+      "icd10cm": "S72.001A",
+      "snomed_code": null,
+      "code_provenance": "reference_terminology"
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-G2-019-001",
+      "case_id": "G2-019",
+      "note_type": "admission",
+      "note_text": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) and an anticoagulation indication among the active conditions. Other products: Warfarin Sodium 5 MG Oral Tablet. A ground-level fall was followed immediately by right hip pain and inability to bear weight. That was not the prior mobility. fall with postoperative oozing. No chest pain or syncope was described. The right leg was shortened and externally rotated. Arrival INR was 2.6. Warfarin was held on arrival.",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "note_id": "NOTE-G2-019-002",
+      "case_id": "G2-019",
+      "note_type": "hospital_course",
+      "note_text": "A radiograph, not the history alone, showed a right femoral-neck fracture. The INR was repeated before the operating room. The fracture diagnosis followed the radiograph. Anticoagulation management was then planned around that injury. Surgery waited until the INR was 1.3. No separate reversal drug was charted. Open reduction and internal fixation was then performed. A wound hematoma was present on postoperative day 1 and was not expanding. Hemoglobin was stable. Enoxaparin 40 MG subcutaneously once daily was used for postoperative prophylaxis while warfarin remained held. INR fell from 2.6 to 1.3. Creatinine stayed near 1.2 mg/dL. Pain was controlled with non-opioid measures and the patient could sit and transfer with therapy. Therapy recommended home. The wound assessment is the one above. Warfarin and the prophylactic anticoagulant do not yet have a signed discharge order. Orthopedics, the anticoagulation indication's clinician, and a wound check were arranged.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-G2-019-001",
+      "case_id": "G2-019",
+      "timepoint": "admission",
+      "time_rank": 1,
+      "temp_c": 36.7,
+      "bp_systolic": 146,
+      "bp_diastolic": 78,
+      "heart_rate": 92,
+      "resp_rate": 16,
+      "spo2_percent": 97,
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "vital_id": "VIT-G2-019-002",
+      "case_id": "G2-019",
+      "timepoint": "discharge",
+      "time_rank": 7,
+      "temp_c": 36.8,
+      "bp_systolic": 132,
+      "bp_diastolic": 74,
+      "heart_rate": 78,
+      "resp_rate": 16,
+      "spo2_percent": 97,
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-G2-019-001",
+      "case_id": "G2-019",
+      "timepoint": "admission",
+      "test_name": "INR in Platelet poor plasma by Coagulation assay",
+      "loinc_code": "6301-6",
+      "value": 2.6,
+      "value_text": null,
+      "unit": "[INR]",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-019-002",
+      "case_id": "G2-019",
+      "timepoint": "intermediate",
+      "test_name": "INR in Platelet poor plasma by Coagulation assay",
+      "loinc_code": "6301-6",
+      "value": 1.3,
+      "value_text": null,
+      "unit": "[INR]",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-019-003",
+      "case_id": "G2-019",
+      "timepoint": "discharge",
+      "test_name": "INR in Platelet poor plasma by Coagulation assay",
+      "loinc_code": "6301-6",
+      "value": 1.3,
+      "value_text": null,
+      "unit": "[INR]",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-019-004",
+      "case_id": "G2-019",
+      "timepoint": "admission",
+      "test_name": "Hemoglobin [Mass/volume] in Blood",
+      "loinc_code": "718-7",
+      "value": 12.4,
+      "value_text": null,
+      "unit": "g/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-019-005",
+      "case_id": "G2-019",
+      "timepoint": "discharge",
+      "test_name": "Hemoglobin [Mass/volume] in Blood",
+      "loinc_code": "718-7",
+      "value": 11.2,
+      "value_text": null,
+      "unit": "g/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-019-006",
+      "case_id": "G2-019",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.2,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-019-007",
+      "case_id": "G2-019",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.2,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    }
+  ],
+  "CaseWeight": [],
+  "CaseImaging": [
+    {
+      "study_id": "STUDY-G2-019-001",
+      "case_id": "G2-019",
+      "timepoint": "admission",
+      "study_type": "Right hip radiograph",
+      "body_site": "",
+      "finding": "Femoral-neck fracture.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseProcedure": [
+    {
+      "procedure_id": "PROC-G2-019-001",
+      "case_id": "G2-019",
+      "procedure_name": "Open reduction and internal fixation of the right femoral neck",
+      "procedure_type": "inpatient",
+      "time": "after INR 1.3",
+      "findings": "Fixation completed.",
+      "complications": "wound hematoma",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseConsult": [],
+  "CaseMicrobiology": [],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-G2-019-001",
+      "case_id": "G2-019",
+      "context": "home",
+      "drug": "warfarin",
+      "reported_name": "warfarin",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "longitudinal anticoagulation indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Still held. A wound hematoma is present and not expanding, and hemoglobin is stable.",
+      "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
+      "rxcui": "855332",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-019-002",
+      "case_id": "G2-019",
+      "context": "inpatient",
+      "drug": "warfarin",
+      "reported_name": "warfarin",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "longitudinal anticoagulation indication",
+      "status": "held",
+      "held_reason": "Still held. A wound hematoma is present and not expanding, and hemoglobin is stable.",
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Still held. A wound hematoma is present and not expanding, and hemoglobin is stable.",
+      "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
+      "rxcui": "855332",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-019-003",
+      "case_id": "G2-019",
+      "context": "inpatient",
+      "drug": "enoxaparin",
+      "reported_name": "enoxaparin",
+      "dose": "40 MG",
+      "route": "subcutaneous",
+      "frequency": "once daily",
+      "indication": "postoperative venous-thromboembolism prophylaxis",
+      "status": "completed_inpatient_course",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Hospital prophylaxis only. Not a home medicine. Creatinine did not require a different prophylactic dose.",
+      "regimen_id": "ENOXAPARIN_HOSPITAL_PROPHYLAXIS",
+      "rxcui": null,
+      "identity_provenance": "cliniproof_episode_generated",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseMedicationReconciliation": [],
+  "CaseMonitoring": [
+    {
+      "monitoring_id": "MON-G2-019-001",
+      "case_id": "G2-019",
+      "parameter": "INR",
+      "frequency": "within 3 days",
+      "target": "therapeutic range for the pre-existing indication",
+      "trigger_for_action": "",
+      "duration": "until the first follow-up visit",
+      "responsible_service": "anticoagulation clinician",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-G2-019-001",
+      "case_id": "G2-019",
+      "item": "Orthopedics",
+      "timing": "within 14 days",
+      "with_service": "orthopedics",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "followup_id": "FU-G2-019-002",
+      "case_id": "G2-019",
+      "item": "Anticoagulation follow-up",
+      "timing": "within 7 days",
+      "with_service": "anticoagulation clinician",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseInstruction": [
+    {
+      "instruction_id": "INS-G2-019-001",
+      "case_id": "G2-019",
+      "category": "discharge medication task",
+      "instruction_text": "Determine the discharge medication plan from this hospitalization. A completed discharge medication list is not provided.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseIntakeOutput": []
+}

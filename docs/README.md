@@ -12,3 +12,4 @@ Start with the project [README](../README.md). That file is the technical orient
 | [repository_cleanup_inventory.md](repository_cleanup_inventory.md) | What was kept or removed from the working tree, and why. |
 | [clinical_feedback/reviewer_comparison.md](clinical_feedback/reviewer_comparison.md) | Case-level comparison of the two completed reviews. |
 | [validation/CODEBOOK.md](validation/CODEBOOK.md) | The unchanged clinician-review instrument. |
+| [methodology_synthea_g2.md](methodology_synthea_g2.md) | Generation 2 method: Synthea longitudinal patients plus CliniProof inpatient episodes. Generation 1 is unchanged. |

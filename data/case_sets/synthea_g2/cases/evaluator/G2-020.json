@@ -1,0 +1,1174 @@
+{
+  "case_id_code": "G2-020",
+  "ClinicalCase": {
+    "title": "HIP_FRACTURE_ANTICOAGULATION G2-020",
+    "case_id_code": "G2-020",
+    "case_status": "candidate",
+    "generation_source": "synthetic",
+    "one_liner": "82-year-old Female with a right femoral-neck fracture treated after the INR fell",
+    "admission_dx": "a right femoral-neck fracture treated after the INR fell",
+    "disposition_status": "home",
+    "chief_complaint": "Right hip pain after a fall",
+    "patient_name": "G2-020",
+    "patient_age": 82,
+    "patient_gender": "Female",
+    "ethnicity": null,
+    "weight_kg": 69.7,
+    "social_context": "Longitudinal social history was not required for this episode.",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "internal medicine",
+    "allergies": [],
+    "medical_history": [
+      "Only received primary school education (finding)",
+      "Past pregnancy history of miscarriage (situation)",
+      "Body mass index 30+ - obesity (finding)",
+      "Sepsis (disorder)"
+    ],
+    "source_type": "synthea_cliniproof_g2",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Right hip pain after a fall",
+      "hpi": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) and an anticoagulation indication among the active conditions. Other products: aspirin 81 MG Oral Tablet; Hydrochlorothiazide 25 MG Oral Tablet; Warfarin Sodium 5 MG Oral Tablet; lisinopril 10 MG Oral Tablet. A ground-level fall was followed immediately by right hip pain and inability to bear weight. That was not the prior mobility. fall in a patient with a prosthetic valve. No chest pain or syncope was described. The right leg was shortened and externally rotated. Arrival INR was 2.6. Warfarin was held on arrival.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "hip pain",
+        "inability to bear weight"
+      ],
+      "symptom_duration": "hours",
+      "symptom_course": "pain controlled and the wound reviewed before discharge planning"
+    },
+    "social_support": {
+      "living_situation": "community",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready for clinician review of the discharge medication plan",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": true,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-G2-020-001",
+      "case_id": "G2-020",
+      "diagnosis": "Only received primary school education (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "224295006",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-020-002",
+      "case_id": "G2-020",
+      "diagnosis": "Past pregnancy history of miscarriage (situation)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "161744009",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-020-003",
+      "case_id": "G2-020",
+      "diagnosis": "Body mass index 30+ - obesity (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "162864005",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-020-004",
+      "case_id": "G2-020",
+      "diagnosis": "Sepsis (disorder)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "91302008",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-020-005",
+      "case_id": "G2-020",
+      "diagnosis": "Fracture of unspecified part of neck of right femur, initial encounter for closed fracture",
+      "diagnosis_type": "hospital",
+      "status": "active",
+      "context": "inpatient",
+      "provenance": "cliniproof_episode_generated",
+      "icd10cm": "S72.001A",
+      "snomed_code": null,
+      "code_provenance": "reference_terminology"
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-G2-020-001",
+      "case_id": "G2-020",
+      "note_type": "admission",
+      "note_text": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) and an anticoagulation indication among the active conditions. Other products: aspirin 81 MG Oral Tablet; Hydrochlorothiazide 25 MG Oral Tablet; Warfarin Sodium 5 MG Oral Tablet; lisinopril 10 MG Oral Tablet. A ground-level fall was followed immediately by right hip pain and inability to bear weight. That was not the prior mobility. fall in a patient with a prosthetic valve. No chest pain or syncope was described. The right leg was shortened and externally rotated. Arrival INR was 2.6. Warfarin was held on arrival.",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "note_id": "NOTE-G2-020-002",
+      "case_id": "G2-020",
+      "note_type": "hospital_course",
+      "note_text": "A radiograph, not the history alone, showed a right femoral-neck fracture. The INR was repeated before the operating room. The fracture diagnosis followed the radiograph. Anticoagulation management was then planned around that injury. Surgery waited until the INR was 1.3. No separate reversal drug was charted. Open reduction and internal fixation was then performed. The wound was dry and hemoglobin was stable after surgery. Enoxaparin 40 MG subcutaneously once daily was used for postoperative prophylaxis while warfarin remained held. INR fell from 2.6 to 1.3. Creatinine stayed near 1.0 mg/dL. Pain was controlled with non-opioid measures and the patient could sit and transfer with therapy. Therapy recommended home. The wound assessment is the one above. Warfarin and the prophylactic anticoagulant do not yet have a signed discharge order. Orthopedics, the anticoagulation indication's clinician, and a wound check were arranged.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-G2-020-001",
+      "case_id": "G2-020",
+      "timepoint": "admission",
+      "time_rank": 1,
+      "temp_c": 36.7,
+      "bp_systolic": 146,
+      "bp_diastolic": 78,
+      "heart_rate": 92,
+      "resp_rate": 16,
+      "spo2_percent": 97,
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "vital_id": "VIT-G2-020-002",
+      "case_id": "G2-020",
+      "timepoint": "discharge",
+      "time_rank": 7,
+      "temp_c": 36.8,
+      "bp_systolic": 132,
+      "bp_diastolic": 74,
+      "heart_rate": 78,
+      "resp_rate": 16,
+      "spo2_percent": 97,
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-G2-020-001",
+      "case_id": "G2-020",
+      "timepoint": "admission",
+      "test_name": "INR in Platelet poor plasma by Coagulation assay",
+      "loinc_code": "6301-6",
+      "value": 2.6,
+      "value_text": null,
+      "unit": "[INR]",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-020-002",
+      "case_id": "G2-020",
+      "timepoint": "intermediate",
+      "test_name": "INR in Platelet poor plasma by Coagulation assay",
+      "loinc_code": "6301-6",
+      "value": 1.3,
+      "value_text": null,
+      "unit": "[INR]",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-020-003",
+      "case_id": "G2-020",
+      "timepoint": "discharge",
+      "test_name": "INR in Platelet poor plasma by Coagulation assay",
+      "loinc_code": "6301-6",
+      "value": 1.3,
+      "value_text": null,
+      "unit": "[INR]",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-020-004",
+      "case_id": "G2-020",
+      "timepoint": "admission",
+      "test_name": "Hemoglobin [Mass/volume] in Blood",
+      "loinc_code": "718-7",
+      "value": 12.4,
+      "value_text": null,
+      "unit": "g/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-020-005",
+      "case_id": "G2-020",
+      "timepoint": "discharge",
+      "test_name": "Hemoglobin [Mass/volume] in Blood",
+      "loinc_code": "718-7",
+      "value": 11.8,
+      "value_text": null,
+      "unit": "g/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-020-006",
+      "case_id": "G2-020",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.0,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-020-007",
+      "case_id": "G2-020",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.0,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    }
+  ],
+  "CaseWeight": [],
+  "CaseImaging": [
+    {
+      "study_id": "STUDY-G2-020-001",
+      "case_id": "G2-020",
+      "timepoint": "admission",
+      "study_type": "Right hip radiograph",
+      "body_site": "",
+      "finding": "Femoral-neck fracture.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseProcedure": [
+    {
+      "procedure_id": "PROC-G2-020-001",
+      "case_id": "G2-020",
+      "procedure_name": "Open reduction and internal fixation of the right femoral neck",
+      "procedure_type": "inpatient",
+      "time": "after INR 1.3",
+      "findings": "Fixation completed.",
+      "complications": "none",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseConsult": [],
+  "CaseMicrobiology": [],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-G2-020-001",
+      "case_id": "G2-020",
+      "context": "home",
+      "drug": "warfarin",
+      "reported_name": "warfarin",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "longitudinal anticoagulation indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Still held. INR is 1.3 and the wound is dry.",
+      "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
+      "rxcui": "855332",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-020-002",
+      "case_id": "G2-020",
+      "context": "inpatient",
+      "drug": "warfarin",
+      "reported_name": "warfarin",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "longitudinal anticoagulation indication",
+      "status": "held",
+      "held_reason": "Still held. INR is 1.3 and the wound is dry.",
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Still held. INR is 1.3 and the wound is dry.",
+      "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
+      "rxcui": "855332",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-020-003",
+      "case_id": "G2-020",
+      "context": "inpatient",
+      "drug": "enoxaparin",
+      "reported_name": "enoxaparin",
+      "dose": "40 MG",
+      "route": "subcutaneous",
+      "frequency": "once daily",
+      "indication": "postoperative venous-thromboembolism prophylaxis",
+      "status": "completed_inpatient_course",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Hospital prophylaxis only. Not a home medicine. Creatinine did not require a different prophylactic dose.",
+      "regimen_id": "ENOXAPARIN_HOSPITAL_PROPHYLAXIS",
+      "rxcui": null,
+      "identity_provenance": "cliniproof_episode_generated",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "medication_id": "MED-G2-020-004",
+      "case_id": "G2-020",
+      "context": "home",
+      "drug": "aspirin",
+      "reported_name": "aspirin",
+      "dose": "81 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "ASPIRIN_81_DAILY",
+      "rxcui": "243670",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-020-005",
+      "case_id": "G2-020",
+      "context": "inpatient",
+      "drug": "aspirin",
+      "reported_name": "aspirin",
+      "dose": "81 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "ASPIRIN_81_DAILY",
+      "rxcui": "243670",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-020-006",
+      "case_id": "G2-020",
+      "context": "home",
+      "drug": "hydrochlorothiazide",
+      "reported_name": "hydrochlorothiazide",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "HCTZ_25_DAILY",
+      "rxcui": "310798",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-020-007",
+      "case_id": "G2-020",
+      "context": "inpatient",
+      "drug": "hydrochlorothiazide",
+      "reported_name": "hydrochlorothiazide",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "HCTZ_25_DAILY",
+      "rxcui": "310798",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-020-008",
+      "case_id": "G2-020",
+      "context": "home",
+      "drug": "lisinopril",
+      "reported_name": "lisinopril",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "LISINOPRIL_10_DAILY",
+      "rxcui": "314076",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-020-009",
+      "case_id": "G2-020",
+      "context": "inpatient",
+      "drug": "lisinopril",
+      "reported_name": "lisinopril",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "LISINOPRIL_10_DAILY",
+      "rxcui": "314076",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    }
+  ],
+  "CaseMedicationReconciliation": [],
+  "CaseMonitoring": [
+    {
+      "monitoring_id": "MON-G2-020-001",
+      "case_id": "G2-020",
+      "parameter": "INR",
+      "frequency": "within 3 days",
+      "target": "therapeutic range for the pre-existing indication",
+      "trigger_for_action": "",
+      "duration": "until the first follow-up visit",
+      "responsible_service": "anticoagulation clinician",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-G2-020-001",
+      "case_id": "G2-020",
+      "item": "Orthopedics",
+      "timing": "within 14 days",
+      "with_service": "orthopedics",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "followup_id": "FU-G2-020-002",
+      "case_id": "G2-020",
+      "item": "Anticoagulation follow-up",
+      "timing": "within 7 days",
+      "with_service": "anticoagulation clinician",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseInstruction": [
+    {
+      "instruction_id": "INS-G2-020-001",
+      "case_id": "G2-020",
+      "category": "discharge medication task",
+      "instruction_text": "Determine the discharge medication plan from this hospitalization. A completed discharge medication list is not provided.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseIntakeOutput": [],
+  "scenario_code": "HIP_FRACTURE_ANTICOAGULATION",
+  "scenario_version": "g2-scenarios-v1",
+  "variant_id": "mechanical_valve_context",
+  "eligibility_tier": "older_adult_warfarin",
+  "synthea_patient_id": "8730b08c-4734-4a93-c2bc-c83fb22b707a",
+  "episode_generation_seed": "20261008:8730b08c-4734-4a93-c2bc-c83fb22b707a:HIP_FRACTURE_ANTICOAGULATION:mechanical_valve_context",
+  "fingerprint": {
+    "scenario": "HIP_FRACTURE_ANTICOAGULATION",
+    "variant_id": "mechanical_valve_context",
+    "precipitant": "fall_in_a_patient_with_a_prosthetic_valve",
+    "diagnostic_pathway": "xray_inr_orif_valve_history",
+    "renal_pattern": "creatinine_stable",
+    "procedure": "orif_right_femoral_neck",
+    "disposition": "home",
+    "restart_decision": "restart",
+    "bleeding": "hemostasis",
+    "med_signature": "aspirin:continue|enoxaparin:stop|hydrochlorothiazide:continue|lisinopril:continue|warfarin:restart"
+  },
+  "physiology_expectations": [
+    "inr_down"
+  ],
+  "facts": [
+    {
+      "fact_id": "hip-base",
+      "domains": [
+        "baseline"
+      ],
+      "text": "The longitudinal extract includes warfarin (Warfarin Sodium 5 MG Oral Tablet) and an anticoagulation indication among the active conditions. Other products: aspirin 81 MG Oral Tablet; Hydrochlorothiazide 25 MG Oral Tablet; Warfarin Sodium 5 MG Oral Tablet; lisinopril 10 MG Oral Tablet.",
+      "provenance": "synthea_longitudinal",
+      "time_order": 10,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "hip-acute",
+      "domains": [
+        "acute_change"
+      ],
+      "text": "A ground-level fall was followed immediately by right hip pain and inability to bear weight. That was not the prior mobility.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 20,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "hip-precip",
+      "domains": [
+        "precipitant"
+      ],
+      "text": "fall in a patient with a prosthetic valve. No chest pain or syncope was described.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 30,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "hip-present",
+      "domains": [
+        "presentation"
+      ],
+      "text": "The right leg was shortened and externally rotated. Arrival INR was 2.6. Warfarin was held on arrival.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 40,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "hip-work",
+      "domains": [
+        "workup"
+      ],
+      "text": "A radiograph, not the history alone, showed a right femoral-neck fracture. The INR was repeated before the operating room.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 50,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "hip-dx",
+      "domains": [
+        "diagnosis"
+      ],
+      "text": "The fracture diagnosis followed the radiograph. Anticoagulation management was then planned around that injury.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 60,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "hip-treat",
+      "domains": [
+        "treatment",
+        "medication_decision"
+      ],
+      "text": "Surgery waited until the INR was 1.3. No separate reversal drug was charted. Open reduction and internal fixation was then performed. The wound was dry and hemoglobin was stable after surgery. Enoxaparin 40 MG subcutaneously once daily was used for postoperative prophylaxis while warfarin remained held.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 70,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "hip-response",
+      "domains": [
+        "response",
+        "physiology"
+      ],
+      "text": "INR fell from 2.6 to 1.3. Creatinine stayed near 1.0 mg/dL. Pain was controlled with non-opioid measures and the patient could sit and transfer with therapy.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 80,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "hip-ready",
+      "domains": [
+        "discharge_readiness"
+      ],
+      "text": "Therapy recommended home. The wound assessment is the one above. Warfarin and the prophylactic anticoagulant do not yet have a signed discharge order.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 90,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "hip-follow",
+      "domains": [
+        "followup"
+      ],
+      "text": "Orthopedics, the anticoagulation indication's clinician, and a wound check were arranged.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 95,
+      "section": "course",
+      "resident_visible": true
+    }
+  ],
+  "timeline": [
+    {
+      "event_id": "ev-baseline-10",
+      "event_type": "baseline",
+      "time_order": 10,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Warfarin and prior mobility",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-acute_change-20",
+      "event_type": "acute_change",
+      "time_order": 20,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Fall and inability to bear weight",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-precipitant-30",
+      "event_type": "precipitant",
+      "time_order": 30,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Fall",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-presentation-40",
+      "event_type": "presentation",
+      "time_order": 40,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Deformity and INR",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-workup-50",
+      "event_type": "workup",
+      "time_order": 50,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Radiograph and repeat INR",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-diagnosis-60",
+      "event_type": "diagnosis",
+      "time_order": 60,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Femoral-neck fracture",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-treatment-70",
+      "event_type": "treatment",
+      "time_order": 70,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Delayed fixation, then prophylaxis",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-response-80",
+      "event_type": "response",
+      "time_order": 80,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "INR down and wound assessed",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-discharge-100",
+      "event_type": "discharge",
+      "time_order": 100,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Disposition recommended, anticoagulation unsigned",
+      "supporting_data": [],
+      "empiric": false
+    }
+  ],
+  "medication_decisions": [
+    {
+      "drug": "warfarin",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "longitudinal anticoagulation indication",
+      "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "855332",
+      "synthea_product": "Warfarin Sodium 5 MG Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "outpatient warfarin",
+          "evidence": [
+            "hip-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "held",
+          "time_order": 40,
+          "trigger": "fall, fracture, and need for surgery",
+          "evidence": [
+            "hip-present",
+            "hip-treat"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "restart",
+      "evidence_ids": [
+        "hip-base",
+        "hip-treat",
+        "hip-response",
+        "hip-ready"
+      ],
+      "resident_note": "Still held. INR is 1.3 and the wound is dry.",
+      "rationale": "Restart is supported by a persistent anticoagulation indication, an INR that has fallen, hemostasis, and completed fixation.",
+      "monitoring": "INR within 3 days if warfarin is resumed, and sooner for wound bleeding.",
+      "follow_up": "Orthopedics and the clinician who manages anticoagulation within 7 days.",
+      "acceptable_alternatives": [
+        {
+          "alternative_action": "hold",
+          "conditions": "If the wound assessment is weighed differently at the moment of the order.",
+          "rationale": "Hemostasis is recent. Either a restart now or a short further hold can be defended from the same wound and INR facts."
+        }
+      ],
+      "hospital_only": false
+    },
+    {
+      "drug": "enoxaparin",
+      "dose": "40 MG",
+      "route": "subcutaneous",
+      "frequency": "once daily",
+      "indication": "postoperative venous-thromboembolism prophylaxis",
+      "regimen_id": "ENOXAPARIN_HOSPITAL_PROPHYLAXIS",
+      "identity_provenance": "cliniproof_episode_generated",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": null,
+      "synthea_product": null,
+      "states": [
+        {
+          "state": "hospital_only",
+          "time_order": 72,
+          "trigger": "postoperative prophylaxis while warfarin was held",
+          "evidence": [
+            "hip-treat"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        },
+        {
+          "state": "discontinued",
+          "time_order": 95,
+          "trigger": "prophylaxis has no chronic indication once therapeutic anticoagulation is being decided",
+          "evidence": [
+            "hip-ready"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "stop",
+      "evidence_ids": [
+        "hip-treat",
+        "hip-ready"
+      ],
+      "resident_note": "Hospital prophylaxis only. Not a home medicine. Creatinine did not require a different prophylactic dose.",
+      "rationale": "Stopping enoxaparin avoids stacking it onto a warfarin decision. It was never a chronic outpatient drug.",
+      "monitoring": "Observe the wound.",
+      "follow_up": "No enoxaparin follow-up.",
+      "acceptable_alternatives": [],
+      "hospital_only": true
+    },
+    {
+      "drug": "aspirin",
+      "dose": "81 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "regimen_id": "ASPIRIN_81_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "243670",
+      "synthea_product": "aspirin 81 MG Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "hip-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "hip-base",
+            "hip-ready"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "hip-base",
+        "hip-ready"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "aspirin 81 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    },
+    {
+      "drug": "hydrochlorothiazide",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "regimen_id": "HCTZ_25_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "310798",
+      "synthea_product": "Hydrochlorothiazide 25 MG Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "hip-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "hip-base",
+            "hip-ready"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "hip-base",
+        "hip-ready"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "Hydrochlorothiazide 25 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    },
+    {
+      "drug": "lisinopril",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "unchanged outpatient indication",
+      "regimen_id": "LISINOPRIL_10_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "314076",
+      "synthea_product": "lisinopril 10 MG Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "hip-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "hip-base",
+            "hip-ready"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "hip-base",
+        "hip-ready"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "lisinopril 10 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    }
+  ],
+  "reference_discharge_plan": {
+    "actions": [
+      {
+        "medication": "warfarin",
+        "regimen_id": "WARFARIN_INR_INDIVIDUALIZED",
+        "action": "restart",
+        "dose": "5 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "longitudinal anticoagulation indication",
+        "rationale": "Restart is supported by a persistent anticoagulation indication, an INR that has fallen, hemostasis, and completed fixation.",
+        "resident_visible_evidence": [
+          "hip-base",
+          "hip-treat",
+          "hip-response",
+          "hip-ready"
+        ],
+        "monitoring": "INR within 3 days if warfarin is resumed, and sooner for wound bleeding.",
+        "follow_up": "Orthopedics and the clinician who manages anticoagulation within 7 days.",
+        "acceptable_alternatives": [
+          {
+            "alternative_action": "hold",
+            "conditions": "If the wound assessment is weighed differently at the moment of the order.",
+            "rationale": "Hemostasis is recent. Either a restart now or a short further hold can be defended from the same wound and INR facts."
+          }
+        ],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "enoxaparin",
+        "regimen_id": "ENOXAPARIN_HOSPITAL_PROPHYLAXIS",
+        "action": "stop",
+        "dose": "40 MG",
+        "route": "subcutaneous",
+        "frequency": "once daily",
+        "indication": "postoperative venous-thromboembolism prophylaxis",
+        "rationale": "Stopping enoxaparin avoids stacking it onto a warfarin decision. It was never a chronic outpatient drug.",
+        "resident_visible_evidence": [
+          "hip-treat",
+          "hip-ready"
+        ],
+        "monitoring": "Observe the wound.",
+        "follow_up": "No enoxaparin follow-up.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "aspirin",
+        "regimen_id": "ASPIRIN_81_DAILY",
+        "action": "continue",
+        "dose": "81 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "unchanged outpatient indication",
+        "rationale": "aspirin 81 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "hip-base",
+          "hip-ready"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "hydrochlorothiazide",
+        "regimen_id": "HCTZ_25_DAILY",
+        "action": "continue",
+        "dose": "25 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "unchanged outpatient indication",
+        "rationale": "Hydrochlorothiazide 25 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "hip-base",
+          "hip-ready"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "lisinopril",
+        "regimen_id": "LISINOPRIL_10_DAILY",
+        "action": "continue",
+        "dose": "10 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "unchanged outpatient indication",
+        "rationale": "lisinopril 10 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "hip-base",
+          "hip-ready"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      }
+    ],
+    "provenance": "investigator_derived_reference"
+  },
+  "visible_fact_ids": [
+    "hip-acute",
+    "hip-base",
+    "hip-dx",
+    "hip-follow",
+    "hip-precip",
+    "hip-present",
+    "hip-ready",
+    "hip-response",
+    "hip-treat",
+    "hip-work"
+  ],
+  "source_rxcuis": [
+    "1043400",
+    "197604",
+    "200033",
+    "243670",
+    "310798",
+    "314076",
+    "314231",
+    "349200",
+    "562251",
+    "617312",
+    "855332",
+    "855812",
+    "897685",
+    "904419"
+  ],
+  "source_snomed": [
+    "103697008",
+    "10509002",
+    "1260009003",
+    "1260010008",
+    "160903007",
+    "160904001",
+    "161744009",
+    "162864005",
+    "22298006",
+    "224295006",
+    "225362009",
+    "237602007",
+    "243085009",
+    "271737000",
+    "274788003",
+    "278602001",
+    "314529007",
+    "32911000",
+    "34043003",
+    "399211009",
+    "422650009",
+    "444814009",
+    "4557003",
+    "48724000",
+    "49436004",
+    "55822004",
+    "59621000",
+    "64859006",
+    "66383009",
+    "68071007",
+    "714628002",
+    "73595000",
+    "76571007",
+    "91302008"
+  ],
+  "control_error_status": "NO INTENTIONAL ERROR",
+  "provenance": {
+    "generation_method": "synthea_cliniproof_g2",
+    "synthea": {
+      "repository": "https://github.com/synthetichealth/synthea.git",
+      "commit": "d9d07a6eef91ee5144293b42ab64224d84d124f8",
+      "version": "master-branch-latest",
+      "population_seed": "20261008",
+      "reference_date": "20261008",
+      "fhir_version": "R4",
+      "java_version": "OpenJDK 21.0.10",
+      "synthetic_patient_id": "8730b08c-4734-4a93-c2bc-c83fb22b707a"
+    },
+    "scenario": {
+      "code": "HIP_FRACTURE_ANTICOAGULATION",
+      "version": "g2-scenarios-v1"
+    },
+    "episode_generation_seed": "20261008:8730b08c-4734-4a93-c2bc-c83fb22b707a:HIP_FRACTURE_ANTICOAGULATION:mechanical_valve_context",
+    "source_classes": [
+      "synthea_longitudinal",
+      "cliniproof_episode_generated",
+      "reference_terminology",
+      "investigator_derived_reference"
+    ],
+    "generated_at": "2026-10-08T00:00:00Z",
+    "narrative": "template rendering of structured facts; no language model",
+    "use_openai": false
+  },
+  "ready_for_clinician_review": true,
+  "clinically_validated": false
+}

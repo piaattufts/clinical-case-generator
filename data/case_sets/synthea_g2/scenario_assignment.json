@@ -1,0 +1,98 @@
+{
+  "G2-001": {
+    "scenario_code": "MED_HISTORY_UNCERTAINTY",
+    "variant_id": "delirium_dehydration"
+  },
+  "G2-002": {
+    "scenario_code": "MED_HISTORY_UNCERTAINTY",
+    "variant_id": "delirium_uti"
+  },
+  "G2-003": {
+    "scenario_code": "MED_HISTORY_UNCERTAINTY",
+    "variant_id": "delirium_pneumonia"
+  },
+  "G2-004": {
+    "scenario_code": "MED_HISTORY_UNCERTAINTY",
+    "variant_id": "hyponatremia_hctz"
+  },
+  "G2-005": {
+    "scenario_code": "HF_DECOMPENSATION",
+    "variant_id": "dietary_sodium_missed_diuretic"
+  },
+  "G2-006": {
+    "scenario_code": "HF_DECOMPENSATION",
+    "variant_id": "nonadherence_cost"
+  },
+  "G2-007": {
+    "scenario_code": "HF_DECOMPENSATION",
+    "variant_id": "new_atrial_fibrillation"
+  },
+  "G2-008": {
+    "scenario_code": "HF_DECOMPENSATION",
+    "variant_id": "pulmonary_infection"
+  },
+  "G2-009": {
+    "scenario_code": "ENDOCARDITIS_OPAT",
+    "variant_id": "dental_mitral"
+  },
+  "G2-010": {
+    "scenario_code": "ENDOCARDITIS_OPAT",
+    "variant_id": "no_source_aortic"
+  },
+  "G2-011": {
+    "scenario_code": "ENDOCARDITIS_OPAT",
+    "variant_id": "gi_source_evaluated"
+  },
+  "G2-012": {
+    "scenario_code": "ENDOCARDITIS_OPAT",
+    "variant_id": "bicuspid_predisposition"
+  },
+  "G2-013": {
+    "scenario_code": "TRANSPLANT_CMV",
+    "variant_id": "colitis_biopsy"
+  },
+  "G2-014": {
+    "scenario_code": "TRANSPLANT_CMV",
+    "variant_id": "prophylaxis_breakthrough"
+  },
+  "G2-015": {
+    "scenario_code": "TRANSPLANT_CMV",
+    "variant_id": "pcr_syndrome"
+  },
+  "G2-016": {
+    "scenario_code": "TRANSPLANT_CMV",
+    "variant_id": "cdiff_excluded"
+  },
+  "G2-017": {
+    "scenario_code": "HIP_FRACTURE_ANTICOAGULATION",
+    "variant_id": "inr_delay_home"
+  },
+  "G2-018": {
+    "scenario_code": "HIP_FRACTURE_ANTICOAGULATION",
+    "variant_id": "snf_after_orif"
+  },
+  "G2-019": {
+    "scenario_code": "HIP_FRACTURE_ANTICOAGULATION",
+    "variant_id": "wound_hematoma_hold"
+  },
+  "G2-020": {
+    "scenario_code": "HIP_FRACTURE_ANTICOAGULATION",
+    "variant_id": "mechanical_valve_context"
+  },
+  "G2-021": {
+    "scenario_code": "GI_BLEED_ANTICOAGULATION",
+    "variant_id": "duodenal_ulcer_restart"
+  },
+  "G2-022": {
+    "scenario_code": "GI_BLEED_ANTICOAGULATION",
+    "variant_id": "gastric_ulcer_inr"
+  },
+  "G2-023": {
+    "scenario_code": "GI_BLEED_ANTICOAGULATION",
+    "variant_id": "diverticular_hold"
+  },
+  "G2-024": {
+    "scenario_code": "GI_BLEED_ANTICOAGULATION",
+    "variant_id": "esophagitis"
+  }
+}

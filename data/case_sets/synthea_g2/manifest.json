@@ -1,0 +1,92 @@
+{
+  "generation_method": "synthea_cliniproof_g2",
+  "identifier_scheme": "G2-### candidate identifiers, not frozen VAL study identifiers",
+  "case_count": 24,
+  "clean": true,
+  "planted_errors": 0,
+  "clinically_validated": false,
+  "ready_for_clinician_review": true,
+  "synthea": {
+    "repository": "https://github.com/synthetichealth/synthea.git",
+    "commit": "d9d07a6eef91ee5144293b42ab64224d84d124f8",
+    "version": "master-branch-latest",
+    "population_seed": "20261008",
+    "reference_date": "20261008",
+    "fhir_version": "R4",
+    "java_version": "OpenJDK 21.0.10"
+  },
+  "eligibility": {
+    "alive_patients": 1000,
+    "eligible": {
+      "MED_HISTORY_UNCERTAINTY": 32,
+      "HF_DECOMPENSATION": 261,
+      "ENDOCARDITIS_OPAT": 787,
+      "TRANSPLANT_CMV": 11,
+      "HIP_FRACTURE_ANTICOAGULATION": 13,
+      "GI_BLEED_ANTICOAGULATION": 15
+    },
+    "tiers": {
+      "MED_HISTORY_UNCERTAINTY": {
+        "medication_complexity": 32
+      },
+      "HF_DECOMPENSATION": {
+        "compatible_cardiovascular_history": 257,
+        "known_heart_failure": 4
+      },
+      "ENDOCARDITIS_OPAT": {
+        "baseline_context_only": 787
+      },
+      "TRANSPLANT_CMV": {
+        "synthea_renal_transplant": 11
+      },
+      "HIP_FRACTURE_ANTICOAGULATION": {
+        "older_adult_warfarin": 13
+      },
+      "GI_BLEED_ANTICOAGULATION": {
+        "warfarin_with_indication": 15
+      }
+    },
+    "files": {
+      "fhir_files": 1162,
+      "patients_parsed": 1162,
+      "bundles_skipped": 0,
+      "alive": 1000,
+      "deceased": 162
+    },
+    "scenario_counts_used_by_selector": {
+      "MED_HISTORY_UNCERTAINTY": 32,
+      "HF_DECOMPENSATION": 261,
+      "ENDOCARDITIS_OPAT": 787,
+      "TRANSPLANT_CMV": 11,
+      "HIP_FRACTURE_ANTICOAGULATION": 13,
+      "GI_BLEED_ANTICOAGULATION": 15,
+      "synthea_endocarditis_conditions": 0
+    }
+  },
+  "cases": [
+    "G2-001",
+    "G2-002",
+    "G2-003",
+    "G2-004",
+    "G2-005",
+    "G2-006",
+    "G2-007",
+    "G2-008",
+    "G2-009",
+    "G2-010",
+    "G2-011",
+    "G2-012",
+    "G2-013",
+    "G2-014",
+    "G2-015",
+    "G2-016",
+    "G2-017",
+    "G2-018",
+    "G2-019",
+    "G2-020",
+    "G2-021",
+    "G2-022",
+    "G2-023",
+    "G2-024"
+  ]
+}

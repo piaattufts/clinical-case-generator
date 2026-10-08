@@ -1,0 +1,172 @@
+{
+  "patients": [
+    {
+      "case_id": "G2-001",
+      "scenario_code": "MED_HISTORY_UNCERTAINTY",
+      "variant_id": "delirium_dehydration",
+      "synthea_patient_id": "035db839-25b9-cb92-8853-12152fc6b257",
+      "eligibility_tier": "medication_complexity"
+    },
+    {
+      "case_id": "G2-002",
+      "scenario_code": "MED_HISTORY_UNCERTAINTY",
+      "variant_id": "delirium_uti",
+      "synthea_patient_id": "1328b903-9f5a-c9a8-1551-67f9e7bfafaa",
+      "eligibility_tier": "medication_complexity"
+    },
+    {
+      "case_id": "G2-003",
+      "scenario_code": "MED_HISTORY_UNCERTAINTY",
+      "variant_id": "delirium_pneumonia",
+      "synthea_patient_id": "33f45348-e0ae-5e62-9e8c-af3d602e357c",
+      "eligibility_tier": "medication_complexity"
+    },
+    {
+      "case_id": "G2-004",
+      "scenario_code": "MED_HISTORY_UNCERTAINTY",
+      "variant_id": "hyponatremia_hctz",
+      "synthea_patient_id": "3f576c7c-8862-f6de-cc8e-b8afd92b57cd",
+      "eligibility_tier": "medication_complexity"
+    },
+    {
+      "case_id": "G2-005",
+      "scenario_code": "HF_DECOMPENSATION",
+      "variant_id": "dietary_sodium_missed_diuretic",
+      "synthea_patient_id": "15e18ab5-85ac-5a27-f39a-0e41c126fa72",
+      "eligibility_tier": "known_heart_failure"
+    },
+    {
+      "case_id": "G2-006",
+      "scenario_code": "HF_DECOMPENSATION",
+      "variant_id": "nonadherence_cost",
+      "synthea_patient_id": "f2161493-a524-fe0b-f823-0490b7737552",
+      "eligibility_tier": "known_heart_failure"
+    },
+    {
+      "case_id": "G2-007",
+      "scenario_code": "HF_DECOMPENSATION",
+      "variant_id": "new_atrial_fibrillation",
+      "synthea_patient_id": "023d2efe-5482-ee13-418f-729c0823db68",
+      "eligibility_tier": "compatible_cardiovascular_history"
+    },
+    {
+      "case_id": "G2-008",
+      "scenario_code": "HF_DECOMPENSATION",
+      "variant_id": "pulmonary_infection",
+      "synthea_patient_id": "0681a09e-d787-e776-5c30-a0bc513d6e2b",
+      "eligibility_tier": "compatible_cardiovascular_history"
+    },
+    {
+      "case_id": "G2-009",
+      "scenario_code": "ENDOCARDITIS_OPAT",
+      "variant_id": "dental_mitral",
+      "synthea_patient_id": "009da3a5-12f3-c376-bfa7-7a6382d1efe6",
+      "eligibility_tier": "baseline_context_only"
+    },
+    {
+      "case_id": "G2-010",
+      "scenario_code": "ENDOCARDITIS_OPAT",
+      "variant_id": "no_source_aortic",
+      "synthea_patient_id": "0aac376e-93a0-88ab-b267-a55016c2fad4",
+      "eligibility_tier": "baseline_context_only"
+    },
+    {
+      "case_id": "G2-011",
+      "scenario_code": "ENDOCARDITIS_OPAT",
+      "variant_id": "gi_source_evaluated",
+      "synthea_patient_id": "11774c22-f119-cf91-0df4-b0f18fa7390c",
+      "eligibility_tier": "baseline_context_only"
+    },
+    {
+      "case_id": "G2-012",
+      "scenario_code": "ENDOCARDITIS_OPAT",
+      "variant_id": "bicuspid_predisposition",
+      "synthea_patient_id": "13df9020-de2c-4773-1e6d-b113e62b003a",
+      "eligibility_tier": "baseline_context_only"
+    },
+    {
+      "case_id": "G2-013",
+      "scenario_code": "TRANSPLANT_CMV",
+      "variant_id": "colitis_biopsy",
+      "synthea_patient_id": "1a3d2701-3ca4-7e38-8a63-0cf5c699c025",
+      "eligibility_tier": "synthea_renal_transplant"
+    },
+    {
+      "case_id": "G2-014",
+      "scenario_code": "TRANSPLANT_CMV",
+      "variant_id": "prophylaxis_breakthrough",
+      "synthea_patient_id": "26cf4094-10af-ceb6-4d99-fd3fc0636dd7",
+      "eligibility_tier": "synthea_renal_transplant"
+    },
+    {
+      "case_id": "G2-015",
+      "scenario_code": "TRANSPLANT_CMV",
+      "variant_id": "pcr_syndrome",
+      "synthea_patient_id": "8526efe0-aef1-0474-0971-fcb5730d34c7",
+      "eligibility_tier": "synthea_renal_transplant"
+    },
+    {
+      "case_id": "G2-016",
+      "scenario_code": "TRANSPLANT_CMV",
+      "variant_id": "cdiff_excluded",
+      "synthea_patient_id": "a84e8909-cebf-98e0-cb13-c4e396410788",
+      "eligibility_tier": "synthea_renal_transplant"
+    },
+    {
+      "case_id": "G2-017",
+      "scenario_code": "HIP_FRACTURE_ANTICOAGULATION",
+      "variant_id": "inr_delay_home",
+      "synthea_patient_id": "0606a5e1-08dc-256b-6bc5-004976a020fd",
+      "eligibility_tier": "older_adult_warfarin"
+    },
+    {
+      "case_id": "G2-018",
+      "scenario_code": "HIP_FRACTURE_ANTICOAGULATION",
+      "variant_id": "snf_after_orif",
+      "synthea_patient_id": "3a42e936-96d8-9e37-21f8-da2288f10166",
+      "eligibility_tier": "older_adult_warfarin"
+    },
+    {
+      "case_id": "G2-019",
+      "scenario_code": "HIP_FRACTURE_ANTICOAGULATION",
+      "variant_id": "wound_hematoma_hold",
+      "synthea_patient_id": "4d508c0d-ddaa-cb00-4d5c-f3b889b6f712",
+      "eligibility_tier": "older_adult_warfarin"
+    },
+    {
+      "case_id": "G2-020",
+      "scenario_code": "HIP_FRACTURE_ANTICOAGULATION",
+      "variant_id": "mechanical_valve_context",
+      "synthea_patient_id": "8730b08c-4734-4a93-c2bc-c83fb22b707a",
+      "eligibility_tier": "older_adult_warfarin"
+    },
+    {
+      "case_id": "G2-021",
+      "scenario_code": "GI_BLEED_ANTICOAGULATION",
+      "variant_id": "duodenal_ulcer_restart",
+      "synthea_patient_id": "0606a5e1-08dc-256b-6bc5-004976a020fd",
+      "eligibility_tier": "warfarin_with_indication"
+    },
+    {
+      "case_id": "G2-022",
+      "scenario_code": "GI_BLEED_ANTICOAGULATION",
+      "variant_id": "gastric_ulcer_inr",
+      "synthea_patient_id": "08191fcd-7f29-41a2-efee-912506bd1658",
+      "eligibility_tier": "warfarin_with_indication"
+    },
+    {
+      "case_id": "G2-023",
+      "scenario_code": "GI_BLEED_ANTICOAGULATION",
+      "variant_id": "diverticular_hold",
+      "synthea_patient_id": "1bd04148-6f83-32c1-6552-0d3020a582b6",
+      "eligibility_tier": "warfarin_with_indication"
+    },
+    {
+      "case_id": "G2-024",
+      "scenario_code": "GI_BLEED_ANTICOAGULATION",
+      "variant_id": "esophagitis",
+      "synthea_patient_id": "3a42e936-96d8-9e37-21f8-da2288f10166",
+      "eligibility_tier": "warfarin_with_indication"
+    }
+  ]
+}

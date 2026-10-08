@@ -86,3 +86,7 @@ Only after that acceptance would the project use a case in a later experiment th
 ## Provenance
 
 Original charts, clean charts, and the two completed review files are hashed in [source_integrity.md](source_integrity.md). Future revisions are new derivative artifacts. They are not written back into the freeze or into the clean base. Superseded packages that were removed from this working tree remain at Git tag `repo-before-clinical-cleanup-2026-10`.
+
+## Generation 2
+
+The method above is the Generation 1 method. It is unchanged. A separate experimental pipeline, described in [methodology_synthea_g2.md](methodology_synthea_g2.md), starts from a Synthea longitudinal patient and builds a new inpatient episode. That pipeline does not revise VAL-801–VAL-824 and does not claim to have improved on them.

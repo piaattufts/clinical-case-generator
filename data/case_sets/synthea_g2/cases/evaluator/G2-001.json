@@ -1,0 +1,1235 @@
+{
+  "case_id_code": "G2-001",
+  "ClinicalCase": {
+    "title": "MED_HISTORY_UNCERTAINTY G2-001",
+    "case_id_code": "G2-001",
+    "case_status": "candidate",
+    "generation_source": "synthetic",
+    "one_liner": "71-year-old Male with acute confusion that reversed after volume was restored",
+    "admission_dx": "acute confusion that reversed after volume was restored",
+    "disposition_status": "home",
+    "chief_complaint": "Acute confusion after poor intake",
+    "patient_name": "G2-001",
+    "patient_age": 71,
+    "patient_gender": "Male",
+    "ethnicity": null,
+    "weight_kg": 87.7,
+    "social_context": "Longitudinal social history was not required for this episode.",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "internal medicine",
+    "allergies": [],
+    "medical_history": [
+      "Received higher education (finding)",
+      "Has a criminal record (finding)",
+      "Osteoarthritis of knee (disorder)",
+      "Essential hypertension (disorder)"
+    ],
+    "source_type": "synthea_cliniproof_g2",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Acute confusion after poor intake",
+      "hpi": "The longitudinal record does not list dementia. Before this illness the patient handled daily activities and recognized family. Outpatient products in the longitudinal extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; aspirin 81 MG Oral Tablet; metoprolol tartrate 25 MG Oral Tablet; Ibuprofen 400 MG Oral Tablet [Ibu]; lisinopril 10 MG Oral Tablet. Family said the patient was inattentive and newly unable to recognize them. That was a change from the baseline described above. Intake had been only sips for two days after a viral illness. There was no head trauma and no witnessed seizure. On arrival the patient was inattentive, the mucous membranes were dry, and the heart rate was 108.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "confusion",
+        "poor intake"
+      ],
+      "symptom_duration": "two days",
+      "symptom_course": "the acute change reversed after the precipitant was treated"
+    },
+    "social_support": {
+      "living_situation": "community",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready for clinician review of the discharge medication plan",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": true,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-G2-001-001",
+      "case_id": "G2-001",
+      "diagnosis": "Received higher education (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "224299000",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-001-002",
+      "case_id": "G2-001",
+      "diagnosis": "Has a criminal record (finding)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "266948004",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-001-003",
+      "case_id": "G2-001",
+      "diagnosis": "Osteoarthritis of knee (disorder)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "239873007",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-001-004",
+      "case_id": "G2-001",
+      "diagnosis": "Essential hypertension (disorder)",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "provenance": "synthea_longitudinal",
+      "icd10cm": null,
+      "snomed_code": "59621000",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-001-005",
+      "case_id": "G2-001",
+      "diagnosis": "Delirium due to known physiological condition",
+      "diagnosis_type": "hospital",
+      "status": "active",
+      "context": "inpatient",
+      "provenance": "cliniproof_episode_generated",
+      "icd10cm": "F05",
+      "snomed_code": null,
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-001-006",
+      "case_id": "G2-001",
+      "diagnosis": "Dehydration",
+      "diagnosis_type": "hospital",
+      "status": "active",
+      "context": "inpatient",
+      "provenance": "cliniproof_episode_generated",
+      "icd10cm": "E86.0",
+      "snomed_code": null,
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "diagnosis_id": "DX-G2-001-007",
+      "case_id": "G2-001",
+      "diagnosis": "Acute kidney failure, unspecified",
+      "diagnosis_type": "hospital",
+      "status": "active",
+      "context": "inpatient",
+      "provenance": "cliniproof_episode_generated",
+      "icd10cm": "N17.9",
+      "snomed_code": null,
+      "code_provenance": "reference_terminology"
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-G2-001-001",
+      "case_id": "G2-001",
+      "note_type": "admission",
+      "note_text": "The longitudinal record does not list dementia. Before this illness the patient handled daily activities and recognized family. Outpatient products in the longitudinal extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; aspirin 81 MG Oral Tablet; metoprolol tartrate 25 MG Oral Tablet; Ibuprofen 400 MG Oral Tablet [Ibu]; lisinopril 10 MG Oral Tablet. Family said the patient was inattentive and newly unable to recognize them. That was a change from the baseline described above. Intake had been only sips for two days after a viral illness. There was no head trauma and no witnessed seizure. On arrival the patient was inattentive, the mucous membranes were dry, and the heart rate was 108.",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "note_id": "NOTE-G2-001-002",
+      "case_id": "G2-001",
+      "note_type": "hospital_course",
+      "note_text": "Chemistry, a complete blood count, and a chest radiograph were obtained before a cause was assigned. The radiograph did not show pneumonia. The examination did not show a focal neurologic deficit. Delirium due to dehydration was diagnosed after that evaluation. The chart does not describe delirium as the patient's baseline. Intravenous fluid was given. Medicines that reduce blood pressure or renal perfusion were reviewed against the creatinine. Creatinine went from 1.7 mg/dL on arrival to 1.2 mg/dL, against a prior value of 1.1. Attention returned, and the caregiver said this matched the patient's usual function. The reconciliation table separates a medicine that was intentionally stopped from medicines that were only unknown on arrival and were later confirmed by the pharmacy. Attention and intake had returned to the caregiver's account of baseline, and the outpatient medication history was no longer incomplete. The discharge medication list itself was still unsigned. Primary care follow-up and a chemistry panel were arranged.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-G2-001-001",
+      "case_id": "G2-001",
+      "timepoint": "admission",
+      "time_rank": 1,
+      "temp_c": 36.9,
+      "bp_systolic": 138,
+      "bp_diastolic": 78,
+      "heart_rate": 108,
+      "resp_rate": 18,
+      "spo2_percent": 96,
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "vital_id": "VIT-G2-001-002",
+      "case_id": "G2-001",
+      "timepoint": "discharge",
+      "time_rank": 7,
+      "temp_c": 36.7,
+      "bp_systolic": 128,
+      "bp_diastolic": 74,
+      "heart_rate": 76,
+      "resp_rate": 16,
+      "spo2_percent": 97,
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-G2-001-001",
+      "case_id": "G2-001",
+      "timepoint": "baseline",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.1,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-001-002",
+      "case_id": "G2-001",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.7,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-001-003",
+      "case_id": "G2-001",
+      "timepoint": "peak",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.7,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-001-004",
+      "case_id": "G2-001",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "loinc_code": "2160-0",
+      "value": 1.2,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-001-005",
+      "case_id": "G2-001",
+      "timepoint": "admission",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "loinc_code": "2823-3",
+      "value": 4.2,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-001-006",
+      "case_id": "G2-001",
+      "timepoint": "discharge",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "loinc_code": "2823-3",
+      "value": 4.1,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-001-007",
+      "case_id": "G2-001",
+      "timepoint": "admission",
+      "test_name": "Sodium [Moles/volume] in Serum or Plasma",
+      "loinc_code": "2951-2",
+      "value": 141,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    },
+    {
+      "lab_id": "LAB-G2-001-008",
+      "case_id": "G2-001",
+      "timepoint": "discharge",
+      "test_name": "Sodium [Moles/volume] in Serum or Plasma",
+      "loinc_code": "2951-2",
+      "value": 139,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "provenance": "cliniproof_episode_generated",
+      "code_provenance": "reference_terminology"
+    }
+  ],
+  "CaseWeight": [],
+  "CaseImaging": [],
+  "CaseProcedure": [],
+  "CaseConsult": [],
+  "CaseMicrobiology": [],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-G2-001-001",
+      "case_id": "G2-001",
+      "context": "home",
+      "drug": "lisinopril",
+      "reported_name": "lisinopril",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "a rise in creatinine during dehydration",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Intentionally stopped for a rise in creatinine during dehydration. Distinguished from medicines that were only unknown at arrival.",
+      "regimen_id": "LISINOPRIL_10_DAILY",
+      "rxcui": "314076",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-001-002",
+      "case_id": "G2-001",
+      "context": "inpatient",
+      "drug": "lisinopril",
+      "reported_name": "lisinopril",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "a rise in creatinine during dehydration",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Intentionally stopped for a rise in creatinine during dehydration. Distinguished from medicines that were only unknown at arrival.",
+      "regimen_id": "LISINOPRIL_10_DAILY",
+      "rxcui": "314076",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-001-003",
+      "case_id": "G2-001",
+      "context": "home",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "confirmed outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "rxcui": "866412",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-001-004",
+      "case_id": "G2-001",
+      "context": "inpatient",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "confirmed outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "rxcui": "866412",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-001-005",
+      "case_id": "G2-001",
+      "context": "home",
+      "drug": "aspirin",
+      "reported_name": "aspirin",
+      "dose": "81 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "confirmed outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "ASPIRIN_81_DAILY",
+      "rxcui": "243670",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-001-006",
+      "case_id": "G2-001",
+      "context": "inpatient",
+      "drug": "aspirin",
+      "reported_name": "aspirin",
+      "dose": "81 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "confirmed outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "ASPIRIN_81_DAILY",
+      "rxcui": "243670",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-001-007",
+      "case_id": "G2-001",
+      "context": "home",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "confirmed outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "METOPROLOL_TARTRATE_BID",
+      "rxcui": "866924",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-001-008",
+      "case_id": "G2-001",
+      "context": "inpatient",
+      "drug": "metoprolol",
+      "reported_name": "metoprolol",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "confirmed outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "METOPROLOL_TARTRATE_BID",
+      "rxcui": "866924",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-001-009",
+      "case_id": "G2-001",
+      "context": "home",
+      "drug": "ibuprofen",
+      "reported_name": "ibuprofen",
+      "dose": "400 MG",
+      "route": "oral",
+      "frequency": "every 8 hours as needed",
+      "indication": "confirmed outpatient indication",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "IBUPROFEN_400_PRN",
+      "rxcui": "206905",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    },
+    {
+      "medication_id": "MED-G2-001-010",
+      "case_id": "G2-001",
+      "context": "inpatient",
+      "drug": "ibuprofen",
+      "reported_name": "ibuprofen",
+      "dose": "400 MG",
+      "route": "oral",
+      "frequency": "every 8 hours as needed",
+      "indication": "confirmed outpatient indication",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "longitudinal_record_and_inpatient_course",
+      "monitoring": null,
+      "notes": "Given through the hospitalization from the verified outpatient list.",
+      "regimen_id": "IBUPROFEN_400_PRN",
+      "rxcui": "206905",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "provenance": "synthea_longitudinal"
+    }
+  ],
+  "CaseMedicationReconciliation": [
+    {
+      "medrec_id": "REC-G2-001-001",
+      "case_id": "G2-001",
+      "drug": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet",
+      "bpmh_source": "pharmacy",
+      "medrec_status": "confirmed_after_initial_uncertainty",
+      "notes": "Not recalled on arrival. The pharmacy dispense record confirmed ongoing fills.",
+      "provenance": "cliniproof_episode_generated"
+    },
+    {
+      "medrec_id": "REC-G2-001-002",
+      "case_id": "G2-001",
+      "drug": "lisinopril 10 MG Oral Tablet",
+      "bpmh_source": "patient_and_collateral",
+      "medrec_status": "intentionally_stopped",
+      "notes": "Stopped on purpose because of a rise in creatinine during dehydration. This was not an unknown medicine.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseMonitoring": [
+    {
+      "monitoring_id": "MON-G2-001-001",
+      "case_id": "G2-001",
+      "parameter": "chemistry panel",
+      "frequency": "within 7 days",
+      "target": "creatinine and electrolytes",
+      "trigger_for_action": "",
+      "duration": "until the first follow-up visit",
+      "responsible_service": "primary care",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-G2-001-001",
+      "case_id": "G2-001",
+      "item": "Primary care",
+      "timing": "within 7 days",
+      "with_service": "primary care",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseInstruction": [
+    {
+      "instruction_id": "INS-G2-001-001",
+      "case_id": "G2-001",
+      "category": "discharge medication task",
+      "instruction_text": "Determine the discharge medication plan from this hospitalization. A completed discharge medication list is not provided.",
+      "provenance": "cliniproof_episode_generated"
+    }
+  ],
+  "CaseIntakeOutput": [],
+  "scenario_code": "MED_HISTORY_UNCERTAINTY",
+  "scenario_version": "g2-scenarios-v1",
+  "variant_id": "delirium_dehydration",
+  "eligibility_tier": "medication_complexity",
+  "synthea_patient_id": "035db839-25b9-cb92-8853-12152fc6b257",
+  "episode_generation_seed": "20261008:035db839-25b9-cb92-8853-12152fc6b257:MED_HISTORY_UNCERTAINTY:delirium_dehydration",
+  "fingerprint": {
+    "scenario": "MED_HISTORY_UNCERTAINTY",
+    "variant_id": "delirium_dehydration",
+    "precipitant": "poor_intake_and_dehydration",
+    "diagnostic_pathway": "exam_chemistry_cognitive_baseline",
+    "renal_pattern": "aki_recovered",
+    "procedure": "none",
+    "disposition": "home",
+    "history_resolution": "collateral_confirmed",
+    "med_signature": "aspirin:continue|ibuprofen:continue|lisinopril:stop|metoprolol:continue|metoprolol:continue"
+  },
+  "physiology_expectations": [
+    "aki_recovered"
+  ],
+  "facts": [
+    {
+      "fact_id": "mh-cognition",
+      "domains": [
+        "baseline"
+      ],
+      "text": "The longitudinal record does not list dementia. Before this illness the patient handled daily activities and recognized family.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 10,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-base",
+      "domains": [
+        "baseline"
+      ],
+      "text": "Outpatient products in the longitudinal extract: 24 HR metoprolol succinate 100 MG Extended Release Oral Tablet; aspirin 81 MG Oral Tablet; metoprolol tartrate 25 MG Oral Tablet; Ibuprofen 400 MG Oral Tablet [Ibu]; lisinopril 10 MG Oral Tablet.",
+      "provenance": "synthea_longitudinal",
+      "time_order": 12,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-acute",
+      "domains": [
+        "acute_change"
+      ],
+      "text": "Family said the patient was inattentive and newly unable to recognize them. That was a change from the baseline described above.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 20,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-precip",
+      "domains": [
+        "precipitant"
+      ],
+      "text": "Intake had been only sips for two days after a viral illness. There was no head trauma and no witnessed seizure.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 30,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-present",
+      "domains": [
+        "presentation"
+      ],
+      "text": "On arrival the patient was inattentive, the mucous membranes were dry, and the heart rate was 108.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 40,
+      "section": "hpi",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-work",
+      "domains": [
+        "workup"
+      ],
+      "text": "Chemistry, a complete blood count, and a chest radiograph were obtained before a cause was assigned. The radiograph did not show pneumonia. The examination did not show a focal neurologic deficit.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 50,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-dx",
+      "domains": [
+        "diagnosis"
+      ],
+      "text": "Delirium due to dehydration was diagnosed after that evaluation. The chart does not describe delirium as the patient's baseline.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 60,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-treat",
+      "domains": [
+        "treatment"
+      ],
+      "text": "Intravenous fluid was given. Medicines that reduce blood pressure or renal perfusion were reviewed against the creatinine.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 70,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-response",
+      "domains": [
+        "response",
+        "physiology"
+      ],
+      "text": "Creatinine went from 1.7 mg/dL on arrival to 1.2 mg/dL, against a prior value of 1.1. Attention returned, and the caregiver said this matched the patient's usual function.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 80,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-meds",
+      "domains": [
+        "medication_decision"
+      ],
+      "text": "The reconciliation table separates a medicine that was intentionally stopped from medicines that were only unknown on arrival and were later confirmed by the pharmacy.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 85,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-ready",
+      "domains": [
+        "discharge_readiness"
+      ],
+      "text": "Attention and intake had returned to the caregiver's account of baseline, and the outpatient medication history was no longer incomplete. The discharge medication list itself was still unsigned.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 90,
+      "section": "course",
+      "resident_visible": true
+    },
+    {
+      "fact_id": "mh-follow",
+      "domains": [
+        "followup"
+      ],
+      "text": "Primary care follow-up and a chemistry panel were arranged.",
+      "provenance": "cliniproof_episode_generated",
+      "time_order": 95,
+      "section": "course",
+      "resident_visible": true
+    }
+  ],
+  "timeline": [
+    {
+      "event_id": "ev-baseline-10",
+      "event_type": "baseline",
+      "time_order": 10,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Baseline cognition and outpatient medicines",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-acute_change-20",
+      "event_type": "acute_change",
+      "time_order": 20,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Acute change from baseline",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-precipitant-30",
+      "event_type": "precipitant",
+      "time_order": 30,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "poor_intake_and_dehydration",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-presentation-40",
+      "event_type": "presentation",
+      "time_order": 40,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Presentation",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-workup-50",
+      "event_type": "workup",
+      "time_order": 50,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Work-up",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-diagnosis-60",
+      "event_type": "diagnosis",
+      "time_order": 60,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Diagnosis after the work-up",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-treatment-70",
+      "event_type": "treatment",
+      "time_order": 70,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Treatment of the precipitant",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-response-80",
+      "event_type": "response",
+      "time_order": 80,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "Return toward baseline",
+      "supporting_data": [],
+      "empiric": false
+    },
+    {
+      "event_id": "ev-discharge-100",
+      "event_type": "discharge",
+      "time_order": 100,
+      "provenance": "cliniproof_episode_generated",
+      "summary": "History resolved and discharge planning open",
+      "supporting_data": [],
+      "empiric": false
+    }
+  ],
+  "medication_decisions": [
+    {
+      "drug": "lisinopril",
+      "dose": "10 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "a rise in creatinine during dehydration",
+      "regimen_id": "LISINOPRIL_10_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "314076",
+      "synthea_product": "lisinopril 10 MG Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "previously filled outpatient product",
+          "evidence": [
+            "mh-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "discontinued",
+          "time_order": 70,
+          "trigger": "a rise in creatinine during dehydration",
+          "evidence": [
+            "mh-meds",
+            "mh-response"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "stop",
+      "evidence_ids": [
+        "mh-meds",
+        "mh-response"
+      ],
+      "resident_note": "Intentionally stopped for a rise in creatinine during dehydration. Distinguished from medicines that were only unknown at arrival.",
+      "rationale": "Stopping remains supported by a rise in creatinine during dehydration and by the response after it was held.",
+      "monitoring": "No further monitoring of the stopped medicine.",
+      "follow_up": "Do not resume it unless the original reason has been reconsidered.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    },
+    {
+      "drug": "metoprolol",
+      "dose": "100 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "confirmed outpatient indication",
+      "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "866412",
+      "synthea_product": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "mh-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "mh-base",
+            "mh-meds"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "mh-base",
+        "mh-meds"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    },
+    {
+      "drug": "aspirin",
+      "dose": "81 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "confirmed outpatient indication",
+      "regimen_id": "ASPIRIN_81_DAILY",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "243670",
+      "synthea_product": "aspirin 81 MG Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "mh-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "mh-base",
+            "mh-meds"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "mh-base",
+        "mh-meds"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "aspirin 81 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    },
+    {
+      "drug": "metoprolol",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "confirmed outpatient indication",
+      "regimen_id": "METOPROLOL_TARTRATE_BID",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "866924",
+      "synthea_product": "metoprolol tartrate 25 MG Oral Tablet",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "mh-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "mh-base",
+            "mh-meds"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "mh-base",
+        "mh-meds"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "metoprolol tartrate 25 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    },
+    {
+      "drug": "ibuprofen",
+      "dose": "400 MG",
+      "route": "oral",
+      "frequency": "every 8 hours as needed",
+      "indication": "confirmed outpatient indication",
+      "regimen_id": "IBUPROFEN_400_PRN",
+      "identity_provenance": "synthea_longitudinal",
+      "regimen_provenance": "reference_terminology",
+      "rxcui": "206905",
+      "synthea_product": "Ibuprofen 400 MG Oral Tablet [Ibu]",
+      "states": [
+        {
+          "state": "home",
+          "time_order": 10,
+          "trigger": "recorded outpatient medication",
+          "evidence": [
+            "mh-base"
+          ],
+          "provenance": "synthea_longitudinal"
+        },
+        {
+          "state": "continued_inpatient",
+          "time_order": 70,
+          "trigger": "indication still present and no new contraindication",
+          "evidence": [
+            "mh-base",
+            "mh-meds"
+          ],
+          "provenance": "cliniproof_episode_generated"
+        }
+      ],
+      "discharge_action": "continue",
+      "evidence_ids": [
+        "mh-base",
+        "mh-meds"
+      ],
+      "resident_note": "Given through the hospitalization from the verified outpatient list.",
+      "rationale": "Ibuprofen 400 MG Oral Tablet [Ibu] remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+      "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+      "follow_up": "Review at the scheduled follow-up visit.",
+      "acceptable_alternatives": [],
+      "hospital_only": false
+    }
+  ],
+  "reference_discharge_plan": {
+    "actions": [
+      {
+        "medication": "lisinopril",
+        "regimen_id": "LISINOPRIL_10_DAILY",
+        "action": "stop",
+        "dose": "10 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "a rise in creatinine during dehydration",
+        "rationale": "Stopping remains supported by a rise in creatinine during dehydration and by the response after it was held.",
+        "resident_visible_evidence": [
+          "mh-meds",
+          "mh-response"
+        ],
+        "monitoring": "No further monitoring of the stopped medicine.",
+        "follow_up": "Do not resume it unless the original reason has been reconsidered.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "metoprolol",
+        "regimen_id": "METOPROLOL_SUCCINATE_100_DAILY",
+        "action": "continue",
+        "dose": "100 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "confirmed outpatient indication",
+        "rationale": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "mh-base",
+          "mh-meds"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "aspirin",
+        "regimen_id": "ASPIRIN_81_DAILY",
+        "action": "continue",
+        "dose": "81 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "indication": "confirmed outpatient indication",
+        "rationale": "aspirin 81 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "mh-base",
+          "mh-meds"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "metoprolol",
+        "regimen_id": "METOPROLOL_TARTRATE_BID",
+        "action": "continue",
+        "dose": "25 MG",
+        "route": "oral",
+        "frequency": "twice daily",
+        "indication": "confirmed outpatient indication",
+        "rationale": "metoprolol tartrate 25 MG Oral Tablet remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "mh-base",
+          "mh-meds"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      },
+      {
+        "medication": "ibuprofen",
+        "regimen_id": "IBUPROFEN_400_PRN",
+        "action": "continue",
+        "dose": "400 MG",
+        "route": "oral",
+        "frequency": "every 8 hours as needed",
+        "indication": "confirmed outpatient indication",
+        "rationale": "Ibuprofen 400 MG Oral Tablet [Ibu] remains indicated. The hospitalization did not create a contraindication, so the curated regimen that matches the recorded product continues.",
+        "resident_visible_evidence": [
+          "mh-base",
+          "mh-meds"
+        ],
+        "monitoring": "Routine follow-up. No new intensive monitoring is required for this continuation.",
+        "follow_up": "Review at the scheduled follow-up visit.",
+        "acceptable_alternatives": [],
+        "provenance": "investigator_derived_reference"
+      }
+    ],
+    "provenance": "investigator_derived_reference"
+  },
+  "visible_fact_ids": [
+    "mh-acute",
+    "mh-base",
+    "mh-cognition",
+    "mh-dx",
+    "mh-follow",
+    "mh-meds",
+    "mh-precip",
+    "mh-present",
+    "mh-ready",
+    "mh-response",
+    "mh-treat",
+    "mh-work"
+  ],
+  "source_rxcuis": [
+    "206905",
+    "243670",
+    "309362",
+    "311354",
+    "312961",
+    "314076",
+    "617312",
+    "705129",
+    "849574",
+    "855812",
+    "866412",
+    "866924",
+    "904419"
+  ],
+  "source_snomed": [
+    "103750000",
+    "10939881000119105",
+    "1121000119107",
+    "160903007",
+    "160904001",
+    "18718003",
+    "224299000",
+    "237602007",
+    "239873007",
+    "266948004",
+    "274531002",
+    "278860009",
+    "302870006",
+    "314529007",
+    "36971009",
+    "384709000",
+    "39898005",
+    "399211009",
+    "399261000",
+    "40055000",
+    "401303003",
+    "414545008",
+    "422650009",
+    "428211000124100",
+    "430193006",
+    "44054006",
+    "44465007",
+    "59621000",
+    "64859006",
+    "66383009",
+    "706893006",
+    "710824005",
+    "714628002",
+    "722161008",
+    "73595000",
+    "762993000",
+    "763302001",
+    "78275009",
+    "82423001",
+    "866148006"
+  ],
+  "control_error_status": "NO INTENTIONAL ERROR",
+  "provenance": {
+    "generation_method": "synthea_cliniproof_g2",
+    "synthea": {
+      "repository": "https://github.com/synthetichealth/synthea.git",
+      "commit": "d9d07a6eef91ee5144293b42ab64224d84d124f8",
+      "version": "master-branch-latest",
+      "population_seed": "20261008",
+      "reference_date": "20261008",
+      "fhir_version": "R4",
+      "java_version": "OpenJDK 21.0.10",
+      "synthetic_patient_id": "035db839-25b9-cb92-8853-12152fc6b257"
+    },
+    "scenario": {
+      "code": "MED_HISTORY_UNCERTAINTY",
+      "version": "g2-scenarios-v1"
+    },
+    "episode_generation_seed": "20261008:035db839-25b9-cb92-8853-12152fc6b257:MED_HISTORY_UNCERTAINTY:delirium_dehydration",
+    "source_classes": [
+      "synthea_longitudinal",
+      "cliniproof_episode_generated",
+      "reference_terminology",
+      "investigator_derived_reference"
+    ],
+    "generated_at": "2026-10-08T00:00:00Z",
+    "narrative": "template rendering of structured facts; no language model",
+    "use_openai": false
+  },
+  "ready_for_clinician_review": true,
+  "clinically_validated": false
+}
