@@ -1,0 +1,663 @@
+{
+  "case_id_code": "VAL-805",
+  "ClinicalCase": {
+    "title": "cardiology inpatient case VAL-805",
+    "case_id_code": "VAL-805",
+    "case_status": "review",
+    "generation_source": "synthetic",
+    "one_liner": "68-year-old woman with acute heart-failure decompensation after missed diuretic doses",
+    "admission_dx": "Acute systolic (congestive) heart failure",
+    "disposition_status": "home",
+    "chief_complaint": "Dyspnea, orthopnea, and edema",
+    "patient_name": "VAL Patient 805",
+    "patient_age": 68,
+    "patient_gender": "Female",
+    "ethnicity": null,
+    "weight_kg": "84.000",
+    "social_context": "Baseline living situation: lives at home",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "cardiology",
+    "allergies": [],
+    "medical_history": [
+      "Essential (primary) hypertension",
+      "Mixed hyperlipidemia"
+    ],
+    "source_type": "authored_scenario",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Dyspnea, orthopnea, and edema",
+      "hpi": "A 68-year-old woman with known systolic heart failure is admitted with one week of worsening dyspnea, orthopnea, and edema. She ran out of furosemide and missed four days of her 40 mg oral daily dose. She has no chest pain. Home medicines are furosemide 40 mg oral once daily, metoprolol succinate 25 mg oral once daily, and atorvastatin 40 mg oral once daily. She is not taking an ACE inhibitor, ARB, or ARNI. Admission weight is 84 kg. Her recorded dry weight is 78 kg. A chest radiograph shows pulmonary edema. Electrocardiogram shows sinus rhythm without ischemic ST-segment change. Troponin I was 18 ng/L and 16 ng/L six hours later, without a rise. Echocardiography shows a left ventricular ejection fraction of 30 percent and no new severe valvular lesion. Furosemide 40 mg was given intravenously twice daily on hospital days 1 through 3, which is not the home oral regimen. Weight fell to 81 kg and then to 78 kg. Intake and output were net negative on each of those three days. Creatinine fell from 1.7 mg/dL to 0.9 mg/dL. Potassium remained 4.1 to 4.7 mmol/L. Oxygen by nasal cannula was weaned to room air. At discharge she is at dry weight, warm, and breathing room air.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "Dyspnea",
+        "Edema",
+        "Orthopnea"
+      ],
+      "symptom_duration": "one week",
+      "symptom_course": "improved after intravenous diuresis"
+    },
+    "social_support": {
+      "living_situation": "Baseline living situation: lives at home",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": false,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-VAL805-001",
+      "case_id": "VAL-805",
+      "diagnosis": "Acute systolic (congestive) heart failure",
+      "diagnosis_type": "admission",
+      "status": "active",
+      "context": "inpatient",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL805-002",
+      "case_id": "VAL-805",
+      "diagnosis": "Essential (primary) hypertension",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL805-003",
+      "case_id": "VAL-805",
+      "diagnosis": "Mixed hyperlipidemia",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-VAL805-001",
+      "case_id": "VAL-805",
+      "note_type": "admission",
+      "note_text": "Admission note. Congestion after four missed days of furosemide 40 mg oral daily. No chest pain. Weight 84 kg, dry weight 78 kg, oxygen saturation 92 percent on 2 L/min nasal cannula.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "note_id": "NOTE-VAL805-002",
+      "case_id": "VAL-805",
+      "note_type": "hospital_course",
+      "note_text": "Hospital days 1 through 3: furosemide 40 mg intravenously twice daily. Net negative intake and output each day. Weight 84 kg, then 81 kg, then 78 kg at the recorded dry weight. Troponin did not rise. She is on room air.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-VAL805-001",
+      "case_id": "VAL-805",
+      "timepoint": "admission",
+      "temp_c": "36.80",
+      "bp_systolic": 109,
+      "bp_diastolic": 82,
+      "heart_rate": 93,
+      "resp_rate": 24,
+      "spo2_percent": "92.00",
+      "oxygen_support": "2 L/min nasal cannula",
+      "source_reference": null
+    },
+    {
+      "vital_id": "VIT-VAL805-002",
+      "case_id": "VAL-805",
+      "timepoint": "discharge",
+      "temp_c": "36.80",
+      "bp_systolic": 110,
+      "bp_diastolic": 84,
+      "heart_rate": 69,
+      "resp_rate": 19,
+      "spo2_percent": "98.00",
+      "oxygen_support": "room air",
+      "source_reference": null
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-VAL805-001",
+      "case_id": "VAL-805",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.7,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL805-002",
+      "case_id": "VAL-805",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 0.9,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL805-003",
+      "case_id": "VAL-805",
+      "timepoint": "admission",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 4.7,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL805-004",
+      "case_id": "VAL-805",
+      "timepoint": "discharge",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 4.3,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL805-005",
+      "case_id": "VAL-805",
+      "timepoint": "admission",
+      "test_name": "Natriuretic peptide B [Mass/volume] in Serum or Plasma",
+      "value": 1120.0,
+      "value_text": null,
+      "unit": "pg/mL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL805-006",
+      "case_id": "VAL-805",
+      "timepoint": "discharge",
+      "test_name": "Natriuretic peptide B [Mass/volume] in Serum or Plasma",
+      "value": 369.0,
+      "value_text": null,
+      "unit": "pg/mL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL805-007",
+      "case_id": "VAL-805",
+      "timepoint": "admission",
+      "test_name": "Troponin I.cardiac [Mass/volume] in Serum or Plasma",
+      "value": 18.0,
+      "value_text": null,
+      "unit": "ng/L",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL805-008",
+      "case_id": "VAL-805",
+      "timepoint": "six_hours_later",
+      "test_name": "Troponin I.cardiac [Mass/volume] in Serum or Plasma",
+      "value": 16.0,
+      "value_text": null,
+      "unit": "ng/L",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL805-009",
+      "case_id": "VAL-805",
+      "timepoint": "hospital_day_2",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 4.1,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL805-010",
+      "case_id": "VAL-805",
+      "timepoint": "hospital_day_2",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.2,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    }
+  ],
+  "CaseImaging": [
+    {
+      "study_id": "STUDY-VAL805-001",
+      "case_id": "VAL-805",
+      "timepoint": "admission",
+      "study_type": "Chest radiograph",
+      "body_site": "chest",
+      "finding": "Pulmonary edema without pneumonia.",
+      "source_reference": null
+    },
+    {
+      "study_id": "STUDY-VAL805-002",
+      "case_id": "VAL-805",
+      "timepoint": "admission",
+      "study_type": "Transthoracic echocardiogram",
+      "body_site": "heart",
+      "finding": "Left ventricular ejection fraction 30 percent. No new severe valvular lesion.",
+      "source_reference": null
+    },
+    {
+      "study_id": "STUDY-VAL805-003",
+      "case_id": "VAL-805",
+      "timepoint": "admission",
+      "study_type": "Electrocardiogram",
+      "body_site": "heart",
+      "finding": "Sinus rhythm. No ischemic ST-segment change.",
+      "source_reference": null
+    }
+  ],
+  "CaseConsult": [
+    {
+      "consult_id": "CON-VAL805-001",
+      "case_id": "VAL-805",
+      "service": "cardiology",
+      "timepoint": "inpatient",
+      "assessment": "Congestion followed four missed days of oral furosemide. Ischemia is not supported by the history, electrocardiogram, or troponin. Ejection fraction is 30 percent. Dry weight of 78 kg was reached with intravenous furosemide.",
+      "recommendation": "Resume furosemide 40 mg orally once daily. The missed doses explain the accumulation, and the intravenous course has been stopped at dry weight. Start enalapril 5 mg orally twice daily for systolic heart failure. Creatinine is 0.9 mg/dL, potassium is 4.3 mmol/L, and systolic blood pressure is 110 mm Hg. Continue metoprolol succinate 25 mg daily and atorvastatin 40 mg daily. The ACE inhibitor has not yet been given.",
+      "source_reference": null
+    }
+  ],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-VAL805-004",
+      "case_id": "VAL-805",
+      "context": "home",
+      "drug": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+      "reported_name": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL805-005",
+      "case_id": "VAL-805",
+      "context": "home",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL805-006",
+      "case_id": "VAL-805",
+      "context": "home",
+      "drug": "furosemide 40 MG Oral Tablet",
+      "reported_name": "furosemide 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL805-007",
+      "case_id": "VAL-805",
+      "context": "inpatient",
+      "drug": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+      "reported_name": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+      "dose": "25 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL805-008",
+      "case_id": "VAL-805",
+      "context": "inpatient",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL805-009",
+      "case_id": "VAL-805",
+      "context": "inpatient",
+      "drug": "furosemide 40 MG Injection",
+      "reported_name": "furosemide 40 MG Injection",
+      "dose": "40 MG",
+      "route": "intravenous",
+      "frequency": "twice daily",
+      "indication": "Acute systolic (congestive) heart failure",
+      "status": "discontinued",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": "Hospital days 1 through 3 only. Stopped once weight reached the 78 kg dry weight. This is not the home oral dose."
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-VAL805-001",
+      "case_id": "VAL-805",
+      "item": "Heart-failure clinic after diuresis, with a plan to obtain furosemide so doses are not missed",
+      "timing": "7 days",
+      "with_service": "cardiology",
+      "source_reference": null
+    }
+  ],
+  "CaseInstruction": [],
+  "CaseMonitoring": [],
+  "CaseProblemList": [
+    {
+      "problem_id": "PROB-VAL805-001",
+      "case_id": "VAL-805",
+      "problem": "Essential (primary) hypertension",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL805-002",
+      "case_id": "VAL-805",
+      "problem": "Mixed hyperlipidemia",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL805-003",
+      "case_id": "VAL-805",
+      "problem": "Acute systolic (congestive) heart failure",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "high",
+      "status": "active",
+      "source_reference": null
+    }
+  ],
+  "CaseProcedure": [],
+  "CaseTherapyRestriction": [],
+  "CaseReturnPrecaution": [
+    {
+      "precaution_id": "RP-VAL805-001",
+      "case_id": "VAL-805",
+      "symptom": "Dyspnea",
+      "reason": "Worsening of the presenting symptom",
+      "action": "Seek urgent evaluation",
+      "severity": "urgent",
+      "patient_instruction": null,
+      "source_reference": null
+    }
+  ],
+  "CaseMedicationReconciliation": [
+    {
+      "medrec_id": "MR-VAL805-001",
+      "case_id": "VAL-805",
+      "bpmh_source": "patient_and_prior_records",
+      "bpmh_interviewer": null,
+      "bpmh_date": null,
+      "medrec_status": "complete",
+      "patient_able_to_participate": true,
+      "unverified_medications_present": null,
+      "reconciliation_admission": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "reconciliation_discharge": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "discrepancy_types": [],
+      "pharmacist_review": true,
+      "high_alert_meds_identified": [],
+      "notes": "She missed four days of furosemide because the supply ran out. The other home medicines were continued. She has no ACE inhibitor, ARB, or ARNI at home.",
+      "source_reference": null
+    }
+  ],
+  "CaseWeight": [
+    {
+      "weight_id": "WT-VAL805-001",
+      "case_id": "VAL-805",
+      "timepoint": "admission",
+      "weight_kg": "84.000",
+      "dry_weight_kg": "78.000",
+      "source_reference": null
+    },
+    {
+      "weight_id": "WT-VAL805-003",
+      "case_id": "VAL-805",
+      "timepoint": "hospital_day_2",
+      "weight_kg": "81.000",
+      "dry_weight_kg": "78.000",
+      "source_reference": null
+    },
+    {
+      "weight_id": "WT-VAL805-002",
+      "case_id": "VAL-805",
+      "timepoint": "discharge",
+      "weight_kg": "78.000",
+      "dry_weight_kg": "78.000",
+      "source_reference": null
+    }
+  ],
+  "CaseIntakeOutput": [
+    {
+      "io_id": "IO-VAL805-001",
+      "case_id": "VAL-805",
+      "timepoint": "hospital_day_1",
+      "intake_ml": 1100,
+      "output_ml": 2900,
+      "net_ml": -1800,
+      "notes": null,
+      "source_reference": null
+    },
+    {
+      "io_id": "IO-VAL805-002",
+      "case_id": "VAL-805",
+      "timepoint": "hospital_day_2",
+      "intake_ml": 1300,
+      "output_ml": 2500,
+      "net_ml": -1200,
+      "notes": null,
+      "source_reference": null
+    },
+    {
+      "io_id": "IO-VAL805-003",
+      "case_id": "VAL-805",
+      "timepoint": "hospital_day_3",
+      "intake_ml": 1500,
+      "output_ml": 2000,
+      "net_ml": -500,
+      "notes": null,
+      "source_reference": null
+    }
+  ],
+  "CaseDevice": [],
+  "CaseMicrobiology": [],
+  "reference_discharge_plan": {
+    "medications": [
+      {
+        "medication": "furosemide 40 MG Oral Tablet",
+        "action": "continue",
+        "dose": "40 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Systolic heart failure",
+        "rationale": "The accumulation followed four missed doses. Intravenous diuresis has stopped at the 78 kg dry weight. Cardiology says to resume 40 mg orally once daily, not to start a higher maintenance dose.",
+        "monitoring": "Obtain a supply so doses are not missed. Recheck weight and creatinine at the heart-failure visit."
+      },
+      {
+        "medication": "enalapril 5 MG Oral Tablet",
+        "action": "start",
+        "dose": "5 MG",
+        "route": "oral",
+        "frequency": "twice daily",
+        "duration": null,
+        "indication": "Systolic heart failure with ejection fraction 30 percent",
+        "rationale": "There is no ACE inhibitor, ARB, or ARNI on the home list. Cardiology recommends starting enalapril 5 mg orally twice daily. It has not been given yet. Creatinine is 0.9 mg/dL, potassium is 4.3 mmol/L, and systolic blood pressure is 110 mm Hg.",
+        "monitoring": "Creatinine and potassium at the follow-up visit."
+      },
+      {
+        "medication": "24 HR metoprolol succinate 25 MG Extended Release Oral Tablet",
+        "action": "continue",
+        "dose": "25 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Systolic heart failure",
+        "rationale": "Continued through the admission. Heart rate at discharge is 69 beats per minute. Cardiology says to continue it.",
+        "monitoring": null
+      },
+      {
+        "medication": "atorvastatin 40 MG Oral Tablet",
+        "action": "continue",
+        "dose": "40 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Mixed hyperlipidemia",
+        "rationale": "Home medicine continued through the admission, and cardiology says to continue it.",
+        "monitoring": null
+      }
+    ],
+    "monitoring_requirements": [
+      {
+        "parameter": "weight, creatinine, and potassium",
+        "frequency": "at the heart-failure visit in 7 days, sooner if dyspnea or lightheadedness returns",
+        "target": "remain near the 78 kg dry weight",
+        "duration": null
+      }
+    ],
+    "follow_up_requirements": [
+      {
+        "item": "Heart-failure clinic after diuresis, with a plan to obtain furosemide so doses are not missed",
+        "timing": "7 days",
+        "with_service": "cardiology"
+      }
+    ]
+  },
+  "revision_provenance": {
+    "status": "READY FOR NEXT CLINICIAN REVIEW",
+    "clinically_validated": false,
+    "baseline": "data/case_sets/seed_guided/CLEAN_BASE/VAL-805_resident.json",
+    "method": "Reviewer concerns were turned into missing clinical information. The hidden reference was written again from the revised chart.",
+    "synthetic_facts": [
+      {
+        "fact": "Four missed days of home furosemide, a flat troponin, sinus electrocardiogram, and echocardiographic ejection fraction of 30 percent.",
+        "why": "The prior chart did not say why heart failure decompensated.",
+        "evidence": "Heidenreich PA et al. 2022 AHA/ACC/HFSA heart failure guideline. Circulation. 2022;145:e895-e1032. Precipitants, including missed medication, are part of the admission assessment. Ischemia was looked for and not supported by the values on this chart."
+      },
+      {
+        "fact": "Furosemide 40 mg intravenously twice daily for three days; weights 84 kg, 81 kg, and 78 kg; dry weight 78 kg; three days of net-negative intake and output; oxygen weaned to room air.",
+        "why": "The home oral dose was repeated as the inpatient dose, and discharge weight was not at dry weight.",
+        "evidence": "Heidenreich PA et al. Circulation. 2022;145:e895-e1032. Patients admitted with fluid overload should receive intravenous loop diuretic therapy, initially at a dose that equals or exceeds the chronic oral dose."
+      },
+      {
+        "fact": "Cardiology recommendation to resume oral furosemide 40 mg once daily and to start enalapril 5 mg twice daily, which has not yet been administered.",
+        "why": "The discharge diuretic decision has to follow the missed-dose precipitant, and systolic heart failure with ejection fraction 30 percent has no ACE inhibitor on the home list.",
+        "evidence": "Heidenreich PA et al. Circulation. 2022;145:e895-e1032. An ACE inhibitor is indicated for HFrEF when ARNI is not used. The enalapril dose is the curated regimen ENALAPRIL_5_BID, 5 mg orally twice daily. SOLVD used enalapril for systolic heart failure. N Engl J Med. 1991;325:293-302."
+      }
+    ]
+  }
+}

@@ -1,0 +1,852 @@
+{
+  "case_id_code": "VAL-813",
+  "ClinicalCase": {
+    "title": "nephrology inpatient case VAL-813",
+    "case_id_code": "VAL-813",
+    "case_status": "review",
+    "generation_source": "synthetic",
+    "one_liner": "64-year-old woman with diarrhea after kidney transplant, found to have cytomegalovirus colitis",
+    "admission_dx": "Diarrhea after kidney transplant",
+    "disposition_status": "home",
+    "chief_complaint": "Diarrhea and poor intake",
+    "patient_name": "VAL Patient 813",
+    "patient_age": 64,
+    "patient_gender": "Female",
+    "ethnicity": null,
+    "weight_kg": "64.000",
+    "social_context": "Baseline living situation: lives at home",
+    "is_active": true,
+    "difficulty": "standard",
+    "specialty": "nephrology",
+    "allergies": [],
+    "medical_history": [
+      "Kidney transplant status",
+      "Essential (primary) hypertension",
+      "Mixed hyperlipidemia"
+    ],
+    "source_type": "authored_scenario",
+    "source_file": null,
+    "presentation": {
+      "chief_complaint": "Diarrhea and poor intake",
+      "hpi": "A 64-year-old woman with a remote kidney transplant is admitted for several days of watery diarrhea and poor intake. She is not admitted with a diagnosis of cytomegalovirus colitis. Home immunosuppression is tacrolimus 1 mg orally every 12 hours, mycophenolate mofetil 1000 mg orally twice daily, and prednisone 5 mg orally once daily. She also takes amlodipine 5 mg daily and atorvastatin 40 mg daily. Valganciclovir is not a home medicine. Admission weight is 64 kg. Blood pressure is 100/62 mm Hg and heart rate is 110 beats per minute. Creatinine is 1.8 mg/dL, above an outpatient baseline of 1.0 mg/dL. Potassium is 3.2 mmol/L. Stool culture did not grow a bacterial pathogen, and Clostridioides difficile toxin is negative. On hospital day 2, colonoscopy shows colitis and the biopsy immunohistochemistry is positive for cytomegalovirus. Plasma cytomegalovirus DNA is 8500 IU/mL. Mycophenolate is held. Ganciclovir 5 mg/kg intravenously every 12 hours is started after the biopsy; at 66 kg that dose is 330 mg. Potassium chloride, 40 mEq orally, is given for the admission potassium. Diarrhea slows to one or two formed stools a day. Discharge weight is 66 kg, creatinine is 0.9 mg/dL, and potassium is 4.0 mmol/L. The transplant pharmacist records creatinine clearance above 60 mL/min from the discharge age, weight, and creatinine. Intravenous ganciclovir is stopped and valganciclovir 900 mg orally twice daily, given as 450 mg tablets, is started. Tacrolimus 1 mg every 12 hours continues; a discharge trough is 6.5 ng/mL and the transplant target on the chart is 5 to 8 ng/mL. Prednisone 5 mg daily continues. Mycophenolate stays held. Transplant clinic in 7 days will decide whether to restart it. No standing potassium is prescribed because the potassium is 4.0 mmol/L and the diarrhea has slowed.",
+      "review_of_systems": null,
+      "presenting_symptoms": [
+        "Diarrhea"
+      ],
+      "symptom_duration": "several days",
+      "symptom_course": "diarrhea slowed after volume repletion and antiviral treatment"
+    },
+    "social_support": {
+      "living_situation": "Baseline living situation: lives at home",
+      "caregiver_support": null,
+      "transportation": null,
+      "financial_barriers": null,
+      "health_literacy": null,
+      "language_preference": "English",
+      "substance_use": null,
+      "advance_directive": null
+    },
+    "discharge_planning": {
+      "disposition": "home",
+      "disposition_detail": null,
+      "transportation_needed": false,
+      "barriers_to_discharge": [],
+      "discharge_readiness": "ready",
+      "anticipated_discharge_date": null,
+      "medicaid_pending": null,
+      "home_health_ordered": false,
+      "dme_needed": []
+    }
+  },
+  "CaseDiagnosis": [
+    {
+      "diagnosis_id": "DX-VAL813-001",
+      "case_id": "VAL-813",
+      "diagnosis": "Diarrhea after kidney transplant",
+      "diagnosis_type": "admission",
+      "status": "improving",
+      "context": "inpatient",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL813-005",
+      "case_id": "VAL-813",
+      "diagnosis": "Cytomegalovirus colitis",
+      "diagnosis_type": "established_during_admission",
+      "status": "active",
+      "context": "Found on hospital day 2 by colonoscopic biopsy. Not the admitting label.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL813-002",
+      "case_id": "VAL-813",
+      "diagnosis": "Kidney transplant status",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL813-003",
+      "case_id": "VAL-813",
+      "diagnosis": "Essential (primary) hypertension",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "diagnosis_id": "DX-VAL813-004",
+      "case_id": "VAL-813",
+      "diagnosis": "Mixed hyperlipidemia",
+      "diagnosis_type": "past_history",
+      "status": "active",
+      "context": "history",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseNote": [
+    {
+      "note_id": "NOTE-VAL813-001",
+      "case_id": "VAL-813",
+      "note_type": "admission",
+      "note_text": "Admission note for diarrhea and poor intake after kidney transplant. The cause is not yet known. Creatinine 1.8 mg/dL, potassium 3.2 mmol/L, baseline creatinine 1.0 mg/dL. Mycophenolate is held. Valganciclovir is not a home medicine.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    },
+    {
+      "note_id": "NOTE-VAL813-002",
+      "case_id": "VAL-813",
+      "note_type": "hospital_course",
+      "note_text": "Bacterial stool studies and Clostridioides difficile toxin are negative. Colonoscopic biopsy is positive for cytomegalovirus. Plasma cytomegalovirus DNA is 8500 IU/mL. Ganciclovir was given intravenously, then changed to valganciclovir 900 mg orally twice daily after creatinine clearance was above 60 mL/min. Mycophenolate remains held for the transplant visit.",
+      "source_type": "authored_scenario",
+      "source_reference": null
+    }
+  ],
+  "CaseVital": [
+    {
+      "vital_id": "VIT-VAL813-001",
+      "case_id": "VAL-813",
+      "timepoint": "admission",
+      "temp_c": "37.40",
+      "bp_systolic": 100,
+      "bp_diastolic": 62,
+      "heart_rate": 110,
+      "resp_rate": 19,
+      "spo2_percent": "98.00",
+      "oxygen_support": null,
+      "source_reference": null
+    },
+    {
+      "vital_id": "VIT-VAL813-002",
+      "case_id": "VAL-813",
+      "timepoint": "discharge",
+      "temp_c": "36.80",
+      "bp_systolic": 128,
+      "bp_diastolic": 76,
+      "heart_rate": 76,
+      "resp_rate": 17,
+      "spo2_percent": "98.00",
+      "oxygen_support": null,
+      "source_reference": null
+    }
+  ],
+  "CaseLab": [
+    {
+      "lab_id": "LAB-VAL813-001",
+      "case_id": "VAL-813",
+      "timepoint": "admission",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.8,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL813-002",
+      "case_id": "VAL-813",
+      "timepoint": "discharge",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 0.9,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL813-003",
+      "case_id": "VAL-813",
+      "timepoint": "admission",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 3.2,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL813-004",
+      "case_id": "VAL-813",
+      "timepoint": "discharge",
+      "test_name": "Potassium [Moles/volume] in Serum or Plasma",
+      "value": 4.0,
+      "value_text": null,
+      "unit": "mmol/L",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL813-005",
+      "case_id": "VAL-813",
+      "timepoint": "outpatient_baseline",
+      "test_name": "Creatinine [Mass/volume] in Serum or Plasma",
+      "value": 1.0,
+      "value_text": null,
+      "unit": "mg/dL",
+      "status": "final",
+      "source_reference": null
+    },
+    {
+      "lab_id": "LAB-VAL813-006",
+      "case_id": "VAL-813",
+      "timepoint": "inpatient",
+      "test_name": "Cytomegalovirus DNA [#/volume] in Serum or Plasma by NAA with probe detection",
+      "value": 8500.0,
+      "value_text": null,
+      "unit": "IU/mL",
+      "status": "final",
+      "source_reference": null
+    }
+  ],
+  "CaseImaging": [],
+  "CaseConsult": [
+    {
+      "consult_id": "CON-VAL813-001",
+      "case_id": "VAL-813",
+      "service": "transplant",
+      "timepoint": "inpatient",
+      "assessment": "Cytomegalovirus colitis after the biopsy. Volume depletion on admission has improved. Tacrolimus trough is in the stated target range.",
+      "recommendation": "Continue tacrolimus 1 mg every 12 hours and prednisone 5 mg daily. Do not restart mycophenolate at discharge. Reassess that hold in clinic in 7 days.",
+      "source_reference": null
+    },
+    {
+      "consult_id": "CON-VAL813-002",
+      "case_id": "VAL-813",
+      "service": "infectious disease",
+      "timepoint": "inpatient",
+      "assessment": "Tissue-proven cytomegalovirus colitis. Bacterial stool studies and Clostridioides difficile toxin are negative.",
+      "recommendation": "Induction valganciclovir 900 mg orally twice daily now that creatinine clearance is above 60 mL/min. Recheck the viral load, blood count, and creatinine. Duration extends at least through the early follow-up and depends on symptom resolution and the viral load.",
+      "source_reference": null
+    }
+  ],
+  "CaseMedication": [
+    {
+      "medication_id": "MED-VAL813-005",
+      "case_id": "VAL-813",
+      "context": "home",
+      "drug": "BX Rating tacrolimus 1 MG Oral Capsule",
+      "reported_name": "BX Rating tacrolimus 1 MG Oral Capsule",
+      "dose": "1 MG",
+      "route": "oral",
+      "frequency": "every 12 hours",
+      "indication": "Kidney transplant status",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL813-006",
+      "case_id": "VAL-813",
+      "context": "home",
+      "drug": "amlodipine 5 MG Oral Tablet",
+      "reported_name": "amlodipine 5 MG Oral Tablet",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Essential (primary) hypertension",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL813-007",
+      "case_id": "VAL-813",
+      "context": "home",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL813-009",
+      "case_id": "VAL-813",
+      "context": "inpatient",
+      "drug": "BX Rating tacrolimus 1 MG Oral Capsule",
+      "reported_name": "BX Rating tacrolimus 1 MG Oral Capsule",
+      "dose": "1 MG",
+      "route": "oral",
+      "frequency": "every 12 hours",
+      "indication": "Kidney transplant status",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": "Discharge trough 6.5 ng/mL. Transplant target written on the chart is 5 to 8 ng/mL."
+    },
+    {
+      "medication_id": "MED-VAL813-010",
+      "case_id": "VAL-813",
+      "context": "inpatient",
+      "drug": "amlodipine 5 MG Oral Tablet",
+      "reported_name": "amlodipine 5 MG Oral Tablet",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Essential (primary) hypertension",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL813-011",
+      "case_id": "VAL-813",
+      "context": "inpatient",
+      "drug": "atorvastatin 40 MG Oral Tablet",
+      "reported_name": "atorvastatin 40 MG Oral Tablet",
+      "dose": "40 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Mixed hyperlipidemia",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL813-012",
+      "case_id": "VAL-813",
+      "context": "inpatient",
+      "drug": "valganciclovir 450 MG Oral Tablet",
+      "reported_name": "valganciclovir 450 MG Oral Tablet",
+      "dose": "900 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "Other cytomegaloviral diseases",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": "Not a home medicine. Started after intravenous ganciclovir, once creatinine clearance was above 60 mL/min. Induction dose 900 mg orally twice daily, given as 450 mg tablets."
+    },
+    {
+      "medication_id": "MED-VAL813-009",
+      "case_id": "VAL-813",
+      "context": "home",
+      "drug": "mycophenolate mofetil 500 MG Oral Tablet",
+      "reported_name": "mycophenolate mofetil 500 MG Oral Tablet",
+      "dose": "1000 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "Kidney transplant status",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": "Given as 500 MG tablets."
+    },
+    {
+      "medication_id": "MED-VAL813-010",
+      "case_id": "VAL-813",
+      "context": "home",
+      "drug": "prednisone 5 MG Oral Tablet",
+      "reported_name": "prednisone 5 MG Oral Tablet",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Kidney transplant status",
+      "status": "home",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": null
+    },
+    {
+      "medication_id": "MED-VAL813-011",
+      "case_id": "VAL-813",
+      "context": "inpatient",
+      "drug": "mycophenolate mofetil 500 MG Oral Tablet",
+      "reported_name": "mycophenolate mofetil 500 MG Oral Tablet",
+      "dose": "1000 MG",
+      "route": "oral",
+      "frequency": "twice daily",
+      "indication": "Kidney transplant status",
+      "status": "held",
+      "held_reason": "Held after cytomegalovirus colitis was established. Transplant says not to restart it at discharge. Reassess at the visit in 7 days.",
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": "Given as 500 MG tablets."
+    },
+    {
+      "medication_id": "MED-VAL813-012",
+      "case_id": "VAL-813",
+      "context": "inpatient",
+      "drug": "prednisone 5 MG Oral Tablet",
+      "reported_name": "prednisone 5 MG Oral Tablet",
+      "dose": "5 MG",
+      "route": "oral",
+      "frequency": "once daily",
+      "indication": "Kidney transplant status",
+      "status": "active",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": "Maintenance corticosteroid continued."
+    },
+    {
+      "medication_id": "MED-VAL813-013",
+      "case_id": "VAL-813",
+      "context": "inpatient",
+      "drug": "ganciclovir injection",
+      "reported_name": "ganciclovir injection",
+      "dose": "330 MG",
+      "route": "intravenous",
+      "frequency": "every 12 hours",
+      "indication": "Cytomegalovirus colitis",
+      "status": "discontinued",
+      "held_reason": null,
+      "verification_status": "verified",
+      "verification_source": "patient_and_prior_records",
+      "target_or_goal": null,
+      "monitoring": null,
+      "quantity_or_days": null,
+      "refills": null,
+      "source_type": "authored_scenario",
+      "source_file": null,
+      "source_reference": null,
+      "notes": "5 mg/kg at 66 kg, started after the biopsy. Stopped when oral valganciclovir was begun. Not a discharge medicine."
+    }
+  ],
+  "CaseFollowup": [
+    {
+      "followup_id": "FU-VAL813-001",
+      "case_id": "VAL-813",
+      "item": "Transplant clinic to review antiviral induction and whether mycophenolate can restart",
+      "timing": "7 days",
+      "with_service": "transplant",
+      "source_reference": null
+    }
+  ],
+  "CaseInstruction": [],
+  "CaseMonitoring": [
+    {
+      "monitoring_id": "MON-VAL813-001",
+      "case_id": "VAL-813",
+      "parameter": "tacrolimus trough, serum creatinine, complete blood count, and plasma cytomegalovirus DNA",
+      "frequency": "at the transplant visit in 7 days, sooner if diarrhea or fever returns",
+      "target": null,
+      "trigger_for_action": null,
+      "duration": null,
+      "responsible_service": "transplant",
+      "source_reference": null
+    }
+  ],
+  "CaseProblemList": [
+    {
+      "problem_id": "PROB-VAL813-001",
+      "case_id": "VAL-813",
+      "problem": "Diarrhea after kidney transplant",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null,
+      "assessment": "The admitting problem. Bacterial stool studies did not explain it.",
+      "plan": "Volume repletion. The cause was established by biopsy."
+    },
+    {
+      "problem_id": "PROB-VAL813-005",
+      "case_id": "VAL-813",
+      "problem": "Cytomegalovirus colitis",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "high",
+      "status": "active",
+      "source_reference": null,
+      "assessment": "Established on hospital day 2. It was not known at admission.",
+      "plan": "Antiviral induction. Mycophenolate remains held."
+    },
+    {
+      "problem_id": "PROB-VAL813-001",
+      "case_id": "VAL-813",
+      "problem": "Kidney transplant status",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL813-002",
+      "case_id": "VAL-813",
+      "problem": "Essential (primary) hypertension",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    },
+    {
+      "problem_id": "PROB-VAL813-003",
+      "case_id": "VAL-813",
+      "problem": "Mixed hyperlipidemia",
+      "problem_type": "diagnosis",
+      "onset_date": null,
+      "priority": "medium",
+      "status": "active",
+      "source_reference": null
+    }
+  ],
+  "CaseProcedure": [
+    {
+      "procedure_id": "PROC-VAL813-001",
+      "case_id": "VAL-813",
+      "procedure_name": "Colonoscopy with biopsy",
+      "procedure_type": "diagnostic",
+      "date": null,
+      "timepoint": "hospital_day_2",
+      "performed_by": "gastroenterology",
+      "anesthesia_type": null,
+      "findings": "Colitis. Biopsy immunohistochemistry positive for cytomegalovirus.",
+      "complications": null,
+      "duration_minutes": null,
+      "laterality": null,
+      "source_reference": null
+    }
+  ],
+  "CaseTherapyRestriction": [],
+  "CaseReturnPrecaution": [
+    {
+      "precaution_id": "RP-VAL813-001",
+      "case_id": "VAL-813",
+      "symptom": "Diarrhea",
+      "reason": "Worsening of the presenting symptom",
+      "action": "Seek urgent evaluation",
+      "severity": "urgent",
+      "patient_instruction": null,
+      "source_reference": null
+    }
+  ],
+  "CaseMedicationReconciliation": [
+    {
+      "medrec_id": "MR-VAL813-001",
+      "case_id": "VAL-813",
+      "bpmh_source": "patient_and_prior_records",
+      "bpmh_interviewer": null,
+      "bpmh_date": null,
+      "medrec_status": "complete",
+      "patient_able_to_participate": true,
+      "unverified_medications_present": null,
+      "reconciliation_admission": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "reconciliation_discharge": {
+        "discrepancies_found": null,
+        "resolved": null,
+        "notes": null
+      },
+      "discrepancy_types": [],
+      "pharmacist_review": true,
+      "high_alert_meds_identified": [],
+      "notes": null,
+      "source_reference": null
+    }
+  ],
+  "CaseWeight": [
+    {
+      "weight_id": "WT-VAL813-001",
+      "case_id": "VAL-813",
+      "timepoint": "admission",
+      "weight_kg": "64.000",
+      "dry_weight_kg": null,
+      "source_reference": null
+    },
+    {
+      "weight_id": "WT-VAL813-002",
+      "case_id": "VAL-813",
+      "timepoint": "discharge",
+      "weight_kg": "66.000",
+      "dry_weight_kg": null,
+      "source_reference": null
+    }
+  ],
+  "CaseIntakeOutput": [
+    {
+      "io_id": "IO-VAL813-001",
+      "case_id": "VAL-813",
+      "timepoint": "hospital_day_1",
+      "intake_ml": 2800,
+      "output_ml": 1600,
+      "net_ml": 1200,
+      "notes": "Intravenous volume repletion while diarrhea was still frequent.",
+      "source_reference": null
+    }
+  ],
+  "CaseDevice": [],
+  "CaseMicrobiology": [
+    {
+      "micro_id": "MICRO-VAL813-001",
+      "case_id": "VAL-813",
+      "timepoint": "admission",
+      "specimen": "stool",
+      "test": "stool culture",
+      "organism": null,
+      "result": "no growth",
+      "quantity": null,
+      "status": "final",
+      "notes": "No bacterial pathogen.",
+      "source_reference": null
+    },
+    {
+      "micro_id": "MICRO-VAL813-002",
+      "case_id": "VAL-813",
+      "timepoint": "admission",
+      "specimen": "stool",
+      "test": "Clostridioides difficile toxin",
+      "organism": null,
+      "result": "negative",
+      "quantity": null,
+      "status": "final",
+      "notes": null,
+      "source_reference": null
+    }
+  ],
+  "reference_discharge_plan": {
+    "medications": [
+      {
+        "medication": "valganciclovir 450 MG Oral Tablet",
+        "action": "start",
+        "dose": "900 MG",
+        "route": "oral",
+        "frequency": "twice daily",
+        "duration": null,
+        "indication": "Cytomegalovirus colitis, after a positive biopsy",
+        "rationale": "Not a home medicine. Started after intravenous ganciclovir once the pharmacist recorded creatinine clearance above 60 mL/min. Induction dose, given as 450 mg tablets. Duration is rechecked with the viral load; it is not a completed course at discharge.",
+        "monitoring": "Blood count, creatinine, and plasma cytomegalovirus DNA."
+      },
+      {
+        "medication": "mycophenolate mofetil 500 MG Oral Tablet",
+        "action": "hold",
+        "dose": "1000 MG",
+        "route": "oral",
+        "frequency": "twice daily",
+        "duration": null,
+        "indication": "Kidney transplant status",
+        "rationale": "Held after the biopsy established cytomegalovirus colitis. The transplant note says not to restart it at discharge and to reassess in 7 days.",
+        "monitoring": null
+      },
+      {
+        "medication": "BX Rating tacrolimus 1 MG Oral Capsule",
+        "action": "continue",
+        "dose": "1 MG",
+        "route": "oral",
+        "frequency": "every 12 hours",
+        "duration": null,
+        "indication": "Kidney transplant status",
+        "rationale": "Discharge trough 6.5 ng/mL is inside the 5 to 8 ng/mL target written by transplant. The note says to continue 1 mg every 12 hours.",
+        "monitoring": null
+      },
+      {
+        "medication": "prednisone 5 MG Oral Tablet",
+        "action": "continue",
+        "dose": "5 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Kidney transplant status",
+        "rationale": "Home maintenance corticosteroid. Transplant says to continue it.",
+        "monitoring": null
+      },
+      {
+        "medication": "amlodipine 5 MG Oral Tablet",
+        "action": "continue",
+        "dose": "5 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Essential (primary) hypertension",
+        "rationale": "Home medicine continued. Discharge blood pressure is 128/76 mm Hg.",
+        "monitoring": null
+      },
+      {
+        "medication": "atorvastatin 40 MG Oral Tablet",
+        "action": "continue",
+        "dose": "40 MG",
+        "route": "oral",
+        "frequency": "once daily",
+        "duration": null,
+        "indication": "Mixed hyperlipidemia",
+        "rationale": "Home medicine continued. No new contraindication is described.",
+        "monitoring": null
+      },
+      {
+        "medication": "ganciclovir injection",
+        "action": "stop",
+        "dose": "330 MG",
+        "route": "intravenous",
+        "frequency": "every 12 hours",
+        "duration": null,
+        "indication": "Cytomegalovirus colitis",
+        "rationale": "Intravenous induction was stopped when oral valganciclovir began. It is not a discharge medicine.",
+        "monitoring": null
+      },
+      {
+        "medication": "potassium chloride",
+        "action": "stop",
+        "dose": "40 MEQ",
+        "route": "oral",
+        "frequency": "once",
+        "duration": null,
+        "indication": "Admission potassium 3.2 mmol/L",
+        "rationale": "One replacement dose is described. Discharge potassium is 4.0 mmol/L and diarrhea has slowed, so no standing potassium is indicated.",
+        "monitoring": null
+      }
+    ],
+    "monitoring_requirements": [
+      {
+        "parameter": "tacrolimus trough, serum creatinine, complete blood count, and plasma cytomegalovirus DNA",
+        "frequency": "at the transplant visit in 7 days, sooner if diarrhea or fever returns",
+        "target": "tacrolimus trough 5 to 8 ng/mL",
+        "duration": "through antiviral induction"
+      }
+    ],
+    "follow_up_requirements": [
+      {
+        "item": "Transplant clinic to review antiviral induction and whether mycophenolate can restart",
+        "timing": "7 days",
+        "with_service": "transplant"
+      }
+    ]
+  },
+  "revision_provenance": {
+    "status": "READY FOR NEXT CLINICIAN REVIEW",
+    "clinically_validated": false,
+    "baseline": "data/case_sets/seed_guided/CLEAN_BASE/VAL-813_resident.json",
+    "method": "Reviewer concerns were turned into missing clinical information. The hidden reference was written again from the revised chart.",
+    "synthetic_facts": [
+      {
+        "fact": "Admission for diarrhea before any cytomegalovirus label; negative bacterial stool studies and a negative Clostridioides difficile toxin; colonoscopy with biopsy immunohistochemistry positive for cytomegalovirus; plasma cytomegalovirus DNA 8500 IU/mL.",
+        "why": "The prior chart presented an already labeled cytomegalovirus illness and listed valganciclovir as a home medicine.",
+        "evidence": "Kotton CN et al. Transplantation. 2018;102:900-931. Gastrointestinal cytomegalovirus disease is established from symptoms plus tissue findings, not from a discharge label alone. Valganciclovir labeling uses 900 mg twice daily for induction when creatinine clearance is at least 60 mL/min."
+      },
+      {
+        "fact": "Admission creatinine 1.8 mg/dL and potassium 3.2 mmol/L, baseline creatinine 1.0 mg/dL, discharge creatinine 0.9 mg/dL and potassium 4.0 mmol/L after volume repletion and 40 mEq of potassium chloride. Weights 64 kg then 66 kg.",
+        "why": "The prior potassium change had no cause, and the admission laboratories were not the low potassium and reduced kidney function expected from diarrheal volume loss.",
+        "evidence": "Diarrhea and poor intake produce prerenal azotemia and potassium loss. Gennari FJ. Hypokalemia. N Engl J Med. 1998;339:451-458. The potassium chloride dose is a one-time replacement for a measured value of 3.2 mmol/L and is not continued after the repeat value is 4.0 mmol/L."
+      },
+      {
+        "fact": "Home regimen of tacrolimus, mycophenolate mofetil 1000 mg twice daily, and prednisone 5 mg daily. Mycophenolate held and not restarted at discharge. Intravenous ganciclovir 5 mg/kg, then oral valganciclovir induction.",
+        "why": "The prior transplant regimen was only tacrolimus plus medicines for blood pressure and cholesterol, and the antiviral was already a home drug.",
+        "evidence": "Kidney Disease: Improving Global Outcomes Transplant Work Group. Am J Transplant. 2009;9(Suppl 3):S1-S155. Maintenance immunosuppression is combination therapy and commonly includes a glucocorticoid. CellCept labeling recommends 1 g orally twice daily for adult kidney transplants. Kotton CN et al. Transplantation. 2018;102:900-931. Immunosuppression is reduced when possible during cytomegalovirus disease. Ganciclovir labeling uses 5 mg/kg every 12 hours for induction."
+      }
+    ]
+  }
+}

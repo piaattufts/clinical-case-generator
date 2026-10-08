@@ -77,7 +77,7 @@ next clinician review
 
 ## What the next round will do
 
-The repository cleanup is complete. The second revision has not been performed. The revision will edit the four overlapping cases, starting from the clean base, and will submit the revised charts to the same codebook. Resulting review materials will go in `exports/current/` when they exist. That directory is empty. The four candidates are not clinically validated. No case in this series should be described as clinically validated until a clinician has accepted it on this instrument.
+The four overlapping cases have been revised from the clean base. The revised charts are in [data/case_sets/seed_guided/REVISED/overlap_4/](../data/case_sets/seed_guided/REVISED/overlap_4/), with the change log in [overlap_4_revision_log.md](revision/overlap_4_revision_log.md). The next review uses the same codebook, filled out for these four charts in [CliniProof_Revised_Overlap4_Codebook.docx](validation/CliniProof_Revised_Overlap4_Codebook.docx). The cases are ready for that review. They are not clinically validated. No case in this series should be described as clinically validated until a clinician has accepted it on this instrument.
 
 ## After clinical acceptance
 
