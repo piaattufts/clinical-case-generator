@@ -1,7 +1,7 @@
 {
   "generation1_case_id": "VAL-816",
   "scenario_family": "TRANSPLANT_CMV",
-  "family_label": "Transplant / CMV",
+  "family_label": "Post-kidney-transplant infectious complication",
   "primary_reasoning_target": "Start or adjust cytomegalovirus therapy and immunosuppression after a diagnostic work-up",
   "secondary_reasoning_targets": [
     "new_start"

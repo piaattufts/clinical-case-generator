@@ -1,7 +1,7 @@
 {
   "generation1_case_id": "VAL-812",
   "scenario_family": "ENDOCARDITIS_OPAT",
-  "family_label": "Endocarditis / OPAT",
+  "family_label": "Outpatient parenteral antibiotic therapy after endocarditis",
   "primary_reasoning_target": "Choose outpatient parenteral antibiotic therapy after endocarditis is established in hospital",
   "secondary_reasoning_targets": [
     "new_start"

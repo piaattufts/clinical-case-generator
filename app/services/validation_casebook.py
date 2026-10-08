@@ -417,7 +417,13 @@ def _category_labels(family: str) -> list[str]:
     return labels
 
 
-def _write_validation(document: WordDocument, item: PreparedCase) -> None:
+def _write_validation(
+    document: WordDocument,
+    item: PreparedCase,
+    *,
+    reference_plan: dict[str, Any] | None = None,
+    counterpart: str | None = None,
+) -> None:
     _add_heading(document, "Clinical validation", 2)
     _add_heading(document, "C1 — Clinical plausibility", 3)
     _add_body(
@@ -450,6 +456,10 @@ def _write_validation(document: WordDocument, item: PreparedCase) -> None:
     )
     if item.is_control:
         _control_reference(document)
+        if reference_plan:
+            _add_reference_discharge_plan(document, reference_plan)
+        if counterpart:
+            _add_body(document, f"Matched counterpart: {counterpart}")
         _add_heading(document, "C2 — Intended assessment problem", 3)
         _add_body(
             document,
@@ -562,6 +572,92 @@ def _write_validation(document: WordDocument, item: PreparedCase) -> None:
         alias="Reviewer initials or code",
     )
     _add_text_field(document, "Date", tag=TAG_CASE_DATE, alias="Date")
+
+
+def _plan_text(value: object) -> str:
+    rendered = exact_text(value)
+    return "" if rendered is None else rendered
+
+
+def _add_reference_discharge_plan(document: WordDocument, plan: dict[str, Any]) -> None:
+    """Copy the evaluator reference. Do not add doses, labs, or other facts."""
+    _add_heading(document, "Hidden reference discharge plan", 3)
+    _add_body(document, "For clinician validation only — not shown to residents.")
+    raw_rows = plan.get("medications")
+    if not isinstance(raw_rows, list):
+        raw_rows = plan.get("actions")
+    medications = [
+        row for row in raw_rows if isinstance(row, dict)
+    ] if isinstance(raw_rows, list) else []
+    table_rows = [
+        (
+            _plan_text(row.get("medication")),
+            _plan_text(row.get("action")),
+            _plan_text(row.get("dose")),
+            _plan_text(row.get("route")),
+            _plan_text(row.get("frequency")),
+            _plan_text(row.get("indication")),
+            _plan_text(row.get("rationale")),
+        )
+        for row in medications
+    ]
+    _add_fixed_table(
+        document,
+        ("Medication", "Action", "Dose", "Route", "Frequency", "Indication", "Rationale"),
+        table_rows,
+        (1.3, 0.8, 0.7, 0.7, 0.9, 1.2, 1.2),
+    )
+    action_follow = [
+        (
+            _plan_text(row.get("medication")),
+            _plan_text(row.get("monitoring")),
+            _plan_text(row.get("follow_up")),
+        )
+        for row in medications
+        if _plan_text(row.get("monitoring")) or _plan_text(row.get("follow_up"))
+    ]
+    if action_follow:
+        _add_fixed_table(
+            document,
+            ("Medication", "Monitoring", "Follow-up"),
+            action_follow,
+            (2.2, 2.3, 2.3),
+        )
+    monitoring = plan.get("monitoring_requirements")
+    follow_up = plan.get("follow_up_requirements")
+    if isinstance(monitoring, list) and monitoring:
+        monitor_rows = [
+            (
+                _plan_text(row.get("parameter")),
+                _plan_text(row.get("frequency")),
+                _plan_text(row.get("target")),
+                _plan_text(row.get("duration")),
+            )
+            for row in monitoring
+            if isinstance(row, dict)
+        ]
+        _add_fixed_table(
+            document,
+            ("Monitoring parameter", "Frequency", "Target", "Duration"),
+            monitor_rows,
+            (2.2, 1.8, 1.6, 1.2),
+        )
+    if isinstance(follow_up, list) and follow_up:
+        follow_rows = [
+            (
+                _plan_text(row.get("item")),
+                _plan_text(row.get("timing")),
+                _plan_text(row.get("with_service")),
+            )
+            for row in follow_up
+            if isinstance(row, dict)
+        ]
+        _add_fixed_table(
+            document,
+            ("Follow-up", "Timing", "Service"),
+            follow_rows,
+            (3.4, 1.6, 1.8),
+        )
 
 
 def _control_reference(document: WordDocument) -> None:
@@ -770,7 +866,13 @@ def _set_row_height(row: Any, twips: int) -> None:
     _keep_row_together(row)
 
 
-def _start_case_section(document: WordDocument, title: str, case_id: str) -> None:
+def _start_case_section(
+    document: WordDocument,
+    title: str,
+    case_id: str,
+    *,
+    header_text: str | None = None,
+) -> None:
     section = document.add_section(WD_SECTION.NEW_PAGE)
     section.top_margin = Inches(0.85)
     section.bottom_margin = Inches(0.75)
@@ -780,7 +882,8 @@ def _start_case_section(document: WordDocument, title: str, case_id: str) -> Non
     section.footer.is_linked_to_previous = True
     paragraph = section.header.paragraphs[0]
     paragraph.text = ""
-    _set_run_font(paragraph.add_run(f"{title}    {case_id}"), size=9, color=NAVY)
+    shown = header_text if header_text is not None else f"{title}    {case_id}"
+    _set_run_font(paragraph.add_run(shown), size=9, color=NAVY)
 
 
 def main() -> None:

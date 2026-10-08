@@ -1,7 +1,7 @@
 {
   "generation1_case_id": "VAL-801",
   "scenario_family": "MED_HISTORY_UNCERTAINTY",
-  "family_label": "Medication reconciliation",
+  "family_label": "Medication history uncertainty",
   "primary_reasoning_target": "Interpret an acute change and decide which outpatient medicines continue, stop, or restart",
   "secondary_reasoning_targets": [
     "stop"

@@ -1,7 +1,7 @@
 {
   "generation1_case_id": "VAL-819",
   "scenario_family": "HIP_FRACTURE_ANTICOAGULATION",
-  "family_label": "Hip fracture / anticoagulation",
+  "family_label": "Postoperative anticoagulation after hip fracture",
   "primary_reasoning_target": "Time anticoagulation around hip-fracture repair and decide the postoperative restart",
   "secondary_reasoning_targets": [],
   "number_of_home_medications": 2,

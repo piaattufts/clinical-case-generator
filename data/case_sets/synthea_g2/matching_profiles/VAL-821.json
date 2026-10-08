@@ -1,7 +1,7 @@
 {
   "generation1_case_id": "VAL-821",
   "scenario_family": "GI_BLEED_ANTICOAGULATION",
-  "family_label": "GI bleed / anticoagulation",
+  "family_label": "Gastrointestinal bleed with anticoagulation decisions",
   "primary_reasoning_target": "Hold antithrombotic therapy for bleeding and decide restart, stop, or acid suppression",
   "secondary_reasoning_targets": [
     "hold"

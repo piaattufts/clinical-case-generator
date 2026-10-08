@@ -36,12 +36,12 @@ FAMILY_BY_VAL = {
 }
 
 FAMILY_LABEL = {
-    "MED_HISTORY_UNCERTAINTY": "Medication reconciliation",
-    "HF_DECOMPENSATION": "Heart failure decompensation",
-    "ENDOCARDITIS_OPAT": "Endocarditis / OPAT",
-    "TRANSPLANT_CMV": "Transplant / CMV",
-    "HIP_FRACTURE_ANTICOAGULATION": "Hip fracture / anticoagulation",
-    "GI_BLEED_ANTICOAGULATION": "GI bleed / anticoagulation",
+    "MED_HISTORY_UNCERTAINTY": "Medication history uncertainty",
+    "HF_DECOMPENSATION": "Acute heart-failure decompensation",
+    "ENDOCARDITIS_OPAT": "Outpatient parenteral antibiotic therapy after endocarditis",
+    "TRANSPLANT_CMV": "Post-kidney-transplant infectious complication",
+    "HIP_FRACTURE_ANTICOAGULATION": "Postoperative anticoagulation after hip fracture",
+    "GI_BLEED_ANTICOAGULATION": "Gastrointestinal bleed with anticoagulation decisions",
 }
 
 REASONING_TARGET = {
